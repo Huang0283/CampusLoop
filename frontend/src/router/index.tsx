@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import RequireAuth from './RequireAuth'
 import RequireRole from './RequireRole'
 import { NoPermission } from '../components'
-
+import ProfilePage from '../pages/profile'
 import { PageContainer } from '../components'
 
 const Placeholder = ({ name }: { name: string }) => (
@@ -29,13 +29,13 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/profile',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Profile" />
-      </RequireAuth>
-    ),
-  },
+  path: '/profile',
+  element: (
+    <RequireAuth>
+      <ProfilePage />
+    </RequireAuth>
+  ),
+},
   {
     path: '/market',
     element: (
