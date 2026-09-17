@@ -4,6 +4,7 @@ import RequireRole from './RequireRole'
 import { NoPermission } from '../components'
 import ProfilePage from '../pages/profile'
 import { PageContainer } from '../components'
+import AdminPage from '../pages/admin'
 
 const Placeholder = ({ name }: { name: string }) => (
   <PageContainer title={name}>
@@ -117,15 +118,15 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/admin',
-    element: (
-      <RequireAuth>
-        <RequireRole role="admin">
-          <Placeholder name="Admin" />
-        </RequireRole>
-      </RequireAuth>
-    ),
-  },
+  path: '/admin',
+  element: (
+    <RequireAuth>
+      <RequireRole role="admin">
+        <AdminPage />
+      </RequireRole>
+    </RequireAuth>
+  ),
+},
   {
     path: '/403',
     element: <NoPermission />,
