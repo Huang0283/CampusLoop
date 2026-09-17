@@ -5,6 +5,8 @@ import { NoPermission } from '../components'
 import ProfilePage from '../pages/profile'
 import { PageContainer } from '../components'
 import AdminPage from '../pages/admin'
+import LoginPage from '../pages/auth/LoginPage'
+import RegisterPage from '../pages/auth/RegisterPage'
 
 const Placeholder = ({ name }: { name: string }) => (
   <PageContainer title={name}>
@@ -14,13 +16,13 @@ const Placeholder = ({ name }: { name: string }) => (
 
 export const router = createBrowserRouter([
   {
-    path: '/login',
-    element: <Placeholder name="Login" />,
-  },
-  {
-    path: '/register',
-    element: <Placeholder name="Register" />,
-  },
+  path: '/login',
+  element: <LoginPage />,
+},
+{
+  path: '/register',
+  element: <RegisterPage />,
+},
   {
     path: '/',
     element: (
