@@ -2,23 +2,22 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import RequireAuth from './RequireAuth'
 import RequireRole from './RequireRole'
 
-// 占位页面，后面由 M3、M4 替换
 const Placeholder = ({ name }: { name: string }) => <div>{name}</div>
 
 export const router = createBrowserRouter([
   {
     path: '/login',
-    element: <Placeholder name="登录页" />,
+    element: <Placeholder name="Login" />,
   },
   {
     path: '/register',
-    element: <Placeholder name="注册页" />,
+    element: <Placeholder name="Register" />,
   },
   {
     path: '/',
     element: (
       <RequireAuth>
-        <Placeholder name="首页" />
+        <Placeholder name="Home" />
       </RequireAuth>
     ),
   },
@@ -26,7 +25,7 @@ export const router = createBrowserRouter([
     path: '/profile',
     element: (
       <RequireAuth>
-        <Placeholder name="个人中心" />
+        <Placeholder name="Profile" />
       </RequireAuth>
     ),
   },
@@ -34,7 +33,7 @@ export const router = createBrowserRouter([
     path: '/market',
     element: (
       <RequireAuth>
-        <Placeholder name="市场" />
+        <Placeholder name="Market" />
       </RequireAuth>
     ),
   },
@@ -42,7 +41,7 @@ export const router = createBrowserRouter([
     path: '/product/:id',
     element: (
       <RequireAuth>
-        <Placeholder name="商品详情" />
+        <Placeholder name="Product Detail" />
       </RequireAuth>
     ),
   },
@@ -50,7 +49,7 @@ export const router = createBrowserRouter([
     path: '/publish',
     element: (
       <RequireAuth>
-        <Placeholder name="发布商品" />
+        <Placeholder name="Publish Product" />
       </RequireAuth>
     ),
   },
@@ -58,7 +57,7 @@ export const router = createBrowserRouter([
     path: '/my-products',
     element: (
       <RequireAuth>
-        <Placeholder name="我的商品" />
+        <Placeholder name="My Products" />
       </RequireAuth>
     ),
   },
@@ -66,7 +65,7 @@ export const router = createBrowserRouter([
     path: '/favorites',
     element: (
       <RequireAuth>
-        <Placeholder name="收藏" />
+        <Placeholder name="Favorites" />
       </RequireAuth>
     ),
   },
@@ -74,7 +73,7 @@ export const router = createBrowserRouter([
     path: '/wanted',
     element: (
       <RequireAuth>
-        <Placeholder name="求购市场" />
+        <Placeholder name="Wanted Market" />
       </RequireAuth>
     ),
   },
@@ -82,7 +81,7 @@ export const router = createBrowserRouter([
     path: '/chat',
     element: (
       <RequireAuth>
-        <Placeholder name="聊天" />
+        <Placeholder name="Chat" />
       </RequireAuth>
     ),
   },
@@ -90,7 +89,7 @@ export const router = createBrowserRouter([
     path: '/orders',
     element: (
       <RequireAuth>
-        <Placeholder name="订单" />
+        <Placeholder name="Orders" />
       </RequireAuth>
     ),
   },
@@ -98,7 +97,7 @@ export const router = createBrowserRouter([
     path: '/meeting',
     element: (
       <RequireAuth>
-        <Placeholder name="见面约定" />
+        <Placeholder name="Meeting" />
       </RequireAuth>
     ),
   },
@@ -106,7 +105,7 @@ export const router = createBrowserRouter([
     path: '/notifications',
     element: (
       <RequireAuth>
-        <Placeholder name="通知" />
+        <Placeholder name="Notifications" />
       </RequireAuth>
     ),
   },
@@ -115,18 +114,18 @@ export const router = createBrowserRouter([
     element: (
       <RequireAuth>
         <RequireRole role="admin">
-          <Placeholder name="管理后台" />
+          <Placeholder name="Admin" />
         </RequireRole>
       </RequireAuth>
     ),
   },
   {
     path: '/403',
-    element: <Placeholder name="无权限" />,
+    element: <Placeholder name="No Permission" />,
   },
   {
     path: '/404',
-    element: <Placeholder name="页面不存在" />,
+    element: <Placeholder name="Not Found" />,
   },
   {
     path: '*',
