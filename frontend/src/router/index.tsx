@@ -1,8 +1,15 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import RequireAuth from './RequireAuth'
 import RequireRole from './RequireRole'
+import { NoPermission } from '../components'
 
-const Placeholder = ({ name }: { name: string }) => <div>{name}</div>
+import { PageContainer } from '../components'
+
+const Placeholder = ({ name }: { name: string }) => (
+  <PageContainer title={name}>
+    <div>{name} page placeholder</div>
+  </PageContainer>
+)
 
 export const router = createBrowserRouter([
   {
@@ -121,7 +128,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/403',
-    element: <Placeholder name="No Permission" />,
+    element: <NoPermission />,
   },
   {
     path: '/404',
