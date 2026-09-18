@@ -7,7 +7,7 @@
  * - realtime store 的 currentUserId() 读 localStorage 'userId'，
  *   切换演示身份后聊天消息的 senderId 会随之变化。
  *
- * 原型阶段登录为演示占位（PrototypeLoginPage 调用 login 写假 token），
+ * 原型阶段登录为演示占位（pages/auth/LoginPage 调用 login 写假身份），
  * 接 M2/M5 后替换为真实接口调用。
  */
 
