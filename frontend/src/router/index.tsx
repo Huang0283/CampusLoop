@@ -1,9 +1,17 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
+import type { ReactElement } from 'react'
 import RequireAuth from './RequireAuth'
 import RequireRole from './RequireRole'
-import { NoPermission } from '../components'
+import { NoPermission, PageContainer } from '../components'
 
-import { PageContainer } from '../components'
+import PrototypeLoginPage from '../pages/PrototypeLoginPage'
+import ChatListPage from '../pages/transaction/ChatListPage'
+import ChatDetailPage from '../pages/transaction/ChatDetailPage'
+import OrderListPage from '../pages/transaction/OrderListPage'
+import OrderDetailPage from '../pages/transaction/OrderDetailPage'
+import MeetupPage from '../pages/transaction/MeetupPage'
+import NotificationPage from '../pages/transaction/NotificationPage'
+import MyTransactionsPage from '../pages/transaction/MyTransactionsPage'
 
 const Placeholder = ({ name }: { name: string }) => (
   <PageContainer title={name}>
@@ -11,10 +19,12 @@ const Placeholder = ({ name }: { name: string }) => (
   </PageContainer>
 )
 
+const authed = (element: ReactElement) => <RequireAuth>{element}</RequireAuth>
+
 export const router = createBrowserRouter([
   {
     path: '/login',
-    element: <Placeholder name="Login" />,
+    element: <PrototypeLoginPage />,
   },
   {
     path: '/register',
@@ -22,108 +32,76 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Home" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="Home" />),
   },
   {
     path: '/profile',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Profile" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="Profile" />),
   },
   {
     path: '/market',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Market" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="Market" />),
   },
   {
     path: '/product/:id',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Product Detail" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="Product Detail" />),
   },
   {
     path: '/publish',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Publish Product" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="Publish Product" />),
   },
   {
     path: '/my-products',
-    element: (
-      <RequireAuth>
-        <Placeholder name="My Products" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="My Products" />),
   },
   {
     path: '/favorites',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Favorites" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="Favorites" />),
   },
   {
     path: '/wanted',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Wanted Market" />
-      </RequireAuth>
-    ),
+    element: authed(<Placeholder name="Wanted Market" />),
   },
+
+  /* ---------- M4：交易流程前端 ---------- */
   {
     path: '/chat',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Chat" />
-      </RequireAuth>
-    ),
+    element: authed(<ChatListPage />),
   },
   {
-    path: '/orders',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Orders" />
-      </RequireAuth>
-    ),
+    path: '/chat/:id',
+    element: authed(<ChatDetailPage />),
   },
   {
-    path: '/meeting',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Meeting" />
-      </RequireAuth>
-    ),
+    path: '/transactions',
+    element: authed(<OrderListPage />),
+  },
+  {
+    path: '/transactions/:id',
+    element: authed(<OrderDetailPage />),
+  },
+  {
+    path: '/transactions/:id/meetup',
+    element: authed(<MeetupPage />),
   },
   {
     path: '/notifications',
-    element: (
-      <RequireAuth>
-        <Placeholder name="Notifications" />
-      </RequireAuth>
-    ),
+    element: authed(<NotificationPage />),
   },
   {
+    path: '/profile/transactions',
+    element: authed(<MyTransactionsPage />),
+  },
+  /* 旧路径兼容重定向 */
+  { path: '/orders', element: <Navigate to="/transactions" replace /> },
+  { path: '/meeting', element: <Navigate to="/transactions" replace /> },
+
+  {
     path: '/admin',
-    element: (
-      <RequireAuth>
-        <RequireRole role="admin">
-          <Placeholder name="Admin" />
-        </RequireRole>
-      </RequireAuth>
+    element: authed(
+      <RequireRole role="admin">
+        <Placeholder name="Admin" />
+      </RequireRole>
     ),
   },
   {
