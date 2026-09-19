@@ -148,7 +148,7 @@
 - M10 任务分支：[`task/m10-quality-docs`](https://github.com/Huang0283/CampusLoop/tree/task/m10-quality-docs)
 - M10 任务 PR：[#8](https://github.com/Huang0283/CampusLoop/pull/8)（已合并）
 - M1 任务分支：[`task/m1-project-scope`](https://github.com/Huang0283/CampusLoop/tree/task/m1-project-scope)
-- M1 任务 PR：待本批文档校验并推送后创建。
+- M1 任务 PR：[#9](https://github.com/Huang0283/CampusLoop/pull/9)。
 
 ### 尚未完成
 
