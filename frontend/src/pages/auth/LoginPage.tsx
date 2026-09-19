@@ -1,6 +1,5 @@
 import { Form, Input, Button, Card, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../stores/auth'
 
 interface LoginForm {
   email: string
@@ -13,10 +12,9 @@ export default function LoginPage() {
   const onFinish = (values: LoginForm) => {
     console.log('login values:', values)
 
-    // 这里假登录，等 M5 接口好了再换成真实请求。
-    // 必须写完整身份（userId/nickname）：按钮权限层 <Can> 与聊天 senderId
-    // 均依赖 userId，只写 token 会导致所有订单页按钮按"非参与方"求值而消失。
-    useAuthStore.getState().login({ id: 1, nickname: '我', role: 'student' })
+    // 这里假登录，等 M5 接口好了再换成真实请求
+    localStorage.setItem('token', 'test-token')
+    localStorage.setItem('role', 'student')
 
     message.success('Login success')
     navigate('/')

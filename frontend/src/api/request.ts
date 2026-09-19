@@ -1,5 +1,6 @@
 import axios from 'axios'
-import type { AxiosInstance } from 'axios'
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { ApiResponse } from '../types/api'
 
 const request: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
