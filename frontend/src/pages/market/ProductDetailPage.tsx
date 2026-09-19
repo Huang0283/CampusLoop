@@ -1,0 +1,656 @@
+import React, { useState } from 'react';
+import {
+  Layout,
+  Menu,
+  Input,
+  Avatar,
+  Dropdown,
+  Badge,
+  Breadcrumb,
+  Button,
+  Row,
+  Col,
+  Tooltip,
+  Divider,
+} from 'antd';
+import type { MenuProps } from 'antd';
+import {
+  HomeOutlined,
+  ShopOutlined,
+  ShoppingOutlined,
+  MessageOutlined,
+  SwapOutlined,
+  SearchOutlined,
+  BellOutlined,
+  DownOutlined,
+  LeftOutlined,
+  RightOutlined,
+  HeartOutlined,
+  HeartFilled,
+  MessageFilled,
+  FileTextOutlined,
+  EnvironmentOutlined,
+  LaptopOutlined,
+  DesktopOutlined,
+  ThunderboltOutlined,
+  BgColorsOutlined,
+  HddOutlined,
+  FileProtectOutlined,
+  CheckCircleFilled,
+  ClockCircleOutlined,
+} from '@ant-design/icons';
+
+const { Header, Sider, Content } = Layout;
+
+const PRIMARY = '#2f6bff';
+const GREEN = '#23a26d';
+const TEXT_PRIMARY = '#1f2329';
+const TEXT_SECONDARY = '#646a73';
+
+/** ---------------- mock 数据 ---------------- */
+const mockImages = [
+  'https://picsum.photos/seed/campus-macbook-1/900/620',
+  'https://picsum.photos/seed/campus-macbook-2/900/620',
+  'https://picsum.photos/seed/campus-macbook-3/900/620',
+  'https://picsum.photos/seed/campus-macbook-4/900/620',
+];
+
+const product = {
+  title: 'MacBook Air M1 笔记本电脑',
+  price: 3200,
+  condition: '九成新',
+  originalPrice: 7999,
+  seller: {
+    name: '李同学',
+    avatar: 'https://picsum.photos/seed/campus-seller/96/96',
+    school: '清华大学',
+    verified: true,
+    reply: '回复较快',
+  },
+  description: [
+    '个人自用 MacBook Air M1，平时主要用于学习，保养良好，功能一切正常。',
+    '几乎无明显划痕，电池健康度 92%。',
+    '原装充电器、数据线齐全，支持当面验机。',
+    '因毕业换电脑，现低价转让，欢迎同学联系！',
+  ],
+  location: {
+    image: 'https://picsum.photos/seed/campus-tsinghua/200/140',
+    school: '清华大学',
+    address: '北京市海淀区清华大学',
+    note: '可在校内当面交易，支持验机',
+  },
+};
+
+interface SpecItem {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}
+
+const specs: SpecItem[] = [
+  { icon: <LaptopOutlined />, label: '品牌', value: 'Apple' },
+  { icon: <DesktopOutlined />, label: '屏幕尺寸', value: '13.3 英寸' },
+  { icon: <ThunderboltOutlined />, label: '芯片', value: 'Apple M1' },
+  { icon: <BgColorsOutlined />, label: '颜色', value: '深空灰' },
+  { icon: <HddOutlined />, label: '存储', value: '8GB + 256GB' },
+  { icon: <FileProtectOutlined />, label: '成色', value: '九成新' },
+];
+
+const sideMenuItems: MenuProps['items'] = [
+  { key: 'home', icon: <HomeOutlined />, label: '首页' },
+  { key: 'market', icon: <ShopOutlined />, label: '市场' },
+  { key: 'wanted', icon: <ShoppingOutlined />, label: '求购' },
+  { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
+  { key: 'trade', icon: <SwapOutlined />, label: '交易' },
+];
+
+const userMenuItems: MenuProps['items'] = [
+  { key: 'profile', label: '个人中心' },
+  { key: 'posts', label: '我的发布' },
+  { type: 'divider' },
+  { key: 'logout', label: '退出登录' },
+];
+
+const breadcrumbItems = [
+  {
+    title: (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: TEXT_SECONDARY }}>
+        <LeftOutlined style={{ fontSize: 12 }} />
+        返回市场
+      </span>
+    ),
+  },
+  { title: <span style={{ color: TEXT_SECONDARY }}>电脑数码</span> },
+  { title: <span style={{ color: TEXT_PRIMARY }}>笔记本电脑</span> },
+];
+
+const LogoIcon: React.FC = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill={PRIMARY} aria-hidden="true">
+    <path d="M12 3 1 8l11 5 9-4.09V15h2V8L12 3zM5 12.18v3.06c0 1.74 3.13 3.76 7 3.76s7-2.02 7-3.76v-3.06l-7 3.18-7-3.18z" />
+  </svg>
+);
+
+/** 参数项图标底色块 */
+const specIconStyle: React.CSSProperties = {
+  width: 40,
+  height: 40,
+  borderRadius: 10,
+  background: '#f2f4f8',
+  color: '#8a9099',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: 18,
+  flexShrink: 0,
+};
+
+/** 白色圆角卡片通用样式 */
+const cardStyle: React.CSSProperties = {
+  background: '#fff',
+  borderRadius: 12,
+  padding: '20px 24px',
+};
+
+const ProductDetailPage: React.FC = () => {
+  const [currentImg, setCurrentImg] = useState(0);
+  const [favorite, setFavorite] = useState(false);
+
+  const prevImage = () => {
+    setCurrentImg((prev) => (prev - 1 + mockImages.length) % mockImages.length);
+  };
+  const nextImage = () => {
+    setCurrentImg((prev) => (prev + 1) % mockImages.length);
+  };
+
+  return (
+    <Layout style={{ minHeight: '100vh', background: '#f5f6f8' }}>
+      {/* 顶部导航栏 */}
+      <Header
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          height: 64,
+          padding: '0 32px',
+          background: '#fff',
+          borderBottom: '1px solid #eef0f3',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          lineHeight: 'normal',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <LogoIcon />
+          <span style={{ fontSize: 18, fontWeight: 700, color: TEXT_PRIMARY }}>
+            Campus Market
+          </span>
+        </div>
+
+        <Input
+          prefix={<SearchOutlined style={{ color: '#9aa0a8' }} />}
+          placeholder="搜索校园好物"
+          style={{
+            width: 460,
+            height: 40,
+            borderRadius: 20,
+            background: '#f5f6f8',
+            border: 'none',
+          }}
+        />
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+          <Badge dot offset={[-2, 4]}>
+            <BellOutlined style={{ fontSize: 19, color: TEXT_PRIMARY, cursor: 'pointer' }} />
+          </Badge>
+          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+            >
+              <Avatar
+                size={34}
+                src={product.seller.avatar}
+                style={{ border: '1px solid #eef0f3' }}
+              />
+              <span style={{ fontSize: 14, color: TEXT_PRIMARY }}>同学</span>
+              <DownOutlined style={{ fontSize: 11, color: '#8a9099' }} />
+            </div>
+          </Dropdown>
+        </div>
+      </Header>
+
+      {/* 左侧侧边栏 */}
+      <Sider
+        width={200}
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 64,
+          bottom: 0,
+          zIndex: 90,
+          background: '#fff',
+          borderRight: '1px solid #eef0f3',
+          overflow: 'auto',
+        }}
+      >
+        <Menu
+          mode="inline"
+          selectedKeys={['market']}
+          items={sideMenuItems}
+          style={{
+            border: 'none',
+            paddingTop: 16,
+            fontSize: 15,
+          }}
+          styles={{
+            item: {
+              height: 48,
+              marginInline: 12,
+              width: 'auto',
+              borderRadius: 8,
+              marginBlock: 4,
+            },
+          }}
+        />
+      </Sider>
+
+      {/* 主内容区 */}
+      <Layout style={{ marginLeft: 200, marginTop: 64, background: '#f5f6f8' }}>
+        <Content style={{ padding: '20px 32px 48px' }}>
+          {/* 面包屑 */}
+          <Breadcrumb
+            items={breadcrumbItems}
+            separator={<span style={{ color: '#c3c8cf' }}>/</span>}
+            style={{ marginBottom: 16, fontSize: 14 }}
+          />
+
+          <Row gutter={24} align="top">
+            {/* 左栏 */}
+            <Col xs={24} lg={14} xl={15}>
+              {/* 大图展示 */}
+              <div
+                style={{
+                  position: 'relative',
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  background: '#fff',
+                }}
+              >
+                <img
+                  src={mockImages[currentImg]}
+                  alt={product.title}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 460,
+                    objectFit: 'cover',
+                  }}
+                />
+                {/* 左箭头 */}
+                <Button
+                  type="text"
+                  shape="circle"
+                  icon={<LeftOutlined style={{ color: '#fff', fontSize: 15 }} />}
+                  onClick={prevImage}
+                  style={{
+                    position: 'absolute',
+                    left: 20,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 40,
+                    height: 40,
+                    background: 'rgba(0,0,0,0.35)',
+                  }}
+                />
+                {/* 右箭头 */}
+                <Button
+                  type="text"
+                  shape="circle"
+                  icon={<RightOutlined style={{ color: '#fff', fontSize: 15 }} />}
+                  onClick={nextImage}
+                  style={{
+                    position: 'absolute',
+                    right: 20,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 40,
+                    height: 40,
+                    background: 'rgba(0,0,0,0.35)',
+                  }}
+                />
+                {/* 图片计数 */}
+                <span
+                  style={{
+                    position: 'absolute',
+                    right: 16,
+                    bottom: 14,
+                    background: 'rgba(0,0,0,0.45)',
+                    color: '#fff',
+                    fontSize: 13,
+                    borderRadius: 12,
+                    padding: '2px 12px',
+                  }}
+                >
+                  {`${currentImg + 1} / ${mockImages.length}`}
+                </span>
+              </div>
+
+              {/* 缩略图列表 */}
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 10,
+                  marginTop: 14,
+                  overflowX: 'auto',
+                  paddingBottom: 4,
+                }}
+              >
+                {mockImages.map((img, index) => {
+                  const active = index === currentImg;
+                  return (
+                    <img
+                      key={img}
+                      src={img}
+                      alt={`缩略图 ${index + 1}`}
+                      onClick={() => setCurrentImg(index)}
+                      style={{
+                        width: 128,
+                        height: 88,
+                        objectFit: 'cover',
+                        borderRadius: 8,
+                        cursor: 'pointer',
+                        flexShrink: 0,
+                        border: active
+                          ? `2px solid ${PRIMARY}`
+                          : '2px solid transparent',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  );
+                })}
+              </div>
+
+              {/* 商品描述卡片 */}
+              <div style={{ ...cardStyle, marginTop: 20 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    marginBottom: 14,
+                  }}
+                >
+                  <FileTextOutlined style={{ color: PRIMARY, fontSize: 17 }} />
+                  <span style={{ fontSize: 16, fontWeight: 600, color: TEXT_PRIMARY }}>
+                    商品描述
+                  </span>
+                </div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: TEXT_PRIMARY,
+                    lineHeight: 2,
+                  }}
+                >
+                  {product.description.map((line) => (
+                    <p key={line} style={{ margin: 0 }}>
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </Col>
+
+            {/* 右栏 */}
+            <Col xs={24} lg={10} xl={9}>
+              {/* 商品标题 */}
+              <h1
+                style={{
+                  fontSize: 24,
+                  fontWeight: 700,
+                  color: TEXT_PRIMARY,
+                  margin: '4px 0 12px',
+                  lineHeight: 1.4,
+                }}
+              >
+                {product.title}
+              </h1>
+
+              {/* 价格区 */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <span style={{ color: PRIMARY, fontWeight: 700, fontSize: 32 }}>
+                  ¥ {product.price}
+                </span>
+                <span
+                  style={{
+                    background: '#e9f8f0',
+                    color: GREEN,
+                    fontSize: 13,
+                    fontWeight: 600,
+                    borderRadius: 6,
+                    padding: '3px 10px',
+                  }}
+                >
+                  {product.condition}
+                </span>
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  color: '#9aa0a8',
+                  marginTop: 6,
+                }}
+              >
+                原价{' '}
+                <span style={{ textDecoration: 'line-through' }}>
+                  ¥ {product.originalPrice}
+                </span>
+              </div>
+
+              <Divider style={{ margin: '20px 0' }} />
+
+              {/* 参数区 */}
+              <Row gutter={[24, 22]}>
+                {specs.map((spec) => (
+                  <Col span={12} key={spec.label}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <span style={specIconStyle}>{spec.icon}</span>
+                      <div>
+                        <div
+                          style={{
+                            fontSize: 13,
+                            color: TEXT_SECONDARY,
+                            marginBottom: 2,
+                          }}
+                        >
+                          {spec.label}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: 15,
+                            fontWeight: 600,
+                            color: TEXT_PRIMARY,
+                          }}
+                        >
+                          {spec.value}
+                        </div>
+                      </div>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+
+              {/* 卖家卡片 */}
+              <div style={{ ...cardStyle, marginTop: 24, padding: '18px 20px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Avatar size={52} src={product.seller.avatar} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        marginBottom: 4,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 600,
+                          color: TEXT_PRIMARY,
+                        }}
+                      >
+                        {product.seller.name}
+                      </span>
+                      {product.seller.verified && (
+                        <Tooltip title="已认证">
+                          <CheckCircleFilled
+                            style={{ color: PRIMARY, fontSize: 16 }}
+                          />
+                        </Tooltip>
+                      )}
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 14,
+                        fontSize: 13,
+                        color: TEXT_SECONDARY,
+                      }}
+                    >
+                      <span>
+                        {product.seller.school} · 已认证
+                      </span>
+                      <span
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4,
+                        }}
+                      >
+                        <ClockCircleOutlined style={{ fontSize: 13 }} />
+                        {product.seller.reply}
+                      </span>
+                    </div>
+                  </div>
+                  <RightOutlined style={{ color: '#c3c8cf', fontSize: 13 }} />
+                </div>
+
+                <Row gutter={12} style={{ marginTop: 18 }}>
+                  <Col span={12}>
+                    <Button
+                      block
+                      size="large"
+                      icon={
+                        favorite ? (
+                          <HeartFilled style={{ color: '#ff4d4f' }} />
+                        ) : (
+                          <HeartOutlined />
+                        )
+                      }
+                      onClick={() => setFavorite(!favorite)}
+                      style={{
+                        borderRadius: 8,
+                        fontSize: 15,
+                        height: 46,
+                      }}
+                    >
+                      收藏
+                    </Button>
+                  </Col>
+                  <Col span={12}>
+                    <Button
+                      block
+                      type="primary"
+                      size="large"
+                      icon={<MessageFilled />}
+                      style={{
+                        borderRadius: 8,
+                        fontSize: 15,
+                        height: 46,
+                        background: PRIMARY,
+                        boxShadow: 'none',
+                      }}
+                    >
+                      联系卖家
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+
+              {/* 交易地点卡片 */}
+              <div style={{ ...cardStyle, marginTop: 20, padding: '18px 20px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    marginBottom: 14,
+                  }}
+                >
+                  <EnvironmentOutlined style={{ color: PRIMARY, fontSize: 17 }} />
+                  <span style={{ fontSize: 16, fontWeight: 600, color: TEXT_PRIMARY }}>
+                    交易地点
+                  </span>
+                </div>
+                <div style={{ display: 'flex', gap: 14 }}>
+                  <img
+                    src={product.location.image}
+                    alt={product.location.school}
+                    style={{
+                      width: 120,
+                      height: 84,
+                      objectFit: 'cover',
+                      borderRadius: 8,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div style={{ minWidth: 0 }}>
+                    <div
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 600,
+                        color: TEXT_PRIMARY,
+                        marginBottom: 6,
+                      }}
+                    >
+                      {product.location.school}
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 5,
+                        fontSize: 13,
+                        color: TEXT_SECONDARY,
+                        marginBottom: 6,
+                      }}
+                    >
+                      <EnvironmentOutlined style={{ fontSize: 12 }} />
+                      <span>{product.location.address}</span>
+                    </div>
+                    <div style={{ fontSize: 13, color: '#9aa0a8' }}>
+                      {product.location.note}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
+    </Layout>
+  );
+};
+
+export default ProductDetailPage;
