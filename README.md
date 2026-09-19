@@ -1,1139 +1,194 @@
-# 🎓 CampusLoop AI
+# CampusLoop AI
 
-<div align="center">
+CampusLoop AI 是一个面向大学生的校园二手交易与智能匹配课程项目。项目计划把商品发布、搜索、聊天、议价、订单、见面约定、双方完成确认、评价和人工治理组织为可追踪的交易闭环，并在基础能力稳定后加入可解释、可评估、可降级的语义搜索、供需匹配和价格建议。
 
-## AI 增强型校园可信二手交易与智能匹配平台
+> 当前状态：第一阶段需求验证与前端原型并行。仓库已有基于 Mock 数据的登录、资料、管理和交易流程前端代码，但尚未证明真实后端、数据库、AI 服务、容器环境或完整端到端联调已经完成。
 
-### An AI-Enhanced Trusted Campus Second-Hand Marketplace
+## 当前仓库状态
 
-**让校园二手交易从“发帖找人”，升级为“智能发现、精准匹配、可信协作”。**
+| 领域 | 当前状态 | 证据/说明 |
+|---|---|---|
+| 项目需求与分工 | 候选文档已形成 | [项目说明 Markdown](docs/project-overview.md)、[Phase 1 Issues](docs/issues/phase-1-group-issues.md) |
+| 项目管理与质量 | 第一阶段候选文档已形成 | [管理与质量文档索引](docs/management/README.md) |
+| 前端工程 | 已有 React/TypeScript 原型；构建通过，Lint 待修复 | `frontend/`；包含 Mock 登录、资料、后台和交易流程页面 |
+| 真实前后端联调 | 未完成/未验证 | 当前仓库没有正式后端服务目录 |
+| PostgreSQL/Redis/MinIO | 计划采用，未落地 | 等待后端与平台组确认运行方案 |
+| 语义搜索/匹配/价格建议 | 候选范围，未实现 | 必须先有数据许可、规则/关键词基线和评估方案 |
+| Docker/CI/恢复演练 | 计划采用，未落地 | 不把计划架构描述为当前能力 |
 
-<br>
+功能状态以实际代码、测试结果和合并记录为准。README、截图或口头说明不能替代验收证据。
 
-![Status](https://img.shields.io/badge/Status-Requirements%20%26%20Design-orange)
-![Project](https://img.shields.io/badge/Project-Software%20Engineering-blue)
-![Frontend](https://img.shields.io/badge/Frontend-React%20%7C%20TypeScript-61DAFB)
-![Backend](https://img.shields.io/badge/Backend-FastAPI-009688)
-![Database](https://img.shields.io/badge/Database-PostgreSQL%20%7C%20pgvector-336791)
-![AI](https://img.shields.io/badge/AI-Semantic%20Search%20%7C%20Matching-purple)
-![Team](https://img.shields.io/badge/Team-10%20Members-success)
+## 项目目标
 
-</div>
+CampusLoop AI 主要解决以下校园场景问题：
 
----
+- 商品和求购信息分散、容易过期且难以持续追踪。
+- 用途型自然语言与商品标题不一致，关键词搜索容易漏检。
+- 求购与商品在不同时间出现，供需双方需要重复搜索。
+- 买卖双方缺少可解释的价格参照。
+- 线下面交需要聊天、报价、约定、双方确认和评价的连续记录。
+- 校园并不天然可信，举报、异常行为和管理员决定需要审计。
 
-## 📌 About CampusLoop AI
+平台只提供交易协作与辅助信息，不处理实际付款，不担保商品质量或真实学籍。
 
-**CampusLoop AI** 是一个面向大学校园场景设计的 AI 增强型二手交易平台。
-
-传统校园二手交易通常依赖微信群、QQ群、社交媒体或通用二手交易平台，商品信息、求购需求、联系方式和交易状态分散在不同渠道中。
-
-CampusLoop AI 希望建立一个统一的校园二手交易空间，将：
-
-- 商品发布
-- 商品搜索
-- 求购需求
-- AI 智能匹配
-- AI 语义搜索
-- 价格建议
-- 即时聊天
-- 在线议价
-- 面交预约
-- 订单协作
-- 双方交易确认
-- 评价体系
-- 信誉体系
-- 风险检测
-- 举报与人工审核
-- 数据分析
-
-整合进一个完整的软件系统。
-
-CampusLoop AI 不只是一个“校园版闲鱼”。
-
-项目重点在于：
-
-> **将 AI 能力真正嵌入校园交易业务流程，而不是把 AI 做成独立的演示功能。**
-
----
-
-# 💡 Why CampusLoop?
-
-校园二手交易有几个非常典型的问题。
-
-### 🔍 信息碎片化
-
-商品和求购信息散落在微信群、QQ群、朋友圈等渠道，很难统一搜索和持续追踪。
-
-### 🧠 搜索方式过于简单
-
-买家往往描述的是：
-
-> “想买一台便宜点的电脑，用来写 Python 和上课。”
-
-而卖家发布的可能是：
-
-> “ThinkBook 14+ R7 7840H 16G 512G”
-
-传统关键词搜索很容易错过这种匹配。
-
-### 💰 二手商品定价困难
-
-不同：
-
-- 品牌
-- 型号
-- 成色
-- 使用时间
-- 原价
-- 市场需求
-
-都会影响商品价格。
-
-学生往往缺少统一参考。
-
-### ⏳ 供需存在时间错位
-
-今天有人：
-
-> “求购一台二手显示器。”
-
-但今天市场里可能没有。
-
-两天后有人发布显示器时，原来的买家通常不会收到提醒。
-
-### 🤝 面交协商成本高
-
-校园交易经常出现：
-
-> “你什么时候有空？”
-
-> “晚上呢？”
-
-> “晚上我要上课。”
-
-> “那明天下午？”
-
-大量时间浪费在时间和地点协调上。
-
-### 🛡️ 缺少可信交易机制
-
-普通群聊很难持续记录：
-
-- 爽约
-- 举报
-- 交易评价
-- 商品状态
-- 历史交易
-- 风险行为
-
-CampusLoop AI 希望为这些问题建立一个完整的软件解决方案。
-
----
-
-# ✨ Core Features
-
-## 🛒 Campus Marketplace
-
-完整校园二手市场，包括：
-
-- 商品发布
-- 多图片上传
-- 分类管理
-- 商品成色
-- 品牌信息
-- 商品描述
-- 原价与售价
-- 校园地点
-- 最新商品
-- 热门商品
-- 分类浏览
-- 高级筛选
-- 收藏
-- 商品上下架
-- 商品生命周期管理
-
----
-
-## 🔎 Hybrid Search
-
-平台计划同时支持：
-
-### Keyword Search
-
-传统关键词搜索。
-
-例如：
-
-```text
-iPad
-自行车
-高数教材
-显示器
-AirPods
-```
-
-### AI Semantic Search
-
-允许用户直接使用自然语言表达需求。
-
-例如：
-
-```text
-想买一台 3000 左右能写代码的轻薄电脑
-```
-
-或者：
-
-```text
-想找一本适合大一微积分的教材
-```
-
-系统计划结合：
-
-```text
-Keyword Retrieval
-        +
-Semantic Embedding Retrieval
-        +
-Structured Filters
-        ↓
-Hybrid Ranking
-```
-
-在 AI 服务不可用时，系统仍然能够自动降级到普通关键词搜索。
-
----
-
-# 🤖 Wanted Marketplace + AI Matching
-
-这是 CampusLoop AI 的核心特色之一。
-
-用户不仅可以：
-
-> 发布商品
-
-还可以：
-
-> 发布“我想买什么”。
-
-例如：
-
-```text
-求购：
-二手显示器
-
-预算：
-¥400 - ¥700
-
-要求：
-24 英寸以上
-
-地点：
-校内交易
-
-成色：
-良好及以上
-```
-
-系统保存需求。
-
-以后出现新的符合条件商品时，自动触发匹配。
-
-```text
-New Product
-      ↓
-Hard Constraints
-      ↓
-Semantic Matching
-      ↓
-Ranking
-      ↓
-Top Matches
-      ↓
-Notification
-```
-
-匹配结果不仅展示分数，还计划解释：
-
-```text
-92% Match
-
-✓ Category matched
-✓ Budget matched
-✓ Condition matched
-✓ Campus location matched
-✓ Semantic description highly relevant
-```
-
-这样用户不用每天重复搜索。
-
----
-
-# 💰 AI Fair Price Advisor
-
-卖家发布商品时，可以获得价格参考。
-
-例如：
-
-```text
-MacBook Air M2
-8GB + 256GB
-Condition: Good
-Purchase Age: 2 Years
-Original Price: ¥7999
-```
-
-系统可能给出：
-
-```text
-Estimated Fair Price
-
-¥4,150
-
-Suggested Range
-
-¥3,850 - ¥4,450
-```
-
-同时解释主要影响因素。
-
-```text
-↓ Device age
-↓ Visible wear
-↑ Brand resale value
-↑ Current category demand
-```
-
-平台只提供 **价格建议**。
-
-最终商品价格始终由卖家决定。
-
----
-
-# 🗓️ Smart Meetup Scheduler
-
-CampusLoop AI 主要面向：
-
-> **校园线下面交**
-
-因此系统计划提供智能预约功能。
-
-买卖双方分别提交自己的空闲时间。
-
-例如：
-
-```text
-Buyer
-
-Monday
-14:00 - 17:00
-
-Tuesday
-10:00 - 12:00
-
-
-Seller
-
-Monday
-16:00 - 18:00
-
-Tuesday
-08:00 - 11:00
-```
-
-系统自动计算共同时间。
-
-```text
-Recommended
-
-① Monday 16:00 - 17:00
-② Tuesday 10:00 - 11:00
-```
-
-再结合校园公共地点偏好给出面交方案。
-
----
-
-# 💬 Realtime Chat & Bargaining
-
-平台计划提供完整的实时交易沟通系统。
-
-包括：
-
-- WebSocket 实时聊天
-- 历史消息
-- 商品上下文
-- 求购上下文
-- 报价
-- 还价
-- 接受报价
-- 拒绝报价
-- Offer 有效期
-- 系统消息
-- 订单状态消息
-- 网络重连
-- 消息去重
-
-议价不是简单发送一句：
-
-```text
-300 行不行？
-```
-
-而是结构化 Offer。
-
-```text
-Offer
-
-Original Price
-¥500
-
-Buyer Offer
-¥420
-
-Status
-Pending
-```
-
----
-
-# 🔄 Transaction Workflow
-
-完整交易流程预计为：
-
-```mermaid
-flowchart LR
-
-A[注册 / 登录] --> B[模拟校园认证]
-
-B --> C[浏览 / 搜索商品]
-
-B --> D[发布商品]
-
-B --> E[发布求购]
-
-E --> F[AI Supply-Demand Matching]
-
-C --> G[聊天]
-F --> G
-
-G --> H[报价 / 还价]
-
-H --> I[接受报价]
-
-I --> J[建立交易记录]
-
-J --> K[选择面交时间]
-
-K --> L[双方确认预约]
-
-L --> M[线下面交]
-
-M --> N[双方完成确认]
-
-N --> O[交易完成]
-
-O --> P[双方评价]
-
-P --> Q[信誉更新]
-
-Q --> R[交易历史]
-```
-
-系统本身不处理实际付款。
-
-付款及商品核验由交易双方线下完成。
-
----
-
-# 🛡️ Trust & Risk System
-
-CampusLoop AI 不把“校园”理解成：
-
-> 天然安全。
-
-项目计划建立可解释的 Trust & Risk 机制。
-
-可能参考的信息包括：
-
-```text
-Completed Transactions
-Review History
-Cancellation History
-No-show Behaviour
-Reports
-Account Activity
-Transaction Events
-```
-
-形成：
-
-### Trust Indicators
-
-用于帮助用户理解历史行为。
-
-### Risk Indicators
-
-用于给管理员提供审核线索。
-
-需要特别说明：
-
-> **Risk Score 不等于欺诈判定。**
-
-风险系统不会因为一个模型输出就自动封禁用户。
-
-重要处理仍然保留人工审核。
-
----
-
-# 🚨 Reporting & Moderation
-
-平台计划支持：
-
-```text
-User Report
-Product Report
-Transaction Report
-Chat Evidence
-Risk Signals
-Admin Review
-Decision
-Audit Log
-```
-
-管理员可以处理：
-
-- 举报
-- 风险事件
-- 商品内容
-- 用户状态
-- 交易纠纷
-
-敏感操作需要被记录。
-
----
-
-# ⭐ Review System
-
-完成交易后，买卖双方可以评价。
-
-评价信息将参与：
-
-```text
-Public Rating
-Transaction History
-Trust Explanation
-```
-
-失败、取消或者发生争议的交易不会被直接视为：
-
-```text
-Completed Transaction
-```
-
-避免人为制造虚假交易历史。
-
----
-
-# 📊 Analytics
-
-管理端计划提供基础数据分析能力。
-
-例如：
-
-```text
-Registered Users
-Active Listings
-Completed Transactions
-Marketplace Trends
-Category Popularity
-Average Listing Price
-Matching Statistics
-AI Exposure / Acceptance
-Report Statistics
-Risk Review Statistics
-```
-
-统计数据需要明确：
-
-- 时间范围
-- 数据口径
-- 分母
-- 数据来源
-
-避免使用具有误导性的指标。
-
----
-
-# 🧠 AI Architecture
-
-CampusLoop AI 不计划把整个项目“交给一个大模型”。
-
-不同 AI 功能使用适合自己的技术。
-
-```mermaid
-flowchart TB
-
-USER[User]
-
-USER --> SEARCH[Search Service]
-
-SEARCH --> KEYWORD[Keyword Retrieval]
-SEARCH --> EMBEDDING[Semantic Embedding]
-
-KEYWORD --> RANK[Hybrid Ranking]
-EMBEDDING --> RANK
-
-RANK --> RESULT[Search Results]
-
-
-ITEM[New Product]
-WANTED[Wanted Request]
-
-ITEM --> MATCH[Matching Engine]
-WANTED --> MATCH
-
-MATCH --> HARD[Hard Constraints]
-HARD --> SEMANTIC[Semantic Similarity]
-SEMANTIC --> SCORE[Match Ranking]
-
-
-PRODUCT[Product Information]
-
-PRODUCT --> PRICE[Price Advisor]
-
-PRICE --> BASELINE[Rule Baseline]
-PRICE --> MODEL[Optional ML Model]
-MODEL --> EXPLAIN[SHAP Explanation]
-```
-
-计划使用的 AI / ML 技术包括：
-
-```text
-Sentence Transformers
-Vector Embeddings
-Cosine Similarity
-Hybrid Retrieval
-pgvector
-Rule-based Matching
-LightGBM
-SHAP
-Isolation Forest (Stretch Goal)
-```
-
-复杂模型只有在数据量、许可和实验效果满足要求后才会启用。
-
----
-
-# 🏗️ System Architecture
-
-CampusLoop AI 计划采用：
-
-> **Modular Monolith + AI Worker**
-
-而不是过早拆成大量微服务。
-
-```mermaid
-flowchart TB
-
-CLIENT[React / TypeScript Client]
-
-CLIENT -->|REST API| API[FastAPI]
-CLIENT -->|WebSocket| API
-
-API --> AUTH[Authentication]
-API --> MARKET[Marketplace]
-API --> SEARCH[Search]
-API --> ORDER[Transaction]
-API --> CHAT[Chat]
-API --> TRUST[Trust & Risk]
-
-SEARCH --> AI[AI Service Adapter]
-MARKET --> AI
-
-AI --> WORKER[AI Worker]
-
-AUTH --> DB[(PostgreSQL)]
-MARKET --> DB
-SEARCH --> DB
-ORDER --> DB
-CHAT --> DB
-TRUST --> DB
-
-DB --> VECTOR[pgvector]
-
-API --> REDIS[(Redis)]
-
-WORKER --> REDIS
-WORKER --> DB
-
-API --> STORAGE[(Private Object Storage)]
-```
-
-这样既保留清晰的模块边界，又避免学生项目因为过度微服务化产生不必要的：
-
-```text
-Distributed Transactions
-Network Complexity
-Service Discovery
-Deployment Complexity
-Observability Overhead
-```
-
----
-
-# 🧰 Technology Stack
-
-| Layer | Planned Technology |
-|---|---|
-| Frontend | React |
-| Language | TypeScript |
-| Backend | FastAPI |
-| Backend Language | Python |
-| Database | PostgreSQL |
-| Vector Search | pgvector |
-| ORM | SQLAlchemy |
-| Realtime | WebSocket |
-| Cache | Redis |
-| Async Tasks | Celery / Worker |
-| Object Storage | MinIO |
-| AI Embedding | Sentence Transformers |
-| ML | LightGBM |
-| Explainability | SHAP |
-| Anomaly Experiment | Isolation Forest |
-| Testing | Pytest / Frontend Testing / E2E |
-| Deployment | Docker / Docker Compose |
-| CI | GitHub Actions |
-
----
-
-# 📦 Delivery Scope
-
-CampusLoop AI 将按照三个层级控制开发范围。
+## 范围候选
 
 ### MVP
 
-首先完成完整交易闭环：
-
-```text
-Account
-Profile
-Product Listing
-Marketplace
-Keyword Search
-Favorite
-Chat
-Offer
-Transaction
-Manual Meetup
-Two-sided Confirmation
-Review
-Reporting
-Notification
-Minimum Admin
-```
+- 注册、登录、资料和角色权限
+- 商品发布、编辑、上下架、市场列表和详情
+- 关键词搜索、结构化筛选和收藏
+- 双人聊天、历史补拉和结构化议价
+- 唯一订单、状态事件、事务、并发和幂等约束
+- 记录双方私聊后确定的见面时间与地点
+- 双方独立完成确认和完成后评价
+- 举报、站内通知、基础管理后台和审计
 
 ### Core
 
-在 MVP 稳定以后加入：
-
-```text
-Wanted Marketplace
-AI Supply-Demand Matching
-AI Semantic Search
-Fair Price Advisor
-Smart Meetup Recommendation
-Trust Engine
-Risk Rules
-Analytics
-Audit
-```
+- 求购市场
+- 语义搜索与关键词降级
+- 求购-商品供需匹配和匹配原因
+- 价格建议区间与规则基线
+- 规则化信誉说明
+- 基础统计与审计查询
 
 ### Stretch
 
-时间允许后再开发：
+- 风险智能实验，仅作为人工审核线索
+- 智能商品描述助手
+- 高级推荐与高级分析
+- 邮件等额外通知渠道
+- Isolation Forest 等异常检测实验
 
-```text
-Isolation Forest Risk Experiment
-AI Listing Assistant
-Advanced Recommendation
-Advanced Analytics
-Additional Notification Channels
+完整的编号、负责人、依赖、验收条件和周次见 [需求追踪表](docs/management/m1/requirements-traceability.md)。
+
+## 关键业务规则
+
+- 一个账号可在不同交易中作为买方或卖方，但不能购买自己的商品。
+- 接受报价是后端业务动作；同一商品只能产生一个有效占用订单。
+- 见面功能只记录双方协商后的时间与地点，不开发智能时间或地点推荐。
+- 修改见面约定后，旧版本确认失效。
+- 单方完成确认不能使订单完成；双方针对有效版本确认后才可完成。
+- 只有已完成订单的参与者可以评价，且每方只能评价一次。
+- 匹配分表示相关程度，不是成交概率。
+- 价格建议仅供参考，卖家保留定价权。
+- 风险结果只提供人工审核线索，不得自动封禁或认定欺诈。
+- AI、Redis 或 WebSocket 不可用时，基础发布、浏览、关键词搜索和可替代交易流程应继续运行。
+
+## 明确不做
+
+- 真实支付宝、微信、银行卡支付或资金结算
+- 真实物流和配送跟踪
+- 真实学校 SSO、学籍认证或身份证认证
+- 跨校交易
+- 区块链或商业级反欺诈保证
+- Arduino、RFID、NFC、摄像头、智能柜等硬件
+- 大量微服务或 Kubernetes
+- AI 自动定价、自动封禁或自动认定欺诈
+
+## 候选架构
+
+项目计划采用“模块化单体 + 智能任务进程”，避免在十周课程项目中过早拆分微服务。
+
+```mermaid
+flowchart LR
+    FE[React / TypeScript] -->|REST / WebSocket| API[FastAPI 模块化单体]
+    API --> DB[(PostgreSQL / pgvector)]
+    API --> CACHE[(Redis)]
+    API --> STORE[(MinIO)]
+    API --> WORKER[AI Worker]
+    WORKER --> DB
+    WORKER --> CACHE
 ```
 
----
+| 层 | 候选技术 | 当前仓库状态 |
+|---|---|---|
+| 前端 | React、TypeScript、Vite、Ant Design、ECharts、Zustand、Axios | 已有原型工程 |
+| 后端 | Python、FastAPI、SQLAlchemy | 未落地 |
+| 数据库 | PostgreSQL、pgvector | 未落地 |
+| 实时与缓存 | WebSocket、Redis | 前端有 Mock WebSocket；真实服务未落地 |
+| 对象存储 | MinIO | 未落地 |
+| 智能功能 | sentence-transformers、规则基线；条件满足后评估 LightGBM/SHAP | 未落地 |
+| 测试 | pytest、前端测试、Playwright | 测试策略已形成；自动化入口待建 |
+| 运行环境 | Docker、Docker Compose、GitHub Actions | 未落地 |
 
-# 🔐 Privacy & Security
+候选技术只有在对应负责人完成设计评审和可复现验证后，才视为正式采用。
 
-CampusLoop AI 遵循：
+## 本地运行当前前端原型
 
-> **Minimum Necessary Data Collection**
+环境要求：Node.js 和 npm。当前前端主要使用 Mock 数据，不代表真实后端联调。
 
-原则。
-
-公开用户资料计划只展示必要的信息。
-
-例如：
-
-```text
-Nickname
-Avatar
-Campus Verification Indicator
-Transaction Count
-Aggregated Rating
-Trust Explanation
-Bio
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-以下数据不会公开：
+默认由 Vite 输出本地访问地址。提交前可执行：
 
-```text
-Email
-Refresh Token
-Private Availability Schedule
-Private Chat Messages
-Report Evidence
+```bash
+cd frontend
+npm run lint
+npm run build
 ```
 
-管理员访问聊天证据需要与举报或纠纷关联，并记录审计信息。
+2026-09-19 的验证快照：`npm run build` 通过；`npm run lint` 仍有 3 个既有错误，位于 `src/components/Can.tsx` 和 `src/router/index.tsx`。构建还提示主 JavaScript 包较大，后续由前端组评估按路由拆包。这些问题已登记在 M10 [文档复核记录](docs/management/m10/review-log.md)，因此当前不能宣称质量检查全部通过。
 
----
-
-# 🚫 Project Boundaries
-
-为了保证软件工程课程项目可以真正完成，以下功能明确不属于当前范围：
+## 当前目录
 
 ```text
-Real Alipay / WeChat Pay
-Bank Card Payment
-Financial Settlement
-Real Logistics
-Delivery Tracking
-Real University SSO
-Real Student Identity Verification
-Government ID Verification
-Blockchain
-IoT Hardware
-RFID
-NFC
-Raspberry Pi
-Arduino
-Smart Locker
-Cross-campus Trading
-Commercial Fraud Guarantee
+CampusLoop/
+|-- docs/
+|   |-- frontend/m4/              # M4 交易流程设计材料
+|   |-- issues/                   # 第一阶段四组任务说明
+|   |-- management/               # M1/M10 管理与质量材料
+|   `-- project-overview.md       # PDF 1.2 的 Markdown 整理版
+|-- frontend/                     # React/TypeScript 前端原型
+|-- .env.example
+|-- CampusLoop_AI_Project_Overview_(3).pdf
+`-- README.md
 ```
 
-订单表示：
+后端、Worker、数据库迁移、Docker 和 CI 等目录将在对应方案落地时加入，不在 README 中预先伪造空结构。
 
-> **交易协作记录**
+## 文档入口
 
-而不是金融支付订单。
+- [项目需求与团队分工说明书（Markdown）](docs/project-overview.md)
+- [项目管理与质量文档](docs/management/README.md)
+- [项目范围与优先级](docs/management/m1/project-scope.md)
+- [需求候选清单与追踪表](docs/management/m1/requirements-traceability.md)
+- [十周计划与五次汇报](docs/management/m1/ten-week-plan.md)
+- [测试策略候选版](docs/management/m10/test-strategy.md)
+- [核心验收场景](docs/management/m10/acceptance-scenarios.md)
+- [Issue 1：项目管理与质量组](docs/issues/issue-1-management-quality.md)
+- [Issue 2：前端体验组](docs/issues/issue-2-frontend-experience.md)
+- [Issue 3：后端与平台组](docs/issues/issue-3-backend-platform.md)
+- [Issue 4：智能功能组](docs/issues/issue-4-ai-feasibility.md)
 
----
+原始 PDF 1.2 保留作为 2026-09-15 的输入材料；后续可维护内容以 Markdown、Issue、代码和测试证据为主。
 
-# 🧪 Testing Strategy
+## 团队与计划
 
-CampusLoop AI 不以：
+项目由 10 人在 10 周内完成，分为四个主责组：
 
-> “页面能打开”
+| 小组 | 成员 | 负责范围 |
+|---|---|---|
+| 项目管理与质量组 | M1、M10 | 需求、计划、集成、测试、文档和发布质量 |
+| 前端体验组 | M2、M3、M4 | 公共体验、市场/求购和交易流程页面 |
+| 后端与平台组 | M5、M6、M9 | 账号权限、市场交易、数据库和运行环境 |
+| 智能功能组 | M7、M8 | 搜索匹配、价格、信誉和风险辅助 |
 
-作为项目完成标准。
+五次汇报分别检查范围、详细设计、基础交易闭环、智能候选和最终提交。第 8 周停止新增功能，第 9 周集中测试与恢复演练，第 10 周只做整合、文档、演示和提交。
 
-项目计划建立多层测试：
+## 质量与证据
 
-```text
-Unit Tests
-Service Tests
-API Tests
-Database Tests
-Permission Tests
-State Machine Tests
-WebSocket Tests
-AI Evaluation
-Integration Tests
-End-to-End Tests
-Performance Tests
-Security Tests
-Recovery Tests
-```
+- 任务必须有负责人、协作者、依赖、验收条件和计划周次。
+- 模块作者先自测，同组和受影响上下游评审，M10 独立复测，M1 进行业务验收。
+- 数据库变更必须通过迁移脚本，接口变化同步更新页面、文档和测试。
+- 准确率、性能、覆盖率和样本量只能引用真实运行结果。
+- 一项任务只有代码/文档已合并、测试和关键异常路径通过、统一环境可复现时，才可标记完成。
 
-AI 模块也必须有独立评估。
+## 免责声明
 
-例如语义搜索：
-
-```text
-Precision@K
-Recall@K
-MRR
-```
-
-价格建议：
-
-```text
-MAE
-MAPE
-Prediction Interval Coverage
-```
-
-并与基础算法进行比较。
-
----
-
-# ⚡ Performance Goals
-
-项目计划在统一测试环境中验证：
-
-```text
-API Performance
-Search Performance
-WebSocket Delivery
-AI Task Latency
-Concurrent Users
-Database Queries
-```
-
-性能目标属于未来验收指标。
-
-README 中不会把尚未执行的性能测试描述成已经达到的结果。
-
----
-
-# 📅 Development Roadmap
-
-```text
-Week 1
-Requirements Validation
-↓
-Week 2
-Architecture & API Contracts
-↓
-Week 3
-Foundation + Authentication
-↓
-Week 4
-Marketplace
-↓
-Week 5
-Chat + Transaction
-↓
-Week 6
-Wanted Marketplace + Matching
-↓
-Week 7
-Semantic Search + Price AI
-↓
-Week 8
-Admin + Trust + Risk
-↓
-Week 9
-Testing + Performance + Fixes
-↓
-Week 10
-Documentation + Demo + Final Integration
-```
-
----
-
-# 👥 Team
-
-CampusLoop AI 是大学软件工程课程的团队项目。
-
-```text
-Team Size
-10
-
-Development Cycle
-10 Weeks
-
-Estimated Total Workload
-~800 Person Hours
-```
-
-团队开发将采用：
-
-```text
-Git
-GitHub
-Issues
-Branches
-Pull Requests
-Code Review
-CI
-Milestones
-Documentation
-```
-
-进行协作。
-
----
-
-# 📁 Repository Structure
-
-预计项目最终形成类似结构：
-
-```text
-CampusLoop-AI/
-│
-├── frontend/
-│
-├── backend/
-│
-├── worker/
-│
-├── tests/
-│
-├── docs/
-│
-├── scripts/
-│
-├── docker/
-│
-├── .github/
-│   └── workflows/
-│
-├── docker-compose.yml
-├── .env.example
-├── README.md
-└── LICENSE
-```
-
-具体目录结构将在 Architecture / Foundation 阶段冻结。
-
----
-
-# 📚 Documentation
-
-详细的软件需求、总体设计、AI 方案、数据库设计、测试策略、项目管理与风险分析见：
-
-```text
-CampusLoop AI
-Software Requirements,
-Project Proposal
-and Preliminary System Design
-```
-
-设计文档涵盖：
-
-```text
-Project Requirements
-Use Cases
-Innovation Analysis
-Technology Stack
-System Architecture
-Frontend Design
-Backend Design
-API Design
-Database Design
-AI Design
-Security & Privacy
-Testing
-Team Responsibilities
-Project Management
-Risk Register
-Requirements Traceability
-```
-
----
-
-# 🚧 Current Development Status
-
-> **Status: Requirements & Design Only**
-
-当前项目处于：
-
-```text
-Planning
-Requirements Engineering
-Architecture Design
-AI Design
-Database Design
-Testing Design
-Project Management
-```
-
-阶段。
-
-目前 README 中描述的功能：
-
-> **均为计划实现功能，而不是已经完成的软件功能。**
-
-因此当前仓库不会使用以下描述：
-
-```text
-Completed
-Production Ready
-AI Accuracy: XX%
-100% Secure
-Successfully Supports XXX Users
-```
-
-除非未来已经有真实实验或测试结果支持。
-
----
-
-# 🎯 Project Goal
-
-CampusLoop AI 的目标不是堆砌尽可能多的 AI 模型。
-
-而是尝试回答一个更加实际的软件工程问题：
-
-> **AI 如何真正参与一个完整校园交易系统，而不是成为与业务分离的 Demo？**
-
-我们希望最终完成一个具有：
-
-```text
-完整交易闭环
-+
-真实软件工程架构
-+
-可测试 AI 模块
-+
-智能供需匹配
-+
-实时通信
-+
-可信交易机制
-+
-风险治理
-+
-自动化测试
-+
-规范项目管理
-```
-
-的校园二手交易平台。
-
----
-
-# ⚠️ Disclaimer
-
-CampusLoop AI 为大学软件工程课程项目。
-
-校园认证属于教学模拟，不代表真实学校身份或学籍认证。
-
-平台不提供：
-
-- 支付担保
-- 金融结算
-- 商品质量保证
-- 真实身份核验
-- 商业级反欺诈保证
-
-AI 输出仅作为搜索、匹配、价格参考及风险审核辅助信息。
-
-最终交易决定由用户自行完成。
-
----
-
-<div align="center">
-
-# CampusLoop AI
-
-### Search Smarter · Match Better · Trade with Confidence
-
-**AI-Enhanced Campus Marketplace**
-
-🚧 Currently in Requirements & Design Stage
-
-</div>
+CampusLoop AI 是大学软件工程课程项目。校园认证属于教学模拟，不代表真实学校身份或学籍认证。平台不提供支付担保、金融结算、商品质量保证、真实身份核验或商业级反欺诈保证。AI 输出仅用于搜索、匹配、价格参考和风险审核辅助，最终交易及治理决定由用户或管理员完成。

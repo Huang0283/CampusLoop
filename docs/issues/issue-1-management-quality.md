@@ -21,6 +21,7 @@
 - 小组集成分支：`phase1/management-quality`。
 - 分支负责人：M1；合并复核：M10。
 - M1 从最新 `main` 创建并推送小组集成分支，并把远程分支链接填写到本 Issue。
+  - 远程分支：[phase1/management-quality](https://github.com/Huang0283/CampusLoop/tree/phase1/management-quality)
 - M1、M10 的具体交付使用独立任务分支，命名为 `task/<成员编号>-<简短任务>`，例如 `task/m1-project-scope`、`task/m10-test-strategy`。
 - 任务分支从 `phase1/management-quality` 创建，完成后通过 Pull Request 合并回小组集成分支。
 - 禁止直接向 `main` 或小组集成分支提交；共享小组分支禁止 force-push 和变基改写历史。
@@ -31,34 +32,34 @@
 
 ### 个人任务
 
-- [ ] 整理项目定义、问题背景、目标用户、核心价值和成功标准。
-- [ ] 将功能拆为 MVP、Core、Stretch，逐项标记纳入、暂缓或排除及理由。
-- [ ] 建立 `AUTH-*`、`MARKET-*`、`TRADE-*`、`AI-*`、`ADMIN-*`、`QUALITY-*` 需求编号体系。
-- [ ] 建立需求追踪表，记录负责人、协作者、依赖、优先级、验收条件、计划周次和状态。
-- [ ] 确认 M1-M10 的唯一主责、组内负责人和替补关系。
-- [ ] 建立十周计划和五次汇报检查点。
+- [x] 整理项目定义、问题背景、目标用户、核心价值和成功标准。
+- [x] 将功能拆为 MVP、Core、Stretch，逐项标记纳入、暂缓或排除及理由。
+- [x] 建立 `AUTH-*`、`MARKET-*`、`TRADE-*`、`AI-*`、`ADMIN-*`、`QUALITY-*` 需求编号体系。
+- [x] 建立需求追踪表，记录负责人、协作者、依赖、优先级、验收条件、计划周次和状态。
+- [x] 确认 M1-M10 的唯一主责、组内负责人和替补关系。
+- [x] 建立十周计划和五次汇报检查点。
 - [ ] 汇总其他三组阶段产物，检查上下游边界。
 - [ ] 组织范围评审，记录删减项、理由、负责人和下一截止时间。
-- [ ] 从最新 `main` 创建并推送 `phase1/management-quality`，填写远程分支链接。
+- [x] 从最新 `main` 创建并推送 `phase1/management-quality`，填写远程分支链接。
 - [ ] 内部复核后提交从小组分支到 `main` 的汇总 Pull Request。
 
 ### 个人交付物
 
-- [ ] 项目范围说明与排除项
-- [ ] MVP/Core/Stretch 功能清单
-- [ ] 需求候选清单与追踪表
-- [ ] 四组名单、十人职责和替补关系
-- [ ] 十周计划与五次汇报检查点
-- [ ] 会议纪要、决策记录和变更记录模板
-- [ ] 第一次汇报内容提纲与分工
+- [x] 项目范围说明与排除项
+- [x] MVP/Core/Stretch 功能清单
+- [x] 需求候选清单与追踪表
+- [x] 四组名单、十人职责和替补关系
+- [x] 十周计划与五次汇报检查点
+- [x] 会议纪要、决策记录和变更记录模板
+- [x] 第一次汇报内容提纲与分工
 
 ### M1 验收标准
 
-- [ ] 每个纳入范围的功能都有编号、负责人、依赖、验收条件和截止周次。
-- [ ] MVP 能覆盖完整交易闭环，Core 与 Stretch 不阻塞 MVP。
+- [x] 每个纳入范围的功能都有编号、负责人、依赖、验收条件和截止周次。
+- [x] MVP 能覆盖完整交易闭环，Core 与 Stretch 不阻塞 MVP。
 - [ ] 四组交付边界不存在明显重叠或空白。
-- [ ] 未解决问题均有负责人和下一截止时间。
-- [ ] 范围与计划均表述为候选，不把计划写成已完成事实。
+- [x] 未解决问题均有负责人和下一截止时间。
+- [x] 范围与计划均表述为候选，不把计划写成已完成事实。
 
 ---
 
@@ -66,39 +67,39 @@
 
 ### 个人任务
 
-- [ ] 建立第一阶段文档质量检查表。
-- [ ] 检查无负责人、无验收条件、范围过大或相互冲突的需求。
-- [ ] 建立测试策略候选版，覆盖单元、接口、端到端、权限、并发、性能和恢复层级。
-- [ ] 建立核心用户旅程及未来验收场景。
-- [ ] 建立 P0/P1/P2/P3 缺陷等级。
-- [ ] 建立 `todo`、`in-progress`、`blocked`、`review`、`done` 状态定义。
-- [ ] 检查文档版本、文件命名、术语、功能状态和负责人一致性。
-- [ ] 检查任务 PR 是否包含验收条件、状态、证据位置和跨组评审记录。
-- [ ] 编写汇报演示检查表，并在后续彩排时记录问题。
+- [x] 建立第一阶段文档质量检查表。
+- [x] 检查无负责人、无验收条件、范围过大或相互冲突的需求。
+- [x] 建立测试策略候选版，覆盖单元、接口、端到端、权限、并发、性能和恢复层级。
+- [x] 建立核心用户旅程及未来验收场景。
+- [x] 建立 P0/P1/P2/P3 缺陷等级。
+- [x] 建立 `todo`、`in-progress`、`blocked`、`review`、`done` 状态定义。
+- [x] 检查文档版本、文件命名、术语、功能状态和负责人一致性。
+- [x] 检查任务 PR 是否包含验收条件、状态、证据位置和跨组评审记录。
+- [x] 编写汇报演示检查表，并在后续彩排时记录问题。
 
 ### 个人交付物
 
-- [ ] 文档质量检查表
-- [ ] 测试策略候选版
-- [ ] 核心验收场景清单
-- [ ] 缺陷等级与任务状态说明
-- [ ] 汇报演示检查表
-- [ ] 评审问题与复核记录
+- [x] 文档质量检查表
+- [x] 测试策略候选版
+- [x] 核心验收场景清单
+- [x] 缺陷等级与任务状态说明
+- [x] 汇报演示检查表
+- [x] 评审问题与复核记录
 
 ### M10 验收标准
 
-- [ ] 每项需求都能转化为可执行验收场景。
+- [x] 每项需求都能转化为可执行验收场景。
 - [ ] 文档版本、术语、状态和负责人保持一致。
-- [ ] 检查结果能够指出问题位置、负责人和修复期限。
-- [ ] 不以截图、口头承诺或 README 描述代替验收证据。
+- [x] 检查结果能够指出问题位置、负责人和修复期限。
+- [x] 不以截图、口头承诺或 README 描述代替验收证据。
 
 ---
 
 ## 小组共同任务
 
 - [ ] 召开第一次全员会议，记录范围争议、决定、行动项和截止时间。
-- [ ] 建立风险登记表，覆盖数据、AI、接口、Git、进度、范围、WebSocket、部署和 AI 生成代码风险。
-- [ ] 为组内交付建立独立任务分支和小型 Pull Request。
+- [x] 建立风险登记表，覆盖数据、AI、接口、Git、进度、范围、WebSocket、部署和 AI 生成代码风险。
+- [x] 为组内交付建立独立任务分支和小型 Pull Request。
 - [ ] 根据评审结果更新需求候选版、十周计划和遗留问题清单。
 - [ ] 汇总 PR 合并后记录任务 PR、汇总 PR、合并提交和最终文件路径。
 - [ ] 确认合并完成后删除远程小组分支和已完成任务分支。
@@ -119,3 +120,39 @@
 - [ ] 远程仓库存在 `phase1/management-quality`，所有变更可追溯到任务 PR 和汇总 PR。
 - [ ] 汇总 PR 不包含未解决冲突、真实密钥或个人敏感信息。
 - [ ] 全员评审问题已登记，遗留项均有负责人和截止时间。
+
+## 当前证据与记录
+
+### M1 文档
+
+- [项目范围与优先级](../management/m1/project-scope.md)
+- [需求候选清单与追踪表](../management/m1/requirements-traceability.md)
+- [团队职责与替补关系](../management/m1/team-responsibilities.md)
+- [十周计划与五次汇报检查点](../management/m1/ten-week-plan.md)
+- [会议、决策和变更模板](../management/m1/governance-templates.md)
+- [第一次汇报提纲与分工](../management/m1/first-presentation-outline.md)
+- [风险登记表](../management/m1/risk-register.md)
+- [集成与汇总检查表](../management/m1/integration-checklist.md)
+
+### M10 文档
+
+- [文档质量检查表](../management/m10/document-quality-checklist.md)
+- [测试策略候选版](../management/m10/test-strategy.md)
+- [核心验收场景](../management/m10/acceptance-scenarios.md)
+- [缺陷等级与任务状态](../management/m10/defect-and-workflow.md)
+- [汇报与演示检查表](../management/m10/presentation-checklist.md)
+- [第一阶段文档复核记录](../management/m10/review-log.md)
+
+### Git 追踪
+
+- M10 任务分支：[`task/m10-quality-docs`](https://github.com/Huang0283/CampusLoop/tree/task/m10-quality-docs)
+- M10 任务 PR：[#8](https://github.com/Huang0283/CampusLoop/pull/8)（已合并）
+- M1 任务分支：[`task/m1-project-scope`](https://github.com/Huang0283/CampusLoop/tree/task/m1-project-scope)
+- M1 任务 PR：[#9](https://github.com/Huang0283/CampusLoop/pull/9)。
+
+### 尚未完成
+
+- 第一次全员范围评审及会议纪要。
+- M2-M9 第一阶段实际交付的完整汇总和跨组边界确认。
+- 第一次汇报彩排与问题记录。
+- M1 任务 PR、组内汇总 PR 及到 `main` 的最终汇总 PR。
