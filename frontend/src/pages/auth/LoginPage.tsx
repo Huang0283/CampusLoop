@@ -1,66 +1,129 @@
-import { Form, Input, Button, Card, message } from 'antd'
-import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../../stores/auth'
+import React from 'react';
+import { Form, Input, Button } from 'antd';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
-interface LoginForm {
-  email: string
-  password: string
+interface LoginFormValues {
+  email: string;
+  password: string;
 }
 
-export default function LoginPage() {
-  const navigate = useNavigate()
+const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [form] = Form.useForm<LoginFormValues>();
 
-  const onFinish = (values: LoginForm) => {
-    console.log('login values:', values)
-
-    // 这里假登录，等 M5 接口好了再换成真实请求。
-    // 必须写完整身份（userId/nickname）：按钮权限层 <Can> 与聊天 senderId
-    // 均依赖 userId，只写 token 会导致所有订单页按钮按"非参与方"求值而消失。
-    useAuthStore.getState().login({ id: 1, nickname: '我', role: 'student' })
-
-    message.success('Login success')
-    navigate('/')
-  }
+  const handleFinish = (values: LoginFormValues) => {
+    console.log('登录表单值：', values);
+  };
 
   return (
     <div
       style={{
         minHeight: '100vh',
+        background: '#f5f5f5',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#f5f5f5',
       }}
     >
-      <Card title="Login" style={{ width: 360 }}>
-        <Form layout="vertical" onFinish={onFinish}>
+      <div
+        style={{
+          width: 400,
+          background: '#ffffff',
+          borderRadius: 12,
+          boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
+          padding: '48px 40px',
+        }}
+      >
+        {/* Logo */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
+            marginBottom: 32,
+          }}
+        >
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="#1677ff">
+            <path d="M12 3L1 8l4 1.8V15c0 3 3.1 5 7 5s7-2 7-5V9.8L21 8l-9-5zm0 2.2l6.2 2.8L12 10.8 5.8 8 12 5.2zM7 10.9l4 1.8v5.1c-2.2-.3-4-1.5-4-3.3v-3.6zm6 6.9v-5.1l4-1.8v3.6c0 1.8-1.8 3-4 3.3z" />
+          </svg>
+          <span style={{ fontSize: 24, fontWeight: 700, color: '#1677ff' }}>CampusLoop</span>
+        </div>
+
+        {/* 标题 */}
+        <h1
+          style={{
+            textAlign: 'center',
+            fontSize: 24,
+            fontWeight: 700,
+            color: '#222222',
+            margin: '0 0 32px 0',
+          }}
+        >
+          登录
+        </h1>
+
+        {/* 表单 */}
+        <Form<LoginFormValues>
+          form={form}
+          layout="vertical"
+          onFinish={handleFinish}
+          requiredMark={false}
+        >
           <Form.Item
-            label="Email"
             name="email"
-            rules={[{ required: true, message: 'Please input email' }]}
+            rules={[
+              { required: true, message: '请输入邮箱' },
+              { type: 'email', message: '请输入有效的邮箱地址' },
+            ]}
           >
-            <Input placeholder="you@example.com" />
+            <Input
+              prefix={<MailOutlined style={{ color: '#999' }} />}
+              placeholder="邮箱"
+              size="large"
+              style={{ borderRadius: 8 }}
+            />
           </Form.Item>
 
           <Form.Item
-            label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input password' }]}
+            rules={[{ required: true, message: '请输入密码' }]}
           >
-            <Input.Password placeholder="password" />
+            <Input.Password
+              prefix={<LockOutlined style={{ color: '#999' }} />}
+              placeholder="密码"
+              size="large"
+              style={{ borderRadius: 8 }}
+            />
           </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit" block>
-              Login
+          <Form.Item style={{ marginBottom: 24, marginTop: 8 }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              block
+              style={{ borderRadius: 8, height: 46, fontSize: 16, fontWeight: 600 }}
+            >
+              登录
             </Button>
           </Form.Item>
         </Form>
 
-        <div style={{ textAlign: 'center' }}>
-          <a onClick={() => navigate('/register')}>Create an account</a>
+        {/* 底部链接 */}
+        <div style={{ textAlign: 'center', color: '#666666', fontSize: 14 }}>
+          还没有账号？{' '}
+          <a
+            style={{ color: '#1677ff', fontWeight: 500, cursor: 'pointer' }}
+            onClick={() => navigate('/register')}
+          >
+            去注册
+          </a>
         </div>
-      </Card>
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default LoginPage;

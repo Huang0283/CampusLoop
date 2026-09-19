@@ -14,6 +14,15 @@ import OrderDetailPage from '../pages/transaction/OrderDetailPage'
 import MeetupPage from '../pages/transaction/MeetupPage'
 import NotificationPage from '../pages/transaction/NotificationPage'
 import MyTransactionsPage from '../pages/transaction/MyTransactionsPage'
+import MarketPage from '../pages/market'
+import ProductDetailPage from '../pages/market/ProductDetailPage'
+import PublishProductPage from '../pages/market/PublishProductPage'
+import WantedPage from '../pages/wanted'
+import MatchResultPage from '../pages/wanted/MatchResultPage'
+import MyProductsPage from '../pages/market/MyProductsPage'
+import FavoritesPage from '../pages/market/FavoritesPage'
+import PublishWantedPage from '../pages/wanted/PublishWantedPage'
+import WantedDetailPage from '../pages/wanted/WantedDetailPage'
 
 const Placeholder = ({ name }: { name: string }) => (
   <PageContainer title={name}>
@@ -41,28 +50,28 @@ export const router = createBrowserRouter([
     element: authed(<ProfilePage />),
   },
   {
-    path: '/market',
-    element: authed(<Placeholder name="Market" />),
+  path: '/market',
+  element: authed(<MarketPage />),
   },
   {
-    path: '/product/:id',
-    element: authed(<Placeholder name="Product Detail" />),
+  path: '/product/:id',
+  element: authed(<ProductDetailPage />), 
   },
   {
-    path: '/publish',
-    element: authed(<Placeholder name="Publish Product" />),
+  path: '/publish',
+  element: authed(<PublishProductPage />),
   },
   {
-    path: '/my-products',
-    element: authed(<Placeholder name="My Products" />),
+  path: '/my-products',
+  element: authed(<MyProductsPage />),
+   },
+  {
+  path: '/favorites',
+  element: authed(<FavoritesPage />),
   },
   {
-    path: '/favorites',
-    element: authed(<Placeholder name="Favorites" />),
-  },
-  {
-    path: '/wanted',
-    element: authed(<Placeholder name="Wanted Market" />),
+  path: '/wanted',
+  element: authed(<WantedPage />),
   },
 
   /* ---------- M4: transaction flow ---------- */
@@ -118,5 +127,17 @@ export const router = createBrowserRouter([
   {
     path: '*',
     element: <Navigate to="/404" replace />,
+  },
+  {
+  path: '/wanted/matches',
+  element: authed(<MatchResultPage />),
+  },
+  {
+  path: '/wanted/publish',
+  element: authed(<PublishWantedPage />),
+  },
+  {
+  path: '/wanted/:id',
+  element: authed(<WantedDetailPage />),
   },
 ])
