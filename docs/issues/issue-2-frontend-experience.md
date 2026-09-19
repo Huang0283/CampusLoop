@@ -20,6 +20,7 @@
 - 小组集成分支：`phase1/frontend-experience`。
 - 分支负责人：M2；交叉评审：M3、M4；范围复核：M1；可测试性复核：M10。
 - M2 从最新 `main` 创建并推送小组集成分支，并把远程分支链接填写到本 Issue。
+- - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase1/frontend-experience
 - 个人任务分支命名为 `task/<成员编号>-<简短任务>`，例如 `task/m2-navigation-audit`、`task/m3-market-wireframes`、`task/m4-transaction-flow`。
 - 任务分支从 `phase1/frontend-experience` 创建，完成后通过 Pull Request 合并回小组集成分支。
 - 禁止直接向 `main` 或小组集成分支提交；共享小组分支禁止 force-push 和变基改写历史。
