@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Avatar, Badge, Button } from 'antd';
 import {
-  HomeOutlined,
-  ShopOutlined,
-  FileSearchOutlined,
-  MessageOutlined,
-  SwapOutlined,
   BellOutlined,
   DownOutlined,
   UserOutlined,
@@ -14,6 +9,7 @@ import {
   AimOutlined,
   SettingFilled,
 } from '@ant-design/icons';
+import { AppSidebar } from '../../components';
 
 const PRIMARY_COLOR = '#2f6bff';
 const PAGE_BG = '#f5f6f8';
@@ -67,20 +63,6 @@ const initialNotifications: NotificationItem[] = [
   { id: 8, type: '系统', title: '系统通知', description: '平台将于 4 月 25 日进行系统维护', time: '4月19日 09:03', read: true },
 ];
 
-interface SidebarItem {
-  key: string;
-  label: string;
-  icon: React.ReactNode;
-}
-
-const sidebarItems: SidebarItem[] = [
-  { key: 'home', label: '首页', icon: <HomeOutlined /> },
-  { key: 'market', label: '市场', icon: <ShopOutlined /> },
-  { key: 'wanted', label: '求购', icon: <FileSearchOutlined /> },
-  { key: 'chat', label: '聊天', icon: <MessageOutlined /> },
-  { key: 'transaction', label: '交易', icon: <SwapOutlined /> },
-];
-
 const headerStyle: React.CSSProperties = {
   height: 64,
   background: '#ffffff',
@@ -93,29 +75,18 @@ const headerStyle: React.CSSProperties = {
   zIndex: 100,
 };
 
+/** 与 /market 完全一致：侧栏从页面顶部开始、通高、宽 220，内容为共享 AppSidebar */
 const sidebarStyle: React.CSSProperties = {
-  width: 176,
-  flexShrink: 0,
+  position: 'fixed',
+  left: 0,
+  top: 0,
+  bottom: 0,
+  width: 220,
   background: '#ffffff',
   borderRight: `1px solid ${BORDER_COLOR}`,
-  padding: '16px 8px',
+  overflow: 'auto',
+  zIndex: 120,
 };
-
-const sidebarItemStyle = (active: boolean): React.CSSProperties => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 12,
-  height: 44,
-  padding: '0 16px',
-  marginBottom: 4,
-  borderRadius: 8,
-  fontSize: 15,
-  color: active ? PRIMARY_COLOR : TEXT_SECONDARY,
-  background: active ? 'rgba(47, 107, 255, 0.08)' : 'transparent',
-  borderLeft: active ? `3px solid ${PRIMARY_COLOR}` : '3px solid transparent',
-  cursor: 'pointer',
-  fontWeight: active ? 500 : 400,
-});
 
 const NotificationPage: React.FC = () => {
   const [notifications, setNotifications] =
@@ -140,37 +111,13 @@ const NotificationPage: React.FC = () => {
         background: PAGE_BG,
         display: 'flex',
         flexDirection: 'column',
+        marginLeft: 220,
       }}
     >
       {/* 顶部导航栏 */}
       <header style={headerStyle}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, width: 200 }}>
-          <span
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: '50%',
-              background: PRIMARY_COLOR,
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: 16,
-            }}
-          >
-            <SwapOutlined />
-          </span>
-          <span
-            style={{
-              fontSize: 20,
-              fontWeight: 700,
-              color: TEXT_PRIMARY,
-              letterSpacing: 0.5,
-            }}
-          >
-            CampusLoop
-          </span>
-        </div>
+        {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+        <div style={{ width: 200 }} />
 
         <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
           <Input.Search
@@ -215,15 +162,7 @@ const NotificationPage: React.FC = () => {
       <div style={{ display: 'flex', flex: 1 }}>
         {/* 左侧侧边栏 */}
         <aside style={sidebarStyle}>
-          {sidebarItems.map((item) => {
-            const active = item.key === 'transaction';
-            return (
-              <div key={item.key} style={sidebarItemStyle(active)}>
-                <span style={{ fontSize: 16 }}>{item.icon}</span>
-                <span>{item.label}</span>
-              </div>
-            );
-          })}
+          <AppSidebar />
         </aside>
 
         {/* 主内容区 */}

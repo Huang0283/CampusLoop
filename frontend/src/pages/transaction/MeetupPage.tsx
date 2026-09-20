@@ -15,7 +15,7 @@ import {
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import { useNavigate, useParams } from 'react-router-dom'
-import { EmptyState, PageContainer, useCan } from '../../components'
+import { AppSidebar, EmptyState, PageContainer, useCan } from '../../components'
 import { useMockDbStore } from '../../stores/mockDb'
 
 const { Text } = Typography
@@ -87,7 +87,24 @@ export default function MeetupPage() {
   }
 
   return (
-    <PageContainer
+    <div style={{ minHeight: '100vh', background: '#f5f6f8', marginLeft: 220 }}>
+      {/* 左侧导航：与 /market 完全一致 */}
+      <aside
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 220,
+          background: '#ffffff',
+          borderRight: '1px solid #f0f0f0',
+          overflow: 'auto',
+          zIndex: 120,
+        }}
+      >
+        <AppSidebar />
+      </aside>
+      <PageContainer
       title="见面约定"
       extra={<Button onClick={() => navigate(`/transactions/${order.id}`)}>返回订单</Button>}
     >
@@ -206,7 +223,8 @@ export default function MeetupPage() {
           />
         </Card>
       )}
-    </PageContainer>
+      </PageContainer>
+    </div>
   )
 }
 

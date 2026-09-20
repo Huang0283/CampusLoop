@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { Layout, Input, Avatar, Badge, Dropdown, Space, Menu, Select } from 'antd';
+import { Layout, Input, Avatar, Badge, Dropdown, Space, Select } from 'antd';
 import type { MenuProps } from 'antd';
 import {
-  HomeOutlined,
-  ShopOutlined,
-  AimOutlined,
-  MessageOutlined,
-  SwapOutlined,
   SearchOutlined,
   BellOutlined,
   DownOutlined,
   HeartFilled,
 } from '@ant-design/icons';
+import { AppSidebar } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -59,7 +55,7 @@ const statusStyleMap: Record<FavoriteStatus, React.CSSProperties> = {
 const soldOutStatuses: FavoriteStatus[] = ['已售', '已下架'];
 
 const styles: Record<string, React.CSSProperties> = {
-  layout: { minHeight: '100vh', background: BG },
+  layout: { minHeight: '100vh', background: BG, marginLeft: 220 },
   header: {
     background: CARD_BG,
     padding: '0 32px',
@@ -139,14 +135,6 @@ const styles: Record<string, React.CSSProperties> = {
 const FavoritesPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('全部');
 
-  const siderItems: MenuProps['items'] = [
-    { key: 'home', icon: <HomeOutlined />, label: '首页' },
-    { key: 'market', icon: <ShopOutlined />, label: '市场' },
-    { key: 'wanted', icon: <AimOutlined />, label: '求购' },
-    { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
-    { key: 'trade', icon: <SwapOutlined />, label: '交易' },
-  ];
-
   const userMenuItems: MenuProps['items'] = [
     { key: 'profile', label: '个人中心' },
     { key: 'orders', label: '我的订单' },
@@ -161,13 +149,8 @@ const FavoritesPage: React.FC = () => {
     <Layout style={styles.layout}>
       {/* 顶部导航栏 */}
       <Header style={styles.header}>
-        <div style={styles.logo}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={PRIMARY} strokeWidth="2.4" strokeLinecap="round">
-            <path d="M9.5 3.5a4 4 0 0 0-2.8 6.8l5.3 5.3a4 4 0 0 0 5.7 0l1.3-1.3a4 4 0 0 0-5.7-5.7l-1 1" />
-            <path d="M14.5 20.5a4 4 0 0 0 2.8-6.8l-5.3-5.3a4 4 0 0 0-5.7 0l-1.3 1.3a4 4 0 0 0 5.7 5.7l1-1" />
-          </svg>
-          <span>CampusLoop</span>
-        </div>
+        {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+        <div style={{ width: 220 }} />
         <Input
           prefix={<SearchOutlined style={{ color: '#999' }} />}
           placeholder="搜索校园好物"
@@ -190,13 +173,20 @@ const FavoritesPage: React.FC = () => {
 
       <Layout>
         {/* 左侧侧边栏 */}
-        <Sider width={200} style={styles.sider}>
-          <Menu
-            mode="inline"
-            selectedKeys={['market']}
-            items={siderItems}
-            style={{ borderInlineEnd: 'none', fontSize: 15 }}
-          />
+        <Sider
+          width={220}
+          style={{
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            background: '#ffffff',
+            borderRight: '1px solid #f0f0f0',
+            overflow: 'auto',
+            zIndex: 120,
+          }}
+        >
+          <AppSidebar />
         </Sider>
 
         {/* 主内容区 */}

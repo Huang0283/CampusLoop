@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Layout,
-  Menu,
   Input,
   Avatar,
   Dropdown,
@@ -15,11 +14,6 @@ import {
 } from 'antd';
 import type { MenuProps } from 'antd';
 import {
-  HomeOutlined,
-  ShopOutlined,
-  ShoppingOutlined,
-  MessageOutlined,
-  SwapOutlined,
   SearchOutlined,
   BellOutlined,
   DownOutlined,
@@ -39,6 +33,7 @@ import {
   CheckCircleFilled,
   ClockCircleOutlined,
 } from '@ant-design/icons';
+import { AppSidebar } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -96,14 +91,6 @@ const specs: SpecItem[] = [
   { icon: <FileProtectOutlined />, label: '成色', value: '九成新' },
 ];
 
-const sideMenuItems: MenuProps['items'] = [
-  { key: 'home', icon: <HomeOutlined />, label: '首页' },
-  { key: 'market', icon: <ShopOutlined />, label: '市场' },
-  { key: 'wanted', icon: <ShoppingOutlined />, label: '求购' },
-  { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
-  { key: 'trade', icon: <SwapOutlined />, label: '交易' },
-];
-
 const userMenuItems: MenuProps['items'] = [
   { key: 'profile', label: '个人中心' },
   { key: 'posts', label: '我的发布' },
@@ -123,12 +110,6 @@ const breadcrumbItems = [
   { title: <span style={{ color: TEXT_SECONDARY }}>电脑数码</span> },
   { title: <span style={{ color: TEXT_PRIMARY }}>笔记本电脑</span> },
 ];
-
-const LogoIcon: React.FC = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill={PRIMARY} aria-hidden="true">
-    <path d="M12 3 1 8l11 5 9-4.09V15h2V8L12 3zM5 12.18v3.06c0 1.74 3.13 3.76 7 3.76s7-2.02 7-3.76v-3.06l-7 3.18-7-3.18z" />
-  </svg>
-);
 
 /** 参数项图标底色块 */
 const specIconStyle: React.CSSProperties = {
@@ -169,7 +150,7 @@ const ProductDetailPage: React.FC = () => {
         style={{
           position: 'fixed',
           top: 0,
-          left: 0,
+          left: 220,
           right: 0,
           zIndex: 100,
           height: 64,
@@ -182,12 +163,8 @@ const ProductDetailPage: React.FC = () => {
           lineHeight: 'normal',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <LogoIcon />
-          <span style={{ fontSize: 18, fontWeight: 700, color: TEXT_PRIMARY }}>
-            Campus Market
-          </span>
-        </div>
+        {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+        <div style={{ width: 220 }} />
 
         <Input
           prefix={<SearchOutlined style={{ color: '#9aa0a8' }} />}
@@ -223,41 +200,23 @@ const ProductDetailPage: React.FC = () => {
 
       {/* 左侧侧边栏 */}
       <Sider
-        width={200}
+        width={220}
         style={{
           position: 'fixed',
           left: 0,
-          top: 64,
+          top: 0,
           bottom: 0,
-          zIndex: 90,
+          zIndex: 120,
           background: '#fff',
-          borderRight: '1px solid #eef0f3',
+          borderRight: '1px solid #f0f0f0',
           overflow: 'auto',
         }}
       >
-        <Menu
-          mode="inline"
-          selectedKeys={['market']}
-          items={sideMenuItems}
-          style={{
-            border: 'none',
-            paddingTop: 16,
-            fontSize: 15,
-          }}
-          styles={{
-            item: {
-              height: 48,
-              marginInline: 12,
-              width: 'auto',
-              borderRadius: 8,
-              marginBlock: 4,
-            },
-          }}
-        />
+        <AppSidebar />
       </Sider>
 
       {/* 主内容区 */}
-      <Layout style={{ marginLeft: 200, marginTop: 64, background: '#f5f6f8' }}>
+      <Layout style={{ marginLeft: 220, marginTop: 64, background: '#f5f6f8' }}>
         <Content style={{ padding: '20px 32px 48px' }}>
           {/* 面包屑 */}
           <Breadcrumb

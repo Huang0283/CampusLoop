@@ -1,7 +1,7 @@
 import { Alert, Button, Card, Input, Modal, Space, Spin, Tag, Typography, message } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { EmptyState, ErrorState, Loading, PageContainer } from '../../components'
+import { AppSidebar, EmptyState, ErrorState, Loading, PageContainer } from '../../components'
 import { OfferCard } from '../../components/transaction'
 import { mockSessions } from '../../mocks/transaction'
 import { OFFER_EXPIRE_HOURS } from '../../constants/offer'
@@ -195,7 +195,24 @@ export default function ChatDetailPage() {
   }
 
   return (
-    <PageContainer
+    <div style={{ minHeight: '100vh', background: '#f5f6f8', marginLeft: 220 }}>
+      {/* 左侧导航：与 /market 完全一致 */}
+      <aside
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 220,
+          background: '#ffffff',
+          borderRight: '1px solid #f0f0f0',
+          overflow: 'auto',
+          zIndex: 120,
+        }}
+      >
+        <AppSidebar />
+      </aside>
+      <PageContainer
       title={session.peer.nickname}
       extra={
         <Space wrap>
@@ -406,6 +423,7 @@ export default function ChatDetailPage() {
           />
         </Space>
       </Modal>
-    </PageContainer>
+      </PageContainer>
+    </div>
   )
 }

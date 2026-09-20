@@ -1,7 +1,7 @@
 import { Card, Empty, Skeleton, Space, Tabs, Tag, Typography } from 'antd'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ErrorState, PageContainer } from '../../components'
+import { AppSidebar, ErrorState, PageContainer } from '../../components'
 import { useMockDbStore } from '../../stores/mockDb'
 import { useAuthStore } from '../../stores/auth'
 import { resolveOrderRole } from '../../access/permissions'
@@ -80,7 +80,24 @@ export default function OrderListPage() {
   }
 
   return (
-    <PageContainer
+    <div style={{ minHeight: '100vh', background: '#f5f6f8', marginLeft: 220 }}>
+      {/* 左侧导航：与 /market 完全一致 */}
+      <aside
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 220,
+          background: '#ffffff',
+          borderRight: '1px solid #f0f0f0',
+          overflow: 'auto',
+          zIndex: 120,
+        }}
+      >
+        <AppSidebar />
+      </aside>
+      <PageContainer
       title="我的订单"
       extra={
         <Space>
@@ -101,6 +118,7 @@ export default function OrderListPage() {
           }))}
         />
       </Card>
-    </PageContainer>
+      </PageContainer>
+    </div>
   )
 }

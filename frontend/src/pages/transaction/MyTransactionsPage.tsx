@@ -6,22 +6,17 @@ import {
   Dropdown,
   Empty,
   Input,
-  Menu,
   Space,
   Tabs,
 } from 'antd';
-import type { MenuProps, TabsProps } from 'antd';
+import type { TabsProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
   BellOutlined,
   DownOutlined,
-  HomeOutlined,
-  MessageOutlined,
   SearchOutlined,
-  ShoppingOutlined,
-  SwapOutlined,
-  UnorderedListOutlined,
 } from '@ant-design/icons';
+import { AppSidebar } from '../../components';
 import { useAuthStore } from '../../stores/auth';
 import { useMockDbStore } from '../../stores/mockDb';
 import { ORDER_STATUS_LABEL } from '../../constants/order';
@@ -47,14 +42,6 @@ const PROCESSING_STATUS: OrderStatus[] = ['PENDING_CONFIRM', 'BOOKED', 'MEETUP_A
 /** 已结束：完成或取消 */
 const FINISHED_STATUS: OrderStatus[] = ['COMPLETED', 'CANCELLED'];
 
-const MENU_ITEMS: NonNullable<MenuProps['items']> = [
-  { key: 'home', icon: <HomeOutlined />, label: '首页' },
-  { key: 'market', icon: <ShoppingOutlined />, label: '市场' },
-  { key: 'wanted', icon: <UnorderedListOutlined />, label: '求购' },
-  { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
-  { key: 'transaction', icon: <SwapOutlined />, label: '交易' },
-];
-
 const TAB_ITEMS: TabsProps['items'] = [
   { key: 'all', label: '全部' },
   { key: 'buy', label: '购买' },
@@ -62,14 +49,6 @@ const TAB_ITEMS: TabsProps['items'] = [
   { key: 'processing', label: '进行中' },
   { key: 'finished', label: '已结束' },
 ];
-
-/** 蓝色学士帽 Logo（antd 无内置学士帽图标，使用内联 SVG 还原） */
-const GraduationCapIcon: React.FC<{ size?: number }> = ({ size = 28 }) => (
-  <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
-    <path d="M12 2.6 1.2 7.4 12 12.2l8.8-3.99V15h2V7.4L12 2.6z" fill={PRIMARY} />
-    <path d="M5 11.3v4.3c0 1.66 3.13 3.4 7 3.4s7-1.74 7-3.4v-4.3l-7 3.18-7-3.18z" fill={PRIMARY} />
-  </svg>
-);
 
 interface RoleBlockProps {
   label: '买家' | '卖家';
@@ -188,7 +167,6 @@ const filterOrders = (key: string, orders: Order[], userId: number | undefined):
 
 const MyTransactionsPage: React.FC = () => {
   const navigate = useNavigate();
-  const [activeMenu, setActiveMenu] = useState('transaction');
   const [activeTab, setActiveTab] = useState('all');
 
   const orders = useMockDbStore((s) => s.orders);
@@ -230,6 +208,7 @@ const MyTransactionsPage: React.FC = () => {
           background: PAGE_BG,
           display: 'flex',
           flexDirection: 'column',
+          marginLeft: 220,
         }}
       >
         {/* 顶部导航栏 */}
@@ -245,10 +224,8 @@ const MyTransactionsPage: React.FC = () => {
             flexShrink: 0,
           }}
         >
-          <Space size={10} style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
-            <GraduationCapIcon size={28} />
-            <span style={{ fontSize: 19, fontWeight: 700, color: TEXT_MAIN }}>CampusLoop</span>
-          </Space>
+          {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+          <div style={{ width: 220 }} />
           <Input
             allowClear
             prefix={<SearchOutlined style={{ color: '#a8adb7' }} />}
@@ -298,26 +275,18 @@ const MyTransactionsPage: React.FC = () => {
           {/* 左侧侧边栏 */}
           <aside
             style={{
-              width: 208,
-              flexShrink: 0,
+              position: 'fixed',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 220,
               background: '#ffffff',
-              borderRight: `1px solid ${BORDER}`,
-              padding: '12px 8px',
+              borderRight: '1px solid #f0f0f0',
+              overflow: 'auto',
+              zIndex: 120,
             }}
           >
-            <Menu
-              mode="inline"
-              selectedKeys={[activeMenu]}
-              items={MENU_ITEMS}
-              onClick={({ key }) => {
-                setActiveMenu(key);
-                if (key === 'home') navigate('/');
-                if (key === 'market') navigate('/market');
-                if (key === 'wanted') navigate('/wanted');
-                if (key === 'chat') navigate('/chat');
-              }}
-              style={{ borderInlineEnd: 'none' }}
-            />
+            <AppSidebar />
           </aside>
 
           {/* 主内容区 */}
