@@ -5,6 +5,8 @@
 - 周次：第 7-8 周；截止：第四次汇报及功能冻结前。
 - 成员：M2、M3、M4；组内负责人：M2。
 - 集成分支：`phase4/frontend-integration`。
+- 任务分支：`task/m2-p4-admin-freeze`、`task/m3-p4-ai-results`、`task/m4-p4-governance-regression`；PR 目标：`phase4/frontend-integration`。
+- 证据目录：`docs/evidence/phase-4/frontend/`。
 - 输入门禁：FE-P3/MQ-P3 通过；M7/M8 结果契约和 M5/M6 接口提交可测。
 - 输出去向：MQ-P4 集成验收、FE-P5 稳定化。
 

@@ -5,6 +5,8 @@
 - 周次：第 5-6 周；截止：第三次汇报前。
 - 成员：M2、M3、M4；组内负责人：M2。
 - 集成分支：`phase3/frontend-mvp`。
+- 任务分支：`task/m2-p3-auth-integration`、`task/m3-p3-market-integration`、`task/m4-p3-transaction-integration`；PR 目标：`phase3/frontend-mvp`。
+- 证据目录：`docs/evidence/phase-3/frontend/`。
 - 输入门禁：FE-P2 原型/映射冻结；BP-P2 契约和环境可用；M10 场景已编号。
 - 输出去向：MQ-P3 双账号验收、FE-P4 智能/后台集成。
 

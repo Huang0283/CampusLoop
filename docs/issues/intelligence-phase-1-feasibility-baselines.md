@@ -5,6 +5,8 @@
 - 周次：第 1-2 周；截止：第一次汇报前。
 - 成员：M7、M8；组内负责人：M7；评估复核：M10。
 - 集成分支：`phase1/intelligence`。
+- 任务分支：`task/m7-p1-search-feasibility`、`task/m8-p1-price-risk-feasibility`；PR 目标：`phase1/intelligence`。
+- 证据目录：`docs/evidence/phase-1/intelligence/`。
 - 输入：M1 范围、M3/M4 展示需求、M5/M6 业务字段、M9 环境约束。
 - 输出去向：AI-P2、FE-P2、BP-P2、MQ-P2。
 

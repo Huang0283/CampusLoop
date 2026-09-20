@@ -5,6 +5,8 @@
 - 周次：第 1-2 周；截止：第一次汇报前。
 - 成员：M1、M10；主责：M1；质量复核：M10。
 - 集成分支：`phase1/management-quality`。
+- 任务分支：`task/m1-p1-scope`、`task/m10-p1-quality`；PR 目标：`phase1/management-quality`。
+- 证据目录：`docs/evidence/phase-1/management-quality/`。
 - 输入：项目总说明、教师要求、M2-M9 的职责/依赖/风险候选。
 - 输出去向：四组 Phase 2 Issue、第一次汇报、需求追踪表。
 

@@ -5,6 +5,8 @@
 - 周次：第 9-10 周；截止：第五次汇报和课程提交截止时间。
 - 成员：M1、M10；主责：M1；发布质量负责人：M10。
 - 集成分支：`phase5/release-candidate`。
+- 任务分支：`task/m1-p5-release`、`task/m10-p5-final-verification`；PR 目标：`phase5/release-candidate`。
+- 证据目录：`docs/evidence/phase-5/management-quality/`。
 - 输入门禁：Phase 4 冻结标签、冻结清单、未关闭缺陷和四组最终交付清单齐全。
 - 输出：最终标签、课程提交包、第五次汇报、演示视频和贡献记录。
 

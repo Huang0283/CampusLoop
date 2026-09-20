@@ -5,6 +5,8 @@
 - 周次：第 3-4 周；截止：第二次汇报前。
 - 成员：M5、M6、M9；业务主责：M6；平台主责：M9。
 - 集成分支：`phase2/backend-foundation`。
+- 任务分支：`task/m5-p2-auth-contracts`、`task/m6-p2-business-contracts`、`task/m9-p2-runtime-foundation`；PR 目标：`phase2/backend-foundation`。
+- 证据目录：`docs/evidence/phase-2/backend-platform/`。
 - 输入门禁：BP-P1 领域候选完成；需求/页面字段/智能资源需求可用。
 - 输出去向：BP-P3、FE-P3、AI-P3、MQ-P2 测试基线。
 

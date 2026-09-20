@@ -5,6 +5,8 @@
 - 周次：第 3-4 周；截止：第二次汇报前。
 - 成员：M2、M3、M4；组内负责人：M2。
 - 集成分支：`phase2/frontend-prototype`。
+- 任务分支：`task/m2-p2-shell-prototype`、`task/m3-p2-market-prototype`、`task/m4-p2-transaction-prototype`；PR 目标：`phase2/frontend-prototype`。
+- 证据目录：`docs/evidence/phase-2/frontend/`。
 - 输入门禁：FE-P1 已关闭；M1 给出需求候选；M5/M6 给出角色、字段和状态；M7/M8 给出智能结果候选。
 - 输出去向：FE-P3、BP-P3、AI-P3、MQ-P2 测试基线。
 

@@ -5,6 +5,8 @@
 - 周次：第 7-8 周；截止：第四次汇报及第 8 周功能冻结前。
 - 成员：M1、M10；主责：M1；质量门禁：M10。
 - 集成分支：`phase4/management-quality`。
+- 任务分支：`task/m1-p4-freeze`、`task/m10-p4-integration-test`；PR 目标：`phase4/management-quality`。
+- 证据目录：`docs/evidence/phase-4/management-quality/`。
 - 输入门禁：MQ-P3 MVP 标签存在；P0/P1 为 0；智能基线和接入契约可用。
 - 输出去向：四组 Phase 5、冻结清单、第四次汇报。
 

@@ -5,6 +5,8 @@
 - 周次：第 9-10 周；截止：第五次汇报和最终提交前。
 - 成员：M5、M6、M9；业务主责：M6；发布平台主责：M9。
 - 集成分支：`phase5/backend-release`。
+- 任务分支：`task/m5-p5-security`、`task/m6-p5-business-hardening`、`task/m9-p5-deployment-recovery`；PR 目标：`phase5/backend-release`。
+- 证据目录：`docs/evidence/phase-5/backend-platform/`。
 - 输入门禁：BP-P4 功能冻结；数据库/智能/前端最终契约和缺陷列表固定。
 - 输出去向：MQ-P5 干净部署、最终测试和提交包。
 

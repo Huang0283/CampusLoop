@@ -5,6 +5,8 @@
 - 周次：第 5-6 周；截止：第三次汇报前。
 - 成员：M7、M8；组内负责人：M7。
 - 集成分支：`phase3/intelligence-baselines`。
+- 任务分支：`task/m7-p3-search-matching-baseline`、`task/m8-p3-price-trust-baseline`；PR 目标：`phase3/intelligence-baselines`。
+- 证据目录：`docs/evidence/phase-3/intelligence/`。
 - 输入门禁：AI-P2 数据/评估/服务契约冻结；后端事件与运行环境可调用。
 - 输出去向：FE/BP-P3 基线联调、AI-P4 模型公平对比。
 

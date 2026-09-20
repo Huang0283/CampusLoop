@@ -5,6 +5,8 @@
 - 周次：第 5-6 周；截止：第三次汇报前。
 - 成员：M1、M10；主责：M1；独立验收：M10。
 - 集成分支：`phase3/management-quality`。
+- 任务分支：`task/m1-p3-milestone`、`task/m10-p3-acceptance`；PR 目标：`phase3/management-quality`。
+- 证据目录：`docs/evidence/phase-3/management-quality/`。
 - 输入门禁：Phase 2 需求/设计基线已合并；统一环境可启动；Phase 3 各组任务有 Owner。
 - 输出去向：Phase 4 智能集成、MVP 版本标签、第三次汇报。
 

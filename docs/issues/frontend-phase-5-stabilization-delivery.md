@@ -5,6 +5,8 @@
 - 周次：第 9-10 周；截止：第五次汇报和最终提交前。
 - 成员：M2、M3、M4；组内负责人：M2。
 - 集成分支：`phase5/frontend-release`。
+- 任务分支：`task/m2-p5-frontend-release`、`task/m3-p5-market-fixes`、`task/m4-p5-transaction-fixes`；PR 目标：`phase5/frontend-release`。
+- 证据目录：`docs/evidence/phase-5/frontend/`。
 - 输入门禁：FE-P4 页面冻结；发布候选 API/智能版本和缺陷清单固定。
 - 输出去向：MQ-P5 最终回归、用户手册和演示。
 

@@ -5,6 +5,8 @@
 - 周次：第 9-10 周；截止：第五次汇报和最终提交前。
 - 成员：M7、M8；组内负责人：M7；独立复现：M10。
 - 集成分支：`phase5/intelligence-release`。
+- 任务分支：`task/m7-p5-search-reproducibility`、`task/m8-p5-price-risk-reproducibility`；PR 目标：`phase5/intelligence-release`。
+- 证据目录：`docs/evidence/phase-5/intelligence/`。
 - 输入门禁：AI-P4 go/no-go 与冻结版本确认；最终数据许可和缺陷清单齐全。
 - 输出去向：MQ-P5 提交包、最终智能说明和答辩证据。
 

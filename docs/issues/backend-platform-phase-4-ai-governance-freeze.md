@@ -5,6 +5,8 @@
 - 周次：第 7-8 周；截止：第四次汇报及功能冻结前。
 - 成员：M5、M6、M9；业务主责：M6；平台主责：M9。
 - 集成分支：`phase4/backend-integration`。
+- 任务分支：`task/m5-p4-governance-api`、`task/m6-p4-ai-orchestration`、`task/m9-p4-worker-runtime`；PR 目标：`phase4/backend-integration`。
+- 证据目录：`docs/evidence/phase-4/backend-platform/`。
 - 输入门禁：BP-P3 MVP 通过；M7/M8 服务契约、版本和降级可用。
 - 输出去向：FE/AI-P4 集成、MQ-P4 冻结、BP-P5 加固。
 

@@ -5,6 +5,8 @@
 - 周次：第 5-6 周；截止：第三次汇报前。
 - 成员：M5、M6、M9；业务主责：M6；平台主责：M9。
 - 集成分支：`phase3/backend-mvp`。
+- 任务分支：`task/m5-p3-auth-api`、`task/m6-p3-transaction-api`、`task/m9-p3-mvp-runtime`；PR 目标：`phase3/backend-mvp`。
+- 证据目录：`docs/evidence/phase-3/backend-platform/`。
 - 输入门禁：BP-P2 契约/迁移/环境基线冻结；前端映射和 M10 场景可用。
 - 输出去向：FE-P3 联调、MQ-P3 验收、BP-P4 智能与治理扩展。
 

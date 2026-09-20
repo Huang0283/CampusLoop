@@ -5,6 +5,8 @@
 - 周次：第 3-4 周；截止：第二次汇报前。
 - 成员：M1、M10；主责：M1；质量门禁：M10。
 - 集成分支：`phase2/management-quality`。
+- 任务分支：`task/m1-p2-baseline`、`task/m10-p2-test-design`；PR 目标：`phase2/management-quality`。
+- 证据目录：`docs/evidence/phase-2/management-quality/`。
 - 输入门禁：四组 Phase 1 Issue 已关闭；候选需求、页面旅程、领域状态和智能可行性均有证据。
 - 输出去向：四组 Phase 3 实现 Issue、第二次汇报和冻结后的追踪基线。
 

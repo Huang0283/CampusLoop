@@ -127,3 +127,28 @@
 - Labels：`group:<group>`、`phase:<n>`、`type:milestone`。
 - Dependencies：正文“输入门禁”中列出的上游 Issue。
 - Closing PR：只允许阶段汇总 PR 关闭 Issue，个人任务 PR 不直接关闭阶段 Issue。
+
+## 10. 分支与证据落盘规范
+
+- 每份阶段 Issue 已给出唯一集成分支和成员任务分支；任务 PR 的目标必须是该阶段集成分支。
+- 阶段证据统一放在 `docs/evidence/phase-<n>/<group>/`，其中 `<group>` 与文件命名中的组名一致。
+- 每个阶段证据目录至少包含：`deliverables.md`（交付物及路径）、`verification.md`（命令/环境/结果/提交号）、`handoff.md`（向下一阶段交接和阻塞）。
+- 代码、迁移、测试、模型和原始结果保留在所属源码目录；证据文件只登记可点击路径和结论，不复制大文件。
+- 每个任务 PR 必须在阶段 Issue 中登记：成员、任务分支、PR、Reviewer、跨组确认人、验证命令、结果和最终提交。
+- 阻塞记录必须包含：`阻塞事项 / 上游 Owner / 下游 Owner / 当前可做内容 / 不能验收内容 / 下一动作 / 截止时间`。
+
+Issue 收尾评论统一使用：
+
+```markdown
+## 阶段收尾
+
+- 集成分支：
+- 任务 PR / Reviewer：
+- 汇总 PR / 合并提交：
+- 交付物登记：docs/evidence/phase-<n>/<group>/deliverables.md
+- 验证记录：docs/evidence/phase-<n>/<group>/verification.md
+- 下一阶段交接：docs/evidence/phase-<n>/<group>/handoff.md
+- M10 复核结论：
+- M1 范围结论：
+- 遗留问题（Owner / 影响 / 截止时间）：
+```

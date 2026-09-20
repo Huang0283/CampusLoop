@@ -5,6 +5,8 @@
 - 周次：第 1-2 周；截止：第一次汇报前。
 - 成员：M5、M6、M9；业务主责：M6；平台主责：M9。
 - 集成分支：`phase1/backend-platform`。
+- 任务分支：`task/m5-p1-auth-boundary`、`task/m6-p1-domain-rules`、`task/m9-p1-platform-plan`；PR 目标：`phase1/backend-platform`。
+- 证据目录：`docs/evidence/phase-1/backend-platform/`。
 - 输入：M1 范围候选、前端用户旅程、智能组数据/任务需求。
 - 输出去向：BP-P2、FE-P2、AI-P2、MQ-P2。
 
