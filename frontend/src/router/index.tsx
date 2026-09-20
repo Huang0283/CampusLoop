@@ -26,6 +26,7 @@ import PublishWantedPage from '../pages/wanted/PublishWantedPage'
 import WantedDetailPage from '../pages/wanted/WantedDetailPage'
 import PriceAdvicePage from '../pages/market/PriceAdvicePage'
 import ReportPage from '../pages/transaction/ReportPage'
+import ReviewPage from '../pages/transaction/ReviewPage'
 
 const authed = (element: ReactElement) => <RequireAuth>{element}</RequireAuth>
 
@@ -141,12 +142,12 @@ export const router = createBrowserRouter([
     path: '*',
     element: <Navigate to="/404" replace />,
   },
-    {
-    path: '/wanted/:id',
-    element: authed(<WantedDetailPage />),
+  {
+    path: '/report',
+    element: authed(<ReportPage />),
   },
   {
-  path: '/report',
-  element: authed(<ReportPage />),
+    path: '/transactions/:id/review',
+    element: authed(<ReviewPage />),
   },
 ])
