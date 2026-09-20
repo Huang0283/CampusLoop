@@ -7,7 +7,7 @@
 - 集成分支：`phase1/management-quality`。
 - 任务分支：`task/m1-p1-scope`、`task/m10-p1-quality`；PR 目标：`phase1/management-quality`。
 - 证据目录：`docs/evidence/phase-1/management-quality/`。
-- 输入：项目总说明、教师要求、M2-M9 的职责/依赖/风险候选。
+- 输入门禁：项目总说明、教师要求、M2-M9 的职责/依赖/风险候选均已提供。
 - 输出去向：四组 Phase 2 Issue、第一次汇报、需求追踪表。
 
 ## 阶段目标
@@ -46,6 +46,20 @@
 | M1/M10 | 范围、质量门禁、阶段矩阵 | 全组 | 全员评审记录 |
 
 ## 交付物
+
+### 任务卡与交付映射
+
+| 任务 ID | Owner | 具体要做什么 | 必须提交的交付物 | 单项验收 |
+|---|---|---|---|---|
+| MQ1-01 | M1 | 阅读总说明并逐项拆分账号、市场、交易、治理、智能和质量需求；给每项分配唯一 ID，写清触发者、前置条件、正常结果和禁止行为 | `docs/evidence/phase-1/management-quality/requirements-candidate.md` | 任取一个需求能回答谁使用、何时触发、成功/失败是什么 |
+| MQ1-02 | M1 | 将全部能力分类为 MVP/Core/Stretch/Out；对排除或延期项记录理由、影响和重新进入条件 | `scope-and-priority.md` | MVP 单独即可形成交易闭环；Out 中包含总文档明确排除项 |
+| MQ1-03 | M1 | 建立需求追踪矩阵，把需求 ID 映射到成员、阶段、页面、服务、数据、测试场景和最终证据 | `requirements-traceability.md` | 不存在 Owner、阶段或验收列为空的纳入需求 |
+| MQ1-04 | M1 | 编写 M1-M10 RACI、替补关系、接口决策人和阻塞升级路径 | `team-raci-and-escalation.md` | 每项跨组能力只有一个最终规则 Owner，替补不改变主责 |
+| MQ1-05 | M1 | 将十周拆为五个阶段，写出每周必须形成的代码、文档、测试和汇报证据 | `ten-week-plan.md` | 第 6 周闭环、第 8 周冻结、第 10 周提交均有进入/退出门禁 |
+| MQ1-06 | M10 | 按测试层级编写策略，明确哪些由作者自测、哪些由 M10 独立复测、失败如何退回 | `test-strategy-candidate.md` | 覆盖单元、接口、权限、状态机、WebSocket、AI、E2E、性能、恢复 |
+| MQ1-07 | M10 | 为账号、商品、交易、智能降级建立场景 ID，使用 Given/When/Then 写前置、动作和预期 | `acceptance-scenarios-candidate.md` | 每个 MVP 需求至少关联一个正向和一个异常/权限场景 |
+| MQ1-08 | M10 | 定义 P0-P3、任务状态、缺陷字段、关闭证据和重新打开条件 | `defect-and-workflow.md` | 团队能依据定义对同一缺陷得到一致级别和处理路径 |
+| MQ1-09 | M1/M10 | 召开范围评审和彩排，记录争议、决定、行动项、Owner、截止时间和复核结果 | `review-log.md`、`first-presentation-rehearsal.md` | 所有行动项有结论或明确阻塞，不保留无 Owner 的开放问题 |
 
 - [ ] 项目范围与排除项、MVP/Core/Stretch 清单。
 - [ ] 需求候选清单与追踪表。

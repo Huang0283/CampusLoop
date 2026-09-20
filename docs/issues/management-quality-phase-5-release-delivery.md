@@ -8,7 +8,7 @@
 - 任务分支：`task/m1-p5-release`、`task/m10-p5-final-verification`；PR 目标：`phase5/release-candidate`。
 - 证据目录：`docs/evidence/phase-5/management-quality/`。
 - 输入门禁：Phase 4 冻结标签、冻结清单、未关闭缺陷和四组最终交付清单齐全。
-- 输出：最终标签、课程提交包、第五次汇报、演示视频和贡献记录。
+- 输出去向：最终标签、课程提交包、第五次汇报、演示视频和贡献记录。
 
 ## 阶段完成结果
 
@@ -37,6 +37,20 @@
 - [ ] 签署发布检查表；不通过时明确阻止最终标签。
 
 ## 最终交付包
+
+### 任务卡与交付映射
+
+| 任务 ID | Owner | 具体要做什么 | 必须提交的交付物 | 单项验收 |
+|---|---|---|---|---|
+| MQ5-01 | M1 | 锁定发布看板，逐项登记缺陷级别、修复人、验证人、目标提交和状态 | `docs/evidence/phase-5/management-quality/release-board.md` | 无未分配缺陷，无冻结外功能混入 |
+| MQ5-02 | M1 | 更新最终需求追踪，将每项标记完成/部分/未完成并链接代码、测试、文档 | `final-requirements-traceability.md` | 任一答辩结论都能追溯到仓库证据 |
+| MQ5-03 | M10 | 在新目录或另一电脑从零安装、配置、迁移、种子和启动 | `clean-install-report.md` | 文档无隐含手工步骤，所有健康检查通过 |
+| MQ5-04 | M10 | 执行最终功能、接口、权限、状态机、WebSocket、AI 正常/降级 E2E | `final-regression-report.md` | P0/P1 为 0，发布提交与测试提交一致 |
+| MQ5-05 | M10 | 执行约定的性能、并发、安全和备份恢复测试并记录环境/数据量 | `non-functional-test-report.md` | 每个数字包含命令、环境、时间和原始结果路径 |
+| MQ5-06 | M1 | 整合技术文档、用户/管理员手册、部署说明、限制和许可证/数据许可 | `submission-manifest.md` | 清单中的每个文件存在且版本一致，无密钥/隐私数据 |
+| MQ5-07 | M1/M10 | 组织两次完整彩排，记录时长、操作人、失败点和修复提交 | `final-rehearsal-report.md` | 十分钟主流程和备用方案均可执行 |
+| MQ5-08 | M1 | 汇总成员 Issue、PR、Review、测试、文档和演示贡献 | `member-contributions.md` | 每项贡献有链接，不按口头描述计入 |
+| MQ5-09 | M1/M10 | 创建最终标签、发布记录和 Issue 收尾，核对远程提交 | `final-release-record.md` | 标签指向已通过全部门禁的唯一提交 |
 
 - [ ] 源代码、锁文件、迁移、配置模板和许可证说明。
 - [ ] 需求/设计/接口/数据库/智能/测试/部署/安全文档。

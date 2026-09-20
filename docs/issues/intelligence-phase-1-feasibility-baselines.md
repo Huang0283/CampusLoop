@@ -7,7 +7,7 @@
 - 集成分支：`phase1/intelligence`。
 - 任务分支：`task/m7-p1-search-feasibility`、`task/m8-p1-price-risk-feasibility`；PR 目标：`phase1/intelligence`。
 - 证据目录：`docs/evidence/phase-1/intelligence/`。
-- 输入：M1 范围、M3/M4 展示需求、M5/M6 业务字段、M9 环境约束。
+- 输入门禁：M1 范围、M3/M4 展示需求、M5/M6 业务字段、M9 环境约束均已提供。
 - 输出去向：AI-P2、FE-P2、BP-P2、MQ-P2。
 
 ## 阶段目标
@@ -39,6 +39,22 @@
 - [ ] 设计申诉、人工修改和重新计算候选流程。
 
 ## 必交产物
+
+### 任务卡与交付映射
+
+| 任务 ID | Owner | 具体要做什么 | 必须提交的交付物 | 单项验收 |
+|---|---|---|---|---|
+| AI1-01 | M7 | 定义关键词/自然语言/筛选输入和商品排序输出，列出目标查询与失败查询 | docs/evidence/phase-1/intelligence/search-requirements.md | 输入/输出字段与 M3 页面、M6 商品字段可对应 |
+| AI1-02 | M7 | 设计关键词检索基线：参与字段、分词/规范化、过滤、排序和无结果行为 | keyword-baseline-design.md | 不依赖向量即可实现，边界和限制写清 |
+| AI1-03 | M7 | 定义供需匹配硬约束、软因素、规则分数和逐项解释 | matching-baseline-design.md | 违反类别/预算/状态等硬约束的商品不会进入排序 |
+| AI1-04 | M7 | 设计触发、幂等、结果版本、重复通知去重和服务降级 | matching-lifecycle.md | 新增/修改商品或求购的行为及重复事件结果明确 |
+| AI1-05 | M7 | 设计搜索/匹配标注样本、正负/难负例和 Precision@K/Recall@K/MRR 评估 | search-evaluation-plan.md | M10 能按说明构造样本并计算指标 |
+| AI1-06 | M8 | 登记价格数据来源、许可、字段、样本量、时间范围、缺失和敏感性 | price-data-inventory.md | 来源不明/无许可数据明确 no-go，不写虚假样本规模 |
+| AI1-07 | M8 | 设计类别/成色/使用时间/原价规则区间及影响因素解释 | price-rule-baseline.md | 输出区间而非保证价格，数据不足有明确结果 |
+| AI1-08 | M8 | 定义 MAE/MAPE/区间覆盖率口径和挂牌价/成交价区别 | price-evaluation-plan.md | 不把挂牌价自动当成交标签，低价 MAPE 风险说明 |
+| AI1-09 | M8 | 设计信誉新用户起点、平滑、有效交易/评价口径和公开字段 | trust-rule-design.md | 取消/争议不计正常完成，新用户不因无历史直接低分 |
+| AI1-10 | M8 | 定义风险线索、依据、人工处理、申诉和禁止自动处罚边界 | risk-assistance-boundary.md | 每个线索只触发人工审核，不改变账号/订单事实 |
+| AI1-11 | M7/M8 | 为五项能力给出 go/conditional/no-go、依赖、降级和下一阶段动作 | capability-decision-matrix.md | 每个 conditional 项有待满足条件、Owner 和期限 |
 
 - [ ] 数据资产表：来源、许可、字段、样本量、时间、质量、敏感性、Owner。
 - [ ] 智能能力矩阵：问题、输入、输出、基线、候选改进、指标、解释、降级、依赖。

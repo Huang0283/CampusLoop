@@ -45,6 +45,19 @@
 
 ## 冻结门禁
 
+### 任务卡与交付映射
+
+| 任务 ID | Owner | 具体要做什么 | 必须提交的交付物 | 单项验收 |
+|---|---|---|---|---|
+| MQ4-01 | M1 | 根据 AI-P2 门槛和 AI-P4 结果逐项决定正式集成、实验展示或移除 | `docs/evidence/phase-4/management-quality/ai-go-no-go-decisions.md` | 每项决定引用数据版本、指标和 M10 复核结论 |
+| MQ4-02 | M1 | 排定模型服务、后端触发、前端展示、测试的联调顺序和负责人 | `integration-schedule.md` | 不存在消费者等待未分配上游的循环依赖 |
+| MQ4-03 | M10 | 独立运行至少两个智能能力的基线与候选，核对逐样本和汇总指标 | `independent-ai-evaluation.md` | 结果可复现，差异在预先允许范围内 |
+| MQ4-04 | M10 | 执行模型正常、超时、关闭、坏结果和旧结果场景 | `ai-degradation-test-report.md` | 关键词/规则降级可用，商品和交易主流程不被阻塞 |
+| MQ4-05 | M10 | 回归认证、交易状态、权限、隐私和管理员人工处理 | `mvp-regression-report.md` | 智能集成没有改变订单事实或泄露审核信息 |
+| MQ4-06 | M1 | 形成第 8 周冻结清单：保留、部分、移除、已知限制、P2/P3 缺陷 | `feature-freeze-register.md` | 每项冻结能力绑定唯一提交和 Phase 5 Owner |
+| MQ4-07 | M1/M10 | 编写第四次汇报脚本，包含基线对比、解释、失败样例和现场降级 | `fourth-presentation-package.md` | 展示数字全部来自评估文件，关闭服务仍可完成基础流程 |
+| MQ4-08 | M1/M10 | 固定 Phase 5 起点和发布候选回归集 | `release-candidate-baseline.md`、`handoff.md` | Phase 5 不接收未在冻结清单中的功能任务 |
+
 - [ ] 至少两个智能功能真实集成，且基础方案在智能关闭时仍可用。
 - [ ] 指标来自已提交评估输出，记录数据/代码/参数/环境版本。
 - [ ] P0/P1 为 0；允许进入 Phase 5 的 P2/P3 均有 Owner 和修复期限。

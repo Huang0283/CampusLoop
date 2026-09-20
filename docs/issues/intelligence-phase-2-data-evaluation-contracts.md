@@ -36,6 +36,21 @@
 
 ## 数据与评估合同
 
+### 任务卡与交付映射
+
+| 任务 ID | Owner | 具体要做什么 | 必须提交的交付物 | 单项验收 |
+|---|---|---|---|---|
+| AI2-01 | M7 | 定义搜索/匹配原始与处理后 schema、样本 ID、缺失/重复/文本清洗规则 | docs/evidence/phase-2/intelligence/search-data-schema.md | 非法 schema、重复 ID 和缺关键字段会明确失败 |
+| AI2-02 | M7 | 构建并复核小规模查询相关性/供需匹配标注集，记录分歧决定 | search-labeling-record.md | 每条样本有标注者/复核者，争议样本不被静默删除 |
+| AI2-03 | M7 | 固定训练/验证/测试或纯评估划分，保存哈希、种子和泄漏检查 | search-split-manifest.md | 重复商品/近重复文本不跨集合造成泄漏 |
+| AI2-04 | M7 | 冻结搜索/匹配请求响应、解释、版本、超时和降级 schema | search-service-contract.md | M3/M6/M9 均签字，成功/空/错误/降级有样例 |
+| AI2-05 | M7 | 定义任务触发、幂等键、结果版本、通知去重和落库字段 | matching-task-contract.md | 同一业务版本重复触发结果确定 |
+| AI2-06 | M8 | 定义价格数据 schema、清洗、异常值、时间有效性和来源许可清单 | price-data-schema.md | 无法证明来源/含义的数据不进入评估 |
+| AI2-07 | M8 | 构造规则价格评估集，明确成交标签不足时只评估规则覆盖/合理性 | price-evaluation-dataset.md | 挂牌价与成交价分列，缺少真实标签不计算虚假预测指标 |
+| AI2-08 | M8 | 冻结价格/信誉/风险请求响应、解释、版本、权限和降级 schema | price-trust-risk-contract.md | M3/M5/M6 签字，内部风险字段不在公开响应 |
+| AI2-09 | M7/M8 | 实现可重复的数据生成/检查和指标计算脚本骨架 | 脚本、evaluation-runbook.md | M10 在干净环境能运行，坏输入明确失败 |
+| AI2-10 | M7/M8/M10/M1 | 在模型开发前填写并签字 Phase 4 数值门槛、延迟/资源上限和降级必测项 | model-go-live-gates.md | 空白门槛对应能力自动 no-go，后续不得按结果下调 |
+
 | 项目 | 必须记录 |
 |---|---|
 | 数据版本 | 来源、许可、提取时间、schema、行数、哈希、清洗脚本提交 |
