@@ -1,4 +1,4 @@
-# 04 · M4 个人任务清单（对应分工书 16.3 节 + 周计划）
+# M4-04 个人任务清单（第一阶段）
 
 > 状态图例：☐ 未开始 ｜ 🔄 进行中 ｜ ✅ 完成 ｜ ⏸ 阻塞（需注明依赖人）
 
@@ -17,7 +17,7 @@
 | 9 | 通知列表和已读状态 | ✅ NotificationPage 分组 tab | src/pages/transaction/NotificationPage.tsx |
 | 10 | 个人交易中心（购买/出售/进行中/已结束） | ✅ MyTransactionsPage | src/pages/transaction/MyTransactionsPage.tsx |
 | 11 | 双账号完整交易泳道图 | ✅ | docs/frontend/m4/03-two-account-swimlane.md |
-| 12 | 各交易状态下买卖双方操作矩阵 | ✅ | docs/frontend/m4/01 + constants/order.ts |
+| 12 | 各交易状态下买卖双方操作矩阵 | ✅ | docs/frontend/m4/01-transaction-state-machine.md + constants/order.ts |
 | 13 | 断线/消息补拉/重复消息/发送失败提示 | ✅ | docs/frontend/m4/02-exception-interactions.md |
 | 14 | 重复提交/报价过期/一方确认/约定修改交互 | ✅ | docs/frontend/m4/02-exception-interactions.md |
 
