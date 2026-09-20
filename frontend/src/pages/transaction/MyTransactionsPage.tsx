@@ -11,6 +11,7 @@ import {
   Tabs,
 } from 'antd';
 import type { MenuProps, TabsProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import {
   BellOutlined,
   DownOutlined,
@@ -21,19 +22,10 @@ import {
   SwapOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
-
-type OrderStatus = '待确认' | '已预约' | '见面已安排' | '已完成';
-
-interface Order {
-  id: string;
-  title: string;
-  orderNo: string;
-  time: string;
-  price: number;
-  buyer: string;
-  seller: string;
-  status: OrderStatus;
-}
+import { useAuthStore } from '../../stores/auth';
+import { useMockDbStore } from '../../stores/mockDb';
+import { ORDER_STATUS_LABEL } from '../../constants/order';
+import type { Order, OrderStatus } from '../../types/transaction';
 
 const PRIMARY = '#2f6bff';
 const TEXT_MAIN = '#1f2329';
@@ -41,70 +33,19 @@ const TEXT_SECONDARY = '#646a73';
 const BORDER = '#eef0f3';
 const PAGE_BG = '#f5f6f8';
 
-/** 当前登录用户（用于“购买 / 出售”筛选） */
-const CURRENT_USER = '林同学';
-
-const ORDER_LIST: Order[] = [
-  {
-    id: '1',
-    title: '戴尔 27 英寸显示器',
-    orderNo: 'CL202405200001',
-    time: '2024-05-20 14:32',
-    price: 899,
-    buyer: '林同学',
-    seller: '王同学',
-    status: '待确认',
-  },
-  {
-    id: '2',
-    title: '高等数学教材',
-    orderNo: 'CL202405190021',
-    time: '2024-05-19 10:18',
-    price: 35,
-    buyer: '陈同学',
-    seller: '赵同学',
-    status: '已预约',
-  },
-  {
-    id: '3',
-    title: '机械键盘',
-    orderNo: 'CL202405180015',
-    time: '2024-05-18 16:45',
-    price: 220,
-    buyer: '林同学',
-    seller: '王同学',
-    status: '见面已安排',
-  },
-  {
-    id: '4',
-    title: '宿舍收纳架',
-    orderNo: 'CL202405170008',
-    time: '2024-05-17 11:20',
-    price: 28,
-    buyer: '陈同学',
-    seller: '赵同学',
-    status: '已完成',
-  },
-  {
-    id: '5',
-    title: '人体工学椅',
-    orderNo: 'CL202405150012',
-    time: '2024-05-15 09:36',
-    price: 450,
-    buyer: '林同学',
-    seller: '王同学',
-    status: '见面已安排',
-  },
-];
-
 const STATUS_STYLE: Record<OrderStatus, { background: string; color: string }> = {
-  待确认: { background: '#e8f0ff', color: '#2f6bff' },
-  已预约: { background: '#fff3e2', color: '#f29c0b' },
-  见面已安排: { background: '#f3edff', color: '#8b5cf6' },
-  已完成: { background: '#e6f7ee', color: '#22a06b' },
+  PENDING_CONFIRM: { background: '#e8f0ff', color: '#2f6bff' },
+  BOOKED: { background: '#fff3e2', color: '#f29c0b' },
+  MEETUP_ARRANGED: { background: '#f3edff', color: '#8b5cf6' },
+  COMPLETED: { background: '#e6f7ee', color: '#22a06b' },
+  CANCELLED: { background: '#f2f3f5', color: '#646a73' },
+  DISPUTED: { background: '#ffefef', color: '#ff4d4f' },
 };
 
-const PROCESSING_STATUS: OrderStatus[] = ['待确认', '已预约', '见面已安排'];
+/** 进行中：尚未走到终态（争议中仍属未结束，需管理员裁决） */
+const PROCESSING_STATUS: OrderStatus[] = ['PENDING_CONFIRM', 'BOOKED', 'MEETUP_ARRANGED', 'DISPUTED'];
+/** 已结束：完成或取消 */
+const FINISHED_STATUS: OrderStatus[] = ['COMPLETED', 'CANCELLED'];
 
 const MENU_ITEMS: NonNullable<MenuProps['items']> = [
   { key: 'home', icon: <HomeOutlined />, label: '首页' },
@@ -137,10 +78,7 @@ interface RoleBlockProps {
 
 const RoleBlock: React.FC<RoleBlockProps> = ({ label, name }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 10, width: 108 }}>
-    <Avatar
-      size={40}
-      src={`https://picsum.photos/seed/${encodeURIComponent(name)}/80/80`}
-    />
+    <Avatar size={40} src={`https://picsum.photos/seed/${encodeURIComponent(name)}/80/80`} />
     <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.4 }}>
       <span style={{ fontSize: 12, color: TEXT_SECONDARY }}>{label}</span>
       <span style={{ fontSize: 14, fontWeight: 600, color: TEXT_MAIN }}>{name}</span>
@@ -167,13 +105,14 @@ const StatusTag: React.FC<{ status: OrderStatus }> = ({ status }) => {
         color: style.color,
       }}
     >
-      {status}
+      {ORDER_STATUS_LABEL[status]}
     </span>
   );
 };
 
-const OrderCard: React.FC<{ order: Order }> = ({ order }) => (
+const OrderCard: React.FC<{ order: Order; onClick: () => void }> = ({ order, onClick }) => (
   <div
+    onClick={onClick}
     style={{
       display: 'flex',
       alignItems: 'center',
@@ -182,11 +121,12 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => (
       background: '#ffffff',
       borderRadius: 8,
       boxShadow: '0 1px 3px rgba(17, 24, 39, 0.05)',
+      cursor: 'pointer',
     }}
   >
     <img
-      src={`https://picsum.photos/seed/${encodeURIComponent(order.orderNo)}/240/180`}
-      alt={order.title}
+      src={`https://picsum.photos/seed/p${order.productId}/240/180`}
+      alt={order.product.title}
       style={{ width: 120, height: 90, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }}
     />
     <div style={{ flex: 1, minWidth: 0 }}>
@@ -200,14 +140,13 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => (
           whiteSpace: 'nowrap',
         }}
       >
-        {order.title}
+        {order.product.title}
       </div>
       <div style={{ marginTop: 6, fontSize: 13, color: TEXT_SECONDARY }}>
-        订单编号：{order.orderNo} ｜ 下单时间：{order.time}
+        订单编号：#{order.id} ｜ 下单时间：
+        {new Date(order.createdAt).toLocaleString('zh-CN', { hour12: false })}
       </div>
-      <div style={{ marginTop: 8, fontSize: 20, fontWeight: 700, color: PRIMARY }}>
-        ¥{order.price}
-      </div>
+      <div style={{ marginTop: 8, fontSize: 20, fontWeight: 700, color: PRIMARY }}>¥{order.amount}</div>
     </div>
     <div
       style={{
@@ -218,8 +157,8 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => (
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-        <RoleBlock label="买家" name={order.buyer} />
-        <RoleBlock label="卖家" name={order.seller} />
+        <RoleBlock label="买家" name={order.buyer.nickname} />
+        <RoleBlock label="卖家" name={order.seller.nickname} />
       </div>
       <div style={{ marginLeft: 44 }}>
         <StatusTag status={order.status} />
@@ -228,26 +167,36 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => (
   </div>
 );
 
-const filterOrders = (key: string): Order[] => {
+/**
+ * 按 tab 过滤：购买 / 出售 依赖当前登录身份（与订单页按钮权限同一份身份），
+ * 不再使用写死的用户名——切到卖家身份后「购买」为空、「出售」出现订单。
+ */
+const filterOrders = (key: string, orders: Order[], userId: number | undefined): Order[] => {
   switch (key) {
     case 'buy':
-      return ORDER_LIST.filter((o) => o.buyer === CURRENT_USER);
+      return orders.filter((o) => o.buyer.id === userId);
     case 'sell':
-      return ORDER_LIST.filter((o) => o.seller === CURRENT_USER);
+      return orders.filter((o) => o.seller.id === userId);
     case 'processing':
-      return ORDER_LIST.filter((o) => PROCESSING_STATUS.includes(o.status));
+      return orders.filter((o) => PROCESSING_STATUS.includes(o.status));
     case 'finished':
-      return ORDER_LIST.filter((o) => o.status === '已完成');
+      return orders.filter((o) => FINISHED_STATUS.includes(o.status));
     default:
-      return ORDER_LIST;
+      return orders;
   }
 };
 
 const MyTransactionsPage: React.FC = () => {
+  const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState('transaction');
   const [activeTab, setActiveTab] = useState('all');
 
-  const orders = filterOrders(activeTab);
+  const orders = useMockDbStore((s) => s.orders);
+  const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
+
+  const visibleOrders = filterOrders(activeTab, orders, user?.id);
+  const myOrders = orders.filter((o) => o.buyer.id === user?.id || o.seller.id === user?.id);
 
   return (
     <ConfigProvider
@@ -296,11 +245,9 @@ const MyTransactionsPage: React.FC = () => {
             flexShrink: 0,
           }}
         >
-          <Space size={10} style={{ cursor: 'pointer' }}>
+          <Space size={10} style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
             <GraduationCapIcon size={28} />
-            <span style={{ fontSize: 19, fontWeight: 700, color: TEXT_MAIN }}>
-              CampusLoop
-            </span>
+            <span style={{ fontSize: 19, fontWeight: 700, color: TEXT_MAIN }}>CampusLoop</span>
           </Space>
           <Input
             allowClear
@@ -316,7 +263,10 @@ const MyTransactionsPage: React.FC = () => {
           />
           <Space size={22} style={{ marginLeft: 'auto' }}>
             <Badge dot offset={[-4, 4]}>
-              <BellOutlined style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }} />
+              <BellOutlined
+                style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }}
+                onClick={() => navigate('/notifications')}
+              />
             </Badge>
             <Dropdown
               menu={{
@@ -324,14 +274,20 @@ const MyTransactionsPage: React.FC = () => {
                   { key: 'profile', label: '个人中心' },
                   { key: 'logout', label: '退出登录' },
                 ],
+                onClick: ({ key }) => {
+                  if (key === 'profile') navigate('/profile');
+                  if (key === 'logout') {
+                    logout();
+                    navigate('/login');
+                  }
+                },
               }}
             >
               <Space size={10} style={{ cursor: 'pointer' }}>
-                <Avatar
-                  size={34}
-                  src="https://picsum.photos/seed/campus-user/68/68"
-                />
-                <span style={{ fontSize: 14, color: TEXT_MAIN }}>同学</span>
+                <Avatar size={34} src={user?.avatar}>
+                  {(user?.nickname ?? '游').slice(0, 1)}
+                </Avatar>
+                <span style={{ fontSize: 14, color: TEXT_MAIN }}>{user?.nickname ?? '未登录'}</span>
                 <DownOutlined style={{ fontSize: 11, color: TEXT_SECONDARY }} />
               </Space>
             </Dropdown>
@@ -353,25 +309,30 @@ const MyTransactionsPage: React.FC = () => {
               mode="inline"
               selectedKeys={[activeMenu]}
               items={MENU_ITEMS}
-              onClick={({ key }) => setActiveMenu(key)}
+              onClick={({ key }) => {
+                setActiveMenu(key);
+                if (key === 'home') navigate('/');
+                if (key === 'market') navigate('/market');
+                if (key === 'wanted') navigate('/wanted');
+                if (key === 'chat') navigate('/chat');
+              }}
               style={{ borderInlineEnd: 'none' }}
             />
           </aside>
 
           {/* 主内容区 */}
           <main style={{ flex: 1, padding: '20px 24px', minWidth: 0 }}>
-            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: TEXT_MAIN }}>
-              我的订单
-            </h1>
-            <Tabs
-              activeKey={activeTab}
-              items={TAB_ITEMS}
-              onChange={setActiveTab}
-              style={{ marginTop: 8 }}
-            />
+            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: TEXT_MAIN }}>我的订单</h1>
+            <div style={{ marginTop: 6, fontSize: 13, color: TEXT_SECONDARY }}>
+              当前身份：{user?.nickname ?? '未登录'}（id={user?.id ?? '-'}）｜ 与我相关订单 {myOrders.length} 笔
+              ｜ 切换身份：在订单详情页点「切换为对方视角」
+            </div>
+            <Tabs activeKey={activeTab} items={TAB_ITEMS} onChange={setActiveTab} style={{ marginTop: 8 }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 4 }}>
-              {orders.length > 0 ? (
-                orders.map((order) => <OrderCard key={order.id} order={order} />)
+              {visibleOrders.length > 0 ? (
+                visibleOrders.map((order) => (
+                  <OrderCard key={order.id} order={order} onClick={() => navigate(`/transactions/${order.id}`)} />
+                ))
               ) : (
                 <div
                   style={{
