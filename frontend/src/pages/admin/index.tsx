@@ -11,6 +11,7 @@ import {
   DownOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
+import { AppSidebar } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -44,7 +45,7 @@ const TEXT_MAIN = '#1f2329';
 const BORDER = '#eef0f3';
 
 const styles: Record<string, React.CSSProperties> = {
-  layout: { minHeight: '100vh', background: BG },
+  layout: { minHeight: '100vh', background: BG, marginLeft: 220 },
   header: {
     background: CARD_BG,
     padding: '0 32px',
@@ -187,12 +188,8 @@ const AdminPage: React.FC = () => {
     <Layout style={styles.layout}>
       {/* 顶部导航栏 */}
       <Header style={styles.header}>
-        <div style={styles.logo}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill={PRIMARY}>
-            <path d="M12 3L1 8l4 1.8V15c0 3 3.1 5 7 5s7-2 7-5V9.8L21 8l-9-5zm0 2.2l6.2 2.8L12 10.8 5.8 8 12 5.2zM7 10.9l4 1.8v5.1c-2.2-.3-4-1.5-4-3.3v-3.6zm6 6.9v-5.1l4-1.8v3.6c0 1.8-1.8 3-4 3.3z" />
-          </svg>
-          <span>CampusLoop</span>
-        </div>
+        {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+        <div style={{ width: 220 }} />
         <Input
           prefix={<SearchOutlined style={{ color: '#999' }} />}
           placeholder="搜索用户、商品或内容..."
@@ -215,7 +212,20 @@ const AdminPage: React.FC = () => {
 
       <Layout>
         {/* 左侧侧边栏 */}
-        <Sider width={200} style={styles.sider}>
+        <Sider
+          width={220}
+          style={{
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            background: '#ffffff',
+            borderRight: '1px solid #f0f0f0',
+            overflow: 'auto',
+            zIndex: 120,
+          }}
+        >
+          <AppSidebar />
           <Menu
             mode="inline"
             selectedKeys={['users']}

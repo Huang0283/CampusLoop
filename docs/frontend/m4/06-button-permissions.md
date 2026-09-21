@@ -1,4 +1,4 @@
-# M4 · 按钮级权限（Can / useCan）
+# M4-06 按钮级权限（第一阶段）
 
 > 任务 16 相关：路由级 `<RequireAuth>` / `<RequireRole>` 只回答"页面能不能看"，
 > 本文档描述页面内**按钮 / 动作**能不能点的求值体系。对应代码：`src/access/permissions.ts`、`src/components/Can.tsx`。

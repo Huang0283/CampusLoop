@@ -1,4 +1,4 @@
-# 04 · M4 个人任务清单（对应分工书 16.3 节 + 周计划）
+# M4-04 个人任务清单（第一阶段）
 
 > 状态图例：☐ 未开始 ｜ 🔄 进行中 ｜ ✅ 完成 ｜ ⏸ 阻塞（需注明依赖人）
 
@@ -13,11 +13,11 @@
 | 5 | 见面时间、地点、修改、双方确认流程 | ✅ MeetupPage | src/pages/transaction/MeetupPage.tsx |
 | 6 | 双方完成确认流程 | ✅ OrderDetailPage 确认区 1/2→2/2 | 同上 |
 | 7 | 交易完成后的评价流程 | ✅ ReviewModal（总体/描述/沟通/守时） | src/components/transaction/ReviewModal.tsx |
-| 8 | 用户/商品/交易/聊天举报入口 | ✅ ReportModal 全局挂载 | src/components/transaction/ReportModal.tsx |
+| 8 | 用户/商品/交易/聊天举报入口 | ✅ 商品详情、聊天详情和订单详情共用 ReportModal | src/components/transaction/ReportModal.tsx |
 | 9 | 通知列表和已读状态 | ✅ NotificationPage 分组 tab | src/pages/transaction/NotificationPage.tsx |
 | 10 | 个人交易中心（购买/出售/进行中/已结束） | ✅ MyTransactionsPage | src/pages/transaction/MyTransactionsPage.tsx |
 | 11 | 双账号完整交易泳道图 | ✅ | docs/frontend/m4/03-two-account-swimlane.md |
-| 12 | 各交易状态下买卖双方操作矩阵 | ✅ | docs/frontend/m4/01 + constants/order.ts |
+| 12 | 各交易状态下买卖双方操作矩阵 | ✅ | docs/frontend/m4/01-transaction-state-machine.md + constants/order.ts |
 | 13 | 断线/消息补拉/重复消息/发送失败提示 | ✅ | docs/frontend/m4/02-exception-interactions.md |
 | 14 | 重复提交/报价过期/一方确认/约定修改交互 | ✅ | docs/frontend/m4/02-exception-interactions.md |
 

@@ -1,75 +1,33 @@
-# React + TypeScript + Vite
+# CampusLoop Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CampusLoop 前端使用 React、TypeScript、Vite、Ant Design、React Router 和 Zustand。当前仓库包含第一阶段静态/Mock 原型；真实 HTTP、WebSocket 和持久化能力按后续阶段验收。
 
-Currently, two official plugins are available:
+## 本地运行
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+开发地址默认为 `http://localhost:5173`。常用验收入口：
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `/market`：市场与商品入口
+- `/wanted`：求购与匹配入口
+- `/chat`：聊天列表
+- `/transactions`：订单与交易
+- `/notifications`：通知中心
+- `/admin`：管理员页面，需管理员演示身份
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 检查命令
 
+```bash
+npm run lint
+npm run build
 ```
+
+## 原型边界
+
+- 未配置真实服务时，聊天与交易使用明确标识的 Mock 数据和状态层。
+- Mock 只能证明页面、状态和交互设计，不代表真实接口或数据库已完成。
+- 用户、商品、交易和聊天消息举报共用 `ReportModal`，从对应上下文进入，不使用独立 `/report` 页面。
+- 第一阶段交付与验收记录位于 `../docs/frontend/`。
