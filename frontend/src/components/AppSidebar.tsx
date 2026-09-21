@@ -4,7 +4,8 @@
  * 背景：各页面此前各写一份 Logo 与导航，出现图标、字号、间距、高亮规则不一致。
  * 现在唯一实现放在这里，所有页面只引用本组件：
  * - Logo：图标 ReadOutlined + 文案 CampusLoop，字号 18 / 700，图标与文字间距 8，整块内边距 20/24
- * - 导航项图标：首页 HomeOutlined / 市场 ShopOutlined / 求购 FileSearchOutlined / 聊天 MessageOutlined / 交易 SwapOutlined
+ * - 导航项图标：首页 HomeOutlined / 求购 FileSearchOutlined / 聊天 MessageOutlined / 交易 SwapOutlined
+ *   （「市场」项已移除，其跳转与高亮职责由「首页」接管：首页 → /market）
  * - 高亮项由当前路由推导（不再由页面各自传），因此点击导航跳转后侧边栏外观保持一致
  *
  * 用法：放在页面自己的 Sider / aside 容器内；容器宽度统一 220。
@@ -17,7 +18,6 @@ import {
   HomeOutlined,
   MessageOutlined,
   ReadOutlined,
-  ShopOutlined,
   SwapOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -29,15 +29,17 @@ const TEXT_PRIMARY = '#1f2329';
 
 const NAV_ITEMS: NonNullable<MenuProps['items']> = [
   { key: 'home', icon: <HomeOutlined />, label: '首页' },
-  { key: 'market', icon: <ShopOutlined />, label: '市场' },
   { key: 'wanted', icon: <FileSearchOutlined />, label: '求购' },
   { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
   { key: 'transaction', icon: <SwapOutlined />, label: '交易' },
 ];
 
+/**
+ * 导航项 → 路由。
+ * 「市场」项已移除：原市场入口的跳转职责由「首页」承担（首页 → /market）。
+ */
 const NAV_PATHS: Record<string, string> = {
   home: '/market',
-  market: '/market',
   wanted: '/wanted',
   chat: '/chat',
   transaction: '/transactions',
