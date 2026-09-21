@@ -182,6 +182,8 @@ export function createReport(body: {
   targetId: number
   reason: ReportReason
   description?: string
+  /** 证据图片 URL（先上传拿到 URL 再随举报提交） */
+  evidence?: string[]
 }): Promise<Report> {
   return unwrap<Report>(request.post('/reports', body))
 }

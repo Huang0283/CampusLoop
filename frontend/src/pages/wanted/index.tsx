@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Layout,
-  Menu,
   Input,
   Select,
   Button,
@@ -17,20 +16,15 @@ import {
   Pagination,
 } from 'antd';
 import {
-  HomeOutlined,
-  ShopOutlined,
   SearchOutlined,
   BellOutlined,
   DownOutlined,
-  ContainerOutlined,
-  MessageOutlined,
-  SwapOutlined,
-  ReadOutlined,
   ReloadOutlined,
   ClockCircleOutlined,
   InboxOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { AppSidebar } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -112,14 +106,6 @@ const wantedItems: WantedItem[] = [
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=f',
     time: '昨天 12:05',
   },
-];
-
-const menuItems = [
-  { key: 'home', icon: <HomeOutlined />, label: '首页' },
-  { key: 'market', icon: <ShopOutlined />, label: '市场' },
-  { key: 'wanted', icon: <ContainerOutlined />, label: '求购' },
-  { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
-  { key: 'trade', icon: <SwapOutlined />, label: '交易' },
 ];
 
 const userMenuItems = [
@@ -204,7 +190,7 @@ const WantedPage: React.FC = () => {
         style={{
           position: 'fixed',
           top: 0,
-          left: 0,
+          left: 220,
           right: 0,
           zIndex: 100,
           height: 64,
@@ -216,12 +202,8 @@ const WantedPage: React.FC = () => {
           borderBottom: '1px solid #e5e5e5',
         }}
       >
-        <Space size={8} style={{ width: 220 }}>
-          <ReadOutlined style={{ fontSize: 28, color: '#1677ff' }} />
-          <Text strong style={{ fontSize: 18, color: '#222222' }}>
-            Campus Market
-          </Text>
-        </Space>
+        {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+        <div style={{ width: 220 }} />
 
         <Input
           prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
@@ -257,19 +239,14 @@ const WantedPage: React.FC = () => {
           style={{
             position: 'fixed',
             left: 0,
-            top: 64,
+            top: 0,
             bottom: 0,
             background: '#ffffff',
-            borderRight: '1px solid #e5e5e5',
+            borderRight: '1px solid #f0f0f0',
             overflow: 'auto',
           }}
         >
-          <Menu
-            mode="inline"
-            selectedKeys={['wanted']}
-            items={menuItems}
-            style={{ borderRight: 'none', paddingTop: 16 }}
-          />
+          <AppSidebar />
         </Sider>
 
         <Content style={{ marginLeft: 220, padding: '24px 40px 40px' }}>

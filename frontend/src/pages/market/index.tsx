@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Layout,
-  Menu,
   Input,
   Badge,
   Avatar,
@@ -17,11 +16,6 @@ import {
   Typography,
 } from 'antd';
 import {
-  HomeOutlined,
-  ShopOutlined,
-  FileSearchOutlined,
-  MessageOutlined,
-  SwapOutlined,
   SearchOutlined,
   BellOutlined,
   DownOutlined,
@@ -30,9 +24,9 @@ import {
   HeartFilled,
   EnvironmentOutlined,
   ReloadOutlined,
-  ReadOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { AppSidebar } from '../../components';
 
 const { Sider, Header, Content } = Layout;
 const { Text } = Typography;
@@ -295,41 +289,7 @@ const MarketPage: React.FC = () => {
           height: '100vh',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '20px 24px',
-          }}
-        >
-          <ReadOutlined style={{ fontSize: 26, color: '#1677ff' }} />
-          <Text strong style={{ fontSize: 17 }}>
-            Campus Market
-          </Text>
-        </div>
-        <Menu
-          mode="inline"
-          selectedKeys={['market']}
-          style={{ borderRight: 'none', fontSize: 15 }}
-          items={[
-            { key: 'home', icon: <HomeOutlined />, label: '首页' },
-            { key: 'market', icon: <ShopOutlined />, label: '市场' },
-            { key: 'wanted', icon: <FileSearchOutlined />, label: '求购' },
-            { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
-            { key: 'trade', icon: <SwapOutlined />, label: '交易' },
-          ]}
-          onClick={({ key }) => {
-            const paths: Record<string, string> = {
-              home: '/market',
-              market: '/market',
-              wanted: '/wanted',
-              chat: '/chat',
-              trade: '/transactions',
-            };
-            navigate(paths[key]);
-          }}
-        />
+        <AppSidebar />
       </Sider>
 
       <Layout style={{ background: '#f5f6f8' }}>

@@ -142,7 +142,7 @@ export const router = createBrowserRouter([
     element: <Navigate to="/404" replace />,
   },
   {
-  path: '/transactions/:id/review',
-  element: authed(<ReviewPage />),
+    path: '/transactions/:id/review',
+    element: authed(<ReviewPage />),
   },
 ])
