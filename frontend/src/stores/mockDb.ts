@@ -109,6 +109,8 @@ export interface ReportInput {
   targetId: number
   reason: ReportReason
   description?: string
+  /** 证据图片（原型阶段为文件名，接接口后为上传返回的 URL） */
+  evidence?: string[]
 }
 
 interface MockDbState {

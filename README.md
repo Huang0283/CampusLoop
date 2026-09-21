@@ -1006,6 +1006,8 @@ CampusLoop-AI/
 
 详细的软件需求、总体设计、AI 方案、数据库设计、测试策略、项目管理与风险分析见：
 
+四组五阶段的任务、交接、验收与关闭标准统一见 [分阶段 Issue 索引](docs/issues/README.md)；前端成员交付物见 [前端文档索引](docs/frontend/README.md)。
+
 ```text
 CampusLoop AI
 Software Requirements,

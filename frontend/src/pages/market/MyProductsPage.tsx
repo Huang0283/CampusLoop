@@ -1,16 +1,12 @@
 import React from 'react';
-import { Layout, Input, Avatar, Badge, Dropdown, Space, Menu, Table, Button } from 'antd';
+import { Layout, Input, Avatar, Badge, Dropdown, Space, Table, Button } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
 import {
-  HomeOutlined,
-  ShopOutlined,
-  AimOutlined,
-  MessageOutlined,
-  SwapOutlined,
   SearchOutlined,
   BellOutlined,
   DownOutlined,
 } from '@ant-design/icons';
+import { AppSidebar } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -51,7 +47,7 @@ const statusStyleMap: Record<ProductStatus, React.CSSProperties> = {
 const disabledEditStatuses: ProductStatus[] = ['已售', '已下架'];
 
 const styles: Record<string, React.CSSProperties> = {
-  layout: { minHeight: '100vh', background: BG },
+  layout: { minHeight: '100vh', background: BG, marginLeft: 220 },
   header: {
     background: CARD_BG,
     padding: '0 32px',
@@ -71,14 +67,6 @@ const styles: Record<string, React.CSSProperties> = {
 };
 
 const MyProductsPage: React.FC = () => {
-  const siderItems: MenuProps['items'] = [
-    { key: 'home', icon: <HomeOutlined />, label: '首页' },
-    { key: 'market', icon: <ShopOutlined />, label: '市场' },
-    { key: 'wanted', icon: <AimOutlined />, label: '求购' },
-    { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
-    { key: 'trade', icon: <SwapOutlined />, label: '交易' },
-  ];
-
   const userMenuItems: MenuProps['items'] = [
     { key: 'profile', label: '个人中心' },
     { key: 'orders', label: '我的订单' },
@@ -165,12 +153,8 @@ const MyProductsPage: React.FC = () => {
     <Layout style={styles.layout}>
       {/* 顶部导航栏 */}
       <Header style={styles.header}>
-        <div style={styles.logo}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill={PRIMARY}>
-            <path d="M12 3L1 8l4 1.8V15c0 3 3.1 5 7 5s7-2 7-5V9.8L21 8l-9-5zm0 2.2l6.2 2.8L12 10.8 5.8 8 12 5.2zM7 10.9l4 1.8v5.1c-2.2-.3-4-1.5-4-3.3v-3.6zm6 6.9v-5.1l4-1.8v3.6c0 1.8-1.8 3-4 3.3z" />
-          </svg>
-          <span>CampusLoop</span>
-        </div>
+        {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+        <div style={{ width: 220 }} />
         <Input
           prefix={<SearchOutlined style={{ color: '#999' }} />}
           placeholder="搜索校园好物"
@@ -193,13 +177,20 @@ const MyProductsPage: React.FC = () => {
 
       <Layout>
         {/* 左侧侧边栏 */}
-        <Sider width={200} style={styles.sider}>
-          <Menu
-            mode="inline"
-            selectedKeys={['trade']}
-            items={siderItems}
-            style={{ borderInlineEnd: 'none', fontSize: 15 }}
-          />
+        <Sider
+          width={220}
+          style={{
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            background: '#ffffff',
+            borderRight: '1px solid #f0f0f0',
+            overflow: 'auto',
+            zIndex: 120,
+          }}
+        >
+          <AppSidebar />
         </Sider>
 
         {/* 主内容区 */}

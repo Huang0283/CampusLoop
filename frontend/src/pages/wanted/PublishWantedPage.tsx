@@ -9,21 +9,16 @@ import {
   Button,
   Form,
   Avatar,
-  Menu,
   Dropdown,
 } from 'antd';
 import type { MenuProps } from 'antd';
 import {
   SearchOutlined,
   BellOutlined,
-  HomeOutlined,
-  ShoppingOutlined,
-  ShoppingCartOutlined,
-  MessageOutlined,
-  FileTextOutlined,
   DownOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import { AppSidebar } from '../../components';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,23 +32,6 @@ const TEXT_SECONDARY = '#646a73';
 const BORDER = '#eef0f3';
 
 /** 蓝色学士帽 Logo（自定义 SVG，antd 无此图标） */
-const LogoIcon: React.FC = () => (
-  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path d="M12 2.6 1.4 7.6 12 12.6l10.6-5L12 2.6z" fill={PRIMARY} />
-    <path d="M4.4 10.4v4.7c0 1.9 3.4 3.7 7.6 3.7s7.6-1.8 7.6-3.7v-4.7L12 14.2l-7.6-3.8z" fill={PRIMARY} opacity="0.85" />
-    <path d="M21.2 8.2v5.4" stroke={PRIMARY} strokeWidth="1.5" strokeLinecap="round" />
-    <circle cx="21.2" cy="15.6" r="1.1" fill={PRIMARY} />
-  </svg>
-);
-
-const sidebarItems: MenuProps['items'] = [
-  { key: 'home', icon: <HomeOutlined />, label: '首页' },
-  { key: 'market', icon: <ShoppingOutlined />, label: '市场' },
-  { key: 'wanted', icon: <ShoppingCartOutlined />, label: '求购' },
-  { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
-  { key: 'trade', icon: <FileTextOutlined />, label: '交易' },
-];
-
 const userMenu: MenuProps['items'] = [
   { key: 'profile', label: '个人中心' },
   { key: 'logout', label: '退出登录' },
@@ -156,7 +134,7 @@ const PublishWantedPage: React.FC = () => {
         },
       }}
     >
-      <Layout style={{ minHeight: '100vh' }}>
+      <Layout style={{ minHeight: '100vh', marginLeft: 220 }}>
         {/* 顶部导航栏 */}
         <Header
           style={{
@@ -170,11 +148,8 @@ const PublishWantedPage: React.FC = () => {
             padding: '0 32px',
           }}
         >
-          {/* 左侧 Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-            <LogoIcon />
-            <span style={{ fontSize: 20, fontWeight: 700, color: '#165dff' }}>CampusLoop</span>
-          </div>
+          {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
+          <div style={{ width: 220 }} />
 
           {/* 中间搜索框 */}
           <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
@@ -213,16 +188,17 @@ const PublishWantedPage: React.FC = () => {
           <Sider
             width={220}
             style={{
-              borderRight: `1px solid ${BORDER}`,
-              padding: '16px 12px',
+              position: 'fixed',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              background: '#ffffff',
+              borderRight: '1px solid #f0f0f0',
+              overflow: 'auto',
+              zIndex: 120,
             }}
           >
-            <Menu
-              mode="inline"
-              selectedKeys={['wanted']}
-              items={sidebarItems}
-              style={{ borderInlineEnd: 'none', fontSize: 15 }}
-            />
+            <AppSidebar />
           </Sider>
 
           {/* 主内容区 */}

@@ -197,6 +197,8 @@ export interface Report {
   targetId: number
   reason: ReportReason
   description?: string
+  /** 证据图片：原型阶段存文件名；接接口后替换为对象存储返回的 URL */
+  evidence?: string[]
   /** 提交成功后平台返回的处理状态，前端只读展示 */
   status: 'PENDING' | 'PROCESSING' | 'RESOLVED' | 'REJECTED'
   createdAt: string

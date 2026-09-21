@@ -1,13 +1,13 @@
 import { Alert, Button, Card, Input, Modal, Space, Spin, Tag, Typography, message } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { EmptyState, ErrorState, Loading, PageContainer } from '../../components'
-import { OfferCard } from '../../components/transaction'
+import { AppSidebar, EmptyState, ErrorState, Loading, PageContainer } from '../../components'
+import { OfferCard, ReportModal } from '../../components/transaction'
 import { mockSessions } from '../../mocks/transaction'
 import { OFFER_EXPIRE_HOURS } from '../../constants/offer'
 import { useMockDbStore } from '../../stores/mockDb'
 import { IS_REALTIME_MOCK, currentUserId, useRealtimeStore } from '../../stores/realtime'
-import type { Message } from '../../types/transaction'
+import type { Message, ReportTargetType } from '../../types/transaction'
 
 const { Text } = Typography
 
@@ -61,6 +61,11 @@ export default function ChatDetailPage() {
   const [counterTargetId, setCounterTargetId] = useState<number>()
   const [offerOpen, setOfferOpen] = useState(false)
   const [offerAmount, setOfferAmount] = useState<number>()
+  const [reportTarget, setReportTarget] = useState<{
+    type: ReportTargetType
+    id: number
+    label: string
+  } | null>(null)
 
   // actions 通过 getState 取用：不需要订阅，避免多余渲染
   useEffect(() => {
@@ -188,6 +193,23 @@ export default function ChatDetailPage() {
                 )}
               </div>
             )}
+            {!mine && (
+              <Button
+                type="link"
+                size="small"
+                danger
+                style={{ padding: 0, marginTop: 2 }}
+                onClick={() =>
+                  setReportTarget({
+                    type: 'CHAT_MESSAGE',
+                    id: m.id,
+                    label: `与 ${session.peer.nickname} 的消息`,
+                  })
+                }
+              >
+                举报该消息
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -195,7 +217,24 @@ export default function ChatDetailPage() {
   }
 
   return (
-    <PageContainer
+    <div style={{ minHeight: '100vh', background: '#f5f6f8', marginLeft: 220 }}>
+      {/* 左侧导航：与 /market 完全一致 */}
+      <aside
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 220,
+          background: '#ffffff',
+          borderRight: '1px solid #f0f0f0',
+          overflow: 'auto',
+          zIndex: 120,
+        }}
+      >
+        <AppSidebar />
+      </aside>
+      <PageContainer
       title={session.peer.nickname}
       extra={
         <Space wrap>
@@ -279,7 +318,13 @@ export default function ChatDetailPage() {
                 size="small"
                 type="text"
                 danger
-                onClick={() => message.info('举报已打开（原型演示）—— 可附聊天证据')}
+                onClick={() =>
+                  setReportTarget({
+                    type: 'USER',
+                    id: session.peer.id,
+                    label: session.peer.nickname,
+                  })
+                }
               >
                 举报对方
               </Button>
@@ -406,6 +451,22 @@ export default function ChatDetailPage() {
           />
         </Space>
       </Modal>
-    </PageContainer>
+      <ReportModal
+        open={reportTarget !== null}
+        targetType={reportTarget?.type ?? 'USER'}
+        targetId={reportTarget?.id ?? session.peer.id}
+        targetLabel={reportTarget?.label}
+        onClose={() => setReportTarget(null)}
+        onSubmit={(values) => {
+          if (!reportTarget) return
+          useMockDbStore.getState().submitReport({
+            targetType: reportTarget.type,
+            targetId: reportTarget.id,
+            ...values,
+          })
+        }}
+      />
+      </PageContainer>
+    </div>
   )
 }
