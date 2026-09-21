@@ -16,9 +16,10 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase3/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase3/backend-mvp`。
 - 分支负责人：M5；组内交叉评审：M6、M9；范围复核：M1；可测试性复核：M10。
-- M5 从最新 `main` 创建并推送 `phase3/backend-mvp`，在本 Issue 中记录远程分支链接。
+- M5 从最新 `phase3/integration` 创建并推送 `phase3/backend-mvp`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase3/backend-mvp
 - M5 个人任务分支：`task/m5-p3-auth-api`。
 - M6 个人任务分支：`task/m6-p3-transaction-api`。
@@ -26,7 +27,8 @@
 - 所有个人任务分支均从 `phase3/backend-mvp` 创建，通过 Pull Request 合并回 `phase3/backend-mvp`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M5 从 `phase3/backend-mvp` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M5 从 `phase3/backend-mvp` 向 `phase3/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase3/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## 提供方优先顺序
 
@@ -151,3 +153,4 @@
 - [ ] M5/M6 互审服务逻辑；M9 审查迁移、索引、配置和运行证据。
 - [ ] M2/M3/M4 完成真实联调确认；M10 独立执行接口和 E2E。
 - [ ] 汇总 PR 合并并进入 MQ-P3 标签；BP-P4 明确接收智能任务和治理遗留。
+- [ ] Phase 3 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

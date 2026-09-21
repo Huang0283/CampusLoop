@@ -16,16 +16,18 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase4/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase4/intelligence-models`。
 - 分支负责人：M7；组内交叉评审：M8；范围复核：M1；可测试性复核：M10。
-- M7 从最新 `main` 创建并推送 `phase4/intelligence-models`，在本 Issue 中记录远程分支链接。
+- M7 从最新 `phase4/integration` 创建并推送 `phase4/intelligence-models`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase4/intelligence-models
 - M7 个人任务分支：`task/m7-p4-semantic-matching`。
 - M8 个人任务分支：`task/m8-p4-price-evaluation`。
 - 所有个人任务分支均从 `phase4/intelligence-models` 创建，通过 Pull Request 合并回 `phase4/intelligence-models`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M7 从 `phase4/intelligence-models` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M7 从 `phase4/intelligence-models` 向 `phase4/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase4/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## 提供方顺序
 
@@ -127,3 +129,4 @@
 - [ ] M7/M8 互审；M6/M9 完成部署/落库；M3/M2 完成展示。
 - [ ] M10 完成指标和降级复核；M1 签署 go/no-go 与冻结决定。
 - [ ] 汇总 PR 合并，AI-P5 接收最终版本和全部复现资产。
+- [ ] Phase 4 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

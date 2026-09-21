@@ -5,7 +5,7 @@
 - 周次：第 1-2 周；截止：第一次汇报前。
 - 成员：M5、M6、M9；业务主责：M6；平台主责：M9。
 - 证据目录：`docs/evidence/phase-1/backend-platform/`。
-- 输入门禁：M1 范围候选、前端用户旅程、智能组数据/任务需求均已提供。
+- 启动输入：M1 范围候选。前端用户旅程和智能组数据/任务需求可在阶段内分批进入 `phase1/integration`，由后端持续对齐并在联合评审前冻结。
 - 输出去向：BP-P2、FE-P2、AI-P2、MQ-P2。
 
 ## 小组目标
@@ -16,9 +16,10 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase1/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase1/backend-platform`。
 - 分支负责人：M5；组内交叉评审：M6、M9；范围复核：M1；可测试性复核：M10。
-- M5 从最新 `main` 创建并推送 `phase1/backend-platform`，在本 Issue 中记录远程分支链接。
+- M5 从最新 `phase1/integration` 创建并推送 `phase1/backend-platform`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase1/backend-platform
 - M5 个人任务分支：`task/m5-p1-auth-boundary`。
 - M6 个人任务分支：`task/m6-p1-domain-rules`。
@@ -26,7 +27,8 @@
 - 所有个人任务分支均从 `phase1/backend-platform` 创建，通过 Pull Request 合并回 `phase1/backend-platform`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M5 从 `phase1/backend-platform` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M5 从 `phase1/backend-platform` 向 `phase1/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase1/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## M5：账号、权限与治理后端负责人
 
@@ -137,3 +139,4 @@
 - [ ] 数据库、缓存、对象存储、Worker 的责任没有混淆。
 - [ ] M5/M6 互审业务；M9 复核数据/环境；M1 复核范围；M10 确认可测试。
 - [ ] 汇总 PR 合并，BP-P2 明确接收所有设计项或记录删除理由。
+- [ ] Phase 1 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

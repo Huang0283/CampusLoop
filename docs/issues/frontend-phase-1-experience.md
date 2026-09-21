@@ -7,7 +7,7 @@
 - 成员：M2、M3、M4
 - 组内负责人：M2
 - 截止时间：第一次汇报前
-- 依赖：M1 提供功能范围；M5/M6 提供权限、实体和状态候选；M7/M8 提供智能结果字段
+- 阶段协作输入：先使用 M1 的范围候选启动页面旅程；M5/M6 的权限、实体和状态候选及 M7/M8 的智能结果字段可分批进入 `phase1/integration`，在联合评审前收敛，不作为前端启动前硬门禁
 
 ## 小组目标
 
@@ -19,15 +19,17 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase1/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase1/frontend-experience`。
 - 分支负责人：M2；交叉评审：M3、M4；范围复核：M1；可测试性复核：M10。
-- M2 从最新 `main` 创建并推送小组集成分支，并把远程分支链接填写到本 Issue。
+- M2 从最新 `phase1/integration` 创建并推送小组集成分支，并把远程分支链接填写到本 Issue。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase1/frontend-experience
 - 个人任务分支命名为 `task/<成员编号>-<简短任务>`，例如 `task/m2-navigation-audit`、`task/m3-market-wireframes`、`task/m4-transaction-flow`。
 - 任务分支从 `phase1/frontend-experience` 创建，完成后通过 Pull Request 合并回小组集成分支。
 - 禁止直接向 `main` 或小组集成分支提交；共享小组分支禁止 force-push 和变基改写历史。
 - 公共路由、公共组件、权限和术语变更必须由另一名前端成员评审；涉及业务状态或接口字段时必须邀请对应后端或智能功能负责人评审。
-- 小组交付通过交叉评审后，由 M2 从 `phase1/frontend-experience` 向 `main` 提交汇总 Pull Request。
+- 小组交付通过交叉评审后，由 M2 从 `phase1/frontend-experience` 向 `phase1/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase1/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## M2：前端负责人、界面与交互基础
 
@@ -46,7 +48,7 @@
 - [x] 定义加载、空数据、错误和无权限状态的统一展示方式。
 - [ ] 与 M5 核对登录、令牌失效、角色权限和隐私字段。
 - [x] 审核 M3、M4 的页面是否遵守统一结构和命名。
-- [x] 从最新 `main` 创建并推送 `phase1/frontend-experience`，在本 Issue 中记录远程分支链接。
+- [ ] 从最新 `phase1/integration` 创建或同步 `phase1/frontend-experience`，在本 Issue 中记录远程分支链接。
 - [x] 建立 M2/M3/M4 的任务分支与 PR 清单，标明页面或文档范围、评审人和验收入口。
 
 ### 个人交付物
@@ -208,3 +210,4 @@
 - [ ] 汇总 PR 合并前构建检查通过；未通过项已有负责人和下一截止时间。
 - [ ] M10 确认可转化为测试场景。
 - [ ] M1 完成范围验收。
+- [ ] Phase 1 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

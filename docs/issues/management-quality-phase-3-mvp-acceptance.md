@@ -16,16 +16,18 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase3/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase3/management-quality`。
 - 分支负责人：M1；组内交叉评审：M10；范围复核：M1；可测试性复核：M10。
-- M1 从最新 `main` 创建并推送 `phase3/management-quality`，在本 Issue 中记录远程分支链接。
+- M1 从最新 `phase3/integration` 创建并推送 `phase3/management-quality`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase3/management-quality
 - M1 个人任务分支：`task/m1-p3-milestone`。
 - M10 个人任务分支：`task/m10-p3-acceptance`。
 - 所有个人任务分支均从 `phase3/management-quality` 创建，通过 Pull Request 合并回 `phase3/management-quality`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M1 从 `phase3/management-quality` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M1 从 `phase3/management-quality` 向 `phase3/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，由 M1 从 `phase3/integration` 向 `main` 提交唯一的阶段收口 Pull Request。
 
 ## M1：项目范围、计划与交付负责人
 
@@ -135,8 +137,9 @@
 
 ## Issue 关闭条件
 
-- [ ] FE-P3、BP-P3、AI-P3 已关闭并合并。
+- [ ] FE-P3、BP-P3、AI-P3 均达到组内完成，且小组汇总 PR 已合并到 `phase3/integration`。
 - [ ] M10 独立执行核心测试并签署通过/有条件通过结论。
 - [ ] M1 对照需求追踪确认 MVP 范围完成并登记遗留项。
-- [ ] 阶段提交已打标签，Phase 4 从该提交创建分支。
+- [ ] Phase 3 阶段收口 PR 已合并到 `main` 并创建阶段标签，Phase 4 从该提交创建分支。
 - [ ] Phase 4 明确接收可集成事件、接口、数据版本和未解决缺陷。
+- [ ] 阶段收口 PR 统一关闭 Phase 3 四个 Issue。

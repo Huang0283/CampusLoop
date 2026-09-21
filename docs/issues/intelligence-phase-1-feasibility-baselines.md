@@ -5,7 +5,7 @@
 - 周次：第 1-2 周；截止：第一次汇报前。
 - 成员：M7、M8；组内负责人：M7；评估复核：M10。
 - 证据目录：`docs/evidence/phase-1/intelligence/`。
-- 输入门禁：M1 范围、M3/M4 展示需求、M5/M6 业务字段、M9 环境约束均已提供。
+- 启动输入：M1 范围候选。M3/M4 展示需求、M5/M6 业务字段和 M9 环境约束可在阶段内分批进入 `phase1/integration`，智能组基于版本化候选开展可行性评估并在联合评审前冻结。
 - 输出去向：AI-P2、FE-P2、BP-P2、MQ-P2。
 
 ## 小组目标
@@ -16,16 +16,18 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase1/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase1/intelligence`。
 - 分支负责人：M7；组内交叉评审：M8；范围复核：M1；可测试性复核：M10。
-- M7 从最新 `main` 创建并推送 `phase1/intelligence`，在本 Issue 中记录远程分支链接。
+- M7 从最新 `phase1/integration` 创建并推送 `phase1/intelligence`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase1/intelligence
 - M7 个人任务分支：`task/m7-p1-search-feasibility`。
 - M8 个人任务分支：`task/m8-p1-price-risk-feasibility`。
 - 所有个人任务分支均从 `phase1/intelligence` 创建，通过 Pull Request 合并回 `phase1/intelligence`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M7 从 `phase1/intelligence` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M7 从 `phase1/intelligence` 向 `phase1/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase1/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## M7：搜索与供需匹配负责人
 
@@ -122,3 +124,4 @@
 - [ ] 所有数据来源有许可状态；未知数据不得填写虚假规模或效果。
 - [ ] M7/M8 互审，M9 确认环境可行，M1 确认范围，M10 确认评估可执行。
 - [ ] 汇总 PR 合并，AI-P2 对每项结论给出接收或删除决定。
+- [ ] Phase 1 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

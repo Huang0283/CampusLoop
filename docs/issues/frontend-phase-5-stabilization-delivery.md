@@ -16,9 +16,10 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase5/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase5/frontend-release`。
 - 分支负责人：M2；组内交叉评审：M3、M4；范围复核：M1；可测试性复核：M10。
-- M2 从最新 `main` 创建并推送 `phase5/frontend-release`，在本 Issue 中记录远程分支链接。
+- M2 从最新 `phase5/integration` 创建并推送 `phase5/frontend-release`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase5/frontend-release
 - M2 个人任务分支：`task/m2-p5-frontend-release`。
 - M3 个人任务分支：`task/m3-p5-market-fixes`。
@@ -26,7 +27,8 @@
 - 所有个人任务分支均从 `phase5/frontend-release` 创建，通过 Pull Request 合并回 `phase5/frontend-release`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M2 从 `phase5/frontend-release` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M2 从 `phase5/frontend-release` 向 `phase5/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase5/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## 修复顺序
 
@@ -137,3 +139,4 @@
 - [ ] M10 在最终构建执行回归；M1 检查冻结范围未被扩大。
 - [ ] 记录最终构建提交、构建产物生成方法、页面矩阵、缺陷和限制。
 - [ ] 汇总 PR 合并，MQ-P5 使用同一提交验收。
+- [ ] Phase 5 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

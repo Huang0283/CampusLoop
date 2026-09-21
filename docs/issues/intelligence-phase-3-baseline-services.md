@@ -16,16 +16,18 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase3/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase3/intelligence-baselines`。
 - 分支负责人：M7；组内交叉评审：M8；范围复核：M1；可测试性复核：M10。
-- M7 从最新 `main` 创建并推送 `phase3/intelligence-baselines`，在本 Issue 中记录远程分支链接。
+- M7 从最新 `phase3/integration` 创建并推送 `phase3/intelligence-baselines`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase3/intelligence-baselines
 - M7 个人任务分支：`task/m7-p3-search-matching-baseline`。
 - M8 个人任务分支：`task/m8-p3-price-trust-baseline`。
 - 所有个人任务分支均从 `phase3/intelligence-baselines` 创建，通过 Pull Request 合并回 `phase3/intelligence-baselines`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M7 从 `phase3/intelligence-baselines` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M7 从 `phase3/intelligence-baselines` 向 `phase3/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase3/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## M7：搜索与供需匹配负责人
 
@@ -123,3 +125,4 @@
 - [ ] M3/M5/M6 确认展示、权限、事件和事实口径。
 - [ ] M9 确认运行依赖与资源；M10 复现评估；M1 复核范围。
 - [ ] 汇总 PR 合并；AI-P4 以本阶段固定结果作为比较基线。
+- [ ] Phase 3 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

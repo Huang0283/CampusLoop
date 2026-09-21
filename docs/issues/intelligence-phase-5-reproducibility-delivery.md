@@ -16,16 +16,18 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase5/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase5/intelligence-release`。
 - 分支负责人：M7；组内交叉评审：M8；范围复核：M1；可测试性复核：M10。
-- M7 从最新 `main` 创建并推送 `phase5/intelligence-release`，在本 Issue 中记录远程分支链接。
+- M7 从最新 `phase5/integration` 创建并推送 `phase5/intelligence-release`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase5/intelligence-release
 - M7 个人任务分支：`task/m7-p5-search-reproducibility`。
 - M8 个人任务分支：`task/m8-p5-price-risk-reproducibility`。
 - 所有个人任务分支均从 `phase5/intelligence-release` 创建，通过 Pull Request 合并回 `phase5/intelligence-release`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M7 从 `phase5/intelligence-release` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M7 从 `phase5/intelligence-release` 向 `phase5/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase5/integration` 向 `main` 提交阶段收口 Pull Request。
 
 ## 修复与复现顺序
 
@@ -130,3 +132,4 @@
 - [ ] M10 签署复现报告；M1 核对最终文档和演示表述。
 - [ ] 记录最终提交、数据/模型/规则版本、复现命令、结果路径和已知限制。
 - [ ] 汇总 PR 合并，MQ-P5 只使用该版本的指标和演示。
+- [ ] Phase 5 阶段收口 PR 合并到 `main` 后，由该 PR 统一关闭本阶段四个 Issue。

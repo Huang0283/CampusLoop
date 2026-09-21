@@ -16,16 +16,18 @@
 
 ## 分支与合并要求
 
+- 项目阶段集成分支：`phase4/integration`，由 M1 从上一阶段已验收的 `main` 创建。
 - 小组集成分支：`phase4/management-quality`。
 - 分支负责人：M1；组内交叉评审：M10；范围复核：M1；可测试性复核：M10。
-- M1 从最新 `main` 创建并推送 `phase4/management-quality`，在本 Issue 中记录远程分支链接。
+- M1 从最新 `phase4/integration` 创建并推送 `phase4/management-quality`，在本 Issue 中记录远程分支链接。
 - 远程分支链接：https://github.com/Huang0283/CampusLoop/tree/phase4/management-quality
 - M1 个人任务分支：`task/m1-p4-freeze`。
 - M10 个人任务分支：`task/m10-p4-integration-test`。
 - 所有个人任务分支均从 `phase4/management-quality` 创建，通过 Pull Request 合并回 `phase4/management-quality`。
 - 禁止直接向 `main` 或小组集成分支提交；共享分支禁止 force-push 和变基改写历史。
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
-- 个人任务完成并交叉评审后，由 M1 从 `phase4/management-quality` 向 `main` 提交汇总 Pull Request。
+- 个人任务完成并交叉评审后，由 M1 从 `phase4/management-quality` 向 `phase4/integration` 提交小组汇总 Pull Request。
+- 四组汇总完成并通过 M10/M1 阶段验收后，由 M1 从 `phase4/integration` 向 `main` 提交唯一的阶段收口 Pull Request。
 
 ## M1：项目范围、计划与交付负责人
 
@@ -112,7 +114,8 @@
 
 ## Issue 关闭条件
 
-- [ ] FE/BP/AI-P4 已关闭，所有跨组确认有记录。
+- [ ] FE/BP/AI-P4 均达到组内完成，小组汇总 PR 已合并到 `phase4/integration`，所有跨组确认有记录。
 - [ ] 第四次汇报完成并留存演示/问题/修复记录。
 - [ ] M10 签署评估与回归结论，M1 签署冻结范围。
 - [ ] Phase 5 四组 Issue 从同一冻结提交开始，仅处理明确交付项。
+- [ ] Phase 4 阶段收口 PR 已合并到 `main`、创建阶段标签并统一关闭本阶段四个 Issue。
