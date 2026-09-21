@@ -24,8 +24,8 @@
 | 市场 | /market | 学生 | 高 | M3 | 第 3 周 | 已完成（静态 Mock） |
 | 商品详情 | /product/:id | 学生 | 高 | M3 | 第 3 周 | 已完成（静态 Mock） |
 | 发布商品 | /publish | 学生 | 高 | M3 | 第 4 周 | 已完成（静态 Mock） |
-| 我的商品 | /my-products | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
-| 收藏 | /favorites | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
+| 我的发布 | /my-products | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
+| 我的收藏 | /favorites | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 求购市场 | /wanted | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 求购详情 | /wanted/:id | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 发布求购 | /wanted/publish | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |

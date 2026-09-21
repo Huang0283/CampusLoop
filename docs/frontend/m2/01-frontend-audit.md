@@ -59,8 +59,8 @@
 | 市场 | /market | 学生 | M3 | 静态 Mock |
 | 商品详情 | /product/:id | 学生 | M3 | 静态 Mock |
 | 发布商品 | /publish | 学生 | M3 | 静态 Mock |
-| 我的商品 | /my-products | 学生 | M3 | 静态 Mock |
-| 收藏 | /favorites | 学生 | M3 | 静态 Mock |
+| 我的发布 | /my-products | 学生 | M3 | 静态 Mock |
+| 我的收藏 | /favorites | 学生 | M3 | 静态 Mock |
 | 求购市场 | /wanted | 学生 | M3 | 静态 Mock |
 | 聊天列表 | /chat | 学生 | M4 | 原型 |
 | 聊天详情 | /chat/:id | 学生 | M4 | 原型 |

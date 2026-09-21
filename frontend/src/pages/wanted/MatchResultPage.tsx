@@ -3,8 +3,6 @@ import {
   Layout,
   Input,
   Avatar,
-  Badge,
-  Dropdown,
   Space,
   Button,
   Select,
@@ -12,12 +10,9 @@ import {
   Progress,
   Pagination,
 } from 'antd';
-import type { MenuProps } from 'antd';
 import {
   AimOutlined,
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   RobotOutlined,
   BarChartOutlined,
   EditOutlined,
@@ -27,7 +22,7 @@ import {
   CheckCircleFilled,
   LineChartOutlined,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -197,11 +192,6 @@ const styles: Record<string, React.CSSProperties> = {
 const MatchResultPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const userMenuItems: MenuProps['items'] = [
-    { key: 'profile', label: '个人中心' },
-    { key: 'orders', label: '我的订单' },
-    { key: 'logout', label: '退出登录' },
-  ];
 
   return (
     <Layout style={styles.layout}>
@@ -216,16 +206,8 @@ const MatchResultPage: React.FC = () => {
           allowClear
         />
         <div style={styles.headerRight}>
-          <Badge count={3} size="small">
-            <BellOutlined style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }} />
-          </Badge>
-          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-            <Space style={{ cursor: 'pointer' }}>
-              <Avatar src="https://i.pravatar.cc/64?img=5" size={34} />
-              <span style={{ color: TEXT_MAIN, fontSize: 14 }}>同学</span>
-              <DownOutlined style={{ fontSize: 12, color: '#999' }} />
-            </Space>
-          </Dropdown>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </Header>
 

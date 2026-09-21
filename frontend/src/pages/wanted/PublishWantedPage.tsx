@@ -8,17 +8,11 @@ import {
   DatePicker,
   Button,
   Form,
-  Avatar,
-  Dropdown,
 } from 'antd';
-import type { MenuProps } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
-  UserOutlined,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,10 +26,6 @@ const TEXT_SECONDARY = '#646a73';
 const BORDER = '#eef0f3';
 
 /** 蓝色学士帽 Logo（自定义 SVG，antd 无此图标） */
-const userMenu: MenuProps['items'] = [
-  { key: 'profile', label: '个人中心' },
-  { key: 'logout', label: '退出登录' },
-];
 
 /** mock 数据 */
 const conditionOptions = [
@@ -168,18 +158,8 @@ const PublishWantedPage: React.FC = () => {
 
           {/* 右侧用户区 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexShrink: 0 }}>
-            <BellOutlined style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }} />
-            <Dropdown menu={{ items: userMenu }} trigger={['click']}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
-                <Avatar
-                  size={36}
-                  icon={<UserOutlined />}
-                  style={{ backgroundColor: '#dbe7ff', color: PRIMARY }}
-                />
-                <span style={{ fontSize: 15, color: TEXT_MAIN }}>同学</span>
-                <DownOutlined style={{ fontSize: 11, color: TEXT_SECONDARY }} />
-              </div>
-            </Dropdown>
+            <NotificationBell />
+            <UserMenu />
           </div>
         </Header>
 

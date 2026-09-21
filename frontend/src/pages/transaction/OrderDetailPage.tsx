@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Alert, Avatar, Badge, Button, Input, List, Modal, Popconfirm, Rate, Space, Tag, Typography } from 'antd';
+import { Alert, Avatar, Button, Input, List, Modal, Popconfirm, Rate, Space, Tag, Typography } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
-  BellOutlined,
-  DownOutlined,
   CheckCircleFilled,
   StarFilled,
 } from '@ant-design/icons';
-import { AppSidebar, Can } from '../../components';
+import { AppSidebar, Can, NotificationBell, UserMenu } from '../../components';
 import { OrderTimeline, ReportModal, ReviewModal } from '../../components/transaction';
 import { useAuthStore } from '../../stores/auth';
 import { useMockDbStore } from '../../stores/mockDb';
@@ -388,26 +386,8 @@ const OrderDetailPage: React.FC = () => {
             gap: 20,
           }}
         >
-          <Badge dot offset={[-2, 2]}>
-            <BellOutlined
-              style={{ fontSize: 18, color: TEXT_PRIMARY, cursor: 'pointer' }}
-              onClick={() => navigate('/notifications')}
-            />
-          </Badge>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-            }}
-          >
-            <Avatar size={32} src={user?.avatar}>
-              {(user?.nickname ?? '游').slice(0, 1)}
-            </Avatar>
-            <span style={{ fontSize: 14, color: TEXT_PRIMARY }}>{user?.nickname ?? '未登录'}</span>
-            <DownOutlined style={{ fontSize: 10, color: TEXT_SECONDARY }} />
-          </div>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </header>
 
