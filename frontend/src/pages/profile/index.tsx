@@ -1,13 +1,10 @@
 import React from 'react';
-import { Layout, Input, Avatar, Badge, Dropdown, Space, Form, Select, Button, Rate } from 'antd';
-import type { MenuProps } from 'antd';
+import { Layout, Input, Avatar, Space, Form, Select, Button, Rate } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   CheckCircleFilled,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -77,11 +74,6 @@ interface ProfileFormValues {
 const ProfilePage: React.FC = () => {
   const [form] = Form.useForm<ProfileFormValues>();
 
-  const userMenuItems: MenuProps['items'] = [
-    { key: 'profile', label: '个人中心' },
-    { key: 'orders', label: '我的订单' },
-    { key: 'logout', label: '退出登录' },
-  ];
 
   const infoRows: Array<{ label: string; value: React.ReactNode }> = [
     { label: '学校', value: mockProfile.school },
@@ -116,16 +108,8 @@ const ProfilePage: React.FC = () => {
           allowClear
         />
         <div style={styles.headerRight}>
-          <Badge count={3} size="small">
-            <BellOutlined style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }} />
-          </Badge>
-          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-            <Space style={{ cursor: 'pointer' }}>
-              <Avatar src="https://picsum.photos/seed/avatar/280/280" size={34} />
-              <span style={{ color: TEXT_MAIN, fontSize: 14 }}>同学</span>
-              <DownOutlined style={{ fontSize: 12, color: '#999' }} />
-            </Space>
-          </Dropdown>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </Header>
 

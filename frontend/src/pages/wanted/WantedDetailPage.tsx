@@ -4,19 +4,14 @@ import {
   Layout,
   Input,
   Avatar,
-  Dropdown,
   Breadcrumb,
   Button,
-  Badge,
   Rate,
 } from 'antd';
-import type { MenuProps } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  MessageOutlined,
-  DownOutlined,
   UserOutlined,
+  MessageOutlined,
   ClockCircleOutlined,
   CalendarOutlined,
   PayCircleOutlined,
@@ -29,7 +24,7 @@ import {
   ThunderboltOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { useNavigate } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
@@ -43,10 +38,6 @@ const PRICE_RED = '#ff4d4f';
 const BORDER = '#eef0f3';
 
 /** 蓝色学士帽 Logo（自定义 SVG，antd 无此图标） */
-const userMenu: MenuProps['items'] = [
-  { key: 'profile', label: '个人中心' },
-  { key: 'logout', label: '退出登录' },
-];
 
 /** mock 数据 */
 const wantedInfo = {
@@ -202,20 +193,8 @@ const WantedDetailPage: React.FC = () => {
 
           {/* 右侧用户区 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexShrink: 0 }}>
-            <Badge dot offset={[-2, 4]}>
-              <BellOutlined style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }} />
-            </Badge>
-            <Dropdown menu={{ items: userMenu }} trigger={['click']}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
-                <Avatar
-                  size={36}
-                  icon={<UserOutlined />}
-                  style={{ backgroundColor: '#dbe7ff', color: PRIMARY }}
-                />
-                <span style={{ fontSize: 15, color: TEXT_MAIN }}>同学</span>
-                <DownOutlined style={{ fontSize: 11, color: TEXT_SECONDARY }} />
-              </div>
-            </Dropdown>
+            <NotificationBell />
+            <UserMenu />
           </div>
         </Header>
 

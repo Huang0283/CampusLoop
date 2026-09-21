@@ -5,8 +5,6 @@ import {
   Select,
   Button,
   Avatar,
-  Badge,
-  Dropdown,
   Card,
   Typography,
   Space,
@@ -17,14 +15,12 @@ import {
 } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   ReloadOutlined,
   ClockCircleOutlined,
   InboxOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -108,11 +104,6 @@ const wantedItems: WantedItem[] = [
   },
 ];
 
-const userMenuItems = [
-  { key: 'profile', label: '个人中心' },
-  { key: 'my-products', label: '我的发布' },
-  { key: 'logout', label: '退出登录' },
-];
 
 const categoryOptions = [
   { value: 'digital', label: '数码电子' },
@@ -217,19 +208,8 @@ const WantedPage: React.FC = () => {
         />
 
         <Space size={20} style={{ width: 220, justifyContent: 'flex-end' }}>
-          <Badge dot>
-            <BellOutlined style={{ fontSize: 18, color: '#222222' }} />
-          </Badge>
-          <Space size={8}>
-            <Avatar
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=student"
-              size={36}
-            />
-            <Text style={{ color: '#222222' }}>同学</Text>
-            <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
-              <DownOutlined style={{ fontSize: 12, color: '#666666' }} />
-            </Dropdown>
-          </Space>
+          <NotificationBell />
+          <UserMenu />
         </Space>
       </Header>
 

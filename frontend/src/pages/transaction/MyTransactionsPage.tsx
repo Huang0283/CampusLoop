@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import {
   Avatar,
-  Badge,
   ConfigProvider,
-  Dropdown,
   Empty,
   Input,
   Space,
@@ -12,11 +10,9 @@ import {
 import type { TabsProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
-  BellOutlined,
-  DownOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { useAuthStore } from '../../stores/auth';
 import { useMockDbStore } from '../../stores/mockDb';
 import { ORDER_STATUS_LABEL } from '../../constants/order';
@@ -171,7 +167,6 @@ const MyTransactionsPage: React.FC = () => {
 
   const orders = useMockDbStore((s) => s.orders);
   const user = useAuthStore((s) => s.user);
-  const logout = useAuthStore((s) => s.logout);
 
   const visibleOrders = filterOrders(activeTab, orders, user?.id);
   const myOrders = orders.filter((o) => o.buyer.id === user?.id || o.seller.id === user?.id);
@@ -239,35 +234,8 @@ const MyTransactionsPage: React.FC = () => {
             }}
           />
           <Space size={22} style={{ marginLeft: 'auto' }}>
-            <Badge dot offset={[-4, 4]}>
-              <BellOutlined
-                style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }}
-                onClick={() => navigate('/notifications')}
-              />
-            </Badge>
-            <Dropdown
-              menu={{
-                items: [
-                  { key: 'profile', label: '个人中心' },
-                  { key: 'logout', label: '退出登录' },
-                ],
-                onClick: ({ key }) => {
-                  if (key === 'profile') navigate('/profile');
-                  if (key === 'logout') {
-                    logout();
-                    navigate('/login');
-                  }
-                },
-              }}
-            >
-              <Space size={10} style={{ cursor: 'pointer' }}>
-                <Avatar size={34} src={user?.avatar}>
-                  {(user?.nickname ?? '游').slice(0, 1)}
-                </Avatar>
-                <span style={{ fontSize: 14, color: TEXT_MAIN }}>{user?.nickname ?? '未登录'}</span>
-                <DownOutlined style={{ fontSize: 11, color: TEXT_SECONDARY }} />
-              </Space>
-            </Dropdown>
+            <NotificationBell />
+            <UserMenu />
           </Space>
         </header>
 

@@ -3,8 +3,6 @@ import {
   Layout,
   Input,
   Avatar,
-  Dropdown,
-  Badge,
   Breadcrumb,
   Button,
   Row,
@@ -12,11 +10,8 @@ import {
   Tooltip,
   Divider,
 } from 'antd';
-import type { MenuProps } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   LeftOutlined,
   RightOutlined,
   HeartOutlined,
@@ -34,7 +29,7 @@ import {
   ClockCircleOutlined,
   FlagOutlined,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { ReportModal } from '../../components/transaction';
 import { useMockDbStore } from '../../stores/mockDb';
 import type { ReportTargetType } from '../../types/transaction';
@@ -97,12 +92,6 @@ const specs: SpecItem[] = [
   { icon: <FileProtectOutlined />, label: '成色', value: '九成新' },
 ];
 
-const userMenuItems: MenuProps['items'] = [
-  { key: 'profile', label: '个人中心' },
-  { key: 'posts', label: '我的发布' },
-  { type: 'divider' },
-  { key: 'logout', label: '退出登录' },
-];
 
 const breadcrumbItems = [
   {
@@ -190,22 +179,8 @@ const ProductDetailPage: React.FC = () => {
         />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <Badge dot offset={[-2, 4]}>
-            <BellOutlined style={{ fontSize: 19, color: TEXT_PRIMARY, cursor: 'pointer' }} />
-          </Badge>
-          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-            <div
-              style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
-            >
-              <Avatar
-                size={34}
-                src={product.seller.avatar}
-                style={{ border: '1px solid #eef0f3' }}
-              />
-              <span style={{ fontSize: 14, color: TEXT_PRIMARY }}>同学</span>
-              <DownOutlined style={{ fontSize: 11, color: '#8a9099' }} />
-            </div>
-          </Dropdown>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </Header>
 

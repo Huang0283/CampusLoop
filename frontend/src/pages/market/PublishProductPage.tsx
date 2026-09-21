@@ -6,9 +6,6 @@ import {
   Upload,
   Button,
   Form,
-  Avatar,
-  Badge,
-  Dropdown,
   Card,
   Typography,
   Space,
@@ -17,12 +14,10 @@ import {
 import type { UploadFile } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -52,11 +47,6 @@ const locationOptions = [
   { value: 'gym', label: '体育馆' },
 ];
 
-const userMenuItems = [
-  { key: 'profile', label: '个人中心' },
-  { key: 'my-products', label: '我的发布' },
-  { key: 'logout', label: '退出登录' },
-];
 
 const PublishProductPage: React.FC = () => {
   const [form] = Form.useForm();
@@ -101,19 +91,8 @@ const PublishProductPage: React.FC = () => {
         />
 
         <Space size={20} style={{ width: 220, justifyContent: 'flex-end' }}>
-          <Badge dot>
-            <BellOutlined style={{ fontSize: 18, color: '#262626' }} />
-          </Badge>
-          <Space size={8}>
-            <Avatar
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=student"
-              size={36}
-            />
-            <Text style={{ color: '#262626' }}>同学</Text>
-            <Dropdown menu={{ items: userMenuItems }} trigger={['click']}>
-              <DownOutlined style={{ fontSize: 12, color: '#8c8c8c' }} />
-            </Dropdown>
-          </Space>
+          <NotificationBell />
+          <UserMenu />
         </Space>
       </Header>
 

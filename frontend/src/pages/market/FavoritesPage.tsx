@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { Layout, Input, Avatar, Badge, Dropdown, Space, Select } from 'antd';
-import type { MenuProps } from 'antd';
+import { Layout, Input, Space, Select } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   HeartFilled,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -135,11 +132,6 @@ const styles: Record<string, React.CSSProperties> = {
 const FavoritesPage: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('全部');
 
-  const userMenuItems: MenuProps['items'] = [
-    { key: 'profile', label: '个人中心' },
-    { key: 'orders', label: '我的订单' },
-    { key: 'logout', label: '退出登录' },
-  ];
 
   const filteredList = favoriteList.filter(
     (item) => activeFilter === '全部' || item.status === activeFilter
@@ -158,16 +150,8 @@ const FavoritesPage: React.FC = () => {
           allowClear
         />
         <div style={styles.headerRight}>
-          <Badge dot>
-            <BellOutlined style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }} />
-          </Badge>
-          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-            <Space style={{ cursor: 'pointer' }}>
-              <Avatar src="https://picsum.photos/seed/avatar/64/64" size={34} />
-              <span style={{ color: TEXT_MAIN, fontSize: 14 }}>同学</span>
-              <DownOutlined style={{ fontSize: 12, color: '#999' }} />
-            </Space>
-          </Dropdown>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </Header>
 

@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import {
   Layout,
   Input,
-  Badge,
-  Avatar,
-  Dropdown,
   Space,
   Button,
   Select,
@@ -17,8 +14,6 @@ import {
 } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   PlusOutlined,
   HeartOutlined,
   HeartFilled,
@@ -26,7 +21,7 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const { Sider, Header, Content } = Layout;
 const { Text } = Typography;
@@ -270,10 +265,6 @@ const MarketPage: React.FC = () => {
       ? mockProducts
       : mockProducts.filter((p) => p.category === activeCategory);
 
-  const userMenu = {
-    items: [{ key: 'profile', label: '个人中心' }, { key: 'logout', label: '退出登录' }],
-  };
-
   const selectStyle: React.CSSProperties = { width: 150 };
 
   return (
@@ -313,16 +304,8 @@ const MarketPage: React.FC = () => {
             allowClear
           />
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 20 }}>
-            <Badge count={3} size="small">
-              <BellOutlined style={{ fontSize: 18, color: '#595959', cursor: 'pointer' }} />
-            </Badge>
-            <Dropdown menu={userMenu}>
-              <Space style={{ cursor: 'pointer' }}>
-                <Avatar src="https://picsum.photos/seed/avatar/80/80" size={36} />
-                <span style={{ fontSize: 14, color: '#262626' }}>同学</span>
-                <DownOutlined style={{ fontSize: 10, color: '#8c8c8c' }} />
-              </Space>
-            </Dropdown>
+            <NotificationBell />
+            <UserMenu />
           </div>
         </Header>
 
