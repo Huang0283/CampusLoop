@@ -182,7 +182,7 @@ const MyProductsPage: React.FC = () => {
         <Content style={styles.content}>
           {/* 标题 */}
           <h1 style={{ margin: '0 0 24px 0', fontSize: 28, fontWeight: 700, color: TEXT_MAIN }}>
-            我的商品
+            我的发布
           </h1>
 
           {/* 表格卡片 */}
