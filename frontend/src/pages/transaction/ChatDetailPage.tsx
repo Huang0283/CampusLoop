@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Input, Modal, Space, Spin, Tag, Typography, message } from 'antd'
+import { Alert, Avatar, Button, Card, Input, Modal, Space, Spin, Tag, Typography, message } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { EmptyState, ErrorState, Loading, PageContainer } from '../../components'
@@ -136,7 +136,24 @@ export default function ChatDetailPage() {
         <div style={{ textAlign: 'center', margin: '8px 0' }}>
           <Text type="secondary" style={{ fontSize: 11 }}>{fmtTime(m.createdAt)}</Text>
         </div>
-        <div style={{ display: 'flex', justifyContent: mine ? 'flex-end' : 'flex-start' }}>
+        {/* 改动①：给消息行加 gap 和顶部对齐，为头像留位置 */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: mine ? 'flex-end' : 'flex-start',
+            alignItems: 'flex-start',
+            gap: 8,
+          }}
+        >
+          {/* 改动②：对方消息，头像放左侧 */}
+          {!mine && (
+            <Avatar
+              size={36}
+              src={`https://picsum.photos/seed/user-${m.senderId}/100/100`}
+              style={{ flexShrink: 0 }}
+            />
+          )}
+
           <div style={{ maxWidth: '70%' }}>
             {m.kind === 'OFFER' && m.offer ? (
               (() => {
@@ -189,6 +206,15 @@ export default function ChatDetailPage() {
               </div>
             )}
           </div>
+
+          {/* 改动③：我方消息，头像放右侧 */}
+          {mine && (
+            <Avatar
+              size={36}
+              src={`https://picsum.photos/seed/me/100/100`}
+              style={{ flexShrink: 0 }}
+            />
+          )}
         </div>
       </div>
     )
