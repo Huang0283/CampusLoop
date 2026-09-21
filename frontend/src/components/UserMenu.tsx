@@ -34,8 +34,11 @@ const MENU_ITEMS: NonNullable<MenuProps['items']> = [
 
 const MENU_PATHS: Record<string, string> = {
   profile: '/profile',
-  /** 交易中心：我购买/我出售的订单都在这里 */
-  orders: '/profile/transactions',
+  /**
+   * 订单与个人交易中心现已统一在 /transactions（购买/出售页签按身份过滤）。
+   * 旧的 /profile/transactions 只保留兼容重定向，这里直接指向正式地址。
+   */
+  orders: '/transactions',
   'my-products': '/my-products',
   favorites: '/favorites',
 };
