@@ -32,6 +32,7 @@
 - [M2-03 导航结构](m2/03-navigation-structure.md)
 - [M2-04 身份、资料流程与页面权限矩阵](m2/04-auth-profile-and-permissions.md)
 - [M2-05 设计、公共组件与页面状态规范](m2/05-design-components-and-page-states.md)
+- [M2-06 逐页面五类状态矩阵](m2/06-page-state-matrix.md)
 
 ### M3：市场、商品与求购
 
@@ -47,6 +48,10 @@
 - [M4-05 实时通信方案](m4/05-realtime-architecture.md)
 - [M4-06 按钮级权限](m4/06-button-permissions.md)
 - [M4-07 按钮级权限验收方案](m4/07-acceptance-button-permissions.md)
+
+### 验收与追踪
+
+- [Frontend-02 第一阶段本地验收与交付追踪](02-phase1-local-acceptance.md)
 
 ## 阶段边界
 

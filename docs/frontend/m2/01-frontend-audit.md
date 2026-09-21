@@ -30,9 +30,9 @@
 | Axios 实例 | frontend/src/api/request.ts | 保留 | 注入 token，处理 401/403 |
 | 登录接口 | frontend/src/api/auth.ts | 保留 | login、register、logout、me |
 | 用户接口 | frontend/src/api/user.ts | 保留 | 资料读取与更新 |
-| 聊天接口 | frontend/src/api/chat.ts | 待确认 | M4 添加 |
-| WebSocket 接口 | frontend/src/api/ws.ts | 待确认 | M4 添加 |
-| 模拟 WS 传输 | frontend/src/api/mockWsTransport.ts | 待确认 | M4 添加 |
+| 聊天接口 | frontend/src/api/chat.ts | 保留为后续契约候选 | 第一阶段只按 Mock 使用 |
+| WebSocket 接口 | frontend/src/api/ws.ts | 保留为后续契约候选 | 第三阶段才验真实连接 |
+| 模拟 WS 传输 | frontend/src/api/mockWsTransport.ts | 保留 | 原型模式明确标识 |
 
 ## 4. 公共组件
 
@@ -43,8 +43,9 @@
 | ErrorState | frontend/src/components/ErrorState | 保留 | |
 | NoPermission | frontend/src/components/NoPermission | 保留 | |
 | PageContainer | frontend/src/components/PageContainer | 保留 | |
-| Can | frontend/src/components/Can.tsx | 待确认 | M4 添加 |
-| 交易组件 | frontend/src/components/transaction | 待确认 | M4 添加 |
+| AppSidebar | frontend/src/components/AppSidebar.tsx | 保留 | 全站共享侧栏 |
+| Can | frontend/src/components/Can.tsx | 保留 | 交易按钮级权限原型 |
+| 交易组件 | frontend/src/components/transaction | 保留 | 报价、时间线、评价和举报原型 |
 
 ## 5. 页面
 
@@ -52,15 +53,15 @@
 |---|---|---|---|---|
 | 登录 | /login | 公开 | M2 | 已完成（静态） |
 | 注册 | /register | 公开 | M2 | 已完成（静态） |
-| 首页 | / | 学生 | M3 | 占位 |
+| 首页 | / | 学生 | M3 | 重定向至市场 |
 | 个人中心 | /profile | 学生 | M2 | 已完成（静态） |
 | 管理后台 | /admin | 管理员 | M2 | 已完成（静态） |
-| 市场 | /market | 学生 | M3 | 占位 |
-| 商品详情 | /product/:id | 学生 | M3 | 占位 |
-| 发布商品 | /publish | 学生 | M3 | 占位 |
-| 我的商品 | /my-products | 学生 | M3 | 占位 |
-| 收藏 | /favorites | 学生 | M3 | 占位 |
-| 求购市场 | /wanted | 学生 | M3 | 占位 |
+| 市场 | /market | 学生 | M3 | 静态 Mock |
+| 商品详情 | /product/:id | 学生 | M3 | 静态 Mock |
+| 发布商品 | /publish | 学生 | M3 | 静态 Mock |
+| 我的商品 | /my-products | 学生 | M3 | 静态 Mock |
+| 收藏 | /favorites | 学生 | M3 | 静态 Mock |
+| 求购市场 | /wanted | 学生 | M3 | 静态 Mock |
 | 聊天列表 | /chat | 学生 | M4 | 原型 |
 | 聊天详情 | /chat/:id | 学生 | M4 | 原型 |
 | 订单列表 | /transactions | 学生 | M4 | 原型 |
@@ -71,13 +72,12 @@
 
 ## 6. 发现的问题
 
-1. App.tsx 和 index.css 是 Vite 模板遗留，需要确认是否删除
-2. 缺少统一布局（顶部导航、侧边栏）
-3. 页面级状态处理未统一
-4. 移动端响应式布局未定义
-5. M4 自己加了组件和 store，需要确认命名和复用
-6. 用户状态有两个来源：localStorage 和 stores/auth.ts
-7. 缺失：导航结构、权限矩阵、页面清单（含优先级和计划周次）
+1. `App.tsx`、`App.css` 和模板图片未被入口引用，后续清理时可删除；不得误改当前路由入口。
+2. 侧边栏已统一为 `AppSidebar`，顶部栏仍由页面重复实现，第二阶段提取共享壳。
+3. 页面状态组件已统一，逐页面状态设计见 `06-page-state-matrix.md`；第二阶段实现可切换状态。
+4. 移动端断点和布局规则已经定义，第二阶段实现。
+5. 用户状态仍有演示 `localStorage` 与 `stores/auth.ts` 两种来源，真实认证接入前必须收敛为单一来源。
+6. 聊天 API、WebSocket 和交易 store 只作为原型契约候选，未经 M5/M6 评审不得作为正式接口依据。
 
 ## 7. M2 待交付物
 

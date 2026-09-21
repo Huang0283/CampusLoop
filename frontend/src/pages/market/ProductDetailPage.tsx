@@ -32,8 +32,12 @@ import {
   FileProtectOutlined,
   CheckCircleFilled,
   ClockCircleOutlined,
+  FlagOutlined,
 } from '@ant-design/icons';
 import { AppSidebar } from '../../components';
+import { ReportModal } from '../../components/transaction';
+import { useMockDbStore } from '../../stores/mockDb';
+import type { ReportTargetType } from '../../types/transaction';
 
 const { Header, Sider, Content } = Layout;
 
@@ -51,11 +55,13 @@ const mockImages = [
 ];
 
 const product = {
+  id: 101,
   title: 'MacBook Air M1 笔记本电脑',
   price: 3200,
   condition: '九成新',
   originalPrice: 7999,
   seller: {
+    id: 2,
     name: '李同学',
     avatar: 'https://picsum.photos/seed/campus-seller/96/96',
     school: '清华大学',
@@ -135,6 +141,11 @@ const cardStyle: React.CSSProperties = {
 const ProductDetailPage: React.FC = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const [favorite, setFavorite] = useState(false);
+  const [reportTarget, setReportTarget] = useState<{
+    type: ReportTargetType;
+    id: number;
+    label: string;
+  } | null>(null);
 
   const prevImage = () => {
     setCurrentImg((prev) => (prev - 1 + mockImages.length) % mockImages.length);
@@ -545,6 +556,42 @@ const ProductDetailPage: React.FC = () => {
                     </Button>
                   </Col>
                 </Row>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    gap: 4,
+                    marginTop: 8,
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <Button
+                    type="text"
+                    danger
+                    size="small"
+                    icon={<FlagOutlined />}
+                    onClick={() =>
+                      setReportTarget({ type: 'PRODUCT', id: product.id, label: product.title })
+                    }
+                  >
+                    举报商品
+                  </Button>
+                  <Button
+                    type="text"
+                    danger
+                    size="small"
+                    icon={<FlagOutlined />}
+                    onClick={() =>
+                      setReportTarget({
+                        type: 'USER',
+                        id: product.seller.id,
+                        label: product.seller.name,
+                      })
+                    }
+                  >
+                    举报卖家
+                  </Button>
+                </div>
               </div>
 
               {/* 交易地点卡片 */}
@@ -608,6 +655,21 @@ const ProductDetailPage: React.FC = () => {
           </Row>
         </Content>
       </Layout>
+      <ReportModal
+        open={reportTarget !== null}
+        targetType={reportTarget?.type ?? 'PRODUCT'}
+        targetId={reportTarget?.id ?? product.id}
+        targetLabel={reportTarget?.label}
+        onClose={() => setReportTarget(null)}
+        onSubmit={(values) => {
+          if (!reportTarget) return;
+          useMockDbStore.getState().submitReport({
+            targetType: reportTarget.type,
+            targetId: reportTarget.id,
+            ...values,
+          });
+        }}
+      />
     </Layout>
   );
 };
