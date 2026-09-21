@@ -1,10 +1,6 @@
 import React from 'react';
-import { Input, Avatar, Badge, Button, Form, Rate } from 'antd';
-import {
-  BellOutlined,
-  DownOutlined,
-} from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { Input, Avatar, Button, Form, Rate } from 'antd';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const PRIMARY_COLOR = '#2f6bff';
 const PAGE_BG = '#f5f6f8';
@@ -132,21 +128,8 @@ const ReviewPage: React.FC = () => {
             gap: 20,
           }}
         >
-          <Badge dot offset={[-2, 2]}>
-            <BellOutlined style={{ fontSize: 18, color: TEXT_PRIMARY }} />
-          </Badge>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-            }}
-          >
-            <Avatar size={32} src="https://picsum.photos/seed/me/64/64" />
-            <span style={{ fontSize: 14, color: TEXT_PRIMARY }}>同学</span>
-            <DownOutlined style={{ fontSize: 10, color: TEXT_SECONDARY }} />
-          </div>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </header>
 

@@ -24,22 +24,23 @@
 | 市场 | /market | 学生 | 高 | M3 | 第 3 周 | 已完成（静态 Mock） |
 | 商品详情 | /product/:id | 学生 | 高 | M3 | 第 3 周 | 已完成（静态 Mock） |
 | 发布商品 | /publish | 学生 | 高 | M3 | 第 4 周 | 已完成（静态 Mock） |
-| 我的商品 | /my-products | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
-| 收藏 | /favorites | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
+| 编辑商品 | /product/:id/edit | 学生本人 | 中 | M3 | 第 4 周 | 第一阶段流程定义；第二阶段实现可点击原型 |
+| 我的发布 | /my-products | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
+| 我的收藏 | /favorites | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 求购市场 | /wanted | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 求购详情 | /wanted/:id | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 发布求购 | /wanted/publish | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
+| 编辑求购 | /wanted/:id/edit | 发布者本人 | 中 | M3 | 第 4 周 | 第一阶段流程定义；第二阶段实现可点击原型 |
 | 匹配结果 | /wanted/matches | 学生 | 中 | M3 | 第 5 周 | 已完成（静态 Mock） |
 | 价格建议 | /publish/price-advice | 学生 | 中 | M3 | 第 5 周 | 已完成（静态 Mock） |
 | 聊天列表 | /chat | 学生 | 高 | M4 | 第 5 周 | 原型 |
 | 聊天详情 | /chat/:id | 学生 | 高 | M4 | 第 5 周 | 原型 |
-| 订单列表 | /transactions | 学生 | 高 | M4 | 第 5 周 | 原型 |
+| 订单列表与个人交易中心 | /transactions | 学生 | 高 | M4 | 第 5-6 周 | 原型（购买/出售/进行中/已结束） |
 | 订单详情 | /transactions/:id | 学生 | 高 | M4 | 第 5 周 | 原型 |
 | 见面约定 | /transactions/:id/meetup | 学生 | 高 | M4 | 第 6 周 | 原型 |
 | 评价 | /transactions/:id/review | 学生 | 中 | M4 | 第 6 周 | 已完成（静态 Mock） |
 | 举报 | 商品、聊天、订单上下文内弹窗 | 学生 | 中 | M4 | 第 6 周 | 已完成（四类目标统一弹窗） |
 | 通知 | /notifications | 学生 | 中 | M4 | 第 6 周 | 原型 |
-| 个人交易中心 | /profile/transactions | 学生 | 中 | M4 | 第 6 周 | 原型 |
 | 403 无权限 | /403 | 公开 | 低 | M2 | 第 2 周 | 已完成 |
 | 404 页面不存在 | /404 | 公开 | 低 | M2 | 第 2 周 | 已完成 |
 
@@ -49,10 +50,11 @@
 |---|---|---|
 | /orders | /transactions | 订单列表 |
 | /meeting | /transactions | 见面约定归入订单 |
+| /profile/transactions | /transactions | 个人交易中心已并入订单列表 |
 
 ## 5. 待确认
 
 1. 管理员后台是否需要二级路由（用户、商品、举报），由 M1/M5 在后台范围评审时确认。
-2. 个人交易中心当前固定为 `/profile/transactions`；如后续改为独立路由，必须同步导航、通知链接和测试场景。
+2. 个人交易中心已统一使用 `/transactions`；`/profile/transactions` 仅作为旧书签兼容重定向。
 
 评价保留独立路由；举报不再设置 `/report` 页面。用户、商品、交易和聊天消息均从当前上下文打开统一 `ReportModal`，避免用户脱离证据上下文后再次选择举报目标。

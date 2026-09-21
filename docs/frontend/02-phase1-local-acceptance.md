@@ -9,9 +9,12 @@
 - 第一阶段集成分支：`phase1/frontend-experience`。
 - 已合并汇总 PR：PR #17，将当时的第一阶段集成结果合并到 `main`。
 - M4 订单详情补充：PR #19，合并到 `phase1/frontend-experience`，远端分支提交为 `3373da2`。
-- 当前补齐分支：`task/m4-report-chat-notification-v2`，包含聊天、通知、统一举报入口、共享侧栏及第一阶段文档修正。
-- 当前任务 PR：[#28](https://github.com/Huang0283/CampusLoop/pull/28)，目标为 `phase1/frontend-experience`。
-- PR #28 合并后，由阶段负责人复核，再从阶段集成分支向 `main` 提交汇总 PR。
+- M4 第一阶段缺口补齐：[#28](https://github.com/Huang0283/CampusLoop/pull/28)，已合并到 `phase1/frontend-experience`，合并提交为 `c3349fc`。
+- 聊天头像与见面页 UI：[#32](https://github.com/Huang0283/CampusLoop/pull/32)，已合并到 `phase1/frontend-experience`，合并提交为 `fbc0afe`。
+- PR #32 曾将见面约定页替换为无状态静态页面；修复分支 `task/m4-restore-meetup-flow` 恢复订单参数、共享侧栏、角色权限、修改版本和双方确认 Mock 流程，同时保留聊天头像改动。
+- 个人交易中心与订单列表统一：[#39](https://github.com/Huang0283/CampusLoop/pull/39)，统一入口为 `/transactions`，保留购买/出售/进行中/已结束筛选、身份过滤、订单详情跳转和旧路径重定向。
+- 顶部栏、导航与页面链接统一：[#40](https://github.com/Huang0283/CampusLoop/pull/40)，聊天列表接入聊天详情，通知使用共享 Mock 状态并跳转目标页面。
+- 修复 PR 合并后，由阶段负责人复核，再从阶段集成分支向 `main` 提交新的汇总 PR。
 - 禁止通过直接推送 `main` 绕过上述两级 PR。
 
 ## 交付物核对
@@ -25,8 +28,9 @@
 
 ### M3
 
-- [x] 市场、商品详情、发布、我的商品、收藏、求购、匹配和价格建议页面存在静态 Mock。
+- [x] 市场、商品详情、发布、我的发布、我的收藏、求购、匹配和价格建议页面存在静态 Mock。
 - [x] 商品与求购流程图、字段、筛选、排序、异常和降级说明已进入 `docs/frontend/m3/`。
+- [x] 商品编辑/上下架/删除确认、求购编辑、筛选保留、草稿和离开提醒已形成第一阶段规则。
 - [x] 匹配结果明确为相关程度，价格建议包含区间和参考边界。
 
 ### M4
@@ -35,6 +39,9 @@
 - [x] 用户、商品、交易和聊天消息四类举报均从对应上下文打开统一弹窗。
 - [x] 双账号泳道、按钮权限、断线/补拉/去重/失败重试和交易异常说明已进入 `docs/frontend/m4/`。
 - [x] 未完成或取消订单不得正常评价；订单事实由 Mock 状态层统一推进，不由页面直接伪造成功。
+- [x] 见面约定页按订单 ID 读取 Mock 状态；参与者可修改约定或确认当前版本，非参与者保持只读。
+- [x] 订单列表与个人交易中心统一为 `/transactions`；购买、出售、进行中、已结束标签实际按 Mock 订单和当前身份筛选，`/profile/transactions` 保留兼容重定向。
+- [x] 核心旅程明确包含 `/chat/:id`；举报证据和私聊的最小可见规则已形成书面记录。
 
 ## 本地验证
 
@@ -52,4 +59,5 @@
 - [ ] M7/M8 对匹配、价格和风险展示字段完成确认。
 - [ ] M10 确认可转换为独立测试场景。
 - [ ] M1 完成范围验收。
-- [ ] PR #28 合并到 `phase1/frontend-experience`，阶段汇总 PR 再合并到 `main`。
+- [ ] 三名前端成员在收尾 PR 中完成交叉 Review。
+- [ ] M2 从最新 `phase1/frontend-experience` 向 `main` 提交新的阶段汇总 PR；PR #38、#39、#40 已进入阶段分支，但晚于旧汇总 PR #17。

@@ -59,8 +59,8 @@
 | 市场 | /market | 学生 | M3 | 静态 Mock |
 | 商品详情 | /product/:id | 学生 | M3 | 静态 Mock |
 | 发布商品 | /publish | 学生 | M3 | 静态 Mock |
-| 我的商品 | /my-products | 学生 | M3 | 静态 Mock |
-| 收藏 | /favorites | 学生 | M3 | 静态 Mock |
+| 我的发布 | /my-products | 学生 | M3 | 静态 Mock |
+| 我的收藏 | /favorites | 学生 | M3 | 静态 Mock |
 | 求购市场 | /wanted | 学生 | M3 | 静态 Mock |
 | 聊天列表 | /chat | 学生 | M4 | 原型 |
 | 聊天详情 | /chat/:id | 学生 | M4 | 原型 |
@@ -68,7 +68,7 @@
 | 订单详情 | /transactions/:id | 学生 | M4 | 原型 |
 | 见面约定 | /transactions/:id/meetup | 学生 | M4 | 原型 |
 | 通知 | /notifications | 学生 | M4 | 原型 |
-| 个人交易中心 | /profile/transactions | 学生 | M4 | 原型 |
+| 个人交易中心 | /transactions | 学生 | M4 | 已合并到订单列表；旧路径重定向 |
 
 ## 6. 发现的问题
 

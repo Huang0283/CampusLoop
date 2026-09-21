@@ -54,7 +54,7 @@ can.has('dispute:handle')              // 管理员权限
 ## 4. 原型演示约定
 
 - 订单详情页右上角"切换为卖家/买家视角"= 调 `switchUser()` **改全局登录身份**（写 localStorage），
-  之后订单操作、见面确认、报价卡片（OfferCard）、个人交易中心、聊天 senderId 全部随之变化 ——
+  之后订单操作、见面确认、报价卡片（OfferCard）、订单列表身份筛选、聊天 senderId 全部随之变化 ——
   演示的是**真实求值链路**，不是页面局部动画。
 - `PrototypeLoginPage` 进入原型 = `login({ id: 1, ... })` 写入同一身份体系。
 

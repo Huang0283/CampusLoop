@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Input, Avatar, Badge, Dropdown, Space, Menu, Tabs, Table, Button, Pagination } from 'antd';
+import { Layout, Input, Avatar, Space, Menu, Tabs, Table, Button, Pagination } from 'antd';
 import type { MenuProps, TabsProps, TableProps, PaginationProps } from 'antd';
 import {
   UserOutlined,
@@ -7,11 +7,9 @@ import {
   WarningOutlined,
   BarChartOutlined,
   SearchOutlined,
-  BellOutlined,
-  DownOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 
 const { Header, Sider, Content } = Layout;
 
@@ -87,11 +85,6 @@ const AdminPage: React.FC = () => {
     { key: 'stats', icon: <BarChartOutlined />, label: '数据统计' },
   ];
 
-  const userMenuItems: MenuProps['items'] = [
-    { key: 'profile', label: '个人中心' },
-    { key: 'settings', label: '系统设置' },
-    { key: 'logout', label: '退出登录' },
-  ];
 
   const tabItems: TabsProps['items'] = [
     { key: 'users', label: '用户管理' },
@@ -197,16 +190,8 @@ const AdminPage: React.FC = () => {
           allowClear
         />
         <div style={styles.headerRight}>
-          <Badge dot>
-            <BellOutlined style={{ fontSize: 18, color: TEXT_MAIN, cursor: 'pointer' }} />
-          </Badge>
-          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-            <Space style={{ cursor: 'pointer' }}>
-              <Avatar src="https://picsum.photos/seed/admin/64/64" size={34} />
-              <span style={{ color: TEXT_MAIN, fontSize: 14 }}>管理员</span>
-              <DownOutlined style={{ fontSize: 12, color: '#999' }} />
-            </Space>
-          </Dropdown>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </Header>
 
