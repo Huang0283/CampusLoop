@@ -14,7 +14,6 @@ import OrderListPage from '../pages/transaction/OrderListPage'
 import OrderDetailPage from '../pages/transaction/OrderDetailPage'
 import MeetupPage from '../pages/transaction/MeetupPage'
 import NotificationPage from '../pages/transaction/NotificationPage'
-import MyTransactionsPage from '../pages/transaction/MyTransactionsPage'
 import MarketPage from '../pages/market'
 import ProductDetailPage from '../pages/market/ProductDetailPage'
 import PublishProductPage from '../pages/market/PublishProductPage'
@@ -111,10 +110,6 @@ export const router = createBrowserRouter([
   {
     path: '/notifications',
     element: authed(<NotificationPage />),
-  },
-  {
-    path: '/profile/transactions',
-    element: authed(<MyTransactionsPage />),
   },
 
   /* legacy redirects */

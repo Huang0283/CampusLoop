@@ -5,7 +5,6 @@ export function resolveActiveKey(pathname: string): string[] {
   if (pathname.startsWith('/chat')) return ['chat']
   if (pathname.startsWith('/wanted')) return ['wanted']
   if (
-    pathname.startsWith('/transactions') ||
     pathname.startsWith('/profile/transactions') ||
     pathname.includes('/review') ||
     pathname.includes('/meetup')
