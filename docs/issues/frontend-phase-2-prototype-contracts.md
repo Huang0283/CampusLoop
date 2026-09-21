@@ -47,8 +47,8 @@
 - [ ] **FE2-01**：`docs/evidence/phase-2/frontend/route-role-map.md`、路由代码。
 - [ ] **FE2-02**：`auth-profile-prototype.md`、对应页面代码。
 - [ ] **FE2-03**：`component-specification.md`、组件示例。
-- [ ] **FE2-04**：`page-api-map.md`。
-- [ ] **FE2-12**：`contract-review.md`、`mock-replacement-plan.md`。
+- [ ] **FE2-04**：`page-api-map.md`、`frontend/src/sdk/index.ts` 和 `frontend/src/sdk/generated/`；SDK 只能由 `openapi/campusloop.v1.yaml` 生成，不得手工维护第二套接口类型。
+- [ ] **FE2-12**：`contract-review.md`、`mock-replacement-plan.md`；记录 `npm run sdk:generate`、`npm run sdk:check`、lint/build 结果及 M5/M6/M10 对签结论。
 
 ### M2 验收标准
 

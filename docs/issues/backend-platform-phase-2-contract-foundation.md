@@ -63,7 +63,7 @@
 
 ### 个人交付物
 
-- [ ] **BP2-03**：OpenAPI、business-api-catalog.md。
+- [ ] **BP2-03**：`openapi/campusloop.v1.yaml`、由该文件生成的 `frontend/src/sdk/generated/`、business-api-catalog.md；执行 `cd frontend && npm run sdk:generate` 后不得出现未解释的契约漂移。
 - [ ] **BP2-04**：write-operation-contracts.md。
 - [ ] **BP2-05**：state-enum-contract.md。
 
