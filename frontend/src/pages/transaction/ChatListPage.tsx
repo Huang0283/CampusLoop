@@ -1,10 +1,9 @@
 import React from 'react';
 import { Input, Avatar, Badge } from 'antd';
-import {
-  BellOutlined,
-  DownOutlined,
-} from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { useNavigate } from 'react-router-dom';
+import { mockSessions } from '../../mocks/transaction';
+import type { Message } from '../../types/transaction';
 
 const PAGE_BG = '#f5f6f8';
 const TEXT_PRIMARY = '#1f2329';
@@ -21,72 +20,33 @@ interface ChatSession {
   avatar: string;
 }
 
-const chatSessions: ChatSession[] = [
-  {
-    id: 1,
-    name: '王同学',
-    lastMessage: '你好，这件商品还在吗？',
-    time: '刚刚',
-    unread: 2,
-    avatar: 'https://picsum.photos/seed/chat1/104/104',
-  },
-  {
-    id: 2,
-    name: '陈同学',
-    lastMessage: '可以在紫荆宿舍楼下交易',
-    time: '10:24',
-    unread: 1,
-    avatar: 'https://picsum.photos/seed/chat2/104/104',
-  },
-  {
-    id: 3,
-    name: '赵同学',
-    lastMessage: '我已经为你预留了',
-    time: '昨天',
-    unread: 3,
-    avatar: 'https://picsum.photos/seed/chat3/104/104',
-  },
-  {
-    id: 4,
-    name: '李同学',
-    lastMessage: '请问什么时候方便取货？',
-    time: '昨天',
-    unread: 0,
-    avatar: 'https://picsum.photos/seed/chat4/104/104',
-  },
-  {
-    id: 5,
-    name: '周同学',
-    lastMessage: '谢谢，交易很顺利',
-    time: '周一',
-    unread: 0,
-    avatar: 'https://picsum.photos/seed/chat5/104/104',
-  },
-  {
-    id: 6,
-    name: '王同学',
-    lastMessage: '可以再便宜一点吗？',
-    time: '周一',
-    unread: 0,
-    avatar: 'https://picsum.photos/seed/chat6/104/104',
-  },
-  {
-    id: 7,
-    name: '陈同学',
-    lastMessage: '好的，我稍后联系你',
-    time: '周一',
-    unread: 0,
-    avatar: 'https://picsum.photos/seed/chat7/104/104',
-  },
-  {
-    id: 8,
-    name: '赵同学',
-    lastMessage: '没问题，明天见',
-    time: '周一',
-    unread: 0,
-    avatar: 'https://picsum.photos/seed/chat8/104/104',
-  },
-];
+
+/** 会话列表一行摘要：按消息类型给不同文案 */
+function lastMessageText(m?: Message): string {
+  if (!m) return '还没有消息';
+  switch (m.kind) {
+    case 'TEXT':
+      return m.content ?? '';
+    case 'IMAGE':
+      return '[图片]';
+    case 'OFFER':
+      return m.offer ? `报价 ¥${m.offer.amount}` : '[报价]';
+    case 'ORDER_EVENT':
+      return m.orderEvent?.description ?? '[订单动态]';
+    default:
+      return '[系统消息]';
+  }
+}
+
+/** 列表时间：一天内用相对时间，更早显示具体时间 */
+function formatListTime(iso?: string): string {
+  if (!iso) return '';
+  const diff = Date.now() - new Date(iso).getTime();
+  if (diff < 60_000) return '刚刚';
+  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)} 分钟前`;
+  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)} 小时前`;
+  return new Date(iso).toLocaleString('zh-CN', { hour12: false });
+}
 
 const headerStyle: React.CSSProperties = {
   height: 64,
@@ -114,8 +74,23 @@ const sidebarStyle: React.CSSProperties = {
 };
 
 const ChatListPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  /**
+   * 会话列表与聊天详情页共用同一份 mockSessions，
+   * 因此列表里的 id 就是 /chat/:id 能打开的会话（此前列表用本地假数据，点进去会"会话不存在"）。
+   */
+  const chatSessions: ChatSession[] = mockSessions.map((s) => ({
+    id: s.id,
+    name: s.peer.nickname,
+    avatar: s.peer.avatar ?? `https://i.pravatar.cc/96?u=${s.peer.id}`,
+    lastMessage: lastMessageText(s.lastMessage),
+    time: formatListTime(s.lastMessage?.createdAt),
+    unread: s.unreadCount,
+  }));
+
   const handleSessionClick = (session: ChatSession) => {
-    console.log('打开会话：', session.name);
+    navigate(`/chat/${session.id}`);
   };
 
   return (
@@ -151,24 +126,8 @@ const ChatListPage: React.FC = () => {
             gap: 20,
           }}
         >
-          <Badge dot offset={[-2, 2]}>
-            <BellOutlined style={{ fontSize: 18, color: TEXT_PRIMARY }} />
-          </Badge>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-            }}
-          >
-            <Avatar
-              size={32}
-              src="https://picsum.photos/seed/me/64/64"
-            />
-            <span style={{ fontSize: 14, color: TEXT_PRIMARY }}>同学</span>
-            <DownOutlined style={{ fontSize: 10, color: TEXT_SECONDARY }} />
-          </div>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </header>
 

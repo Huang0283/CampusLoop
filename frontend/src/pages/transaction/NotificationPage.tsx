@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { Input, Avatar, Badge, Button } from 'antd';
+import React from 'react';
+import { Input, Button } from 'antd';
 import {
-  BellOutlined,
-  DownOutlined,
-  UserOutlined,
   MessageFilled,
   MoneyCollectFilled,
   AimOutlined,
   SettingFilled,
 } from '@ant-design/icons';
-import { AppSidebar } from '../../components';
+import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { useNavigate } from 'react-router-dom';
+import { useMockDbStore } from '../../stores/mockDb';
+import type { AppNotification, NotificationType as ApiNotificationType } from '../../types/transaction';
 
-const PRIMARY_COLOR = '#2f6bff';
 const PAGE_BG = '#f5f6f8';
 const TEXT_PRIMARY = '#1f2329';
 const TEXT_SECONDARY = '#646a73';
@@ -28,6 +27,8 @@ interface NotificationItem {
   description: string;
   time: string;
   read: boolean;
+  /** 点击后跳转的目标（由 mockDb 在产生通知时写入） */
+  link?: string;
 }
 
 const typeConfig: Record<
@@ -52,16 +53,27 @@ const typeConfig: Record<
   },
 };
 
-const initialNotifications: NotificationItem[] = [
-  { id: 1, type: '消息', title: '王同学发来一条消息', description: '你好，请问显示器还在吗？', time: '今天 10:24', read: false },
-  { id: 2, type: '报价', title: '收到新的报价', description: '李同学对「机械键盘」报价 ¥180', time: '今天 09:17', read: false },
-  { id: 3, type: '匹配', title: '发现新的匹配商品', description: '有 3 件商品符合你的求购条件', time: '昨天 20:36', read: false },
-  { id: 4, type: '系统', title: '系统通知', description: '你的商品已通过审核', time: '昨天 16:05', read: true },
-  { id: 5, type: '消息', title: '张同学发来一条消息', description: '请问可以面交吗？我在东区', time: '昨天 11:28', read: true },
-  { id: 6, type: '报价', title: '收到新的报价', description: '陈同学对「二手平板」报价 ¥650', time: '4月20日 19:14', read: true },
-  { id: 7, type: '匹配', title: '发现新的匹配商品', description: '有 1 件商品符合你的求购条件', time: '4月20日 14:21', read: true },
-  { id: 8, type: '系统', title: '系统通知', description: '平台将于 4 月 25 日进行系统维护', time: '4月19日 09:03', read: true },
-];
+/** 业务通知类型 → 页面四个分组（消息 / 报价 / 匹配 / 系统） */
+const GROUP_OF: Record<ApiNotificationType, NotificationType> = {
+  MESSAGE: '消息',
+  OFFER_RECEIVED: '报价',
+  OFFER_ACCEPTED: '报价',
+  OFFER_REJECTED: '报价',
+  MATCH_FOUND: '匹配',
+  ORDER_STATUS_CHANGED: '系统',
+  MEETUP_REMINDER: '系统',
+  REVIEW_REQUEST: '系统',
+  REPORT_RESULT: '系统',
+};
+
+/** 相对时间：一天内相对显示，更早显示具体时间 */
+function formatNotifyTime(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  if (diff < 60_000) return '刚刚';
+  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)} 分钟前`;
+  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)} 小时前`;
+  return new Date(iso).toLocaleString('zh-CN', { hour12: false });
+}
 
 const headerStyle: React.CSSProperties = {
   height: 64,
@@ -89,19 +101,31 @@ const sidebarStyle: React.CSSProperties = {
 };
 
 const NotificationPage: React.FC = () => {
-  const [notifications, setNotifications] =
-    useState<NotificationItem[]>(initialNotifications);
+  const navigate = useNavigate();
+
+  /** 通知来自可变 mockDb：报价/订单/举报等动作会真实产生通知，且每条带 link */
+  const rawNotifications = useMockDbStore((s) => s.notifications);
+  const markNotificationRead = useMockDbStore((s) => s.markNotificationRead);
+  const markAllNotificationsRead = useMockDbStore((s) => s.markAllNotificationsRead);
+
+  const notifications: NotificationItem[] = rawNotifications.map((n: AppNotification) => ({
+    id: n.id,
+    type: GROUP_OF[n.type],
+    title: n.title,
+    description: n.content,
+    time: formatNotifyTime(n.createdAt),
+    read: n.read,
+    link: n.link,
+  }));
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const handleMarkAllRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
-  };
+  const handleMarkAllRead = () => markAllNotificationsRead();
 
-  const handleItemClick = (id: number) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
-    );
+  /** 点击一条通知：标为已读 + 跳到它指向的页面（订单详情、会话等） */
+  const handleItemClick = (item: NotificationItem) => {
+    markNotificationRead(item.id);
+    if (item.link) navigate(item.link);
   };
 
   return (
@@ -137,25 +161,8 @@ const NotificationPage: React.FC = () => {
             gap: 20,
           }}
         >
-          <Badge dot offset={[-2, 2]}>
-            <BellOutlined style={{ fontSize: 18, color: TEXT_PRIMARY }} />
-          </Badge>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-            }}
-          >
-            <Avatar
-              size={32}
-              style={{ background: PRIMARY_COLOR }}
-              icon={<UserOutlined />}
-            />
-            <span style={{ fontSize: 14, color: TEXT_PRIMARY }}>同学</span>
-            <DownOutlined style={{ fontSize: 10, color: TEXT_SECONDARY }} />
-          </div>
+          <NotificationBell />
+          <UserMenu />
         </div>
       </header>
 
@@ -224,7 +231,7 @@ const NotificationPage: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    onClick={() => handleItemClick(item.id)}
+                    onClick={() => handleItemClick(item)}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
