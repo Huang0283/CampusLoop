@@ -10,7 +10,8 @@
 - 已合并汇总 PR：PR #17，将当时的第一阶段集成结果合并到 `main`。
 - M4 订单详情补充：PR #19，合并到 `phase1/frontend-experience`，远端分支提交为 `3373da2`。
 - 当前补齐分支：`task/m4-report-chat-notification-v2`，包含聊天、通知、统一举报入口、共享侧栏及第一阶段文档修正。
-- 当前分支必须通过 PR 合并回 `phase1/frontend-experience`；阶段负责人复核后，再从阶段集成分支向 `main` 提交汇总 PR。
+- 当前任务 PR：[#28](https://github.com/Huang0283/CampusLoop/pull/28)，目标为 `phase1/frontend-experience`。
+- PR #28 合并后，由阶段负责人复核，再从阶段集成分支向 `main` 提交汇总 PR。
 - 禁止通过直接推送 `main` 绕过上述两级 PR。
 
 ## 交付物核对
@@ -51,5 +52,4 @@
 - [ ] M7/M8 对匹配、价格和风险展示字段完成确认。
 - [ ] M10 确认可转换为独立测试场景。
 - [ ] M1 完成范围验收。
-- [ ] 当前任务 PR 合并到 `phase1/frontend-experience`，阶段汇总 PR 再合并到 `main`。
-
+- [ ] PR #28 合并到 `phase1/frontend-experience`，阶段汇总 PR 再合并到 `main`。
