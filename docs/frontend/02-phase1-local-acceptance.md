@@ -60,4 +60,4 @@
 - [ ] M10 确认可转换为独立测试场景。
 - [ ] M1 完成范围验收。
 - [ ] 三名前端成员在收尾 PR 中完成交叉 Review。
-- [ ] M2 从最新 `phase1/frontend-experience` 向 `main` 提交新的阶段汇总 PR；PR #38、#39、#40 已进入阶段分支，但晚于旧汇总 PR #17。
+- [x] M2 从最新 `phase1/frontend-experience` 向 `main` 提交新的阶段汇总 PR #43；PR #38、#39、#40、#41 已进入阶段分支，PR #43 已合并，提交为 `a07b1a6`。
