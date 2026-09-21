@@ -24,6 +24,9 @@
 ### 公共
 
 - [Frontend-01 核心用户旅程](01-core-user-journeys.md)
+- [Frontend-02 第一阶段本地验收与交付追踪](02-phase1-local-acceptance.md)
+- [Frontend-03 第一次汇报页面流程](03-phase1-presentation-walkthrough.md)
+- [Frontend-04 第一阶段前端内部复核](04-phase1-internal-review.md)
 
 ### M2：框架、身份与页面规范
 
@@ -33,6 +36,7 @@
 - [M2-04 身份、资料流程与页面权限矩阵](m2/04-auth-profile-and-permissions.md)
 - [M2-05 设计、公共组件与页面状态规范](m2/05-design-components-and-page-states.md)
 - [M2-06 逐页面五类状态矩阵](m2/06-page-state-matrix.md)
+- [M2-07 第一阶段任务分支与 PR 追踪](m2/07-task-pr-register.md)
 
 ### M3：市场、商品与求购
 
@@ -48,10 +52,6 @@
 - [M4-05 实时通信方案](m4/05-realtime-architecture.md)
 - [M4-06 按钮级权限](m4/06-button-permissions.md)
 - [M4-07 按钮级权限验收方案](m4/07-acceptance-button-permissions.md)
-
-### 验收与追踪
-
-- [Frontend-02 第一阶段本地验收与交付追踪](02-phase1-local-acceptance.md)
 
 ## 阶段边界
 

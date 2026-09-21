@@ -24,11 +24,13 @@
 | 市场 | /market | 学生 | 高 | M3 | 第 3 周 | 已完成（静态 Mock） |
 | 商品详情 | /product/:id | 学生 | 高 | M3 | 第 3 周 | 已完成（静态 Mock） |
 | 发布商品 | /publish | 学生 | 高 | M3 | 第 4 周 | 已完成（静态 Mock） |
+| 编辑商品 | /product/:id/edit | 学生本人 | 中 | M3 | 第 4 周 | 第一阶段流程定义；第二阶段实现可点击原型 |
 | 我的发布 | /my-products | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 我的收藏 | /favorites | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 求购市场 | /wanted | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 求购详情 | /wanted/:id | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
 | 发布求购 | /wanted/publish | 学生 | 中 | M3 | 第 4 周 | 已完成（静态 Mock） |
+| 编辑求购 | /wanted/:id/edit | 发布者本人 | 中 | M3 | 第 4 周 | 第一阶段流程定义；第二阶段实现可点击原型 |
 | 匹配结果 | /wanted/matches | 学生 | 中 | M3 | 第 5 周 | 已完成（静态 Mock） |
 | 价格建议 | /publish/price-advice | 学生 | 中 | M3 | 第 5 周 | 已完成（静态 Mock） |
 | 聊天列表 | /chat | 学生 | 高 | M4 | 第 5 周 | 原型 |
