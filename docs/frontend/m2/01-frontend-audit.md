@@ -68,7 +68,7 @@
 | 订单详情 | /transactions/:id | 学生 | M4 | 原型 |
 | 见面约定 | /transactions/:id/meetup | 学生 | M4 | 原型 |
 | 通知 | /notifications | 学生 | M4 | 原型 |
-| 个人交易中心 | /profile/transactions | 学生 | M4 | 原型 |
+| 个人交易中心 | /transactions | 学生 | M4 | 已合并到订单列表；旧路径重定向 |
 
 ## 6. 发现的问题
 

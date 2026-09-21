@@ -50,8 +50,7 @@
 |---|---|---|---|---|---|
 | 聊天列表 | 骨架屏 | EmptyState | 列表 | ErrorState+重试 | 跳 /403 |
 | 聊天详情 | 消息骨架 | 「打个招呼吧」 | 消息流 | 断线提示条+补拉 | 跳 /403 |
-| 订单列表 | 骨架屏 | EmptyState | tab 列表 | ErrorState | 跳 /403 |
+| 订单列表与个人交易中心 | 骨架屏 | EmptyState | 购买/出售/进行中/已结束 tab | ErrorState | 跳 /403 |
 | 订单详情 | 骨架屏 | - | 时间线+操作区 | ErrorState | 非参与者跳 /403 |
 | 见面约定 | 骨架屏 | 引导填写 | 表单+确认进度 | ErrorState | 非参与者跳 /403 |
 | 通知中心 | 骨架屏 | EmptyState | 分组列表 | ErrorState | 跳 /403 |
-| 个人交易中心 | 骨架屏 | EmptyState | 四 tab | ErrorState | 跳 /403 |
