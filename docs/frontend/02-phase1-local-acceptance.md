@@ -12,6 +12,7 @@
 - M4 第一阶段缺口补齐：[#28](https://github.com/Huang0283/CampusLoop/pull/28)，已合并到 `phase1/frontend-experience`，合并提交为 `c3349fc`。
 - 聊天头像与见面页 UI：[#32](https://github.com/Huang0283/CampusLoop/pull/32)，已合并到 `phase1/frontend-experience`，合并提交为 `fbc0afe`。
 - PR #32 曾将见面约定页替换为无状态静态页面；修复分支 `task/m4-restore-meetup-flow` 恢复订单参数、共享侧栏、角色权限、修改版本和双方确认 Mock 流程，同时保留聊天头像改动。
+- 个人交易中心与订单列表统一：[#39](https://github.com/Huang0283/CampusLoop/pull/39)，统一入口为 `/transactions`，保留购买/出售/进行中/已结束筛选、身份过滤、订单详情跳转和旧路径重定向。
 - 修复 PR 合并后，由阶段负责人复核，再从阶段集成分支向 `main` 提交新的汇总 PR。
 - 禁止通过直接推送 `main` 绕过上述两级 PR。
 
@@ -37,6 +38,7 @@
 - [x] 双账号泳道、按钮权限、断线/补拉/去重/失败重试和交易异常说明已进入 `docs/frontend/m4/`。
 - [x] 未完成或取消订单不得正常评价；订单事实由 Mock 状态层统一推进，不由页面直接伪造成功。
 - [x] 见面约定页按订单 ID 读取 Mock 状态；参与者可修改约定或确认当前版本，非参与者保持只读。
+- [x] 订单列表与个人交易中心统一为 `/transactions`；购买、出售、进行中、已结束标签实际按 Mock 订单和当前身份筛选，`/profile/transactions` 保留兼容重定向。
 
 ## 本地验证
 
@@ -54,4 +56,4 @@
 - [ ] M7/M8 对匹配、价格和风险展示字段完成确认。
 - [ ] M10 确认可转换为独立测试场景。
 - [ ] M1 完成范围验收。
-- [ ] 见面约定回归修复 [PR #38](https://github.com/Huang0283/CampusLoop/pull/38) 合并到 `phase1/frontend-experience`，阶段汇总 PR 再合并到 `main`。
+- [ ] 见面约定回归修复 [PR #38](https://github.com/Huang0283/CampusLoop/pull/38) 与订单入口统一 [PR #39](https://github.com/Huang0283/CampusLoop/pull/39) 合并到 `phase1/frontend-experience`，阶段汇总 PR 再合并到 `main`。

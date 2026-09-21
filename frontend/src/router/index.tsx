@@ -111,6 +111,11 @@ export const router = createBrowserRouter([
     path: '/notifications',
     element: authed(<NotificationPage />),
   },
+  {
+    // 兼容旧书签：个人交易中心已统一到订单列表，不让旧入口变成 404。
+    path: '/profile/transactions',
+    element: <Navigate to="/transactions" replace />,
+  },
 
   /* legacy redirects */
   { path: '/orders', element: <Navigate to="/transactions" replace /> },

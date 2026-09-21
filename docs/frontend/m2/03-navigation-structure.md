@@ -99,11 +99,10 @@
 | 市场 | /market | 侧边栏 市场 |
 | 求购市场 | /wanted | 侧边栏 求购 |
 | 聊天 | /chat | 侧边栏 聊天 |
-| 订单 | /transactions | 侧边栏 交易 |
+| 订单与个人交易中心 | /transactions | 侧边栏 交易；顶部“我的交易”也进入此处 |
 | 个人中心 | /profile | 顶部 个人菜单 |
 | 我的商品 | /my-products | 顶部 个人菜单 |
 | 收藏 | /favorites | 顶部 个人菜单 |
-| 个人交易中心 | /profile/transactions | 顶部 个人菜单 |
 | 通知 | /notifications | 顶部 通知 |
 | 管理后台 | /admin | 侧边栏 管理后台 |
 
