@@ -54,4 +54,4 @@
 - [ ] M7/M8 对匹配、价格和风险展示字段完成确认。
 - [ ] M10 确认可转换为独立测试场景。
 - [ ] M1 完成范围验收。
-- [ ] 见面约定回归修复 PR 合并到 `phase1/frontend-experience`，阶段汇总 PR 再合并到 `main`。
+- [ ] 见面约定回归修复 [PR #38](https://github.com/Huang0283/CampusLoop/pull/38) 合并到 `phase1/frontend-experience`，阶段汇总 PR 再合并到 `main`。
