@@ -32,6 +32,8 @@ import {
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { ReportModal } from '../../components/transaction';
 import { useMockDbStore } from '../../stores/mockDb';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
+import { useNavigate } from 'react-router-dom';
 import type { ReportTargetType } from '../../types/transaction';
 
 const { Header, Sider, Content } = Layout;
@@ -128,6 +130,8 @@ const cardStyle: React.CSSProperties = {
 };
 
 const ProductDetailPage: React.FC = () => {
+  const navigate = useNavigate();
+  const requireAuth = useRequireAuthAction();
   const [currentImg, setCurrentImg] = useState(0);
   const [favorite, setFavorite] = useState(false);
   const [reportTarget, setReportTarget] = useState<{
@@ -503,7 +507,9 @@ const ProductDetailPage: React.FC = () => {
                           <HeartOutlined />
                         )
                       }
-                      onClick={() => setFavorite(!favorite)}
+                      onClick={() => {
+                        if (requireAuth()) setFavorite(!favorite);
+                      }}
                       style={{
                         borderRadius: 8,
                         fontSize: 15,
@@ -526,6 +532,11 @@ const ProductDetailPage: React.FC = () => {
                         background: PRIMARY,
                         boxShadow: 'none',
                       }}
+                      onClick={() => {
+                        if (requireAuth()) {
+                          navigate('/chat');
+                        }
+                      }}
                     >
                       联系卖家
                     </Button>
@@ -545,9 +556,11 @@ const ProductDetailPage: React.FC = () => {
                     danger
                     size="small"
                     icon={<FlagOutlined />}
-                    onClick={() =>
-                      setReportTarget({ type: 'PRODUCT', id: product.id, label: product.title })
-                    }
+                    onClick={() => {
+                      if (requireAuth()) {
+                        setReportTarget({ type: 'PRODUCT', id: product.id, label: product.title });
+                      }
+                    }}
                   >
                     举报商品
                   </Button>
@@ -556,13 +569,15 @@ const ProductDetailPage: React.FC = () => {
                     danger
                     size="small"
                     icon={<FlagOutlined />}
-                    onClick={() =>
-                      setReportTarget({
-                        type: 'USER',
-                        id: product.seller.id,
-                        label: product.seller.name,
-                      })
-                    }
+                    onClick={() => {
+                      if (requireAuth()) {
+                        setReportTarget({
+                          type: 'USER',
+                          id: product.seller.id,
+                          label: product.seller.name,
+                        });
+                      }
+                    }}
                   >
                     举报卖家
                   </Button>

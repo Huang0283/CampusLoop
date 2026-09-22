@@ -26,6 +26,7 @@ import {
 } from '@ant-design/icons';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { useNavigate } from 'react-router-dom';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 
 const { Header, Sider, Content } = Layout;
 
@@ -115,10 +116,19 @@ const sectionTitleStyle: React.CSSProperties = {
 
 const WantedDetailPage: React.FC = () => {
   const navigate = useNavigate();
-  const handleFavorite = () => console.log('收藏');
-  const handleContact = () => console.log('联系发布者');
-  const handleReport = () => console.log('举报');
-  const handleViewAllMatches = () => navigate('/wanted/matches');
+  const requireAuth = useRequireAuthAction();
+  const handleFavorite = () => {
+    requireAuth();
+  };
+  const handleContact = () => {
+    if (requireAuth()) navigate('/chat');
+  };
+  const handleReport = () => {
+    requireAuth();
+  };
+  const handleViewAllMatches = () => {
+    if (requireAuth()) navigate('/wanted/matches');
+  };
 
   return (
     <ConfigProvider

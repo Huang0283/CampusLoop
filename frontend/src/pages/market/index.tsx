@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 
 const { Sider, Header, Content } = Layout;
 const { Text } = Typography;
@@ -159,6 +160,7 @@ const sortOptions = [
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
+  const requireAuth = useRequireAuthAction();
 
   return (
     <Card
@@ -204,6 +206,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           }
           onClick={(event) => {
             event.stopPropagation();
+            if (!requireAuth()) return;
             setLiked(!liked);
           }}
           style={{
@@ -246,6 +249,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 // ===================== 页面组件 =====================
 const MarketPage: React.FC = () => {
   const navigate = useNavigate();
+  const requireAuth = useRequireAuthAction();
   const [activeCategory, setActiveCategory] = useState('全部');
   const [price, setPrice] = useState('all');
   const [condition, setCondition] = useState('all');
@@ -345,10 +349,12 @@ const MarketPage: React.FC = () => {
                 </Button>
               ))}
             </Space>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={() => navigate('/publish')}
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={() => {
+                  if (requireAuth()) navigate('/publish');
+                }}
               style={{ height: 40, borderRadius: 8, fontSize: 15, padding: '0 20px' }}
             >
               发布商品

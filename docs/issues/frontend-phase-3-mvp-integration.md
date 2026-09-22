@@ -30,6 +30,13 @@
 - 个人任务完成并交叉评审后，由 M2 从 `phase3/frontend-mvp` 向 `phase3/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase3/integration` 向 `main` 提交阶段收口 Pull Request。
 
+## 文件所有权与合并顺序
+
+- M2 独占 `frontend/src/sdk/index.ts`、请求拦截器、路由守卫、公共错误边界和共享布局；M3/M4 不直接修改公共请求层。
+- M3 只维护市场、商品和求购页面/适配器；M4 只维护聊天、交易、通知和治理页面/适配器；两组通过生成 SDK 和已冻结响应类型交接。
+- `frontend/src/sdk/generated/` 由后端 M6 在 OpenAPI 变更后重新生成，前端不得手工改写；契约差异必须回到 BP-P2/BP-P3 的 OpenAPI PR。
+- 合并顺序固定为 M2 -> M3 -> M4；每个 PR 合并前必须从最新 `phase3/frontend-mvp` 同步并通过 lint/build/UI 测试。
+
 ## 接入前置条件
 
 - M2 仅在 M5 的认证接口通过契约测试并提供测试账号/错误样例后标记真实联调开始。

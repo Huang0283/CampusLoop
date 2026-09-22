@@ -76,9 +76,9 @@ export function SidebarNav() {
 /** SidebarLogo + SidebarNav：放进页面的 Sider / aside 容器即可 */
 export default function AppSidebar() {
   return (
-    <>
+    <div className="app-sidebar">
       <SidebarLogo />
       <SidebarNav />
-    </>
+    </div>
   );
 }

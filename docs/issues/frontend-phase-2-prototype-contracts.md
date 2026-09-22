@@ -30,6 +30,13 @@
 - 个人任务完成并交叉评审后，由 M2 从 `phase2/frontend-prototype` 向 `phase2/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase2/integration` 向 `main` 提交阶段收口 Pull Request。
 
+## 文件所有权与合并顺序
+
+- M2 独占 `frontend/src/router/index.tsx`、`frontend/src/hooks/useRequireAuthAction.ts`、`frontend/src/sdk/index.ts` 和共享壳层；M3/M4 不直接修改这些文件。
+- M3 只维护市场、商品和求购页面目录；M4 只维护聊天、交易和治理页面目录；跨目录需求通过契约文档和 PR 评论提出。
+- `frontend/src/sdk/generated/` 由后端 M6 生成，前端只执行 `sdk:check` 和构建验证，不手工改写生成文件。
+- 合并顺序固定为 M2 -> M3 -> M4；后一位成员从最新 `phase2/frontend-prototype` 创建或同步个人分支，再提交 PR。
+
 ## M2：前端架构、认证与公共体验负责人
 
 - 个人任务分支：`task/m2-p2-shell-prototype`。
@@ -44,7 +51,7 @@
 
 ### 个人交付物
 
-- [ ] **FE2-01**：`docs/evidence/phase-2/frontend/route-role-map.md`、路由代码。
+- [ ] **FE2-01**：`docs/evidence/phase-2/frontend/route-role-map.md`、路由代码；映射必须同时记录页面访问级别和页面动作级别，不能把“公开浏览”和“登录后动作”合并为一个角色字段。
 - [ ] **FE2-02**：`auth-profile-prototype.md`、对应页面代码。
 - [ ] **FE2-03**：`component-specification.md`、组件示例。
 - [ ] **FE2-04**：`page-api-map.md`、`frontend/src/sdk/index.ts` 和 `frontend/src/sdk/generated/`；SDK 只能由 `openapi/campusloop.v1.yaml` 生成，不得手工维护第二套接口类型。
@@ -52,7 +59,7 @@
 
 ### M2 验收标准
 
-- [ ] **FE2-01**：任一路由均能确定访问角色、页面 Owner 和返回路径。
+- [ ] **FE2-01**：任一路由均能确定页面访问级别、动作权限、页面 Owner 和返回路径；公开市场/求购浏览不得被登录守卫拦截，受保护动作必须保存来源路径后进入登录。
 - [ ] **FE2-02**：成功/失败/失效/禁用账号均能从原型进入明确状态。
 - [ ] **FE2-03**：M3/M4 不需复制组件即可表达五类状态。
 - [ ] **FE2-04**：所有 MVP 页面动作都有契约 Owner；未知项有截止时间。
@@ -148,6 +155,13 @@
 4. 真实 API/WebSocket/模型交互统一在 Phase 3 或 Phase 4 验收，本阶段不得因此误判原型未完成。
 
 ## 小组验收标准
+
+### 游客浏览与动作鉴权（FE2-01、FE2-05、FE2-07）
+
+- 未登录用户可以直接打开 `/`、`/market`、`/product/:id`、`/wanted` 和 `/wanted/:id`，完成列表浏览、搜索、筛选、排序、分页、详情查看和返回列表；这些页面不得因为缺少 token 跳转登录。
+- 收藏、联系卖家/发布者、举报、发布商品、发布求购和查看个性化匹配属于登录后动作。游客点击这些动作时保存当前路径并进入 `/login`，登录成功后回到来源页面；浏览动作不能触发登录提示。
+- `/profile`、`/favorites`、`/my-products`、`/publish`、`/wanted/publish`、`/wanted/matches`、聊天、交易、通知和管理后台仍属于受保护页面；管理员入口还必须通过角色校验。
+- 路由映射交付物必须同时记录“页面访问级别”和“页面动作级别”，不能只用一个“学生/公开”字段代替两种权限。
 
 - [ ] 未登录访问受限页进入登录或 403；管理员入口不向普通用户开放。
 - [ ] 买家可从市场依次进入详情、收藏/聊天、报价和订单原型。

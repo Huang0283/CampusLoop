@@ -30,6 +30,13 @@
 - 个人任务完成并交叉评审后，由 M2 从 `phase4/frontend-integration` 向 `phase4/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase4/integration` 向 `main` 提交阶段收口 Pull Request。
 
+## 文件所有权与合并顺序
+
+- M2 独占管理后台壳层、异步状态组件、全局错误边界和冻结登记；M3/M4 不直接修改公共组件。
+- M3 只维护搜索、供需匹配和价格建议页面；M4 只维护交易、通知和治理页面；智能字段必须来自同一生成 SDK 和已确认的 AI 契约。
+- 后端 M6 负责 OpenAPI 与 SDK 生成，前端只消费版本化结果；任何字段差异先由 M7/M8 确认，再由 M6 修改契约，最后由 M3/M4 接入。
+- 合并顺序固定为 M2 -> M3 -> M4；后一 PR 必须从最新 `phase4/frontend-integration` 同步后再提交。
+
 ## 接入顺序
 
 1. M7/M8 提供版本化结果、解释、降级样例和真实评估证据。
