@@ -1,39 +1,59 @@
-import React from 'react';
-import { Form, Input, Button, Segmented } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useAuthStore } from '../../stores/auth';
-import type { UserRole } from '../../types/user';
+import React, { useState } from 'react'
+import { Form, Input, Button, Segmented, message } from 'antd'
+import { MailOutlined, LockOutlined } from '@ant-design/icons'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../../stores/auth'
+import type { UserRole } from '../../types/user'
 
 interface LoginFormValues {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [form] = Form.useForm<LoginFormValues>();
-  const [role, setRole] = useState<UserRole>('student');
-  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [form] = Form.useForm<LoginFormValues>()
+  const [role, setRole] = useState<UserRole>('student')
+  const [loading, setLoading] = useState(false)
+  const login = useAuthStore((state) => state.login)
 
-  const handleFinish = () => {
-    login({
-      id: role === 'admin' ? 99 : 1,
-      nickname: role === 'admin' ? '演示管理员' : '演示学生',
-      role,
-    });
+  const handleFinish = (values: LoginFormValues) => {
+    setLoading(true)
 
-    const requestedPath = (location.state as { from?: { pathname?: string } } | null)
-      ?.from?.pathname;
-    const fallbackPath = role === 'admin' ? '/admin' : '/market';
-    const target = role === 'student' && requestedPath === '/admin'
-      ? '/market'
-      : requestedPath || fallbackPath;
+    setTimeout(() => {
+      if (values.email.includes('error')) {
+        setLoading(false)
+        message.error('邮箱或密码错误')
+        return
+      }
 
-    navigate(target, { replace: true });
-  };
+      login({
+        id: role === 'admin' ? 99 : 1,
+        nickname: role === 'admin' ? '演示管理员' : '演示学生',
+        role,
+        avatar: 'https://picsum.photos/seed/me/100/100',
+        campusVerified: true,
+        school: '清华大学',
+        college: '计算机学院',
+        major: '软件工程',
+        bio: '热爱校园生活，诚信交易。',
+      })
+
+      message.success('登录成功')
+
+      const requestedPath = (location.state as { from?: { pathname?: string } } | null)
+        ?.from?.pathname
+      const fallbackPath = role === 'admin' ? '/admin' : '/market'
+      const target =
+        role === 'student' && requestedPath === '/admin'
+          ? '/market'
+          : requestedPath || fallbackPath
+
+      setLoading(false)
+      navigate(target, { replace: true })
+    }, 800)
+  }
 
   return (
     <div
@@ -54,7 +74,6 @@ const LoginPage: React.FC = () => {
           padding: '48px 40px',
         }}
       >
-        {/* Logo */}
         <div
           style={{
             display: 'flex',
@@ -70,7 +89,6 @@ const LoginPage: React.FC = () => {
           <span style={{ fontSize: 24, fontWeight: 700, color: '#1677ff' }}>CampusLoop</span>
         </div>
 
-        {/* 标题 */}
         <h1
           style={{
             textAlign: 'center',
@@ -83,13 +101,13 @@ const LoginPage: React.FC = () => {
           登录
         </h1>
 
-        {/* 表单 */}
         <Form<LoginFormValues>
           form={form}
           layout="vertical"
           onFinish={handleFinish}
           requiredMark={false}
           initialValues={{ email: 'student@campus.edu', password: 'demo123' }}
+          disabled={loading}
         >
           <Form.Item label="演示身份">
             <Segmented
@@ -100,6 +118,7 @@ const LoginPage: React.FC = () => {
                 { label: '管理员', value: 'admin' },
               ]}
               onChange={(value) => setRole(value as UserRole)}
+              disabled={loading}
             />
           </Form.Item>
           <Form.Item
@@ -135,6 +154,7 @@ const LoginPage: React.FC = () => {
               htmlType="submit"
               size="large"
               block
+              loading={loading}
               style={{ borderRadius: 8, height: 46, fontSize: 16, fontWeight: 600 }}
             >
               登录
@@ -142,7 +162,6 @@ const LoginPage: React.FC = () => {
           </Form.Item>
         </Form>
 
-        {/* 底部链接 */}
         <div style={{ textAlign: 'center', color: '#666666', fontSize: 14 }}>
           还没有账号？{' '}
           <a
@@ -154,7 +173,7 @@ const LoginPage: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage
