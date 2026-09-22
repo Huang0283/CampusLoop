@@ -47,11 +47,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/market',
-    element: <MarketPage />,
+    element: authed(<MarketPage />),
   },
   {
     path: '/product/:id',
-    element: <ProductDetailPage />,
+    element: authed(<ProductDetailPage />),
   },
   {
     path: '/publish',
@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/wanted',
-    element: <WantedPage />,
+    element: authed(<WantedPage />),
   },
   {
     path: '/wanted/matches',
@@ -83,7 +83,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/wanted/:id',
-    element: <WantedDetailPage />,
+    element: authed(<WantedDetailPage />),
   },
 
   /* ---------- M4: transaction flow ---------- */
