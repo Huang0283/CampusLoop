@@ -45,6 +45,24 @@ a:hover {
   border-right: 1px solid #f0f0f0;
 }
 
+.app-notification-slot {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 34px;
+}
+
+.app-notification-bell {
+  position: fixed;
+  top: 15px;
+  right: 194px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  width: 18px;
+  height: 34px;
+  line-height: normal;
+}
+
 /* Keep the account control independent from each page's Header width. */
 .app-user-menu-slot {
   flex: 0 0 150px;
@@ -84,6 +102,11 @@ a:hover {
 }
 
 @media (max-width: 640px) {
+  .app-notification-bell {
+    top: 12px;
+    right: 84px;
+  }
+
   .app-user-menu-slot {
     flex-basis: 60px;
     width: 60px;
