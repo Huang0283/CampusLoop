@@ -1,25 +1,39 @@
-import React from 'react';
-import { Form, Input, Button, message } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Form, Input, Button, message } from 'antd'
+import { MailOutlined, LockOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 
 interface RegisterFormValues {
-  email: string;
-  password: string;
-  confirmPassword: string;
+  email: string
+  password: string
+  confirmPassword: string
 }
 
 const RegisterPage: React.FC = () => {
-  const navigate = useNavigate();
-  const [form] = Form.useForm<RegisterFormValues>();
+  const navigate = useNavigate()
+  const [form] = Form.useForm<RegisterFormValues>()
+  const [loading, setLoading] = useState(false)
 
   const handleFinish = (values: RegisterFormValues) => {
     if (values.password !== values.confirmPassword) {
-      message.error('两次密码不一致');
-      return;
+      message.error('两次密码不一致')
+      return
     }
-    console.log('注册表单值：', values);
-  };
+
+    setLoading(true)
+
+    setTimeout(() => {
+      if (values.email.includes('error')) {
+        setLoading(false)
+        message.error('该邮箱已注册')
+        return
+      }
+
+      message.success('注册成功，请登录')
+      setLoading(false)
+      navigate('/login', { replace: true })
+    }, 800)
+  }
 
   return (
     <div
@@ -40,7 +54,6 @@ const RegisterPage: React.FC = () => {
           padding: '48px 40px',
         }}
       >
-        {/* Logo */}
         <div
           style={{
             display: 'flex',
@@ -56,7 +69,6 @@ const RegisterPage: React.FC = () => {
           <span style={{ fontSize: 24, fontWeight: 700, color: '#1677ff' }}>CampusLoop</span>
         </div>
 
-        {/* 标题 */}
         <h1
           style={{
             textAlign: 'center',
@@ -69,12 +81,12 @@ const RegisterPage: React.FC = () => {
           注册
         </h1>
 
-        {/* 表单 */}
         <Form<RegisterFormValues>
           form={form}
           layout="vertical"
           onFinish={handleFinish}
           requiredMark={false}
+          disabled={loading}
         >
           <Form.Item
             name="email"
@@ -124,6 +136,7 @@ const RegisterPage: React.FC = () => {
               htmlType="submit"
               size="large"
               block
+              loading={loading}
               style={{ borderRadius: 8, height: 46, fontSize: 16, fontWeight: 600 }}
             >
               注册
@@ -131,7 +144,6 @@ const RegisterPage: React.FC = () => {
           </Form.Item>
         </Form>
 
-        {/* 底部链接 */}
         <div style={{ textAlign: 'center', color: '#666666', fontSize: 14 }}>
           已有账号？{' '}
           <a
@@ -143,7 +155,7 @@ const RegisterPage: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage
