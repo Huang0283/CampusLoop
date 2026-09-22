@@ -26,3 +26,36 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Keep the account control independent from each page's Header width. */
+.app-user-menu-slot {
+  flex: 0 0 150px;
+  width: 150px;
+  height: 34px;
+}
+
+.app-user-menu {
+  position: fixed;
+  top: 15px;
+  right: 24px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+}
+
+@media (max-width: 640px) {
+  .app-user-menu-slot {
+    flex-basis: 60px;
+    width: 60px;
+  }
+
+  .app-user-menu {
+    top: 12px;
+    right: 12px;
+  }
+
+  .app-user-menu .ant-space-item:nth-child(2) {
+    display: none;
+  }
+}

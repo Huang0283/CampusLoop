@@ -59,18 +59,22 @@ export default function UserMenu({ color = '#1f2329' }: UserMenuProps) {
   };
 
   return (
-    <Dropdown
-      menu={{ items: MENU_ITEMS, onClick: handleMenuClick }}
-      trigger={['click']}
-      placement="bottomRight"
-    >
-      <Space size={8} style={{ cursor: 'pointer' }}>
-        <Avatar size={34} src={user?.avatar}>
-          {(user?.nickname ?? '游').slice(0, 1)}
-        </Avatar>
-        <span style={{ fontSize: 14, color }}>{user?.nickname ?? '未登录'}</span>
-        <DownOutlined style={{ fontSize: 11, color: '#8c8c8c' }} />
-      </Space>
-    </Dropdown>
+    <div className="app-user-menu-slot">
+      <div className="app-user-menu">
+        <Dropdown
+          menu={{ items: MENU_ITEMS, onClick: handleMenuClick }}
+          trigger={['click']}
+          placement="bottomRight"
+        >
+          <Space size={8} style={{ cursor: 'pointer' }}>
+            <Avatar size={34} src={user?.avatar}>
+              {(user?.nickname ?? '游').slice(0, 1)}
+            </Avatar>
+            <span style={{ fontSize: 14, color }}>{user?.nickname ?? '未登录'}</span>
+            <DownOutlined style={{ fontSize: 11, color: '#8c8c8c' }} />
+          </Space>
+        </Dropdown>
+      </div>
+    </div>
   );
 }
