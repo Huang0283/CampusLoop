@@ -66,11 +66,13 @@ export default function UserMenu({ color = '#1f2329' }: UserMenuProps) {
           trigger={['click']}
           placement="bottomRight"
         >
-          <Space size={8} style={{ cursor: 'pointer' }}>
+          <Space className="app-user-menu-content" size={8}>
             <Avatar size={34} src={user?.avatar}>
               {(user?.nickname ?? '游').slice(0, 1)}
             </Avatar>
-            <span style={{ fontSize: 14, color }}>{user?.nickname ?? '未登录'}</span>
+            <span className="app-user-menu-label" style={{ color }}>
+              {user?.nickname ?? '未登录'}
+            </span>
             <DownOutlined style={{ fontSize: 11, color: '#8c8c8c' }} />
           </Space>
         </Dropdown>

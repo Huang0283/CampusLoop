@@ -27,6 +27,19 @@ a:hover {
   text-decoration: underline;
 }
 
+/* The shared navigation owns its viewport position on every route. */
+.app-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 120;
+  width: 220px;
+  overflow-y: auto;
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+}
+
 /* Keep the account control independent from each page's Header width. */
 .app-user-menu-slot {
   flex: 0 0 150px;
@@ -41,7 +54,23 @@ a:hover {
   z-index: 1100;
   display: flex;
   align-items: center;
+  width: 150px;
   min-height: 34px;
+}
+
+.app-user-menu-content {
+  width: 100%;
+  cursor: pointer;
+}
+
+.app-user-menu-label {
+  display: block;
+  width: 76px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 34px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (max-width: 640px) {
@@ -53,6 +82,7 @@ a:hover {
   .app-user-menu {
     top: 12px;
     right: 12px;
+    width: 60px;
   }
 
   .app-user-menu .ant-space-item:nth-child(2) {
