@@ -30,6 +30,14 @@
 - 个人任务完成并交叉评审后，由 M5 从 `phase2/backend-foundation` 向 `phase2/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase2/integration` 向 `main` 提交阶段收口 Pull Request。
 
+## 文件所有权与合并顺序
+
+- M5 只维护认证契约输入和 `auth-contract.md`、`auth-security-design.md`；不得在个人 PR 中直接改写 `openapi/campusloop.v1.yaml`。
+- M6 是 `openapi/campusloop.v1.yaml` 的唯一维护人，先合入 M5 Review 通过的认证字段，再合入业务接口、状态和错误结构；只有 M6 在 canonical OpenAPI 合并后执行 `npm run sdk:generate`。
+- `frontend/src/sdk/generated/` 是生成产物，M6 负责生成并登记提交号；M2/M3/M4 只能消费和验证，不得手工改写。
+- M9 独占模型、迁移、索引、种子、Compose 和 CI 运行文件；M5/M6 通过迁移需求文档提出变更，由 M9 在同一小组分支落盘。
+- 合并顺序固定为 M5 -> M6 -> M9；每一步合并后下一位负责人先同步 `phase2/backend-foundation` 再提交 PR。
+
 ## M5：账号、权限与治理后端负责人
 
 - 个人任务分支：`task/m5-p2-auth-contracts`。
@@ -41,7 +49,7 @@
 
 ### 个人交付物
 
-- [ ] **BP2-01**：OpenAPI、docs/evidence/phase-2/backend-platform/auth-contract.md。
+- [ ] **BP2-01**：docs/evidence/phase-2/backend-platform/auth-contract.md、auth-openapi-input.md；只提交认证契约输入，不直接修改 canonical OpenAPI。
 - [ ] **BP2-02**：auth-security-design.md。
 
 ### M5 验收标准

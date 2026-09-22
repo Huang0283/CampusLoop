@@ -30,6 +30,13 @@
 - 个人任务完成并交叉评审后，由 M5 从 `phase5/backend-release` 向 `phase5/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase5/integration` 向 `main` 提交阶段收口 Pull Request。
 
+## 文件所有权与合并顺序
+
+- M5 只修复认证、权限、治理和敏感日志；M6 只修复业务不变量、实时/智能回归和最终 API 文档。
+- M9 独占镜像、Compose、迁移、备份/恢复、磁盘和性能脚本；M5/M6 不直接改运行与迁移文件。
+- `openapi/campusloop.v1.yaml` 和生成 SDK 由 M6 最后冻结，M5/M9 只做审查与证据确认。
+- 合并顺序固定为 M5 -> M6 -> M9；M10 只能在三人合并后的同一阶段提交执行最终复验。
+
 ## 修复与发布顺序
 
 1. M10/M1 确认缺陷优先级；模块 Owner 复现并定位前端、业务、数据或智能层。

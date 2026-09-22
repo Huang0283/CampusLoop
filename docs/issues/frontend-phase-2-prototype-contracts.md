@@ -30,6 +30,13 @@
 - 个人任务完成并交叉评审后，由 M2 从 `phase2/frontend-prototype` 向 `phase2/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase2/integration` 向 `main` 提交阶段收口 Pull Request。
 
+## 文件所有权与合并顺序
+
+- M2 独占 `frontend/src/router/index.tsx`、`frontend/src/hooks/useRequireAuthAction.ts`、`frontend/src/sdk/index.ts` 和共享壳层；M3/M4 不直接修改这些文件。
+- M3 只维护市场、商品和求购页面目录；M4 只维护聊天、交易和治理页面目录；跨目录需求通过契约文档和 PR 评论提出。
+- `frontend/src/sdk/generated/` 由后端 M6 生成，前端只执行 `sdk:check` 和构建验证，不手工改写生成文件。
+- 合并顺序固定为 M2 -> M3 -> M4；后一位成员从最新 `phase2/frontend-prototype` 创建或同步个人分支，再提交 PR。
+
 ## M2：前端架构、认证与公共体验负责人
 
 - 个人任务分支：`task/m2-p2-shell-prototype`。
