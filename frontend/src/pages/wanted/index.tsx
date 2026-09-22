@@ -21,6 +21,7 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -137,6 +138,7 @@ const sortOptions = [
 
 const WantedPage: React.FC = () => {
   const navigate = useNavigate();
+  const requireAuth = useRequireAuthAction();
   const [filters, setFilters] = useState({
     category: undefined as string | undefined,
     budget: undefined as string | undefined,
@@ -260,7 +262,9 @@ const WantedPage: React.FC = () => {
                 type="primary"
                 size="large"
                 style={{ borderRadius: 8 }}
-                onClick={() => navigate('/wanted/publish')}
+                onClick={() => {
+                  if (requireAuth()) navigate('/wanted/publish');
+                }}
               >
                 发布求购
               </Button>
