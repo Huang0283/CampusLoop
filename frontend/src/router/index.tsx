@@ -47,19 +47,15 @@ export const router = createBrowserRouter([
   },
   {
     path: '/market',
-    element: (<MarketPage />),
+    element: authed(<MarketPage />),
   },
   {
     path: '/product/:id',
-    element: (<ProductDetailPage />),
+    element: authed(<ProductDetailPage />),
   },
   {
     path: '/publish',
     element: authed(<PublishProductPage />),
-  },
-  {
-  path: '/product/:id/edit',
-  element: authed(<PublishProductPage />),
   },
   {
     path: '/publish/price-advice',
@@ -75,7 +71,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/wanted',
-    element: (<WantedPage />),
+    element: authed(<WantedPage />),
   },
   {
     path: '/wanted/matches',
@@ -86,12 +82,8 @@ export const router = createBrowserRouter([
     element: authed(<PublishWantedPage />),
   },
   {
-  path: '/wanted/:id/edit',
-  element: authed(<PublishWantedPage />),
-  },
-  {
     path: '/wanted/:id',
-    element: (<WantedDetailPage />),
+    element: authed(<WantedDetailPage />),
   },
 
   /* ---------- M4: transaction flow ---------- */
@@ -146,11 +138,11 @@ export const router = createBrowserRouter([
     element: <RoutePlaceholder name="Not Found" />,
   },
   {
-  path: '/transactions/:id/review',
-  element: authed(<ReviewPage />),
-},
-{
-  path: '*',
-  element: <Navigate to="/404" replace />,
-},
+    path: '*',
+    element: <Navigate to="/404" replace />,
+  },
+  {
+    path: '/transactions/:id/review',
+    element: authed(<ReviewPage />),
+  },
 ])
