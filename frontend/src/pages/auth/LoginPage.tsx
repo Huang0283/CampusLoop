@@ -1,30 +1,49 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Segmented, message } from 'antd'
+import { Alert, Form, Input, Button, Segmented, message } from 'antd'
 import { MailOutlined, LockOutlined } from '@ant-design/icons'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/auth'
 import type { UserRole } from '../../types/user'
+import { toReturnPath, type ReturnLocation } from '../../hooks/useRequireAuthAction'
 
 interface LoginFormValues {
   email: string
   password: string
 }
 
+type AuthScenario = 'success' | 'invalid' | 'expired' | 'disabled'
+
 const LoginPage: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [form] = Form.useForm<LoginFormValues>()
   const [role, setRole] = useState<UserRole>('student')
+  const [scenario, setScenario] = useState<AuthScenario>('success')
+  const [feedback, setFeedback] = useState<{ type: 'error' | 'warning'; text: string } | null>(null)
   const [loading, setLoading] = useState(false)
   const login = useAuthStore((state) => state.login)
 
   const handleFinish = (values: LoginFormValues) => {
     setLoading(true)
+    setFeedback(null)
 
     setTimeout(() => {
-      if (values.email.includes('error')) {
+      if (scenario === 'invalid' || values.email.includes('error')) {
         setLoading(false)
-        message.error('邮箱或密码错误')
+        setFeedback({ type: 'error', text: '邮箱或密码错误，请检查后重试。' })
+        return
+      }
+
+      if (scenario === 'expired') {
+        localStorage.removeItem('token')
+        setLoading(false)
+        setFeedback({ type: 'warning', text: '登录令牌已失效，请重新输入凭据。' })
+        return
+      }
+
+      if (scenario === 'disabled') {
+        setLoading(false)
+        setFeedback({ type: 'error', text: '该账号已被禁用，请联系管理员处理。' })
         return
       }
 
@@ -42,11 +61,12 @@ const LoginPage: React.FC = () => {
 
       message.success('登录成功')
 
-      const requestedPath = (location.state as { from?: { pathname?: string } } | null)
-        ?.from?.pathname
+      const requestedPath = toReturnPath(
+        (location.state as { from?: ReturnLocation } | null)?.from,
+      )
       const fallbackPath = role === 'admin' ? '/admin' : '/market'
       const target =
-        role === 'student' && requestedPath === '/admin'
+        role === 'student' && requestedPath?.startsWith('/admin')
           ? '/market'
           : requestedPath || fallbackPath
 
@@ -121,6 +141,28 @@ const LoginPage: React.FC = () => {
               disabled={loading}
             />
           </Form.Item>
+          <Form.Item label="演示状态">
+            <Segmented
+              block
+              value={scenario}
+              options={[
+                { label: '正常', value: 'success' },
+                { label: '凭据错误', value: 'invalid' },
+                { label: '令牌失效', value: 'expired' },
+                { label: '账号禁用', value: 'disabled' },
+              ]}
+              onChange={(value) => setScenario(value as AuthScenario)}
+              disabled={loading}
+            />
+          </Form.Item>
+          {feedback && (
+            <Alert
+              showIcon
+              type={feedback.type}
+              title={feedback.text}
+              style={{ marginBottom: 20 }}
+            />
+          )}
           <Form.Item
             name="email"
             rules={[
