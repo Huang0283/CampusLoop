@@ -1,6 +1,6 @@
 # BP1-09 实体关系草图与约束候选
 
-> Owner：M9 ｜ 阶段：BP-P1 ｜ 状态：设计候选（Phase 2 的 `alembic/versions/0001_initial_schema.py` 按本表实现）
+> Owner：M9 ｜ 阶段：BP-P1 ｜ 状态：设计候选
 > 实体字典来自 M6 BP1-04；字段名对齐 `openapi/campusloop.v1.yaml`（camelCase 由 API 层序列化转换，数据库用 snake_case）
 
 ## 1. ER 总图（文字版，→ 外键）
