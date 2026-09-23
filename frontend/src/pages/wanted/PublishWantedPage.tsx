@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ConfigProvider,
   Layout,
@@ -8,6 +8,7 @@ import {
   DatePicker,
   Button,
   Form,
+  message,
 } from 'antd';
 import {
   SearchOutlined,
@@ -15,6 +16,7 @@ import {
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import { createWanted } from '../../sdk/generated/sdk.gen';
 
 const { Header, Sider, Content } = Layout;
 
@@ -27,7 +29,7 @@ const BORDER = '#eef0f3';
 
 /** 蓝色学士帽 Logo（自定义 SVG，antd 无此图标） */
 
-/** mock 数据 */
+/** 表单选项 */
 const conditionOptions = [
   { value: '全新', label: '全新' },
   { value: '九成新', label: '九成新' },
@@ -55,10 +57,43 @@ interface WantedFormValues {
 const PublishWantedPage: React.FC = () => {
   const [form] = Form.useForm<WantedFormValues>();
   const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (values: WantedFormValues) => {
-    console.log('提交求购：', values);
-    navigate('/wanted/matches');
+  // 将表单字段转换为接口需要的数据，并提交真实的求购信息。
+  const handleSubmit = async (values: WantedFormValues) => {
+    setSubmitting(true);
+
+    try {
+      await createWanted({
+        body: {
+          title: values.title,
+          budgetMin: values.minBudget!,
+          budgetMax: values.maxBudget!,
+          condition: values.condition,
+          location: values.location,
+          expireAt: values.expireDate.endOf('day').toISOString(),
+        },
+        // 每次提交生成唯一幂等键，避免重复点击产生重复求购记录。
+        headers: { 'Idempotency-Key': crypto.randomUUID() },
+        auth: () => localStorage.getItem('token') ?? undefined,
+        throwOnError: true,
+      });
+
+      message.success('求购发布成功');
+      navigate('/wanted');
+    } catch (error) {
+      // 优先展示后端返回的错误信息，无法识别时使用统一提示。
+      const errorMessage =
+        typeof error === 'object' &&
+        error !== null &&
+        'message' in error &&
+        typeof error.message === 'string'
+          ? error.message
+          : '求购发布失败，请稍后重试';
+      message.error(errorMessage);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleSaveDraft = async () => {
@@ -217,7 +252,8 @@ const PublishWantedPage: React.FC = () => {
                   maxBudget: 1500,
                   condition: '九成新',
                   location: '清华大学',
-                  expireDate: dayjs('2025-12-31'),
+                  // 默认有效期设为 30 天后，避免写死日期过期导致接口校验失败。
+                  expireDate: dayjs().add(30, 'day'),
                 }}
                 onFinish={handleSubmit}
                 requiredMark={false}
@@ -306,7 +342,12 @@ const PublishWantedPage: React.FC = () => {
                   <Button size="large" onClick={handleSaveDraft}>
                     保存草稿
                   </Button>
-                  <Button type="primary" size="large" htmlType="submit">
+                  <Button
+                    type="primary"
+                    size="large"
+                    htmlType="submit"
+                    loading={submitting}
+                  >
                     提交求购
                   </Button>
                 </div>
