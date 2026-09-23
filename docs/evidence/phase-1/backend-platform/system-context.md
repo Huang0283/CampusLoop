@@ -1,7 +1,7 @@
 # BP1-08 系统上下文与组件责任（候选）
 
 > Owner：M9 ｜ 阶段：BP-P1 ｜ 状态：设计候选，非实现证明
-> 依据：`README.md` 技术栈与范围、`openapi/campusloop.v1.yaml` v0.2.0-contract、项目说明书第 7/16 节
+> 依据：`README.md` 技术栈与范围、Issue #5 的阶段边界、项目说明书第 7/16 节。接口和字段细节待 BP-P2 契约冻结。
 
 ## 1. 系统上下文图（文字版）
 
@@ -18,7 +18,7 @@
         │  orders │ meetups │ reviews │ reports │ admin    │
         │  notifications │ search │ intelligence 适配层     │
         └───┬───────────────┬───────────────┬────────────┘
-            │ SQL           │ RESPUSH/缓存    │ S3 协议
+            │ SQL           │ RESP/缓存       │ S3 协议
             ▼               ▼               ▼
      ┌────────────┐   ┌───────────┐   ┌────────────┐
      │ PostgreSQL │   │  Redis 7  │   │   MinIO    │

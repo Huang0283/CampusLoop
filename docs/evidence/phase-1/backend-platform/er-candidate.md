@@ -1,7 +1,7 @@
 # BP1-09 实体关系草图与约束候选
 
 > Owner：M9 ｜ 阶段：BP-P1 ｜ 状态：设计候选
-> 实体字典来自 M6 BP1-04；字段名对齐 `openapi/campusloop.v1.yaml`（camelCase 由 API 层序列化转换，数据库用 snake_case）
+> 输入：Issue #5 列出的核心实体和当前产品范围。本文只给出数据归属与约束候选，不冻结字段、枚举、索引或迁移；M6 的 BP1-04/BP1-05 合入后再逐项对齐。
 
 ## 1. ER 总图（文字版，→ 外键）
 
@@ -23,7 +23,7 @@ orders ── meetups（1:1，版本化双方确认）
 
 ## 2. 表清单与约束候选
 
-> 审计字段约定：所有业务表带 `created_at TIMESTAMPTZ NOT NULL DEFAULT now()`；可变表另带 `updated_at`（触发器或应用层维护，Phase 2 用应用层）。金额用 `NUMERIC(10,2)`，枚举用 `VARCHAR + CHECK`（值与 OpenAPI 枚举完全一致）。
+> 候选约定：所有业务表带 `created_at TIMESTAMPTZ NOT NULL DEFAULT now()`；可变表另带 `updated_at`。金额候选用 `NUMERIC(10,2)`；枚举候选用 `VARCHAR + CHECK`。最终字段、枚举和维护方式由 BP-P2 的 canonical OpenAPI、模型和迁移共同冻结。
 
 ### users（Owner: M5）
 | 字段 | 类型 | 约束/说明 |
@@ -31,9 +31,9 @@ orders ── meetups（1:1，版本化双方确认）
 | id | BIGSERIAL | PK |
 | email | VARCHAR(255) | **UNIQUE NOT NULL**，登录标识，公开响应禁止返回 |
 | password_hash | VARCHAR(255) | NOT NULL，登录后不返回 |
-| nickname | VARCHAR(50) | NOT NULL |
+| nickname | VARCHAR(40) | NOT NULL；长度待 M5 认证领域确认 |
 | avatar_url | VARCHAR(500) | 可空 |
-| role | VARCHAR(10) | CHECK IN ('USER','ADMIN')，默认 USER |
+| role | VARCHAR(20) | 角色枚举和默认值由 M5 认证领域确认；本候选不提前冻结 |
 | status | VARCHAR(10) | CHECK IN ('ACTIVE','DISABLED')，默认 ACTIVE |
 | school/college/major | VARCHAR(100) | 可空，教学模拟认证 |
 | credit_level | VARCHAR(20) | 可空 |
@@ -63,7 +63,7 @@ orders ── meetups（1:1，版本化双方确认）
 
 ### product_images（Owner: M9 存储 + M6 业务）
 - PK id；FK product_id → products ON DELETE CASCADE；object_key VARCHAR(500) NOT NULL；sort INTEGER NOT NULL DEFAULT 0；
-- **UNIQUE(product_id, sort)**（同商品图序唯一）；**CHECK cardinality ≤ 5 由应用层+契约 maxItems=5 双重保证**。
+- **UNIQUE(product_id, sort)**（同商品图序唯一）。“每件商品最多 5 张图”是跨行计数，普通行级 `CHECK` 无法保证；候选方案为应用事务校验并由 API 请求约束拦截，如 M10 要求数据库硬保证，再在 BP-P2 评审触发器或计数结构。
 
 ### favorites（Owner: M6）
 - PK id；FK user_id、FK product_id；**UNIQUE(user_id, product_id)**（防重复收藏）；created_at。
@@ -85,7 +85,7 @@ orders ── meetups（1:1，版本化双方确认）
 - expires_at；counter_of 可空 FK → offers（还价链）；created_at/updated_at。
 
 ### orders / order_events / meetups（Owner: M6，交易闭环）
-**orders**：PK id；FK product_id（**UNIQUE**，一件商品至多一个非取消订单，由应用层在事务中校验取消后重卖）；buyer_id/seller_id FK；**CHECK buyer_id <> seller_id**；amount CHECK >= 0；
+**orders**：PK id；FK product_id；候选使用 PostgreSQL 部分唯一索引 `UNIQUE(product_id) WHERE status <> 'CANCELLED'`，保证同一商品同时至多一个未取消订单，同时允许取消后重新成交；buyer_id/seller_id FK；**CHECK buyer_id <> seller_id**；amount CHECK >= 0；
 - status CHECK IN ('PENDING_CONFIRM','BOOKED','MEETUP_ARRANGED','COMPLETED','CANCELLED','DISPUTED')；
 - buyer_confirmed_complete / seller_confirmed_complete BOOLEAN 默认 false；
 - version INTEGER NOT NULL DEFAULT 1（乐观锁，Meetup 契约要求 version）；
@@ -98,11 +98,11 @@ orders ── meetups（1:1，版本化双方确认）
 ### reviews（Owner: M6）
 - PK id；FK order_id、reviewer_id、reviewee_id；
 - **UNIQUE(order_id, reviewer_id)**（一单一人一评，双评靠买卖双方各一条）；**CHECK reviewer_id <> reviewee_id**；
-- rating INTEGER **CHECK rating BETWEEN 1 AND 5**；comment VARCHAR(500)；created_at（不可变）。
+- overall / description_accuracy / communication / punctuality INTEGER，均候选 **CHECK BETWEEN 1 AND 5**；comment VARCHAR(1000)；created_at（不可变）。最终评分维度由 M6 的交易规则确认。
 
 ### reports（Owner: M5，治理）
-- PK id；reporter_id FK；target_type CHECK IN ('USER','PRODUCT','ORDER','CHAT_MESSAGE')；target_id BIGINT NOT NULL（多态引用，应用层校验存在性）；reason CHECK IN ('FAKE_PRODUCT','DESCRIPTION_MISMATCH','SPAM','ABNORMAL_PRICE','HARASSMENT','VIOLATION')；description VARCHAR(1000)；
-- evidence JSONB（管理员可见，普通用户不可读）；status CHECK IN ('PENDING','PROCESSING','RESOLVED','REJECTED')；handled_by FK 可空；**索引 (status, created_at)**（管理端队列）。
+- PK id；reporter_id FK；target_type 候选 CHECK IN ('USER','PRODUCT','ORDER','CHAT_MESSAGE')；target_id BIGINT NOT NULL（多态引用，应用层校验存在性）；reason 候选 CHECK IN ('FAKE_PRODUCT','DESCRIPTION_MISMATCH','SPAM','ABNORMAL_PRICE','HARASSMENT','VIOLATION')；description VARCHAR(2000)；
+- evidence JSONB 只保存私有桶 object key，不保存公开 URL（仅举报人本人、管理员和处理人可见）；status 候选 CHECK IN ('PENDING','PROCESSING','RESOLVED','REJECTED')；handled_by FK 可空；候选索引 (status, created_at)（管理端队列）。
 
 ### notifications（Owner: M6/M9）
 - PK id；FK user_id（索引 (user_id, read_at)）；type CHECK IN (契约 9 种)；payload JSONB；read_at 可空（NULL=未读）；created_at。
@@ -120,13 +120,15 @@ orders ── meetups（1:1，版本化双方确认）
 
 | 待确认项 | 对方 Owner | 期限 |
 |---|---|---|
+| M6 BP1-04/BP1-05 合入后，对齐实体字段、生命周期和状态枚举 | M6 | BP-P1 小组汇总前 |
 | 契约无 users.status 枚举值（423 禁用语义），建议库层 'ACTIVE'/'DISABLED' | M5 | BP-P2 |
-| orders.product_id 是否允许"取消后重卖"（影响 UNIQUE 方案） | M6 | BP-P2 |
+| 取消后是否允许重新成交；如不允许，删除部分索引条件 | M6 | BP-P2 |
 | embedding 维度 768 vs 1024（依赖 M7 选型） | M7 | BP-P3 前 |
 | order_events 是否需要 DB 层防 UPDATE（触发器 or 应用层承诺） | M6/M10 | BP-P2 |
 
 ## 5. 验收自检
 
-- [x] M6 BP1-04 实体字典中全部实体（用户/商品/求购/会话/消息/报价/订单/约定/评价/举报/通知）均有归属和约束候选
+- [ ] M6 BP1-04/BP1-05 尚未进入本分支，无法核实核心实体清单、归属和状态约束已完整覆盖
 - [x] 每个唯一/检查/外键约束都给出了业务理由
 - [x] 敏感字段、状态字段、审计字段分类明确
+- [ ] M6 BP1-04/BP1-05 合入阶段集成分支后，M9 与 M6 逐项对齐并由 Review 记录确认
