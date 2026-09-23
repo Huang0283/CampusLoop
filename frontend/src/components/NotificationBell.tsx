@@ -28,11 +28,15 @@ export default function NotificationBell({ color = '#1f2329' }: NotificationBell
   );
 
   return (
-    <Badge count={unreadCount} size="small" offset={[-2, 4]}>
-      <BellOutlined
-        style={{ fontSize: 18, color, cursor: 'pointer' }}
-        onClick={() => navigate('/notifications')}
-      />
-    </Badge>
+    <div className="app-notification-slot">
+      <div className="app-notification-bell">
+        <Badge count={unreadCount} size="small" offset={[-2, 4]}>
+          <BellOutlined
+            style={{ fontSize: 18, color, cursor: 'pointer' }}
+            onClick={() => navigate('/notifications')}
+          />
+        </Badge>
+      </div>
+    </div>
   );
 }

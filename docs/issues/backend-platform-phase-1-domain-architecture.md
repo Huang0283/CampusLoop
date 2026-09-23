@@ -29,6 +29,7 @@
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
 - 个人任务完成并交叉评审后，由 M5 从 `phase1/backend-platform` 向 `phase1/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase1/integration` 向 `main` 提交阶段收口 Pull Request。
+- 共享文件唯一 Owner 和固定合并顺序按 `docs/issues/README.md` 第 10.1 节执行；M5/M6/M9 的领域、状态和运行方案分别落在各自证据文件，不并行改写同一文件。
 
 ## M5：账号、权限与治理后端负责人
 

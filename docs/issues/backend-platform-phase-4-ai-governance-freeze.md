@@ -30,6 +30,13 @@
 - 个人任务完成并交叉评审后，由 M5 从 `phase4/backend-integration` 向 `phase4/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，仅由 M1 从 `phase4/integration` 向 `main` 提交阶段收口 Pull Request。
 
+## 文件所有权与合并顺序
+
+- M5 独占信誉、举报、风险可见性和审计 API；M6 独占智能任务触发、结果生命周期、业务 API 和降级编排。
+- M9 独占 Worker、队列、索引、迁移、监控和运行配置；M6 通过任务/迁移需求文件提出数据结构要求。
+- AI 结果字段由 M7/M8 先确认，M6 合入业务 API，M9 负责运行依赖，不能由多个成员同时修改同一 schema 或迁移。
+- 合并顺序固定为 M5 -> M6 -> M9；下一位负责人只从最新 `phase4/backend-integration` 同步后提交。
+
 ## 提供与消费顺序
 
 1. M7/M8 发布服务版本、请求/响应样例和失败语义。

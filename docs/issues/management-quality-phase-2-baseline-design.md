@@ -28,6 +28,7 @@
 - 任务 PR 必须写明任务编号、交付物路径、验证命令、验证结果、遗留问题和评审人。
 - 个人任务完成并交叉评审后，由 M1 从 `phase2/management-quality` 向 `phase2/integration` 提交小组汇总 Pull Request。
 - 四组汇总完成并通过 M10/M1 阶段验收后，由 M1 从 `phase2/integration` 向 `main` 提交唯一的阶段收口 Pull Request。
+- 共享文件唯一 Owner 和固定合并顺序按 `docs/issues/README.md` 第 10.1 节执行；M1 维护冻结需求与范围决定，M10 维护测试基线和质量门禁，联合基线由 M1 汇总提交。
 
 ## M1：项目范围、计划与交付负责人
 
