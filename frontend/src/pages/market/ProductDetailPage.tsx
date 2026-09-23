@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  Alert,
   Layout,
+  Empty,
   Input,
   Avatar,
   Breadcrumb,
@@ -9,6 +11,8 @@ import {
   Col,
   Tooltip,
   Divider,
+  Spin,
+  message,
 } from 'antd';
 import {
   SearchOutlined,
@@ -33,6 +37,9 @@ import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { ReportModal } from '../../components/transaction';
 import { useMockDbStore } from '../../stores/mockDb';
 import type { ReportTargetType } from '../../types/transaction';
+import { addFavorite, getProduct, removeFavorite } from '../../sdk/generated/sdk.gen';
+import type { Product } from '../../sdk/generated/types.gen';
+import { useParams } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
@@ -41,70 +48,11 @@ const GREEN = '#23a26d';
 const TEXT_PRIMARY = '#1f2329';
 const TEXT_SECONDARY = '#646a73';
 
-/** ---------------- mock 数据 ---------------- */
-const mockImages = [
-  'https://picsum.photos/seed/campus-macbook-1/900/620',
-  'https://picsum.photos/seed/campus-macbook-2/900/620',
-  'https://picsum.photos/seed/campus-macbook-3/900/620',
-  'https://picsum.photos/seed/campus-macbook-4/900/620',
-];
-
-const product = {
-  id: 101,
-  title: 'MacBook Air M1 笔记本电脑',
-  price: 3200,
-  condition: '九成新',
-  originalPrice: 7999,
-  seller: {
-    id: 2,
-    name: '李同学',
-    avatar: 'https://picsum.photos/seed/campus-seller/96/96',
-    school: '清华大学',
-    verified: true,
-    reply: '回复较快',
-  },
-  description: [
-    '个人自用 MacBook Air M1，平时主要用于学习，保养良好，功能一切正常。',
-    '几乎无明显划痕，电池健康度 92%。',
-    '原装充电器、数据线齐全，支持当面验机。',
-    '因毕业换电脑，现低价转让，欢迎同学联系！',
-  ],
-  location: {
-    image: 'https://picsum.photos/seed/campus-tsinghua/200/140',
-    school: '清华大学',
-    address: '北京市海淀区清华大学',
-    note: '可在校内当面交易，支持验机',
-  },
-};
-
 interface SpecItem {
   icon: React.ReactNode;
   label: string;
   value: string;
 }
-
-const specs: SpecItem[] = [
-  { icon: <LaptopOutlined />, label: '品牌', value: 'Apple' },
-  { icon: <DesktopOutlined />, label: '屏幕尺寸', value: '13.3 英寸' },
-  { icon: <ThunderboltOutlined />, label: '芯片', value: 'Apple M1' },
-  { icon: <BgColorsOutlined />, label: '颜色', value: '深空灰' },
-  { icon: <HddOutlined />, label: '存储', value: '8GB + 256GB' },
-  { icon: <FileProtectOutlined />, label: '成色', value: '九成新' },
-];
-
-
-const breadcrumbItems = [
-  {
-    title: (
-      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: TEXT_SECONDARY }}>
-        <LeftOutlined style={{ fontSize: 12 }} />
-        返回市场
-      </span>
-    ),
-  },
-  { title: <span style={{ color: TEXT_SECONDARY }}>电脑数码</span> },
-  { title: <span style={{ color: TEXT_PRIMARY }}>笔记本电脑</span> },
-];
 
 /** 参数项图标底色块 */
 const specIconStyle: React.CSSProperties = {
@@ -127,20 +75,173 @@ const cardStyle: React.CSSProperties = {
   padding: '20px 24px',
 };
 
+const statusText: Record<Product['status'], string> = {
+  ON_SALE: '在售',
+  RESERVED: '已预订',
+  SOLD: '已售出',
+  HIDDEN: '已下架',
+};
+
+// 将接口时间转换为页面展示所需的中文日期格式。
+const formatDate = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('zh-CN');
+};
+
 const ProductDetailPage: React.FC = () => {
+  const { productId } = useParams<{ productId: string }>();
+  const parsedProductId = Number(productId);
+  const hasValidProductId =
+    Boolean(productId) && Number.isInteger(parsedProductId) && parsedProductId > 0;
+  const [productData, setProductData] = useState<Product | null>(null);
   const [currentImg, setCurrentImg] = useState(0);
   const [favorite, setFavorite] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [reportTarget, setReportTarget] = useState<{
     type: ReportTargetType;
     id: number;
     label: string;
   } | null>(null);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    // 路由参数无效时不调用接口，并由页面展示空状态。
+    if (!hasValidProductId) return;
+
+    // 根据 productId 获取真实商品详情。
+    const fetchProduct = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await getProduct({
+          path: { productId: parsedProductId },
+          throwOnError: true,
+        });
+
+        if (!cancelled) {
+          setProductData(response.data);
+          setCurrentImg(0);
+          setFavorite(false);
+        }
+      } catch (requestError) {
+        if (!cancelled) {
+          setProductData(null);
+          const isNotFound =
+            typeof requestError === 'object' &&
+            requestError !== null &&
+            'code' in requestError &&
+            requestError.code === 'NOT_FOUND';
+          setError(isNotFound ? null : '商品详情加载失败，请稍后重试');
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    void fetchProduct();
+
+    // 组件卸载或路由切换后忽略旧请求结果。
+    return () => {
+      cancelled = true;
+    };
+  }, [hasValidProductId, parsedProductId]);
+
+  const productImages =
+    productData && productData.images.length > 0 ? productData.images : ['/favicon.svg'];
+
+  const product = productData
+    ? {
+        ...productData,
+        originalPrice:
+          productData.originalPrice === undefined ? '暂无' : `¥ ${productData.originalPrice}`,
+        description: (productData.description || '暂无商品描述').split('\n'),
+        seller: {
+          id: productData.seller.id,
+          name: productData.seller.nickname,
+          avatar: productData.seller.avatar,
+          school: productData.campusLocation ?? '校园用户',
+          hasRating: productData.seller.rating !== undefined,
+          rating: productData.seller.rating,
+          reply: `已完成 ${productData.seller.transactionCount ?? 0} 次交易`,
+        },
+        location: {
+          image: '/favicon.svg',
+          school: productData.campusLocation ?? '地点未填写',
+          address: productData.campusLocation ?? '具体地点请与卖家沟通',
+          note: '具体交易方式请与卖家协商',
+        },
+      }
+    : null;
+
+  const specs: SpecItem[] = productData
+    ? [
+        { icon: <LaptopOutlined />, label: '分类', value: productData.category },
+        { icon: <DesktopOutlined />, label: '商品状态', value: statusText[productData.status] },
+        { icon: <ThunderboltOutlined />, label: '发布时间', value: formatDate(productData.createdAt) },
+        {
+          icon: <BgColorsOutlined />,
+          label: '卖家评分',
+          value: productData.seller.rating?.toFixed(1) ?? '暂无评分',
+        },
+        {
+          icon: <HddOutlined />,
+          label: '交易次数',
+          value: `${productData.seller.transactionCount ?? 0} 次`,
+        },
+        { icon: <FileProtectOutlined />, label: '成色', value: productData.condition },
+      ]
+    : [];
+
+  const breadcrumbItems = [
+    {
+      title: (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: TEXT_SECONDARY }}>
+          <LeftOutlined style={{ fontSize: 12 }} />
+          返回市场
+        </span>
+      ),
+    },
+    { title: <span style={{ color: TEXT_SECONDARY }}>{productData?.category ?? '商品分类'}</span> },
+    { title: <span style={{ color: TEXT_PRIMARY }}>{productData?.title ?? '商品详情'}</span> },
+  ];
+
   const prevImage = () => {
-    setCurrentImg((prev) => (prev - 1 + mockImages.length) % mockImages.length);
+    setCurrentImg((prev) => (prev - 1 + productImages.length) % productImages.length);
   };
   const nextImage = () => {
-    setCurrentImg((prev) => (prev + 1) % mockImages.length);
+    setCurrentImg((prev) => (prev + 1) % productImages.length);
+  };
+
+  // 根据当前收藏状态调用对应接口，成功后再更新按钮状态。
+  const handleFavorite = async () => {
+    if (!productData || favoriteLoading) return;
+
+    setFavoriteLoading(true);
+    try {
+      const requestOptions = {
+        path: { productId: productData.id },
+        auth: () => localStorage.getItem('token') ?? undefined,
+        throwOnError: true as const,
+      };
+
+      if (favorite) {
+        await removeFavorite(requestOptions);
+        setFavorite(false);
+        message.success('已取消收藏');
+      } else {
+        await addFavorite(requestOptions);
+        setFavorite(true);
+        message.success('收藏成功');
+      }
+    } catch {
+      message.error(favorite ? '取消收藏失败，请稍后重试' : '收藏失败，请稍后重试');
+    } finally {
+      setFavoriteLoading(false);
+    }
   };
 
   return (
@@ -211,6 +312,21 @@ const ProductDetailPage: React.FC = () => {
             style={{ marginBottom: 16, fontSize: 14 }}
           />
 
+          {!hasValidProductId ? (
+            <div style={{ ...cardStyle, padding: 48 }}>
+              <Empty description="未找到该商品" />
+            </div>
+          ) : loading ? (
+            <div style={{ ...cardStyle, padding: 48, textAlign: 'center' }}>
+              <Spin tip="正在加载商品详情..." />
+            </div>
+          ) : error ? (
+            <Alert type="error" showIcon message={error} />
+          ) : !product ? (
+            <div style={{ ...cardStyle, padding: 48 }}>
+              <Empty description="未找到该商品" />
+            </div>
+          ) : (
           <Row gutter={24} align="top">
             {/* 左栏 */}
             <Col xs={24} lg={14} xl={15}>
@@ -224,7 +340,7 @@ const ProductDetailPage: React.FC = () => {
                 }}
               >
                 <img
-                  src={mockImages[currentImg]}
+                  src={productImages[currentImg]}
                   alt={product.title}
                   style={{
                     display: 'block',
@@ -278,7 +394,7 @@ const ProductDetailPage: React.FC = () => {
                     padding: '2px 12px',
                   }}
                 >
-                  {`${currentImg + 1} / ${mockImages.length}`}
+                  {`${currentImg + 1} / ${productImages.length}`}
                 </span>
               </div>
 
@@ -292,7 +408,7 @@ const ProductDetailPage: React.FC = () => {
                   paddingBottom: 4,
                 }}
               >
-                {mockImages.map((img, index) => {
+                {productImages.map((img, index) => {
                   const active = index === currentImg;
                   return (
                     <img
@@ -390,7 +506,7 @@ const ProductDetailPage: React.FC = () => {
               >
                 原价{' '}
                 <span style={{ textDecoration: 'line-through' }}>
-                  ¥ {product.originalPrice}
+                  {product.originalPrice}
                 </span>
               </div>
 
@@ -456,8 +572,8 @@ const ProductDetailPage: React.FC = () => {
                       >
                         {product.seller.name}
                       </span>
-                      {product.seller.verified && (
-                        <Tooltip title="已认证">
+                      {product.seller.hasRating && (
+                        <Tooltip title={`卖家评分 ${product.seller.rating?.toFixed(1)}`}>
                           <CheckCircleFilled
                             style={{ color: PRIMARY, fontSize: 16 }}
                           />
@@ -474,7 +590,7 @@ const ProductDetailPage: React.FC = () => {
                       }}
                     >
                       <span>
-                        {product.seller.school} · 已认证
+                        {product.seller.school}
                       </span>
                       <span
                         style={{
@@ -503,14 +619,15 @@ const ProductDetailPage: React.FC = () => {
                           <HeartOutlined />
                         )
                       }
-                      onClick={() => setFavorite(!favorite)}
+                      onClick={() => void handleFavorite()}
+                      loading={favoriteLoading}
                       style={{
                         borderRadius: 8,
                         fontSize: 15,
                         height: 46,
                       }}
                     >
-                      收藏
+                      {favorite ? '取消收藏' : '收藏'}
                     </Button>
                   </Col>
                   <Col span={12}>
@@ -628,9 +745,10 @@ const ProductDetailPage: React.FC = () => {
               </div>
             </Col>
           </Row>
+          )}
         </Content>
       </Layout>
-      <ReportModal
+      {product && <ReportModal
         open={reportTarget !== null}
         targetType={reportTarget?.type ?? 'PRODUCT'}
         targetId={reportTarget?.id ?? product.id}
@@ -644,7 +762,7 @@ const ProductDetailPage: React.FC = () => {
             ...values,
           });
         }}
-      />
+      />}
     </Layout>
   );
 };

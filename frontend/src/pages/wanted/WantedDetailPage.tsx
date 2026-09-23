@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  Alert,
   ConfigProvider,
+  Empty,
   Layout,
   Input,
   Avatar,
   Breadcrumb,
   Button,
   Rate,
+  Spin,
 } from 'antd';
 import {
   SearchOutlined,
@@ -25,7 +28,9 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getWanted } from '../../sdk/generated/sdk.gen';
+import type { Wanted } from '../../sdk/generated/types.gen';
 
 const { Header, Sider, Content } = Layout;
 
@@ -39,32 +44,7 @@ const BORDER = '#eef0f3';
 
 /** 蓝色学士帽 Logo（自定义 SVG，antd 无此图标） */
 
-/** mock 数据 */
-const wantedInfo = {
-  title: '求购一台显示器',
-  tags: [
-    { text: '急需', bg: '#fff1f0', color: '#ff4d4f' },
-    { text: '可议价', bg: '#fff7e6', color: '#fa8c16' },
-  ],
-  publishTime: '2026-09-18',
-  expireTime: '2026-09-30',
-  description:
-    '用于日常学习和编程，希望屏幕尺寸在 24 英寸以上，显示效果良好，无明显坏点，预算可根据成色适当调整。',
-  conditions: [
-    { icon: <PayCircleOutlined />, label: '预算范围', value: '¥ 800 - ¥ 1000' },
-    { icon: <GoldOutlined />, label: '最低成色', value: '9成新' },
-    { icon: <EnvironmentOutlined />, label: '地点', value: '清华大学' },
-    { icon: <AppstoreOutlined />, label: '分类', value: '数码' },
-  ],
-};
-
-const publisher = {
-  name: '林同学',
-  credit: '信誉良好',
-  tradeCount: 28,
-  rating: 4.9,
-};
-
+/** 匹配商品属于独立接口，暂时保留原有展示内容。 */
 const matchedProducts = [
   {
     id: 1,
@@ -113,12 +93,107 @@ const sectionTitleStyle: React.CSSProperties = {
   margin: 0,
 };
 
+const statusDisplay: Record<Wanted['status'], { text: string; bg: string; color: string }> = {
+  OPEN: { text: '求购中', bg: '#f0fbf4', color: '#00a870' },
+  MATCHED: { text: '已匹配', bg: '#eaf2ff', color: PRIMARY },
+  CLOSED: { text: '已关闭', bg: '#f5f5f5', color: TEXT_SECONDARY },
+  EXPIRED: { text: '已过期', bg: '#fff1f0', color: '#ff4d4f' },
+};
+
+// 将接口中的 ISO 时间转换为页面展示所需的日期格式。
+const formatDate = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('zh-CN');
+};
+
 const WantedDetailPage: React.FC = () => {
   const navigate = useNavigate();
+  const { id: wantedId } = useParams<{ id: string }>();
+  const parsedWantedId = Number(wantedId);
+  const hasValidWantedId =
+    Boolean(wantedId) && Number.isInteger(parsedWantedId) && parsedWantedId > 0;
+  const [wanted, setWanted] = useState<Wanted | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    // 路由参数无效时不发起请求，并交由页面展示空状态。
+    if (!hasValidWantedId) return;
+
+    // 根据路由中的求购 ID 获取真实详情数据。
+    const fetchWanted = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await getWanted({
+          path: { wantedId: parsedWantedId },
+          throwOnError: true,
+        });
+
+        if (!cancelled) setWanted(response.data);
+      } catch (requestError) {
+        if (!cancelled) {
+          setWanted(null);
+          // 接口明确返回资源不存在时展示空状态，其余异常展示错误状态。
+          const isNotFound =
+            typeof requestError === 'object' &&
+            requestError !== null &&
+            'code' in requestError &&
+            requestError.code === 'NOT_FOUND';
+          setError(isNotFound ? null : '求购详情加载失败，请稍后重试');
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    void fetchWanted();
+
+    // 组件卸载或路由切换后忽略旧请求结果。
+    return () => {
+      cancelled = true;
+    };
+  }, [hasValidWantedId, parsedWantedId]);
+
+  const wantedInfo = wanted
+    ? {
+        title: wanted.title,
+        tags: [statusDisplay[wanted.status]],
+        publishTime: formatDate(wanted.createdAt),
+        expireTime: formatDate(wanted.expireAt),
+        description: wanted.description || '暂无需求描述',
+        conditions: [
+          {
+            icon: <PayCircleOutlined />,
+            label: '预算范围',
+            value: `¥ ${wanted.budgetMin} - ¥ ${wanted.budgetMax}`,
+          },
+          { icon: <GoldOutlined />, label: '最低成色', value: wanted.condition },
+          { icon: <EnvironmentOutlined />, label: '地点', value: wanted.location },
+          { icon: <AppstoreOutlined />, label: '状态', value: statusDisplay[wanted.status].text },
+        ],
+      }
+    : null;
+
+  const publisher = wanted
+    ? {
+        name: wanted.owner.nickname,
+        avatar: wanted.owner.avatar,
+        credit: wanted.owner.rating === undefined ? '暂无评分' : '信誉良好',
+        tradeCount: wanted.owner.transactionCount ?? 0,
+        rating: wanted.owner.rating ?? 0,
+      }
+    : null;
+
   const handleFavorite = () => console.log('收藏');
   const handleContact = () => console.log('联系发布者');
   const handleReport = () => console.log('举报');
-  const handleViewAllMatches = () => navigate('/wanted/matches');
+  const handleViewAllMatches = () => {
+    if (wantedId) navigate(`/wanted/${wantedId}/matches`);
+  };
 
   return (
     <ConfigProvider
@@ -225,7 +300,23 @@ const WantedDetailPage: React.FC = () => {
                 items={[{ title: '首页' }, { title: '求购市场' }, { title: '求购详情' }]}
               />
 
-              {/* 左右两栏 */}
+              {!hasValidWantedId ? (
+                <div style={{ ...cardStyle, padding: 48 }}>
+                  <Empty description="未找到该求购信息" />
+                </div>
+              ) : loading ? (
+                <div style={{ ...cardStyle, padding: 48, textAlign: 'center' }}>
+                  <Spin tip="正在加载求购详情..." />
+                </div>
+              ) : error ? (
+                <Alert type="error" showIcon message={error} />
+              ) : !wantedInfo || !publisher ? (
+                <div style={{ ...cardStyle, padding: 48 }}>
+                  <Empty description="未找到该求购信息" />
+                </div>
+              ) : (
+                <>
+                  {/* 左右两栏 */}
               <div
                 style={{
                   display: 'flex',
@@ -356,6 +447,7 @@ const WantedDetailPage: React.FC = () => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                     <Avatar
                       size={72}
+                      src={publisher.avatar}
                       icon={<UserOutlined />}
                       style={{ backgroundColor: '#dbe7ff', color: PRIMARY }}
                     />
@@ -554,12 +646,14 @@ const WantedDetailPage: React.FC = () => {
                   ))}
                 </div>
               </div>
+                </>
+              )}
             </div>
           </Content>
         </Layout>
 
         {/* 底部操作栏 */}
-        <div
+        {hasValidWantedId && !loading && !error && wanted && <div
           style={{
             position: 'fixed',
             left: 220,
@@ -591,7 +685,7 @@ const WantedDetailPage: React.FC = () => {
               举报
             </Button>
           </div>
-        </div>
+        </div>}
       </Layout>
     </ConfigProvider>
   );
