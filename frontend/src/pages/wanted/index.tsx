@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
+  Alert,
   Layout,
   Input,
   Select,
@@ -11,7 +12,9 @@ import {
   Tag,
   Row,
   Col,
+  Empty,
   Pagination,
+  Spin,
 } from 'antd';
 import {
   SearchOutlined,
@@ -21,6 +24,7 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { listWanted } from '../../sdk/generated/sdk.gen';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -31,87 +35,28 @@ interface WantedItem {
   tag?: 'urgent' | 'negotiable';
   description: string;
   budget: string;
+  budgetMin: number;
+  budgetMax: number;
   condition: string;
   publisher: string;
   avatar: string;
   time: string;
+  createdAt: string;
 }
 
-const wantedItems: WantedItem[] = [
-  {
-    id: 1,
-    title: '求购一台显示器',
-    tag: 'urgent',
-    description: '想要一台 24-27 寸显示器，用于学习和打游戏，最好是 IPS 屏。',
-    budget: '¥300-600',
-    condition: '八成新',
-    publisher: '同学 A',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=a',
-    time: '发布于 2小时前',
-  },
-  {
-    id: 2,
-    title: '求购考研数学教材',
-    tag: 'negotiable',
-    description: '求购张宇/李永乐考研数学全套教材，版本不限，成色较好即可。',
-    budget: '¥50-150',
-    condition: '七成新',
-    publisher: '同学 B',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=b',
-    time: '今天 10:24',
-  },
-  {
-    id: 3,
-    title: '求购折叠自行车',
-    description: '想买一辆折叠自行车，方便在校内和周边通勤，最好是知名品牌。',
-    budget: '¥200-500',
-    condition: '八成新',
-    publisher: '同学 C',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=c',
-    time: '今天 09:17',
-  },
-  {
-    id: 4,
-    title: '求购宿舍小冰箱',
-    tag: 'urgent',
-    description: '求购一台小型宿舍冰箱，容量 50L 左右，制冷正常。',
-    budget: '¥300-600',
-    condition: '八成新',
-    publisher: '同学 D',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=d',
-    time: '昨天 22:36',
-  },
-  {
-    id: 5,
-    title: '求购二手 iPad',
-    tag: 'negotiable',
-    description: '求购 iPad Air 或 iPad Pro，主要用于学习做笔记，成色好一点。',
-    budget: '¥1500-3000',
-    condition: '七成新',
-    publisher: '同学 E',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=e',
-    time: '昨天 18:20',
-  },
-  {
-    id: 6,
-    title: '求购单反相机',
-    description: '想收一台入门级单反相机（如佳能/尼康），用于摄影学习。',
-    budget: '¥800-2000',
-    condition: '八成新',
-    publisher: '同学 F',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=f',
-    time: '昨天 12:05',
-  },
-];
-
-
-const categoryOptions = [
-  { value: 'digital', label: '数码电子' },
-  { value: 'books', label: '图书教材' },
-  { value: 'life', label: '生活用品' },
-  { value: 'sports', label: '运动户外' },
-  { value: 'others', label: '其他' },
-];
+// 将接口时间转换为页面展示所需的中文格式。
+const formatCreatedAt = (createdAt: string) => {
+  const date = new Date(createdAt);
+  return Number.isNaN(date.getTime())
+    ? createdAt
+    : date.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+};
 
 const budgetOptions = [
   { value: '0-100', label: '¥100 以下' },
@@ -122,11 +67,11 @@ const budgetOptions = [
 ];
 
 const conditionOptions = [
-  { value: 'new', label: '全新' },
-  { value: 'like-new', label: '几乎全新' },
-  { value: 'eighty', label: '八成新' },
-  { value: 'seventy', label: '七成新' },
-  { value: 'any', label: '不限成色' },
+  { value: '全新', label: '全新' },
+  { value: '几乎全新', label: '几乎全新' },
+  { value: '八成新', label: '八成新' },
+  { value: '七成新', label: '七成新' },
+  { value: '不限成色', label: '不限成色' },
 ];
 
 const sortOptions = [
@@ -137,24 +82,127 @@ const sortOptions = [
 
 const WantedPage: React.FC = () => {
   const navigate = useNavigate();
+  const [wantedItems, setWantedItems] = useState<WantedItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchText, setSearchText] = useState('');
+  const [appliedQuery, setAppliedQuery] = useState('');
   const [filters, setFilters] = useState({
-    category: undefined as string | undefined,
     budget: undefined as string | undefined,
     condition: undefined as string | undefined,
     sort: undefined as string | undefined,
   });
 
+  useEffect(() => {
+    let cancelled = false;
+
+    // 页面加载时从后端获取求购列表，并映射为现有卡片使用的数据结构。
+    const fetchWantedItems = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await listWanted({
+          query: { page: 1, pageSize: 100, query: appliedQuery || undefined },
+          throwOnError: true,
+        });
+
+        if (cancelled) return;
+
+        setWantedItems(
+          response.data.items.map((item) => ({
+            id: item.id,
+            title: item.title,
+            description: item.description ?? '',
+            budget: `¥${item.budgetMin}-${item.budgetMax}`,
+            budgetMin: item.budgetMin,
+            budgetMax: item.budgetMax,
+            condition: item.condition,
+            publisher: item.owner.nickname,
+            avatar: item.owner.avatar ?? '',
+            time: formatCreatedAt(item.createdAt),
+            createdAt: item.createdAt,
+          })),
+        );
+      } catch {
+        if (!cancelled) {
+          setWantedItems([]);
+          setError('求购信息加载失败，请稍后重试');
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    void fetchWantedItems();
+
+    // 组件卸载后忽略尚未完成的请求结果，避免更新已卸载组件。
+    return () => {
+      cancelled = true;
+    };
+  }, [appliedQuery]);
+
+  const filteredItems = useMemo(() => {
+    const result = wantedItems.filter((item) => {
+      const conditionMatches =
+        !filters.condition ||
+        filters.condition === '不限成色' ||
+        item.condition === filters.condition;
+
+      const budgetMatches = (() => {
+        switch (filters.budget) {
+          case '0-100':
+            return item.budgetMin < 100;
+          case '100-500':
+            return item.budgetMax >= 100 && item.budgetMin <= 500;
+          case '500-1000':
+            return item.budgetMax >= 500 && item.budgetMin <= 1000;
+          case '1000-3000':
+            return item.budgetMax >= 1000 && item.budgetMin <= 3000;
+          case '3000+':
+            return item.budgetMax >= 3000;
+          default:
+            return true;
+        }
+      })();
+
+      return conditionMatches && budgetMatches;
+    });
+
+    return [...result].sort((left, right) => {
+      switch (filters.sort) {
+        case 'budget-high':
+          return right.budgetMax - left.budgetMax;
+        case 'budget-low':
+          return left.budgetMin - right.budgetMin;
+        case 'latest':
+          return new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime();
+        default:
+          return 0;
+      }
+    });
+  }, [filters.budget, filters.condition, filters.sort, wantedItems]);
+
+  const visibleItems = useMemo(() => {
+    const offset = (currentPage - 1) * 10;
+    return filteredItems.slice(offset, offset + 10);
+  }, [currentPage, filteredItems]);
+
   const handleFilterChange = (key: keyof typeof filters, value?: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
+    setCurrentPage(1);
   };
 
   const handleReset = () => {
     setFilters({
-      category: undefined,
       budget: undefined,
       condition: undefined,
       sort: undefined,
     });
+    setSearchText('');
+    setAppliedQuery('');
+    setCurrentPage(1);
   };
 
   const renderTag = (tag?: WantedItem['tag']) => {
@@ -196,9 +244,24 @@ const WantedPage: React.FC = () => {
         {/* Logo 已统一到左侧栏 AppSidebar，这里仅保留占位以维持顶栏布局 */}
         <div style={{ width: 220 }} />
 
-        <Input
+        <Input.Search
           prefix={<SearchOutlined style={{ color: '#bfbfbf' }} />}
-          placeholder="搜索校园好物"
+          placeholder="搜索求购标题或描述"
+          value={searchText}
+          allowClear
+          enterButton="搜索"
+          onChange={(event) => {
+            const value = event.target.value;
+            setSearchText(value);
+            if (!value && appliedQuery) {
+              setAppliedQuery('');
+              setCurrentPage(1);
+            }
+          }}
+          onSearch={(value) => {
+            setAppliedQuery(value.trim());
+            setCurrentPage(1);
+          }}
           style={{
             maxWidth: 480,
             height: 40,
@@ -276,14 +339,6 @@ const WantedPage: React.FC = () => {
             >
               <Space size={12}>
                 <Select
-                  placeholder="分类"
-                  value={filters.category}
-                  onChange={(value) => handleFilterChange('category', value)}
-                  options={categoryOptions}
-                  style={{ width: 200 }}
-                  allowClear
-                />
-                <Select
                   placeholder="预算范围"
                   value={filters.budget}
                   onChange={(value) => handleFilterChange('budget', value)}
@@ -319,7 +374,21 @@ const WantedPage: React.FC = () => {
             </div>
 
             <Row gutter={[16, 16]}>
-              {wantedItems.map((item) => (
+              {loading ? (
+                <Col span={24}>
+                  <div style={{ padding: 48, textAlign: 'center' }}>
+                    <Spin tip="正在加载求购信息..." />
+                  </div>
+                </Col>
+              ) : error ? (
+                <Col span={24}>
+                  <Alert type="error" showIcon message={error} />
+                </Col>
+              ) : filteredItems.length === 0 ? (
+                <Col span={24}>
+                  <Empty description="暂无求购信息" />
+                </Col>
+              ) : visibleItems.map((item) => (
                 <Col span={12} key={item.id}>
                   <Card
                     hoverable
@@ -406,15 +475,22 @@ const WantedPage: React.FC = () => {
               ))}
             </Row>
 
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: 32,
-              }}
-            >
-              <Pagination current={1} total={50} pageSize={10} />
-            </div>
+            {!loading && !error && filteredItems.length > 0 && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: 32,
+                }}
+              >
+                <Pagination
+                  current={currentPage}
+                  total={filteredItems.length}
+                  pageSize={10}
+                  onChange={setCurrentPage}
+                />
+              </div>
+            )}
           </Card>
         </Content>
       </Layout>

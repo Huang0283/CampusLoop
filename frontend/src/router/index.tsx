@@ -79,6 +79,10 @@ export const router = createBrowserRouter([
   },
   {
     path: '/wanted/matches',
+    element: authed(<Navigate to="/wanted" replace />),
+  },
+  {
+    path: '/wanted/:wantedId/matches',
     element: authed(<MatchResultPage />),
   },
   {

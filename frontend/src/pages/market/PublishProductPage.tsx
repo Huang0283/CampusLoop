@@ -12,12 +12,15 @@ import {
   message,
 } from 'antd';
 import type { UploadFile } from 'antd';
+import type { UploadProps } from 'antd';
 import {
   SearchOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { createProduct, uploadImage } from '../../sdk/generated/sdk.gen';
+import type { UploadResponse } from '../../sdk/generated/types.gen';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -47,15 +50,114 @@ const locationOptions = [
   { value: 'gym', label: '体育馆' },
 ];
 
+interface ProductFormValues {
+  title: string;
+  images: string[];
+  category: string;
+  condition: string;
+  originalPrice?: string;
+  price: string;
+  description: string;
+  location: string;
+}
+
+const getUploadedUrl = (file: UploadFile) =>
+  file.url || (file.response as UploadResponse | undefined)?.data.url;
 
 const PublishProductPage: React.FC = () => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<ProductFormValues>();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleFinish = (values: Record<string, unknown>) => {
-    console.log('发布商品:', { ...values, images: fileList });
-    message.success('商品信息发布成功（Mock）');
+  // 选择图片后立即上传，并将接口返回的 URL 写入表单。
+  const handleImageUpload: UploadProps['customRequest'] = async ({
+    file,
+    onError,
+    onSuccess,
+  }) => {
+    try {
+      if (typeof file === 'string') throw new Error('图片文件无效');
+
+      const response = await uploadImage({
+        body: { file },
+        auth: () => localStorage.getItem('token') ?? undefined,
+        throwOnError: true,
+      });
+      onSuccess?.(response);
+      message.success('图片上传成功');
+    } catch (uploadError) {
+      const error =
+        uploadError instanceof Error ? uploadError : new Error('图片上传失败，请重试');
+      onError?.(error);
+      message.error(error.message || '图片上传失败，请重试');
+    }
+  };
+
+  const handleImageChange: UploadProps['onChange'] = ({ fileList: newList }) => {
+    setFileList(newList);
+    const imageUrls = newList
+      .map(getUploadedUrl)
+      .filter((url): url is string => Boolean(url));
+    form.setFieldValue('images', imageUrls);
+  };
+
+  const validateImage: UploadProps['beforeUpload'] = (file) => {
+    const isSupported = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isSupported) message.error('只支持 JPG、PNG 格式的图片');
+    return isSupported || Upload.LIST_IGNORE;
+  };
+
+  // 将表单字段和已上传的图片 URL 提交到真实商品创建接口。
+  const handleFinish = async (values: ProductFormValues) => {
+    const imageUrls = fileList
+      .map(getUploadedUrl)
+      .filter((url): url is string => Boolean(url));
+
+    if (fileList.some((file) => file.status === 'uploading')) {
+      message.error('图片仍在上传，请稍后再提交');
+      return;
+    }
+    if (imageUrls.length === 0) {
+      message.error('请至少成功上传一张商品图片');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await createProduct({
+        body: {
+          title: values.title.trim(),
+          category: values.category,
+          condition: values.condition,
+          description: values.description,
+          originalPrice: values.originalPrice
+            ? Number(values.originalPrice)
+            : undefined,
+          price: Number(values.price),
+          campusLocation: values.location,
+          images: imageUrls,
+        },
+        // 每次发布生成唯一幂等键，避免重复点击产生重复商品。
+        headers: { 'Idempotency-Key': crypto.randomUUID() },
+        auth: () => localStorage.getItem('token') ?? undefined,
+        throwOnError: true,
+      });
+
+      message.success('商品发布成功');
+      navigate('/my-products');
+    } catch (requestError) {
+      const errorMessage =
+        typeof requestError === 'object' &&
+        requestError !== null &&
+        'message' in requestError &&
+        typeof requestError.message === 'string'
+          ? requestError.message
+          : '商品发布失败，请稍后重试';
+      message.error(errorMessage);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -129,7 +231,7 @@ const PublishProductPage: React.FC = () => {
               填写商品信息，让更多同学看到你的闲置好物
             </Text>
 
-            <Form
+            <Form<ProductFormValues>
               form={form}
               layout="horizontal"
               labelAlign="left"
@@ -139,22 +241,37 @@ const PublishProductPage: React.FC = () => {
               wrapperCol={{ flex: 1 }}
             >
               <Form.Item
+                label="商品名称"
+                name="title"
+                rules={[{ required: true, message: '请输入商品名称' }]}
+              >
+                <Input placeholder="请输入商品名称" maxLength={100} />
+              </Form.Item>
+
+              <Form.Item
                 label="商品图片"
-                name="images"
-                rules={[{ required: true, message: '请上传商品图片' }]}
+                required
                 extra={
                   <Text type="secondary" style={{ fontSize: 12 }}>
                     最多上传 5 张图片，支持 JPG、PNG 格式
                   </Text>
                 }
               >
+                <Form.Item
+                  name="images"
+                  noStyle
+                  rules={[{ required: true, message: '请上传商品图片' }]}
+                >
+                  <Input type="hidden" />
+                </Form.Item>
                 <Upload
                   listType="picture-card"
                   fileList={fileList}
                   maxCount={5}
                   accept=".jpg,.jpeg,.png"
-                  beforeUpload={() => false}
-                  onChange={({ fileList: newList }) => setFileList(newList)}
+                  beforeUpload={validateImage}
+                  customRequest={handleImageUpload}
+                  onChange={handleImageChange}
                 >
                   {fileList.length < 5 && (
                     <div>
@@ -239,6 +356,7 @@ const PublishProductPage: React.FC = () => {
                   htmlType="submit"
                   block
                   size="large"
+                  loading={submitting}
                   style={{
                     height: 48,
                     borderRadius: 8,
