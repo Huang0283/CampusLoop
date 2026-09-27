@@ -929,7 +929,7 @@ Team Size
 10
 
 Development Cycle
-10 Weeks
+5 Weeks
 
 Estimated Total Workload
 ~800 Person Hours
@@ -992,6 +992,8 @@ CampusLoop-AI/
 详细的软件需求、总体设计、AI 方案、数据库设计、测试策略、项目管理与风险分析见：
 
 四组五阶段的任务、交接、验收与关闭标准统一见 [分阶段 Issue 索引](docs/issues/README.md)；前端成员交付物见 [前端文档索引](docs/frontend/README.md)。
+
+课程提交用的唯一正式 Proposal 为 [PDF 提交版](output/pdf/CampusLoop_Project_Proposal_Submission.pdf)；需要编辑时使用 [DOCX 源文档](CampusLoop_Project_Proposal_Submission.docx)。两者均由 `tools/create_campusloop_submission_proposal.py` 生成，成员分工、项目日期或正文变更后必须同时重新生成并检查两种格式。
 
 ```text
 CampusLoop AI
