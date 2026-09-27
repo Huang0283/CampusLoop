@@ -9,6 +9,7 @@ import {
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { useMockDbStore } from '../../stores/mockDb';
+import { useAuthStore } from '../../stores/auth';
 import type { AppNotification, NotificationType as ApiNotificationType } from '../../types/transaction';
 
 const PAGE_BG = '#f5f6f8';
@@ -102,21 +103,24 @@ const sidebarStyle: React.CSSProperties = {
 
 const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
 
   /** 通知来自可变 mockDb：报价/订单/举报等动作会真实产生通知，且每条带 link */
   const rawNotifications = useMockDbStore((s) => s.notifications);
   const markNotificationRead = useMockDbStore((s) => s.markNotificationRead);
   const markAllNotificationsRead = useMockDbStore((s) => s.markAllNotificationsRead);
 
-  const notifications: NotificationItem[] = rawNotifications.map((n: AppNotification) => ({
-    id: n.id,
-    type: GROUP_OF[n.type],
-    title: n.title,
-    description: n.content,
-    time: formatNotifyTime(n.createdAt),
-    read: n.read,
-    link: n.link,
-  }));
+  const notifications: NotificationItem[] = rawNotifications
+    .filter((n: AppNotification) => n.recipientId === user?.id)
+    .map((n: AppNotification) => ({
+      id: n.id,
+      type: GROUP_OF[n.type],
+      title: n.title,
+      description: n.content,
+      time: formatNotifyTime(n.createdAt),
+      read: n.read,
+      link: n.link,
+    }));
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 

@@ -23,7 +23,7 @@ interface UserMenuProps {
   color?: string;
 }
 
-const MENU_ITEMS: NonNullable<MenuProps['items']> = [
+const STUDENT_MENU_ITEMS: NonNullable<MenuProps['items']> = [
   { key: 'profile', label: '个人中心' },
   { key: 'orders', label: '我的订单' },
   { key: 'my-products', label: '我的发布' },
@@ -32,7 +32,14 @@ const MENU_ITEMS: NonNullable<MenuProps['items']> = [
   { key: 'logout', label: '退出登录', danger: true },
 ];
 
+const ADMIN_MENU_ITEMS: NonNullable<MenuProps['items']> = [
+  { key: 'admin', label: '管理后台' },
+  { type: 'divider' },
+  { key: 'logout', label: '退出登录', danger: true },
+];
+
 const MENU_PATHS: Record<string, string> = {
+  admin: '/admin',
   profile: '/profile',
   /**
    * 订单与个人交易中心现已统一在 /transactions（购买/出售页签按身份过滤）。
@@ -47,6 +54,7 @@ export default function UserMenu({ color = '#1f2329' }: UserMenuProps) {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
+  const menuItems = user?.role === 'admin' ? ADMIN_MENU_ITEMS : STUDENT_MENU_ITEMS;
 
   const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
     if (key === 'logout') {
@@ -62,7 +70,7 @@ export default function UserMenu({ color = '#1f2329' }: UserMenuProps) {
     <div className="app-user-menu-slot">
       <div className="app-user-menu">
         <Dropdown
-          menu={{ items: MENU_ITEMS, onClick: handleMenuClick }}
+          menu={{ items: menuItems, onClick: handleMenuClick }}
           trigger={['click']}
           placement="bottomRight"
         >

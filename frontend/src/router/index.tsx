@@ -27,6 +27,9 @@ import PriceAdvicePage from '../pages/market/PriceAdvicePage'
 import ReviewPage from '../pages/transaction/ReviewPage'
 
 const authed = (element: ReactElement) => <RequireAuth>{element}</RequireAuth>
+const student = (element: ReactElement) => authed(
+  <RequireRole role="student">{element}</RequireRole>
+)
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +46,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/profile',
-    element: authed(<ProfilePage />),
+    element: student(<ProfilePage />),
   },
   {
     path: '/market',
@@ -55,19 +58,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/publish',
-    element: authed(<PublishProductPage />),
+    element: student(<PublishProductPage />),
   },
   {
     path: '/publish/price-advice',
-    element: authed(<PriceAdvicePage />),
+    element: student(<PriceAdvicePage />),
   },
   {
     path: '/my-products',
-    element: authed(<MyProductsPage />),
+    element: student(<MyProductsPage />),
   },
   {
     path: '/favorites',
-    element: authed(<FavoritesPage />),
+    element: student(<FavoritesPage />),
   },
   {
     path: '/wanted',
@@ -75,11 +78,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/wanted/matches',
-    element: authed(<MatchResultPage />),
+    element: student(<MatchResultPage />),
   },
   {
     path: '/wanted/publish',
-    element: authed(<PublishWantedPage />),
+    element: student(<PublishWantedPage />),
   },
   {
     path: '/wanted/:id',
@@ -89,32 +92,32 @@ export const router = createBrowserRouter([
   /* ---------- M4: transaction flow ---------- */
   {
     path: '/chat',
-    element: authed(<ChatListPage />),
+    element: student(<ChatListPage />),
   },
   {
     path: '/chat/:id',
-    element: authed(<ChatDetailPage />),
+    element: student(<ChatDetailPage />),
   },
   {
     path: '/transactions',
-    element: authed(<OrderListPage />),
+    element: student(<OrderListPage />),
   },
   {
     path: '/transactions/:id',
-    element: authed(<OrderDetailPage />),
+    element: student(<OrderDetailPage />),
   },
   {
     path: '/transactions/:id/meetup',
-    element: authed(<MeetupPage />),
+    element: student(<MeetupPage />),
   },
   {
     path: '/notifications',
-    element: authed(<NotificationPage />),
+    element: student(<NotificationPage />),
   },
   {
     // 兼容旧书签：个人交易中心已统一到订单列表，不让旧入口变成 404。
     path: '/profile/transactions',
-    element: authed(<Navigate to="/transactions" replace />),
+    element: student(<Navigate to="/transactions" replace />),
   },
 
   /* legacy redirects */
@@ -143,6 +146,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/transactions/:id/review',
-    element: authed(<ReviewPage />),
+    element: student(<ReviewPage />),
   },
 ])
