@@ -77,6 +77,18 @@ function operatorId(): number {
   return useAuthStore.getState().user?.id ?? CURRENT_USER_ID
 }
 
+function otherOrderPartyId(order: Order, userId: number): number | null {
+  if (userId === order.buyer.id) return order.seller.id
+  if (userId === order.seller.id) return order.buyer.id
+  return null
+}
+
+function otherOfferPartyId(offer: Offer, userId: number): number | null {
+  if (userId === offer.buyerId) return offer.sellerId
+  if (userId === offer.sellerId) return offer.buyerId
+  return null
+}
+
 function genClientMsgId(): string {
   const c = globalThis.crypto
   if (c && typeof c.randomUUID === 'function') return c.randomUUID()
@@ -167,9 +179,16 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     return event
   }
 
-  const notify = (type: NotificationType, title: string, content: string, link?: string): void => {
+  const notify = (
+    recipientId: number,
+    type: NotificationType,
+    title: string,
+    content: string,
+    link?: string
+  ): void => {
     const n: AppNotification = {
       id: nextId('notification'),
+      recipientId,
       type,
       title,
       content,
@@ -240,6 +259,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
         op
       )
       notify(
+        otherOrderPartyId(order, op) ?? op,
         'ORDER_STATUS_CHANGED',
         '见面约定已更新',
         `订单 #${orderId} 约定更新到第 ${meetup.version} 版，请重新确认`,
@@ -265,6 +285,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       if (both) {
         pushEvent(orderId, order.status, 'MEETUP_ARRANGED', '双方已确认见面约定（2/2）', op)
         notify(
+          otherOrderPartyId(order, op) ?? op,
           'MEETUP_REMINDER',
           '见面已安排',
           `订单 #${orderId} 双方已确认：${meetup.campusLocation} ${meetup.scheduledDate} ${meetup.timeSlotStart}`,
@@ -273,6 +294,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       } else {
         pushEvent(orderId, order.status, order.status, `${who}已确认见面约定（1/2），等待对方`, op)
         notify(
+          otherOrderPartyId(order, op) ?? op,
           'ORDER_STATUS_CHANGED',
           '等待你确认约定',
           `订单 #${orderId} 对方已确认见面约定，等待你确认`,
@@ -300,6 +322,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
         patchProduct(order.productId, 'SOLD')
         pushEvent(orderId, order.status, 'COMPLETED', '双方已确认完成（2/2），订单完成', op)
         notify(
+          otherOrderPartyId(order, op) ?? op,
           'REVIEW_REQUEST',
           '交易已完成，去评价',
           `订单 #${orderId}（${order.product.title}）已完成，评价对方前可查看本次交易`,
@@ -309,6 +332,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
         patchOrder(orderId, patch)
         pushEvent(orderId, order.status, order.status, `${who}已确认完成（1/2），等待对方`, op)
         notify(
+          otherOrderPartyId(order, op) ?? op,
           'ORDER_STATUS_CHANGED',
           '等待你确认完成',
           `订单 #${orderId} 对方已确认交易完成，等待你确认`,
@@ -324,7 +348,13 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       patchOrder(orderId, { status: 'CANCELLED' })
       patchProduct(order.productId, 'ON_SALE')
       pushEvent(orderId, order.status, 'CANCELLED', '订单已取消，商品重新释放为在售', op)
-      notify('ORDER_STATUS_CHANGED', '订单已取消', `订单 #${orderId} 已取消，商品重新上架`, `/transactions/${orderId}`)
+      notify(
+        otherOrderPartyId(order, op) ?? op,
+        'ORDER_STATUS_CHANGED',
+        '订单已取消',
+        `订单 #${orderId} 已取消，商品重新上架`,
+        `/transactions/${orderId}`
+      )
     },
 
     /* ---------- 报价 ---------- */
@@ -347,6 +377,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       set((s) => ({ offers: [...s.offers, offer] }))
       inject({ ...msgBase(sessionId, op), kind: 'OFFER', offer })
       notify(
+        peerId,
         'OFFER_RECEIVED',
         '收到新报价',
         `「${product.title}」报价 ¥${amount}（原价 ¥${product.price}）`,
@@ -384,6 +415,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       const event = pushEvent(orderId, undefined, 'PENDING_CONFIRM', `订单已创建（报价 ¥${offer.amount} 被接受）`, op)
       inject({ ...msgBase(offer.sessionId, op), kind: 'ORDER_EVENT', orderEvent: event })
       notify(
+        otherOfferPartyId(offer, op) ?? op,
         'OFFER_ACCEPTED',
         '报价被接受',
         `订单 #${orderId} 已创建，请确认见面约定`,
@@ -394,10 +426,12 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     rejectOffer: (offerId) => {
       const offer = get().offers.find((o) => o.id === offerId)
       if (!offer || offer.status !== 'PENDING') return
+      const op = operatorId()
       set((s) => ({
         offers: s.offers.map((o) => (o.id === offerId ? { ...o, status: 'REJECTED' as const } : o)),
       }))
       notify(
+        otherOfferPartyId(offer, op) ?? op,
         'OFFER_REJECTED',
         '报价被拒绝',
         `「${offer.productId} 号商品」报价 ¥${offer.amount} 被拒绝，可继续协商或重新出价`,
@@ -431,6 +465,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       }))
       inject({ ...msgBase(offer.sessionId, op), kind: 'OFFER', offer: newOffer })
       notify(
+        otherOfferPartyId(offer, op) ?? op,
         'OFFER_RECEIVED',
         '收到还价',
         `还价 ¥${amount}（原报价 ¥${offer.amount}），请在有效期内处理`,
@@ -441,10 +476,12 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     withdrawOffer: (offerId) => {
       const offer = get().offers.find((o) => o.id === offerId)
       if (!offer || offer.status !== 'PENDING') return
+      const op = operatorId()
       set((s) => ({
         offers: s.offers.map((o) => (o.id === offerId ? { ...o, status: 'CANCELLED' as const } : o)),
       }))
       notify(
+        otherOfferPartyId(offer, op) ?? op,
         'OFFER_REJECTED',
         '报价已撤回',
         `对方撤回了 ¥${offer.amount} 的报价`,
@@ -463,6 +500,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       const report: Report = { id: nextId('report'), ...input, status: 'PENDING', createdAt: now() }
       set((s) => ({ reports: [...s.reports, report] }))
       notify(
+        operatorId(),
         'REPORT_RESULT',
         '举报已提交',
         '管理员会在 48 小时内处理，结果将在通知中心告知',
@@ -472,13 +510,21 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     /* ---------- 通知 ---------- */
 
     markNotificationRead: (id) => {
+      const recipientId = operatorId()
       set((s) => ({
-        notifications: s.notifications.map((n) => (n.id === id ? { ...n, read: true } : n)),
+        notifications: s.notifications.map((n) =>
+          n.id === id && n.recipientId === recipientId ? { ...n, read: true } : n
+        ),
       }))
     },
 
     markAllNotificationsRead: () => {
-      set((s) => ({ notifications: s.notifications.map((n) => ({ ...n, read: true })) }))
+      const recipientId = operatorId()
+      set((s) => ({
+        notifications: s.notifications.map((n) =>
+          n.recipientId === recipientId ? { ...n, read: true } : n
+        ),
+      }))
     },
 
     /* ---------- 演示 ---------- */
