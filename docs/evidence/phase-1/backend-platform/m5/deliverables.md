@@ -20,8 +20,9 @@
 - [x] 从 `origin/phase1/backend-platform` 的 `e1fe4810740b1ab53f2f8d14bd2fd178829f6b37` 创建 `task/m5-p1-auth-boundary`。
 - [x] 完成 BP1-01/02/03 三份候选，区分角色、对象权限、账号状态及模拟认证。
 - [x] 汇总 BP1-11 场景初稿，记录 M6/M9 依赖，不改写他人候选或验收记录。
-- [ ] M6/M9 交叉 Review、M2/M10 消费确认，处理反馈。
-- [ ] 任务 PR 通过评审并合入 `phase1/backend-platform`。
+- [ ] M2/M10 完成消费确认并处理反馈。
+- [ ] 处理 PR #67 的流程例外：该 PR 合并前未取得同组交叉 Review；由 M6/M9 对合并提交补充 Review，并由 M1 记录是否接受该例外。合并后补审仅作为整改，不等同于已满足原合并前门禁。
+- [x] 任务 PR #67 已合入 `phase1/backend-platform`，合并提交为 `c68cbe1b9c5e5a96d699df73bbd51be4c3c36b31`。
 - [ ] M6 交付齐备、M10/M1 验收后，M5 提交后端组汇总 PR。
 - [ ] M1 按 Issue #5 的阶段门禁将 `phase1/integration` 收口到 `main`，统一关闭阶段 Issue。
 
