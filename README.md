@@ -902,35 +902,20 @@ README 中不会把尚未执行的性能测试描述成已经达到的结果。
 # 📅 Development Roadmap
 
 ```text
-Week 1
-Requirements Validation
+Phase 1 / Week 1
+Scope, ownership, user journeys, domain boundaries, AI feasibility, and quality framework
 ↓
-Week 2
-Architecture & API Contracts
+Phase 2 / Week 2
+Clickable prototype, frozen OpenAPI/SDK/database/environment/AI/test contracts
 ↓
-Week 3
-Foundation + Authentication
+Phase 3 / Week 3
+Real persisted two-account MVP: marketplace, chat, offers, orders, meetup, confirmation, review, report, notification
 ↓
-Week 4
-Marketplace
+Phase 4 / Week 4
+Measured AI integration, explanations, fallback, governance, and feature freeze
 ↓
-Week 5
-Chat + Transaction
-↓
-Week 6
-Wanted Marketplace + Matching
-↓
-Week 7
-Semantic Search + Price AI
-↓
-Week 8
-Admin + Trust + Risk
-↓
-Week 9
-Testing + Performance + Fixes
-↓
-Week 10
-Documentation + Demo + Final Integration
+Phase 5 / Week 5
+Regression, security, performance, recovery, clean deployment, documentation, demonstration, and final submission
 ```
 
 ---
