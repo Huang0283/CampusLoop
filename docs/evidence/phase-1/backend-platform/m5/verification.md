@@ -50,3 +50,14 @@ git log -1 --format=%H -- docs/evidence/phase-1/backend-platform/auth-domain.md
 ## 4. 未执行与交接边界
 
 本次没有应用代码变更，因此未运行前端构建或后端接口测试。没有执行真实注册/登录、数据库事务、并发刷新、权限攻击或故障注入；Mermaid 的流程语义已人工检查，尚未验证 GitHub 页面渲染。M6/M9 的 Review、M10 独立验收、M1 范围确认和合并均以之后的真实记录为准。
+
+## 5. 合并后复核记录
+
+- 任务 PR：[#67](https://github.com/Huang0283/CampusLoop/pull/67)
+- 内容提交：`38ec0c39d01a93e2f6113ed322a351217b325f66`
+- PR 头部后续验证修复提交：`773f2fd`
+- 合并提交：`c68cbe1b9c5e5a96d699df73bbd51be4c3c36b31`
+- 合并目标：`phase1/backend-platform`
+- 复核结论：合并后重新执行 Markdown 相对链接、代码围栏、Mermaid 流程数量、HR 编号连续性和占位标记扫描，结构检查通过。
+
+该记录只确认 M5 个人文档已提交到后端组分支，不代表 Issue #5 或后端组第一阶段已经完成，也不替代 M6/M9 的交叉 Review、M10 的独立验收和 M1 的阶段收口。
