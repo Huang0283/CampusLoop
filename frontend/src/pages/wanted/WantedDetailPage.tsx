@@ -10,6 +10,7 @@ import {
   Button,
   Rate,
   Spin,
+  message,
 } from 'antd';
 import {
   SearchOutlined,
@@ -31,6 +32,9 @@ import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getWanted } from '../../sdk/generated/sdk.gen';
 import type { Wanted } from '../../sdk/generated/types.gen';
+import { ReportModal } from '../../components/transaction';
+import { useMockDbStore } from '../../stores/mockDb';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 
 const { Header, Sider, Content } = Layout;
 
@@ -108,6 +112,7 @@ const formatDate = (value: string) => {
 
 const WantedDetailPage: React.FC = () => {
   const navigate = useNavigate();
+  const requireAuthAction = useRequireAuthAction();
   const { id: wantedId } = useParams<{ id: string }>();
   const parsedWantedId = Number(wantedId);
   const hasValidWantedId =
@@ -115,6 +120,7 @@ const WantedDetailPage: React.FC = () => {
   const [wanted, setWanted] = useState<Wanted | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [reportOpen, setReportOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -188,11 +194,21 @@ const WantedDetailPage: React.FC = () => {
       }
     : null;
 
-  const handleFavorite = () => console.log('收藏');
-  const handleContact = () => console.log('联系发布者');
-  const handleReport = () => console.log('举报');
+  const handleFavorite = () => {
+    requireAuthAction(() => message.info('求购收藏尚未纳入当前 OpenAPI 契约'));
+  };
+  const handleContact = () => {
+    if (!wanted) return;
+    requireAuthAction(() =>
+      navigate('/chat', { state: { wantedId: wanted.id, ownerId: wanted.owner.id } }),
+    );
+  };
+  const handleReport = () => {
+    requireAuthAction(() => setReportOpen(true));
+  };
   const handleViewAllMatches = () => {
-    if (wantedId) navigate(`/wanted/${wantedId}/matches`);
+    if (!wantedId) return;
+    requireAuthAction(() => navigate(`/wanted/${wantedId}/matches`));
   };
 
   return (
@@ -687,6 +703,22 @@ const WantedDetailPage: React.FC = () => {
           </div>
         </div>}
       </Layout>
+      {wanted && publisher && (
+        <ReportModal
+          open={reportOpen}
+          targetType="USER"
+          targetId={wanted.owner.id}
+          targetLabel={publisher.name}
+          onClose={() => setReportOpen(false)}
+          onSubmit={(values) => {
+            useMockDbStore.getState().submitReport({
+              targetType: 'USER',
+              targetId: wanted.owner.id,
+              ...values,
+            });
+          }}
+        />
+      )}
     </ConfigProvider>
   );
 };

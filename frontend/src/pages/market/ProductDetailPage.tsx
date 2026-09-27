@@ -39,7 +39,8 @@ import { useMockDbStore } from '../../stores/mockDb';
 import type { ReportTargetType } from '../../types/transaction';
 import { addFavorite, getProduct, removeFavorite } from '../../sdk/generated/sdk.gen';
 import type { Product } from '../../sdk/generated/types.gen';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 
 const { Header, Sider, Content } = Layout;
 
@@ -89,7 +90,9 @@ const formatDate = (value: string) => {
 };
 
 const ProductDetailPage: React.FC = () => {
-  const { productId } = useParams<{ productId: string }>();
+  const navigate = useNavigate();
+  const requireAuthAction = useRequireAuthAction();
+  const { id: productId } = useParams<{ id: string }>();
   const parsedProductId = Number(productId);
   const hasValidProductId =
     Boolean(productId) && Number.isInteger(parsedProductId) && parsedProductId > 0;
@@ -217,7 +220,7 @@ const ProductDetailPage: React.FC = () => {
   };
 
   // 根据当前收藏状态调用对应接口，成功后再更新按钮状态。
-  const handleFavorite = async () => {
+  const toggleFavorite = async () => {
     if (!productData || favoriteLoading) return;
 
     setFavoriteLoading(true);
@@ -242,6 +245,21 @@ const ProductDetailPage: React.FC = () => {
     } finally {
       setFavoriteLoading(false);
     }
+  };
+
+  const handleFavorite = () => {
+    requireAuthAction(() => void toggleFavorite());
+  };
+
+  const handleContactSeller = () => {
+    if (!productData) return;
+    requireAuthAction(() =>
+      navigate('/chat', { state: { productId: productData.id, sellerId: productData.seller.id } }),
+    );
+  };
+
+  const openReport = (target: { type: ReportTargetType; id: number; label: string }) => {
+    requireAuthAction(() => setReportTarget(target));
   };
 
   return (
@@ -619,7 +637,7 @@ const ProductDetailPage: React.FC = () => {
                           <HeartOutlined />
                         )
                       }
-                      onClick={() => void handleFavorite()}
+                      onClick={handleFavorite}
                       loading={favoriteLoading}
                       style={{
                         borderRadius: 8,
@@ -636,6 +654,7 @@ const ProductDetailPage: React.FC = () => {
                       type="primary"
                       size="large"
                       icon={<MessageFilled />}
+                      onClick={handleContactSeller}
                       style={{
                         borderRadius: 8,
                         fontSize: 15,
@@ -663,7 +682,7 @@ const ProductDetailPage: React.FC = () => {
                     size="small"
                     icon={<FlagOutlined />}
                     onClick={() =>
-                      setReportTarget({ type: 'PRODUCT', id: product.id, label: product.title })
+                      openReport({ type: 'PRODUCT', id: product.id, label: product.title })
                     }
                   >
                     举报商品
@@ -674,7 +693,7 @@ const ProductDetailPage: React.FC = () => {
                     size="small"
                     icon={<FlagOutlined />}
                     onClick={() =>
-                      setReportTarget({
+                      openReport({
                         type: 'USER',
                         id: product.seller.id,
                         label: product.seller.name,

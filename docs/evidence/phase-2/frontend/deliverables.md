@@ -16,9 +16,15 @@
 - FE2-04：`page-api-map.md`、生成 SDK 入口和当前契约缺口登记。
 - FE2-12：`contract-review.md`、`mock-replacement-plan.md`、本目录验证和交接记录。
 
+## M3 已提交
+
+- FE2-05：`market-prototype.md`，商品详情公开读取、收藏/联系/举报动作守卫和连续返回路径。
+- FE2-06：`product-management-prototype.md`，图片上传、商品创建、幂等与失败反馈原型。
+- FE2-07：`wanted-ai-result-prototype.md`，求购公开读取、搜索/筛选/排序/分页和个性化匹配解释原型。
+- 任务 PR：#63 `task/m3-transaction-pages -> phase2/frontend-prototype`。
+
 ## 尚未计入完成
 
-- M3 的 FE2-05 至 FE2-07 交付和任务 PR 验收。
 - M4 的 FE2-08 至 FE2-10 交付和任务 PR 验收。
 - M2/M3/M4 共同维护的 `page-state-matrix.md`。
 - M3/M4 在公开业务页面接入 `useRequireAuthAction` 后的端到端动作回跳验收。
