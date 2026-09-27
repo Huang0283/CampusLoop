@@ -42,7 +42,7 @@ git log -1 --format=%H -- docs/evidence/phase-1/backend-platform/auth-domain.md
 | 代码围栏 | 7 份文件均成对闭合 | Markdown 结构检查 |
 | Mermaid 图数量 | 6 张 | 与六项认证流程逐一对应；未执行渲染器 |
 | 风险编号 | HR-01～HR-18 连续、无重复 | 18 个候选场景都有触发、保护和责任列 |
-| 占位符扫描 | 无 TODO/TBD/FIXME | 真实未确认项集中在交接表，保留 Owner 与检查时间 |
+| 占位标记扫描 | 未发现未解决的占位标记 | 真实未确认项集中在交接表，保留 Owner 与检查时间 |
 | 语义自检 | 已按第 2 节六项逐条走查 | 修正刷新唯一约束、管理员证据范围和预签名撤销边界；未经跨组签字 |
 
 结构检查实际输出：`Files=7; relative_links=24; mermaid_flows=6; risk_scenarios=18`，`Document structure checks: PASS`。检查使用 `pathlib` 读取 UTF-8 文件、正则提取相对链接/围栏/场景编号，再验证目标路径和数量；不读取真实用户数据，不执行仓库业务代码。
