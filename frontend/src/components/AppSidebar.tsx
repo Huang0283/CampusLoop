@@ -21,6 +21,7 @@ import {
   SwapOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import { BRAND_COLOR, resolveActiveKey } from './sidebarConfig';
 
 const { Text } = Typography;
@@ -33,6 +34,13 @@ const NAV_ITEMS: NonNullable<MenuProps['items']> = [
   { key: 'chat', icon: <MessageOutlined />, label: '聊天' },
   { key: 'transaction', icon: <SwapOutlined />, label: '交易' },
 ];
+
+const MOBILE_NAV_ITEMS = [
+  { key: 'home', icon: <HomeOutlined />, label: '首页', path: '/market' },
+  { key: 'wanted', icon: <FileSearchOutlined />, label: '求购', path: '/wanted' },
+  { key: 'chat', icon: <MessageOutlined />, label: '聊天', path: '/chat' },
+  { key: 'transaction', icon: <SwapOutlined />, label: '交易', path: '/transactions' },
+] as const;
 
 /**
  * 导航项 → 路由。
@@ -73,12 +81,42 @@ export function SidebarNav() {
   );
 }
 
+/** Mobile entry for the same four destinations as the desktop sidebar. */
+export function MobileNav() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const activeKey = resolveActiveKey(pathname)[0];
+
+  return createPortal(
+    <nav className="app-mobile-nav" aria-label="Mobile navigation">
+      <div className="app-mobile-nav-list">
+        {MOBILE_NAV_ITEMS.map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            className={activeKey === item.key ? 'is-active' : undefined}
+            aria-current={activeKey === item.key ? 'page' : undefined}
+            onClick={() => navigate(item.path)}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </div>
+    </nav>,
+    document.body,
+  );
+}
+
 /** SidebarLogo + SidebarNav：放进页面的 Sider / aside 容器即可 */
 export default function AppSidebar() {
   return (
-    <div className="app-sidebar">
-      <SidebarLogo />
-      <SidebarNav />
-    </div>
+    <>
+      <div className="app-sidebar">
+        <SidebarLogo />
+        <SidebarNav />
+      </div>
+      <MobileNav />
+    </>
   );
 }

@@ -1,0 +1,1458 @@
+openapi: 3.1.0
+info:
+  title: CampusLoop API
+  version: 0.2.0-contract
+  description: |
+    Phase 2 contract baseline for the CampusLoop MVP. It is a consumer contract,
+    not proof that the FastAPI implementation or persistence exists.
+
+    Lifecycle: Phase 2 freezes this contract and generates the SDK; Phase 3
+    implements and integrates the MVP operations; Phase 4 implements AI and
+    moderation operations; Phase 5 freezes and verifies the final contract.
+  x-campusloop-owner: M5/M6
+  x-campusloop-consumers: [M2, M3, M4, M7, M8, M10]
+servers:
+  - url: http://localhost:8000
+    description: Local FastAPI HTTP service
+tags:
+  - name: System
+  - name: Auth
+  - name: Users
+  - name: Market
+  - name: Wanted
+  - name: Intelligence
+  - name: Chat
+  - name: Transactions
+  - name: Governance
+  - name: Notifications
+  - name: Admin
+security:
+  - bearerAuth: []
+paths:
+  /health:
+    get:
+      tags: [System]
+      operationId: getHealth
+      summary: Liveness and dependency status
+      security: []
+      x-campusloop-phase: BP2-06
+      responses:
+        '200':
+          description: Service is alive; dependency values may still report degraded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /auth/register:
+    post:
+      tags: [Auth]
+      operationId: register
+      summary: Register a campus user
+      security: []
+      x-campusloop-phase: BP2-01/FE3-01
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Registered and authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /auth/login:
+    post:
+      tags: [Auth]
+      operationId: login
+      summary: Authenticate with email and password
+      security: []
+      x-campusloop-phase: BP2-01/FE3-01
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '423':
+          description: Account disabled.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      operationId: refreshSession
+      summary: Rotate a refresh token
+      security: []
+      x-campusloop-phase: BP2-01/FE3-01
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refreshToken]
+              properties:
+                refreshToken: { type: string }
+      responses:
+        '200':
+          description: Token pair rotated.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /auth/logout:
+    post:
+      tags: [Auth]
+      operationId: logout
+      summary: Revoke the active session
+      x-campusloop-phase: BP2-01/FE3-01
+      responses:
+        '204': { description: Session revoked. }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+
+  /users/me:
+    get:
+      tags: [Users]
+      operationId: getCurrentUser
+      x-campusloop-phase: BP2-01/FE3-02
+      responses:
+        '200':
+          description: Current private profile.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    patch:
+      tags: [Users]
+      operationId: updateCurrentUser
+      x-campusloop-phase: BP2-01/FE3-02
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateProfileRequest' }
+      responses:
+        '200':
+          description: Updated private profile.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /users/{userId}:
+    parameters:
+      - $ref: '#/components/parameters/UserId'
+    get:
+      tags: [Users]
+      operationId: getPublicUser
+      security: []
+      x-campusloop-phase: BP2-01/FE3-02
+      responses:
+        '200':
+          description: Public profile without private fields.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PublicUserResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /products:
+    get:
+      tags: [Market]
+      operationId: listProducts
+      security: []
+      x-campusloop-phase: BP2-03/FE3-04
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: query, in: query, schema: { type: string } }
+        - { name: category, in: query, schema: { type: string } }
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/ProductStatus' } }
+        - { name: sort, in: query, schema: { type: string, enum: [newest, price_asc, price_desc] } }
+      responses:
+        '200':
+          description: Paginated products.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductListResponse' }
+    post:
+      tags: [Market]
+      operationId: createProduct
+      x-campusloop-phase: BP2-03/BP2-04/FE3-05
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProductWriteRequest' }
+      responses:
+        '201':
+          description: Product created once for the idempotency key.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /products/{productId}:
+    parameters:
+      - $ref: '#/components/parameters/ProductId'
+    get:
+      tags: [Market]
+      operationId: getProduct
+      security: []
+      x-campusloop-phase: BP2-03/FE3-04
+      responses:
+        '200':
+          description: Product detail.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [Market]
+      operationId: updateProduct
+      x-campusloop-phase: BP2-03/BP2-04/FE3-05
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProductWriteRequest' }
+      responses:
+        '200':
+          description: Owner-updated product.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+    delete:
+      tags: [Market]
+      operationId: deleteProduct
+      x-campusloop-phase: BP2-03/BP2-04/FE3-05
+      responses:
+        '204': { description: Product logically deleted. }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /products/{productId}/status:
+    parameters:
+      - $ref: '#/components/parameters/ProductId'
+    patch:
+      tags: [Market]
+      operationId: updateProductStatus
+      x-campusloop-phase: BP2-03/BP2-04/FE3-05
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { $ref: '#/components/schemas/ProductStatus' }
+      responses:
+        '200':
+          description: Status transition accepted.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /favorites:
+    get:
+      tags: [Market]
+      operationId: listFavorites
+      x-campusloop-phase: BP2-03/FE3-04
+      responses:
+        '200':
+          description: Current user's favorites.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductListResponse' }
+  /favorites/{productId}:
+    parameters:
+      - $ref: '#/components/parameters/ProductId'
+    put:
+      tags: [Market]
+      operationId: addFavorite
+      x-campusloop-phase: BP2-03/BP2-04/FE3-04
+      responses:
+        '204': { description: Favorite exists; repeated calls are idempotent. }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Market]
+      operationId: removeFavorite
+      x-campusloop-phase: BP2-03/BP2-04/FE3-04
+      responses:
+        '204': { description: Favorite absent; repeated calls are idempotent. }
+
+  /uploads/images:
+    post:
+      tags: [Market]
+      operationId: uploadImage
+      x-campusloop-phase: BP2-03/FE3-05
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file: { type: string, format: binary }
+      responses:
+        '201':
+          description: Image metadata; URL is later submitted with a product/report.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UploadResponse' }
+        '413':
+          description: Image exceeds the configured limit.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+        '415':
+          description: Unsupported image format.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+
+  /wanted:
+    get:
+      tags: [Wanted]
+      operationId: listWanted
+      security: []
+      x-campusloop-phase: BP2-03/FE3-06
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: query, in: query, schema: { type: string } }
+      responses:
+        '200':
+          description: Paginated wanted posts.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WantedListResponse' }
+    post:
+      tags: [Wanted]
+      operationId: createWanted
+      x-campusloop-phase: BP2-03/BP2-04/FE3-06
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/WantedWriteRequest' }
+      responses:
+        '201':
+          description: Wanted post created.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WantedResponse' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /wanted/{wantedId}:
+    parameters:
+      - $ref: '#/components/parameters/WantedId'
+    get:
+      tags: [Wanted]
+      operationId: getWanted
+      security: []
+      x-campusloop-phase: BP2-03/FE3-06
+      responses:
+        '200':
+          description: Wanted detail.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WantedResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [Wanted]
+      operationId: updateWanted
+      x-campusloop-phase: BP2-03/BP2-04/FE3-06
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/WantedWriteRequest' }
+      responses:
+        '200':
+          description: Owner-updated wanted post.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/WantedResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Wanted]
+      operationId: closeWanted
+      x-campusloop-phase: BP2-03/BP2-04/FE3-06
+      responses:
+        '204': { description: Wanted post closed. }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /search:
+    get:
+      tags: [Intelligence]
+      operationId: searchProducts
+      security: []
+      x-campusloop-phase: AI2-01/AI4-01/FE4-04
+      parameters:
+        - { name: query, in: query, required: true, schema: { type: string, minLength: 1 } }
+        - { name: mode, in: query, schema: { type: string, enum: [keyword, hybrid, semantic], default: keyword } }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Search result with explicit mode/degradation metadata.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SearchResponse' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '503': { $ref: '#/components/responses/DependencyUnavailable' }
+  /wanted/{wantedId}/matches:
+    parameters:
+      - $ref: '#/components/parameters/WantedId'
+    get:
+      tags: [Intelligence]
+      operationId: listWantedMatches
+      x-campusloop-phase: AI2-02/AI4-02/FE4-05
+      responses:
+        '200':
+          description: Ranked candidates; score is relevance, never transaction probability.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MatchListResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '503': { $ref: '#/components/responses/DependencyUnavailable' }
+  /price-advice:
+    post:
+      tags: [Intelligence]
+      operationId: getPriceAdvice
+      x-campusloop-phase: AI2-03/AI4-03/FE4-06
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PriceAdviceRequest' }
+      responses:
+        '200':
+          description: Advisory range with factors, provenance, and disclaimer.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PriceAdviceResponse' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+        '503': { $ref: '#/components/responses/DependencyUnavailable' }
+
+  /chat/sessions:
+    get:
+      tags: [Chat]
+      operationId: listChatSessions
+      x-campusloop-phase: BP2-03/FE3-07
+      responses:
+        '200':
+          description: Current user's sessions only.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ChatSessionListResponse' }
+  /chat/sessions/{sessionId}/messages:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    get:
+      tags: [Chat]
+      operationId: listMessages
+      x-campusloop-phase: BP2-03/FE3-07/FE3-08
+      parameters:
+        - { name: afterId, in: query, schema: { type: integer, format: int64, minimum: 0 } }
+        - { name: limit, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 30 } }
+      responses:
+        '200':
+          description: Ordered history or reconnect delta.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MessageListResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      tags: [Chat]
+      operationId: sendMessage
+      x-campusloop-phase: BP2-03/BP2-04/FE3-07/FE3-08
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SendMessageRequest' }
+      responses:
+        '201':
+          description: Persisted before it is pushed; clientMsgId is idempotent per sender.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MessageResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /chat/sessions/{sessionId}/read:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    post:
+      tags: [Chat]
+      operationId: markSessionRead
+      x-campusloop-phase: BP2-03/BP2-04/FE3-07
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [lastMessageId]
+              properties:
+                lastMessageId: { type: integer, format: int64 }
+      responses:
+        '204': { description: Read cursor advanced idempotently. }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /chat/sessions/{sessionId}/offers:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    post:
+      tags: [Transactions]
+      operationId: createOffer
+      x-campusloop-phase: BP2-03/BP2-04/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount]
+              properties:
+                amount: { type: number, minimum: 0, multipleOf: 0.01 }
+      responses:
+        '201':
+          description: Pending offer.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OfferResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /offers/{offerId}/accept:
+    post:
+      tags: [Transactions]
+      operationId: acceptOffer
+      x-campusloop-phase: BP2-04/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/OfferId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: Offer acceptance and order creation commit atomically.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AcceptOfferResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /offers/{offerId}/reject:
+    post:
+      tags: [Transactions]
+      operationId: rejectOffer
+      x-campusloop-phase: BP2-04/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/OfferId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason: { type: string, maxLength: 200 }
+      responses:
+        '200':
+          description: Offer rejected.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OfferResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /offers/{offerId}/counter:
+    post:
+      tags: [Transactions]
+      operationId: counterOffer
+      x-campusloop-phase: BP2-04/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/OfferId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount]
+              properties:
+                amount: { type: number, minimum: 0, multipleOf: 0.01 }
+      responses:
+        '201':
+          description: New pending offer; previous offer is countered.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OfferResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /offers/{offerId}/cancel:
+    post:
+      tags: [Transactions]
+      operationId: cancelOffer
+      x-campusloop-phase: BP2-04/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/OfferId'
+      responses:
+        '200':
+          description: Creator cancelled the pending offer.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OfferResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /orders:
+    get:
+      tags: [Transactions]
+      operationId: listOrders
+      x-campusloop-phase: BP2-03/FE3-09
+      parameters:
+        - { name: role, in: query, schema: { type: string, enum: [buyer, seller] } }
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/OrderStatus' } }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Orders where the current user is a participant.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderListResponse' }
+  /orders/{orderId}:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    get:
+      tags: [Transactions]
+      operationId: getOrder
+      x-campusloop-phase: BP2-03/FE3-09
+      responses:
+        '200':
+          description: Participant-visible order detail.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /orders/{orderId}/events:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    get:
+      tags: [Transactions]
+      operationId: listOrderEvents
+      x-campusloop-phase: BP2-03/FE3-09
+      responses:
+        '200':
+          description: Immutable order timeline.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderEventListResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /orders/{orderId}/meetup:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    post:
+      tags: [Transactions]
+      operationId: saveMeetup
+      x-campusloop-phase: BP2-04/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MeetupWriteRequest' }
+      responses:
+        '200':
+          description: New version; previous confirmations are invalidated.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MeetupResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /orders/{orderId}/meetup/confirm:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    post:
+      tags: [Transactions]
+      operationId: confirmMeetup
+      x-campusloop-phase: BP2-04/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [meetupId, version]
+              properties:
+                meetupId: { type: integer, format: int64 }
+                version: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: Current version confirmation recorded.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MeetupResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /orders/{orderId}/confirm-complete:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    post:
+      tags: [Transactions]
+      operationId: confirmOrderComplete
+      x-campusloop-phase: BP2-04/FE3-10
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [meetupVersion]
+              properties:
+                meetupVersion: { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: One participant confirmation; completed only after both confirm the same version.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CompleteOrderResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /orders/{orderId}/cancel:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    post:
+      tags: [Transactions]
+      operationId: cancelOrder
+      x-campusloop-phase: BP2-04/FE3-09
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason]
+              properties:
+                reason: { type: string, minLength: 1, maxLength: 500 }
+      responses:
+        '200':
+          description: Cancellable order transitioned by the server.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /reviews:
+    post:
+      tags: [Governance]
+      operationId: createReview
+      x-campusloop-phase: BP2-04/FE3-10
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReviewWriteRequest' }
+      responses:
+        '201':
+          description: One review per participant and completed order.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReviewResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /reports:
+    post:
+      tags: [Governance]
+      operationId: createReport
+      x-campusloop-phase: BP2-04/FE3-10
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReportWriteRequest' }
+      responses:
+        '201':
+          description: Private report accepted.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReportResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /reports/mine:
+    get:
+      tags: [Governance]
+      operationId: listMyReports
+      x-campusloop-phase: BP2-03/FE3-10
+      responses:
+        '200':
+          description: Reports created by the current user; no internal moderation notes.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReportListResponse' }
+
+  /notifications:
+    get:
+      tags: [Notifications]
+      operationId: listNotifications
+      x-campusloop-phase: BP2-03/FE3-10
+      responses:
+        '200':
+          description: Current user's notifications.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/NotificationListResponse' }
+  /notifications/{notificationId}/read:
+    post:
+      tags: [Notifications]
+      operationId: markNotificationRead
+      x-campusloop-phase: BP2-04/FE3-10
+      parameters:
+        - $ref: '#/components/parameters/NotificationId'
+      responses:
+        '204': { description: Notification marked read idempotently. }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /notifications/read-all:
+    post:
+      tags: [Notifications]
+      operationId: markAllNotificationsRead
+      x-campusloop-phase: BP2-04/FE3-10
+      responses:
+        '204': { description: All current notifications marked read idempotently. }
+
+  /admin/users:
+    get:
+      tags: [Admin]
+      operationId: adminListUsers
+      x-campusloop-phase: BP4-01/FE4-01
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Admin user list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserListResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /admin/reports:
+    get:
+      tags: [Admin]
+      operationId: adminListReports
+      x-campusloop-phase: BP4-01/FE4-01/FE4-08
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/ReportStatus' } }
+      responses:
+        '200':
+          description: Admin report queue with access auditing.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReportListResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /admin/reports/{reportId}/resolve:
+    post:
+      tags: [Admin]
+      operationId: resolveReport
+      x-campusloop-phase: BP4-01/FE4-01/FE4-08
+      parameters:
+        - $ref: '#/components/parameters/ReportId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [resolution]
+              properties:
+                resolution: { type: string, enum: [RESOLVED, REJECTED] }
+                note: { type: string, maxLength: 1000 }
+      responses:
+        '200':
+          description: Resolution recorded with an immutable admin audit event.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReportResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, minimum: 1, default: 1 }
+    PageSize:
+      name: pageSize
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: Client-generated UUID. Replays return the original successful result.
+      schema: { type: string, format: uuid }
+    UserId: { name: userId, in: path, required: true, schema: { type: integer, format: int64 } }
+    ProductId: { name: productId, in: path, required: true, schema: { type: integer, format: int64 } }
+    WantedId: { name: wantedId, in: path, required: true, schema: { type: integer, format: int64 } }
+    SessionId: { name: sessionId, in: path, required: true, schema: { type: integer, format: int64 } }
+    OfferId: { name: offerId, in: path, required: true, schema: { type: integer, format: int64 } }
+    OrderId: { name: orderId, in: path, required: true, schema: { type: integer, format: int64 } }
+    NotificationId: { name: notificationId, in: path, required: true, schema: { type: integer, format: int64 } }
+    ReportId: { name: reportId, in: path, required: true, schema: { type: integer, format: int64 } }
+  responses:
+    Unauthorized:
+      description: Missing, expired, revoked, or invalid token.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example: { code: AUTH_UNAUTHORIZED, message: Authentication required, details: null, requestId: req_01 }
+    Forbidden:
+      description: Authenticated but not allowed for this role, object, field, or state.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example: { code: FORBIDDEN, message: Operation is not allowed, details: null, requestId: req_01 }
+    NotFound:
+      description: Resource does not exist or is intentionally hidden from this caller.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example: { code: NOT_FOUND, message: Resource not found, details: null, requestId: req_01 }
+    Conflict:
+      description: Duplicate request, stale version, expired object, or illegal state transition.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example: { code: STATE_CONFLICT, message: Resource state has changed, details: { refresh: true }, requestId: req_01 }
+    ValidationError:
+      description: Request fields failed validation.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example: { code: VALIDATION_ERROR, message: Invalid request, details: { field: amount }, requestId: req_01 }
+    DependencyUnavailable:
+      description: AI dependency unavailable; response identifies the allowed fallback.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example: { code: AI_UNAVAILABLE, message: Intelligent service unavailable, details: { fallback: keyword }, requestId: req_01 }
+  schemas:
+    ApiEnvelope:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: integer, example: 0 }
+        message: { type: string, example: ok }
+    ErrorResponse:
+      type: object
+      required: [code, message, requestId]
+      properties:
+        code: { type: string }
+        message: { type: string }
+        details: { type: [object, 'null'], additionalProperties: true }
+        requestId: { type: string }
+    Pagination:
+      type: object
+      required: [page, pageSize, total]
+      properties:
+        page: { type: integer, minimum: 1 }
+        pageSize: { type: integer, minimum: 1 }
+        total: { type: integer, minimum: 0 }
+    Role: { type: string, enum: [USER, ADMIN] }
+    UserBrief:
+      type: object
+      required: [id, nickname]
+      properties:
+        id: { type: integer, format: int64 }
+        nickname: { type: string }
+        avatar: { type: string, format: uri }
+        rating: { type: number, minimum: 0, maximum: 5 }
+        transactionCount: { type: integer, minimum: 0 }
+    UserProfile:
+      allOf:
+        - $ref: '#/components/schemas/UserBrief'
+        - type: object
+          required: [role, tradeCount, creditLevel]
+          properties:
+            role: { $ref: '#/components/schemas/Role' }
+            school: { type: string }
+            college: { type: string }
+            major: { type: string }
+            tradeCount: { type: integer, minimum: 0 }
+            creditLevel: { type: string }
+    RegisterRequest:
+      type: object
+      required: [email, password, nickname]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 8, maxLength: 128 }
+        nickname: { type: string, minLength: 1, maxLength: 40 }
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string }
+    UpdateProfileRequest:
+      type: object
+      properties:
+        nickname: { type: string, minLength: 1, maxLength: 40 }
+        avatar: { type: string, format: uri }
+        college: { type: string, maxLength: 80 }
+        major: { type: string, maxLength: 80 }
+    TokenPair:
+      type: object
+      required: [accessToken, refreshToken, expiresIn]
+      properties:
+        accessToken: { type: string }
+        refreshToken: { type: string }
+        expiresIn: { type: integer, description: Access token lifetime in seconds. }
+    AuthResult:
+      allOf:
+        - $ref: '#/components/schemas/TokenPair'
+        - type: object
+          required: [user]
+          properties:
+            user: { $ref: '#/components/schemas/UserProfile' }
+    ProductStatus: { type: string, enum: [ON_SALE, RESERVED, SOLD, HIDDEN] }
+    Product:
+      type: object
+      required: [id, seller, title, category, condition, price, status, images, createdAt, updatedAt]
+      properties:
+        id: { type: integer, format: int64 }
+        seller: { $ref: '#/components/schemas/UserBrief' }
+        title: { type: string }
+        category: { type: string }
+        condition: { type: string }
+        description: { type: string }
+        originalPrice: { type: number, minimum: 0 }
+        price: { type: number, minimum: 0 }
+        campusLocation: { type: string }
+        images: { type: array, maxItems: 5, items: { type: string, format: uri } }
+        status: { $ref: '#/components/schemas/ProductStatus' }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    ProductWriteRequest:
+      type: object
+      required: [title, category, condition, price, campusLocation, images]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 100 }
+        category: { type: string }
+        condition: { type: string }
+        description: { type: string, maxLength: 3000 }
+        originalPrice: { type: number, minimum: 0 }
+        price: { type: number, minimum: 0 }
+        campusLocation: { type: string }
+        images: { type: array, minItems: 1, maxItems: 5, items: { type: string, format: uri } }
+    WantedStatus: { type: string, enum: [OPEN, MATCHED, CLOSED, EXPIRED] }
+    Wanted:
+      type: object
+      required: [id, owner, title, budgetMin, budgetMax, condition, location, status, expireAt, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        owner: { $ref: '#/components/schemas/UserBrief' }
+        title: { type: string }
+        description: { type: string }
+        budgetMin: { type: number, minimum: 0 }
+        budgetMax: { type: number, minimum: 0 }
+        condition: { type: string }
+        location: { type: string }
+        status: { $ref: '#/components/schemas/WantedStatus' }
+        expireAt: { type: string, format: date-time }
+        createdAt: { type: string, format: date-time }
+    WantedWriteRequest:
+      type: object
+      required: [title, budgetMin, budgetMax, condition, location, expireAt]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 100 }
+        description: { type: string, maxLength: 3000 }
+        budgetMin: { type: number, minimum: 0 }
+        budgetMax: { type: number, minimum: 0 }
+        condition: { type: string }
+        location: { type: string }
+        expireAt: { type: string, format: date-time }
+    SearchResult:
+      type: object
+      required: [items, mode, degraded, pagination]
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/Product' } }
+        mode: { type: string, enum: [keyword, hybrid, semantic] }
+        degraded: { type: boolean }
+        degradationReason: { type: string }
+        resultVersion: { type: string }
+        pagination: { $ref: '#/components/schemas/Pagination' }
+    MatchResult:
+      type: object
+      required: [product, relevanceScore, reasons, resultVersion, expiresAt]
+      properties:
+        product: { $ref: '#/components/schemas/Product' }
+        relevanceScore: { type: number, minimum: 0, maximum: 1, description: Relevance only, not transaction probability. }
+        reasons: { type: array, items: { type: string } }
+        constraints: { type: array, items: { type: string } }
+        resultVersion: { type: string }
+        expiresAt: { type: string, format: date-time }
+    PriceAdviceRequest:
+      type: object
+      required: [category, condition]
+      properties:
+        category: { type: string }
+        condition: { type: string }
+        title: { type: string }
+        description: { type: string }
+        originalPrice: { type: number, minimum: 0 }
+    PriceAdvice:
+      type: object
+      required: [lower, upper, currency, factors, method, disclaimer, resultVersion]
+      properties:
+        lower: { type: number, minimum: 0 }
+        upper: { type: number, minimum: 0 }
+        currency: { type: string, enum: [CNY] }
+        factors: { type: array, items: { type: string } }
+        sampleSize: { type: integer, minimum: 0 }
+        method: { type: string, enum: [rule, model, unavailable] }
+        degraded: { type: boolean }
+        disclaimer: { type: string }
+        resultVersion: { type: string }
+    ChatSessionType: { type: string, enum: [PRODUCT, WANTED] }
+    MessageKind: { type: string, enum: [TEXT, IMAGE, OFFER, ORDER_EVENT, SYSTEM] }
+    ChatSession:
+      type: object
+      required: [id, type, peer, unreadCount]
+      properties:
+        id: { type: integer, format: int64 }
+        type: { $ref: '#/components/schemas/ChatSessionType' }
+        peer: { $ref: '#/components/schemas/UserBrief' }
+        product: { $ref: '#/components/schemas/Product' }
+        wanted: { $ref: '#/components/schemas/Wanted' }
+        lastMessage: { $ref: '#/components/schemas/Message' }
+        unreadCount: { type: integer, minimum: 0 }
+    Message:
+      type: object
+      required: [id, clientMsgId, sessionId, senderId, kind, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        clientMsgId: { type: string, format: uuid }
+        sessionId: { type: integer, format: int64 }
+        senderId: { type: integer, format: int64 }
+        kind: { $ref: '#/components/schemas/MessageKind' }
+        content: { type: string }
+        createdAt: { type: string, format: date-time }
+    SendMessageRequest:
+      type: object
+      required: [clientMsgId, kind]
+      properties:
+        clientMsgId: { type: string, format: uuid }
+        kind: { type: string, enum: [TEXT, IMAGE] }
+        content: { type: string, maxLength: 4000 }
+    OfferStatus: { type: string, enum: [PENDING, ACCEPTED, REJECTED, COUNTERED, EXPIRED, CANCELLED] }
+    Offer:
+      type: object
+      required: [id, sessionId, buyerId, sellerId, productId, originalPrice, amount, status, expireAt, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        orderId: { type: integer, format: int64 }
+        sessionId: { type: integer, format: int64 }
+        buyerId: { type: integer, format: int64 }
+        sellerId: { type: integer, format: int64 }
+        productId: { type: integer, format: int64 }
+        originalPrice: { type: number, minimum: 0 }
+        amount: { type: number, minimum: 0 }
+        status: { $ref: '#/components/schemas/OfferStatus' }
+        counteredByOfferId: { type: integer, format: int64 }
+        expireAt: { type: string, format: date-time }
+        createdAt: { type: string, format: date-time }
+    OrderStatus: { type: string, enum: [PENDING_CONFIRM, BOOKED, MEETUP_ARRANGED, COMPLETED, CANCELLED, DISPUTED] }
+    Meetup:
+      type: object
+      required: [id, orderId, version, campusLocation, scheduledDate, timeSlotStart, timeSlotEnd, buyerConfirmed, sellerConfirmed, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        orderId: { type: integer, format: int64 }
+        version: { type: integer, minimum: 1 }
+        campusLocation: { type: string }
+        scheduledDate: { type: string, format: date }
+        timeSlotStart: { type: string, format: time }
+        timeSlotEnd: { type: string, format: time }
+        note: { type: string }
+        buyerConfirmed: { type: boolean }
+        sellerConfirmed: { type: boolean }
+        createdAt: { type: string, format: date-time }
+    MeetupWriteRequest:
+      type: object
+      required: [campusLocation, scheduledDate, timeSlotStart, timeSlotEnd]
+      properties:
+        campusLocation: { type: string, minLength: 1, maxLength: 100 }
+        scheduledDate: { type: string, format: date }
+        timeSlotStart: { type: string, format: time }
+        timeSlotEnd: { type: string, format: time }
+        note: { type: string, maxLength: 500 }
+    Order:
+      type: object
+      required: [id, product, buyer, seller, status, amount, buyerConfirmedComplete, sellerConfirmedComplete, createdAt, updatedAt]
+      properties:
+        id: { type: integer, format: int64 }
+        product: { $ref: '#/components/schemas/Product' }
+        buyer: { $ref: '#/components/schemas/UserBrief' }
+        seller: { $ref: '#/components/schemas/UserBrief' }
+        status: { $ref: '#/components/schemas/OrderStatus' }
+        amount: { type: number, minimum: 0 }
+        meetup: { $ref: '#/components/schemas/Meetup' }
+        buyerConfirmedComplete: { type: boolean }
+        sellerConfirmedComplete: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    OrderEvent:
+      type: object
+      required: [id, orderId, toStatus, description, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        orderId: { type: integer, format: int64 }
+        fromStatus: { $ref: '#/components/schemas/OrderStatus' }
+        toStatus: { $ref: '#/components/schemas/OrderStatus' }
+        operatorId: { type: integer, format: int64 }
+        description: { type: string }
+        createdAt: { type: string, format: date-time }
+    ReviewWriteRequest:
+      type: object
+      required: [orderId, overall, descriptionAccuracy, communication, punctuality]
+      properties:
+        orderId: { type: integer, format: int64 }
+        overall: { type: integer, minimum: 1, maximum: 5 }
+        descriptionAccuracy: { type: integer, minimum: 1, maximum: 5 }
+        communication: { type: integer, minimum: 1, maximum: 5 }
+        punctuality: { type: integer, minimum: 1, maximum: 5 }
+        comment: { type: string, maxLength: 1000 }
+    Review:
+      allOf:
+        - $ref: '#/components/schemas/ReviewWriteRequest'
+        - type: object
+          required: [id, reviewerId, revieweeId, createdAt]
+          properties:
+            id: { type: integer, format: int64 }
+            reviewerId: { type: integer, format: int64 }
+            revieweeId: { type: integer, format: int64 }
+            createdAt: { type: string, format: date-time }
+    ReportTargetType: { type: string, enum: [USER, PRODUCT, ORDER, CHAT_MESSAGE] }
+    ReportReason: { type: string, enum: [FAKE_PRODUCT, DESCRIPTION_MISMATCH, SPAM, ABNORMAL_PRICE, HARASSMENT, VIOLATION] }
+    ReportStatus: { type: string, enum: [PENDING, PROCESSING, RESOLVED, REJECTED] }
+    ReportWriteRequest:
+      type: object
+      required: [targetType, targetId, reason]
+      properties:
+        targetType: { $ref: '#/components/schemas/ReportTargetType' }
+        targetId: { type: integer, format: int64 }
+        reason: { $ref: '#/components/schemas/ReportReason' }
+        description: { type: string, maxLength: 2000 }
+        evidence: { type: array, maxItems: 5, items: { type: string, format: uri } }
+    Report:
+      allOf:
+        - $ref: '#/components/schemas/ReportWriteRequest'
+        - type: object
+          required: [id, status, createdAt]
+          properties:
+            id: { type: integer, format: int64 }
+            status: { $ref: '#/components/schemas/ReportStatus' }
+            createdAt: { type: string, format: date-time }
+    NotificationType: { type: string, enum: [MESSAGE, OFFER_RECEIVED, OFFER_ACCEPTED, OFFER_REJECTED, MATCH_FOUND, ORDER_STATUS_CHANGED, MEETUP_REMINDER, REVIEW_REQUEST, REPORT_RESULT] }
+    Notification:
+      type: object
+      required: [id, type, title, content, read, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        type: { $ref: '#/components/schemas/NotificationType' }
+        title: { type: string }
+        content: { type: string }
+        link: { type: string }
+        read: { type: boolean }
+        createdAt: { type: string, format: date-time }
+    HealthResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [status, dependencies]
+              properties:
+                status: { type: string, enum: [ok, degraded] }
+                dependencies: { type: object, additionalProperties: { type: string, enum: [ok, unavailable] } }
+    TokenResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/TokenPair' } } }] }
+    AuthResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/AuthResult' } } }] }
+    UserResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/UserProfile' } } }] }
+    PublicUserResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/UserBrief' } } }] }
+    ProductResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Product' } } }] }
+    WantedResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Wanted' } } }] }
+    MessageResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Message' } } }] }
+    OfferResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Offer' } } }] }
+    OrderResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Order' } } }] }
+    MeetupResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Meetup' } } }] }
+    ReviewResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Review' } } }] }
+    ReportResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Report' } } }] }
+    UploadResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [url, contentType, size]
+              properties:
+                url: { type: string, format: uri }
+                contentType: { type: string }
+                size: { type: integer, minimum: 0 }
+    AcceptOfferResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [offer, order]
+              properties:
+                offer: { $ref: '#/components/schemas/Offer' }
+                order: { $ref: '#/components/schemas/Order' }
+    CompleteOrderResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [order, completed]
+              properties:
+                order: { $ref: '#/components/schemas/Order' }
+                completed: { type: boolean }
+    PriceAdviceResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/PriceAdvice' } } }] }
+    SearchResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/SearchResult' } } }] }
+    ProductListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/Product' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
+    WantedListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/Wanted' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
+    MatchListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, degraded]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/MatchResult' } }
+                degraded: { type: boolean }
+                degradationReason: { type: string }
+    ChatSessionListResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { type: array, items: { $ref: '#/components/schemas/ChatSession' } } } }] }
+    MessageListResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { type: array, items: { $ref: '#/components/schemas/Message' } } } }] }
+    OrderListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/Order' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
+    OrderEventListResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { type: array, items: { $ref: '#/components/schemas/OrderEvent' } } } }] }
+    ReportListResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { type: array, items: { $ref: '#/components/schemas/Report' } } } }] }
+    NotificationListResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { type: array, items: { $ref: '#/components/schemas/Notification' } } } }] }
+    UserListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/UserProfile' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
+
+x-campusloop-websocket:
+  url: ws://localhost:8000/ws
+  authentication: Bearer token in the connection query until M5/M6 freeze a safer browser-compatible handshake.
+  implementationPhase: Phase 3
+  events:
+    outgoing: [PING, SEND_MESSAGE, MARK_READ, TYPING]
+    incoming: [PONG, MESSAGE_ACK, MESSAGE_CREATED, READ_UPDATED, ORDER_UPDATED, NOTIFICATION_CREATED, KICK]
+  correctnessRule: WebSocket provides low latency; HTTP history and afterId recovery provide completeness.
