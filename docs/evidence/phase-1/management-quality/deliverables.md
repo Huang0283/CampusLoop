@@ -2,7 +2,7 @@
 
 ## 已形成
 
-- M1：范围与优先级、需求追踪、团队职责/升级、十周计划、治理模板、风险登记、汇报提纲。
+- M1：范围与优先级、需求追踪、团队职责/升级、五周单周阶段计划、治理模板、风险登记、汇报提纲。
 - M10：测试策略、核心验收场景、缺陷与任务工作流、文档质量检查、汇报检查、评审日志。
 - 验收入口：本目录中的 `requirements-*`、`scope-*`、`team-*`、`ten-week-plan.md`、`test-*`、`acceptance-*`、`defect-*`、`review-log.md`、`first-presentation-rehearsal.md`。
 
