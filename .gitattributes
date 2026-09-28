@@ -1,0 +1,9 @@
+# Preserve exact bytes of versioned data/schema assets, including existing raw CRLF.
+# These files are hashed; do not let core.autocrlf silently transform them.
+/data/m7-phase2/** -text
+/schemas/m7-phase2/** -text
+/contracts/m7-phase2/** -text
+
+# Python producer and dependency-lock hashes must survive checkout on every OS.
+/scripts/m7_phase2/*.py text eol=lf
+/scripts/m7_phase2/requirements.txt text eol=lf

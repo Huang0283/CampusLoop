@@ -1,0 +1,4 @@
+STDOUT
+{'result': 'pass', 'byteIdenticalRebuild': True, 'rawHashes': 'pass', 'derivedHashes': 'pass', 'note': 'automated validation only; no independent human label review'}
+
+STDERR

@@ -1,0 +1,21 @@
+{
+  "policyVersion": "m7-dev-policy-v1",
+  "status": "proposal_not_approved_or_benchmarked",
+  "requestDeadlineMs": 1500,
+  "authorizationBudgetMs": 200,
+  "candidateBudgetMs": 700,
+  "baselineReserveMs": 500,
+  "serializationReserveMs": 100,
+  "resultTtlSeconds": 300,
+  "leaseSeconds": 30,
+  "heartbeatSeconds": 10,
+  "maxAttempts": 3,
+  "retryDelaySeconds": [
+    5,
+    30
+  ],
+  "notificationsEnabled": false,
+  "notificationThreshold": null,
+  "notificationCooldownSeconds": null,
+  "notificationDailyLimit": null
+}

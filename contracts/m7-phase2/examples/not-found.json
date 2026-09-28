@@ -1,0 +1,16 @@
+{
+  "caseId": "not-found",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 404,
+  "response": {
+    "code": "NOT_FOUND",
+    "message": "资源不存在或不可用",
+    "requestId": "fixture-not-found",
+    "details": null
+  }
+}

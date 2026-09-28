@@ -1,0 +1,50 @@
+{
+  "componentCount": 12,
+  "components": [
+    [
+      "catalog-tennis"
+    ],
+    [
+      "catalog-fan"
+    ],
+    [
+      "catalog-camera"
+    ],
+    [
+      "catalog-monitor"
+    ],
+    [
+      "catalog-lamp"
+    ],
+    [
+      "catalog-calculator"
+    ],
+    [
+      "catalog-headphones"
+    ],
+    [
+      "catalog-guitar"
+    ],
+    [
+      "catalog-bicycle"
+    ],
+    [
+      "catalog-keyboard"
+    ],
+    [
+      "catalog-calculus"
+    ],
+    [
+      "catalog-tablet"
+    ]
+  ],
+  "crossCatalogEdges": [],
+  "crossSplitViolations": [],
+  "limitations": "Lexical heuristic plus declared template/entity families; no proof against semantic or pretraining leakage",
+  "method": "connected components then SHA256(seed|sorted_catalog_ids) ordering",
+  "nearDuplicateThreshold": 0.9,
+  "requestedRatio": "approximately 2:1 by component count",
+  "seed": "20260926",
+  "testStatus": "candidate_not_sealed; labels visible to creator; human review pending",
+  "textNormalization": "NFKC + casefold + alphanumeric only"
+}

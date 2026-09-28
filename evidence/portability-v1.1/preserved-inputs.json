@@ -1,0 +1,133 @@
+{
+  "files": [
+    {
+      "file": "data/m7-phase2/raw/asset-manifest.json",
+      "sha256": "33aae7fb518014c18521f9ac1db8da4faa7d215fbb02059a9efb46ac9764cfae"
+    },
+    {
+      "file": "data/m7-phase2/raw/dictionary.json",
+      "sha256": "21e6daaded3aa41800c3a33f8e7bcfcde8c5a248a6b030b3837fafc335d16567"
+    },
+    {
+      "file": "data/m7-phase2/raw/products.jsonl",
+      "sha256": "7a7fd953c823187e50c102af68d3178dd65168c3d7a7b9b07a24819e22757ed9"
+    },
+    {
+      "file": "data/m7-phase2/raw/requests.jsonl",
+      "sha256": "cedb0795c4a5348cb4dea3be905fe53216d6cbe45dc266669469d29a073a24fa"
+    },
+    {
+      "file": "data/m7-phase2/raw/scenario-cards.json",
+      "sha256": "62e0ec71a8f30fdfc5b00d14da6c8be0cf2c279e410a6481fa2d21fc4bdcbbaf"
+    },
+    {
+      "file": "data/m7-phase2/raw/semantic-drafts.jsonl",
+      "sha256": "5cf52723bf66deacac5fc16d4d816ae0ef6d0ce37790be391cc9e845c6e55114"
+    },
+    {
+      "file": "schemas/m7-phase2/contracts.schema.json",
+      "sha256": "20ba572ceb03ebf3368f82942d4afc4e55432bcbe31499ab5d31539c605be718"
+    },
+    {
+      "file": "schemas/m7-phase2/dataset.schema.json",
+      "sha256": "881aef21b8f7ae375c86d352bdcac086e6b822ad079d8709c754a7c9c9a8521d"
+    },
+    {
+      "file": "contracts/m7-phase2/development-policy.json",
+      "sha256": "9aeff1c32fd6c229e447ff259434832f8aaee10dba9785184e6c792ba61862a3"
+    },
+    {
+      "file": "contracts/m7-phase2/examples.json",
+      "sha256": "720db2b3aac8e2669ba1e88153d55185c885b44c26303dd9355865bbc23b7b3f"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/authority-unavailable.json",
+      "sha256": "39d08aed5dd1017764411b05f4c52d4ef8a67ad9da6e21df6c682fca3fd7574a"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/baseline-failed.json",
+      "sha256": "b92af906d9125b8f71f2505410c52a7e6696bc9799bcdca8b0771958a3777220"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/forbidden.json",
+      "sha256": "10202dc38b4a768c467dd3916ef48a1a15213071f5ae04ad4cfad4c4d868f6bd"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/inactive-wanted.json",
+      "sha256": "93b81f056c7d6f78a6c03cff5ae58d5fa09226e72a94900ab037089309568ce4"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/invalid-input.json",
+      "sha256": "1cf7fc142721bd455112517e4be83279a8da3fdd84063a64e8173319d22758f2"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/match-degraded.json",
+      "sha256": "45204854cc92edbb747b17897ad59047c63139c827d4c132c4ea4057f33656a8"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/match-empty.json",
+      "sha256": "a2704a1a3865b089309230b7b7e409707b8b3eb3cc3c66db7bd886a05941cfae"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/matching-baseline-failed.json",
+      "sha256": "167997ab558fc853e20cfae3069955a1084c92d894d5eb20fff8e292a372a0a9"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/matching-constraints-only.json",
+      "sha256": "85ee50d6672c0016e92f24cdf55d696136c0718849cba3abc966a1d7f37a76b3"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/matching-pending.json",
+      "sha256": "fa20723a97d8cffc760c994f427927624498e55c3d19d8b22e281c13cb87e823"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/matching-success.json",
+      "sha256": "31c37cd4942dfd066026c5c0301dfa2b33b06a9cfa41b74b2f3d399e392694fa"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/matching-task.json",
+      "sha256": "6bb55491e92094592cdf9f320327d6ee546fb044e2bb44519a269f4f0bcb2a2c"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/not-found.json",
+      "sha256": "33b0a2d8252661883deeb5ec8aeb1b089804c482849a54feadef9eae53ee3625"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/notification-intent.json",
+      "sha256": "ca71531d16d543cf95ee60df227b9aebc4ce128e427c828cfe931da470a1080d"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/product-event.json",
+      "sha256": "ce990951186ea59ed51749e37496ab8c4a9048c5c373dd5a8d4e69e144f19bf2"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/rate-limited.json",
+      "sha256": "0d88b3f86bc2ec3779d706f5169f99b0264e6fb3c92dca476a6cc9939c1a14a2"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/search-degraded.json",
+      "sha256": "4ca196f721099240eb4616ddd20db0e3e17ada3afcdca0aab0a6d34946671523"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/search-empty.json",
+      "sha256": "ffde2b3417dc7f8e1820ecc37f2600461d0f794731a964a8cf6f9b2d85500c70"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/search-success.json",
+      "sha256": "8c8c6d24dd6a6df1220daca726705b6f3528c28698776d174ad30a5c4dcc3399"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/stale-snapshot.json",
+      "sha256": "bb9f097e1fe427fc54ebb9084480acb56b05b11b94da0541549ea7303f3a924d"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/stored-result.json",
+      "sha256": "c4344f9047f6a0243365df9e320bcab309682079456d4e790b285734ad1e4246"
+    },
+    {
+      "file": "contracts/m7-phase2/examples/unauthenticated.json",
+      "sha256": "c46e60e345d2386b8897b8aae167d36428bab74853491dd8967fa78a9e3d11ab"
+    }
+  ],
+  "dependencyLockUnchanged": true
+}

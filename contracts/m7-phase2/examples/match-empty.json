@@ -1,0 +1,39 @@
+{
+  "caseId": "match-empty",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 200,
+  "response": {
+    "code": 0,
+    "message": "成功",
+    "data": {
+      "schemaVersion": "m7-service-candidate-v1",
+      "ruleVersion": "match-v0",
+      "tokenizerVersion": "nfkc-bigram-v0",
+      "dictionaryVersion": "m7-fixture-dictionary-v1",
+      "modelVersion": null,
+      "indexVersion": null,
+      "policyGeneration": 1,
+      "snapshotVersion": "snapshot-fixture-1",
+      "resultVersion": "rs_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "generatedAt": "2026-09-28T00:00:00Z",
+      "expiresAt": "2026-09-28T00:05:00Z",
+      "degraded": false,
+      "degradationReason": null,
+      "wantedId": 201,
+      "wantedVersion": 1,
+      "requestedMethod": "rule",
+      "method": "rule",
+      "items": [],
+      "pagination": {
+        "page": 1,
+        "pageSize": 20,
+        "total": 0
+      }
+    }
+  }
+}

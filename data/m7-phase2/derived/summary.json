@@ -1,0 +1,47 @@
+{
+  "humanReviewedPairs": 0,
+  "inactiveWantedRequests": [
+    "tennis-matching-expired"
+  ],
+  "labels": {
+    "0": 117,
+    "1": 24,
+    "2": 85,
+    "U": 2
+  },
+  "mainComparableRequestsBeforeHumanReview": 35,
+  "missingFields": {
+    "condition": 1,
+    "model": 1
+  },
+  "noAnswerRequests": [
+    "camera-matching-no-answer"
+  ],
+  "pairs": 228,
+  "pendingHumanReviewPairs": 228,
+  "products": 72,
+  "rawSnapshots": 84,
+  "requests": 38,
+  "reviewGate": "pending_human_review; not usable as approved performance evidence",
+  "snapshotAudit": {
+    "superseded_snapshot": 12
+  },
+  "splitCounts": {
+    "dev": {
+      "catalogs": 8,
+      "pairs": 156,
+      "products": 48,
+      "requests": 26
+    },
+    "test_candidate": {
+      "catalogs": 4,
+      "pairs": 72,
+      "products": 24,
+      "requests": 12
+    }
+  },
+  "unresolvedRequests": [
+    "lamp-matching",
+    "tablet-matching"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "caseId": "forbidden",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 403,
+  "response": {
+    "code": "FORBIDDEN",
+    "message": "无权查看此求购的个性化结果",
+    "requestId": "fixture-forbidden",
+    "details": null
+  }
+}

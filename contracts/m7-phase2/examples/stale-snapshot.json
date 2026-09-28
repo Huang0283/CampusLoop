@@ -1,0 +1,19 @@
+{
+  "caseId": "stale-snapshot",
+  "operation": "search",
+  "request": {
+    "query": "计算器",
+    "mode": "keyword",
+    "page": 2,
+    "pageSize": 20,
+    "sort": "relevance",
+    "snapshotVersion": "snapshot-fixture-0"
+  },
+  "httpStatus": 409,
+  "response": {
+    "code": "SNAPSHOT_STALE",
+    "message": "结果已变化，请从第一页刷新",
+    "requestId": "fixture-stale-snapshot",
+    "details": null
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "host": "Windows",
+  "testCommitsAreFixtureOnly": true,
+  "checks": [
+    {
+      "core.autocrlf": "true",
+      "assetCount": 48,
+      "changedAssets": [],
+      "verify": "pass"
+    },
+    {
+      "core.autocrlf": "false",
+      "assetCount": 48,
+      "changedAssets": [],
+      "verify": "pass"
+    }
+  ]
+}
