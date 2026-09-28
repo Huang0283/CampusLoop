@@ -32,6 +32,7 @@ OpenAPI 契约、生成 SDK、前后端端口以及 Phase 1 至 Phase 5 的接�
 - 里程碑：第一次汇报
 - 全项目可验证结果：范围、成员、候选需求、页面/领域/智能可行性和五阶段计划明确
 - 下一阶段入口：四组 Phase 1 Issue 关闭并合并
+- 收口记录：2026-09-28 已在 `phase1/integration` 完成四组联合验收，详见 [`docs/evidence/phase-1/acceptance-and-closure.md`](../evidence/phase-1/acceptance-and-closure.md)；阶段收口 PR 合入 `main` 后正式进入 Phase 2。
 
 ### 阶段：Phase 2
 
