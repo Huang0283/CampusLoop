@@ -1,40 +1,40 @@
 """initial schema: all Phase 2 tables (BP2-07)
-
+ 
 Revision ID: 0001
 Revises:
 Create Date: 2026-09-22
-
+ 
 设计依据：
 - ER 草图 docs/evidence/phase-1/backend-platform/er-candidate.md
 - 契约 openapi/campusloop.v1.yaml v0.2.0-contract
-
+ 
 回滚说明：
 - downgrade 按依赖逆序删除全部本迁移创建的表；
 - vector 扩展是共享资源，downgrade 不删除（重建库时由镜像/扩展自动管理）。
-
+ 
 Review 记录：见 docs/evidence/phase-2/backend-platform/migration-review.md
 """
-
+ 
 from __future__ import annotations
-
+ 
 from collections.abc import Sequence
-
+ 
 import sqlalchemy as sa
 from pgvector.sqlalchemy import VECTOR
 from sqlalchemy.dialects import postgresql
-
+ 
 from alembic import op
-
+ 
 revision: str = "0001"
 down_revision: str | None = None
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
-
-
+ 
+ 
 def upgrade() -> None:
     # pgvector 扩展（Compose 使用 pgvector/pgvector:pg16 镜像；本地需 CREATE EXTENSION）
     op.execute("CREATE EXTENSION IF NOT EXISTS vector")
-
+ 
     # ---- users（Owner: M5）----
     op.create_table(
         "users",
@@ -71,7 +71,7 @@ def upgrade() -> None:
         ),
     )
     op.create_index("ix_users_role_status", "users", ["role", "status"])
-
+ 
     # ---- refresh_sessions（Owner: M5）----
     op.create_table(
         "refresh_sessions",
@@ -98,7 +98,7 @@ def upgrade() -> None:
     op.create_index(
         "ix_refresh_sessions_user_active", "refresh_sessions", ["user_id", "revoked_at"]
     )
-
+ 
     # ---- products（Owner: M6；embedding 归 M7 写入）----
     op.create_table(
         "products",
@@ -148,7 +148,7 @@ def upgrade() -> None:
     )
     op.create_index("ix_products_owner_created", "products", ["owner_id", "created_at"])
     op.create_index("ix_products_status_category", "products", ["status", "category"])
-
+ 
     # ---- product_images ----
     op.create_table(
         "product_images",
@@ -172,7 +172,7 @@ def upgrade() -> None:
         ),
     )
     op.create_index("ix_product_images_product", "product_images", ["product_id"])
-
+ 
     # ---- favorites ----
     op.create_table(
         "favorites",
@@ -200,7 +200,7 @@ def upgrade() -> None:
             name=op.f("fk_favorites_product_id_products"),
         ),
     )
-
+ 
     # ---- wanted_posts ----
     op.create_table(
         "wanted_posts",
@@ -244,7 +244,7 @@ def upgrade() -> None:
     )
     op.create_index("ix_wanted_posts_status_category", "wanted_posts", ["status", "category"])
     op.create_index("ix_wanted_posts_owner_created", "wanted_posts", ["owner_id", "created_at"])
-
+ 
     # ---- chat_sessions ----
     op.create_table(
         "chat_sessions",
@@ -312,7 +312,7 @@ def upgrade() -> None:
     op.create_index(
         "ix_chat_sessions_seller_last", "chat_sessions", ["seller_id", "last_message_at"]
     )
-
+ 
     # ---- chat_messages ----
     op.create_table(
         "chat_messages",
@@ -348,7 +348,7 @@ def upgrade() -> None:
         ),
     )
     op.create_index("ix_chat_messages_session_id", "chat_messages", ["session_id", "id"])
-
+ 
     # ---- offers ----
     op.create_table(
         "offers",
@@ -396,7 +396,7 @@ def upgrade() -> None:
         sa.CheckConstraint("amount >= 0", name=op.f("ck_offers_amount_non_negative")),
     )
     op.create_index("ix_offers_session_status", "offers", ["session_id", "status"])
-
+ 
     # ---- orders ----
     op.create_table(
         "orders",
@@ -461,7 +461,7 @@ def upgrade() -> None:
     op.create_index("ix_orders_buyer_created", "orders", ["buyer_id", "created_at"])
     op.create_index("ix_orders_seller_created", "orders", ["seller_id", "created_at"])
     op.create_index("ix_orders_product_status", "orders", ["product_id", "status"])
-
+ 
     # ---- order_events（不可变事件流）----
     op.create_table(
         "order_events",
@@ -492,7 +492,7 @@ def upgrade() -> None:
         ),
     )
     op.create_index("ix_order_events_order_id", "order_events", ["order_id", "id"])
-
+ 
     # ---- meetups（一单一约，版本化双方确认）----
     op.create_table(
         "meetups",
@@ -511,6 +511,15 @@ def upgrade() -> None:
         sa.Column(
             "seller_confirmed_version", sa.Integer(), server_default=sa.text("0"), nullable=False
         ),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=True
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_meetups")),
         sa.UniqueConstraint("order_id", name=op.f("uq_meetups_order")),
         sa.ForeignKeyConstraint(
@@ -521,7 +530,7 @@ def upgrade() -> None:
             name=op.f("ck_meetups_status_enum"),
         ),
     )
-
+ 
     # ---- reviews ----
     op.create_table(
         "reviews",
@@ -564,7 +573,7 @@ def upgrade() -> None:
         sa.CheckConstraint("reviewer_id <> reviewee_id", name=op.f("ck_reviews_not_self_review")),
     )
     op.create_index("ix_reviews_reviewee_created", "reviews", ["reviewee_id", "created_at"])
-
+ 
     # ---- reports ----
     op.create_table(
         "reports",
@@ -623,7 +632,7 @@ def upgrade() -> None:
         ),
     )
     op.create_index("ix_reports_status_created", "reports", ["status", "created_at"])
-
+ 
     # ---- notifications ----
     op.create_table(
         "notifications",
@@ -653,8 +662,8 @@ def upgrade() -> None:
     )
     op.create_index("ix_notifications_user_read", "notifications", ["user_id", "read_at"])
     op.create_index("ix_notifications_user_created", "notifications", ["user_id", "created_at"])
-
-
+ 
+ 
 def downgrade() -> None:
     """按依赖逆序完整回滚（CI 会执行 downgrade 验证）。"""
     op.drop_table("notifications")
