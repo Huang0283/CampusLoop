@@ -902,35 +902,20 @@ README 中不会把尚未执行的性能测试描述成已经达到的结果。
 # 📅 Development Roadmap
 
 ```text
-Week 1
-Requirements Validation
+Phase 1 / Week 1
+Scope, ownership, user journeys, domain boundaries, AI feasibility, and quality framework
 ↓
-Week 2
-Architecture & API Contracts
+Phase 2 / Week 2
+Clickable prototype, frozen OpenAPI/SDK/database/environment/AI/test contracts
 ↓
-Week 3
-Foundation + Authentication
+Phase 3 / Week 3
+Real persisted two-account MVP: marketplace, chat, offers, orders, meetup, confirmation, review, report, notification
 ↓
-Week 4
-Marketplace
+Phase 4 / Week 4
+Measured AI integration, explanations, fallback, governance, and feature freeze
 ↓
-Week 5
-Chat + Transaction
-↓
-Week 6
-Wanted Marketplace + Matching
-↓
-Week 7
-Semantic Search + Price AI
-↓
-Week 8
-Admin + Trust + Risk
-↓
-Week 9
-Testing + Performance + Fixes
-↓
-Week 10
-Documentation + Demo + Final Integration
+Phase 5 / Week 5
+Regression, security, performance, recovery, clean deployment, documentation, demonstration, and final submission
 ```
 
 ---
@@ -944,7 +929,7 @@ Team Size
 10
 
 Development Cycle
-10 Weeks
+5 Weeks
 
 Estimated Total Workload
 ~800 Person Hours
@@ -1007,6 +992,8 @@ CampusLoop-AI/
 详细的软件需求、总体设计、AI 方案、数据库设计、测试策略、项目管理与风险分析见：
 
 四组五阶段的任务、交接、验收与关闭标准统一见 [分阶段 Issue 索引](docs/issues/README.md)；前端成员交付物见 [前端文档索引](docs/frontend/README.md)。
+
+课程提交用的唯一正式 Proposal 为 [PDF 提交版](output/pdf/CampusLoop_Project_Proposal_Submission.pdf)；需要编辑时使用 [DOCX 源文档](CampusLoop_Project_Proposal_Submission.docx)。两者均由 `tools/create_campusloop_submission_proposal.py` 生成，成员分工、项目日期或正文变更后必须同时重新生成并检查两种格式。
 
 ```text
 CampusLoop AI

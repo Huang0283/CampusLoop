@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BRAND_COLOR, resolveActiveKey } from './sidebarConfig';
+import { useAuthStore } from '../stores/auth';
 
 const { Text } = Typography;
 
@@ -75,10 +76,12 @@ export function SidebarNav() {
 
 /** SidebarLogo + SidebarNav：放进页面的 Sider / aside 容器即可 */
 export default function AppSidebar() {
+  const role = useAuthStore((s) => s.user?.role);
+
   return (
     <div className="app-sidebar">
       <SidebarLogo />
-      <SidebarNav />
+      {role !== 'admin' && <SidebarNav />}
     </div>
   );
 }
