@@ -1,5 +1,7 @@
 # 前端第一阶段：范围、信息架构与低保真原型
 
+> 收口状态：2026-09-28 联合验收通过；证据见 [`Phase 1 四组联合验收与阶段收口`](../evidence/phase-1/acceptance-and-closure.md)。阶段收口 PR 合入 `main` 后关闭对应 GitHub Issue。
+
 ## 阶段信息
 
 - 周次：第 1 周
