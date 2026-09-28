@@ -1,9 +1,9 @@
 """聊天会话与消息模型（Owner: M6 设计 / M9 落库，BP2-07）。"""
-
+ 
 from __future__ import annotations
-
+ 
 from datetime import datetime
-
+ 
 from sqlalchemy import (
     BigInteger,
     CheckConstraint,
@@ -17,15 +17,15 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
-
+ 
 from app.db.base import Base
 from app.models.enums import ChatMessageKind
 from app.models.mixins import TimestampMixin
-
-
+ 
+ 
 class ChatSession(TimestampMixin, Base):
     __tablename__ = "chat_sessions"
-
+ 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     # PRODUCT 会话绑定商品；WANTED 会话绑定求购；对应目标删除后会话保留审计
     session_type: Mapped[str] = mapped_column(String(16), nullable=False)
@@ -41,7 +41,9 @@ class ChatSession(TimestampMixin, Base):
     seller_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("users.id", ondelete="RESTRICT"), nullable=False
     )
-
+    # 冗余排序列：新消息写入时同事务维护（对应迁移 0001 的 last_message_at 与双索引）
+    last_message_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+ 
     __table_args__ = (
         CheckConstraint("session_type IN ('PRODUCT', 'WANTED')", name="ck_session_type_enum"),
         CheckConstraint("buyer_id <> seller_id", name="ck_not_self_session"),
@@ -51,11 +53,11 @@ class ChatSession(TimestampMixin, Base):
         Index("ix_chat_sessions_buyer_updated", "buyer_id", "updated_at"),
         Index("ix_chat_sessions_seller_updated", "seller_id", "updated_at"),
     )
-
-
+ 
+ 
 class ChatMessage(Base):
     __tablename__ = "chat_messages"
-
+ 
     # 自增 PK 同时作为契约 afterId 游标（拉取"大于某 id"的消息）
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     session_id: Mapped[int] = mapped_column(
@@ -74,7 +76,7 @@ class ChatMessage(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
-
+ 
     __table_args__ = (
         CheckConstraint(
             "kind IN ('TEXT', 'IMAGE', 'OFFER', 'ORDER_EVENT', 'SYSTEM')",
