@@ -141,3 +141,21 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# ---- Python backend (M9) ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# 本地 SQLite / 备份产物（教学项目允许本地 pg_dump）
+*.sqlite3
+backups/
+*.dump
+
+# IDE
+.idea/
+.vscode/
