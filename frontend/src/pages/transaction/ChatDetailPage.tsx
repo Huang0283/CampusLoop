@@ -3,9 +3,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AppSidebar, EmptyState, ErrorState, Loading, PageContainer } from '../../components'
 import { OfferCard, ReportModal } from '../../components/transaction'
-import { mockSessions } from '../../mocks/transaction'
+import { mockSessions, mockUsers } from '../../mocks/transaction'
 import { OFFER_EXPIRE_HOURS } from '../../constants/offer'
 import { useMockDbStore } from '../../stores/mockDb'
+import { useAuthStore } from '../../stores/auth'
 import { IS_REALTIME_MOCK, currentUserId, useRealtimeStore } from '../../stores/realtime'
 import type { Message, ReportTargetType } from '../../types/transaction'
 
@@ -33,8 +34,15 @@ export default function ChatDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const sessionId = Number(id)
+  const user = useAuthStore((s) => s.user)
 
-  const session = mockSessions.find((s) => s.id === sessionId)
+  const session = mockSessions.find(
+    (s) => s.id === sessionId && user?.role === 'student' && s.participantIds.includes(user.id)
+  )
+  const peerId = session && user
+    ? session.participantIds.find((participantId) => participantId !== user.id)
+    : undefined
+  const peer = peerId ? mockUsers[peerId] : undefined
 
   /* --- 报价与商品状态来自可变 mockDb：接受/还价/撤回会真实改变卡片状态 --- */
   const offers = useMockDbStore((s) => s.offers)
@@ -72,7 +80,7 @@ export default function ChatDetailPage() {
     if (!session) return
     const store = useRealtimeStore.getState()
     store.bootstrap()
-    void store.openSession(sessionId)
+    void store.openSession(sessionId).then(() => store.markSessionRead(sessionId))
     return () => {
       useRealtimeStore.getState().leaveSession(sessionId)
     }
@@ -100,7 +108,7 @@ export default function ChatDetailPage() {
     }
   }, [status, disconnectReason, nextRetryInMs, reconnectAttempt])
 
-  if (!session) return <EmptyState description="会话不存在或已被删除" />
+  if (!session || !peer) return <EmptyState description="会话不存在、已被删除或你无权访问" />
 
   const handleSend = () => {
     if (!draft.trim()) return
@@ -111,14 +119,14 @@ export default function ChatDetailPage() {
   const demoPeerMessage = () => {
     useRealtimeStore
       .getState()
-      .receivePeerMessage(sessionId, session.peer.id, '好的，那就按这个价格，明天下午图书馆见？')
+      .receivePeerMessage(sessionId, peer.id, '好的，那就按这个价格，明天下午图书馆见？')
     message.success('已注入一条对方消息（走完整的去重与分发链路）')
   }
 
   const demoOfflineMessage = () => {
     useRealtimeStore
       .getState()
-      .queueServerOnlyMessage(sessionId, session.peer.id, '（这条消息在服务端生成，未推送给你）')
+      .queueServerOnlyMessage(sessionId, peer.id, '（这条消息在服务端生成，未推送给你）')
     message.info('消息已写入服务端但不会推送。点「模拟断线」再等重连，可验证补拉把它取回来')
   }
 
@@ -220,7 +228,7 @@ export default function ChatDetailPage() {
                   setReportTarget({
                     type: 'CHAT_MESSAGE',
                     id: m.id,
-                    label: `与 ${session.peer.nickname} 的消息`,
+                    label: `与 ${peer.nickname} 的消息`,
                   })
                 }
               >
@@ -261,7 +269,7 @@ export default function ChatDetailPage() {
         <AppSidebar />
       </aside>
       <PageContainer
-      title={session.peer.nickname}
+      title={peer.nickname}
       extra={
         <Space wrap>
           <Button size="small" onClick={() => useRealtimeStore.getState().dropConnection()}>
@@ -347,8 +355,8 @@ export default function ChatDetailPage() {
                 onClick={() =>
                   setReportTarget({
                     type: 'USER',
-                    id: session.peer.id,
-                    label: session.peer.nickname,
+                    id: peer.id,
+                    label: peer.nickname,
                   })
                 }
               >
@@ -457,7 +465,7 @@ export default function ChatDetailPage() {
           if (session.product && offerAmount) {
             useMockDbStore
               .getState()
-              .createOffer(sessionId, session.peer.id, contextProduct ?? session.product, offerAmount)
+              .createOffer(sessionId, peer.id, contextProduct ?? session.product, offerAmount)
             message.success(`已报价 ¥${offerAmount}：有效期 ${OFFER_EXPIRE_HOURS} 小时，对方接受后自动创建订单`)
           }
           setOfferOpen(false)
@@ -480,7 +488,7 @@ export default function ChatDetailPage() {
       <ReportModal
         open={reportTarget !== null}
         targetType={reportTarget?.type ?? 'USER'}
-        targetId={reportTarget?.id ?? session.peer.id}
+        targetId={reportTarget?.id ?? peer.id}
         targetLabel={reportTarget?.label}
         onClose={() => setReportTarget(null)}
         onSubmit={(values) => {

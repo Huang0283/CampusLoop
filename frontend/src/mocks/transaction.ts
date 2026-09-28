@@ -87,6 +87,7 @@ export const mockSessions: ChatSession[] = [
   {
     id: 5001,
     type: 'PRODUCT',
+    participantIds: [1, 2],
     peer: mockUsers[2],
     product: mockProducts[101],
     unreadCount: 1,
@@ -103,6 +104,7 @@ export const mockSessions: ChatSession[] = [
   {
     id: 5002,
     type: 'PRODUCT',
+    participantIds: [1, 3],
     peer: mockUsers[3],
     product: mockProducts[102],
     unreadCount: 2,
@@ -119,6 +121,7 @@ export const mockSessions: ChatSession[] = [
   {
     id: 5003,
     type: 'WANTED',
+    participantIds: [1, 3],
     peer: mockUsers[3],
     wanted: { id: 301, title: '求购：24 英寸以上显示器', budgetMin: 400, budgetMax: 700 },
     unreadCount: 0,
@@ -260,10 +263,10 @@ export const mockOrders: Order[] = [
 /* ---------- 通知 ---------- */
 
 export const mockNotifications: AppNotification[] = [
-  { id: 1, type: 'OFFER_RECEIVED', title: '王学姐 向你发起报价', content: '「二手显示器 24英寸 75Hz」报价 ¥500（原价 ¥550）', link: '/chat/5002', read: false, createdAt: ago(10) },
-  { id: 2, type: 'ORDER_STATUS_CHANGED', title: '订单待确认', content: '订单 #8001 见面约定已更新到第 2 版，请重新确认', link: '/transactions/8001', read: false, createdAt: ago(26) },
-  { id: 3, type: 'MATCH_FOUND', title: '求购匹配 92 分', content: '你的求购「24英寸显示器」匹配到新商品：二手显示器 24英寸 75Hz（¥550，在预算内）', link: '/wanted/301', read: false, createdAt: ago(120) },
-  { id: 4, type: 'MESSAGE', title: '李同学 发来新消息', content: '4000 的话今天就可以交易', link: '/chat/5001', read: true, createdAt: ago(30) },
-  { id: 5, type: 'REVIEW_REQUEST', title: '交易已完成，去评价', content: '订单 #8002（高等数学教材）已完成，评价对方前可查看本次交易', link: '/transactions/8002', read: true, createdAt: ago(7000) },
-  { id: 6, type: 'MEETUP_REMINDER', title: '明天有见面约定', content: '订单 #8003 明天 10:00 南门快递驿站旁，记得带好商品', link: '/transactions/8003', read: true, createdAt: ago(400) },
+  { id: 1, recipientId: 1, type: 'OFFER_RECEIVED', title: '王学姐 向你发起报价', content: '「二手显示器 24英寸 75Hz」报价 ¥500（原价 ¥550）', link: '/chat/5002', read: false, createdAt: ago(10) },
+  { id: 2, recipientId: 1, type: 'ORDER_STATUS_CHANGED', title: '订单待确认', content: '订单 #8001 见面约定已更新到第 2 版，请重新确认', link: '/transactions/8001', read: false, createdAt: ago(26) },
+  { id: 3, recipientId: 1, type: 'MATCH_FOUND', title: '求购匹配 92 分', content: '你的求购「24英寸显示器」匹配到新商品：二手显示器 24英寸 75Hz（¥550，在预算内）', link: '/wanted/301', read: false, createdAt: ago(120) },
+  { id: 4, recipientId: 1, type: 'MESSAGE', title: '李同学 发来新消息', content: '4000 的话今天就可以交易', link: '/chat/5001', read: true, createdAt: ago(30) },
+  { id: 5, recipientId: 1, type: 'REVIEW_REQUEST', title: '交易已完成，去评价', content: '订单 #8002（高等数学教材）已完成，评价对方前可查看本次交易', link: '/transactions/8002', read: true, createdAt: ago(7000) },
+  { id: 6, recipientId: 1, type: 'MEETUP_REMINDER', title: '明天有见面约定', content: '订单 #8003 明天 10:00 南门快递驿站旁，记得带好商品', link: '/transactions/8003', read: true, createdAt: ago(400) },
 ]

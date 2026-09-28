@@ -15,6 +15,7 @@ import { Badge } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useMockDbStore } from '../stores/mockDb';
+import { useAuthStore } from '../stores/auth';
 
 interface NotificationBellProps {
   /** 图标颜色，默认与各页面主文字色一致 */
@@ -23,9 +24,12 @@ interface NotificationBellProps {
 
 export default function NotificationBell({ color = '#1f2329' }: NotificationBellProps) {
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
   const unreadCount = useMockDbStore(
-    (s) => s.notifications.filter((n) => !n.read).length
+    (s) => s.notifications.filter((n) => n.recipientId === user?.id && !n.read).length
   );
+
+  if (!user || user.role !== 'student') return null;
 
   return (
     <div className="app-notification-slot">
