@@ -1,0 +1,113 @@
+# CampusLoop 一键启动环境（BP2-09，M9 维护）
+# 用法：
+#   cp .env.example .env
+#   docker compose up -d --build
+#   curl http://localhost:8000/health
+# 依赖：Docker Engine 24+ 与 Compose v2。
+# 说明：api 服务启动时自动执行 alembic upgrade head + 种子幂等校验。
+
+name: campusloop
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: campusloop
+      POSTGRES_PASSWORD: campusloop
+      POSTGRES_DB: campusloop
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U campusloop -d campusloop"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # 管理控制台
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  # 一次性初始化：创建公共/私有双桶后退出（公共读策略只作用于 public 桶）
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin &&
+      mc mb --ignore-existing local/campusloop-public &&
+      mc mb --ignore-existing local/campusloop-private &&
+      mc anonymous set download local/campusloop-public &&
+      echo '[minio-init] buckets campusloop-public(public-read) + campusloop-private(private) ready'
+      "
+
+  api:
+    build: ./backend
+    environment:
+      APP_ENV: dev
+      LOG_LEVEL: INFO
+      LOG_JSON: "true"
+      CORS_ORIGINS: http://localhost:5173
+      # 容器网络内用服务名，不是 localhost
+      DATABASE_URL: postgresql+psycopg://campusloop:campusloop@db:5432/campusloop
+      REDIS_URL: redis://redis:6379/0
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_PUBLIC_BUCKET: campusloop-public
+      MINIO_PRIVATE_BUCKET: campusloop-private
+      S3_PUBLIC_BASE_URL: http://localhost:9000/campusloop-public
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  redis-data:
+  minio-data:
