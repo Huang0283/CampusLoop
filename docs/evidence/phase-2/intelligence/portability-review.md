@@ -9,7 +9,7 @@
 | JSON/JSONL 默认换行导致跨平台字节重建失败 | 成立，需要修复；原先同机 Windows 验证不足以证明跨平台一致 | write_json/write_lines 显式 UTF-8、newline='\n'；保留严格字节哈希；重新构建全部 derived，发布 datasetVersion=m7-synthetic-p2-v1.1 |
 | Git 自动换行可能改变被哈希文件 | 需要一并处理，仅修 writer 不够 | 新增限定于 M7 路径的 .gitattributes：数据/schema/契约样例 -text，保留原始字节；Python/requirements 固定 LF |
 | AI2-02 人工复核、AI2-04 签字未完成 | 验收待办，不能用代码补签 | 保留 228 对待人工复核、签字表待填，不改成完成 |
-| 分支名称应明确 | 合理的交接补充，不是本地数据缺陷 | 写明 phase2/intelligence-contracts 与 task/m7-p2-search-dataset-contract、基准及负责人；本次不创建或推送远程分支 |
+| 分支名称应明确 | 合理的交接补充，不是本地数据缺陷 | 写明 phase2/intelligence-contracts 与 task/m7-p2-search-dataset-contract、最新基准及负责人；修复提交随 PR #71 推送 |
 | rpds-py==2026.6.3 在审查者镜像缺失 | 不能由单一镜像推断版本不存在或锁定错误 | 官方版本存在；保留锁定，补充官方索引安装命令和平台说明 |
 
 没有改变样本内容、标签、划分、种子、成色/地点语义或 ownerId 命名。原 raw/schema/requirements 字节保留，CSV 仍 UTF-8 BOM+LF；JSON/JSONL 输出统一 UTF-8 无 BOM+LF。新 manifest 更新生产脚本哈希、序列化版本、datasetVersion 以及受换行影响的输出哈希。不能用新清单冒充旧 v1 的复现实验。
@@ -49,6 +49,6 @@ python scripts/m7_phase2/pipeline.py build --output-dir work/m7-rebuild-new
 
 ## 4. 分支与仍未完成事项
 
-正式计划：M7 按 M1 确认的 phase2/integration 基准建立智能组 phase2/intelligence-contracts；个人分支 task/m7-p2-search-dataset-contract 从组分支创建，经 M8 交叉评审合回组分支，再按阶段流程集成。本次仍是基于 d6e61b6 的本地工作树候选文件，没有将测试仓库提交误记为交付 commit。
+正式计划：M7 使用 M1 确认的 phase2/integration 基准 40173f8 建立智能组 phase2/intelligence-contracts；个人分支 task/m7-p2-search-dataset-contract 从组分支创建，经 M8 交叉评审合回组分支，再按阶段流程集成。本次修复提交已随 PR #71 更新；测试仓库提交仍不计为项目交付 commit。
 
 人工标注/复核、M3/M6/M9 签字、M10 非作者运行、M1 接收阶段基准均未代办或伪造。修复技术问题使材料可复现，不意味着这些验收条件自动满足。

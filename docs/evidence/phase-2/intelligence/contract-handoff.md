@@ -1,10 +1,10 @@
 # AI2-04/05 上游核对、差异与接收清单
 
-日期：2026-09-28。全部确认栏为待办；本文件不代替成员签字。文件由本会话编写，尚未提交/推送。
+日期：2026-09-28。全部确认栏为待办；本文件不代替成员签字。文件随 PR #71 的修复提交更新，仍需真实接收人完成确认。
 
 ## 1. 本次读取的版本
 
-本地工作树仍基于 phase2/integration 的 d6e61b6806b48ccf67e5ae64b2d36b5f6b7a6548。远端分支已重新获取；读取其他分支文件只是设计输入，没有把它们未收口的内容直接合并到当前工作树。
+本次修复分支基于最新 phase2/integration 的 40173f8b31223e956fa4b247da513e8398385e16，并将其合入 M7 个人交付分支。组分支 phase2/intelligence-contracts 仍停留在 d6e61b6806b48ccf67e5ae64b2d36b5f6b7a6548；PR #71 的目标仍是该组分支。读取其他组分支只作为设计输入，不把未收口内容直接替代本组契约。
 
 | 来源 | 核查提交与文件 | 对 M7 的影响 |
 | --- | --- | --- |
@@ -12,9 +12,9 @@
 | M6 领域设计候选 | [a52ff7b](https://github.com/Huang0283/CampusLoop/tree/a52ff7bdaf4fff2c1a4fa3ce2563f976e4dbab89)：domain-entity-catalog.md、state-machines.md、transaction-invariants.md | 匹配不关闭求购；商品生命周期与展示状态分开；订单取消释放到下架，不能直接重荐 |
 | M5 字段白名单候选 | [773f2fd](https://github.com/Huang0283/CampusLoop/blob/773f2fd0ccb542684f8eec7185ca836c1082b571/docs/evidence/phase-1/backend-platform/user-field-visibility.md) | 搜索嵌套用户只用公开最小白名单；错误与通知同样禁止敏感字段 |
 | M7 Phase 1 已补入智能组 | [7ae8484](https://github.com/Huang0283/CampusLoop/tree/7ae848413a454b0fe20ebb50ad2f882072689335/docs/evidence/phase-1/intelligence) | 承接规则、资格、epoch、CAS、降级设计；文档存在不等于团队冻结/业务实现 |
-| 阶段任务书 | [d6e61b6 / AI-P2](https://github.com/Huang0283/CampusLoop/blob/d6e61b6806b48ccf67e5ae64b2d36b5f6b7a6548/docs/issues/intelligence-phase-2-data-evaluation-contracts.md) | AI2-04 需 M3/M6/M9 签字；AI2-05 同业务版本确定性；AI2-09/10 仍为共同任务 |
+| 阶段任务书 | [AI-P2](https://github.com/Huang0283/CampusLoop/blob/40173f8b31223e956fa4b247da513e8398385e16/docs/issues/intelligence-phase-2-data-evaluation-contracts.md) | AI2-04 需 M3/M6/M9 签字；AI2-05 同业务版本确定性；AI2-09/10 仍为共同任务 |
 
-本次远端 main 为 7910607fa7d52a6f06da507d6cb09191a00acf63，phase2/integration 未推进。前端 OpenAPI blob 为 4ad4259fd2dfb21c8e15c86b675a1459936bb055，与此前读取版本相同；不能把新页面提交当成接口也已补齐。M6/M5 候选仍等待跨组确认。
+当前 main 为 7e6ae5d87b691121a5d319a21db558596cd2d07f，phase2/integration 最新基线为 40173f8b31223e956fa4b247da513e8398385e16。前端 OpenAPI 和页面实现仍需与 M7 契约统一；不能把页面提交当成接口已补齐。M6/M5 候选仍等待跨组确认。
 
 ## 2. 可直接评审的材料
 
@@ -38,7 +38,7 @@
 | C04 | catalogRevision、同库事务、快照成本与开发预算待确认 | M9/M6；M7 | 选择实现协议，评估 1500ms 候选预算、租约与恢复参数，给出环境证据 | 2026-09-30 18:00 |
 | C05 | 通知阈值/冷却/每日上限及重新合格政策空缺 | M4/M6/M7；M1 | 填具体配置与批准记录，未批准前通知保持关闭 | 2026-09-30 18:00 |
 | C06 | 非作者评审/复现尚未执行 | M8/M10；M7 | 从提交或本包独立执行，填写环境、结果、日志与意见 | 2026-09-30 18:00 |
-| C07 | 阶段基准、智能组分支、交付提交/汇报时间待确认 | M1/M7 | 确认 Phase 1 输入接收；从批准的 phase2/integration 建立 phase2/intelligence-contracts，再从组分支建立 task/m7-p2-search-dataset-contract；提交后补真实 commit/PR | 2026-09-29 18:00 |
+| C07 | 阶段接收、交付提交/汇报时间待确认 | M1/M7 | 已使用 40173f8 基线更新个人 PR #71；仍需 M1 确认 Phase 1 输入接收、组分支基准和实际汇报日期 | 2026-09-29 18:00 |
 
 首次公开接入前必须完成 C01—C04；通知开启前完成 C05；阶段验收前完成 C06—C07。当前交付可继续供 Phase 2 评审，不能据此关闭 Issue #22。
 

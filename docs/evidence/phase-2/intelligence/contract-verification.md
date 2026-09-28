@@ -32,7 +32,7 @@ python scripts/m7_phase2/pipeline.py verify --bundle-dir data/m7-phase2/derived
 | evidence/contracts-v1/run-record.json | 环境/时间/提交及所有退出码 |
 | FILES.sha256.json | 本次导出文件逐项 SHA256；不含自身与外层 ZIP |
 
-原数据交付 evidence/tests.log、build.log 等保留原始内容，其日期为 2026-09-26，不能混作本次新契约测试。新增文件未提交：d6e61b6 是工作树基准，不是包含交付的 commit；以文件清单哈希绑定当前内容，提交后由 Owner 补真实提交号。
+原数据交付 evidence/tests.log、build.log 等保留原始内容，其日期为 2026-09-26，不能混作本次新契约测试。历史运行记录使用 d6e61b6 作为生成时基准；当前交付已在 40173f8 基线上通过 PR #71 提交，以文件清单哈希绑定当前内容。
 
 ## 3. 覆盖和限制
 

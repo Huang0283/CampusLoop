@@ -4,7 +4,7 @@
 
 ## 1. 输入版本与文件入口
 
-工作树基准：phase2/integration 的 d6e61b6806b48ccf67e5ae64b2d36b5f6b7a6548；M7 Phase 1 参考 8d70d78555b7d3534293d35fdccee872d39cd708；接口参考前端小组 ea152239886293e41cfa469070b5c080dd4fe568。因远程智能组 Phase 2 分支尚未建立，本次在独立本地工作树完成候选，没有改动或重置已有 Phase 1 工作区。
+工作树基准：phase2/integration 的 40173f8b31223e956fa4b247da513e8398385e16；M7 Phase 1 参考 8d70d78555b7d3534293d35fdccee872d39cd708；接口参考前端小组 ea152239886293e41cfa469070b5c080dd4fe568。候选已通过 PR #71 提交到 phase2/intelligence-contracts，未改动或重置已有 Phase 1 工作区。
 
 | 资产 | 文件 | 用途 |
 | --- | --- | --- |

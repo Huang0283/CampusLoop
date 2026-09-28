@@ -27,7 +27,7 @@ python scripts/m7_phase2/pipeline.py verify
 
 ## 上传与接收状态
 
-分支基准为 phase2/integration 的 d6e61b6806b48ccf67e5ae64b2d36b5f6b7a6548。组分支为 phase2/intelligence-contracts，个人提交为 task/m7-p2-search-dataset-contract，按草稿 PR 交叉评审。
+分支基准为最新 phase2/integration 的 40173f8b31223e956fa4b247da513e8398385e16。组分支为 phase2/intelligence-contracts，个人提交为 task/m7-p2-search-dataset-contract，当前通过 PR #71 交叉评审。
 
 包内文档和历史运行记录中“未提交/未推送”指生成归档时的状态，保留原文用于追溯；当前上传状态及真实提交号以本 PR 和 Git 历史为准。测试用临时 Git 仓库的提交不是项目交付提交。
 
