@@ -32,3 +32,17 @@ python scripts/m7_phase2/pipeline.py verify
 包内文档和历史运行记录中“未提交/未推送”指生成归档时的状态，保留原文用于追溯；当前上传状态及真实提交号以本 PR 和 Git 历史为准。测试用临时 Git 仓库的提交不是项目交付提交。
 
 仍待完成：228 对候选标签人工复核、M3/M6/M9 契约签字、M8 互审、M10 独立复现及 M1 阶段接收。AI2-09/10 共同任务另行推进。不关闭 Issue #22，不合并 main。
+
+## M8 Phase 2 候选交付
+
+M8 已补充 AI2-06—08 以及 AI2-09/10 的可执行候选内容：
+
+- [M8 交付清单](m8-deliverables.md)
+- [价格数据 schema](price-data-schema.md)
+- [价格规则评估集](price-evaluation-dataset.md)
+- [价格/信誉/风险契约](price-trust-risk-contract.md)
+- [统一评估运行手册](evaluation-runbook.md)
+- [Phase 4 启用门槛](model-go-live-gates.md)
+- [M8 验证记录](m8-verification.md)与[交接/阻塞](m8-handoff.md)
+
+当前价格数据只有 12 条 L0 合成边界样本、L3 真实完成交易标签为 0，故预测指标明确为 `NOT_EVALUATED`。M3/M5/M6/M9 契约确认、M7 互审、M10 独立复现和 M1 门槛批准仍需由本人完成；在此之前不关闭 Issue #22。
