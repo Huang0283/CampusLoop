@@ -1,0 +1,308 @@
+{
+  "createdAt": "2026-09-28T02:29:28.209194+00:00",
+  "executable": "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "pythonPath": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-phase2-deps-portability",
+  "dependencies": {
+    "jsonschema": "4.25.1",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.6.3",
+    "typing_extensions": "4.16.0"
+  },
+  "baseCommit": "d6e61b6806b48ccf67e5ae64b2d36b5f6b7a6548",
+  "deliveryCommit": null,
+  "platformScope": "Windows actual execution; LF/CRLF simulation; actual Git checkouts. No Linux/macOS execution.",
+  "runs": [
+    {
+      "name": "old-crlf-default",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-c",
+        "import importlib.util, sys\nfrom pathlib import Path\nsys.path.insert(0,sys.argv[1])\nfrom test_pipeline import simulated_default_newline\npath=Path(sys.argv[2])\nspec=importlib.util.spec_from_file_location('old_pipeline',path)\nold=importlib.util.module_from_spec(spec);spec.loader.exec_module(old)\ntry:\n    with simulated_default_newline(sys.argv[3]):\n        print(old.verify(old.RAW,old.ROOT/'data/m7-phase2/derived'))\nexcept old.DataError as error:\n    print('EXPECTED_ORIGINAL_DEFECT:',str(error));sys.exit(1)\n",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2\\scripts\\m7_phase2",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\outputs\\CampusLoop_M7_Phase2_AI2-01_05_v1\\scripts\\m7_phase2\\pipeline.py",
+        "\r\n"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:28:44.271905+00:00",
+      "finishedAt": "2026-09-28T02:28:45.239764+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/old-crlf-default.log"
+    },
+    {
+      "name": "old-lf-default",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-c",
+        "import importlib.util, sys\nfrom pathlib import Path\nsys.path.insert(0,sys.argv[1])\nfrom test_pipeline import simulated_default_newline\npath=Path(sys.argv[2])\nspec=importlib.util.spec_from_file_location('old_pipeline',path)\nold=importlib.util.module_from_spec(spec);spec.loader.exec_module(old)\ntry:\n    with simulated_default_newline(sys.argv[3]):\n        print(old.verify(old.RAW,old.ROOT/'data/m7-phase2/derived'))\nexcept old.DataError as error:\n    print('EXPECTED_ORIGINAL_DEFECT:',str(error));sys.exit(1)\n",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2\\scripts\\m7_phase2",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\outputs\\CampusLoop_M7_Phase2_AI2-01_05_v1\\scripts\\m7_phase2\\pipeline.py",
+        "\n"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:28:45.239764+00:00",
+      "finishedAt": "2026-09-28T02:28:47.165164+00:00",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "log": "evidence/portability-v1.1/old-lf-default.log"
+    },
+    {
+      "name": "official-wheel-download",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "pip",
+        "download",
+        "--index-url",
+        "https://pypi.org/simple",
+        "--no-cache-dir",
+        "--only-binary=:all:",
+        "--dest",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\wheels",
+        "-r",
+        "scripts/m7_phase2/requirements.txt",
+        "--disable-pip-version-check"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:28:47.165164+00:00",
+      "finishedAt": "2026-09-28T02:28:55.831835+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/official-wheel-download.log"
+    },
+    {
+      "name": "dependency-environment",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "pip",
+        "list",
+        "--path",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-phase2-deps-portability",
+        "--format=json",
+        "--disable-pip-version-check"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:28:55.831835+00:00",
+      "finishedAt": "2026-09-28T02:28:57.367828+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/dependency-environment.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "build",
+        "--output-dir",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\derived-v1.1"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:28:57.378033+00:00",
+      "finishedAt": "2026-09-28T02:28:58.129086+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/build.log"
+    },
+    {
+      "name": "data-tests",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-p",
+        "test_pipeline.py",
+        "-v"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:28:58.194674+00:00",
+      "finishedAt": "2026-09-28T02:29:03.242895+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/data-tests.log"
+    },
+    {
+      "name": "contracts-tests",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-p",
+        "test_contracts.py",
+        "-v"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:29:03.242895+00:00",
+      "finishedAt": "2026-09-28T02:29:17.303018+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/contracts-tests.log"
+    },
+    {
+      "name": "examples",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/contract_check.py"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:29:17.303018+00:00",
+      "finishedAt": "2026-09-28T02:29:20.850589+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/examples.log"
+    },
+    {
+      "name": "verify",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "verify"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:29:20.850589+00:00",
+      "finishedAt": "2026-09-28T02:29:22.639177+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/verify.log"
+    },
+    {
+      "name": "git-init",
+      "command": [
+        "git",
+        "init",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\git-fixture"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:29:22.669963+00:00",
+      "finishedAt": "2026-09-28T02:29:22.748344+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/git-init.log"
+    },
+    {
+      "name": "git-add",
+      "command": [
+        "git",
+        "add",
+        "--all",
+        "--force"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\git-fixture",
+      "startedAt": "2026-09-28T02:29:22.748344+00:00",
+      "finishedAt": "2026-09-28T02:29:22.951141+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/git-add.log"
+    },
+    {
+      "name": "git-fixture-commit",
+      "command": [
+        "git",
+        "-c",
+        "user.name=M7 Repro Test",
+        "-c",
+        "user.email=repro@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "-c",
+        "core.hooksPath=D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\empty-hooks",
+        "commit",
+        "-m",
+        "Local portability fixture; not CampusLoop delivery"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\git-fixture",
+      "startedAt": "2026-09-28T02:29:22.951141+00:00",
+      "finishedAt": "2026-09-28T02:29:23.100179+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/git-fixture-commit.log"
+    },
+    {
+      "name": "git-clone-true",
+      "command": [
+        "git",
+        "clone",
+        "--config",
+        "core.autocrlf=true",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\git-fixture",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\checkout-true"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:29:23.125273+00:00",
+      "finishedAt": "2026-09-28T02:29:23.543938+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/git-clone-true.log"
+    },
+    {
+      "name": "checkout-verify-true",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "verify"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\checkout-true",
+      "startedAt": "2026-09-28T02:29:23.558670+00:00",
+      "finishedAt": "2026-09-28T02:29:24.376138+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/checkout-verify-true.log"
+    },
+    {
+      "name": "git-clone-false",
+      "command": [
+        "git",
+        "clone",
+        "--config",
+        "core.autocrlf=false",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\git-fixture",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\checkout-false"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T02:29:24.376138+00:00",
+      "finishedAt": "2026-09-28T02:29:25.637738+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/git-clone-false.log"
+    },
+    {
+      "name": "checkout-verify-false",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "verify"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-portability-v1.1\\checkout-false",
+      "startedAt": "2026-09-28T02:29:25.650041+00:00",
+      "finishedAt": "2026-09-28T02:29:26.464596+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/checkout-verify-false.log"
+    },
+    {
+      "name": "export-verify",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "verify"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\outputs\\CampusLoop_M7_Phase2_AI2-01_05_v1.1",
+      "startedAt": "2026-09-28T02:29:26.521157+00:00",
+      "finishedAt": "2026-09-28T02:29:28.209194+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/portability-v1.1/export-verify.log"
+    }
+  ]
+}

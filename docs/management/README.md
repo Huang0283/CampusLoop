@@ -7,7 +7,7 @@
 - [项目范围与优先级](./m1/project-scope.md)
 - [需求候选清单与追踪表](./m1/requirements-traceability.md)
 - [团队职责与替补关系](./m1/team-responsibilities.md)
-- [十周计划与五次汇报检查点](./m1/ten-week-plan.md)
+- [五周单周阶段计划与五次汇报检查点](./m1/ten-week-plan.md)
 - [会议、决策和变更模板](./m1/governance-templates.md)
 - [第一次汇报提纲与分工](./m1/first-presentation-outline.md)
 - [风险登记表](./m1/risk-register.md)

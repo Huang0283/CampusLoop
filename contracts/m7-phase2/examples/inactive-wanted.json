@@ -1,0 +1,16 @@
+{
+  "caseId": "inactive-wanted",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 409,
+  "response": {
+    "code": "WANTED_INACTIVE",
+    "message": "求购已关闭或到期",
+    "requestId": "fixture-inactive-wanted",
+    "details": null
+  }
+}

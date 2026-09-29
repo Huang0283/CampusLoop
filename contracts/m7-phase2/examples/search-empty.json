@@ -1,0 +1,40 @@
+{
+  "caseId": "search-empty",
+  "operation": "search",
+  "request": {
+    "query": "计算器",
+    "mode": "keyword",
+    "page": 1,
+    "pageSize": 20,
+    "sort": "relevance"
+  },
+  "httpStatus": 200,
+  "response": {
+    "code": 0,
+    "message": "成功",
+    "data": {
+      "schemaVersion": "m7-service-candidate-v1",
+      "ruleVersion": "keyword-v0",
+      "tokenizerVersion": "nfkc-bigram-v0",
+      "dictionaryVersion": "m7-fixture-dictionary-v1",
+      "modelVersion": null,
+      "indexVersion": null,
+      "policyGeneration": 1,
+      "snapshotVersion": "snapshot-fixture-1",
+      "resultVersion": "rs_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "generatedAt": "2026-09-28T00:00:00Z",
+      "expiresAt": "2026-09-28T00:05:00Z",
+      "degraded": false,
+      "degradationReason": null,
+      "items": [],
+      "requestedMode": "keyword",
+      "mode": "keyword",
+      "pagination": {
+        "page": 1,
+        "pageSize": 20,
+        "total": 0
+      },
+      "explanations": []
+    }
+  }
+}

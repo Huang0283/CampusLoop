@@ -115,6 +115,8 @@ export interface RealtimeState {
   /** 被去重丢弃的事件数（M10 可拿它做断言） */
   dedupedEvents: number
   messagesBySession: Record<number, Message[]>
+  /** 会话未读数；打开会话或显式已读后归零，关闭时收到对方消息才递增。 */
+  unreadBySession: Record<number, number>
   /** 会话 -> 已同步到的最大消息 id，断线补拉的游标 */
   cursors: Record<number, number>
   loadingSessions: Record<number, boolean>
@@ -168,8 +170,16 @@ export const useRealtimeStore = create<RealtimeState & RealtimeActions>()((set, 
       const merged = mergeMessages(list, [message])
       // 无变化说明是重复投递（实时推送与补拉重叠），不触发更新
       if (merged.length === list.length && list.length > 0) return {}
+      const shouldIncrementUnread =
+        message.senderId !== currentUserId() && !openSessions.has(sessionId)
       return {
         messagesBySession: { ...state.messagesBySession, [sessionId]: merged },
+        unreadBySession: shouldIncrementUnread
+          ? {
+              ...state.unreadBySession,
+              [sessionId]: (state.unreadBySession[sessionId] ?? 0) + 1,
+            }
+          : state.unreadBySession,
         cursors: {
           ...state.cursors,
           [sessionId]: Math.max(state.cursors[sessionId] ?? 0, message.id),
@@ -310,6 +320,7 @@ export const useRealtimeStore = create<RealtimeState & RealtimeActions>()((set, 
     pendingOutbox: 0,
     dedupedEvents: 0,
     messagesBySession: {},
+    unreadBySession: {},
     cursors: {},
     loadingSessions: {},
     sessionErrors: {},
@@ -336,6 +347,9 @@ export const useRealtimeStore = create<RealtimeState & RealtimeActions>()((set, 
 
     openSession: async (sessionId: number) => {
       openSessions.add(sessionId)
+      set((state) => ({
+        unreadBySession: { ...state.unreadBySession, [sessionId]: 0 },
+      }))
       const cached = get().messagesBySession[sessionId]
 
       // 已有缓存：只做增量补拉，避免聊天记录闪烁
@@ -424,8 +438,12 @@ export const useRealtimeStore = create<RealtimeState & RealtimeActions>()((set, 
 
     markSessionRead: (sessionId: number) => {
       const cursor = get().cursors[sessionId] ?? 0
-      if (cursor <= 0) return
-      ensureClient().send({ type: 'READ', payload: { sessionId, lastMessageId: cursor } })
+      set((state) => ({
+        unreadBySession: { ...state.unreadBySession, [sessionId]: 0 },
+      }))
+      if (cursor > 0) {
+        ensureClient().send({ type: 'READ', payload: { sessionId, lastMessageId: cursor } })
+      }
     },
 
     dropConnection: () => {

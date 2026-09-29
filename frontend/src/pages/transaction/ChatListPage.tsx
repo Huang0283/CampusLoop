@@ -2,7 +2,9 @@ import React from 'react';
 import { Input, Avatar, Badge } from 'antd';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { useNavigate } from 'react-router-dom';
-import { mockSessions } from '../../mocks/transaction';
+import { mockSessions, mockUsers } from '../../mocks/transaction';
+import { useAuthStore } from '../../stores/auth';
+import { useRealtimeStore } from '../../stores/realtime';
 import type { Message } from '../../types/transaction';
 
 const PAGE_BG = '#f5f6f8';
@@ -75,19 +77,34 @@ const sidebarStyle: React.CSSProperties = {
 
 const ChatListPage: React.FC = () => {
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
+  const messagesBySession = useRealtimeStore((s) => s.messagesBySession);
+  const unreadBySession = useRealtimeStore((s) => s.unreadBySession);
 
   /**
-   * 会话列表与聊天详情页共用同一份 mockSessions，
-   * 因此列表里的 id 就是 /chat/:id 能打开的会话（此前列表用本地假数据，点进去会"会话不存在"）。
+   * 只展示当前学生参与的会话。实时 store 已有缓存时，摘要与未读数使用
+   * 最新消息状态；尚未打开过的会话才回退到种子摘要。
    */
-  const chatSessions: ChatSession[] = mockSessions.map((s) => ({
-    id: s.id,
-    name: s.peer.nickname,
-    avatar: s.peer.avatar ?? `https://i.pravatar.cc/96?u=${s.peer.id}`,
-    lastMessage: lastMessageText(s.lastMessage),
-    time: formatListTime(s.lastMessage?.createdAt),
-    unread: s.unreadCount,
-  }));
+  const chatSessions: ChatSession[] = user?.role === 'student'
+    ? mockSessions.flatMap((s) => {
+        if (!s.participantIds.includes(user.id)) return [];
+        const peerId = s.participantIds.find((id) => id !== user.id);
+        const peer = peerId ? mockUsers[peerId] : undefined;
+        if (!peer) return [];
+        const liveMessages = messagesBySession[s.id];
+        const lastMessage = liveMessages?.length
+          ? liveMessages[liveMessages.length - 1]
+          : s.lastMessage;
+        return [{
+          id: s.id,
+          name: peer.nickname,
+          avatar: peer.avatar ?? `https://i.pravatar.cc/96?u=${peer.id}`,
+          lastMessage: lastMessageText(lastMessage),
+          time: formatListTime(lastMessage?.createdAt),
+          unread: unreadBySession[s.id] ?? s.unreadCount,
+        }];
+      })
+    : [];
 
   const handleSessionClick = (session: ChatSession) => {
     navigate(`/chat/${session.id}`);

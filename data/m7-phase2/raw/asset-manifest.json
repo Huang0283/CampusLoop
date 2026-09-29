@@ -1,0 +1,25 @@
+{
+  "assetId": "m7-synthetic-p2-v1",
+  "version": "2026-09-26-v1",
+  "source": "Original synthetic fixtures created in this assistant session; not scraped or real CampusLoop records",
+  "permissionStatus": "No third-party dataset imported; project reuse candidate pending team acceptance",
+  "containsRealPersonalData": false,
+  "author": "assistant:synthetic-draft",
+  "humanReviewer": null,
+  "uses": [
+    "schema validation",
+    "hard-boundary regression",
+    "annotation workflow",
+    "split reproducibility"
+  ],
+  "notSuitableFor": [
+    "production quality claims",
+    "sealed benchmark",
+    "model go-live decisions"
+  ],
+  "asOf": "2026-09-26T00:00:00Z",
+  "retention": "version with project evidence; replace by reviewed revisions, never silently overwrite raw assets",
+  "rawProductSnapshots": 84,
+  "requests": 38,
+  "semanticPairs": 228
+}

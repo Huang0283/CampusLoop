@@ -1,0 +1,152 @@
+{
+  "createdAt": "2026-09-28T01:45:30.335275+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "pythonPath": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\m7-phase2-deps",
+  "dependencies": {
+    "jsonschema": "4.25.1",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.6.3",
+    "typing_extensions": "4.16.0"
+  },
+  "baseCommit": "d6e61b6806b48ccf67e5ae64b2d36b5f6b7a6548",
+  "deliveryCommit": null,
+  "gitStatus": "?? contracts/\n?? data/\n?? docs/evidence/phase-2/\n?? schemas/\n?? scripts/\n?? work/\n",
+  "scope": "author-local synthetic contract validation; no HTTP/database/human signoff",
+  "runs": [
+    {
+      "name": "examples",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/contract_check.py"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T01:44:50.792405+00:00",
+      "finishedAt": "2026-09-28T01:44:54.233447+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/contracts-v1/examples.log"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-p",
+        "test_contracts.py",
+        "-v"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T01:44:54.233447+00:00",
+      "finishedAt": "2026-09-28T01:45:07.137753+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/contracts-v1/tests.log"
+    },
+    {
+      "name": "data-regression",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-p",
+        "test_pipeline.py",
+        "-v"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T01:45:07.137753+00:00",
+      "finishedAt": "2026-09-28T01:45:11.062587+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/contracts-v1/data-regression.log"
+    },
+    {
+      "name": "data-verify",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "verify",
+        "--bundle-dir",
+        "data/m7-phase2/derived"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T01:45:11.062587+00:00",
+      "finishedAt": "2026-09-28T01:45:12.825804+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/contracts-v1/data-verify.log"
+    },
+    {
+      "name": "git-diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T01:45:12.825804+00:00",
+      "finishedAt": "2026-09-28T01:45:12.891645+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/contracts-v1/git-diff-check.log"
+    },
+    {
+      "name": "negative-cli",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/contract_check.py",
+        "--manifest",
+        "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2\\work\\m7-contract-negative\\manifest.json"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\work\\CampusLoop-phase2",
+      "startedAt": "2026-09-28T01:45:12.922701+00:00",
+      "finishedAt": "2026-09-28T01:45:13.444941+00:00",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "log": "evidence/contracts-v1/negative-cli.log"
+    },
+    {
+      "name": "export-examples",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "scripts/m7_phase2/contract_check.py"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\outputs\\CampusLoop_M7_Phase2_AI2-01_05_v1",
+      "startedAt": "2026-09-28T01:45:13.503589+00:00",
+      "finishedAt": "2026-09-28T01:45:17.949040+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/contracts-v1/export-examples.log"
+    },
+    {
+      "name": "export-tests",
+      "command": [
+        "C:\\Users\\KkkkRui\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-p",
+        "test_contracts.py",
+        "-v"
+      ],
+      "cwd": "D:\\Dates\\Codex\\2026-09-23\\new-chat\\outputs\\CampusLoop_M7_Phase2_AI2-01_05_v1",
+      "startedAt": "2026-09-28T01:45:17.949040+00:00",
+      "finishedAt": "2026-09-28T01:45:30.243424+00:00",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "log": "evidence/contracts-v1/export-tests.log"
+    }
+  ]
+}

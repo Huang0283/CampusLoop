@@ -69,6 +69,9 @@ export type ChatSessionType = 'PRODUCT' | 'WANTED'
 export interface ChatSession {
   id: number
   type: ChatSessionType
+  /** 会话参与者；页面必须据此过滤，不能只依赖登录态存在。 */
+  participantIds: [number, number]
+  /** 默认演示身份（用户 1）看到的对方；切换身份后页面按 participantIds 重新推导。 */
   peer: UserBrief
   /** 商品上下文（type = PRODUCT 时存在） */
   product?: ProductBrief
@@ -208,6 +211,8 @@ export interface Report {
 
 export interface AppNotification {
   id: number
+  /** 通知接收人；列表、铃铛和已读操作都必须按该字段隔离。 */
+  recipientId: number
   type: NotificationType
   title: string
   content: string

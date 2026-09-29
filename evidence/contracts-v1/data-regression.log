@@ -1,0 +1,34 @@
+STDOUT
+
+STDERR
+test_bad_timestamp_rejected (test_pipeline.DatasetTests.test_bad_timestamp_rejected) ... ok
+test_budget_edges (test_pipeline.DatasetTests.test_budget_edges) ... ok
+test_build_hashes_and_tamper_detection (test_pipeline.DatasetTests.test_build_hashes_and_tamper_detection) ... ok
+test_decimal_exact_and_zero (test_pipeline.DatasetTests.test_decimal_exact_and_zero) ... ok
+test_deleted_reserved_and_hidden (test_pipeline.DatasetTests.test_deleted_reserved_and_hidden) ... ok
+test_duplicate_entity_version_rejected (test_pipeline.DatasetTests.test_duplicate_entity_version_rejected) ... ok
+test_duplicate_record_rejected (test_pipeline.DatasetTests.test_duplicate_record_rejected) ... ok
+test_expiry_equality (test_pipeline.DatasetTests.test_expiry_equality) ... ok
+test_failure_precedes_unknown (test_pipeline.DatasetTests.test_failure_precedes_unknown) ... ok
+test_free_is_not_missing (test_pipeline.DatasetTests.test_free_is_not_missing) ... ok
+test_invalid_matching_context_rejected (test_pipeline.DatasetTests.test_invalid_matching_context_rejected) ... ok
+test_latest_snapshot_and_audit (test_pipeline.DatasetTests.test_latest_snapshot_and_audit) ... ok
+test_missing_pair_rejected (test_pipeline.DatasetTests.test_missing_pair_rejected) ... ok
+test_missing_required_field (test_pipeline.DatasetTests.test_missing_required_field) ... ok
+test_near_duplicate_overlap_merges_before_split (test_pipeline.DatasetTests.test_near_duplicate_overlap_merges_before_split) ... ok
+test_nfkc_and_model_normalization (test_pipeline.DatasetTests.test_nfkc_and_model_normalization) ... ok
+test_permissions_and_self (test_pipeline.DatasetTests.test_permissions_and_self) ... ok
+test_place_and_model_mismatch (test_pipeline.DatasetTests.test_place_and_model_mismatch) ... ok
+test_raw_tamper_detection (test_pipeline.DatasetTests.test_raw_tamper_detection) ... ok
+test_reversed_budget_rejected (test_pipeline.DatasetTests.test_reversed_budget_rejected) ... ok
+test_split_is_order_independent (test_pipeline.DatasetTests.test_split_is_order_independent) ... ok
+test_template_overlap_merges_before_split (test_pipeline.DatasetTests.test_template_overlap_merges_before_split) ... ok
+test_unknown_conditions_and_models (test_pipeline.DatasetTests.test_unknown_conditions_and_models) ... ok
+test_unknown_dictionary_category (test_pipeline.DatasetTests.test_unknown_dictionary_category) ... ok
+test_unknown_field_rejected (test_pipeline.DatasetTests.test_unknown_field_rejected) ... ok
+test_unknown_status_rejected (test_pipeline.DatasetTests.test_unknown_status_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 3.454s
+
+OK

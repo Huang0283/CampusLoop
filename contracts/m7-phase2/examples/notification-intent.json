@@ -1,0 +1,12 @@
+{
+  "recipientId": 21,
+  "wantedId": 201,
+  "productId": 101,
+  "eligibilityEpoch": 1,
+  "resultVersion": "rs_88dcec5e938b2c50e65973803ceaa1eca6e382ba7224314222ec81526a2ad3e3",
+  "type": "MATCH_FOUND",
+  "state": "pending",
+  "createdAt": "2026-09-28T00:00:00Z",
+  "expiresAt": "2026-09-28T00:05:00Z",
+  "dedupKey": "notice_5bd55e58006041926e27df17e153e8ea4f9652d29107bf918ad2d48f92da9ac6"
+}

@@ -1,0 +1,18 @@
+{
+  "caseId": "baseline-failed",
+  "operation": "search",
+  "request": {
+    "query": "计算器",
+    "mode": "keyword",
+    "page": 1,
+    "pageSize": 20,
+    "sort": "relevance"
+  },
+  "httpStatus": 503,
+  "response": {
+    "code": "BASELINE_UNAVAILABLE",
+    "message": "搜索暂不可用",
+    "requestId": "fixture-baseline-failed",
+    "details": null
+  }
+}

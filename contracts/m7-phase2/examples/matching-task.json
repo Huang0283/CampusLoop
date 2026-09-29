@@ -1,0 +1,18 @@
+{
+  "taskKey": "task_8504cdc141f9c7d8e6f6e1a2c19cb1ae88981d09aa510f8fee526f3234b2b872",
+  "input": {
+    "wantedId": 201,
+    "wantedVersion": 1,
+    "catalogRevision": 7,
+    "authorizationRevision": 3,
+    "policyGeneration": 1,
+    "refreshGeneration": 1,
+    "asOf": "2026-09-28T00:00:00Z"
+  },
+  "status": "running",
+  "attempt": 1,
+  "leaseFence": 1,
+  "leaseUntil": "2026-09-28T00:00:30Z",
+  "nextAttemptAt": null,
+  "lastErrorCode": null
+}

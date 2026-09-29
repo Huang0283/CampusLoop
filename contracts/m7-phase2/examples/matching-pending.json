@@ -1,0 +1,20 @@
+{
+  "caseId": "matching-pending",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 202,
+  "response": {
+    "code": 0,
+    "message": "匹配正在更新",
+    "data": {
+      "state": "pending",
+      "wantedId": 201,
+      "wantedVersion": 1,
+      "retryAfterSeconds": 2
+    }
+  }
+}

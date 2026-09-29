@@ -1,0 +1,4 @@
+STDOUT
+[{"name": "attrs", "version": "26.1.0"}, {"name": "jsonschema", "version": "4.25.1"}, {"name": "jsonschema-specifications", "version": "2025.9.1"}, {"name": "referencing", "version": "0.37.0"}, {"name": "rpds-py", "version": "2026.6.3"}, {"name": "typing_extensions", "version": "4.16.0"}]
+
+STDERR

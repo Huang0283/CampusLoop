@@ -1,0 +1,18 @@
+{
+  "caseId": "rate-limited",
+  "operation": "search",
+  "request": {
+    "query": "计算器",
+    "mode": "keyword",
+    "page": 1,
+    "pageSize": 20,
+    "sort": "relevance"
+  },
+  "httpStatus": 429,
+  "response": {
+    "code": "RATE_LIMITED",
+    "message": "请求过于频繁，请稍后重试",
+    "requestId": "fixture-rate-limited",
+    "details": null
+  }
+}
