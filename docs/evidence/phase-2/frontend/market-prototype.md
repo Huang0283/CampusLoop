@@ -9,6 +9,8 @@
 ## 页面与契约映射
 
 - 商品列表和分类、价格、成色、地点、排序控件保留为 Phase 2 可点击 Mock，不声称已完成真实接口联调。
+- `/market` 不再以 token 作为浏览前置条件；游客与登录用户均可查看同一份 Phase 2 Mock 商品。
+- `/product/:id` 优先读取公开详情接口；接口在 Phase 2 验收环境不可用时，对市场 Mock 商品进行同源回退，确保详情、收藏动作守卫和登录回跳不依赖后端进程。
 - 商品详情调用 `GET /products/{productId}`，路由参数 `:id` 映射为契约参数 `productId`。
 - 收藏和取消收藏分别调用 `PUT /favorites/{productId}`、`DELETE /favorites/{productId}`。
 - 联系卖家进入受保护的聊天入口；创建具体会话仍由后续聊天接口任务实现。

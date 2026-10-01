@@ -41,6 +41,7 @@ import { addFavorite, getProduct, removeFavorite } from '../../sdk/generated/sdk
 import type { Product } from '../../sdk/generated/types.gen';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
+import { mockProducts } from './index';
 
 const { Header, Sider, Content } = Layout;
 
@@ -100,6 +101,7 @@ const ProductDetailPage: React.FC = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const [favorite, setFavorite] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [usingMockData, setUsingMockData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reportTarget, setReportTarget] = useState<{
@@ -114,7 +116,8 @@ const ProductDetailPage: React.FC = () => {
     // 路由参数无效时不调用接口，并由页面展示空状态。
     if (!hasValidProductId) return;
 
-    // 根据 productId 获取真实商品详情。
+    // 优先读取公开详情接口；Phase 2 后端尚未启动或接口不可用时，回退到与市场列表
+    // 相同的 Mock 商品，保证游客浏览和动作守卫可以独立完成验收。
     const fetchProduct = async () => {
       setLoading(true);
       setError(null);
@@ -127,18 +130,24 @@ const ProductDetailPage: React.FC = () => {
 
         if (!cancelled) {
           setProductData(response.data);
+          setUsingMockData(false);
           setCurrentImg(0);
           setFavorite(false);
         }
       } catch (requestError) {
         if (!cancelled) {
-          setProductData(null);
+          const mockProduct = mockProducts.find((item) => item.id === parsedProductId) ?? null;
           const isNotFound =
             typeof requestError === 'object' &&
             requestError !== null &&
             'code' in requestError &&
             requestError.code === 'NOT_FOUND';
-          setError(isNotFound ? null : '商品详情加载失败，请稍后重试');
+
+          setProductData(mockProduct);
+          setUsingMockData(Boolean(mockProduct));
+          setCurrentImg(0);
+          setFavorite(false);
+          setError(mockProduct || isNotFound ? null : '商品详情加载失败，请稍后重试');
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -202,10 +211,14 @@ const ProductDetailPage: React.FC = () => {
   const breadcrumbItems = [
     {
       title: (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: TEXT_SECONDARY }}>
+        <Button
+          type="link"
+          onClick={() => navigate('/market')}
+          style={{ height: 'auto', padding: 0, color: TEXT_SECONDARY }}
+        >
           <LeftOutlined style={{ fontSize: 12 }} />
           返回市场
-        </span>
+        </Button>
       ),
     },
     { title: <span style={{ color: TEXT_SECONDARY }}>{productData?.category ?? '商品分类'}</span> },
@@ -222,6 +235,12 @@ const ProductDetailPage: React.FC = () => {
   // 根据当前收藏状态调用对应接口，成功后再更新按钮状态。
   const toggleFavorite = async () => {
     if (!productData || favoriteLoading) return;
+
+    if (usingMockData) {
+      setFavorite((previous) => !previous);
+      message.success(favorite ? '已取消收藏' : '收藏成功');
+      return;
+    }
 
     setFavoriteLoading(true);
     try {
