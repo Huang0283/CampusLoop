@@ -12,7 +12,6 @@ import {
   Col,
   Tag,
   Pagination,
-  Result,
   Spin,
   Typography,
 } from 'antd';
@@ -34,7 +33,9 @@ const { Text } = Typography;
 
 // ===================== Mock 数据 =====================
 // 使用 satisfies 让每条 Mock 数据都接受生成 SDK 中 Product 类型的静态校验。
-const mockProducts = [
+// Shared with ProductDetailPage so the Phase 2 public flow uses one consistent catalog.
+// eslint-disable-next-line react-refresh/only-export-components
+export const mockProducts = [
   {
     id: 1,
     seller: { id: 101, nickname: '李同学', avatar: 'https://i.pravatar.cc/64?img=11', rating: 4.9, transactionCount: 18 },
@@ -356,7 +357,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 };
 
 // ===================== 页面组件 =====================
-type PageStatus = 'loading' | 'success' | 'error' | 'forbidden';
+type PageStatus = 'loading' | 'success' | 'error';
 
 const MarketPage: React.FC = () => {
   const navigate = useNavigate();
@@ -386,13 +387,8 @@ const MarketPage: React.FC = () => {
           throw new Error('Mock 商品加载失败');
         }
 
-        // 市场路由当前需要登录；缺少凭证时显示无权限状态作为兜底。
-        if (!localStorage.getItem('token')) {
-          setProducts([]);
-          setPageStatus('forbidden');
-          return;
-        }
-
+        // 市场浏览属于公开能力。游客与登录用户都使用同一份 Phase 2 Mock 数据；
+        // 只有收藏、发布等私有动作才由 useRequireAuthAction 触发登录。
         setProducts(mockProducts);
         setPageStatus('success');
       } catch {
@@ -644,14 +640,6 @@ const MarketPage: React.FC = () => {
               message="商品加载失败"
               description="请稍后重试"
               action={<Button onClick={handleRetry}>重新加载</Button>}
-            />
-          ) : pageStatus === 'forbidden' ? (
-            // forbidden：需要登录但缺少凭证时显示无权限提示。
-            <Result
-              status="403"
-              title="暂无访问权限"
-              subTitle="请先登录后查看市场商品"
-              extra={<Button type="primary" onClick={() => navigate('/login')}>去登录</Button>}
             />
           ) : filteredProducts.length === 0 ? (
             // empty：搜索或筛选后没有匹配商品时展示空状态。
