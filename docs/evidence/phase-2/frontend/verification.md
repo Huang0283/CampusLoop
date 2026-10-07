@@ -44,3 +44,17 @@ npm run build
 - 检查范围：商品详情路由参数、求购匹配路由、游客动作守卫、求购搜索/筛选/排序/分页和三份 M3 交付文档。
 - 可复现命令：`npm run sdk:check`、`npm run lint`、`npm run build`。
 - 手工场景：游客打开商品/求购详情；游客点击收藏、联系、举报和匹配；求购关键词、预算、成色、排序、重置和翻页；无效 ID、接口错误及空结果。
+
+## M3 第二阶段个人收尾验证
+
+- 日期：2026-10-08。
+- 分支：`task/m3-p2-closeout`。
+- 基线：`phase2/frontend-prototype` 的 `a4b06fa`。
+- 环境：Windows、Node.js `v24.21.0`、npm `11.19.0`。
+- 自动命令：`npm run lint`、`npm run build`、`npm run sdk:check`、`git diff --check`；全部退出码为 0，生成 SDK 无内容漂移。
+- 构建说明：生产构建成功；仅保留既有的单 bundle 超过 500 kB 警告，不阻塞 Phase 2 可点击原型验收。
+- 商品闭环：登录后从 `/publish` 新建商品，在 `/my-products` 查看；进入 `/product/:id/edit` 修改；验证上下架、删除确认和刷新后状态。
+- 草稿闭环：修改商品/求购表单后刷新，确认草稿恢复；点击返回按钮确认离开提示；成功提交后确认草稿清除。
+- 求购闭环：从 `/wanted/publish` 新建，进入详情；编辑并保存；二次确认关闭；进入匹配结果查看规则降级、原因和非成交概率说明。
+- 失败入口：`productMockUploadError`、`productMockSubmitError`、`wantedMockLoadError`、`wantedMockSubmitError` 四个 sessionStorage 标记。
+- 边界：这是 Phase 2 可点击 Mock 验收，不声称真实 API、数据库、上传、智能服务或跨组契约已经完成。

@@ -28,7 +28,10 @@ import {
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import { getWanted, listWantedMatches } from '../../sdk/generated/sdk.gen';
 import type { Wanted } from '../../sdk/generated/types.gen';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { findWantedItem } from '../../mocks/wantedManagement';
+import { mockProducts } from '../market';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 
 const { Header, Sider, Content } = Layout;
 
@@ -141,6 +144,8 @@ const formatDate = (value: string) => {
 
 // -------------------- 页面组件 --------------------
 const MatchResultPage: React.FC = () => {
+  const navigate = useNavigate();
+  const requireAuthAction = useRequireAuthAction();
   const { wantedId } = useParams<{ wantedId: string }>();
   const parsedWantedId = Number(wantedId);
   const hasValidWantedId =
@@ -150,6 +155,7 @@ const MatchResultPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [degraded, setDegraded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -178,6 +184,7 @@ const MatchResultPage: React.FC = () => {
         if (cancelled) return;
 
         setWanted(wantedResponse.data);
+        setDegraded(false);
         setMatchList(
           matchesResponse.data.items.map(({ product, relevanceScore, reasons, constraints }) => ({
             id: product.id,
@@ -205,14 +212,44 @@ const MatchResultPage: React.FC = () => {
         setCurrentPage(1);
       } catch (requestError) {
         if (!cancelled) {
-          setWanted(null);
-          setMatchList([]);
+          const mockWanted = findWantedItem(parsedWantedId) ?? null;
           const isNotFound =
             typeof requestError === 'object' &&
             requestError !== null &&
             'code' in requestError &&
             requestError.code === 'NOT_FOUND';
-          setError(isNotFound ? null : '匹配结果加载失败，请稍后重试');
+          if (mockWanted) {
+            setWanted(mockWanted);
+            setMatchList(
+              mockProducts.slice(0, 6).map((product, index) => ({
+                id: product.id,
+                title: product.title,
+                image: product.images[0] ?? '/favicon.svg',
+                tags: [product.condition, product.category],
+                seller: {
+                  name: product.seller.nickname,
+                  avatar: product.seller.avatar ?? '',
+                },
+                school: product.campusLocation ?? '地点未填写',
+                publishTime: formatDate(product.createdAt),
+                matchScore: Math.max(55, 92 - index * 7),
+                price: product.price,
+                originalPrice: product.originalPrice === undefined ? '暂无数据' : `¥${product.originalPrice}`,
+                reasons: [
+                  product.price <= mockWanted.budgetMax ? '价格位于预算上限内' : '价格高于预算，供比较参考',
+                  `商品成色：${product.condition}`,
+                  'Phase 2 规则候选，需人工确认',
+                ],
+              })),
+            );
+            setError(null);
+            setDegraded(true);
+          } else {
+            setWanted(null);
+            setMatchList([]);
+            setError(isNotFound ? null : '匹配结果加载失败，请稍后重试');
+            setDegraded(false);
+          }
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -294,6 +331,16 @@ const MatchResultPage: React.FC = () => {
             </div>
           </div>
 
+          {degraded && (
+            <Alert
+              showIcon
+              type="warning"
+              message="智能服务不可用，当前展示 Phase 2 规则匹配候选"
+              description="匹配分数只表示规则相关程度，不是成交概率；价格仅供参考，最终结果需用户确认。"
+              style={{ marginBottom: 16 }}
+            />
+          )}
+
           {/* 求购条件栏 */}
           <div style={styles.conditionBar}>
             <Space size={48} wrap>
@@ -315,7 +362,12 @@ const MatchResultPage: React.FC = () => {
                 <span style={{ color: TEXT_MAIN, fontWeight: 600 }}>{wanted?.location ?? '-'}</span>
               </Space>
             </Space>
-            <Button type="link" icon={<EditOutlined />} style={{ padding: 0 }}>
+            <Button
+              type="link"
+              icon={<EditOutlined />}
+              style={{ padding: 0 }}
+              onClick={() => wanted && navigate(`/wanted/${wanted.id}/edit`)}
+            >
               修改求购条件
             </Button>
           </div>
@@ -421,10 +473,15 @@ const MatchResultPage: React.FC = () => {
 
               {/* 操作区 */}
               <div style={styles.actionArea}>
-                <Button type="primary" block>
+                <Button type="primary" block onClick={() => navigate(`/product/${item.id}`)}>
                   查看详情
                 </Button>
-                <Button block>联系卖家</Button>
+                <Button
+                  block
+                  onClick={() => requireAuthAction(() => navigate('/chat', { state: { productId: item.id } }))}
+                >
+                  联系卖家
+                </Button>
               </div>
             </div>
           ))}

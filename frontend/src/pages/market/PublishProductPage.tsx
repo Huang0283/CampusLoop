@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Layout,
   Input,
@@ -10,6 +10,8 @@ import {
   Typography,
   Space,
   message,
+  Alert,
+  Modal,
 } from 'antd';
 import type { UploadFile } from 'antd';
 import type { UploadProps } from 'antd';
@@ -17,13 +19,18 @@ import {
   SearchOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
-import { createProduct, uploadImage } from '../../sdk/generated/sdk.gen';
-import type { UploadResponse } from '../../sdk/generated/types.gen';
+import type { Product } from '../../sdk/generated/types.gen';
+import {
+  findManagedProduct,
+  readManagedProducts,
+  writeManagedProducts,
+} from '../../mocks/marketManagement';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
+const PROTOTYPE_IMAGE_LIMIT_MB = 5;
 
 const categoryOptions = [
   { value: 'digital', label: '数码电子' },
@@ -42,12 +49,10 @@ const conditionOptions = [
 ];
 
 const locationOptions = [
-  { value: 'east', label: '东校区' },
-  { value: 'west', label: '西校区' },
-  { value: 'south', label: '南校区' },
-  { value: 'north', label: '北校区' },
-  { value: 'library', label: '图书馆' },
-  { value: 'gym', label: '体育馆' },
+  { value: 'thu', label: '清华大学' },
+  { value: 'pku', label: '北京大学' },
+  { value: 'ruc', label: '中国人民大学' },
+  { value: 'buaa', label: '北京航空航天大学' },
 ];
 
 interface ProductFormValues {
@@ -61,37 +66,153 @@ interface ProductFormValues {
   location: string;
 }
 
+interface ProductDraft {
+  values: Partial<ProductFormValues>;
+  imageUrls: string[];
+}
+
+interface PrototypeUploadResponse {
+  data: { url: string };
+}
+
 const getUploadedUrl = (file: UploadFile) =>
-  file.url || (file.response as UploadResponse | undefined)?.data.url;
+  file.url || (file.response as PrototypeUploadResponse | undefined)?.data.url;
+
+const categoryLabels = new Map(categoryOptions.map((option) => [option.value, option.label]));
+const conditionLabels = new Map(conditionOptions.map((option) => [option.value, option.label]));
+const locationLabels = new Map(locationOptions.map((option) => [option.value, option.label]));
+
+const categoryValues = new Map(categoryOptions.map((option) => [option.label, option.value]));
+const conditionValues = new Map(conditionOptions.map((option) => [option.label, option.value]));
+const locationValues = new Map(locationOptions.map((option) => [option.label, option.value]));
+categoryValues.set('数码', 'digital');
+categoryValues.set('书籍', 'books');
+categoryValues.set('宿舍', 'life');
+conditionValues.set('九成新', 'like-new');
+conditionValues.set('八成新', 'good');
+conditionValues.set('七成新', 'fair');
+
+const toFormValues = (product: Product): ProductFormValues => ({
+  title: product.title,
+  images: product.images,
+  category: categoryValues.get(product.category) ?? 'others',
+  condition: conditionValues.get(product.condition) ?? 'good',
+  originalPrice: product.originalPrice?.toString(),
+  price: product.price.toString(),
+  description: product.description ?? '',
+  location: locationValues.get(product.campusLocation ?? '') ?? 'thu',
+});
+
+const toUploadFiles = (urls: string[]): UploadFile[] =>
+  urls.map((url, index) => ({
+    uid: `saved-${index}-${url}`,
+    name: `商品图片-${index + 1}`,
+    status: 'done',
+    url,
+  }));
 
 const PublishProductPage: React.FC = () => {
   const [form] = Form.useForm<ProductFormValues>();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [submitting, setSubmitting] = useState(false);
+  const [dirty, setDirty] = useState(false);
+  const [draftRestored, setDraftRestored] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const productId = Number(id);
+  const isEditMode = Boolean(id) && Number.isInteger(productId) && productId > 0;
+  const existingProduct = useMemo(
+    () => (isEditMode ? findManagedProduct(productId) : undefined),
+    [isEditMode, productId],
+  );
+  const draftKey = `campusloop:phase2:product-draft:${isEditMode ? productId : 'new'}`;
 
-  // 选择图片后立即上传，并将接口返回的 URL 写入表单。
+  useEffect(() => {
+    if (isEditMode && !existingProduct) {
+      message.error('未找到可编辑的商品');
+      navigate('/my-products', { replace: true });
+      return;
+    }
+
+    let initialValues = existingProduct ? toFormValues(existingProduct) : undefined;
+    let initialImages = existingProduct?.images ?? [];
+    let restored = false;
+
+    try {
+      const rawDraft = localStorage.getItem(draftKey);
+      if (rawDraft) {
+        const draft = JSON.parse(rawDraft) as ProductDraft;
+        initialValues = { ...initialValues, ...draft.values } as ProductFormValues;
+        initialImages = Array.isArray(draft.imageUrls) ? draft.imageUrls : initialImages;
+        restored = true;
+      }
+    } catch {
+      localStorage.removeItem(draftKey);
+    }
+
+    const timer = window.setTimeout(() => {
+      if (initialValues) form.setFieldsValue(initialValues);
+      if (initialImages.length > 0) {
+        setFileList(toUploadFiles(initialImages));
+        form.setFieldValue('images', initialImages);
+      } else {
+        setFileList([]);
+      }
+      setDraftRestored(restored);
+      setDirty(false);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [draftKey, existingProduct, form, isEditMode, navigate]);
+
+  useEffect(() => {
+    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (!dirty || submitting) return;
+      event.preventDefault();
+    };
+    window.addEventListener('beforeunload', warnBeforeUnload);
+    return () => window.removeEventListener('beforeunload', warnBeforeUnload);
+  }, [dirty, submitting]);
+
+  const persistDraft = (nextFileList = fileList) => {
+    const imageUrls = nextFileList
+      .map(getUploadedUrl)
+      .filter((url): url is string => Boolean(url));
+    const draft: ProductDraft = {
+      values: { ...form.getFieldsValue(true), images: imageUrls },
+      imageUrls,
+    };
+    try {
+      localStorage.setItem(draftKey, JSON.stringify(draft));
+    } catch {
+      message.warning('浏览器存储空间不足，当前草稿仅保留在页面中');
+    }
+    setDirty(true);
+  };
+
+  // Phase 2 使用确定性的 Mock 图片地址，使上传队列、失败和提交反馈无需后端即可验收。
   const handleImageUpload: UploadProps['customRequest'] = async ({
     file,
     onError,
     onSuccess,
   }) => {
-    try {
-      if (typeof file === 'string') throw new Error('图片文件无效');
-
-      const response = await uploadImage({
-        body: { file },
-        auth: () => localStorage.getItem('token') ?? undefined,
-        throwOnError: true,
-      });
-      onSuccess?.(response);
-      message.success('图片上传成功');
-    } catch (uploadError) {
-      const error =
-        uploadError instanceof Error ? uploadError : new Error('图片上传失败，请重试');
+    await new Promise((resolve) => window.setTimeout(resolve, 250));
+    if (typeof file === 'string') {
+      const error = new Error('图片文件无效');
       onError?.(error);
-      message.error(error.message || '图片上传失败，请重试');
+      message.error(error.message);
+      return;
     }
+    if (sessionStorage.getItem('productMockUploadError') === 'true') {
+      const error = new Error('Mock 图片上传失败，请移除失败项后重试');
+      onError?.(error);
+      message.error(error.message);
+      return;
+    }
+
+    const fileName = file instanceof File ? file.name : 'prototype-image';
+    const seed = encodeURIComponent(`${fileName}-${file.size}`);
+    onSuccess?.({ data: { url: `https://picsum.photos/seed/${seed}/400/300` } });
+    message.success('图片已加入原型上传队列');
   };
 
   const handleImageChange: UploadProps['onChange'] = ({ fileList: newList }) => {
@@ -100,16 +221,22 @@ const PublishProductPage: React.FC = () => {
       .map(getUploadedUrl)
       .filter((url): url is string => Boolean(url));
     form.setFieldValue('images', imageUrls);
+    persistDraft(newList);
   };
 
   const validateImage: UploadProps['beforeUpload'] = (file) => {
     const isSupported = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isSupported) message.error('只支持 JPG、PNG 格式的图片');
-    return isSupported || Upload.LIST_IGNORE;
+    const isWithinPrototypeLimit = file.size / 1024 / 1024 <= PROTOTYPE_IMAGE_LIMIT_MB;
+    if (isSupported && !isWithinPrototypeLimit) {
+      message.error(`原型图片不能超过 ${PROTOTYPE_IMAGE_LIMIT_MB} MB`);
+    }
+    return (isSupported && isWithinPrototypeLimit) || Upload.LIST_IGNORE;
   };
 
-  // 将表单字段和已上传的图片 URL 提交到真实商品创建接口。
+  // Phase 2 将商品写入统一 Mock 数据层；Phase 3 再由 SDK 替换这一条持久化边界。
   const handleFinish = async (values: ProductFormValues) => {
+    if (submitting) return;
     const imageUrls = fileList
       .map(getUploadedUrl)
       .filter((url): url is string => Boolean(url));
@@ -125,26 +252,42 @@ const PublishProductPage: React.FC = () => {
 
     setSubmitting(true);
     try {
-      await createProduct({
-        body: {
-          title: values.title.trim(),
-          category: values.category,
-          condition: values.condition,
-          description: values.description,
-          originalPrice: values.originalPrice
-            ? Number(values.originalPrice)
-            : undefined,
-          price: Number(values.price),
-          campusLocation: values.location,
-          images: imageUrls,
-        },
-        // 每次发布生成唯一幂等键，避免重复点击产生重复商品。
-        headers: { 'Idempotency-Key': crypto.randomUUID() },
-        auth: () => localStorage.getItem('token') ?? undefined,
-        throwOnError: true,
-      });
+      await new Promise((resolve) => window.setTimeout(resolve, 350));
+      if (sessionStorage.getItem('productMockSubmitError') === 'true') {
+        throw new Error('Mock 商品提交失败，请保留草稿后重试');
+      }
 
-      message.success('商品发布成功');
+      const now = new Date().toISOString();
+      const products = readManagedProducts();
+      const product: Product = {
+        id: existingProduct?.id ?? Date.now(),
+        seller: existingProduct?.seller ?? {
+          id: 301,
+          nickname: '我',
+          avatar: 'https://i.pravatar.cc/64?img=41',
+          rating: 4.9,
+          transactionCount: 18,
+        },
+        title: values.title.trim(),
+        category: categoryLabels.get(values.category) ?? values.category,
+        condition: conditionLabels.get(values.condition) ?? values.condition,
+        description: values.description.trim(),
+        originalPrice: values.originalPrice ? Number(values.originalPrice) : undefined,
+        price: Number(values.price),
+        campusLocation: locationLabels.get(values.location) ?? values.location,
+        images: imageUrls,
+        status: existingProduct?.status ?? 'ON_SALE',
+        createdAt: existingProduct?.createdAt ?? now,
+        updatedAt: now,
+      };
+      const next = existingProduct
+        ? products.map((item) => (item.id === existingProduct.id ? product : item))
+        : [product, ...products];
+      writeManagedProducts(next);
+      localStorage.removeItem(draftKey);
+      setDirty(false);
+      setDraftRestored(false);
+      message.success(isEditMode ? '商品修改已保存' : '商品发布成功');
       navigate('/my-products');
     } catch (requestError) {
       const errorMessage =
@@ -153,11 +296,25 @@ const PublishProductPage: React.FC = () => {
         'message' in requestError &&
         typeof requestError.message === 'string'
           ? requestError.message
-          : '商品发布失败，请稍后重试';
+          : '商品提交失败，请稍后重试';
       message.error(errorMessage);
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const leavePage = () => {
+    if (!dirty) {
+      navigate('/my-products');
+      return;
+    }
+    Modal.confirm({
+      title: '离开商品表单？',
+      content: '当前修改已经保存为本地草稿，下次进入本页面可继续填写。',
+      okText: '保存草稿并离开',
+      cancelText: '继续编辑',
+      onOk: () => navigate('/my-products'),
+    });
   };
 
   return (
@@ -225,17 +382,47 @@ const PublishProductPage: React.FC = () => {
             bodyStyle={{ padding: '32px 40px 40px' }}
           >
             <Title level={3} style={{ marginBottom: 4, fontWeight: 700 }}>
-              发布商品
+              {isEditMode ? '编辑商品' : '发布商品'}
             </Title>
             <Text type="secondary" style={{ fontSize: 14 }}>
-              填写商品信息，让更多同学看到你的闲置好物
+              {isEditMode ? '修改后会立即更新第二阶段 Mock 商品记录' : '填写商品信息，让更多同学看到你的闲置好物'}
             </Text>
+
+            {draftRestored && (
+              <Alert
+                showIcon
+                type="info"
+                message="已恢复上次保存的本地草稿"
+                style={{ marginTop: 20 }}
+                action={
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      localStorage.removeItem(draftKey);
+                      setDraftRestored(false);
+                      if (existingProduct) {
+                        const values = toFormValues(existingProduct);
+                        form.setFieldsValue(values);
+                        setFileList(toUploadFiles(existingProduct.images));
+                      } else {
+                        form.resetFields();
+                        setFileList([]);
+                      }
+                      setDirty(false);
+                    }}
+                  >
+                    放弃草稿
+                  </Button>
+                }
+              />
+            )}
 
             <Form<ProductFormValues>
               form={form}
               layout="horizontal"
               labelAlign="left"
               onFinish={handleFinish}
+              onValuesChange={() => persistDraft()}
               style={{ marginTop: 32 }}
               labelCol={{ flex: '110px' }}
               wrapperCol={{ flex: 1 }}
@@ -253,7 +440,7 @@ const PublishProductPage: React.FC = () => {
                 required
                 extra={
                   <Text type="secondary" style={{ fontSize: 12 }}>
-                    最多上传 5 张图片，支持 JPG、PNG 格式
+                    最多上传 5 张图片，支持 JPG、PNG 格式，原型单张不超过 5 MB
                   </Text>
                 }
               >
@@ -311,7 +498,15 @@ const PublishProductPage: React.FC = () => {
               <Form.Item
                 label="售价"
                 name="price"
-                rules={[{ required: true, message: '请输入售价' }]}
+                rules={[
+                  { required: true, message: '请输入售价' },
+                  {
+                    validator: (_, value) =>
+                      Number(value) > 0
+                        ? Promise.resolve()
+                        : Promise.reject(new Error('售价必须大于 0')),
+                  },
+                ]}
               >
                 <Input prefix="¥" placeholder="请输入售价" inputMode="decimal" />
               </Form.Item>
@@ -351,21 +546,26 @@ const PublishProductPage: React.FC = () => {
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 0, flex: 1 }} style={{ marginTop: 8 }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  block
-                  size="large"
-                  loading={submitting}
-                  style={{
-                    height: 48,
-                    borderRadius: 8,
-                    fontSize: 16,
-                    fontWeight: 500,
-                  }}
-                >
-                  发布
-                </Button>
+                <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
+                  <Button size="large" disabled={submitting} onClick={leavePage}>
+                    返回我的发布
+                  </Button>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    size="large"
+                    loading={submitting}
+                    style={{
+                      minWidth: 180,
+                      height: 48,
+                      borderRadius: 8,
+                      fontSize: 16,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {isEditMode ? '保存修改' : '发布商品'}
+                  </Button>
+                </Space>
               </Form.Item>
             </Form>
           </Card>

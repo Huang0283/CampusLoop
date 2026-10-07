@@ -11,6 +11,7 @@ import {
   Rate,
   Spin,
   message,
+  Modal,
 } from 'antd';
 import {
   SearchOutlined,
@@ -35,6 +36,7 @@ import type { Wanted } from '../../sdk/generated/types.gen';
 import { ReportModal } from '../../components/transaction';
 import { useMockDbStore } from '../../stores/mockDb';
 import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
+import { findWantedItem, readWantedItems, writeWantedItems } from '../../mocks/wantedManagement';
 
 const { Header, Sider, Content } = Layout;
 
@@ -142,14 +144,15 @@ const WantedDetailPage: React.FC = () => {
         if (!cancelled) setWanted(response.data);
       } catch (requestError) {
         if (!cancelled) {
-          setWanted(null);
+          const mockWanted = findWantedItem(parsedWantedId) ?? null;
           // 接口明确返回资源不存在时展示空状态，其余异常展示错误状态。
           const isNotFound =
             typeof requestError === 'object' &&
             requestError !== null &&
             'code' in requestError &&
             requestError.code === 'NOT_FOUND';
-          setError(isNotFound ? null : '求购详情加载失败，请稍后重试');
+          setWanted(mockWanted);
+          setError(mockWanted || isNotFound ? null : '求购详情加载失败，请稍后重试');
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -209,6 +212,26 @@ const WantedDetailPage: React.FC = () => {
   const handleViewAllMatches = () => {
     if (!wantedId) return;
     requireAuthAction(() => navigate(`/wanted/${wantedId}/matches`));
+  };
+  const canManageWanted = wanted?.owner.id === 1 && wanted.status !== 'CLOSED' && wanted.status !== 'EXPIRED';
+  const handleCloseWanted = () => {
+    if (!wanted || !canManageWanted) return;
+    requireAuthAction(() => {
+      Modal.confirm({
+        title: '确认关闭求购？',
+        content: '关闭后将停止接收新的匹配结果，第二阶段原型不提供自动恢复。',
+        okText: '确认关闭',
+        cancelText: '取消',
+        onOk: () => {
+          const next = readWantedItems().map((item) =>
+            item.id === wanted.id ? { ...item, status: 'CLOSED' as const } : item,
+          );
+          writeWantedItems(next);
+          setWanted({ ...wanted, status: 'CLOSED' });
+          message.success('求购已关闭');
+        },
+      });
+    });
   };
 
   return (
@@ -561,10 +584,10 @@ const WantedDetailPage: React.FC = () => {
                       <RobotOutlined />
                     </span>
                     <span style={{ fontSize: 17, fontWeight: 700, color: TEXT_MAIN }}>
-                      AI 智能匹配商品
+                      规则匹配候选商品
                     </span>
                     <span style={{ fontSize: 13, color: TEXT_SECONDARY }}>
-                      根据您的需求，智能推荐以下相似商品
+                      Phase 2 规则候选仅供参考，匹配度不代表成交概率
                     </span>
                   </div>
                   <Button
@@ -691,6 +714,19 @@ const WantedDetailPage: React.FC = () => {
               gap: 16,
             }}
           >
+            {canManageWanted && (
+              <>
+                <Button
+                  size="large"
+                  onClick={() => requireAuthAction(() => navigate(`/wanted/${wanted.id}/edit`))}
+                >
+                  编辑求购
+                </Button>
+                <Button danger size="large" onClick={handleCloseWanted}>
+                  关闭求购
+                </Button>
+              </>
+            )}
             <Button size="large" icon={<StarOutlined />} onClick={handleFavorite}>
               收藏
             </Button>

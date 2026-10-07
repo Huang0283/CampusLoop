@@ -19,15 +19,17 @@
 ## M3 已提交
 
 - FE2-05：`market-prototype.md`，商品详情公开读取、收藏/联系/举报动作守卫和连续返回路径。
-- FE2-06：`product-management-prototype.md`，图片上传、商品创建、幂等与失败反馈原型。
-- FE2-07：`wanted-ai-result-prototype.md`，求购公开读取、搜索/筛选/排序/分页和个性化匹配解释原型。
+- FE2-06：`product-management-prototype.md`，商品新建、编辑回填、图片队列、草稿恢复、离开提醒、上下架、删除确认、重复提交保护和失败反馈原型。
+- FE2-07：`wanted-ai-result-prototype.md`，求购公开读取、搜索/筛选/排序/分页、发布、编辑回填、关闭确认及匹配服务不可用时的规则降级原型。
+- FE2-11（M3 范围）：`page-state-matrix.md`，登记市场、商品、求购和匹配页面的加载、空、成功、失败、无权限状态或不适用理由。
 - 任务 PR：#63 `task/m3-transaction-pages -> phase2/frontend-prototype`。
+- 收尾分支：`task/m3-p2-closeout`；只补齐 M3 的 FE2-06、FE2-07 和 FE2-11 页面范围，不代表 M2/M4 或跨组门禁完成。
 
 ## 尚未计入完成
 
 - M4 的 FE2-08 至 FE2-10 交付和任务 PR 验收。
-- M2/M3/M4 共同维护的 `page-state-matrix.md`。
-- M3/M4 在公开业务页面接入 `useRequireAuthAction` 后的端到端动作回跳验收。
+- M2、M4 各自页面的五态矩阵；M3 范围已经登记，但不能据此勾选全组 FE2-11。
+- M4 在公开业务页面接入 `useRequireAuthAction` 后的端到端动作回跳验收。
 - M5/M6/M7/M8 契约对签、M10 可测试性验收、M1 范围复核。
 - 小组汇总 PR 合入 `phase2/integration`。
 
