@@ -1,0 +1,352 @@
+{
+  "metadata": {
+    "candidateScope": "COMPLETE_CATALOG_POOL",
+    "datasetVersion": "synthetic-formula-fixture-v1",
+    "kValues": [
+      5,
+      10
+    ],
+    "labelSource": "SYNTHETIC_FORMULA_FIXTURE",
+    "labelVersion": "hand-calculation-v1",
+    "schemaVersion": "intelligence-ranking-eval-v1",
+    "snapshotVersion": "formula-only-no-business-snapshot",
+    "splitVersion": "formula-only-no-test-set"
+  },
+  "metricVersion": "ranking-metrics-v1",
+  "modelEffectEvaluated": false,
+  "recallScope": "COMPLETE_CATALOG_POOL",
+  "runs": [
+    {
+      "algorithmVersion": "hand-authored-formula-rankings-v1",
+      "byTask": {
+        "matching": {
+          "excludedRequestCount": 1,
+          "hardViolationCount": 2,
+          "hardViolationRate": 0.6666666666666666,
+          "metrics": {
+            "label>=1@10": {
+              "falseRecommendationCount": 1,
+              "mrr": null,
+              "noAnswerEmptyAccuracy": 0,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": null,
+              "positiveRequestCount": 0,
+              "precision": null,
+              "recall": null
+            },
+            "label>=1@5": {
+              "falseRecommendationCount": 1,
+              "mrr": null,
+              "noAnswerEmptyAccuracy": 0,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": null,
+              "positiveRequestCount": 0,
+              "precision": null,
+              "recall": null
+            },
+            "label>=2@10": {
+              "falseRecommendationCount": 1,
+              "mrr": null,
+              "noAnswerEmptyAccuracy": 0,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": null,
+              "positiveRequestCount": 0,
+              "precision": null,
+              "recall": null
+            },
+            "label>=2@5": {
+              "falseRecommendationCount": 1,
+              "mrr": null,
+              "noAnswerEmptyAccuracy": 0,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": null,
+              "positiveRequestCount": 0,
+              "precision": null,
+              "recall": null
+            }
+          },
+          "requestCount": 2,
+          "returnedCount": 3
+        },
+        "search": {
+          "excludedRequestCount": 0,
+          "hardViolationCount": 0,
+          "hardViolationRate": 0.0,
+          "metrics": {
+            "label>=1@10": {
+              "falseRecommendationCount": 0,
+              "mrr": 0.75,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 2,
+              "precision": 0.15000000000000002,
+              "recall": 0.5
+            },
+            "label>=1@5": {
+              "falseRecommendationCount": 0,
+              "mrr": 0.75,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 2,
+              "precision": 0.30000000000000004,
+              "recall": 0.5
+            },
+            "label>=2@10": {
+              "falseRecommendationCount": 0,
+              "mrr": 0.75,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 2,
+              "precision": 0.15000000000000002,
+              "recall": 0.5
+            },
+            "label>=2@5": {
+              "falseRecommendationCount": 0,
+              "mrr": 0.75,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 2,
+              "precision": 0.30000000000000004,
+              "recall": 0.5
+            }
+          },
+          "requestCount": 3,
+          "returnedCount": 7
+        }
+      },
+      "perRequest": [
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {
+            "budget": 1
+          },
+          "hardViolationCount": 1,
+          "metrics": {
+            "label>=1@10": {
+              "falseRecommendations": 1,
+              "noAnswerEmpty": false,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=1@5": {
+              "falseRecommendations": 1,
+              "noAnswerEmpty": false,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=2@10": {
+              "falseRecommendations": 1,
+              "noAnswerEmpty": false,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=2@5": {
+              "falseRecommendations": 1,
+              "noAnswerEmpty": false,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            }
+          },
+          "requestId": "M0",
+          "returnedCount": 1,
+          "returnedProductIds": [
+            "n"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": "UNRESOLVED_U_ENTIRE_REQUEST",
+          "hardViolationByConstraint": {
+            "visibility": 1
+          },
+          "hardViolationCount": 1,
+          "metrics": {},
+          "requestId": "MU",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "bad",
+            "u"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 1
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "Q1",
+          "returnedCount": 5,
+          "returnedProductIds": [
+            "a",
+            "x",
+            "b",
+            "y",
+            "z"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.1,
+              "recall": 0.5,
+              "reciprocalRank": 0.5
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 0.5,
+              "reciprocalRank": 0.5
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.1,
+              "recall": 0.5,
+              "reciprocalRank": 0.5
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 0.5,
+              "reciprocalRank": 0.5
+            }
+          },
+          "requestId": "Q2",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "x",
+            "e"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@10": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=1@5": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=2@10": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=2@5": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            }
+          },
+          "requestId": "Q3",
+          "returnedCount": 0,
+          "returnedProductIds": [],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        }
+      ]
+    }
+  ],
+  "status": "DIAGNOSTIC_ONLY"
+}

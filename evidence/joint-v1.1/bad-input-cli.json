@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "scripts/intelligence_phase2/metrics.py",
+    "--input",
+    "<temporary-empty-requests-fixture>"
+  ],
+  "exitCode": 2,
+  "stdout": "{\"status\": \"FAIL\", \"error\": \"empty request dataset\"}\n",
+  "stderr": ""
+}
