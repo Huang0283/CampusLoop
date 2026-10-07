@@ -1,0 +1,74 @@
+[
+  {
+    "category": "LEXICAL_RECALL_GAP_LABEL1",
+    "requestId": "bicycle-search-natural",
+    "note": "部分相关的 ROCKRIDER 山地车没有命中查询词；这是 label>=1 敏感性召回遗漏，主口径 label>=2 无该遗漏。",
+    "labelStatus": "pending_human_review",
+    "candidateProductIds": [
+      "303"
+    ],
+    "actualOrder": [
+      "302",
+      "301"
+    ],
+    "observations": [
+      {
+        "productId": "303",
+        "draftLabel": 1,
+        "rank": null,
+        "score": null
+      }
+    ]
+  },
+  {
+    "category": "SOFT_TARGET_OVERRECALL",
+    "requestId": "calculator-search-exact",
+    "note": "查询 TI-84 Plus 时仍召回 TI-83；型号只是文本意图，未设置 requiredModel，符合硬筛选但只能算部分相关。",
+    "labelStatus": "pending_human_review",
+    "candidateProductIds": [
+      "103"
+    ],
+    "actualOrder": [
+      "101",
+      "102",
+      "103"
+    ],
+    "observations": [
+      {
+        "productId": "103",
+        "draftLabel": 1,
+        "rank": 3,
+        "score": 0.2222222222222222
+      }
+    ]
+  },
+  {
+    "category": "LEXICAL_RANK_INVERSION",
+    "requestId": "calculus-search-exact",
+    "note": "下册 403 以较多原词命中排在目标上册的改写标题 402 前。不能因 MRR@10=1 忽略中间位置排序错误。",
+    "labelStatus": "pending_human_review",
+    "candidateProductIds": [
+      "403",
+      "402"
+    ],
+    "actualOrder": [
+      "401",
+      "403",
+      "402"
+    ],
+    "observations": [
+      {
+        "productId": "403",
+        "draftLabel": 1,
+        "rank": 2,
+        "score": 0.38095238095238093
+      },
+      {
+        "productId": "402",
+        "draftLabel": 2,
+        "rank": 3,
+        "score": 0.2222222222222222
+      }
+    ]
+  }
+]

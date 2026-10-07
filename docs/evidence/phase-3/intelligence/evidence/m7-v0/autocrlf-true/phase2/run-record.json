@@ -1,0 +1,371 @@
+{
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY; M10 independent acceptance pending",
+  "assetsUnchanged": true,
+  "codeCommit": "1c235abba1c7a337501aacdec14f987c447563b0",
+  "command": [
+    "python",
+    "scripts/intelligence_phase2/run_all.py",
+    "--step-timeout-seconds",
+    "60",
+    "--output-dir",
+    "<external-output-directory>"
+  ],
+  "dataReadiness": {
+    "m7": {
+      "datasetVersion": "m7-synthetic-p2-v1.1",
+      "humanReviewedPairs": 0,
+      "modelEffect": "NOT_EVALUATED",
+      "pendingHumanReviewPairs": 228,
+      "seed": "20260926",
+      "serviceRankings": "NOT_AVAILABLE_IN_PHASE2"
+    },
+    "m8": {
+      "datasetVersion": "m8-price-eval-v1",
+      "eligibleL3Count": 0,
+      "modelEffect": "NOT_EVALUATED",
+      "ruleMetrics": {
+        "boundsValidRate": 1.0,
+        "datasetVersion": "m8-price-eval-v1",
+        "intervalCoverage": null,
+        "labelLevel": "L0_SYNTHETIC",
+        "maeFen": null,
+        "mape": null,
+        "predictionMetrics": "NOT_EVALUATED",
+        "reason": "No eligible L3 completed-transaction labels; listing prices are never used as truth.",
+        "recordCount": 12,
+        "ruleCoverage": 0.9166666666666666,
+        "statusConformance": 1.0
+      }
+    }
+  },
+  "durationSeconds": 47.187,
+  "endedAt": "2026-10-07T17:27:54.195694+00:00",
+  "environment": {
+    "cpuLogicalCount": 32,
+    "machine": "AMD64",
+    "os": "Windows",
+    "osRelease": "11",
+    "python": "3.12.14"
+  },
+  "gateRegistration": {
+    "capabilities": [
+      {
+        "capability": "semantic-search",
+        "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+        "reasons": [
+          "DATASET_NOT_FROZEN",
+          "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+          "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+          "APPROVAL_MISSING_M1",
+          "APPROVAL_MISSING_M10",
+          "APPROVAL_MISSING_M7"
+        ],
+        "registration": "NO_GO"
+      },
+      {
+        "capability": "supply-demand-matching",
+        "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+        "reasons": [
+          "DATASET_NOT_FROZEN",
+          "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+          "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+          "APPROVAL_MISSING_M1",
+          "APPROVAL_MISSING_M10",
+          "APPROVAL_MISSING_M7"
+        ],
+        "registration": "NO_GO"
+      },
+      {
+        "capability": "price-model",
+        "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+        "reasons": [
+          "DATASET_NOT_FROZEN",
+          "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+          "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+          "APPROVAL_MISSING_M1",
+          "APPROVAL_MISSING_M10",
+          "APPROVAL_MISSING_M8"
+        ],
+        "registration": "NO_GO"
+      }
+    ],
+    "deploymentAuthorized": false,
+    "policyVersion": "model-gates-candidate-v1.1"
+  },
+  "results": [
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-p",
+        "test_pipeline.py",
+        "-v"
+      ],
+      "durationSeconds": 5.562,
+      "exitCode": 0,
+      "name": "m7-data-tests",
+      "stderr": "test_bad_timestamp_rejected (test_pipeline.DatasetTests.test_bad_timestamp_rejected) ... ok\ntest_budget_edges (test_pipeline.DatasetTests.test_budget_edges) ... ok\ntest_build_hashes_and_tamper_detection (test_pipeline.DatasetTests.test_build_hashes_and_tamper_detection) ... ok\ntest_decimal_exact_and_zero (test_pipeline.DatasetTests.test_decimal_exact_and_zero) ... ok\ntest_deleted_reserved_and_hidden (test_pipeline.DatasetTests.test_deleted_reserved_and_hidden) ... ok\ntest_duplicate_entity_version_rejected (test_pipeline.DatasetTests.test_duplicate_entity_version_rejected) ... ok\ntest_duplicate_record_rejected (test_pipeline.DatasetTests.test_duplicate_record_rejected) ... ok\ntest_expiry_equality (test_pipeline.DatasetTests.test_expiry_equality) ... ok\ntest_failure_precedes_unknown (test_pipeline.DatasetTests.test_failure_precedes_unknown) ... ok\ntest_free_is_not_missing (test_pipeline.DatasetTests.test_free_is_not_missing) ... ok\ntest_invalid_matching_context_rejected (test_pipeline.DatasetTests.test_invalid_matching_context_rejected) ... ok\ntest_json_writers_pin_utf8_lf (test_pipeline.DatasetTests.test_json_writers_pin_utf8_lf) ... ok\ntest_latest_snapshot_and_audit (test_pipeline.DatasetTests.test_latest_snapshot_and_audit) ... ok\ntest_missing_pair_rejected (test_pipeline.DatasetTests.test_missing_pair_rejected) ... ok\ntest_missing_required_field (test_pipeline.DatasetTests.test_missing_required_field) ... ok\ntest_near_duplicate_overlap_merges_before_split (test_pipeline.DatasetTests.test_near_duplicate_overlap_merges_before_split) ... ok\ntest_nfkc_and_model_normalization (test_pipeline.DatasetTests.test_nfkc_and_model_normalization) ... ok\ntest_permissions_and_self (test_pipeline.DatasetTests.test_permissions_and_self) ... ok\ntest_place_and_model_mismatch (test_pipeline.DatasetTests.test_place_and_model_mismatch) ... ok\ntest_raw_tamper_detection (test_pipeline.DatasetTests.test_raw_tamper_detection) ... ok\ntest_rebuild_identical_under_lf_and_crlf_platform_defaults (test_pipeline.DatasetTests.test_rebuild_identical_under_lf_and_crlf_platform_defaults) ... ok\ntest_reversed_budget_rejected (test_pipeline.DatasetTests.test_reversed_budget_rejected) ... ok\ntest_split_is_order_independent (test_pipeline.DatasetTests.test_split_is_order_independent) ... ok\ntest_template_overlap_merges_before_split (test_pipeline.DatasetTests.test_template_overlap_merges_before_split) ... ok\ntest_unknown_conditions_and_models (test_pipeline.DatasetTests.test_unknown_conditions_and_models) ... ok\ntest_unknown_dictionary_category (test_pipeline.DatasetTests.test_unknown_dictionary_category) ... ok\ntest_unknown_field_rejected (test_pipeline.DatasetTests.test_unknown_field_rejected) ... ok\ntest_unknown_status_rejected (test_pipeline.DatasetTests.test_unknown_status_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 28 tests in 4.514s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-p",
+        "test_contracts.py",
+        "-v"
+      ],
+      "durationSeconds": 15.11,
+      "exitCode": 0,
+      "name": "m7-contract-tests",
+      "stderr": "test_all_examples (test_contracts.ContractTests.test_all_examples) ... ok\ntest_baseline_cannot_claim_model (test_contracts.ContractTests.test_baseline_cannot_claim_model) ... ok\ntest_blank_query_rejected (test_contracts.ContractTests.test_blank_query_rejected) ... ok\ntest_budget_observation_matches_product (test_contracts.ContractTests.test_budget_observation_matches_product) ... ok\ntest_budget_reason_must_be_true (test_contracts.ContractTests.test_budget_reason_must_be_true) ... ok\ntest_budget_reserves_fit_deadline (test_contracts.ContractTests.test_budget_reserves_fit_deadline) ... ok\ntest_constraint_cannot_inflate_score (test_contracts.ContractTests.test_constraint_cannot_inflate_score) ... ok\ntest_contributions_must_sum (test_contracts.ContractTests.test_contributions_must_sum) ... ok\ntest_degraded_without_reason_rejected (test_contracts.ContractTests.test_degraded_without_reason_rejected) ... ok\ntest_event_type_mismatch_rejected (test_contracts.ContractTests.test_event_type_mismatch_rejected) ... ok\ntest_expiration_equality_rejected (test_contracts.ContractTests.test_expiration_equality_rejected) ... ok\ntest_false_success_empty_rejected (test_contracts.ContractTests.test_false_success_empty_rejected) ... ok\ntest_forged_identity_rejected (test_contracts.ContractTests.test_forged_identity_rejected) ... ok\ntest_fractional_fen_rejected (test_contracts.ContractTests.test_fractional_fen_rejected) ... ok\ntest_hundred_point_api_score_rejected (test_contracts.ContractTests.test_hundred_point_api_score_rejected) ... ok\ntest_invalid_calendar_date_rejected (test_contracts.ContractTests.test_invalid_calendar_date_rejected) ... ok\ntest_inverted_price_bounds_rejected (test_contracts.ContractTests.test_inverted_price_bounds_rejected) ... ok\ntest_later_page_requires_snapshot (test_contracts.ContractTests.test_later_page_requires_snapshot) ... ok\ntest_misleading_status_rejected (test_contracts.ContractTests.test_misleading_status_rejected) ... ok\ntest_mixed_versions_rejected (test_contracts.ContractTests.test_mixed_versions_rejected) ... ok\ntest_notice_key_includes_recipient (test_contracts.ContractTests.test_notice_key_includes_recipient) ... ok\ntest_notifications_cannot_enable_without_numbers (test_contracts.ContractTests.test_notifications_cannot_enable_without_numbers) ... ok\ntest_null_requires_constraints_only (test_contracts.ContractTests.test_null_requires_constraints_only) ... ok\ntest_page_total_mismatch_rejected (test_contracts.ContractTests.test_page_total_mismatch_rejected) ... ok\ntest_private_nested_field_rejected (test_contracts.ContractTests.test_private_nested_field_rejected) ... ok\ntest_reason_code_matches_field (test_contracts.ContractTests.test_reason_code_matches_field) ... ok\ntest_retry_schedule_matches_attempts (test_contracts.ContractTests.test_retry_schedule_matches_attempts) ... ok\ntest_running_requires_lease (test_contracts.ContractTests.test_running_requires_lease) ... ok\ntest_silent_fallback_rejected (test_contracts.ContractTests.test_silent_fallback_rejected) ... ok\ntest_sold_candidate_rejected (test_contracts.ContractTests.test_sold_candidate_rejected) ... ok\ntest_tampered_result_rejected (test_contracts.ContractTests.test_tampered_result_rejected) ... ok\ntest_tampered_task_key_rejected (test_contracts.ContractTests.test_tampered_task_key_rejected) ... ok\ntest_timezone_required (test_contracts.ContractTests.test_timezone_required) ... ok\ntest_unsafe_js_id_rejected (test_contracts.ContractTests.test_unsafe_js_id_rejected) ... ok\ntest_wrong_explanation_product_rejected (test_contracts.ContractTests.test_wrong_explanation_product_rejected) ... ok\ntest_duplicate_event_and_business_version (test_contracts.LifecycleTests.test_duplicate_event_and_business_version) ... ok\ntest_expired_result_never_commits (test_contracts.LifecycleTests.test_expired_result_never_commits) ... ok\ntest_explanation_changes_result_version (test_contracts.LifecycleTests.test_explanation_changes_result_version) ... ok\ntest_input_revision_changes_block_old_commit (test_contracts.LifecycleTests.test_input_revision_changes_block_old_commit) ... ok\ntest_lease_prevents_second_claim (test_contracts.LifecycleTests.test_lease_prevents_second_claim) ... ok\ntest_new_input_invalidates_existing_result (test_contracts.LifecycleTests.test_new_input_invalidates_existing_result) ... ok\ntest_notification_policy_defaults_off (test_contracts.LifecycleTests.test_notification_policy_defaults_off) ... ok\ntest_notification_replay_is_deduplicated (test_contracts.LifecycleTests.test_notification_replay_is_deduplicated) ... ok\ntest_old_epoch_cannot_send_after_reeligibility (test_contracts.LifecycleTests.test_old_epoch_cannot_send_after_reeligibility) ... ok\ntest_older_event_cannot_rewind_authoritative_snapshot (test_contracts.LifecycleTests.test_older_event_cannot_rewind_authoritative_snapshot) ... ok\ntest_reclaimed_lease_fences_crashed_worker (test_contracts.LifecycleTests.test_reclaimed_lease_fences_crashed_worker) ... ok\ntest_result_is_deterministic (test_contracts.LifecycleTests.test_result_is_deterministic) ... ok\ntest_rollback_generation_still_advances (test_contracts.LifecycleTests.test_rollback_generation_still_advances) ... ok\ntest_same_business_version_cannot_change_time (test_contracts.LifecycleTests.test_same_business_version_cannot_change_time) ... ok\ntest_same_event_id_different_content_rejected (test_contracts.LifecycleTests.test_same_event_id_different_content_rejected) ... ok\ntest_send_rechecks_expiry_authorization_and_state (test_contracts.LifecycleTests.test_send_rechecks_expiry_authorization_and_state) ... ok\ntest_unknown_and_score_updates_do_not_create_epoch (test_contracts.LifecycleTests.test_unknown_and_score_updates_do_not_create_epoch) ... ok\ntest_valid_commit (test_contracts.LifecycleTests.test_valid_commit) ... ok\n\n----------------------------------------------------------------------\nRan 53 tests in 12.747s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "scripts/m7_phase2/contract_check.py"
+      ],
+      "durationSeconds": 4.609,
+      "exitCode": 0,
+      "name": "m7-examples",
+      "stderr": "",
+      "stdout": "PASS contracts/m7-phase2/examples/search-success.json\nPASS contracts/m7-phase2/examples/matching-success.json\nPASS contracts/m7-phase2/examples/search-empty.json\nPASS contracts/m7-phase2/examples/search-degraded.json\nPASS contracts/m7-phase2/examples/match-empty.json\nPASS contracts/m7-phase2/examples/match-degraded.json\nPASS contracts/m7-phase2/examples/matching-constraints-only.json\nPASS contracts/m7-phase2/examples/invalid-input.json\nPASS contracts/m7-phase2/examples/unauthenticated.json\nPASS contracts/m7-phase2/examples/forbidden.json\nPASS contracts/m7-phase2/examples/not-found.json\nPASS contracts/m7-phase2/examples/stale-snapshot.json\nPASS contracts/m7-phase2/examples/inactive-wanted.json\nPASS contracts/m7-phase2/examples/baseline-failed.json\nPASS contracts/m7-phase2/examples/matching-baseline-failed.json\nPASS contracts/m7-phase2/examples/authority-unavailable.json\nPASS contracts/m7-phase2/examples/rate-limited.json\nPASS contracts/m7-phase2/examples/matching-pending.json\nPASS contracts/m7-phase2/examples/product-event.json\nPASS contracts/m7-phase2/examples/matching-task.json\nPASS contracts/m7-phase2/examples/stored-result.json\nPASS contracts/m7-phase2/examples/notification-intent.json\n{\"status\": \"passed\", \"examples\": 22, \"scope\": \"synthetic contract validation only\"}\n"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "scripts/m7_phase2/pipeline.py",
+        "verify"
+      ],
+      "durationSeconds": 2.938,
+      "exitCode": 0,
+      "name": "m7-rebuild",
+      "stderr": "",
+      "stdout": "{\n  \"byteIdenticalRebuild\": true,\n  \"derivedHashes\": \"pass\",\n  \"note\": \"automated validation only; no independent human label review\",\n  \"rawHashes\": \"pass\",\n  \"result\": \"pass\"\n}\n"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m8_phase2",
+        "-p",
+        "test_pipeline.py",
+        "-v"
+      ],
+      "durationSeconds": 2.734,
+      "exitCode": 0,
+      "name": "m8-data-tests",
+      "stderr": "test_advice_bounds_are_ordered (test_pipeline.PipelineTests.test_advice_bounds_are_ordered) ... ok\ntest_build_is_deterministic (test_pipeline.PipelineTests.test_build_is_deterministic) ... ok\ntest_duplicate_id_fails (test_pipeline.PipelineTests.test_duplicate_id_fails) ... ok\ntest_l3_requires_completion (test_pipeline.PipelineTests.test_l3_requires_completion) ... ok\ntest_listing_price_is_not_a_transaction_label (test_pipeline.PipelineTests.test_listing_price_is_not_a_transaction_label) ... ok\ntest_missing_original_price_degrades (test_pipeline.PipelineTests.test_missing_original_price_degrades) ... ok\ntest_non_l3_transaction_label_fails (test_pipeline.PipelineTests.test_non_l3_transaction_label_fails) ... ok\ntest_unapproved_source_fails (test_pipeline.PipelineTests.test_unapproved_source_fails) ... ok\ntest_unknown_field_fails (test_pipeline.PipelineTests.test_unknown_field_fails) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.025s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m8_phase2",
+        "-p",
+        "test_contracts.py",
+        "-v"
+      ],
+      "durationSeconds": 2.172,
+      "exitCode": 0,
+      "name": "m8-contract-tests",
+      "stderr": "test_all_examples (test_contracts.ContractTests.test_all_examples) ... ok\ntest_fallback_never_blocks (test_contracts.ContractTests.test_fallback_never_blocks) ... ok\ntest_new_user_prior_is_not_public_rating (test_contracts.ContractTests.test_new_user_prior_is_not_public_rating) ... ok\ntest_public_risk_leak_fails (test_contracts.ContractTests.test_public_risk_leak_fails) ... ok\ntest_risk_decision_fails (test_contracts.ContractTests.test_risk_decision_fails) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.005s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "scripts/m8_phase2/contract_check.py"
+      ],
+      "durationSeconds": 2.453,
+      "exitCode": 0,
+      "name": "m8-examples",
+      "stderr": "",
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"examples\": 7,\n  \"kinds\": {\n    \"price_public\": 2,\n    \"risk_admin\": 1,\n    \"risk_public\": 1,\n    \"fallback\": 1,\n    \"trust_public\": 2\n  }\n}\n"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/asset_check.py"
+      ],
+      "durationSeconds": 2.219,
+      "exitCode": 0,
+      "name": "m8-readonly-rebuild",
+      "stderr": "",
+      "stdout": "{\n  \"files\": {\n    \"manifest.json\": \"197e3fddfb4373d325bf66fd5d7c7f6dc426510b6c6cfe18972763cf54251877\",\n    \"metrics.json\": \"618ed35fcd9a9e77306b8c51c615dc9ba3eed9613126af67c5e3d3e332ecfe5d\",\n    \"price-evaluation.jsonl\": \"74b73658aa5eeb7a72c8ca9faa683b9a29f8ea772279212f022e0ffdcd4ae0da\"\n  },\n  \"manifest\": {\n    \"datasetVersion\": \"m8-price-eval-v1\",\n    \"eligibleL3Count\": 0,\n    \"inputs\": {\n      \"price-samples.jsonl\": \"42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09\",\n      \"source-register.json\": \"5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3\"\n    },\n    \"recordCount\": 12,\n    \"ruleVersion\": \"price-rule-v1.0-phase2\",\n    \"schemaVersion\": \"m8-price-raw-v1\"\n  },\n  \"metrics\": {\n    \"boundsValidRate\": 1.0,\n    \"datasetVersion\": \"m8-price-eval-v1\",\n    \"intervalCoverage\": null,\n    \"labelLevel\": \"L0_SYNTHETIC\",\n    \"maeFen\": null,\n    \"mape\": null,\n    \"predictionMetrics\": \"NOT_EVALUATED\",\n    \"reason\": \"No eligible L3 completed-transaction labels; listing prices are never used as truth.\",\n    \"recordCount\": 12,\n    \"ruleCoverage\": 0.9166666666666666,\n    \"statusConformance\": 1.0\n  },\n  \"readOnly\": true,\n  \"status\": \"PASS\"\n}\n"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/intelligence_phase2",
+        "-p",
+        "test_joint.py",
+        "-v"
+      ],
+      "durationSeconds": 3.093,
+      "exitCode": 0,
+      "name": "joint-tests",
+      "stderr": "test_m8_committed_bytes_and_read_only (test_joint.AssetTests.test_m8_committed_bytes_and_read_only) ... ok\ntest_schema_rejects_invalid_brand (test_joint.AssetTests.test_schema_rejects_invalid_brand) ... ok\ntest_synthetic_source_cannot_claim_real_transaction_labels (test_joint.AssetTests.test_synthetic_source_cannot_claim_real_transaction_labels) ... ok\ntest_tampered_derived_fails_without_repairing_it (test_joint.AssetTests.test_tampered_derived_fails_without_repairing_it) ... ok\ntest_blank_threshold_is_no_go (test_joint.GateTests.test_blank_threshold_is_no_go) ... ok\ntest_current_missing_signatures_and_labels_are_no_go (test_joint.GateTests.test_current_missing_signatures_and_labels_are_no_go) ... ok\ntest_missing_capability_fails (test_joint.GateTests.test_missing_capability_fails) ... ok\ntest_removing_required_approver_does_not_bypass_gate (test_joint.GateTests.test_removing_required_approver_does_not_bypass_gate) ... ok\ntest_bool_is_not_label_or_k (test_joint.MetricTests.test_bool_is_not_label_or_k) ... ok\ntest_cannot_claim_approved_labels (test_joint.MetricTests.test_cannot_claim_approved_labels) ... ok\ntest_deduplicate_before_top_k (test_joint.MetricTests.test_deduplicate_before_top_k) ... ok\ntest_duplicate_label_fails (test_joint.MetricTests.test_duplicate_label_fails) ... ok\ntest_empty_input_fails (test_joint.MetricTests.test_empty_input_fails) ... ok\ntest_missing_query_fails (test_joint.MetricTests.test_missing_query_fails) ... ok\ntest_no_positive_denominator_is_null (test_joint.MetricTests.test_no_positive_denominator_is_null) ... ok\ntest_phase1_hand_calculation (test_joint.MetricTests.test_phase1_hand_calculation) ... ok\ntest_same_labels_across_algorithms (test_joint.MetricTests.test_same_labels_across_algorithms) ... ok\ntest_sensitivity_report_is_separate (test_joint.MetricTests.test_sensitivity_report_is_separate) ... ok\ntest_short_ranking_divides_by_k (test_joint.MetricTests.test_short_ranking_divides_by_k) ... ok\ntest_unknown_excludes_whole_query_but_keeps_audit (test_joint.MetricTests.test_unknown_excludes_whole_query_but_keeps_audit) ... ok\ntest_unknown_returned_product_fails (test_joint.MetricTests.test_unknown_returned_product_fails) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 0.250s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "contracts/intelligence-phase2/ranking-formula-fixture.json"
+      ],
+      "durationSeconds": 3.422,
+      "exitCode": 0,
+      "name": "ranking-formula",
+      "stderr": "",
+      "stdout": "{\n  \"metadata\": {\n    \"candidateScope\": \"COMPLETE_CATALOG_POOL\",\n    \"datasetVersion\": \"synthetic-formula-fixture-v1\",\n    \"kValues\": [\n      5,\n      10\n    ],\n    \"labelSource\": \"SYNTHETIC_FORMULA_FIXTURE\",\n    \"labelVersion\": \"hand-calculation-v1\",\n    \"schemaVersion\": \"intelligence-ranking-eval-v1\",\n    \"snapshotVersion\": \"formula-only-no-business-snapshot\",\n    \"splitVersion\": \"formula-only-no-test-set\"\n  },\n  \"metricVersion\": \"ranking-metrics-v1\",\n  \"modelEffectEvaluated\": false,\n  \"recallScope\": \"COMPLETE_CATALOG_POOL\",\n  \"runs\": [\n    {\n      \"algorithmVersion\": \"hand-authored-formula-rankings-v1\",\n      \"byTask\": {\n        \"matching\": {\n          \"excludedRequestCount\": 1,\n          \"hardViolationCount\": 2,\n          \"hardViolationRate\": 0.6666666666666666,\n          \"metrics\": {\n            \"label>=1@10\": {\n              \"falseRecommendationCount\": 1,\n              \"mrr\": null,\n              \"noAnswerEmptyAccuracy\": 0,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": null,\n              \"positiveRequestCount\": 0,\n              \"precision\": null,\n              \"recall\": null\n            },\n            \"label>=1@5\": {\n              \"falseRecommendationCount\": 1,\n              \"mrr\": null,\n              \"noAnswerEmptyAccuracy\": 0,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": null,\n              \"positiveRequestCount\": 0,\n              \"precision\": null,\n              \"recall\": null\n            },\n            \"label>=2@10\": {\n              \"falseRecommendationCount\": 1,\n              \"mrr\": null,\n              \"noAnswerEmptyAccuracy\": 0,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": null,\n              \"positiveRequestCount\": 0,\n              \"precision\": null,\n              \"recall\": null\n            },\n            \"label>=2@5\": {\n              \"falseRecommendationCount\": 1,\n              \"mrr\": null,\n              \"noAnswerEmptyAccuracy\": 0,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": null,\n              \"positiveRequestCount\": 0,\n              \"precision\": null,\n              \"recall\": null\n            }\n          },\n          \"requestCount\": 2,\n          \"returnedCount\": 3\n        },\n        \"search\": {\n          \"excludedRequestCount\": 0,\n          \"hardViolationCount\": 0,\n          \"hardViolationRate\": 0.0,\n          \"metrics\": {\n            \"label>=1@10\": {\n              \"falseRecommendationCount\": 0,\n              \"mrr\": 0.75,\n              \"noAnswerEmptyAccuracy\": 1,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": 0,\n              \"positiveRequestCount\": 2,\n              \"precision\": 0.15000000000000002,\n              \"recall\": 0.5\n            },\n            \"label>=1@5\": {\n              \"falseRecommendationCount\": 0,\n              \"mrr\": 0.75,\n              \"noAnswerEmptyAccuracy\": 1,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": 0,\n              \"positiveRequestCount\": 2,\n              \"precision\": 0.30000000000000004,\n              \"recall\": 0.5\n            },\n            \"label>=2@10\": {\n              \"falseRecommendationCount\": 0,\n              \"mrr\": 0.75,\n              \"noAnswerEmptyAccuracy\": 1,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": 0,\n              \"positiveRequestCount\": 2,\n              \"precision\": 0.15000000000000002,\n              \"recall\": 0.5\n            },\n            \"label>=2@5\": {\n              \"falseRecommendationCount\": 0,\n              \"mrr\": 0.75,\n              \"noAnswerEmptyAccuracy\": 1,\n              \"noAnswerRequestCount\": 1,\n              \"positiveEmptyRate\": 0,\n              \"positiveRequestCount\": 2,\n              \"precision\": 0.30000000000000004,\n              \"recall\": 0.5\n            }\n          },\n          \"requestCount\": 3,\n          \"returnedCount\": 7\n        }\n      },\n      \"perRequest\": [\n        {\n          \"duplicatesRemoved\": 0,\n          \"excludedReason\": null,\n          \"hardViolationByConstraint\": {\n            \"budget\": 1\n          },\n          \"hardViolationCount\": 1,\n          \"metrics\": {\n            \"label>=1@10\": {\n              \"falseRecommendations\": 1,\n              \"noAnswerEmpty\": false,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            },\n            \"label>=1@5\": {\n              \"falseRecommendations\": 1,\n              \"noAnswerEmpty\": false,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            },\n            \"label>=2@10\": {\n              \"falseRecommendations\": 1,\n              \"noAnswerEmpty\": false,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            },\n            \"label>=2@5\": {\n              \"falseRecommendations\": 1,\n              \"noAnswerEmpty\": false,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            }\n          },\n          \"requestId\": \"M0\",\n          \"returnedCount\": 1,\n          \"returnedProductIds\": [\n            \"n\"\n          ],\n          \"task\": \"matching\",\n          \"unknownEligibilityCount\": 0\n        },\n        {\n          \"duplicatesRemoved\": 0,\n          \"excludedReason\": \"UNRESOLVED_U_ENTIRE_REQUEST\",\n          \"hardViolationByConstraint\": {\n            \"visibility\": 1\n          },\n          \"hardViolationCount\": 1,\n          \"metrics\": {},\n          \"requestId\": \"MU\",\n          \"returnedCount\": 2,\n          \"returnedProductIds\": [\n            \"bad\",\n            \"u\"\n          ],\n          \"task\": \"matching\",\n          \"unknownEligibilityCount\": 1\n        },\n        {\n          \"duplicatesRemoved\": 0,\n          \"excludedReason\": null,\n          \"hardViolationByConstraint\": {},\n          \"hardViolationCount\": 0,\n          \"metrics\": {\n            \"label>=1@10\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 4,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.2,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 1.0\n            },\n            \"label>=1@5\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 4,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.4,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 1.0\n            },\n            \"label>=2@10\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 4,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.2,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 1.0\n            },\n            \"label>=2@5\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 4,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.4,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 1.0\n            }\n          },\n          \"requestId\": \"Q1\",\n          \"returnedCount\": 5,\n          \"returnedProductIds\": [\n            \"a\",\n            \"x\",\n            \"b\",\n            \"y\",\n            \"z\"\n          ],\n          \"task\": \"search\",\n          \"unknownEligibilityCount\": 0\n        },\n        {\n          \"duplicatesRemoved\": 0,\n          \"excludedReason\": null,\n          \"hardViolationByConstraint\": {},\n          \"hardViolationCount\": 0,\n          \"metrics\": {\n            \"label>=1@10\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 2,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.1,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 0.5\n            },\n            \"label>=1@5\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 2,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.2,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 0.5\n            },\n            \"label>=2@10\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 2,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.1,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 0.5\n            },\n            \"label>=2@5\": {\n              \"falseRecommendations\": null,\n              \"noAnswerEmpty\": null,\n              \"positiveCount\": 2,\n              \"positiveReturnedEmpty\": false,\n              \"precision\": 0.2,\n              \"recall\": 0.5,\n              \"reciprocalRank\": 0.5\n            }\n          },\n          \"requestId\": \"Q2\",\n          \"returnedCount\": 2,\n          \"returnedProductIds\": [\n            \"x\",\n            \"e\"\n          ],\n          \"task\": \"search\",\n          \"unknownEligibilityCount\": 0\n        },\n        {\n          \"duplicatesRemoved\": 0,\n          \"excludedReason\": null,\n          \"hardViolationByConstraint\": {},\n          \"hardViolationCount\": 0,\n          \"metrics\": {\n            \"label>=1@10\": {\n              \"falseRecommendations\": 0,\n              \"noAnswerEmpty\": true,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            },\n            \"label>=1@5\": {\n              \"falseRecommendations\": 0,\n              \"noAnswerEmpty\": true,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            },\n            \"label>=2@10\": {\n              \"falseRecommendations\": 0,\n              \"noAnswerEmpty\": true,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            },\n            \"label>=2@5\": {\n              \"falseRecommendations\": 0,\n              \"noAnswerEmpty\": true,\n              \"positiveCount\": 0,\n              \"positiveReturnedEmpty\": null,\n              \"precision\": null,\n              \"recall\": null,\n              \"reciprocalRank\": null\n            }\n          },\n          \"requestId\": \"Q3\",\n          \"returnedCount\": 0,\n          \"returnedProductIds\": [],\n          \"task\": \"search\",\n          \"unknownEligibilityCount\": 0\n        }\n      ]\n    }\n  ],\n  \"status\": \"DIAGNOSTIC_ONLY\"\n}\n"
+    },
+    {
+      "acceptedExitCodes": [
+        0,
+        3
+      ],
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/gate_check.py"
+      ],
+      "durationSeconds": 2.313,
+      "exitCode": 3,
+      "name": "model-gate-registration",
+      "stderr": "",
+      "stdout": "{\n  \"capabilities\": [\n    {\n      \"capability\": \"semantic-search\",\n      \"modelDecision\": \"NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE\",\n      \"reasons\": [\n        \"DATASET_NOT_FROZEN\",\n        \"REVIEWED_LABEL_COUNT_INSUFFICIENT\",\n        \"PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED\",\n        \"APPROVAL_MISSING_M1\",\n        \"APPROVAL_MISSING_M10\",\n        \"APPROVAL_MISSING_M7\"\n      ],\n      \"registration\": \"NO_GO\"\n    },\n    {\n      \"capability\": \"supply-demand-matching\",\n      \"modelDecision\": \"NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE\",\n      \"reasons\": [\n        \"DATASET_NOT_FROZEN\",\n        \"REVIEWED_LABEL_COUNT_INSUFFICIENT\",\n        \"PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED\",\n        \"APPROVAL_MISSING_M1\",\n        \"APPROVAL_MISSING_M10\",\n        \"APPROVAL_MISSING_M7\"\n      ],\n      \"registration\": \"NO_GO\"\n    },\n    {\n      \"capability\": \"price-model\",\n      \"modelDecision\": \"NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE\",\n      \"reasons\": [\n        \"DATASET_NOT_FROZEN\",\n        \"REVIEWED_LABEL_COUNT_INSUFFICIENT\",\n        \"PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED\",\n        \"APPROVAL_MISSING_M1\",\n        \"APPROVAL_MISSING_M10\",\n        \"APPROVAL_MISSING_M8\"\n      ],\n      \"registration\": \"NO_GO\"\n    }\n  ],\n  \"deploymentAuthorized\": false,\n  \"policyVersion\": \"model-gates-candidate-v1.1\"\n}\n"
+    }
+  ],
+  "runVersion": "intelligence-joint-run-v1.1",
+  "sourceHashes": {
+    ".gitattributes": "f258f8c3615905fd3c4340033cc45ece731038f7a260392e88f2b5beee3e5962",
+    "contracts/intelligence-phase2/model-gates.candidate.json": "a5ff97b6143da26100f410581eee6388f6752d7c193bb206bec32ee55828cfbc",
+    "contracts/intelligence-phase2/ranking-formula-fixture.json": "8ca4901538f5dc103a119c5d689cc8a5bd9e48543d293a4e5428aa6f090ffa3a",
+    "contracts/m7-phase2/development-policy.json": "9aeff1c32fd6c229e447ff259434832f8aaee10dba9785184e6c792ba61862a3",
+    "contracts/m7-phase2/examples.json": "720db2b3aac8e2669ba1e88153d55185c885b44c26303dd9355865bbc23b7b3f",
+    "contracts/m7-phase2/examples/authority-unavailable.json": "39d08aed5dd1017764411b05f4c52d4ef8a67ad9da6e21df6c682fca3fd7574a",
+    "contracts/m7-phase2/examples/baseline-failed.json": "b92af906d9125b8f71f2505410c52a7e6696bc9799bcdca8b0771958a3777220",
+    "contracts/m7-phase2/examples/forbidden.json": "10202dc38b4a768c467dd3916ef48a1a15213071f5ae04ad4cfad4c4d868f6bd",
+    "contracts/m7-phase2/examples/inactive-wanted.json": "93b81f056c7d6f78a6c03cff5ae58d5fa09226e72a94900ab037089309568ce4",
+    "contracts/m7-phase2/examples/invalid-input.json": "1cf7fc142721bd455112517e4be83279a8da3fdd84063a64e8173319d22758f2",
+    "contracts/m7-phase2/examples/match-degraded.json": "45204854cc92edbb747b17897ad59047c63139c827d4c132c4ea4057f33656a8",
+    "contracts/m7-phase2/examples/match-empty.json": "a2704a1a3865b089309230b7b7e409707b8b3eb3cc3c66db7bd886a05941cfae",
+    "contracts/m7-phase2/examples/matching-baseline-failed.json": "167997ab558fc853e20cfae3069955a1084c92d894d5eb20fff8e292a372a0a9",
+    "contracts/m7-phase2/examples/matching-constraints-only.json": "85ee50d6672c0016e92f24cdf55d696136c0718849cba3abc966a1d7f37a76b3",
+    "contracts/m7-phase2/examples/matching-pending.json": "fa20723a97d8cffc760c994f427927624498e55c3d19d8b22e281c13cb87e823",
+    "contracts/m7-phase2/examples/matching-success.json": "31c37cd4942dfd066026c5c0301dfa2b33b06a9cfa41b74b2f3d399e392694fa",
+    "contracts/m7-phase2/examples/matching-task.json": "6bb55491e92094592cdf9f320327d6ee546fb044e2bb44519a269f4f0bcb2a2c",
+    "contracts/m7-phase2/examples/not-found.json": "33b0a2d8252661883deeb5ec8aeb1b089804c482849a54feadef9eae53ee3625",
+    "contracts/m7-phase2/examples/notification-intent.json": "ca71531d16d543cf95ee60df227b9aebc4ce128e427c828cfe931da470a1080d",
+    "contracts/m7-phase2/examples/product-event.json": "ce990951186ea59ed51749e37496ab8c4a9048c5c373dd5a8d4e69e144f19bf2",
+    "contracts/m7-phase2/examples/rate-limited.json": "0d88b3f86bc2ec3779d706f5169f99b0264e6fb3c92dca476a6cc9939c1a14a2",
+    "contracts/m7-phase2/examples/search-degraded.json": "4ca196f721099240eb4616ddd20db0e3e17ada3afcdca0aab0a6d34946671523",
+    "contracts/m7-phase2/examples/search-empty.json": "ffde2b3417dc7f8e1820ecc37f2600461d0f794731a964a8cf6f9b2d85500c70",
+    "contracts/m7-phase2/examples/search-success.json": "8c8c6d24dd6a6df1220daca726705b6f3528c28698776d174ad30a5c4dcc3399",
+    "contracts/m7-phase2/examples/stale-snapshot.json": "bb9f097e1fe427fc54ebb9084480acb56b05b11b94da0541549ea7303f3a924d",
+    "contracts/m7-phase2/examples/stored-result.json": "c4344f9047f6a0243365df9e320bcab309682079456d4e790b285734ad1e4246",
+    "contracts/m7-phase2/examples/unauthenticated.json": "c46e60e345d2386b8897b8aae167d36428bab74853491dd8967fa78a9e3d11ab",
+    "contracts/m8-phase2/development-policy.json": "0d1fbd1b1971977e29598e44b857c410b064b373614f00b5b035df460c646b2e",
+    "contracts/m8-phase2/examples/price-success.json": "c54a20d12a7e955e47d94b7a9e2aaeb994b9b85afec6fa1f006b6d9b6dd4a5c1",
+    "contracts/m8-phase2/examples/price-unavailable.json": "2cf48aa6fd59fbe9b555f57f34400bb0d17521adfed2190fc120debe7e5175bf",
+    "contracts/m8-phase2/examples/risk-admin-case.json": "3755414bdd191ca10a5f82e595a9028fc8152d3644a53c0523180ee0e3b2b25c",
+    "contracts/m8-phase2/examples/risk-public-safe.json": "e2cfca2b25d06c576bb6968d7e67ea3b984b841d53b44b15cabd103eb15a6fa3",
+    "contracts/m8-phase2/examples/service-timeout.json": "469e43eee9d13c4e3568c1c06b5348c45bd0824aa4ce9c29179b9214c9468f10",
+    "contracts/m8-phase2/examples/trust-established.json": "dfb284aa1313386a1b2fd7fc4aec02344b08cd615a201bfcd819761cf18f312c",
+    "contracts/m8-phase2/examples/trust-new-user.json": "6ef607230ecfe3abbbb41620a9a7cafc4b841355b93ed519c07c80055a41eb8a",
+    "data/m7-phase2/derived/exclusions.json": "48b646600299ff7278024bf21586beed6048d9f6035a1828049b38b69f94c70a",
+    "data/m7-phase2/derived/labels.draft.jsonl": "a3a103bf2858e740c0f997e6f321780332f43319cd4d738fd458aefd45fb83a8",
+    "data/m7-phase2/derived/leakage-report.json": "8bfa836c446db25cd0cd9352d8be57bd2cf0265128f94814bee29386076c89a8",
+    "data/m7-phase2/derived/manifest.json": "89ad7ad186512a91b691b1c9fb6e0216b66b76d2c600d9a8479c67f44faea180",
+    "data/m7-phase2/derived/products.jsonl": "fde278938afb5933eb3292cfb93d728c8577cab7ec0f47f29b6f10ec4b2a844e",
+    "data/m7-phase2/derived/requests.jsonl": "7f6909687200fe474cbc0bad6c6c19393efe588841b1fb99590197c916d02c7e",
+    "data/m7-phase2/derived/review-queue.csv": "f177a2f42a3b55e5ef7b2cf5e7a265e5c47816c6d7d25fe3c66eaf47db45eb9b",
+    "data/m7-phase2/derived/snapshot-audit.jsonl": "c64edb1898cb9354624becae403530ae82fe8c94c9ed74b9123983451cabfb73",
+    "data/m7-phase2/derived/splits/dev.json": "9529901750ebd5c2a1a1c445cfb59bd8799244d421005315eee3836336927d2f",
+    "data/m7-phase2/derived/splits/test_candidate.json": "5aa1c152145270acb148d8795ea1c3545513a9de222e403e06a877d46f7687a5",
+    "data/m7-phase2/derived/summary.json": "9990450659bc2b51140e201cdf3b567c7ded2a075a83fd367fca827fa0dc4461",
+    "data/m7-phase2/raw/asset-manifest.json": "33aae7fb518014c18521f9ac1db8da4faa7d215fbb02059a9efb46ac9764cfae",
+    "data/m7-phase2/raw/dictionary.json": "21e6daaded3aa41800c3a33f8e7bcfcde8c5a248a6b030b3837fafc335d16567",
+    "data/m7-phase2/raw/products.jsonl": "7a7fd953c823187e50c102af68d3178dd65168c3d7a7b9b07a24819e22757ed9",
+    "data/m7-phase2/raw/requests.jsonl": "cedb0795c4a5348cb4dea3be905fe53216d6cbe45dc266669469d29a073a24fa",
+    "data/m7-phase2/raw/scenario-cards.json": "62e0ec71a8f30fdfc5b00d14da6c8be0cf2c279e410a6481fa2d21fc4bdcbbaf",
+    "data/m7-phase2/raw/semantic-drafts.jsonl": "5cf52723bf66deacac5fc16d4d816ae0ef6d0ce37790be391cc9e845c6e55114",
+    "data/m8-phase2/derived/manifest.json": "197e3fddfb4373d325bf66fd5d7c7f6dc426510b6c6cfe18972763cf54251877",
+    "data/m8-phase2/derived/metrics.json": "618ed35fcd9a9e77306b8c51c615dc9ba3eed9613126af67c5e3d3e332ecfe5d",
+    "data/m8-phase2/derived/price-evaluation.jsonl": "74b73658aa5eeb7a72c8ca9faa683b9a29f8ea772279212f022e0ffdcd4ae0da",
+    "data/m8-phase2/raw/price-samples.jsonl": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+    "data/m8-phase2/raw/source-register.json": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3",
+    "schemas/m7-phase2/contracts.schema.json": "20ba572ceb03ebf3368f82942d4afc4e55432bcbe31499ab5d31539c605be718",
+    "schemas/m7-phase2/dataset.schema.json": "881aef21b8f7ae375c86d352bdcac086e6b822ad079d8709c754a7c9c9a8521d",
+    "schemas/m8-phase2/contracts.schema.json": "dd6fb095149919c58a17d971136c4c2fb9e64cb8c967e32d385c3b0a111ad585",
+    "schemas/m8-phase2/price-dataset.schema.json": "90db0f8e571c5671fbe3e805775138aa34872fa01f71e1e711b58a53ae457a8e",
+    "scripts/intelligence_phase2/asset_check.py": "bcbbae297c79e7acc82f9e2eea63ad7989bc4b97c15785f684ac1e13a55b9b2c",
+    "scripts/intelligence_phase2/gate_check.py": "4a19bbecfa647d447fb1a260991d3e641d5bb2d8f484e051b5734bcd43d7677d",
+    "scripts/intelligence_phase2/metrics.py": "1717321624e11dc81ad8da62175ba5c10ba33e5c48cfd5fc8e0eacb37609d244",
+    "scripts/intelligence_phase2/run_all.py": "d23816815db2960fcc7ba3eefaca43588314ef1e4f9c8c4b48f2d9ae424826b4",
+    "scripts/intelligence_phase2/test_joint.py": "59ae4439440bde245d73a11b7d9c9dda4e0fc808fcf4e685ac2059b954e3ee99",
+    "scripts/m7_phase2/contract_check.py": "ca069d9823fa2ec57fa1dc44cd3fe730742180d999629258d7bae440863bcc7c",
+    "scripts/m7_phase2/pipeline.py": "6f66070283215ec9c20fea4b9d288f2b68fa1abd054c1f9a65ad73458140e1d8",
+    "scripts/m7_phase2/requirements.txt": "701bdda8fb1257e9b7380816bc8201dcbac3e5c16dd416a3851ad2b46e0fa8d0",
+    "scripts/m7_phase2/test_contracts.py": "2da6e0d222a79a0851c82a16d73c15f21b5b84514f57c30f822d7f4c8e1bbcdb",
+    "scripts/m7_phase2/test_pipeline.py": "ad3da54aba5172f84afbf52ed687a4c2b1360b71f422e6f0c6375240ff5b5786",
+    "scripts/m8_phase2/contract_check.py": "8de0ccb77f40a8ca8d3afa44e89caa3c8233f1afc3c8f29bb3a0a23fdcbc0c35",
+    "scripts/m8_phase2/pipeline.py": "84573a594494094f850ee59f836755e0c8cb2804d8e0fa9343e6a4942ecd5392",
+    "scripts/m8_phase2/test_contracts.py": "ebffac651cdeda9b1ff50840a6dfe02a47cf09f9a10a988704086156adfc790f",
+    "scripts/m8_phase2/test_pipeline.py": "7b367957cc1dbce050d3ff450cc875eec2fa084628a74162c0cd1033506f5db0"
+  },
+  "startedAt": "2026-10-07T17:27:07.042096+00:00",
+  "status": "PASS",
+  "workingTreeDirty": false
+}

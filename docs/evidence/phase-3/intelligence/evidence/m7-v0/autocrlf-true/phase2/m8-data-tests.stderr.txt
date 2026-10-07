@@ -1,0 +1,14 @@
+test_advice_bounds_are_ordered (test_pipeline.PipelineTests.test_advice_bounds_are_ordered) ... ok
+test_build_is_deterministic (test_pipeline.PipelineTests.test_build_is_deterministic) ... ok
+test_duplicate_id_fails (test_pipeline.PipelineTests.test_duplicate_id_fails) ... ok
+test_l3_requires_completion (test_pipeline.PipelineTests.test_l3_requires_completion) ... ok
+test_listing_price_is_not_a_transaction_label (test_pipeline.PipelineTests.test_listing_price_is_not_a_transaction_label) ... ok
+test_missing_original_price_degrades (test_pipeline.PipelineTests.test_missing_original_price_degrades) ... ok
+test_non_l3_transaction_label_fails (test_pipeline.PipelineTests.test_non_l3_transaction_label_fails) ... ok
+test_unapproved_source_fails (test_pipeline.PipelineTests.test_unapproved_source_fails) ... ok
+test_unknown_field_fails (test_pipeline.PipelineTests.test_unknown_field_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.025s
+
+OK

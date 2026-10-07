@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m7_baseline/tests",
+    "-v"
+  ],
+  "exitCode": 1,
+  "startedAt": "2026-10-07T17:04:38.275975+00:00",
+  "endedAt": "2026-10-07T17:04:39.027653+00:00",
+  "stdout": "",
+  "stderr": "test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility (test_engine.RankingTests.test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility) ... ok\ntest_keyword_title_weight_matches_published_hand_example (test_engine.RankingTests.test_keyword_title_weight_matches_published_hand_example) ... ok\ntest_matching_cannot_be_read_by_another_wanted_owner (test_engine.RankingTests.test_matching_cannot_be_read_by_another_wanted_owner) ... ok\ntest_matching_keeps_eligible_zero_text_score_and_explains_budget (test_engine.RankingTests.test_matching_keeps_eligible_zero_text_score_and_explains_budget) ... ok\ntest_matching_without_text_returns_null_score_not_perfect_score (test_engine.RankingTests.test_matching_without_text_returns_null_score_not_perfect_score) ... ok\ntest_relevance_ties_use_publication_time_then_numeric_id_and_price_sort (test_engine.RankingTests.test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort) ... FAIL\ntest_unknown_request_fields_are_rejected_instead_of_silently_ignored (test_engine.RankingTests.test_unknown_request_fields_are_rejected_instead_of_silently_ignored) ... ok\n\n======================================================================\nFAIL: test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort (test_engine.RankingTests.test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<repo>\\services\\m7_baseline\\tests\\test_engine.py\", line 89, in test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort\n    self.assertEqual([r[\"productId\"] for r in result[\"items\"]], [\"102\", \"101\"])\nAssertionError: Lists differ: ['101', '102'] != ['102', '101']\n\nFirst differing element 0:\n'101'\n'102'\n\n- ['101', '102']\n+ ['102', '101']\n\n----------------------------------------------------------------------\nRan 7 tests in 0.017s\n\nFAILED (failures=1)\n"
+}

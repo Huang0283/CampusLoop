@@ -1,0 +1,670 @@
+{
+  "candidateScope": "COMPLETE_CATALOG_POOL",
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "kValues": [
+    1,
+    5,
+    10
+  ],
+  "labelSource": "PENDING_HUMAN_REVIEW",
+  "labelVersion": "m7-label-draft-v1",
+  "requests": [
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "301",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "302",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "303",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "304",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "305",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "visibility"
+          ],
+          "label": 0,
+          "productId": "306",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "bicycle-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "301",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "302",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "303",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "304",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "305",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "visibility"
+          ],
+          "label": 0,
+          "productId": "306",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "bicycle-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "301",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "302",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "303",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "304",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "305",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "visibility"
+          ],
+          "label": 0,
+          "productId": "306",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "bicycle-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "401",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "402",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "403",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "404",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "405",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "visibility"
+          ],
+          "label": 0,
+          "productId": "406",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "calculus-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "401",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "402",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "403",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "404",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "405",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "visibility"
+          ],
+          "label": 0,
+          "productId": "406",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "calculus-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "401",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "402",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "403",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "404",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "405",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "visibility"
+          ],
+          "label": 0,
+          "productId": "406",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "calculus-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "501",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "502",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "503",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "504",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "505",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "not_self"
+          ],
+          "label": 0,
+          "productId": "506",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "keyboard-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "501",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "502",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "503",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "504",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "505",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "506",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "keyboard-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "501",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "502",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "503",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "504",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "505",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "506",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "keyboard-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": "unresolved_U_exclude_entire_query_from_all_main_comparisons",
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1001",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1002",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "1003",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1004",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1005",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": "U",
+          "productId": "1006",
+          "unknownConstraints": [
+            "model"
+          ]
+        }
+      ],
+      "requestId": "tablet-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1001",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1002",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "1003",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1004",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1005",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1006",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "tablet-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1001",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1002",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "1003",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1004",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1005",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1006",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "tablet-search-natural",
+      "task": "search"
+    }
+  ],
+  "runs": [
+    {
+      "algorithmVersion": "m7-keyword-v0+match-v0",
+      "rankings": {
+        "bicycle-matching": [
+          "302",
+          "301"
+        ],
+        "bicycle-search-exact": [
+          "301",
+          "302",
+          "303"
+        ],
+        "bicycle-search-natural": [
+          "302",
+          "301"
+        ],
+        "calculus-matching": [
+          "402",
+          "401"
+        ],
+        "calculus-search-exact": [
+          "401",
+          "403",
+          "402"
+        ],
+        "calculus-search-natural": [
+          "402",
+          "401",
+          "403"
+        ],
+        "keyboard-matching": [
+          "502",
+          "501"
+        ],
+        "keyboard-search-exact": [
+          "501",
+          "506",
+          "502",
+          "503"
+        ],
+        "keyboard-search-natural": [
+          "502",
+          "501",
+          "506",
+          "503"
+        ],
+        "tablet-matching": [
+          "1002",
+          "1001"
+        ],
+        "tablet-search-exact": [
+          "1001",
+          "1002",
+          "1006",
+          "1003"
+        ],
+        "tablet-search-natural": [
+          "1002",
+          "1001",
+          "1003",
+          "1006"
+        ]
+      }
+    }
+  ],
+  "schemaVersion": "intelligence-ranking-eval-v1",
+  "snapshotVersion": "m7-historical-asof-20260926",
+  "splitVersion": "m7-catalog-split-v1:test_candidate"
+}
