@@ -5,6 +5,8 @@ import shutil
 import tempfile
 import unittest
 
+from jsonschema.exceptions import ValidationError
+
 import asset_check
 import gate_check
 import metrics
@@ -124,7 +126,19 @@ class AssetTests(unittest.TestCase):
             rows = [json.loads(line) for line in file.read_text(encoding="utf-8").splitlines()]
             rows[0]["brand"] = 123
             file.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8", newline="\n")
-            with self.assertRaises(Exception):
+            with self.assertRaises(ValidationError):
+                asset_check.verify_price(root)
+
+    def test_synthetic_source_cannot_claim_real_transaction_labels(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.make_root(root)
+            file = root / "data/m8-phase2/raw/price-samples.jsonl"
+            rows = [json.loads(line) for line in file.read_text(encoding="utf-8").splitlines()]
+            rows[0].update(labelLevel="L3_COMPLETED_TRANSACTION", transactionPriceFen=100,
+                           completedAt=rows[0]["listedAt"])
+            file.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8", newline="\n")
+            with self.assertRaisesRegex(ValueError, "synthetic source cannot claim"):
                 asset_check.verify_price(root)
 
 

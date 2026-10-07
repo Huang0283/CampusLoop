@@ -29,6 +29,8 @@ def verify_price(root=ROOT):
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     for row in pipeline.read_jsonl(raw / "price-samples.jsonl"):
         validator.validate(row)
+        pipeline.require(row["sourceType"] != "synthetic" or row["labelLevel"] == "L0_SYNTHETIC",
+                         "synthetic source cannot claim real listing/offer/transaction labels")
     expected = {"manifest.json", "metrics.json", "price-evaluation.jsonl"}
     pipeline.require({p.name for p in derived.iterdir() if p.is_file()} == expected,
                      "M8 derived file set mismatch")
