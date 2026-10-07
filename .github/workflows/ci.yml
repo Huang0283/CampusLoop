@@ -48,7 +48,7 @@ jobs:
         working-directory: backend
     services:
       postgres:
-        image: pgvector/pgvector:pg16
+        image: pgvector/pgvector:0.8.6-pg16
         env:
           POSTGRES_USER: campusloop
           POSTGRES_PASSWORD: campusloop
@@ -61,7 +61,7 @@ jobs:
           --health-timeout 3s
           --health-retries 10
       redis:
-        image: redis:7-alpine
+        image: redis:7.4-alpine
         ports:
           - 6379:6379
         options: >-

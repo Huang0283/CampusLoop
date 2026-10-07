@@ -67,3 +67,10 @@
 
 - 完整 Compose 联调（第四节）在本次提交时尚未执行——不宣称已通过。
 - `sdk:check` 门禁恢复后的首次 CI 运行结果：以 Actions 页面为准（本地预检无漂移、编译通过，预期绿）。
+
+## 六、本机验收阻塞记录
+
+- 日期：2026-10-08。
+- 环境：Windows、Docker `29.8.0`、Docker Compose `v5.5.1`。
+- `docker compose ps` 未能连接 Docker Desktop Linux engine，返回“the system cannot find the file specified”；因此本次不能把本机五服务 Compose 验收记为通过。
+- 该环境问题不改变 CI 的迁移/回滚/种子/测试证据；Docker Desktop 启动后仍需按 `startup-guide.md` 重新执行并填写第四节实际结果。

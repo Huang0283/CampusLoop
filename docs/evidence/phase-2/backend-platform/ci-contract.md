@@ -24,8 +24,8 @@
 ## 环境一致性保证
 
 - 后端依赖只来自 `backend/requirements.txt`（全锁定），无隐式全局包
-- CI PostgreSQL 服务镜像与 docker-compose 一致：`pgvector/pgvector:pg16` 线
-  （compose 侧已进一步固定为 `0.8.6-pg16`，CI 服务为 GitHub 托管同源镜像）
+- CI PostgreSQL 服务镜像与 docker-compose 一致：`pgvector/pgvector:0.8.6-pg16`。
+- CI Redis 服务镜像与 docker-compose 一致：`redis:7.4-alpine`。
 - 前端 Node 22 + `package-lock.json` 锁定
 
 ## CI 范围边界（重要，评审明确）
