@@ -1,0 +1,17 @@
+{
+  "deterministic": true,
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.10.11",
+  "resultHash": "ac0f5c5ba36459f1f356aa1af200d44392f87e8d1b3d5a11b86c140af2efc70c",
+  "sourceHashes": {
+    "contracts/m8-phase3/fixed-cases.json": "bcfc6388555d84bb1af76d974720612b4c7fbc60b219e6ad07eb1e6260ed7c3b",
+    "contracts/m8-phase3/service-contract.json": "26e7d23509e373454c5b8bc918014a2850ffabf77a89e2d125b70b321966d93a",
+    "services/m8_baseline/client.py": "ceda32134762b1a55ee972e6d913207d9d769983083104d93c78d7cc225eb5cc",
+    "services/m8_baseline/engine.py": "a294b274ba349f84cd0999e1997e3122e8a60d7431c9c19b4d00929e605ec84f",
+    "services/m8_baseline/evaluate.py": "2d825d86146f9d61c99e7150ad55de28fc6e61240c37da78d47857add1eb8661",
+    "services/m8_baseline/http_service.py": "83d7fffcd6e08a53f94797abd4600fda94e6fd99a6f5ec758f32b7b3a344dae5",
+    "services/m8_baseline/verify.py": "8fd67b80e0a0e19f63c46a2fe996238c13093312e2c529d71880257e0a9845d3"
+  },
+  "testsReturnCode": 0,
+  "verificationVersion": "m8-p3-verification-v1"
+}
