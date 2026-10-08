@@ -42,6 +42,7 @@ import type { Product } from '../../sdk/generated/types.gen';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 import { mockProducts } from './index';
+import { findManagedProduct } from '../../mocks/marketManagement';
 
 const { Header, Sider, Content } = Layout;
 
@@ -136,7 +137,10 @@ const ProductDetailPage: React.FC = () => {
         }
       } catch (requestError) {
         if (!cancelled) {
-          const mockProduct = mockProducts.find((item) => item.id === parsedProductId) ?? null;
+          const mockProduct =
+            mockProducts.find((item) => item.id === parsedProductId) ??
+            findManagedProduct(parsedProductId) ??
+            null;
           const isNotFound =
             typeof requestError === 'object' &&
             requestError !== null &&

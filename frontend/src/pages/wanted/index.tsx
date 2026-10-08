@@ -24,7 +24,7 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
-import { listWanted } from '../../sdk/generated/sdk.gen';
+import { readWantedItems } from '../../mocks/wantedManagement';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -86,6 +86,7 @@ const WantedPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
   const [searchText, setSearchText] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
   const [filters, setFilters] = useState({
@@ -97,21 +98,25 @@ const WantedPage: React.FC = () => {
   useEffect(() => {
     let cancelled = false;
 
-    // 页面加载时从后端获取求购列表，并映射为现有卡片使用的数据结构。
-    const fetchWantedItems = async () => {
+    // Phase 2 从持久化 Mock 数据加载；Phase 3 按 page-api-map 替换为 listWanted。
+    const timer = window.setTimeout(() => {
       setLoading(true);
       setError(null);
 
       try {
-        const response = await listWanted({
-          query: { page: 1, pageSize: 100, query: appliedQuery || undefined },
-          throwOnError: true,
-        });
-
+        if (sessionStorage.getItem('wantedMockLoadError') === 'true') {
+          throw new Error('Mock 求购加载失败');
+        }
         if (cancelled) return;
-
-        setWantedItems(
-          response.data.items.map((item) => ({
+        const normalizedQuery = appliedQuery.trim().toLocaleLowerCase('zh-CN');
+        setWantedItems(readWantedItems()
+          .filter((item) =>
+            !normalizedQuery ||
+            [item.title, item.description, item.condition, item.location]
+              .filter((value): value is string => Boolean(value))
+              .some((value) => value.toLocaleLowerCase('zh-CN').includes(normalizedQuery)),
+          )
+          .map((item) => ({
             id: item.id,
             title: item.title,
             description: item.description ?? '',
@@ -123,8 +128,7 @@ const WantedPage: React.FC = () => {
             avatar: item.owner.avatar ?? '',
             time: formatCreatedAt(item.createdAt),
             createdAt: item.createdAt,
-          })),
-        );
+          })));
       } catch {
         if (!cancelled) {
           setWantedItems([]);
@@ -133,15 +137,14 @@ const WantedPage: React.FC = () => {
       } finally {
         if (!cancelled) setLoading(false);
       }
-    };
-
-    void fetchWantedItems();
+    }, 300);
 
     // 组件卸载后忽略尚未完成的请求结果，避免更新已卸载组件。
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
     };
-  }, [appliedQuery]);
+  }, [appliedQuery, reloadKey]);
 
   const filteredItems = useMemo(() => {
     const result = wantedItems.filter((item) => {
@@ -195,6 +198,7 @@ const WantedPage: React.FC = () => {
   };
 
   const handleReset = () => {
+    sessionStorage.removeItem('wantedMockLoadError');
     setFilters({
       budget: undefined,
       condition: undefined,
@@ -203,6 +207,11 @@ const WantedPage: React.FC = () => {
     setSearchText('');
     setAppliedQuery('');
     setCurrentPage(1);
+  };
+
+  const handleRetry = () => {
+    sessionStorage.removeItem('wantedMockLoadError');
+    setReloadKey((value) => value + 1);
   };
 
   const renderTag = (tag?: WantedItem['tag']) => {
@@ -382,7 +391,12 @@ const WantedPage: React.FC = () => {
                 </Col>
               ) : error ? (
                 <Col span={24}>
-                  <Alert type="error" showIcon message={error} />
+                  <Alert
+                    type="error"
+                    showIcon
+                    message={error}
+                    action={<Button onClick={handleRetry}>重新加载</Button>}
+                  />
                 </Col>
               ) : filteredItems.length === 0 ? (
                 <Col span={24}>
