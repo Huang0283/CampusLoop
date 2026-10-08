@@ -1,0 +1,21 @@
+{
+  "checkedDate": "2026-10-08",
+  "sheetPath": "review-aid/human-review-sheet.csv",
+  "sheetSha256": "55499ad827fd33e40c0240f1fbaf486a2e501bc3f3b2a79de04c63e2700171c6",
+  "suppliedReadmeSha256": "14f9ffdc3e470a5c5d6c7c207ab1ce309eb1ef9abc58e44898f43f690710ae0b",
+  "rows": 228,
+  "uniqueLabelIds": 228,
+  "matchesOriginalLabelIds": true,
+  "filledFieldCounts": {
+    "reviewer": 0,
+    "reviewLabel(2/1/0/U)": 0,
+    "reviewReason": 0,
+    "reviewedAt": 0,
+    "dispute": 0,
+    "adjudicator": 0,
+    "finalLabel": 0,
+    "adjudicatedAt": 0
+  },
+  "fileStatus": "UNFILLED_REVIEW_TEMPLATE",
+  "verifiedCompletedRecords": 0
+}

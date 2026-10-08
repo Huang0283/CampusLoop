@@ -1,6 +1,8 @@
 # AI2-02 搜索与匹配标注记录
 
-版本：m7-p2-data-v1，2026-09-26。状态：合成试运行集已构建、候选初标及自动一致性校验完成；人工复核/裁决未完成。不得将 assistant 初标写成 M7 本人或 M8/M10 签字。
+2026-10-08 状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，无需修改原标签；逐条复核记录由用户稍后提供。当前状态为“人工复核完成，记录待归档校验”，不等同跨组签字、数据封存或阶段验收。详情见 [复核状态](human-review-status.md)。
+
+版本：m7-synthetic-p2-v1.1，2026-09-26。状态：合成试运行集已构建、候选初标及自动一致性校验完成；用户已确认 228 对人工复核全部正确，原标签不变；逐条复核记录待归档。不得代填 M7/M8/M10 身份或签字。
 
 ## 1. 实际资产规模与覆盖
 
@@ -19,7 +21,7 @@
 | 0 | 不相关或任一硬条件失败，即使文字高度相似 | 117 |
 | U | 关键硬条件未知，且没有其他已知失败 | 2 |
 
-合计 228。所有记录 human reviewer/adjudicator=null、reviewStatus=pending_human_review。没有调用检索排序或模型输出生成标签：语义候选判断在 raw/semantic-drafts.jsonl 中逐对保存；程序只规范化字段、枚举硬条件并组合最终候选标签。
+合计 228，用户确认复核后全部正确，数量与标签不变。原候选文件中的 human reviewer/adjudicator 仍为 null、reviewStatus=pending_human_review；这些字段尚未接收结构化复核记录，不代表人工工作未执行。没有调用检索排序或模型输出生成标签：语义候选判断在 raw/semantic-drafts.jsonl 中逐对保存；程序只规范化字段、枚举硬条件并组合最终候选标签。
 
 [场景卡](../../../../data/m7-phase2/raw/scenario-cards.json) 说明构造意图；[语义初标](../../../../data/m7-phase2/raw/semantic-drafts.jsonl) 保存初标理由和来源；[完整标签](../../../../data/m7-phase2/derived/labels.draft.jsonl) 逐对保存语义标签、最终标签、每项硬条件的 observed/required/outcome。author 固定为 assistant:synthetic-draft，表示本次辅助生成会话。
 
@@ -48,11 +50,11 @@
 
 lamp-matching、tablet-matching 各含一个 U。它们的整条请求从所有方案的主比较中一致排除，不能只删 U 商品再补位。tennis-matching-expired 单独做状态回归，不参与相关性主报告。排除记录在 [exclusions.json](../../../../data/m7-phase2/derived/exclusions.json)。
 
-排除后剩余 35 条结构上可比较的请求，其中 1 条是有效无答案查询；这些仍未通过人工标签审核，因此当前主性能报告可用的“已批准查询数”为 0。主 P/R/MRR 只在有正例且已批准的同一集合计算；无答案单列。
+排除后剩余 35 条结构上可比较的请求，其中 1 条是有效无答案查询；用户已确认逐对复核正确，但逐条记录、批准角色及封存版本尚未归档，因此正式已批准查询集合仍未建立。主 P/R/MRR 只在有正例且已批准的同一集合计算；无答案单列。
 
 ## 5. 人工复核与裁决入口
 
-提供 [review-queue.csv](../../../../data/m7-phase2/derived/review-queue.csv)，有 228 行并保留原始候选标签。reviewer、reviewLabel、reviewReason、reviewedAt、dispute、adjudicator、finalLabel、adjudicatedAt 当前全部留空，表示未执行而非无争议。
+提供 [review-queue.csv](../../../../data/m7-phase2/derived/review-queue.csv)，有 228 行并保留原始候选标签。reviewer、reviewLabel、reviewReason、reviewedAt、dispute、adjudicator、finalLabel、adjudicatedAt 在原候选 CSV 中仍为空，等待用户提供逐条复核记录；不能据此否认已确认的人工复核，也不能代填复核者或执行时间。
 
 建议流程：
 
@@ -61,4 +63,4 @@ lamp-matching、tablet-matching 各含一个 U。它们的整条请求从所有�
 3. 差异进入 dispute，指定裁决者依据业务事实处理。补字段会改变数据，必须更新原始资产版本和哈希；不能只改标签掩盖缺失。
 4. M10 抽查硬边界和指标可计算性。只有审批后的标签另存新 labelVersion，才进入正式评估；不得覆盖本轮原始候选记录。
 
-本轮实际复核：程序验证标签对全覆盖、枚举合法、版本选择和硬条件一致性，并运行边界测试。它与初标同属本会话，不能称为独立人工复核。AI2-02 正式验收剩余项就是实际复核、争议裁决与记录确认。
+2026-09-26 的程序检查：验证标签对全覆盖、枚举合法、版本选择和硬条件一致性，并运行边界测试。它与初标同属本会话，不能称为独立人工复核。2026-10-08 用户确认 228 对人工复核全部正确；AI2-02 剩余正式验收项为逐条记录归档校验及接收确认。用户未提供实际复核日期或角色签字，本次不代填。

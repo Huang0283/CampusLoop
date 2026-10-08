@@ -1,0 +1,9 @@
+{
+  "checkedCodeCommit": "f361549f9fd707c1061f79e68fa8dcec803a6383",
+  "baseGroupCommit": "010e18793feb6c5a40dc691b710962f506290d90",
+  "autocrlfTrueStatus": "PASS",
+  "autocrlfFalseStatus": "PASS",
+  "assetHashesEqual": true,
+  "bothCheckoutsCleanBeforeRun": true,
+  "independentM10Acceptance": "PENDING"
+}
