@@ -10,7 +10,7 @@
 | 当前后端组基线 | `c3a49290bf29cd54c1b569ed7a08dbd175891913`，[M9 PR #76](https://github.com/Huang0283/CampusLoop/pull/76) 已合并 | ORM、种子、初始 canonical OpenAPI |
 | 验收后的 Phase 1 + MQ2 输入 | `3837d3c351f830568b1f52955015752010e32fbb`，[阶段集成提交](https://github.com/Huang0283/CampusLoop/tree/3837d3c351f830568b1f52955015752010e32fbb) | Phase 1 认证边界、HR-01～18，MQ2 安全状态矩阵 |
 | 前端契约走查 | `a4b06faa90492faee27eb075db270dc0e4903bb9`，[前端走查](https://github.com/Huang0283/CampusLoop/blob/a4b06faa90492faee27eb075db270dc0e4903bb9/docs/evidence/phase-2/frontend/contract-review.md) | nickname、bio、campusVerified、school、退出参数差异 |
-| M9 补证 | [PR #86](https://github.com/Huang0283/CampusLoop/pull/86)，2026-10-08 为 open | 种子哈希说明、启动/CI 证据；不能视作已合入 |
+| M9 补证 | [PR #86](https://github.com/Huang0283/CampusLoop/pull/86)，已合并为 `811e6249c5859f3d894de7014c0536ade73cdc71`，本次已同步 | 种子哈希说明、启动/CI 证据；不等于 M9 已接收本次认证设计 |
 
 当前后端组基线尚不含完整 Phase 1 认证证据，因此本次使用上述固定提交读取输入，而非伪造当前分支已有输入。同步事项列在 G01；本次不把其他组改动混入个人 PR。
 

@@ -3,7 +3,7 @@
 # 门禁内容（对应 Issue BP-P2 验收）：
 #   backend-quality : ruff 格式检查 + 静态检查（干净检出必须零告警）
 #   backend-test    : 空库迁移 -> 回滚 -> 再迁移 -> 种子幂等两遍 -> pytest
-#   frontend-build  : lint + build（SDK 漂移检查待前端 sdk:check 脚本就绪后启用）
+#   frontend-build  : SDK 漂移检查 + lint + build
 #
 # 保护范围：main、phase*/ 集成分支、task/** 任务分支的 push 与全部 PR。
 # 注意：本文件放仓库根 .github/workflows/ci.yml。
@@ -48,7 +48,7 @@ jobs:
         working-directory: backend
     services:
       postgres:
-        image: pgvector/pgvector:pg16
+        image: pgvector/pgvector:0.8.6-pg16
         env:
           POSTGRES_USER: campusloop
           POSTGRES_PASSWORD: campusloop
@@ -61,7 +61,7 @@ jobs:
           --health-timeout 3s
           --health-retries 10
       redis:
-        image: redis:7-alpine
+        image: redis:7.4-alpine
         ports:
           - 6379:6379
         options: >-
@@ -117,8 +117,10 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - name: Install dependencies
         run: npm ci
-      # SDK 漂移检查（npm run sdk:check）暂缓：前端尚未提供该脚本，
-      # 就绪后在此恢复：生成 SDK 并校验与提交版本无漂移。
+      # SDK 漂移门禁（验收整改恢复）：从 openapi/campusloop.v1.yaml 重新生成 SDK
+      # 并编译校验；OpenAPI 改动而 SDK 未同步时在此红灯，阻止合入。
+      - name: SDK drift check
+        run: npm run sdk:check
       - name: Lint
         run: npm run lint
       - name: Build
