@@ -1,0 +1,39 @@
+{
+  "configVersion": "m7-semantic-model-candidate-v1",
+  "modelId": "BAAI/bge-small-zh-v1.5",
+  "revision": "7999e1d3359715c523056ef9478215996d62a620",
+  "dimension": 512,
+  "maximumTokens": 512,
+  "pooling": "CLS",
+  "normalizeEmbeddings": true,
+  "dtype": "float32",
+  "batchSize": 16,
+  "device": "cpu",
+  "seed": 0,
+  "intraOpThreads": 1,
+  "trustRemoteCode": false,
+  "queryInstruction": "为这个句子生成表示以用于检索相关文章：",
+  "preprocessingVersion": "m7-semantic-text-v1",
+  "documentFieldOrder": [
+    "title",
+    "model",
+    "categoryDisplayName",
+    "description"
+  ],
+  "unicodeNormalization": "NFKC",
+  "whitespace": "collapse",
+  "truncationSide": "right",
+  "indexVersion": "m7-vector-index-v1",
+  "indexBackend": "sqlite-exact-cosine",
+  "productSchemaVersion": "m7-processed-v1",
+  "ranking": {
+    "version": "m7-hybrid-rrf-v1",
+    "rrfK": 60,
+    "keywordWeight": 1,
+    "vectorWeight": 1,
+    "maximumCandidateDepth": 100
+  },
+  "deploymentEnabled": false,
+  "readiness": "DESIGN_ONLY_IMPLEMENTATION_PENDING",
+  "sourceProvenanceFile": "source-provenance.json"
+}
