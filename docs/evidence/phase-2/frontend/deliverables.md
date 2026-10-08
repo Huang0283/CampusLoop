@@ -15,6 +15,7 @@
 - FE2-03：`component-specification.md`、`PageState` 五态组件及真实公共组件 API。
 - FE2-04：`page-api-map.md`、生成 SDK 入口和当前契约缺口登记。
 - FE2-12：`contract-review.md`、`mock-replacement-plan.md`、本目录验证和交接记录。
+- FE2-11（M2 范围）：`page-state-matrix.md`，逐页登记 M2 公共、认证、资料和管理入口的加载、空、成功、失败、无权限状态或不适用理由。
 
 ## M3 已提交
 
@@ -28,7 +29,7 @@
 ## 尚未计入完成
 
 - M4 的 FE2-08 至 FE2-10 交付和任务 PR 验收。
-- M2、M4 各自页面的五态矩阵；M3 范围已经登记，但不能据此勾选全组 FE2-11。
+- M4 页面的五态矩阵；M2、M3 范围均已登记，但不能据此勾选全组 FE2-11。
 - M4 在公开业务页面接入 `useRequireAuthAction` 后的端到端动作回跳验收。
 - M5/M6/M7/M8 契约对签、M10 可测试性验收、M1 范围复核。
 - 小组汇总 PR 合入 `phase2/integration`。

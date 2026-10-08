@@ -58,3 +58,12 @@ npm run build
 - 求购闭环：从 `/wanted/publish` 新建，进入详情；编辑并保存；二次确认关闭；进入匹配结果查看规则降级、原因和非成交概率说明。
 - 失败入口：`productMockUploadError`、`productMockSubmitError`、`wantedMockLoadError`、`wantedMockSubmitError` 四个 sessionStorage 标记。
 - 边界：这是 Phase 2 可点击 Mock 验收，不声称真实 API、数据库、上传、智能服务或跨组契约已经完成。
+
+## M2 页面五态收尾验证
+
+- 日期：2026-10-08。
+- 分支：`task/m2-p2-page-state-closeout`。
+- 检查范围：`/`、`/login`、`/register`、`/profile`、`/admin`、`/403`、`/404` 及共享认证/角色守卫。
+- 文档检查：每个 M2 页面均填写加载、空、成功、失败、无权限状态或当前阶段不适用理由；同步 Mock 页面未冒充真实接口状态。
+- 自动命令：`npm run lint`、`npm run build`、`npm run sdk:check`、`git diff --check`。
+- 边界：本记录只关闭 M2 的 FE2-11 页面范围，不代替 M3/M4 页面登记、跨组契约签字或 M10/M1 阶段验收。
