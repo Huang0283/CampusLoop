@@ -1,6 +1,8 @@
 # AI2-03 数据划分与泄漏检查
 
-版本：m7-p2-data-v1.1，2026-09-28。修订只统一 JSON/JSONL 输出为 LF、固定 Git 字节检出并更新 manifest，划分/种子/标签语义不变。验证范围见 [portability-review.md](portability-review.md)。不是封存、未见或团队已冻结的测试集。
+2026-10-08 状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，无需修改原标签；逐条复核记录由用户稍后提供。当前状态为“人工复核完成，记录待归档校验”，不等同跨组签字、数据封存或阶段验收。详情见 [复核状态](human-review-status.md)。
+
+版本：m7-synthetic-p2-v1.1，2026-09-28。修订只统一 JSON/JSONL 输出为 LF、固定 Git 字节检出并更新 manifest，划分/种子/标签语义不变。验证范围见 [portability-review.md](portability-review.md)。不是封存、未见或团队已冻结的测试集。
 
 ## 1. 划分对象与结果
 
