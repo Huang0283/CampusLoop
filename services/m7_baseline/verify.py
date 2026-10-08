@@ -12,34 +12,44 @@ from scripts.intelligence_phase2.run_all import asset_hashes, clean_log, git_val
 from .engine import ROOT
 
 
-def hashes():
+def hashes(review_archive=None):
     values = asset_hashes()
     for directory in ("services", "schemas/m7-phase3"):
         for path in sorted((ROOT / directory).rglob("*")):
             if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc":
                 values[path.relative_to(ROOT).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    if review_archive is not None:
+        for name in ("manifest.json", "review-records.csv", "labels.reviewed.jsonl", "review-check.json"):
+            values["<review-archive>/" + name] = hashlib.sha256((review_archive / name).read_bytes()).hexdigest()
     return values
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--review-archive", type=Path)
     args = parser.parse_args()
     directory = args.output_dir.resolve()
     if directory.exists() and any(directory.iterdir()):
         parser.error("output directory must be empty")
     directory.mkdir(parents=True, exist_ok=True)
-    before = hashes()
+    before = hashes(args.review_archive)
     record = dict(status="PASS", startedAt=datetime.now(timezone.utc).isoformat(),
                   codeCommit=git_value(["rev-parse", "HEAD"]), workingTreeDirty=bool(git_value(["status", "--porcelain"])),
                   environment=dict(os=platform.system(), python=platform.python_version(), machine=platform.machine()),
                   command=["python", "-m", "services.m7_baseline.verify", "--output-dir", "<empty-directory>"],
                   sourceHashes=before, results=[], acceptance="AUTHOR_TECHNICAL_CHECK_ONLY; M6/M8/M9/M10/M1 acceptance pending")
     environment = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1")
+    if args.review_archive is not None:
+        record["command"].extend(["--review-archive", "<review-archive>"])
     steps = [("phase2-regression", ["scripts/intelligence_phase2/run_all.py", "--output-dir", str(directory / "phase2")]),
              ("phase3-tests", ["-m", "unittest", "discover", "-s", "services/m7_baseline/tests", "-v"]),
              ("fixed-evaluation", ["-m", "services.m7_baseline.evaluate", "--output-dir", str(directory / "evaluation")]),
              ("repeat-evaluation", ["-m", "services.m7_baseline.evaluate", "--output-dir", str(directory / "evaluation-repeat")])]
+    if args.review_archive is not None:
+        for name, arguments in steps:
+            if name in {"fixed-evaluation", "repeat-evaluation"}:
+                arguments.extend(["--review-archive", str(args.review_archive.resolve())])
     for split in ("all", "dev", "test_candidate"):
         steps.append(("recalculate-" + split, ["scripts/intelligence_phase2/metrics.py", "--input", str(directory / "evaluation" / f"evaluation-input-{split}.json"), "--output", str(directory / f"recalculated-{split}.json")]))
     for name, arguments in steps:
@@ -65,7 +75,7 @@ def main():
         record["metricsRecalculated"] = all(json.loads((directory / f"recalculated-{s}.json").read_text(encoding="utf-8")) == json.loads((directory / "evaluation" / f"metrics-{s}.json").read_text(encoding="utf-8")) for s in ("all", "dev", "test_candidate"))
         if not record["deterministicEvaluation"] or not record["metricsRecalculated"]:
             record["status"] = "FAIL"
-    record["assetsUnchanged"] = before == hashes()
+    record["assetsUnchanged"] = before == hashes(args.review_archive)
     if not record["assetsUnchanged"]:
         record["status"] = "FAIL"
     record["endedAt"] = datetime.now(timezone.utc).isoformat()

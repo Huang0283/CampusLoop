@@ -16,3 +16,5 @@
 M8 的 AI3-05—08 不在本次实现范围。以上均不作为 Phase 3 小组完成、Issue 关闭或主分支发布的依据。
 
 源码：`services/m7_baseline/`；schema：`schemas/m7-phase3/rpc.schema.json`；证据：`evidence/m7-v0/`。未修改公共 OpenAPI/SDK、M8 个人服务、前端、M9 业务迁移或冻结 Phase 2 数据；原 ownerId 字段保留。
+
+2026-10-08 评审修订：已补齐复核 CSV 检查、零标签改动的单独归档、新 labelVersion 与条件读取。`evaluate/verify --review-archive` 根据重新验证的逐条记录生成 humanReviewedPairs 与 labelSource，不再把计数固定在输出中。当前真实表仍为空，尚未发布实际复核标签版本；新增工具与测试不改变该事实。运行方法见 [复核归档手册](review-archive-runbook.md)。
