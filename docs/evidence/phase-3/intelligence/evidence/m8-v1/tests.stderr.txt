@@ -1,0 +1,21 @@
+test_network_failure_degrades (test_client.ClientTests) ... ok
+test_risk_fallback_never_enforces (test_client.ClientTests) ... ok
+test_interval_is_ordered_and_not_exact_promise (test_engine.PriceTests) ... ok
+test_missing_anchor_is_insufficient (test_engine.PriceTests) ... ok
+test_rejects_boolean_price (test_engine.PriceTests) ... ok
+test_input_is_not_mutated (test_engine.RiskTests) ... ok
+test_no_clue_has_no_review (test_engine.RiskTests) ... ok
+test_threshold_emits_explanation_but_no_penalty (test_engine.RiskTests) ... ok
+test_cancelled_disputed_and_invalid_do_not_increase_score (test_engine.TrustTests) ... ok
+test_new_user_is_neutral (test_engine.TrustTests) ... ok
+test_smoothing_limits_small_sample (test_engine.TrustTests) ... ok
+test_all_fixed_cases_pass (test_evaluation.EvaluationTests) ... ok
+test_authentication_is_required (test_http.HttpTests) ... ok
+test_unknown_fields_are_rejected (test_http.HttpTests) ... ok
+test_versioned_price_route (test_http.HttpTests) ... ok
+test_wrong_media_type_is_rejected (test_http.HttpTests) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.538s
+
+OK

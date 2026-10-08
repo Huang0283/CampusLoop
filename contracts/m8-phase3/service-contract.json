@@ -1,0 +1,32 @@
+{
+  "contractVersion": "m8-baseline-rpc-v1",
+  "visibility": "trusted-backend-only",
+  "transport": {
+    "listenHost": "127.0.0.1",
+    "maxBodyBytes": 1048576,
+    "socketReadTimeoutMs": 3000,
+    "clientTimeoutMs": 500,
+    "authentication": "Bearer token, minimum 32 characters",
+    "contentType": "application/json"
+  },
+  "routes": {
+    "/v1/price-advice": "price",
+    "/v1/trust-summary": "trust",
+    "/v1/risk-clues": "risk"
+  },
+  "errors": [
+    "UNAUTHORIZED",
+    "NOT_FOUND",
+    "PAYLOAD_TOO_LARGE",
+    "UNSUPPORTED_MEDIA_TYPE",
+    "VALIDATION_ERROR",
+    "DEPENDENCY_UNAVAILABLE"
+  ],
+  "fallbacks": {
+    "price": "MANUAL_PRICE_ENTRY",
+    "trust": "FACT_COUNT_OR_UNAVAILABLE",
+    "risk": "STORE_REPORT_FOR_MANUAL_QUEUE"
+  },
+  "logging": "operation, status, error code and duration only; no payload, token, user ID or device ID",
+  "riskEnforcementAllowed": false
+}
