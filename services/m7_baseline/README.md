@@ -49,4 +49,6 @@ RPC 首请求要求 asOf 距当前时间不超过 60 秒；后续快照页不超
 
 ## 评估限制
 
-历史 asOf 固定为 2026-09-26；现场 RPC 不接受该历史时间。72 个合成商品、38 条请求、228 对草稿标签；人工复核 0。每查询仅评估同 catalog 的完整六商品池，绝非线上全库召回。U 整查询剔除，过期求购单独记错误。参数未按 test_candidate 调优，三个 split 分开报告。详见 `docs/evidence/phase-3/intelligence/`。
+历史 asOf 固定为 2026-09-26；现场 RPC 不接受该历史时间。72 个合成商品、38 条请求、228 对原草稿标签；用户确认 228/228 对人工复核全部正确，逐条记录待归档，原评估运行的历史计数保留。正式封存标签版本尚未发布。每查询仅评估同 catalog 的完整六商品池，绝非线上全库召回。U 整查询剔除，过期求购单独记错误。参数未按 test_candidate 调优，三个 split 分开报告。详见 `docs/evidence/phase-3/intelligence/`。
+
+当前复核确认与辅助表检查见 [人工复核状态](../../docs/evidence/phase-2/intelligence/human-review-status.md)。本次仅修订文档和交付包，不改变服务算法、评估输入或历史指标输出。

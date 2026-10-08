@@ -1,5 +1,7 @@
 # AI3-01 关键词基线与分页
 
+2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
+
 实现位于 engine.py、store.py，运行方式见 services/m7_baseline/README.md。NFKC、小写、拉丁数字内部连字符、汉字双字片段/单字查询去重；字符区间 U+3400—4DBF、U+4E00—9FFF、U+20000—2FA1F，固定 tokenizerVersion。无停用词、别名或语义模型。
 
 title/model/category display name/description 权重 4/2/2/1，字段内重复不加分，分母恒为 9×去重查询词数。尚无批准的 categoryNames 映射时该字段贡献 0，不能把 categoryId 伪装成分类显示名。新增显示名字典要增加字典版本/哈希并重新评估。

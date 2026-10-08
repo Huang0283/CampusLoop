@@ -1,5 +1,7 @@
 # Phase 3 接收与阻塞清单
 
+2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
+
 本次从 Phase 2 已提交候选继续技术准备，正式 Phase 3 输入门禁没有闭合。2026-10-08 重新获取远端，未发现 phase3/integration 或 phase3/intelligence-baselines；main 仍为 Phase 1 收口，智能组 Phase 2 基准 010e187 已含 M8 PR #82。Phase 2 共同技术交付见 [草稿 PR #87](https://github.com/Huang0283/CampusLoop/pull/87)，本人互审、接口签字及阶段收口尚待完成。
 
 代码 `1c235abba1c7a337501aacdec14f987c447563b0` 在 prep/m7-p3-search-matching-baseline；此分支用于保留和评审准备，不冒充规定的 task/m7-p3-search-matching-baseline。M1 建立正式 phase3/integration 后，M7 从正式基准创建组/个人分支，移入本次代码和证据，再向 phase3/intelligence-baselines 发起任务 PR；不要直接把包含未收口 Phase 2 的准备分支合入 main。
@@ -9,7 +11,7 @@
 | AI3-01/02 实现、schema、解释 | M7 → M8；M6/M3 | 互审算法和数据域；提供权威商品/身份快照及公共 DTO/错误/分页映射；当前只能评审候选 | 首次项目联调前 |
 | AI3-03 真实事件与原子复核 | M6/M9 → M7 | 提供 outbox 及业务条件写协议；验证修改/关闭/到期/权限撤销和乱序，补齐生产领取恢复 | 第三次汇报前，联调开始前必须有接口提交 |
 | 通知政策与通知事务 | M4/M6/M7；M9 | 批准阈值/频率/周期政策，接唯一键和发送前复核；未齐保持关闭 | 通知开启前 |
-| AI3-04 草稿评估 | M7/M8/M10 | 真人复核 228 对、补正式授权数据、封存 split；当前数值不能验模型门槛 | Phase 4 固定基准签字前 |
+| AI3-04 草稿评估 | M7/M8/M10 | 归档 228 对已复核记录并校验、补正式授权数据、封存 split；当前数值不能验模型门槛 | Phase 4 固定基准签字前 |
 | AI3-09 整体调用及资源 | M3/M5/M6/M8/M9 | 确认超时/并发/恢复；真实调用并演示关闭服务仍可交易 | 第三次汇报前 |
 | AI3-10 独立复现与签字 | M10；M8/M9/M1 | 从正式阶段提交执行 verification.md；填写执行人、环境、日志与结论 | 阶段验收及 Phase 4 消费前 |
 | 正式分支/接收日期 | M1/M7 | M1 完成 Phase 2 收口并创建 phase3/integration；确认真实汇报日期 | 创建正式任务 PR 前 |

@@ -1,5 +1,7 @@
 # AI3-09 M7 服务入口验证
 
+2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
+
 私有 loopback RPC m7-baseline-rpc-v1：POST /v1/rank 与 /v1/page，JSON schema 位于 schemas/m7-phase3，processed 请求与商品校验沿用 Phase 2。字段不等同公共 API；不会改 SDK 或直接返回伪造商品 DTO。错误是 {schemaVersion,error:{code}}；成功 data 含内部 ID/版本、分数、原因、元数据和分页扫描信息。
 
 输入身份和商品事实必须由已授权可信后端提供。服务凭据≥32字符、只监听 127.0.0.1；浏览器不得持有凭据。请求体 8 MiB、最多 5000 商品、页面 1—100；拒绝未知字段、重复 JSON 键、NaN/Infinity、非法时间/金额/枚举/快照。当前候选错误码 UNAUTHORIZED、SNAPSHOT_EXPIRED/INVALID_SNAPSHOT 与 Phase 2 公共错误 UNAUTHENTICATED/SNAPSHOT_STALE 不相同，M6 需在确认后显式映射，不能宣称公共契约已接入。

@@ -1,5 +1,7 @@
 # AI3-03 持久任务及联调缺口
 
+2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
+
 BaselineStore 是 M7 私有同步持久实现，不是后台队列。events、tasks、current_results 与 snapshots 保存到实际 SQLite 文件，重开后可读取。逻辑 taskKey 使用 Phase 2 InputVersion 的 wantedId/wantedVersion/catalogRevision/authorizationRevision/policyGeneration/refreshGeneration/asOf；事实内容另存哈希。相同 eventId 不同内容返回 EVENT_CONFLICT；相同任务输入冲突返回 TASK_INPUT_CONFLICT。
 
 事务 BEGIN IMMEDIATE 串行检查当前修订组，任一分量倒退即 SUPERSEDED；同修订组不得改变 asOf。结果、事件与当前指针同事务保存。resultVersion 是确定内容哈希，排除生命周期 state；旧历史结果在读时显示 superseded，不能伪报 current。调用者必须确保每个修订号含义与业务事实一致，M7 私库只能比较已见修订，无法证明业务库未在计算期间改变。

@@ -1,5 +1,7 @@
 # AI3-10 作者复现记录
 
+2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
+
 被检出的代码提交 `1c235abba1c7a337501aacdec14f987c447563b0`。Windows / Python 3.12，使用新的隔离 venv 与 scripts/m7_phase2/requirements.txt 六个锁定依赖；没有新增依赖。两个独立干净本地检出分别 autocrlf=true/false，运行前 workingTreeDirty=false。命令均从仓库根目录执行，输出在检出外空目录：
 
 ```text
