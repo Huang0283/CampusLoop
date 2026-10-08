@@ -23,3 +23,15 @@ TDD 逐步失败/通过记录在 evidence/m7-v0/tdd/，为未提交工作树期�
 范围限制：没有 Linux/macOS 实机、M6 业务数据库与 outbox、异步租约恢复、真实站内通知、资源压力或 M10 非作者运行。M8/M9/M10/M1 的本人评审、接收和签字均待完成。不得凭本记录将阶段 Issue 关闭或批准 Phase 4 模型。
 
 导出记录统一 UTF-8/LF，Windows 原始 PowerShell 文本由 UTF-16 转码，机器绝对路径脱敏；该处理不改变测试结论。源文件与固定评估的字节哈希比较保留在各 run-record 和 checkout-comparison 中。
+
+## 2026-10-08 复核归档修订验证
+
+新增条件读取、复核表核验与归档工具的代码提交为 `b88b2a1429003877abca547771c32f8e9423b25a`，独立于上述初次交付的历史记录。原程序运行新增出处测试时因缺少 labelSource 输出而失败，真实失败记录见 evidence/review-archive-v1/provenance-red.txt/json；该记录来自作者工作树，不冒充独立验收。
+
+在该代码提交的真实 Git 干净检出、Windows / Python 3.12 锁定环境中执行相同 verify 命令：workingTreeDirty=false、codeCommit 非空且精确对应提交。116 项 Phase 2 测试、31 项 Phase 3 测试（新增 8 项）、29 个契约样例全部通过；38 查询重复评估字节一致，三个 split 的指标可独立重算，资产前后不变。完整结果见 evidence/review-archive-v1/clean-run/run-record.json 和 summary.json。
+
+新测试在临时目录中验证有效归档更新计数与来源、空表/缺字段/重复和缺失编号拒绝、最终标签差异清单、带时区时间及裁决完整性、改写文件哈希后的记录不一致拒绝、新版本及非空输出目录保护。测试用 fixture-only 记录不作为真实复核凭证，测试输出归档不发布成用户正式标签版本。
+
+实际用户辅助表检查为 228 行、已归档有效记录 0、readyToArchive=false、退出 2；完整检查见 evidence/review-archive-v1/actual-review-sheet-check.json。故真实固定评估仍使用原草稿和 PENDING_HUMAN_REVIEW。这是预期保留状态；不代填实际人或时间。其他成员签字、M6 业务联调、正式集成分支与封存仍未完成。
+
+M10 正式验收必须从真实阶段 Git 集成提交干净检出并核对 codeCommit，不能以无 .git 的导出 ZIP 替代；本修订仍为作者技术验证。

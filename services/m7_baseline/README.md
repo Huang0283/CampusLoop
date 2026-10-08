@@ -51,6 +51,6 @@ RPC 首请求要求 asOf 距当前时间不超过 60 秒；后续快照页不超
 
 历史 asOf 固定为 2026-09-26；现场 RPC 不接受该历史时间。72 个合成商品、38 条请求、228 对原草稿标签；用户确认 228/228 对人工复核全部正确，逐条记录待归档，原评估运行的历史计数保留。正式封存标签版本尚未发布。每查询仅评估同 catalog 的完整六商品池，绝非线上全库召回。U 整查询剔除，过期求购单独记错误。参数未按 test_candidate 调优，三个 split 分开报告。详见 `docs/evidence/phase-3/intelligence/`。
 
-当前复核确认与辅助表检查见 [人工复核状态](../../docs/evidence/phase-2/intelligence/human-review-status.md)。本次仅修订文档和交付包，不改变服务算法、评估输入或历史指标输出。
+当前复核确认与辅助表检查见 [人工复核状态](../../docs/evidence/phase-2/intelligence/human-review-status.md)。前次状态修订仅更新文档和交付包，不改变服务算法、评估输入或历史指标输出。
 
 2026-10-08 后续修订新增 `review_archive` 检查/归档工具，以及 `evaluate`、`verify` 的 `--review-archive` 参数。未提供归档时继续使用原草稿并显示结构化记录待归档；提供有效归档后，读取新 labelVersion，报告实际记录数和 `HUMAN_REVIEWED_UNSEALED`。后者仍属诊断，不能解释为已封存或模型获批；原始数据、排序算法与历史日志保留。详见 [复核归档手册](../../docs/evidence/phase-3/intelligence/review-archive-runbook.md)。
