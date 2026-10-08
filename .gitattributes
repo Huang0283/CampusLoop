@@ -28,3 +28,5 @@
 /services/m7_baseline/** text eol=lf
 /schemas/m7-phase3/** text eol=lf
 /docs/evidence/phase-3/intelligence/** text eol=lf
+# Preserve the user-supplied review template bytes for its evidence SHA256.
+docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text whitespace=cr-at-eol
