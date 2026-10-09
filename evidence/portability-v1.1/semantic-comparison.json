@@ -1,0 +1,97 @@
+{
+  "previousPackage": "CampusLoop_M7_Phase2_AI2-01_05_v1",
+  "newDatasetVersion": "m7-synthetic-p2-v1.1",
+  "files": [
+    {
+      "file": "exclusions.json",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "5d92456e59e02bc20f56b3aa62e60c383f35d595121c15f6f0c30b7a2d935e97",
+      "newSha256": "48b646600299ff7278024bf21586beed6048d9f6035a1828049b38b69f94c70a",
+      "oldCrlf": 14,
+      "newCrlf": 0
+    },
+    {
+      "file": "labels.draft.jsonl",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "6b97b16a05412d84896d7dd11b8b8d7ada4059f6cb809b8a403c0f7a41c2bebf",
+      "newSha256": "a3a103bf2858e740c0f997e6f321780332f43319cd4d738fd458aefd45fb83a8",
+      "oldCrlf": 228,
+      "newCrlf": 0
+    },
+    {
+      "file": "leakage-report.json",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "4fdc951f637320f195193f4f93e741437a6c0f7d1202a1e004bf42f49d618064",
+      "newSha256": "8bfa836c446db25cd0cd9352d8be57bd2cf0265128f94814bee29386076c89a8",
+      "oldCrlf": 50,
+      "newCrlf": 0
+    },
+    {
+      "file": "products.jsonl",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "db7c6174d7eeb9efe39394d3e1f257df67a9ec2b75ed04bd2f628b425aad0602",
+      "newSha256": "fde278938afb5933eb3292cfb93d728c8577cab7ec0f47f29b6f10ec4b2a844e",
+      "oldCrlf": 72,
+      "newCrlf": 0
+    },
+    {
+      "file": "requests.jsonl",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "4fa5475266ad6118be9c1b8eebdf1e3457a970665e8c53beb1dfa5c12ff23821",
+      "newSha256": "7f6909687200fe474cbc0bad6c6c19393efe588841b1fb99590197c916d02c7e",
+      "oldCrlf": 38,
+      "newCrlf": 0
+    },
+    {
+      "file": "review-queue.csv",
+      "semanticUnchanged": true,
+      "byteUnchanged": true,
+      "oldSha256": "f177a2f42a3b55e5ef7b2cf5e7a265e5c47816c6d7d25fe3c66eaf47db45eb9b",
+      "newSha256": "f177a2f42a3b55e5ef7b2cf5e7a265e5c47816c6d7d25fe3c66eaf47db45eb9b",
+      "oldCrlf": 0,
+      "newCrlf": 0
+    },
+    {
+      "file": "snapshot-audit.jsonl",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "e145dac0a6f0577cdfea4f4a971f35b06333a7c2206a820c60c1376a0c3ce4a9",
+      "newSha256": "c64edb1898cb9354624becae403530ae82fe8c94c9ed74b9123983451cabfb73",
+      "oldCrlf": 12,
+      "newCrlf": 0
+    },
+    {
+      "file": "summary.json",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "0521eee3d3a6e944375a104da455823aedcdd3ddf2d2606ab3a4b33ecd01cfec",
+      "newSha256": "9990450659bc2b51140e201cdf3b567c7ded2a075a83fd367fca827fa0dc4461",
+      "oldCrlf": 47,
+      "newCrlf": 0
+    },
+    {
+      "file": "splits/dev.json",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "0d2febf49bb3821ef717dfc2f45a24ccb46939eddd84d55590765e21945b2cea",
+      "newSha256": "9529901750ebd5c2a1a1c445cfb59bd8799244d421005315eee3836336927d2f",
+      "oldCrlf": 251,
+      "newCrlf": 0
+    },
+    {
+      "file": "splits/test_candidate.json",
+      "semanticUnchanged": true,
+      "byteUnchanged": false,
+      "oldSha256": "d6d9cdf5e1bafde82476cbfbca5f084e5031c90df609e84b6dd63fffbcbd03cd",
+      "newSha256": "5aa1c152145270acb148d8795ea1c3545513a9de222e403e06a877d46f7687a5",
+      "oldCrlf": 125,
+      "newCrlf": 0
+    }
+  ],
+  "manifestChanges": "datasetVersion, serializationVersion, pipelineSha256 and derivedHashes; no data/schema/label semantics changed"
+}

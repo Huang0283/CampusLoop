@@ -1,0 +1,54 @@
+STDOUT
+[master (root-commit) c3219b0] Local portability fixture; not CampusLoop delivery
+ 49 files changed, 6098 insertions(+)
+ create mode 100644 .gitattributes
+ create mode 100644 contracts/m7-phase2/development-policy.json
+ create mode 100644 contracts/m7-phase2/examples.json
+ create mode 100644 contracts/m7-phase2/examples/authority-unavailable.json
+ create mode 100644 contracts/m7-phase2/examples/baseline-failed.json
+ create mode 100644 contracts/m7-phase2/examples/forbidden.json
+ create mode 100644 contracts/m7-phase2/examples/inactive-wanted.json
+ create mode 100644 contracts/m7-phase2/examples/invalid-input.json
+ create mode 100644 contracts/m7-phase2/examples/match-degraded.json
+ create mode 100644 contracts/m7-phase2/examples/match-empty.json
+ create mode 100644 contracts/m7-phase2/examples/matching-baseline-failed.json
+ create mode 100644 contracts/m7-phase2/examples/matching-constraints-only.json
+ create mode 100644 contracts/m7-phase2/examples/matching-pending.json
+ create mode 100644 contracts/m7-phase2/examples/matching-success.json
+ create mode 100644 contracts/m7-phase2/examples/matching-task.json
+ create mode 100644 contracts/m7-phase2/examples/not-found.json
+ create mode 100644 contracts/m7-phase2/examples/notification-intent.json
+ create mode 100644 contracts/m7-phase2/examples/product-event.json
+ create mode 100644 contracts/m7-phase2/examples/rate-limited.json
+ create mode 100644 contracts/m7-phase2/examples/search-degraded.json
+ create mode 100644 contracts/m7-phase2/examples/search-empty.json
+ create mode 100644 contracts/m7-phase2/examples/search-success.json
+ create mode 100644 contracts/m7-phase2/examples/stale-snapshot.json
+ create mode 100644 contracts/m7-phase2/examples/stored-result.json
+ create mode 100644 contracts/m7-phase2/examples/unauthenticated.json
+ create mode 100644 data/m7-phase2/derived/exclusions.json
+ create mode 100644 data/m7-phase2/derived/labels.draft.jsonl
+ create mode 100644 data/m7-phase2/derived/leakage-report.json
+ create mode 100644 data/m7-phase2/derived/manifest.json
+ create mode 100644 data/m7-phase2/derived/products.jsonl
+ create mode 100644 data/m7-phase2/derived/requests.jsonl
+ create mode 100644 data/m7-phase2/derived/review-queue.csv
+ create mode 100644 data/m7-phase2/derived/snapshot-audit.jsonl
+ create mode 100644 data/m7-phase2/derived/splits/dev.json
+ create mode 100644 data/m7-phase2/derived/splits/test_candidate.json
+ create mode 100644 data/m7-phase2/derived/summary.json
+ create mode 100644 data/m7-phase2/raw/asset-manifest.json
+ create mode 100644 data/m7-phase2/raw/dictionary.json
+ create mode 100644 data/m7-phase2/raw/products.jsonl
+ create mode 100644 data/m7-phase2/raw/requests.jsonl
+ create mode 100644 data/m7-phase2/raw/scenario-cards.json
+ create mode 100644 data/m7-phase2/raw/semantic-drafts.jsonl
+ create mode 100644 schemas/m7-phase2/contracts.schema.json
+ create mode 100644 schemas/m7-phase2/dataset.schema.json
+ create mode 100644 scripts/m7_phase2/contract_check.py
+ create mode 100644 scripts/m7_phase2/pipeline.py
+ create mode 100644 scripts/m7_phase2/requirements.txt
+ create mode 100644 scripts/m7_phase2/test_contracts.py
+ create mode 100644 scripts/m7_phase2/test_pipeline.py
+
+STDERR

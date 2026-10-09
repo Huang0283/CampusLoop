@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "m7-event-candidate-v1",
+  "eventId": "b3db9e34-6efa-4af8-b2e8-d3b50452cbb1",
+  "entityType": "product",
+  "entityId": 101,
+  "entityVersion": 2,
+  "eventType": "PRODUCT_CHANGED",
+  "occurredAt": "2026-09-28T00:00:00Z",
+  "catalogRevision": 7,
+  "authorizationRevision": 3,
+  "policyGeneration": 1,
+  "refreshGeneration": 1
+}

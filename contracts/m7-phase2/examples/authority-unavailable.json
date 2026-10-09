@@ -1,0 +1,16 @@
+{
+  "caseId": "authority-unavailable",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 503,
+  "response": {
+    "code": "DEPENDENCY_UNAVAILABLE",
+    "message": "暂时无法核实访问权限",
+    "requestId": "fixture-authority-unavailable",
+    "details": null
+  }
+}

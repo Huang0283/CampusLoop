@@ -1,0 +1,13 @@
+{
+  "boundsValidRate": 1.0,
+  "datasetVersion": "m8-price-eval-v1",
+  "intervalCoverage": null,
+  "labelLevel": "L0_SYNTHETIC",
+  "maeFen": null,
+  "mape": null,
+  "predictionMetrics": "NOT_EVALUATED",
+  "reason": "No eligible L3 completed-transaction labels; listing prices are never used as truth.",
+  "recordCount": 12,
+  "ruleCoverage": 0.9166666666666666,
+  "statusConformance": 1.0
+}

@@ -1,0 +1,26 @@
+# Preserve exact bytes of versioned data/schema assets, including existing raw CRLF.
+# These files are hashed; do not let core.autocrlf silently transform them.
+/.gitattributes text eol=lf
+/data/m7-phase2/** -text
+/schemas/m7-phase2/** -text
+/contracts/m7-phase2/** -text
+
+# These tracked assets intentionally retain CRLF bytes; do not report the
+# carriage return at the physical line ending as trailing whitespace.
+/data/m7-phase2/raw/** whitespace=cr-at-eol
+/schemas/m7-phase2/** whitespace=cr-at-eol
+/contracts/m7-phase2/** whitespace=cr-at-eol
+
+# Python producer and dependency-lock hashes must survive checkout on every OS.
+/scripts/m7_phase2/*.py text eol=lf
+/scripts/m7_phase2/requirements.txt text eol=lf
+
+# M8 and shared evaluation assets also participate in byte/hash verification.
+/data/m8-phase2/** -text
+/schemas/m8-phase2/** -text
+/contracts/m8-phase2/** -text
+/contracts/intelligence-phase2/** -text
+/scripts/m8_phase2/*.py text eol=lf
+/scripts/intelligence_phase2/*.py text eol=lf
+# Preserve the user-supplied review template bytes for its evidence SHA256.
+docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text whitespace=cr-at-eol
