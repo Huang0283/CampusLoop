@@ -62,10 +62,10 @@ M5 原始设计基线为 `c3a49290bf29cd54c1b569ed7a08dbd175891913`；本次已�
 
 | 评审意见 | 处理 | 状态 |
 |---|---|---|
-| MinIO 使用 latest 无法拉取，需固定 registry/tag | compose 四镜像全部固定 tag，附国内镜像应急方案 | ✅ 本批修复 |
-| CI 未执行 SDK 漂移检查（sdk:check 被注释） | 门禁恢复；恢复前本地预检无漂移、tsc 通过 | ✅ 本批修复 |
-| CI 绿灯 ≠ 完整 Compose 通过 | ci-contract.md 明确范围边界；干净环境流程与记录表就绪 | 🔧 待机房执行 |
-| 缺全部 8 份证据文档 | 本批提交 8 份（verification.md 含待补区，不编造） | ✅/🔧 |
+| MinIO 使用 latest 无法拉取，需固定 registry/tag | 一轮整改（09-29）：固定 RELEASE tag。二轮整改（10-08）：官方删除 Docker Hub 仓库（09-11）并关闭 quay 匿名拉取（09-24），改为 `Dockerfile.minio` 从固定源码 tag 自建，版本号不变，不再依赖任何第三方 registry | ✅ 两轮修复 |
+| CI 未执行 SDK 漂移检查（sdk:check 被注释） | 门禁恢复；恢复前本地预检无漂移、tsc 通过 | ✅ 一轮修复，CI 已全绿 |
+| CI 绿灯 ≠ 完整 Compose 通过 | ci-contract.md 明确范围边界；干净环境流程与记录表就绪。首次执行（10-08）即捕获 MinIO 官方镜像下架——非项目缺陷，已按上述二轮整改，待复跑 | 🔧 待复跑取证 |
+| 缺全部 8 份证据文档 | 已提交 8 份（verification.md 含待补区，不编造） | ✅/🔧 |
 
 ### 明确不在本交付范围（依赖他组，见 handoff.md）
 

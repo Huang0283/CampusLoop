@@ -173,15 +173,31 @@ PASS: changed tracked files are within M5 document ownership
 
 ### 四、干净环境完整 Compose 验证（BP2-09 验收口径）
 
-> 状态：**待执行**。CI 不启动 MinIO/完整 Compose，故此节必须单独取证。
+> 状态：**待复跑**（首次执行记录见下方"事件记录"）。CI 不启动 MinIO/完整
+> Compose，故此节必须单独取证。
 > 执行环境：学校机房 / 任何全新机器（无本地镜像缓存、无未提交配置）。
 > 操作步骤：startup-guide.md「干净环境标准验收流程」。
 > 建议使用 `clean-env-verify.sh` 一键执行并自动留存日志。
 
-| 验证项 | 期望结果 | 实际结果（机房填写） |
+### 事件记录：2026-10-08 首次执行（Linux，Docker 29.8.2，提交 2499d9b）
+
+- 结果：**失败于镜像拉取步骤**，非项目缺陷：
+  `minio/minio:RELEASE.2025-10-15T17-29-55Z → error from registry: denied`
+- 根因（外部事件）：MinIO 于 2026-09-11 删除 Docker Hub `minio/minio`、
+  `minio/mc` 仓库，2026-09-24 关闭 quay.io 匿名拉取；固定 tag 与
+  docker login 均无法绕过。日志留档：`clean-env-verify-20261008-212608.log`。
+- 处置：二轮整改——MinIO 服务端与 mc 改为 `Dockerfile.minio` 从固定源码
+  tag 自建（版本号不变），不再依赖第三方 registry；pgvector/redis 拉取
+  正常（证明网络与 registry 访问本身无问题）。
+- 意义：本事件恰好证明"CI 绿灯 ≠ 完整环境可用"（CI 不含 MinIO 所以一直
+  绿），干净环境验证作为独立证据不可省略——与负责人第 3 点意见一致。
+
+### 待复跑验证项
+
+| 验证项 | 期望结果 | 实际结果（复跑后填写） |
 |---|---|---|
-| `docker compose pull` | 四个固定 tag 镜像全部拉取成功 | 待填 |
-| `docker compose up -d --build` | api 构建成功，五服务启动 | 待填 |
+| `docker compose pull` | pgvector/redis 拉取成功（minio/api 为自建，Skipped 属正常） | 待填 |
+| `docker compose up -d --build` | api 与 minio 镜像构建成功，五服务启动 | 待填 |
 | `docker compose ps` | db/redis/minio/api 均 healthy，minio-init exited(0) | 待填 |
 | 空库升级（api 启动自动执行） | `alembic upgrade head` 无错误，启动日志可见 | 待填 |
 | `docker compose exec api python scripts/seed.py --check` | `[seed][PASS] 两遍执行结果完全一致` | 待填 |

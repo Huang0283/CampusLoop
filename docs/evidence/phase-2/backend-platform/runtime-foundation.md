@@ -12,7 +12,7 @@
 | 结构化日志 | `backend/app/core/logging.py` | JSON 行式 + 敏感键打码 |
 | 健康接口 | `backend/app/api/routes/system.py` | `/health`（200+degraded 语义）、`/ready`（503 探针） |
 | 依赖锁 | `backend/requirements.txt` | 全部固定版本（fastapi 0.115.6 / sqlalchemy 2.0.36 / alembic 1.14.0 等） |
-| 一键环境 | `docker-compose.yml` | db / redis / minio / minio-init / api 五服务，全部固定镜像 tag |
+| 一键环境 | `docker-compose.yml` + `Dockerfile.minio` | 五服务：db/redis 固定 tag，minio/mc 源码自建，api 本地构建 |
 
 ## 运行环境版本基线
 
@@ -21,11 +21,15 @@
 | Python | 3.12（CI 实测 3.12.14） | 本地与容器均为 python:3.12-slim |
 | PostgreSQL | 16 + pgvector 0.8.6 | `pgvector/pgvector:0.8.6-pg16` |
 | Redis | 7.4 线 | `redis:7.4-alpine` |
-| MinIO | RELEASE.2025-10-15T17-29-55Z | 服务端；初始化客户端 mc RELEASE.2025-08-13T08-35-41Z |
+| MinIO 服务端 | RELEASE.2025-10-15T17-29-55Z | **源码自建**（Dockerfile.minio；官方镜像仓库已于 2026-09 下架，见下） |
+| mc 客户端 | RELEASE.2025-08-13T08-35-41Z | 同一自建镜像内 |
 | Node（前端/SDK 门禁） | 22 | GitHub Actions setup-node |
 
-镜像版本策略：验收整改后全部固定 tag，禁止 `latest`，保证干净环境可复现；
-国内拉取超时的应急方案见 startup-guide.md。
+镜像策略：验收整改后全部固定版本、禁止 `latest`。MinIO 因官方于
+2026-09-11 删除 Docker Hub 仓库、2026-09-24 关闭 quay.io 匿名拉取，
+二次整改（2026-10-08）为**从固定源码 tag 自建镜像**——按官方发布说明
+建议的路线，且比任何 registry tag 更可复现（仓库会被删，源码 tag 不会）。
+国内网络注意事项与应急方案见 startup-guide.md。
 
 ## 验证记录
 
@@ -39,5 +43,8 @@
 
 ## 遗留问题
 
-- MinIO 旧版使用 `latest` tag 导致部分网络环境拉取失败，已改为固定 RELEASE tag（验收整改项 1，本次修复）。
+- ~~MinIO 镜像使用 latest~~：首整改为固定 RELEASE tag 后，官方于 2026-09-11
+  直接删除了 Docker Hub 仓库（干净环境验证时捕获 `denied`），二次整改为
+  源码自建（Dockerfile.minio），版本号不变。该事件恰好证明"干净环境验证"
+  与 CI 是相互独立的证据（见 ci-contract.md）。
 - 三处列可空性差异待 M6 确认（见 handoff.md），不阻塞启动。

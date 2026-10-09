@@ -42,6 +42,9 @@ CI 使用 GitHub 托管 PostgreSQL/Redis 服务容器，**不启动完整 docker
 2. 格式零容忍拦截：曾拦截网页粘贴引入的 72 处空行尾随空格
    （`ruff format --check` 4 文件 `Would reformat`），改为拖拽上传原样文件后转绿。
    教训：**Python 文件一律拖拽上传，禁止网页编辑器粘贴。**
+3. 范围边界实证（2026-10-08）：MinIO 官方删除 Docker Hub 仓库后，**CI 依旧
+   全绿**（CI 不含 MinIO），而干净环境 Compose 验证立刻失败（`denied`）——
+   证明"CI 绿灯 ≠ 完整环境可用"不是理论，两类证据必须并存。见 verification.md。
 
 ## 保护规则（需要仓库管理员在 GitHub Settings 里配置）
 

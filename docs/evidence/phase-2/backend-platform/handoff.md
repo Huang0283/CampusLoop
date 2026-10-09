@@ -86,7 +86,12 @@ M5 先完成个人 PR，由至少一位同组成员交叉评审（M6 认证/业�
 ### 给所有人（环境使用）
 
 - 本地启动：见 startup-guide.md（干净环境标准流程 + 国内镜像应急方案）。
-- 所有镜像已固定 tag；**Python 文件修改务必拖拽上传，禁止网页编辑器粘贴**
+- **MinIO 镜像策略（2026-10-08 起）**：MinIO 官方已删除 Docker Hub 仓库并
+  关闭 quay 匿名拉取，本项目改为 `Dockerfile.minio` 从固定源码 tag 自建
+  （`docker compose up --build` 自动完成，首次约 3-10 分钟）。**任何人都不要
+  把 compose 里的 minio 改回 `minio/minio:xxx` 之类的拉取写法——仓库已不存在。**
+  长期备选（Phase 3 评估）：继续源码自建 / 迁移 Garage 或 RustFS。
+- db/redis 保持固定 tag；**Python 文件修改务必拖拽上传，禁止网页编辑器粘贴**
   （会引入尾随空格，ruff 门禁必拦，已有真实案例）。
 - `.env.example` 与 `app/core/config.py` 一一对应，新增配置两侧同步改。
 - CI 三门禁说明与范围边界见 ci-contract.md：CI 不含 MinIO，
@@ -96,7 +101,8 @@ M5 先完成个人 PR，由至少一位同组成员交叉评审（M6 认证/业�
 
 | 问题 | 影响 | Owner | 期限 |
 |---|---|---|---|
-| 干净环境 Compose 完整验证未执行 | BP2-09 验收最后一项 | M9（机房执行） | 本周 |
+| 干净环境 Compose 完整验证待复跑（首次因 MinIO 官方下架镜像失败，已整改） | BP2-09 验收最后一项 | M9 | 本周 |
+| MinIO 上游停止分发镜像（本仓库已自建，但需关注 CVE） | 安全更新需自行跟踪/重建 | M9 | Phase 3 评估迁移 Garage/RustFS |
 | 三处可空性差异 | 无功能影响，规范问题 | M6 确认 | Phase 3 初 |
 | 种子密码为演示方案 | 不满足生产安全 | M5 | Phase 3 |
 | orders 重卖唯一性 | 并发极小概率重复下单 | M6 | Phase 3 |

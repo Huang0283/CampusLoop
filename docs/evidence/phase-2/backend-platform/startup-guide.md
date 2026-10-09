@@ -6,18 +6,30 @@
 
 ## 前置条件
 
-- Docker Engine 24+（含 Compose v2）；磁盘 ≥ 2GB
-- 全部镜像使用固定 tag，干净机器无需任何本地缓存：
+- Docker Engine 24+（含 Compose v2）；磁盘 ≥ 3GB（含 MinIO 源码构建缓存）
+- 组件来源全部固定，干净机器无需任何本地缓存：
 
-| 镜像 | 固定版本 |
+| 组件 | 来源与固定版本 |
 |---|---|
-| pgvector/pgvector | 0.8.6-pg16 |
-| redis | 7.4-alpine |
-| minio/minio | RELEASE.2025-10-15T17-29-55Z |
-| minio/mc | RELEASE.2025-08-13T08-35-41Z |
+| PostgreSQL + pgvector | Docker Hub 固定 tag：`pgvector/pgvector:0.8.6-pg16` |
+| Redis | Docker Hub 固定 tag：`redis:7.4-alpine` |
+| MinIO 服务端 | **源码自建**（仓库 `Dockerfile.minio`）：tag `RELEASE.2025-10-15T17-29-55Z` |
+| mc 客户端 | **源码自建**（同一镜像内）：tag `RELEASE.2025-08-13T08-35-41Z` |
 | api | 本地构建（backend/Dockerfile，python:3.12-slim） |
 
+### 镜像策略说明（2026-10-08 二次整改，重要背景）
+
+MinIO 开源版已停止分发容器镜像：2026-09-11 Docker Hub 删除
+`minio/minio`、`minio/mc` 仓库（拉取报 `denied`）；2026-09-24 quay.io
+关闭匿名拉取（401，`docker login` 无效）。官方发布说明建议"clone 源码
+自行构建容器"。本项目按此改为从固定源码 tag 构建（`Dockerfile.minio`），
+比依赖第三方 registry 更可复现——镜像仓库会被删除，源码 tag 不会。
+首次构建约 3-10 分钟（clone + Go 模块 + 编译），Go 模块下载已内置
+`GOPROXY=goproxy.cn`，国内外网络均可用。
+
 ### 国内拉取超时的应急方案（改 Docker 守护进程，不改任何项目文件）
+
+适用于 pgvector / redis / golang / alpine 等基础镜像（MinIO 已无需拉取）：
 
 ```bash
 # /etc/docker/daemon.json 增加（没有该文件就新建）：
@@ -34,8 +46,10 @@ git clone https://github.com/Huang0283/CampusLoop && cd CampusLoop
 git checkout phase2/backend-foundation        # 或含最新修复的任务分支
 cp .env.example .env
 
-docker compose pull                            # 1. 拉取全部固定版本镜像
-docker compose up -d --build                   # 2. 构建 api 并启动五服务
+docker compose pull                            # 1. 拉取固定 tag 基础镜像（db/redis；
+                                               #    minio 为源码自建，显示 Skipped 属正常）
+docker compose up -d --build                   # 2. 构建 api 与 minio 镜像并启动五服务
+                                               #    （minio 首次构建约 3-10 分钟）
 docker compose ps                              # 3. 确认 db/redis/minio/api 均 healthy
 docker compose exec api alembic upgrade head   # 4. 空库迁移（api 启动时已自动执行，此处独立复核）
 docker compose exec api python scripts/seed.py --check   # 5. 种子两遍幂等校验
@@ -74,7 +88,8 @@ curl -s http://localhost:9000/minio/health/live   # 期望 200（无输出即存
 | db 不 healthy | `docker compose logs db`；端口 5432 被占用则改 compose 端口映射 |
 | health 显示 degraded | 看 `dependencies` 哪项 unavailable，逐个 `docker compose logs <服务>` |
 | MinIO 404 | 确认 minio-init 容器执行成功（创建 campusloop-public / campusloop-private 双桶） |
-| 镜像拉取超时 | 见上文"国内应急方案"；本项目全部为固定 tag，换源后重跑 `docker compose pull` |
+| minio 构建失败 | 重跑一次（BuildKit 有层缓存）；仍失败看日志是 clone 还是 Go 模块下载，网络问题等几分钟再试 |
+| 镜像拉取超时 | 见上文"国内应急方案"（仅基础镜像需要；MinIO 无需拉取） |
 
 ## 停止与清理
 
