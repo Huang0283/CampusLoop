@@ -6,11 +6,23 @@
 
 from __future__ import annotations
 
+import pytest
+
 from tests.conftest import requires_postgres
 
 
 @requires_postgres
+@pytest.mark.integration
 class TestSeedIdempotency:
+    def test_duplicate_upsert_reports_zero_insertions(self) -> None:
+        from app.db.session import session_scope
+        from app.models import User
+        from scripts.seed import seed_users, upsert
+
+        with session_scope() as session:
+            assert upsert(session, User, seed_users()) >= 0
+            assert upsert(session, User, seed_users()) == 0
+
     def test_seed_twice_produces_identical_counts(self) -> None:
         from app.db.session import session_scope
         from scripts.seed import run_seed, snapshot_counts

@@ -19,13 +19,28 @@
 
 ### 镜像策略说明（2026-10-08 二次整改，重要背景）
 
-MinIO 开源版已停止分发容器镜像：2026-09-11 Docker Hub 删除
-`minio/minio`、`minio/mc` 仓库（拉取报 `denied`）；2026-09-24 quay.io
-关闭匿名拉取（401，`docker login` 无效）。官方发布说明建议"clone 源码
-自行构建容器"。本项目按此改为从固定源码 tag 构建（`Dockerfile.minio`），
-比依赖第三方 registry 更可复现——镜像仓库会被删除，源码 tag 不会。
-首次构建约 3-10 分钟（clone + Go 模块 + 编译），Go 模块下载已内置
-`GOPROXY=goproxy.cn`，国内外网络均可用。
+本项目选择从固定源码 tag 构建 MinIO 与 mc（`Dockerfile.minio`）。此前
+镜像拉取报错不能证明某日仓库全网删除；没有独立证据时不保留这种断言。
+2026-10-09 已检查两个源码 tag 可访问，仍必须实际构建并验收。首次构建
+需要基础镜像、GitHub、Alpine 和 Go 模块代理；时间受网络与资源影响。
+固定 tag 并不保证它永远不变，也不等于所有安全问题已修复。
+Go 模块代理使用 `GOPROXY=goproxy.cn,direct`，不可达时应明确失败。
+
+### 本机 2026-10-09 镜像拉取替代步骤
+
+若 Docker Hub token 服务超时，可先尝试官方镜像缓存并添加本地等价标签，
+只影响本机镜像缓存，不修改全局 Docker 守护进程、不重启其他项目：
+
+```bash
+docker pull mirror.gcr.io/library/golang:1.24-alpine
+docker tag mirror.gcr.io/library/golang:1.24-alpine golang:1.24-alpine
+docker pull mirror.gcr.io/library/alpine:3.22
+docker tag mirror.gcr.io/library/alpine:3.22 alpine:3.22
+docker pull mirror.gcr.io/library/python:3.12-slim
+docker tag mirror.gcr.io/library/python:3.12-slim python:3.12-slim
+```
+
+这是本机可用的替代下载渠道，不保证所有环境都可达；随后仍须执行正常构建。
 
 ### 国内拉取超时的应急方案（改 Docker 守护进程，不改任何项目文件）
 

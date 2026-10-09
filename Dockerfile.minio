@@ -1,21 +1,16 @@
 # CampusLoop MinIO 镜像（BP2-09，M9 维护，2026-10-08 二次整改）
 #
-# 背景：MinIO 开源版已停止对外分发容器镜像——
-#   2026-09-11  Docker Hub 删除 minio/minio、minio/mc 仓库（拉取报 denied）
-#   2026-09-24  quay.io 关闭匿名拉取（401，docker login 也无效）
-# 官方 RELEASE.2025-10-15T17-29-55Z 发布说明的建议：
-#   "For container environments, please clone the source and build the latest container."
-# 本文件即该方案：从固定源码 tag 构建服务端与 mc 客户端，
-# 不再依赖任何第三方镜像仓库，干净环境完全可复现。
+# 项目选择从固定源码 tag 构建服务端与 mc，不依赖 minio/minio 和
+# minio/mc 的预构建镜像。此前拉取失败不证明镜像仓库在某日全网删除，
+# 本文件不将未核实的 registry 历史写为事实。
+# 首次构建仍需要基础镜像、GitHub、Alpine 仓库与 Go 模块网络访问。
 #
 # 构建来源（固定 tag，任何人可复核）：
 #   服务端 https://github.com/minio/minio/tree/RELEASE.2025-10-15T17-29-55Z
-#          （含 CVE-2025-62506 修复，末次公开发布版）
 #   客户端 https://github.com/minio/mc/tree/RELEASE.2025-08-13T08-35-41Z
 #
 # 构建：docker compose up -d --build（compose 自动执行，无需手动操作）
-# 耗时：首次约 3-10 分钟（clone 源码 + 下载 Go 模块 + 编译），
-#       构建层有缓存，重复构建很快。
+# 耗时受网络与资源影响；固定 tag 不能代替安全审查或干净环境验收。
 
 # ---------- 构建阶段 ----------
 FROM golang:1.24-alpine AS build
@@ -25,7 +20,7 @@ ARG MINIO_TIME=2025-10-15T17:29:55Z
 ARG MC_TAG=RELEASE.2025-08-13T08-35-41Z
 ARG MC_TIME=2025-08-13T08:35:41Z
 
-# Go 模块下载走国内代理（海外网络同样可用，无需改动）
+# Go 模块代理；网络不可达时构建会失败，不能声称任何网络都可用。
 ENV GOPROXY=https://goproxy.cn,direct
 
 RUN apk add --no-cache git

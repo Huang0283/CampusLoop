@@ -7,15 +7,21 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+BACKEND_DIRECTORY = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
     """CampusLoop 后端运行配置。"""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        # Read the documented root file independently of the caller's cwd;
+        # backend/.env can override it for local development. Real environment
+        # variables (including Compose injection) retain highest precedence.
+        env_file=(BACKEND_DIRECTORY.parent / ".env", BACKEND_DIRECTORY / ".env"),
         env_file_encoding="utf-8",
         extra="ignore",
         case_sensitive=False,

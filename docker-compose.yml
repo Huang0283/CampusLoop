@@ -6,14 +6,11 @@
 # 依赖：Docker Engine 24+ 与 Compose v2。
 # 说明：api 服务启动时自动执行 alembic upgrade head + 种子幂等校验。
 #
-# 镜像策略（2026-10-08 二次整改：MinIO 官方镜像全网下架，改为源码自建）：
-#   - 2026-09-11 MinIO 删除 Docker Hub minio/minio、minio/mc 仓库（拉取报 denied）
-#   - 2026-09-24 quay.io 关闭匿名拉取（401，docker login 无效）
-#   - 官方发布说明建议 clone 源码自行构建容器（见 Dockerfile.minio 头部注释）
-#   因此 MinIO 服务端与 mc 客户端改由仓库内 Dockerfile.minio 从固定源码 tag 构建：
-#     服务端 RELEASE.2025-10-15T17-29-55Z（末次公开发布版，含 CVE-2025-62506 修复）
+# 镜像策略：MinIO 与 mc 由仓库 Dockerfile.minio 从固定源码 tag 构建。
+#   不把本机拉取失败推断为某日镜像仓库全网删除；仍需外部构建网络。
+#     服务端 RELEASE.2025-10-15T17-29-55Z
 #     客户端 RELEASE.2025-08-13T08-35-41Z
-#   基础镜像（golang:1.24-alpine / alpine:3.22）与 Go 模块（goproxy.cn）国内外网络均可用。
+#   基础镜像（golang:1.24-alpine / alpine:3.22）与 Go 模块（goproxy.cn）均须可达。
 #   V3 说明：minio/minio-init 不声明 image 名（本地构建镜像无法拉取，见各服务注释），
 #   docker compose pull 只拉 db/redis，三个本地构建服务均显示 Skipped 属正常。
 # 其余镜像维持固定 tag（禁止 latest）：

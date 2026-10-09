@@ -75,9 +75,16 @@ def upsert(session, model, rows: list[dict]) -> int:
     """按主键 ON CONFLICT DO NOTHING 插入，返回实际新插入行数。"""
     if not rows:
         return 0
-    stmt = pg_insert(model).values(rows).on_conflict_do_nothing(index_elements=["id"])
+    stmt = (
+        pg_insert(model)
+        .values(rows)
+        .on_conflict_do_nothing(index_elements=["id"])
+        .returning(model.id)
+    )
     result = session.execute(stmt)
-    return result.rowcount or 0
+    # psycopg may expose rowcount=-1 for executemany/RETURNING. Count returned
+    # primary keys so logs never claim a negative number of inserted rows.
+    return len(result.scalars().all())
 
 
 def seed_users() -> list[dict]:
