@@ -1,5 +1,7 @@
 # Phase3 技术候选验收记录
 
+2026-10-09更新：PR92已合phase2/integration，提交8853338的完整CI成功（run37920440816）。用户后续授权技术检查后进入main，见[main-integration-authorization.md](main-integration-authorization.md)；本文原候选/未合main状态为授权前的证据截止记录，不代签真人验收。
+
 日期2026-10-09，当前代码基准`a24bbef99a32d93f28a93529cd8c10f0f0a6fb46`，后端镜像复验基准`74d8c0c`（后续提交未改后端源码），工作分支`task/solo-p3-mvp`；输入`d16ea06`，此前main为`93339da`。本记录是作者/自动化实际执行，独立验收者是用户本人M10陈梓弘；尚未收到其实际复测结论，不代签。
 
 ## 实际结果
