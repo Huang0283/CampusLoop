@@ -301,10 +301,21 @@ const OrderDetailPage: React.FC = () => {
   };
 
   const renderParty = (role: '买家' | '卖家', party: { id: number; nickname: string; avatar?: string; rating?: number; transactionCount?: number }) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-      <Avatar size={64} src={party.avatar}>
-        {party.nickname.slice(0, 1)}
-      </Avatar>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+      <Avatar
+  size={64}
+  shape="circle"
+  src={party.avatar}
+  style={{
+    width: 64,
+    height: 64,
+    minWidth: 64,
+    minHeight: 64,
+    flexShrink: 0,
+  }}
+>
+  {party.nickname.slice(0, 1)}
+</Avatar>
       <div>
         <div style={{ marginBottom: 6 }}>
           <span
