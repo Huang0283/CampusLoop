@@ -6,8 +6,8 @@
 - 前端 SDK 稳定入口：`frontend/src/sdk/index.ts`。
 - 自动生成目录：`frontend/src/sdk/generated/`，任何成员不得手工修改。
 - 前端开发地址：`http://localhost:5173`。
-- 后端 HTTP 地址：`http://localhost:8000`，由 `VITE_API_BASE_URL` 覆盖。
-- 后端 WebSocket 地址：`ws://localhost:8000/ws`，仅在 Phase 3 真实服务可用后写入 `VITE_WS_URL`。
+- 后端本地 HTTP 地址：`http://localhost:8001`，由 `VITE_API_BASE_URL` 覆盖；Compose 容器内部仍监听 8000。
+- 后端 WebSocket 地址：`ws://localhost:8001/ws`，仅在 Phase 3 真实服务可用后写入 `VITE_WS_URL`。
 - Phase 1/2 的 `VITE_WS_URL` 必须留空，使页面继续使用明确标识的 Mock 传输；这不是联调成功证据。
 
 ## Phase 1：范围与原型输入

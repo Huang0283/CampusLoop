@@ -1,0 +1,92 @@
+[
+  {
+    "path": "contracts/m8-phase2/development-policy.json",
+    "beforeSha256": "db1df340972966632652b308cb300249a60e33b231c0ca07a8527b67c5a26101",
+    "committedSha256": "0d1fbd1b1971977e29598e44b857c410b064b373614f00b5b035df460c646b2e",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "contracts/m8-phase2/examples/price-success.json",
+    "beforeSha256": "c1d29948a0b6c9b378e3e1a396e1d765230fa23a88201174d33ad9e69df7439b",
+    "committedSha256": "c54a20d12a7e955e47d94b7a9e2aaeb994b9b85afec6fa1f006b6d9b6dd4a5c1",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "contracts/m8-phase2/examples/price-unavailable.json",
+    "beforeSha256": "80ba1cf46e5562b054fbfa0ec63279e622d6b3482cceb5e8f5cacec4c873f2ef",
+    "committedSha256": "2cf48aa6fd59fbe9b555f57f34400bb0d17521adfed2190fc120debe7e5175bf",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "contracts/m8-phase2/examples/risk-admin-case.json",
+    "beforeSha256": "e73da1b688753bed62f54642c4c1003a2f0515dc2fbcca506bbd7f201615f5d1",
+    "committedSha256": "3755414bdd191ca10a5f82e595a9028fc8152d3644a53c0523180ee0e3b2b25c",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "contracts/m8-phase2/examples/risk-public-safe.json",
+    "beforeSha256": "2321ec266b128780d4ed36d9d5e0fc01ddc98c19e0d2bb6218fd071caa1cbaf8",
+    "committedSha256": "e2cfca2b25d06c576bb6968d7e67ea3b984b841d53b44b15cabd103eb15a6fa3",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "contracts/m8-phase2/examples/service-timeout.json",
+    "beforeSha256": "114145b1caf413542c8b109a18484f73d23d72891dce30480569d4f43ede825e",
+    "committedSha256": "469e43eee9d13c4e3568c1c06b5348c45bd0824aa4ce9c29179b9214c9468f10",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "contracts/m8-phase2/examples/trust-established.json",
+    "beforeSha256": "c788354539fbc61cda8a3d58ad02e62495f33d9ae654c37de94753d69122c653",
+    "committedSha256": "dfb284aa1313386a1b2fd7fc4aec02344b08cd615a201bfcd819761cf18f312c",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "contracts/m8-phase2/examples/trust-new-user.json",
+    "beforeSha256": "cbf617eec066c591e0cda4113123fedbc5a031ee100feb9c799c05757d62b548",
+    "committedSha256": "6ef607230ecfe3abbbb41620a9a7cafc4b841355b93ed519c07c80055a41eb8a",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "data/m8-phase2/derived/manifest.json",
+    "beforeSha256": "79d6135108e6fb679ede805b5200e209d3710f26ef78cd885e436f70b7b82241",
+    "committedSha256": "197e3fddfb4373d325bf66fd5d7c7f6dc426510b6c6cfe18972763cf54251877",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "data/m8-phase2/derived/metrics.json",
+    "beforeSha256": "b5a7b9817668d25b0076953b195a9b203965559487c5747ed6216b55adf938d0",
+    "committedSha256": "618ed35fcd9a9e77306b8c51c615dc9ba3eed9613126af67c5e3d3e332ecfe5d",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "data/m8-phase2/derived/price-evaluation.jsonl",
+    "beforeSha256": "1024e67f06d23cd909de53b8ff82a1b1568c3145e6d7545a3b21940cffb4cbbb",
+    "committedSha256": "74b73658aa5eeb7a72c8ca9faa683b9a29f8ea772279212f022e0ffdcd4ae0da",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "data/m8-phase2/raw/price-samples.jsonl",
+    "beforeSha256": "9875db20f870e25662d07fc3d8771573e2813385618149c80a3b92b4422dfa8c",
+    "committedSha256": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "data/m8-phase2/raw/source-register.json",
+    "beforeSha256": "a7a9ceeeda22258b8a985a1e6f5acbac68c732db96331184b101e891d05f5ae7",
+    "committedSha256": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "schemas/m8-phase2/contracts.schema.json",
+    "beforeSha256": "7b9cdf8dc83ff5091ecf0d4149a5cf5c163a941db9edebf5b4f821d07e0d2f3f",
+    "committedSha256": "dd6fb095149919c58a17d971136c4c2fb9e64cb8c967e32d385c3b0a111ad585",
+    "lineEndingsOnly": true
+  },
+  {
+    "path": "schemas/m8-phase2/price-dataset.schema.json",
+    "beforeSha256": "16a41b6eaad1005a891fd5f869afee00c0573b22a30baee201df95833b46e1a6",
+    "committedSha256": "90db0f8e571c5671fbe3e805775138aa34872fa01f71e1e711b58a53ae457a8e",
+    "lineEndingsOnly": true
+  }
+]

@@ -1,0 +1,26 @@
+STDOUT
+PASS contracts/m7-phase2/examples/search-success.json
+PASS contracts/m7-phase2/examples/matching-success.json
+PASS contracts/m7-phase2/examples/search-empty.json
+PASS contracts/m7-phase2/examples/search-degraded.json
+PASS contracts/m7-phase2/examples/match-empty.json
+PASS contracts/m7-phase2/examples/match-degraded.json
+PASS contracts/m7-phase2/examples/matching-constraints-only.json
+PASS contracts/m7-phase2/examples/invalid-input.json
+PASS contracts/m7-phase2/examples/unauthenticated.json
+PASS contracts/m7-phase2/examples/forbidden.json
+PASS contracts/m7-phase2/examples/not-found.json
+PASS contracts/m7-phase2/examples/stale-snapshot.json
+PASS contracts/m7-phase2/examples/inactive-wanted.json
+PASS contracts/m7-phase2/examples/baseline-failed.json
+PASS contracts/m7-phase2/examples/matching-baseline-failed.json
+PASS contracts/m7-phase2/examples/authority-unavailable.json
+PASS contracts/m7-phase2/examples/rate-limited.json
+PASS contracts/m7-phase2/examples/matching-pending.json
+PASS contracts/m7-phase2/examples/product-event.json
+PASS contracts/m7-phase2/examples/matching-task.json
+PASS contracts/m7-phase2/examples/stored-result.json
+PASS contracts/m7-phase2/examples/notification-intent.json
+{"status": "passed", "examples": 22, "scope": "synthetic contract validation only"}
+
+STDERR

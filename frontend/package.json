@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "sdk:generate": "openapi-ts -f openapi-ts.config.ts",
     "sdk:check": "npm run sdk:generate && tsc -b",
+    "test:transaction": "node scripts/verify-transaction-prototype.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

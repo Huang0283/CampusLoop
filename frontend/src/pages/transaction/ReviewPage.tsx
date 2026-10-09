@@ -1,6 +1,9 @@
 import React from 'react';
-import { Input, Avatar, Button, Form, Rate } from 'antd';
-import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { Input, Avatar, Button, Form, Rate, Alert, message } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AppSidebar, EmptyState, NotificationBell, UserMenu } from '../../components';
+import { useAuthStore } from '../../stores/auth';
+import { useMockDbStore } from '../../stores/mockDb';
 
 const PRIMARY_COLOR = '#2f6bff';
 const PAGE_BG = '#f5f6f8';
@@ -44,9 +47,36 @@ const sidebarStyle: React.CSSProperties = {
 
 const ReviewPage: React.FC = () => {
   const [form] = Form.useForm<ReviewFormValues>();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
+  const order = useMockDbStore((s) => s.orders.find((item) => item.id === Number(id)));
+  const reviews = useMockDbStore((s) => s.reviews);
+  const participant = user?.role === 'student' && order &&
+    (user.id === order.buyer.id || user.id === order.seller.id);
+  const alreadyReviewed = reviews.some((item) => item.orderId === Number(id) && item.reviewerId === user?.id);
+  const reviewee = user?.id === order?.buyer.id ? order?.seller : order?.buyer;
+
+  if (!order || !participant) return <EmptyState description="订单不存在或你无权评价此订单" />;
+  if (order.status !== 'COMPLETED' || alreadyReviewed) return (
+    <Alert type="warning" showIcon message={alreadyReviewed ? '你已评价过此订单' : '仅双方已完成的订单可以评价'}
+      action={<Button onClick={() => navigate(`/transactions/${order.id}`)}>返回订单</Button>} />
+  );
 
   const handleFinish = (values: ReviewFormValues) => {
-    console.log('评价表单提交：', values);
+    if (!user || !reviewee) return;
+    const saved = useMockDbStore.getState().submitReview({
+      orderId: order.id, reviewerId: user.id, revieweeId: reviewee.id,
+      overall: values.overall, descriptionAccuracy: values.accuracy,
+      communication: values.communication, punctuality: values.punctuality,
+      comment: values.comment,
+    });
+    if (!saved) {
+      message.error('评价未保存：评分须为 1–5 星，且仅限已完成订单的参与方评价一次');
+      return;
+    }
+    message.success('评价已保存（Phase 2 Mock）');
+    navigate(`/transactions/${order.id}`);
   };
 
   const renderRateRow = (
@@ -57,6 +87,7 @@ const ReviewPage: React.FC = () => {
     <Form.Item
       name={name}
       initialValue={initialValue}
+      rules={[{ type: 'number', min: 1, max: 5, required: true, message: '请选择 1–5 星' }]}
       style={{ marginBottom: 0 }}
     >
       <div
@@ -81,6 +112,7 @@ const ReviewPage: React.FC = () => {
         </span>
         <Rate
           style={{ color: STAR_YELLOW, fontSize: 24 }}
+          allowClear={false}
           onChange={(value) => form.setFieldValue(name, value)}
         />
         <span style={{ fontSize: 14, color: TEXT_SECONDARY }}>
@@ -174,7 +206,7 @@ const ReviewPage: React.FC = () => {
             >
               <Avatar
                 size={96}
-                src="https://picsum.photos/seed/reviewee/192/192"
+                src={reviewee?.avatar}
               />
               <div
                 style={{
@@ -184,7 +216,7 @@ const ReviewPage: React.FC = () => {
                   color: TEXT_PRIMARY,
                 }}
               >
-                王同学
+                {reviewee?.nickname}
               </div>
               <div
                 style={{
@@ -215,7 +247,7 @@ const ReviewPage: React.FC = () => {
                 accuracy: 5,
                 communication: 5,
                 punctuality: 5,
-                comment: '商品描述准确，沟通顺畅，交易很愉快。',
+                comment: '',
               }}
             >
               {/* 评分区 */}
@@ -248,6 +280,7 @@ const ReviewPage: React.FC = () => {
                   </span>
                 }
                 name="comment"
+                rules={[{ max: 1000, message: '最多 1000 字' }]}
                 style={{ marginBottom: 6 }}
               >
                 <Input.TextArea

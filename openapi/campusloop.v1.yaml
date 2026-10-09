@@ -12,7 +12,7 @@ info:
   x-campusloop-owner: M5/M6
   x-campusloop-consumers: [M2, M3, M4, M7, M8, M10]
 servers:
-  - url: http://localhost:8000
+  - url: http://localhost:8001
     description: Local FastAPI HTTP service
 tags:
   - name: System
@@ -43,6 +43,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthResponse'
+
+  /ready:
+    get:
+      tags: [System]
+      operationId: getReadiness
+      summary: Readiness based on database and Redis availability
+      security: []
+      x-campusloop-phase: BP2-06
+      responses:
+        '200':
+          description: Database and Redis are available. This does not check object storage.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/HealthResponse' }
+        '503':
+          description: A required database or Redis dependency is unavailable.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/HealthResponse' }
 
   /auth/register:
     post:
@@ -104,10 +123,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [refreshToken]
-              properties:
-                refreshToken: { type: string }
+              $ref: '#/components/schemas/RefreshRequest'
       responses:
         '200':
           description: Token pair rotated.
@@ -181,6 +197,7 @@ paths:
         - $ref: '#/components/parameters/PageSize'
         - { name: query, in: query, schema: { type: string } }
         - { name: category, in: query, schema: { type: string } }
+        - { name: condition, in: query, schema: { type: string } }
         - { name: status, in: query, schema: { $ref: '#/components/schemas/ProductStatus' } }
         - { name: sort, in: query, schema: { type: string, enum: [newest, price_asc, price_desc] } }
       responses:
@@ -209,6 +226,27 @@ paths:
         '401': { $ref: '#/components/responses/Unauthorized' }
         '409': { $ref: '#/components/responses/Conflict' }
         '422': { $ref: '#/components/responses/ValidationError' }
+  /products/mine:
+    get:
+      tags: [Market]
+      operationId: listMyProducts
+      x-campusloop-phase: BP2-03/FE3-05
+      description: Authenticated user's products, including hidden items; identity is derived from the token.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: query, in: query, schema: { type: string } }
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/ProductStatus' } }
+      responses:
+        '200':
+          description: Current user's paginated products.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductListResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
   /products/{productId}:
     parameters:
       - $ref: '#/components/parameters/ProductId'
@@ -344,6 +382,7 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
         - { name: query, in: query, schema: { type: string } }
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/WantedStatus' } }
       responses:
         '200':
           description: Paginated wanted posts.
@@ -475,6 +514,33 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/ChatSessionListResponse' }
+    post:
+      tags: [Chat]
+      operationId: createChatSession
+      x-campusloop-phase: BP2-03/BP2-04/FE3-07
+      description: |
+        Create or reuse a session for one product or wanted post. The other party
+        is derived from resource ownership, not a client-supplied identity.
+        Contacting one's own resource is rejected. An existing identical context
+        and participant pair returns that session rather than creating duplicates.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateChatSessionRequest' }
+      responses:
+        '200':
+          description: Created or reused the same context session.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ChatSessionResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
   /chat/sessions/{sessionId}/messages:
     parameters:
       - $ref: '#/components/parameters/SessionId'
@@ -546,7 +612,7 @@ paths:
               type: object
               required: [amount]
               properties:
-                amount: { type: number, minimum: 0, multipleOf: 0.01 }
+                amount: { type: number, exclusiveMinimum: 0, multipleOf: 0.01 }
       responses:
         '201':
           description: Pending offer.
@@ -611,7 +677,7 @@ paths:
               type: object
               required: [amount]
               properties:
-                amount: { type: number, minimum: 0, multipleOf: 0.01 }
+                amount: { type: number, exclusiveMinimum: 0, multipleOf: 0.01 }
       responses:
         '201':
           description: New pending offer; previous offer is countered.
@@ -944,7 +1010,7 @@ components:
       required: true
       description: Client-generated UUID. Replays return the original successful result.
       schema: { type: string, format: uuid }
-    UserId: { name: userId, in: path, required: true, schema: { type: integer, format: int64 } }
+    UserId: { name: userId, in: path, required: true, schema: { type: integer, format: int64, minimum: 1, maximum: 9007199254740991 } }
     ProductId: { name: productId, in: path, required: true, schema: { type: integer, format: int64 } }
     WantedId: { name: wantedId, in: path, required: true, schema: { type: integer, format: int64 } }
     SessionId: { name: sessionId, in: path, required: true, schema: { type: integer, format: int64 } }
@@ -1014,52 +1080,73 @@ components:
     Role: { type: string, enum: [USER, ADMIN] }
     UserBrief:
       type: object
-      required: [id, nickname]
+      additionalProperties: false
+      required: [id, nickname, avatar, rating, transactionCount]
       properties:
-        id: { type: integer, format: int64 }
+        id: { type: integer, format: int64, minimum: 1, maximum: 9007199254740991 }
         nickname: { type: string }
-        avatar: { type: string, format: uri }
+        avatar: { type: [string, 'null'], format: uri }
         rating: { type: number, minimum: 0, maximum: 5 }
         transactionCount: { type: integer, minimum: 0 }
     UserProfile:
-      allOf:
-        - $ref: '#/components/schemas/UserBrief'
-        - type: object
-          required: [role, tradeCount, creditLevel]
-          properties:
-            role: { $ref: '#/components/schemas/Role' }
-            school: { type: string }
-            college: { type: string }
-            major: { type: string }
-            tradeCount: { type: integer, minimum: 0 }
-            creditLevel: { type: string }
+      type: object
+      additionalProperties: false
+      required: [id, nickname, avatar, rating, transactionCount, role, status, email, campusVerified, bio, school, college, major, tradeCount, creditLevel]
+      properties:
+        id: { type: integer, format: int64, minimum: 1, maximum: 9007199254740991 }
+        nickname: { type: string }
+        avatar: { type: [string, 'null'], format: uri }
+        rating: { type: number, minimum: 0, maximum: 5 }
+        transactionCount: { type: integer, minimum: 0 }
+        role: { $ref: '#/components/schemas/Role' }
+        status: { type: string, enum: [ACTIVE, DISABLED] }
+        email: { type: string, format: email }
+        campusVerified: { type: boolean, description: Teaching simulation only, not real university verification. }
+        bio: { type: [string, 'null'], maxLength: 500 }
+        school: { type: [string, 'null'], maxLength: 80 }
+        college: { type: [string, 'null'], maxLength: 80 }
+        major: { type: [string, 'null'], maxLength: 80 }
+        tradeCount: { type: integer, minimum: 0, description: Compatibility alias equal to transactionCount. }
+        creditLevel: { type: [string, 'null'], description: Null until an approved credit mapping exists. }
     RegisterRequest:
       type: object
+      additionalProperties: false
       required: [email, password, nickname]
       properties:
-        email: { type: string, format: email }
+        email: { type: string, format: email, maxLength: 255 }
         password: { type: string, minLength: 8, maxLength: 128 }
         nickname: { type: string, minLength: 1, maxLength: 40 }
     LoginRequest:
       type: object
+      additionalProperties: false
       required: [email, password]
       properties:
-        email: { type: string, format: email }
-        password: { type: string }
+        email: { type: string, format: email, maxLength: 255 }
+        password: { type: string, minLength: 1, maxLength: 128 }
+    RefreshRequest:
+      type: object
+      additionalProperties: false
+      required: [refreshToken]
+      properties:
+        refreshToken: { type: string, minLength: 1, maxLength: 512 }
     UpdateProfileRequest:
       type: object
+      additionalProperties: false
+      minProperties: 1
       properties:
         nickname: { type: string, minLength: 1, maxLength: 40 }
-        avatar: { type: string, format: uri }
-        college: { type: string, maxLength: 80 }
-        major: { type: string, maxLength: 80 }
+        avatar: { type: [string, 'null'], format: uri, maxLength: 512 }
+        bio: { type: [string, 'null'], maxLength: 500 }
+        school: { type: [string, 'null'], maxLength: 80 }
+        college: { type: [string, 'null'], maxLength: 80 }
+        major: { type: [string, 'null'], maxLength: 80 }
     TokenPair:
       type: object
       required: [accessToken, refreshToken, expiresIn]
       properties:
         accessToken: { type: string }
         refreshToken: { type: string }
-        expiresIn: { type: integer, description: Access token lifetime in seconds. }
+        expiresIn: { type: integer, minimum: 1, maximum: 900, description: Access token lifetime in seconds. }
     AuthResult:
       allOf:
         - $ref: '#/components/schemas/TokenPair'
@@ -1197,16 +1284,29 @@ components:
         clientMsgId: { type: string, format: uuid }
         kind: { type: string, enum: [TEXT, IMAGE] }
         content: { type: string, maxLength: 4000 }
+    CreateChatSessionRequest:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required: [productId]
+          properties:
+            productId: { type: integer, format: int64, minimum: 1 }
+        - type: object
+          additionalProperties: false
+          required: [wantedId]
+          properties:
+            wantedId: { type: integer, format: int64, minimum: 1 }
     OfferStatus: { type: string, enum: [PENDING, ACCEPTED, REJECTED, COUNTERED, EXPIRED, CANCELLED] }
     Offer:
       type: object
-      required: [id, sessionId, buyerId, sellerId, productId, originalPrice, amount, status, expireAt, createdAt]
+      required: [id, sessionId, buyerId, sellerId, proposerId, productId, originalPrice, amount, status, expireAt, createdAt]
       properties:
         id: { type: integer, format: int64 }
         orderId: { type: integer, format: int64 }
         sessionId: { type: integer, format: int64 }
         buyerId: { type: integer, format: int64 }
         sellerId: { type: integer, format: int64 }
+        proposerId: { type: integer, format: int64, description: Current quote author; counteroffers change this without swapping buyer and seller. }
         productId: { type: integer, format: int64 }
         originalPrice: { type: number, minimum: 0 }
         amount: { type: number, minimum: 0 }
@@ -1334,6 +1434,7 @@ components:
     AuthResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/AuthResult' } } }] }
     UserResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/UserProfile' } } }] }
     PublicUserResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/UserBrief' } } }] }
+    ChatSessionResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/ChatSession' } } }] }
     ProductResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Product' } } }] }
     WantedResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Wanted' } } }] }
     MessageResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/Message' } } }] }
@@ -1449,7 +1550,7 @@ components:
                 pagination: { $ref: '#/components/schemas/Pagination' }
 
 x-campusloop-websocket:
-  url: ws://localhost:8000/ws
+  url: ws://localhost:8001/ws
   authentication: Bearer token in the connection query until M5/M6 freeze a safer browser-compatible handshake.
   implementationPhase: Phase 3
   events:

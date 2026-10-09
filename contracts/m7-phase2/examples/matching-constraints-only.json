@@ -1,0 +1,84 @@
+{
+  "caseId": "matching-constraints-only",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 200,
+  "response": {
+    "code": 0,
+    "message": "成功",
+    "data": {
+      "schemaVersion": "m7-service-candidate-v1",
+      "ruleVersion": "match-v0",
+      "tokenizerVersion": "nfkc-bigram-v0",
+      "dictionaryVersion": "m7-fixture-dictionary-v1",
+      "modelVersion": null,
+      "indexVersion": null,
+      "policyGeneration": 1,
+      "snapshotVersion": "snapshot-fixture-1",
+      "resultVersion": "rs_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "generatedAt": "2026-09-28T00:00:00Z",
+      "expiresAt": "2026-09-28T00:05:00Z",
+      "degraded": false,
+      "degradationReason": null,
+      "wantedId": 201,
+      "wantedVersion": 1,
+      "requestedMethod": "rule",
+      "method": "rule",
+      "items": [
+        {
+          "product": {
+            "id": 101,
+            "seller": {
+              "id": 11,
+              "nickname": "测试同学甲"
+            },
+            "title": "计算器",
+            "category": "calculator",
+            "condition": "八成新",
+            "price": 180,
+            "campusLocation": "图书馆",
+            "images": [],
+            "status": "ON_SALE",
+            "createdAt": "2026-09-28T00:00:00Z",
+            "updatedAt": "2026-09-28T00:00:00Z"
+          },
+          "productVersion": 2,
+          "wantedVersion": 1,
+          "relevanceScore": null,
+          "scoreType": "constraints_only",
+          "reasons": [
+            "仅按已确认的硬条件筛选，未计算相关程度"
+          ],
+          "constraints": [
+            "预算通过"
+          ],
+          "explanationDetails": [
+            {
+              "code": "BUDGET_MATCH",
+              "kind": "constraint",
+              "field": "priceFen",
+              "observed": 18000,
+              "required": {
+                "min": 10000,
+                "max": 20000
+              },
+              "contribution": null,
+              "ruleVersion": "match-v0"
+            }
+          ],
+          "resultVersion": "rs_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expiresAt": "2026-09-28T00:05:00Z"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 20,
+        "total": 1
+      }
+    }
+  }
+}

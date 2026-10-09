@@ -33,7 +33,9 @@ export const mockProducts: Record<number, ProductBrief> = {
     status: 'RESERVED',
   },
   102: { id: 102, title: '二手显示器 24英寸 75Hz', price: 550, status: 'ON_SALE' },
-  103: { id: 103, title: '高等数学教材 第七版（近九成新）', price: 18, status: 'ON_SALE' },
+  103: { id: 103, title: '高等数学教材 第七版（近九成新）', price: 18, status: 'SOLD' },
+  104: { id: 104, title: '另一台二手显示器（已约见样例）', price: 550, status: 'RESERVED' },
+  105: { id: 105, title: '另一台 ThinkBook（争议订单样例）', price: 4200, status: 'RESERVED' },
 }
 
 const now = Date.now()
@@ -60,6 +62,7 @@ export const mockOffers: Offer[] = [
     sessionId: 5001,
     buyerId: 1,
     sellerId: 2,
+    proposerId: 2,
     productId: 101,
     originalPrice: 4200,
     amount: 4000,
@@ -147,7 +150,7 @@ export const mockMessages: Message[] = [
     orderEvent: { id: 1, orderId: 8001, toStatus: 'PENDING_CONFIRM', description: '订单已创建，请双方确认见面约定', createdAt: ago(31) },
     createdAt: ago(31),
   },
-  { id: 6, clientMsgId: 'm6', sessionId: 5001, senderId: 1, kind: 'OFFER', offer: mockOffers[1], createdAt: ago(30), sendStatus: 'SENT' },
+  { id: 6, clientMsgId: 'm6', sessionId: 5001, senderId: 2, kind: 'OFFER', offer: mockOffers[1], createdAt: ago(30), sendStatus: 'SENT' },
   // 发送失败的演示消息
   { id: 7, clientMsgId: 'm7', sessionId: 5001, senderId: 1, kind: 'TEXT', content: '那 4000 成交，可以走平台订单', createdAt: ago(2), sendStatus: 'FAILED' },
 
@@ -210,8 +213,8 @@ export const mockOrders: Order[] = [
   },
   {
     id: 8003,
-    productId: 102,
-    product: mockProducts[102],
+    productId: 104,
+    product: mockProducts[104],
     buyer: mockUsers[1],
     seller: mockUsers[3],
     status: 'MEETUP_ARRANGED',
@@ -235,8 +238,8 @@ export const mockOrders: Order[] = [
   },
   {
     id: 8004,
-    productId: 101,
-    product: mockProducts[101],
+    productId: 105,
+    product: mockProducts[105],
     buyer: mockUsers[1],
     seller: mockUsers[2],
     status: 'DISPUTED',

@@ -1,0 +1,10 @@
+STDOUT
+{
+  "byteIdenticalRebuild": true,
+  "derivedHashes": "pass",
+  "note": "automated validation only; no independent human label review",
+  "rawHashes": "pass",
+  "result": "pass"
+}
+
+STDERR

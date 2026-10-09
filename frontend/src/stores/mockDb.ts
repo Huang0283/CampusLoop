@@ -18,12 +18,12 @@
 import { create } from 'zustand'
 import { OFFER_EXPIRE_HOURS } from '../constants/offer'
 import {
-  CURRENT_USER_ID,
   mockNotifications,
   mockOffers,
   mockOrderEvents,
   mockOrders,
   mockProducts,
+  mockSessions,
   mockUsers,
 } from '../mocks/transaction'
 import type {
@@ -72,9 +72,10 @@ const seq = {
 }
 const nextId = (k: keyof typeof seq): number => (seq[k] += 1)
 
-/** 当前操作者：登录态优先，原型回退到 mock 主账号 */
+/** 写操作必须有学生身份，游客和管理员不回退为演示买家。 */
 function operatorId(): number {
-  return useAuthStore.getState().user?.id ?? CURRENT_USER_ID
+  const user = useAuthStore.getState().user
+  return user?.role === 'student' ? user.id : 0
 }
 
 function otherOrderPartyId(order: Order, userId: number): number | null {
@@ -135,20 +136,20 @@ interface MockDbState {
   reports: Report[]
 
   /* 见面约定 */
-  saveMeetup: (orderId: number, input: MeetupInput) => void
+  saveMeetup: (orderId: number, input: MeetupInput) => boolean
   confirmMeetup: (orderId: number) => void
   /* 订单 */
   confirmComplete: (orderId: number) => void
   cancelOrder: (orderId: number) => void
   /* 报价 */
-  createOffer: (sessionId: number, peerId: number, product: ProductBrief, amount: number) => Offer
-  acceptOffer: (offerId: number) => void
+  createOffer: (sessionId: number, peerId: number, product: ProductBrief, amount: number) => Offer | null
+  acceptOffer: (offerId: number) => boolean
   rejectOffer: (offerId: number) => void
-  counterOffer: (offerId: number, amount: number) => void
+  counterOffer: (offerId: number, amount: number) => boolean
   withdrawOffer: (offerId: number) => void
   /* 评价 / 举报 */
-  submitReview: (input: ReviewInput) => void
-  submitReport: (input: ReportInput) => void
+  submitReview: (input: ReviewInput) => boolean
+  submitReport: (input: ReportInput) => boolean
   /* 通知 */
   markNotificationRead: (id: number) => void
   markAllNotificationsRead: () => void
@@ -237,8 +238,15 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     /** 保存/修改约定：version+1，双方确认失效，订单回到待确认 */
     saveMeetup: (orderId, input) => {
       const order = getOrder(orderId)
-      if (!order || ['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(order.status)) return
+      if (!order || ['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(order.status)) return false
       const op = operatorId()
+      if (otherOrderPartyId(order, op) === null) return false
+      if (!input.campusLocation.trim() || !/^\d{4}-\d{2}-\d{2}$/.test(input.scheduledDate) ||
+        !Number.isFinite(Date.parse(input.scheduledDate)) ||
+        new Date(input.scheduledDate).toISOString().slice(0, 10) !== input.scheduledDate ||
+        !/^([01]\d|2[0-3]):[0-5]\d$/.test(input.timeSlotStart) ||
+        !/^([01]\d|2[0-3]):[0-5]\d$/.test(input.timeSlotEnd) ||
+        input.timeSlotEnd <= input.timeSlotStart) return false
       const who = op === order.buyer.id ? '买家' : '卖家'
       const prev = order.meetup
       const meetup = {
@@ -250,7 +258,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
         sellerConfirmed: false,
         createdAt: now(),
       }
-      patchOrder(orderId, { meetup, status: 'PENDING_CONFIRM' })
+      patchOrder(orderId, { meetup, status: 'PENDING_CONFIRM', buyerConfirmedComplete: false, sellerConfirmedComplete: false })
       pushEvent(
         orderId,
         order.status,
@@ -265,15 +273,18 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
         `订单 #${orderId} 约定更新到第 ${meetup.version} 版，请重新确认`,
         `/transactions/${orderId}`
       )
+      return true
     },
 
     /** 确认当前版本约定：双方都确认 → 订单进入「见面已安排」 */
     confirmMeetup: (orderId) => {
       const order = getOrder(orderId)
       if (!order?.meetup) return
+      if (!['PENDING_CONFIRM', 'BOOKED'].includes(order.status)) return
       const op = operatorId()
       const role = op === order.buyer.id ? 'buyer' : op === order.seller.id ? 'seller' : 'other'
       if (role === 'other') return
+      if (role === 'buyer' ? order.meetup.buyerConfirmed : order.meetup.sellerConfirmed) return
       const meetup = {
         ...order.meetup,
         buyerConfirmed: order.meetup.buyerConfirmed || role === 'buyer',
@@ -309,9 +320,11 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     confirmComplete: (orderId) => {
       const order = getOrder(orderId)
       if (!order) return
+      if (order.status !== 'MEETUP_ARRANGED' || !order.meetup?.buyerConfirmed || !order.meetup?.sellerConfirmed) return
       const op = operatorId()
       const role = op === order.buyer.id ? 'buyer' : op === order.seller.id ? 'seller' : 'other'
       if (role === 'other') return
+      if (role === 'buyer' ? order.buyerConfirmedComplete : order.sellerConfirmedComplete) return
       const who = role === 'buyer' ? '买家' : '卖家'
       const buyerDone = order.buyerConfirmedComplete || role === 'buyer'
       const sellerDone = order.sellerConfirmedComplete || role === 'seller'
@@ -345,6 +358,7 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
       const order = getOrder(orderId)
       if (!order || ['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(order.status)) return
       const op = operatorId()
+      if (otherOrderPartyId(order, op) === null) return
       patchOrder(orderId, { status: 'CANCELLED' })
       patchProduct(order.productId, 'ON_SALE')
       pushEvent(orderId, order.status, 'CANCELLED', '订单已取消，商品重新释放为在售', op)
@@ -362,13 +376,23 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     /** 发起报价：新报价进会话（走完整注入链路），并产生一条通知 */
     createOffer: (sessionId, peerId, product, amount) => {
       const op = operatorId()
+      const session = mockSessions.find((item) => item.id === sessionId)
+      const storedProduct = get().products[product.id]
+      // 原型商品归属取种子报价，不把发起方身份错误地当成买家身份。
+      const sellerId = mockOffers.find((item) => item.productId === product.id)?.sellerId
+      if (!op || !Number.isFinite(amount) || amount <= 0 || !session ||
+        session.product?.id !== product.id || !session.participantIds.includes(op) ||
+        !session.participantIds.includes(peerId) || op === peerId || !sellerId ||
+        (sellerId !== op && sellerId !== peerId) || storedProduct?.status !== 'ON_SALE' ||
+        get().orders.some((order) => order.productId === product.id && order.status !== 'CANCELLED')) return null
       const offer: Offer = {
         id: nextId('offer'),
         sessionId,
-        buyerId: op,
-        sellerId: peerId,
+        buyerId: op === sellerId ? peerId : op,
+        sellerId,
+        proposerId: op,
         productId: product.id,
-        originalPrice: product.price,
+        originalPrice: storedProduct.price,
         amount,
         status: 'PENDING',
         expireAt: new Date(Date.now() + OFFER_EXPIRE_HOURS * 3_600_000).toISOString(),
@@ -389,9 +413,14 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     /** 接受报价：报价转已接受 + 创建订单（待确认）+ 商品转已预约 + 会话内系统消息 */
     acceptOffer: (offerId) => {
       const offer = get().offers.find((o) => o.id === offerId)
-      if (!offer || offer.status !== 'PENDING') return
+      if (!offer || offer.status !== 'PENDING') return false
       const op = operatorId()
+      if (otherOfferPartyId(offer, op) === null || op === (offer.proposerId ?? offer.buyerId)) return false
+      if (!Number.isFinite(Date.parse(offer.expireAt)) || Date.parse(offer.expireAt) <= Date.now()) return false
       const product = get().products[offer.productId]
+      if (!product || product.status !== 'ON_SALE') return false
+      if (!mockUsers[offer.buyerId] || !mockUsers[offer.sellerId]) return false
+      if (get().orders.some((order) => order.productId === product.id && order.status !== 'CANCELLED')) return false
       const orderId = nextId('order')
       const order: Order = {
         id: orderId,
@@ -421,12 +450,14 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
         `订单 #${orderId} 已创建，请确认见面约定`,
         `/transactions/${orderId}`
       )
+      return true
     },
 
     rejectOffer: (offerId) => {
       const offer = get().offers.find((o) => o.id === offerId)
       if (!offer || offer.status !== 'PENDING') return
       const op = operatorId()
+      if (otherOfferPartyId(offer, op) === null || op === (offer.proposerId ?? offer.buyerId) || Date.parse(offer.expireAt) <= Date.now()) return
       set((s) => ({
         offers: s.offers.map((o) => (o.id === offerId ? { ...o, status: 'REJECTED' as const } : o)),
       }))
@@ -442,13 +473,17 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     /** 还价：旧报价转已还价，新报价挂到还价链上并注入会话 */
     counterOffer: (offerId, amount) => {
       const offer = get().offers.find((o) => o.id === offerId)
-      if (!offer || offer.status !== 'PENDING') return
+      if (!offer || offer.status !== 'PENDING') return false
       const op = operatorId()
+      if (otherOfferPartyId(offer, op) === null || op === (offer.proposerId ?? offer.buyerId)) return false
+      if (!Number.isFinite(amount) || amount <= 0 || !Number.isFinite(Date.parse(offer.expireAt)) || Date.parse(offer.expireAt) <= Date.now()) return false
+      if (get().products[offer.productId]?.status !== 'ON_SALE') return false
       const newOffer: Offer = {
         id: nextId('offer'),
         sessionId: offer.sessionId,
         buyerId: offer.buyerId,
         sellerId: offer.sellerId,
+        proposerId: op,
         productId: offer.productId,
         originalPrice: offer.originalPrice,
         amount,
@@ -471,12 +506,14 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
         `还价 ¥${amount}（原报价 ¥${offer.amount}），请在有效期内处理`,
         `/chat/${offer.sessionId}`
       )
+      return true
     },
 
     withdrawOffer: (offerId) => {
       const offer = get().offers.find((o) => o.id === offerId)
       if (!offer || offer.status !== 'PENDING') return
       const op = operatorId()
+      if (op !== (offer.proposerId ?? offer.buyerId) || Date.parse(offer.expireAt) <= Date.now()) return
       set((s) => ({
         offers: s.offers.map((o) => (o.id === offerId ? { ...o, status: 'CANCELLED' as const } : o)),
       }))
@@ -492,19 +529,31 @@ export const useMockDbStore = create<MockDbState>()((set, get) => {
     /* ---------- 评价 / 举报 ---------- */
 
     submitReview: (input) => {
+      const order = getOrder(input.orderId)
+      const op = operatorId()
+      if (!order || order.status !== 'COMPLETED' || input.reviewerId !== op) return false
+      if (otherOrderPartyId(order, op) !== input.revieweeId) return false
+      if (get().reviews.some((item) => item.orderId === input.orderId && item.reviewerId === op)) return false
+      if ([input.overall, input.descriptionAccuracy, input.communication, input.punctuality]
+        .some((score) => !Number.isInteger(score) || score < 1 || score > 5)) return false
+      if ((input.comment?.length ?? 0) > 1000) return false
       const review: Review = { id: nextId('review'), ...input, createdAt: now() }
       set((s) => ({ reviews: [...s.reviews, review] }))
+      return true
     },
 
     submitReport: (input) => {
+      if (!operatorId() || !Number.isInteger(input.targetId) || input.targetId <= 0 ||
+        (input.evidence?.length ?? 0) > 5 || (input.description?.length ?? 0) > 2000) return false
       const report: Report = { id: nextId('report'), ...input, status: 'PENDING', createdAt: now() }
       set((s) => ({ reports: [...s.reports, report] }))
       notify(
         operatorId(),
         'REPORT_RESULT',
         '举报已提交',
-        '管理员会在 48 小时内处理，结果将在通知中心告知',
+        'Phase 2 Mock 仅保存本次举报，不代表真实管理员已收到或处理',
       )
+      return true
     },
 
     /* ---------- 通知 ---------- */

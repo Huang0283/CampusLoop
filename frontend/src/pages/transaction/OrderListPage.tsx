@@ -79,8 +79,8 @@ export default function OrderListPage() {
   const [state, setState] = useState<'loading' | 'success' | 'error'>('success')
 
   const relatedOrders = orders.filter((order) => order.buyer.id === user?.id || order.seller.id === user?.id)
-  const visibleOrders = filterOrders(activeTab, orders, user?.id)
-  const tabLabel = (key: TabKey, label: string) => `${label}（${filterOrders(key, orders, user?.id).length}）`
+  const visibleOrders = filterOrders(activeTab, relatedOrders, user?.id)
+  const tabLabel = (key: TabKey, label: string) => `${label}（${filterOrders(key, relatedOrders, user?.id).length}）`
   const tabItems: TabsProps['items'] = [
     { key: 'all', label: tabLabel('all', '全部') },
     { key: 'buy', label: tabLabel('buy', '购买') },

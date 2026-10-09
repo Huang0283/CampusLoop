@@ -1,0 +1,18 @@
+{
+  "caseId": "invalid-input",
+  "operation": "search",
+  "request": {
+    "query": "  ",
+    "mode": "keyword",
+    "page": 1,
+    "pageSize": 20,
+    "sort": "relevance"
+  },
+  "httpStatus": 422,
+  "response": {
+    "code": "VALIDATION_ERROR",
+    "message": "查询内容不能为空",
+    "requestId": "fixture-invalid-input",
+    "details": null
+  }
+}

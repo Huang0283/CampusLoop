@@ -1,0 +1,1 @@
+{"kind":"fallback","request":{"capability":"PRICE_ADVICE","timeoutMs":300},"response":{"capability":"PRICE_ADVICE","status":"UNAVAILABLE","fallback":"MANUAL_PRICE_ENTRY","blocksTransaction":false,"publicMessage":"价格建议暂不可用，你仍可手动定价并继续发布。","resultVersion":"m8-contract-v1"}}

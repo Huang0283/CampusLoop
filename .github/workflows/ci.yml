@@ -1,0 +1,131 @@
+# CampusLoop 持续集成（BP2-10，M9 维护）
+#
+# 门禁内容（对应 Issue BP-P2 验收）：
+#   backend-quality : ruff 格式检查 + 静态检查（干净检出必须零告警）
+#   backend-test    : 空库迁移 -> 回滚 -> 再迁移 -> 种子幂等两遍 -> pytest
+#   frontend-build  : SDK 漂移检查 + lint + build
+#
+# 保护范围：main、phase*/ 集成分支、task/** 任务分支的 push 与全部 PR。
+# 注意：本文件放仓库根 .github/workflows/ci.yml。
+
+name: ci
+
+on:
+  push:
+    branches: [main, "phase*/**", "phase*", "task/**"]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend-quality:
+    name: backend / format & lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - name: Install locked dependencies
+        run: pip install -r requirements.txt
+      - name: Ruff format check
+        run: ruff format --check .
+      - name: Ruff lint
+        run: ruff check .
+
+  backend-test:
+    name: backend / migrations, seed & tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.6-pg16
+        env:
+          POSTGRES_USER: campusloop
+          POSTGRES_PASSWORD: campusloop
+          POSTGRES_DB: campusloop
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U campusloop"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+      redis:
+        image: redis:7.4-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      APP_ENV: ci
+      LOG_JSON: "false"
+      LOG_LEVEL: WARNING
+      DATABASE_URL: postgresql+psycopg://campusloop:campusloop@localhost:5432/campusloop
+      REDIS_URL: redis://localhost:6379/15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - name: Install locked dependencies
+        run: pip install -r requirements.txt
+
+      - name: Migrate on empty database
+        run: alembic upgrade head
+
+      - name: Verify rollback then re-migrate
+        run: |
+          alembic downgrade base
+          alembic upgrade head
+
+      - name: Seed idempotency check (run twice, compare)
+        run: python scripts/seed.py --check
+
+      - name: Health smoke via TestClient
+        run: python -m pytest tests/test_health.py -v
+
+      - name: Full test suite
+        run: python -m pytest
+
+  frontend-build:
+    name: frontend / sdk & build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      # SDK 漂移门禁（验收整改恢复）：从 openapi/campusloop.v1.yaml 重新生成 SDK
+      # 并编译校验；OpenAPI 改动而 SDK 未同步时在此红灯，阻止合入。
+      - name: SDK drift check
+        run: |
+          npm run sdk:check
+          git diff --exit-code -- src/sdk/generated/
+      - name: Transaction prototype state tests
+        run: npm run test:transaction
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build

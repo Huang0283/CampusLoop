@@ -1,39 +1,79 @@
-import React from 'react';
-import { Form, Input, Button, Segmented } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useAuthStore } from '../../stores/auth';
-import type { UserRole } from '../../types/user';
+import React, { useState } from 'react'
+import { Alert, Form, Input, Button, Segmented, message } from 'antd'
+import { MailOutlined, LockOutlined } from '@ant-design/icons'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../../stores/auth'
+import type { UserRole } from '../../types/user'
+import { toReturnPath, type ReturnLocation } from '../../hooks/useRequireAuthAction'
 
 interface LoginFormValues {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
+type AuthScenario = 'success' | 'invalid' | 'expired' | 'disabled'
+
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [form] = Form.useForm<LoginFormValues>();
-  const [role, setRole] = useState<UserRole>('student');
-  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [form] = Form.useForm<LoginFormValues>()
+  const [role, setRole] = useState<UserRole>('student')
+  const [scenario, setScenario] = useState<AuthScenario>('success')
+  const [feedback, setFeedback] = useState<{ type: 'error' | 'warning'; text: string } | null>(null)
+  const [loading, setLoading] = useState(false)
+  const login = useAuthStore((state) => state.login)
 
-  const handleFinish = () => {
-    login({
-      id: role === 'admin' ? 99 : 1,
-      nickname: role === 'admin' ? '演示管理员' : '演示学生',
-      role,
-    });
+  const handleFinish = (values: LoginFormValues) => {
+    setLoading(true)
+    setFeedback(null)
 
-    const requestedPath = (location.state as { from?: { pathname?: string } } | null)
-      ?.from?.pathname;
-    const fallbackPath = role === 'admin' ? '/admin' : '/market';
-    const target = role === 'student' && requestedPath === '/admin'
-      ? '/market'
-      : requestedPath || fallbackPath;
+    setTimeout(() => {
+      if (scenario === 'invalid' || values.email.includes('error')) {
+        setLoading(false)
+        setFeedback({ type: 'error', text: '邮箱或密码错误，请检查后重试。' })
+        return
+      }
 
-    navigate(target, { replace: true });
-  };
+      if (scenario === 'expired') {
+        localStorage.removeItem('token')
+        setLoading(false)
+        setFeedback({ type: 'warning', text: '登录令牌已失效，请重新输入凭据。' })
+        return
+      }
+
+      if (scenario === 'disabled') {
+        setLoading(false)
+        setFeedback({ type: 'error', text: '该账号已被禁用，请联系管理员处理。' })
+        return
+      }
+
+      login({
+        id: role === 'admin' ? 99 : 1,
+        nickname: role === 'admin' ? '演示管理员' : '演示学生',
+        role,
+        avatar: 'https://picsum.photos/seed/me/100/100',
+        campusVerified: true,
+        school: '清华大学',
+        college: '计算机学院',
+        major: '软件工程',
+        bio: '热爱校园生活，诚信交易。',
+      })
+
+      message.success('登录成功')
+
+      const requestedPath = toReturnPath(
+        (location.state as { from?: ReturnLocation } | null)?.from,
+      )
+      const fallbackPath = role === 'admin' ? '/admin' : '/market'
+      const target =
+        role === 'student' && requestedPath?.startsWith('/admin')
+          ? '/market'
+          : requestedPath || fallbackPath
+
+      setLoading(false)
+      navigate(target, { replace: true })
+    }, 800)
+  }
 
   return (
     <div
@@ -54,7 +94,6 @@ const LoginPage: React.FC = () => {
           padding: '48px 40px',
         }}
       >
-        {/* Logo */}
         <div
           style={{
             display: 'flex',
@@ -70,7 +109,6 @@ const LoginPage: React.FC = () => {
           <span style={{ fontSize: 24, fontWeight: 700, color: '#1677ff' }}>CampusLoop</span>
         </div>
 
-        {/* 标题 */}
         <h1
           style={{
             textAlign: 'center',
@@ -83,13 +121,13 @@ const LoginPage: React.FC = () => {
           登录
         </h1>
 
-        {/* 表单 */}
         <Form<LoginFormValues>
           form={form}
           layout="vertical"
           onFinish={handleFinish}
           requiredMark={false}
           initialValues={{ email: 'student@campus.edu', password: 'demo123' }}
+          disabled={loading}
         >
           <Form.Item label="演示身份">
             <Segmented
@@ -100,8 +138,31 @@ const LoginPage: React.FC = () => {
                 { label: '管理员', value: 'admin' },
               ]}
               onChange={(value) => setRole(value as UserRole)}
+              disabled={loading}
             />
           </Form.Item>
+          <Form.Item label="演示状态">
+            <Segmented
+              block
+              value={scenario}
+              options={[
+                { label: '正常', value: 'success' },
+                { label: '凭据错误', value: 'invalid' },
+                { label: '令牌失效', value: 'expired' },
+                { label: '账号禁用', value: 'disabled' },
+              ]}
+              onChange={(value) => setScenario(value as AuthScenario)}
+              disabled={loading}
+            />
+          </Form.Item>
+          {feedback && (
+            <Alert
+              showIcon
+              type={feedback.type}
+              title={feedback.text}
+              style={{ marginBottom: 20 }}
+            />
+          )}
           <Form.Item
             name="email"
             rules={[
@@ -135,6 +196,7 @@ const LoginPage: React.FC = () => {
               htmlType="submit"
               size="large"
               block
+              loading={loading}
               style={{ borderRadius: 8, height: 46, fontSize: 16, fontWeight: 600 }}
             >
               登录
@@ -142,7 +204,6 @@ const LoginPage: React.FC = () => {
           </Form.Item>
         </Form>
 
-        {/* 底部链接 */}
         <div style={{ textAlign: 'center', color: '#666666', fontSize: 14 }}>
           还没有账号？{' '}
           <a
@@ -154,7 +215,7 @@ const LoginPage: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

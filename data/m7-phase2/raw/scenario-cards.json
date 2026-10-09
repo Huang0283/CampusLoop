@@ -1,0 +1,86 @@
+[
+  {
+    "catalogId": "catalog-calculator",
+    "intent": "想找 TI-84 Plus 图形计算器",
+    "edgeCase": "sold",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-monitor",
+    "intent": "想收戴尔 P2422H 办公屏幕",
+    "edgeCase": "hidden",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-bicycle",
+    "intent": "想买 B-TWIN 20 折叠单车",
+    "edgeCase": "private",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-calculus",
+    "intent": "求同济第七版高数上册",
+    "edgeCase": "other_campus",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-keyboard",
+    "intent": "想收罗技 K380 便携键盘",
+    "edgeCase": "self",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-fan",
+    "intent": "宿舍想用美的 SAD35 落地扇",
+    "edgeCase": "place",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-lamp",
+    "intent": "想要飞利浦轩坦阅读台灯",
+    "edgeCase": "unknown_condition",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-camera",
+    "intent": "想买佳能 EOS 200D 练习摄影",
+    "edgeCase": "reserved",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-headphones",
+    "intent": "想买索尼 WH-1000XM4 降噪耳机",
+    "edgeCase": "deleted",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-tablet",
+    "intent": "上课记笔记用的第九代 iPad",
+    "edgeCase": "unknown_model",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-guitar",
+    "intent": "初学想收雅马哈 F310 民谣吉他",
+    "edgeCase": "low_condition",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  },
+  {
+    "catalogId": "catalog-tennis",
+    "intent": "求 Wilson Clash 100 网球拍",
+    "edgeCase": "old_time",
+    "scope": "six current fictional products only; full judgment within this catalog",
+    "semanticPolicy": "exact and paraphrase=2; different related model=1 before hard constraints"
+  }
+]

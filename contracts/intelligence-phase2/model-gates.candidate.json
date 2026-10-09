@@ -1,0 +1,104 @@
+{
+  "policyVersion": "model-gates-candidate-v1.1",
+  "status": "CANDIDATE_NOT_APPROVED",
+  "sourceDocument": "docs/evidence/phase-2/intelligence/model-go-live-gates.md",
+  "capabilities": [
+    {
+      "capability": "semantic-search",
+      "datasetVersion": "m7-synthetic-p2-v1.1",
+      "datasetFrozen": false,
+      "reviewedExampleCount": 0,
+      "minimumExampleCount": 100,
+      "thresholds": {
+        "mrrAt10Min": 0.65,
+        "recallAt10Min": 0.8,
+        "precisionAt5Min": 0.7,
+        "relativeMrrImprovementMin": 0.1,
+        "sliceRecallDropMax": 0.05,
+        "minimumSliceCount": 30,
+        "p95MsMax": 300,
+        "p99MsMax": 600,
+        "rssMiBMax": 512,
+        "diskMiBMax": 1024
+      },
+      "environment": null,
+      "fallbackScenarios": [
+        "model-missing",
+        "load-failure",
+        "timeout",
+        "empty-query",
+        "vector-store-unavailable"
+      ],
+      "approvals": {
+        "M7": null,
+        "M10": null,
+        "M1": null
+      }
+    },
+    {
+      "capability": "supply-demand-matching",
+      "datasetVersion": "m7-synthetic-p2-v1.1",
+      "datasetFrozen": false,
+      "reviewedExampleCount": 0,
+      "minimumExampleCount": 100,
+      "thresholds": {
+        "mrrAt10Min": 0.65,
+        "recallAt10Min": 0.8,
+        "hardViolationCountMax": 0,
+        "relativeMrrImprovementMin": 0.1,
+        "sliceRecallDropMax": 0.05,
+        "minimumSliceCount": 30,
+        "p95MsMax": 500,
+        "p99MsMax": 1000,
+        "rssMiBMax": 512,
+        "diskMiBMax": 1024
+      },
+      "environment": null,
+      "fallbackScenarios": [
+        "model-unavailable",
+        "duplicate-events",
+        "duplicate-notifications",
+        "expired-wanted"
+      ],
+      "approvals": {
+        "M7": null,
+        "M10": null,
+        "M1": null
+      }
+    },
+    {
+      "capability": "price-model",
+      "datasetVersion": "m8-price-l3-test-v1",
+      "datasetFrozen": false,
+      "reviewedExampleCount": 0,
+      "minimumExampleCount": 200,
+      "thresholds": {
+        "nmaeMax": 0.2,
+        "mapeMax": 0.25,
+        "intervalCoverageMin": 0.8,
+        "normalizedWidthMax": 0.6,
+        "relativeNmaeImprovementMin": 0.1,
+        "sliceNmaeIncreaseMax": 0.05,
+        "minimumSliceCount": 30,
+        "p95MsMax": 300,
+        "p99MsMax": 600,
+        "rssMiBMax": 512,
+        "modelMiBMax": 200
+      },
+      "environment": null,
+      "fallbackScenarios": [
+        "insufficient-data",
+        "unknown-category",
+        "model-missing",
+        "load-failure",
+        "timeout",
+        "version-mismatch"
+      ],
+      "approvals": {
+        "M8": null,
+        "M10": null,
+        "M1": null
+      }
+    }
+  ]
+}
