@@ -1,13 +1,15 @@
 # Phase3 技术候选验收记录
 
-日期2026-10-09，代码基准`74d8c0c`（完整hash以Git为准），工作分支`task/solo-p3-mvp`；输入`d16ea06`，此前main为`93339da`。本记录是作者/自动化实际执行，独立验收者是用户本人M10陈梓弘；尚未收到其实际复测结论，不代签。
+日期2026-10-09，当前代码基准`a24bbef99a32d93f28a93529cd8c10f0f0a6fb46`，后端镜像复验基准`74d8c0c`（后续提交未改后端源码），工作分支`task/solo-p3-mvp`；输入`d16ea06`，此前main为`93339da`。本记录是作者/自动化实际执行，独立验收者是用户本人M10陈梓弘；尚未收到其实际复测结论，不代签。
 
 ## 实际结果
 
 - Docker Linux Python3.12.15、PostgreSQL16/pgvector、Redis7.4、真实MinIO：后端完整37测试通过（无skip），ruff format/check通过。最终代码镜像无源码bind mount复跑37/37，78.85秒；不会将本机Windows Python3.13 socket错误当业务通过证据。
 - M7基线31测试通过，M8基线17测试通过；M8固定规则9/9、重复运行字节一致，resultHash为aa7374f747edffa7c2794b0240d0bd9e1be50f81efac203716e5d5b9f813b14f。真实loopback RPC+权威数据库调用另由backend/tests/test_live_intelligence.py执行。
 - canonical OpenAPI结构校验61操作、9枚举、16schema样例通过；生成SDK再生成无git drift；前端lint/build通过。bundle约1.2MB、gzip379KB，体积warning非阻塞但未做性能优化承诺。
-- 真实Playwright四旅程通过，25.3秒：双账号发布/上传/搜索/私图聊天/失败重试/断线恢复/报价/约定/双方完成/评价/举报/通知；求购/规则价格；游客/网络恢复/刷新安全恢复及退出/固定侧栏；移动导航/筛选空态。后续最终镜像复跑状态在GitHub候选PR同步。历史原型8场景仅Mock回归，不能代替真实E2E。
+- 当前代码真实Playwright五场景通过，29.2秒：双账号发布/上传/图片加载/搜索/私图聊天/失败重试/断线恢复/报价/约定/双方完成/评价/举报/通知；求购/规则价格；游客/网络恢复/刷新安全恢复及退出/固定侧栏/模拟短令牌失效后的真实cookie恢复；移动导航/筛选空态；另一标签切换账号后禁止旧请求自动以新身份重试。此前74d8c0c的四旅程25.3秒为历史记录。历史原型8场景仅Mock回归，不能代替真实E2E。
+- 人工检查桌面1440与移动390宽的游客截图；三张有效商品图片均加载成功，无图商品明确显示“暂无商品图片”，移动文档宽375不超视口390。蓝色小图是实际测试上传图片，不用假商品照片替换。
+- 远端cb07c47的CI后端37测试、智能基线、迁移/seed、SDK/lint/build均通过，浏览器3/4；失败是测试UI使用127.0.0.1而API使用localhost，Strict Cookie按跨站规则未恢复。a24bbef统一测试为localhost；最新远端结果另以PR92 Checks为准，不能将本机5/5当作远端已通过。
 - 独立migration_audit库head0008→downgrade base→upgrade0008成功；seed --check连续两次数量相同，第二遍所有表新增0。回滚不触碰demo或用户业务库。最终镜像构建成功，演示/test容器使用镜像源码而不是未提交bind mount。
 - Cookie测试验证HttpOnly/Strict/host-only、生产Secure/__Host-、CSRF精确Origin/头、账号禁用、绝对期限不延长、两标签并发恢复与退出撤销。JSON客户端旋转refresh旧通路独立保留，不混用browser族。
 - 匹配测试验证真实outbox/结果/通知原子性、同wanted/product一次、收件人为wanted owner、隐藏再恢复不重复、关闭不current、版本变更不发布旧结果、SKIP LOCKED回滚释放、五次异常终止失败。用户已批准first-pair-v1默认启用。

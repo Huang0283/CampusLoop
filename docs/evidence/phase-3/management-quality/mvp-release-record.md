@@ -2,6 +2,8 @@
 
 状态：技术候选，未正式发布。main尚为93339da，Phase2基准d16ea06（#91）。本次task/solo-p3-mvp从Phase2集成继续，代码/文档精确提交与候选PR见verification，未创建正式phase3-mvp标签。
 
+候选PR：https://github.com/Huang0283/CampusLoop/pull/92 ，base为phase2/integration，draft；独立验收人是用户本人M10陈梓弘。已推送技术/交付文档，四Issue正文与本地docs/issues同步，仍OPEN。最终主分支收口需完成独立验收和前置阶段基准，不把这个候选PR当正式main合并。
+
 用户要求集中完成第三阶段，不创建冒充组员的任务PR或Review。候选先提交phase2/integration供技术审查，保持draft直至Phase2→Phase3基准、获批安全会话复验、标签归档、独立验收和正式收口处理完成。
 
 发布前：远端CI成功；M1确认前置范围；指定非作者复现并填本人结论；同意的契约/Issue口径落库；阶段集成→main唯一PR再关闭#24/#25/#26/#27，创建可追溯标签。
