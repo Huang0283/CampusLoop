@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m7_baseline/tests",
+    "-v"
+  ],
+  "exitCode": 1,
+  "startedAt": "2026-10-07T16:58:18.080620+00:00",
+  "endedAt": "2026-10-07T16:58:18.809463+00:00",
+  "stdout": "",
+  "stderr": "test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility (test_engine.RankingTests.test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility) ... ok\ntest_keyword_title_weight_matches_published_hand_example (test_engine.RankingTests.test_keyword_title_weight_matches_published_hand_example) ... ok\ntest_matching_keeps_eligible_zero_text_score_and_explains_budget (test_engine.RankingTests.test_matching_keeps_eligible_zero_text_score_and_explains_budget) ... ok\ntest_matching_without_text_returns_null_score_not_perfect_score (test_engine.RankingTests.test_matching_without_text_returns_null_score_not_perfect_score) ... ERROR\n\n======================================================================\nERROR: test_matching_without_text_returns_null_score_not_perfect_score (test_engine.RankingTests.test_matching_without_text_returns_null_score_not_perfect_score)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<repo>\\services\\m7_baseline\\tests\\test_engine.py\", line 64, in test_matching_without_text_returns_null_score_not_perfect_score\n    result = engine.rank([self.product], request, self.dictionary)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>\\services\\m7_baseline\\engine.py\", line 64, in rank\n    raise ServiceError(422, \"EMPTY_SEARCH_TERMS\")\nservices.m7_baseline.engine.ServiceError: EMPTY_SEARCH_TERMS\n\n----------------------------------------------------------------------\nRan 4 tests in 0.007s\n\nFAILED (errors=1)\n"
+}

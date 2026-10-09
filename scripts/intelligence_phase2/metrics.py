@@ -29,9 +29,9 @@ def evaluate(document):
     require(document["schemaVersion"] == "intelligence-ranking-eval-v1", "schema version mismatch")
     for name in ("datasetVersion", "labelVersion", "snapshotVersion", "splitVersion"):
         require(isinstance(document[name], str) and bool(document[name].strip()), f"{name} required")
-    # Phase 2 accepts only diagnostic labels. Human-reviewed performance requires
-    # a separate, sealed label adapter and review records in Phase 3/4.
-    require(document["labelSource"] in {"SYNTHETIC_FORMULA_FIXTURE", "PENDING_HUMAN_REVIEW"},
+    # An unsealed Phase 3 review archive is still diagnostic, not formal approval.
+    # HUMAN_REVIEWED (approved/sealed performance) remains outside this calculator.
+    require(document["labelSource"] in {"SYNTHETIC_FORMULA_FIXTURE", "PENDING_HUMAN_REVIEW", "HUMAN_REVIEWED_UNSEALED"},
             "Phase 2 calculator accepts diagnostic labels only")
     require(document["candidateScope"] in {"COMPLETE_CATALOG_POOL", "FULL_CORPUS"}, "candidateScope required")
     ks = document["kValues"]

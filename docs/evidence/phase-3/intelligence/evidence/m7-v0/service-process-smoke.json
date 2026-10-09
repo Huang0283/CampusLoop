@@ -1,0 +1,532 @@
+{
+  "cases": [
+    {
+      "case": "missing-service-auth",
+      "error": "UNAUTHORIZED",
+      "status": 401
+    },
+    {
+      "case": "computed-search-semantic-disabled",
+      "result": {
+        "items": [
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.5555555555555556,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 10000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "101",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.5555555555555556,
+            "scoreType": "keyword_v0"
+          },
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.4444444444444444,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "ti-84",
+                  "plus",
+                  "计算"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 20000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "102",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.4444444444444444,
+            "scoreType": "keyword_v0"
+          },
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.2222222222222222,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "计算",
+                  "算器"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 15000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "103",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.2222222222222222,
+            "scoreType": "keyword_v0"
+          }
+        ],
+        "metadata": {
+          "algorithmVersion": "m7-keyword-v0",
+          "asOf": "2026-10-07T17:28:17Z",
+          "degraded": true,
+          "dictionaryHash": "dictionary_691b1012a0cf1ff0dc8551c7477eea68855da8a00ccc6989f11c31b3c19f6338",
+          "dictionaryVersion": "m7-fixture-dictionary-v1",
+          "fallbackReason": "MODEL_DISABLED",
+          "mode": "keyword",
+          "modelVersion": null,
+          "quarantinedProductCount": 0,
+          "schemaVersion": "m7-baseline-result-v1",
+          "sort": "relevance",
+          "tokenizerVersion": "m7-tokenizer-v0"
+        }
+      },
+      "status": 200
+    },
+    {
+      "case": "two-persisted-pages",
+      "first": {
+        "items": [
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.5555555555555556,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 10000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "101",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.5555555555555556,
+            "scoreType": "keyword_v0"
+          }
+        ],
+        "metadata": {
+          "algorithmVersion": "m7-keyword-v0",
+          "asOf": "2026-10-07T17:28:17Z",
+          "degraded": false,
+          "dictionaryHash": "dictionary_691b1012a0cf1ff0dc8551c7477eea68855da8a00ccc6989f11c31b3c19f6338",
+          "dictionaryVersion": "m7-fixture-dictionary-v1",
+          "fallbackReason": null,
+          "mode": "keyword",
+          "modelVersion": null,
+          "quarantinedProductCount": 0,
+          "schemaVersion": "m7-baseline-result-v1",
+          "sort": "relevance",
+          "tokenizerVersion": "m7-tokenizer-v0"
+        },
+        "nextScanPosition": 1,
+        "snapshotVersion": "a849007cb6634d58a413e244a4c26970",
+        "total": 3,
+        "totalIsExact": true
+      },
+      "second": {
+        "items": [
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.4444444444444444,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "ti-84",
+                  "plus",
+                  "计算"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 20000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "102",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.4444444444444444,
+            "scoreType": "keyword_v0"
+          }
+        ],
+        "metadata": {
+          "algorithmVersion": "m7-keyword-v0",
+          "asOf": "2026-10-07T17:28:17Z",
+          "degraded": false,
+          "dictionaryHash": "dictionary_691b1012a0cf1ff0dc8551c7477eea68855da8a00ccc6989f11c31b3c19f6338",
+          "dictionaryVersion": "m7-fixture-dictionary-v1",
+          "fallbackReason": null,
+          "mode": "keyword",
+          "modelVersion": null,
+          "quarantinedProductCount": 0,
+          "schemaVersion": "m7-baseline-result-v1",
+          "sort": "relevance",
+          "tokenizerVersion": "m7-tokenizer-v0"
+        },
+        "nextScanPosition": 2,
+        "snapshotVersion": "a849007cb6634d58a413e244a4c26970",
+        "total": 3,
+        "totalIsExact": true
+      },
+      "status": 200
+    },
+    {
+      "case": "unknown-input-field",
+      "error": "VALIDATION_ERROR",
+      "status": 422
+    },
+    {
+      "case": "client-auth-error-no-fallback",
+      "error": "UNAUTHORIZED",
+      "status": 401
+    },
+    {
+      "case": "service-stopped-local-filtered-fallback",
+      "result": {
+        "items": [
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.5555555555555556,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 10000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "101",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.5555555555555556,
+            "scoreType": "keyword_v0"
+          },
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.4444444444444444,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "ti-84",
+                  "plus",
+                  "计算"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 20000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "102",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.4444444444444444,
+            "scoreType": "keyword_v0"
+          },
+          {
+            "explanationDetails": [
+              {
+                "code": "TEXT_MATCH",
+                "contribution": 0.2222222222222222,
+                "field": "text",
+                "kind": "factor",
+                "observed": [
+                  "计算",
+                  "算器"
+                ],
+                "required": [
+                  "ti-84",
+                  "plus",
+                  "计算",
+                  "算器"
+                ],
+                "ruleVersion": "keyword-v0"
+              },
+              {
+                "code": "BUDGET_MATCH",
+                "contribution": null,
+                "field": "priceFen",
+                "kind": "constraint",
+                "observed": 15000,
+                "required": {
+                  "max": 20000,
+                  "min": 10000
+                },
+                "ruleVersion": "match-v0"
+              },
+              {
+                "code": "CATEGORY_MATCH",
+                "contribution": null,
+                "field": "categoryId",
+                "kind": "constraint",
+                "observed": "calculator",
+                "required": "calculator",
+                "ruleVersion": "match-v0"
+              }
+            ],
+            "productId": "103",
+            "productVersion": 2,
+            "reasons": [
+              "关键词规则评分"
+            ],
+            "relevanceScore": 0.2222222222222222,
+            "scoreType": "keyword_v0"
+          }
+        ],
+        "metadata": {
+          "algorithmVersion": "m7-keyword-v0",
+          "asOf": "2026-10-07T17:28:17Z",
+          "degraded": true,
+          "dictionaryHash": "dictionary_691b1012a0cf1ff0dc8551c7477eea68855da8a00ccc6989f11c31b3c19f6338",
+          "dictionaryVersion": "m7-fixture-dictionary-v1",
+          "fallbackReason": "SERVICE_TIMEOUT",
+          "mode": "keyword",
+          "modelVersion": null,
+          "quarantinedProductCount": 0,
+          "schemaVersion": "m7-baseline-result-v1",
+          "sort": "relevance",
+          "tokenizerVersion": "m7-tokenizer-v0"
+        }
+      }
+    }
+  ],
+  "command": [
+    "python",
+    "-m",
+    "services.m7_baseline",
+    "--database",
+    "<temporary-m7-sqlite>",
+    "--port",
+    "0"
+  ],
+  "credential": "ephemeral random environment variable; never persisted",
+  "endedAt": "2026-10-07T17:28:18.551815+00:00",
+  "environment": {
+    "platform": "win32",
+    "python": "3.12.14"
+  },
+  "logsRedacted": true,
+  "serverLog": "operation=rpc status=401 code=UNAUTHORIZED durationMs=0\noperation=rpc status=200 code=OK durationMs=0\noperation=rpc status=200 code=OK durationMs=31\noperation=rpc status=200 code=OK durationMs=16\noperation=rpc status=422 code=VALIDATION_ERROR durationMs=0\noperation=rpc status=401 code=UNAUTHORIZED durationMs=0\n",
+  "sourceCommit": "1c235abba1c7a337501aacdec14f987c447563b0",
+  "startedAt": "2026-10-07T17:28:14.275666+00:00",
+  "status": "PASS",
+  "workingTreeDirty": true
+}
