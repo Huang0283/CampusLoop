@@ -142,7 +142,7 @@ jobs:
         env:
           BASELINE_SERVICES_ENABLED: "true"
           CORS_ORIGINS: http://localhost:5174,http://127.0.0.1:5174
-          CAMPUSLOOP_UI_URL: http://127.0.0.1:5174
+          CAMPUSLOOP_UI_URL: http://localhost:5174
         run: |
           python scripts/reset_test_limiter.py
           python scripts/serve.py > /tmp/campusloop-api.log 2>&1 &

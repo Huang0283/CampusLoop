@@ -29,6 +29,7 @@ test('real two-account browser transaction; no database editing', async ({ brows
   await expect(seller.getByRole('button', { name: '保存商品' })).toBeEnabled()
   await seller.getByRole('button', { name: '保存商品' }).click()
   await expect(seller).toHaveURL(/\/product\/\d+$/)
+  await expect.poll(() => seller.locator('.ant-image img').first().evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
   const productPath = new URL(seller.url()).pathname
   await register(buyer, 'Buyer')
   await buyer.getByRole('searchbox', { name: '搜索商品', exact: true }).fill(title)
@@ -136,6 +137,19 @@ test('guest browse, failure recovery, secure reload restoration, logout and fixe
   await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
   await page.reload()
   await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
+  let expired = false
+  await page.route('**/users/me', (route) => {
+    if (!expired) { expired = true; return route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED', message: 'Expired fixture', requestId: 'safe-test' } }) }
+    return route.continue()
+  })
+  await page.getByRole('menuitem', { name: '首页' }).click()
+  const renewed = page.waitForResponse((response) => response.url().endsWith('/auth/browser-session') && response.status() === 200)
+  await page.getByText('Reload test', { exact: true }).hover()
+  await page.getByRole('menuitem', { name: '个人中心' }).click()
+  await renewed
+  await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
+  await expect(page.getByRole('button', { name: '保存资料' })).toBeVisible()
+  await page.unroute('**/users/me')
   expect(await page.evaluate(() => Object.keys(localStorage).filter((key) => /token|auth|session/i.test(key)))).toEqual([])
   expect(await page.evaluate(() => document.cookie)).not.toMatch(/campusloop.*session/)
   const cookies = await page.context().cookies()
@@ -160,4 +174,25 @@ test('mobile navigation and empty-state filter recovery', async ({ page }) => {
   const nav = await page.getByRole('navigation', { name: '移动导航' }).boundingBox()
   await page.getByRole('navigation', { name: '移动导航' }).getByRole('button', { name: '求购' }).click()
   expect(await page.getByRole('navigation', { name: '移动导航' }).boundingBox()).toEqual(nav)
+})
+
+test('another tab changing account cannot retry an old request as the new user', async ({ context, page }) => {
+  await register(page, 'Original account')
+  const other = await context.newPage()
+  await register(other, 'Changed account')
+  let attempts = 0
+  await page.route('**/users/me', (route) => {
+    attempts += 1
+    return route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED', message: 'Expired fixture', requestId: 'safe-test' } })
+  })
+  await page.getByText('Original account', { exact: true }).hover()
+  const renewed = page.waitForResponse((response) => response.url().endsWith('/auth/browser-session') && response.status() === 200)
+  await page.getByRole('menuitem', { name: '个人中心' }).click()
+  await renewed
+  await expect(page.getByRole('link', { name: '登录', exact: true })).toBeVisible()
+  expect(attempts).toBe(1)
+  await page.unroute('**/users/me')
+  await page.reload()
+  await expect(page.getByText('Changed account', { exact: true })).toBeVisible()
+  await other.close()
 })

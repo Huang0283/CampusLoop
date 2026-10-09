@@ -6,9 +6,10 @@ export const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhos
 let tokens: Pick<BrowserAuthResult, 'accessToken' | 'expiresIn'> | null = null
 let refreshFlight: { generation: number; promise: Promise<void> } | null = null
 let generation = 0
+let tokenUserId: number | null = null
 
-export function setTokens(pair: Pick<BrowserAuthResult, 'accessToken' | 'expiresIn'>) { tokens = { accessToken: pair.accessToken, expiresIn: pair.expiresIn }; generation += 1 }
-export function clearTokens() { tokens = null; generation += 1 }
+export function setTokens(pair: BrowserAuthResult) { tokens = { accessToken: pair.accessToken, expiresIn: pair.expiresIn }; tokenUserId = pair.user.id; generation += 1 }
+export function clearTokens() { tokens = null; tokenUserId = null; generation += 1 }
 export function accessToken() { return tokens?.accessToken ?? null }
 
 export class ApiError extends Error {
@@ -37,6 +38,7 @@ async function refreshOnce(): Promise<void> {
   if (refreshFlight?.generation === generation) return refreshFlight.promise
   const current = tokens
   const started = generation
+  const expectedUserId = tokenUserId
   if (!current) throw new ApiError(401, 'AUTH_UNAUTHORIZED', '请重新登录。')
   const promise = (async () => {
     const response = await nativeRequest(new Request(apiBaseUrl + '/auth/browser-session', {
@@ -45,6 +47,7 @@ async function refreshOnce(): Promise<void> {
     if (!response.ok) throw new ApiError(response.status, response.status === 401 ? 'AUTH_UNAUTHORIZED' : 'REFRESH_UNAVAILABLE', response.status === 401 ? '会话已失效，请重新登录。' : '会话刷新暂不可用，请稍后重试。')
     const result = await response.json() as { data: BrowserAuthResult }
     if (generation !== started) throw new ApiError(401, 'SESSION_CHANGED', '登录状态已变更。')
+    if (result.data.user.id !== expectedUserId) throw new ApiError(401, 'SESSION_CHANGED', '另一个页面已切换账号，请刷新后重新操作。')
     tokens = { accessToken: result.data.accessToken, expiresIn: result.data.expiresIn }
   })().finally(() => { if (refreshFlight?.generation === started) refreshFlight = null })
   refreshFlight = { generation: started, promise }

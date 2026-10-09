@@ -22,7 +22,7 @@ function requireStudent(navigate: ReturnType<typeof useNavigate>, from: string) 
 
 export function ProductCards({ products, from, actions }: { products: Product[]; from?: string; actions?: (product: Product) => React.ReactNode }) {
   return <Row gutter={[16, 16]}>{products.map((product) => <Col key={product.id} xs={24} sm={12} lg={8}>
-    <Card cover={<Link to={`/product/${product.id}`} state={{ from }}><img src={product.images[0]} alt={product.title} style={{ width: '100%', height: 180, objectFit: 'cover' }} /></Link>}>
+    <Card cover={<Link to={`/product/${product.id}`} state={{ from }}>{product.images[0] ? <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: 180, objectFit: 'cover' }} /> : <div style={{ height: 180, display: 'grid', placeItems: 'center', background: '#f5f5f5', color: '#595959' }}>暂无商品图片</div>}</Link>}>
       <Link to={`/product/${product.id}`} state={{ from }}>{product.title}</Link>
       <Typography.Title level={4}>¥{product.price.toFixed(2)}</Typography.Title>
       <Space wrap><Tag>{stateLabel[product.status]}</Tag><span>{product.condition}</span><span>{product.campusLocation}</span></Space>
