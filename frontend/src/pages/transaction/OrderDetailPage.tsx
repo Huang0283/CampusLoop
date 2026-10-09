@@ -106,7 +106,11 @@ const OrderDetailPage: React.FC = () => {
 
   /** 参与关系由登录态推导：buyer / seller / other */
   const myRole = resolveOrderRole(user?.id, order);
-  const actions = myRole === 'other' ? [] : ORDER_ACTION_MATRIX[order.status][myRole];
+  if (myRole === 'other' || user?.role !== 'student') return (
+    <Alert type="warning" showIcon message="你无权查看此订单"
+      action={<Button onClick={() => navigate('/transactions')}>返回交易中心</Button>} />
+  );
+  const actions = ORDER_ACTION_MATRIX[order.status][myRole];
   const confirmProgress = Number(order.buyerConfirmedComplete) + Number(order.sellerConfirmedComplete);
   const bothConfirmed = order.buyerConfirmedComplete && order.sellerConfirmedComplete;
   const myConfirmedComplete =
@@ -424,7 +428,7 @@ const OrderDetailPage: React.FC = () => {
             >
               <h1 style={{ margin: 0, fontSize: 28, fontWeight: 700, color: TEXT_PRIMARY }}>订单详情</h1>
               <Space size={16}>
-                {myRole !== 'other' && (
+                {(
                   <a
                     style={{ fontSize: 13 }}
                     onClick={() => {
@@ -438,17 +442,6 @@ const OrderDetailPage: React.FC = () => {
                 <Button onClick={() => navigate('/transactions')}>返回列表</Button>
               </Space>
             </div>
-
-            {/* 非参与方：操作区零按钮，仅可查看公开信息 */}
-            {myRole === 'other' && (
-              <Alert
-                type="warning"
-                showIcon
-                style={{ marginBottom: 16 }}
-                message="你不是该订单的买卖双方"
-                description="仅可查看公开信息，无法执行任何操作。"
-              />
-            )}
 
             {/* 约定修改提示：修改后旧确认失效（异常交互 #14） */}
             {order.status === 'PENDING_CONFIRM' && (order.meetup?.version ?? 1) > 1 && (
@@ -552,7 +545,7 @@ const OrderDetailPage: React.FC = () => {
                     />
                     {renderParty('卖家', order.seller)}
                   </div>
-                  {myRole !== 'other' && (
+                  {(
                     <div style={{ marginTop: 16 }}>
                       <Button type="link" style={{ padding: 0 }} onClick={() => navigate('/chat')}>
                         联系对方

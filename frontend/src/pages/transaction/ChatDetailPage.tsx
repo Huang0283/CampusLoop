@@ -176,8 +176,9 @@ export default function ChatDetailPage() {
                   <OfferCard
                     offer={offer}
                     onAccept={(ov) => {
-                      useMockDbStore.getState().acceptOffer(ov.id)
-                      message.success('已接受报价：订单已创建并锁定商品，请确认见面约定')
+                      const accepted = useMockDbStore.getState().acceptOffer(ov.id)
+                      if (accepted) message.success('已接受报价（Mock）：订单已创建并锁定商品，请确认见面约定')
+                      else message.error('未接受报价：报价已失效、商品已被预约或你无权操作')
                     }}
                     onReject={(ov) => useMockDbStore.getState().rejectOffer(ov.id)}
                     onCounter={(ov) => {
@@ -432,10 +433,11 @@ export default function ChatDetailPage() {
         open={counterOfferOpen}
         onCancel={() => setCounterOfferOpen(false)}
         onOk={() => {
-          if (counterTargetId) {
-            useMockDbStore.getState().counterOffer(counterTargetId, counterAmount ?? 0)
-            message.success(`已还价 ¥${counterAmount ?? 0}：原报价被替代，新报价进入 24 小时有效期`)
+          if (!counterTargetId || !useMockDbStore.getState().counterOffer(counterTargetId, counterAmount ?? 0)) {
+            message.error('还价未保存：请填写正数金额，并确认报价、商品状态及操作身份有效')
+            return
           }
+          message.success(`已还价 ¥${counterAmount}（Mock）：新报价有效期 ${OFFER_EXPIRE_HOURS} 小时`)
           setCounterOfferOpen(false)
         }}
         okText="提交还价"
@@ -451,7 +453,7 @@ export default function ChatDetailPage() {
           />
           {status !== 'connected' && (
             <Text type="warning">
-              <Spin size="small" /> 议价走 HTTP，不受实时链路影响；但界面状态会短暂滞后
+              <Spin size="small" /> 当前议价仅修改本地 Mock；真实 HTTP 写入留给 Phase 3
             </Text>
           )}
         </Space>
@@ -462,19 +464,20 @@ export default function ChatDetailPage() {
         open={offerOpen}
         onCancel={() => setOfferOpen(false)}
         onOk={() => {
-          if (session.product && offerAmount) {
-            useMockDbStore
-              .getState()
-              .createOffer(sessionId, peer.id, contextProduct ?? session.product, offerAmount)
-            message.success(`已报价 ¥${offerAmount}：有效期 ${OFFER_EXPIRE_HOURS} 小时，对方接受后自动创建订单`)
+          const created = session.product && useMockDbStore.getState()
+            .createOffer(sessionId, peer.id, contextProduct ?? session.product, offerAmount ?? 0)
+          if (!created) {
+            message.error('报价未保存：金额必须为正数，且商品必须在售、会话双方有权操作')
+            return
           }
+          message.success(`已报价 ¥${offerAmount}（Mock）：有效期 ${OFFER_EXPIRE_HOURS} 小时，接受后创建订单并锁定商品`)
           setOfferOpen(false)
         }}
         okText="提交报价"
       >
         <Space direction="vertical" style={{ width: '100%' }}>
           <Text type="secondary">
-            卖家标价 ¥{session.product ? session.product.price : 0}；报价后商品锁定，接受时创建订单
+            卖家标价 ¥{session.product ? session.product.price : 0}；发起报价不锁定商品，接受后才创建订单并锁定
           </Text>
           <Input
             type="number"
@@ -492,8 +495,8 @@ export default function ChatDetailPage() {
         targetLabel={reportTarget?.label}
         onClose={() => setReportTarget(null)}
         onSubmit={(values) => {
-          if (!reportTarget) return
-          useMockDbStore.getState().submitReport({
+          if (!reportTarget) return false
+          return useMockDbStore.getState().submitReport({
             targetType: reportTarget.type,
             targetId: reportTarget.id,
             ...values,

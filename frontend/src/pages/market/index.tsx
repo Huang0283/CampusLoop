@@ -113,7 +113,7 @@ export const mockProducts = [
   },
   {
     id: 6,
-    seller: { id: 106, nickname: '吴同学', avatar: 'https://i.pravatar.cc/64?img=16', transactionCount: 3 },
+    seller: { id: 106, nickname: '吴同学', avatar: 'https://i.pravatar.cc/64?img=16', rating: 0, transactionCount: 3 },
     title: '宿舍收纳箱 大号',
     category: '宿舍',
     condition: '全新',
@@ -188,7 +188,7 @@ export const mockProducts = [
   },
   {
     id: 11,
-    seller: { id: 111, nickname: '褚同学', avatar: 'https://i.pravatar.cc/64?img=21', transactionCount: 2 },
+    seller: { id: 111, nickname: '褚同学', avatar: 'https://i.pravatar.cc/64?img=21', rating: 0, transactionCount: 2 },
     title: '宿舍床上桌 可折叠',
     category: '宿舍',
     condition: '九成新',

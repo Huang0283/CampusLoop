@@ -46,7 +46,7 @@ const mockFavorites = [
   },
   {
     id: 10003,
-    seller: { id: 203, nickname: '王同学', avatar: 'https://i.pravatar.cc/64?img=33', transactionCount: 4 },
+    seller: { id: 203, nickname: '王同学', avatar: 'https://i.pravatar.cc/64?img=33', rating: 0, transactionCount: 4 },
     title: '高等数学教材',
     category: '书籍',
     condition: '七成新',

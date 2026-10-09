@@ -180,7 +180,7 @@ const ProductDetailPage: React.FC = () => {
           name: productData.seller.nickname,
           avatar: productData.seller.avatar,
           school: productData.campusLocation ?? '校园用户',
-          hasRating: productData.seller.rating !== undefined,
+          hasRating: productData.seller.rating > 0,
           rating: productData.seller.rating,
           reply: `已完成 ${productData.seller.transactionCount ?? 0} 次交易`,
         },
@@ -201,7 +201,7 @@ const ProductDetailPage: React.FC = () => {
         {
           icon: <BgColorsOutlined />,
           label: '卖家评分',
-          value: productData.seller.rating?.toFixed(1) ?? '暂无评分',
+          value: productData.seller.rating > 0 ? productData.seller.rating.toFixed(1) : '暂无评价',
         },
         {
           icon: <HddOutlined />,
@@ -797,8 +797,8 @@ const ProductDetailPage: React.FC = () => {
         targetLabel={reportTarget?.label}
         onClose={() => setReportTarget(null)}
         onSubmit={(values) => {
-          if (!reportTarget) return;
-          useMockDbStore.getState().submitReport({
+          if (!reportTarget) return false;
+          return useMockDbStore.getState().submitReport({
             targetType: reportTarget.type,
             targetId: reportTarget.id,
             ...values,

@@ -26,10 +26,18 @@
 - 任务 PR：#63 `task/m3-transaction-pages -> phase2/frontend-prototype`。
 - 收尾分支：`task/m3-p2-closeout`；只补齐 M3 的 FE2-06、FE2-07 和 FE2-11 页面范围，不代表 M2/M4 或跨组门禁完成。
 
-## 尚未计入完成
+## M4 本轮集中收尾提交
 
-- M4 的 FE2-08 至 FE2-10 交付和任务 PR 验收。
-- M4 页面的五态矩阵；M2、M3 范围均已登记，但不能据此勾选全组 FE2-11。
+- FE2-08：`chat-prototype.md`；参与会话列表、聊天详情与实时 Mock 边界。
+- FE2-09：`offer-order-prototype.md`；报价发起身份、还价、过期、接受与重复订单防护。
+- FE2-10：`transaction-governance-prototype.md`；约定双确认/修改重置、评价、举报和通知。
+- FE2-11：已追加 M4 页面五态或具体不适用理由；不代替人工验收。
+- `frontend/scripts/verify-transaction-prototype.mjs`：直接运行真实 store 的 8 个 Mock 自动化场景。
+- 本轮提交与 PR 由集中收尾记录，不冒充 M4 原始个人提交或其他成员对签。
+
+## 仍未计入完成
+
+- M4 的人工浏览器验收、另一成员 Review 与任务 PR 签收。
 - M4 在公开业务页面接入 `useRequireAuthAction` 后的端到端动作回跳验收。
 - M5/M6/M7/M8 契约对签、M10 可测试性验收、M1 范围复核。
 - 小组汇总 PR 合入 `phase2/integration`。

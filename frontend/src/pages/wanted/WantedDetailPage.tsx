@@ -747,7 +747,7 @@ const WantedDetailPage: React.FC = () => {
           targetLabel={publisher.name}
           onClose={() => setReportOpen(false)}
           onSubmit={(values) => {
-            useMockDbStore.getState().submitReport({
+            return useMockDbStore.getState().submitReport({
               targetType: 'USER',
               targetId: wanted.owner.id,
               ...values,

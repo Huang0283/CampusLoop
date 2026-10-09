@@ -48,6 +48,7 @@ export default function MeetupPage() {
   const navigate = useNavigate()
   /** 订单来自可变 mockDb：保存/确认动作真实改变约定版本与订单状态 */
   const order = useMockDbStore((s) => s.orders.find((o) => o.id === Number(id)))
+  const events = useMockDbStore((s) => s.events)
   const can = useCan()
   const [form] = Form.useForm()
   const [submitting, setSubmitting] = useState(false)
@@ -56,7 +57,10 @@ export default function MeetupPage() {
   const meetup = order.meetup
   /** 参与关系与确认权限均由 access 层求值，页面不写权限 if */
   const myRole = can.orderRole(order)
+  if (myRole === 'other') return <EmptyState description="你无权查看此订单的见面约定" />
   const confirmDecision = can.meetupConfirm(order)
+  const canEdit = !['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(order.status)
+  const versionEvents = events.filter((event) => event.orderId === order.id && event.description.includes('版'))
 
   /** 真实写库：版本 +1、旧确认失效、订单回待确认，均为 mockDb 状态机动作 */
   const handleSave = (values: MeetupFormValues) => {
@@ -67,7 +71,7 @@ export default function MeetupPage() {
         : values.scheduledDate.format('YYYY-MM-DD')
     const slot = Array.isArray(values.timeSlot) ? values.timeSlot : values.timeSlot.split('-')
     setTimeout(() => {
-      useMockDbStore.getState().saveMeetup(order.id, {
+      const saved = useMockDbStore.getState().saveMeetup(order.id, {
         campusLocation: values.campusLocation,
         scheduledDate: date,
         timeSlotStart: slot[0],
@@ -75,6 +79,10 @@ export default function MeetupPage() {
         note: values.note,
       })
       setSubmitting(false)
+      if (!saved) {
+        message.error('未保存：请检查日期、时间顺序、参与身份及当前订单状态')
+        return
+      }
       message.success(
         `见面约定已保存为第 ${(order.meetup?.version ?? 0) + 1} 版：双方旧确认已失效，需重新确认`
       )
@@ -156,8 +164,8 @@ export default function MeetupPage() {
         )}
       </Card>
 
-      {/* 修改约定的表单仅订单参与方可见（非参与方只读） */}
-      {myRole !== 'other' && (
+      {/* 参与方可以修改非终止状态订单，终止态仅查看。 */}
+      {canEdit && (
       <Card title="填写 / 修改约定" style={{ marginBottom: 16 }}>
         <Alert
           type="info"
@@ -174,7 +182,7 @@ export default function MeetupPage() {
                   campusLocation: meetup.campusLocation,
                   // DatePicker 只接受 dayjs 对象，mock 里的字符串日期需先转换
                   scheduledDate: dayjs(meetup.scheduledDate),
-                  timeSlot: [meetup.timeSlotStart, meetup.timeSlotEnd],
+                  timeSlot: `${meetup.timeSlotStart}-${meetup.timeSlotEnd}`,
                   note: meetup.note,
                 }
               : undefined
@@ -206,20 +214,13 @@ export default function MeetupPage() {
       </Card>
       )}
 
-      {meetup && (
-        <Card title="历史版本（只读）">
+      {versionEvents.length > 0 && (
+        <Card title="约定变更记录（Mock，仅保存事件说明）">
           <Collapse
-            items={[
-              {
-                key: 'v1',
-                label: `第 1 版（已被修改替代）`,
-                children: (
-                  <Text type="secondary">
-                    西门广场 · 2026-09-20 14:00-15:00 · 该版本双方确认已因修改失效
-                  </Text>
-                ),
-              },
-            ]}
+            items={versionEvents.map((event) => ({
+              key: String(event.id), label: event.description,
+              children: <Text type="secondary">{new Date(event.createdAt).toLocaleString('zh-CN')}</Text>,
+            }))}
           />
         </Card>
       )}
