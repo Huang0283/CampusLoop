@@ -1,4 +1,4 @@
-# CampusLoop 四组收尾任务包（原任务分配修订版）
+# CampusLoop 四组收尾任务包（参考文件细化版）
 
 版本：1.0；编制日期：2026-10-09；适用项目：CampusLoop AI。
 
@@ -16,7 +16,7 @@
 - 前端使用 React、TypeScript、Vite，源码在 `frontend/src/`。`frontend/index.html` 是入口文件，不能把它当作全部页面源码。
 - 后端使用 FastAPI，源码在 `backend/app/`；模型在 `backend/app/models/`，迁移在 `backend/alembic/`，种子在 `backend/scripts/seed.py`。项目没有要求使用 `backend/db.py`、`backend/app.py` 或 SQLite 的 `campus.db`。
 - 接口以 `openapi/campusloop.v1.yaml` 为唯一契约，生成客户端在 `frontend/src/sdk/generated/`。技术文档核对契约、模型和实际代码，用户手册核对可运行页面。
-- 默认前端地址为 `http://localhost:5173`；后端地址为 `http://localhost:8000`；后端接口文档通常为 `http://localhost:8000/docs`，以交付版本实际配置为准。MinIO 的默认 S3 地址为 9000，控制台为 9001。
+- 默认前端地址为 `http://localhost:5173`；后端本地地址调整为 `http://localhost:8001`；后端接口文档通常为 `http://localhost:8001/docs`，以交付版本实际配置为准。Compose 容器内监听 8000，本地映射到 8001；MinIO 的默认 S3 地址为 9000，控制台为 9001。
 - 项目不处理真实付款，不做仓储配送，不核验真实学籍；校园认证标识按教学模拟说明。风险规则只提供人工审核线索。
 - Phase 2 验可点击 Mock、契约和环境；Phase 3 验真实接口与持久化交易；Phase 4 验智能集成、解释、评估和降级；Phase 5 验发布与提交。截图必须注明阶段和实现状态。
 

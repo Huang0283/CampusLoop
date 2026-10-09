@@ -1,7 +1,7 @@
 """Build the two Chinese task documents from reviewable Markdown sources.
 
-Requires python-docx. Optional --wechat-directory updates the supplied original
-only after saving a recoverable backup, and also writes the eight-person plan.
+Requires python-docx. Optional --wechat-directory writes two new task documents
+beside the user's reference file, without editing the reference.
 """
 
 from __future__ import annotations
@@ -114,17 +114,11 @@ def main() -> None:
 
     if args.wechat_directory:
         target_dir = args.wechat_directory.resolve(strict=True)
-        original = target_dir / "任务分配(2).docx"
-        if not original.is_file():
-            raise FileNotFoundError(original)
-        backup = target_dir / "任务分配(2).原始备份-20261009.docx"
-        if not backup.exists():
-            shutil.copy2(original, backup)
-        shutil.copy2(output_dir / SOURCES[0][1], original)
+        first = target_dir / "CampusLoop_四组收尾任务包.docx"
+        shutil.copy2(output_dir / SOURCES[0][1], first)
         second = target_dir / "CampusLoop_八人自选分组与个人交付任务书.docx"
         shutil.copy2(output_dir / SOURCES[1][1], second)
-        print(f"Backup: {backup}")
-        print(f"Updated: {original}")
+        print(f"Created: {first}")
         print(f"Created: {second}")
 
 
