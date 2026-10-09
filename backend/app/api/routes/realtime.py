@@ -6,6 +6,7 @@ is unavailable. No in-memory message history or URL credentials are used.
 
 import asyncio
 import json
+import time
 import uuid
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
@@ -53,7 +54,11 @@ def next_messages(token, cursor):
 
 
 def send_persisted(token, payload):
-    if not isinstance(payload, dict) or not isinstance(payload.get("sessionId"), int):
+    if (
+        not isinstance(payload, dict)
+        or type(payload.get("sessionId")) is not int
+        or not 0 < payload["sessionId"] <= 9007199254740991
+    ):
         raise BusinessError(422, "VALIDATION_ERROR", "Session ID required.")
     session_id = payload["sessionId"]
     body = MessageWrite.model_validate(
@@ -81,7 +86,11 @@ async def websocket_endpoint(socket: WebSocket):
         return
     await socket.accept()
     try:
-        frame = await asyncio.wait_for(socket.receive_json(), timeout=5)
+        raw_auth = await asyncio.wait_for(socket.receive_text(), timeout=5)
+        if len(raw_auth) > 8192:
+            await socket.close(code=1009)
+            return
+        frame = json.loads(raw_auth)
         if (
             not isinstance(frame, dict)
             or frame.get("type") != "AUTH"
@@ -94,6 +103,7 @@ async def websocket_endpoint(socket: WebSocket):
         await socket.send_json(envelope("AUTH_OK", {}))
         # One receive task; each interval reauthorizes before every private batch.
         pending = asyncio.create_task(socket.receive_text())
+        window_start, frame_count = time.monotonic(), 0
         try:
             while True:
                 done, _ = await asyncio.wait({pending}, timeout=0.5)
@@ -104,6 +114,13 @@ async def websocket_endpoint(socket: WebSocket):
                         await socket.close(code=1009)
                         return
                     try:
+                        if time.monotonic() - window_start >= 60:
+                            window_start, frame_count = time.monotonic(), 0
+                        frame_count += 1
+                        if frame_count > 120:
+                            raise BusinessError(
+                                429, "RATE_LIMITED", "Realtime frame rate exceeded."
+                            )
                         incoming = json.loads(raw)
                         kind = incoming.get("type")
                         if kind == "PING":

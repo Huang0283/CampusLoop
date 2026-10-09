@@ -75,6 +75,10 @@ jobs:
       LOG_LEVEL: WARNING
       DATABASE_URL: postgresql+psycopg://campusloop:campusloop@localhost:5432/campusloop
       REDIS_URL: redis://localhost:6379/15
+      AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+      BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+      BASELINE_SERVICES_ENABLED: "false"
+      MINIO_ENDPOINT: localhost:9000
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -84,6 +88,22 @@ jobs:
           cache-dependency-path: backend/requirements.txt
       - name: Install locked dependencies
         run: pip install -r requirements.txt
+
+      - name: Real object storage for upload and private-media tests
+        working-directory: .
+        run: |
+          docker build -f Dockerfile.minio -t campusloop-ci-minio .
+          docker run -d --name campusloop-ci-minio -p 9000:9000 -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin campusloop-ci-minio server /data
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://localhost:9000/minio/health/live; then break; fi
+            sleep 2
+          done
+          curl -fsS http://localhost:9000/minio/health/live
+          docker exec campusloop-ci-minio mc alias set local http://localhost:9000 minioadmin minioadmin
+          docker exec campusloop-ci-minio mc mb --ignore-existing local/campusloop-public
+          docker exec campusloop-ci-minio mc mb --ignore-existing local/campusloop-private
+          docker exec campusloop-ci-minio mc anonymous set download local/campusloop-public
+          docker exec campusloop-ci-minio mc anonymous set none local/campusloop-private
 
       - name: Migrate on empty database
         run: alembic upgrade head
@@ -101,6 +121,43 @@ jobs:
 
       - name: Full test suite
         run: python -m pytest
+
+      - name: Intelligence baseline tests (real loopback RPC)
+        working-directory: .
+        run: |
+          python -m unittest discover -s services/m7_baseline/tests -v
+          python -m unittest discover -s services/m8_baseline/tests -v
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install browser test dependencies
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Live browser acceptance against the real API and storage
+        env:
+          BASELINE_SERVICES_ENABLED: "true"
+          CORS_ORIGINS: http://localhost:5174,http://127.0.0.1:5174
+          CAMPUSLOOP_UI_URL: http://127.0.0.1:5174
+        run: |
+          python scripts/reset_test_limiter.py
+          python scripts/serve.py > /tmp/campusloop-api.log 2>&1 &
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://localhost:8000/ready; then break; fi
+            sleep 1
+          done
+          curl -fsS http://localhost:8000/ready
+          cd ../frontend
+          VITE_API_BASE_URL=http://localhost:8000 npm run dev -- --host 127.0.0.1 --port 5174 --strictPort > /tmp/campusloop-web.log 2>&1 &
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:5174/ > /dev/null; then break; fi
+            sleep 1
+          done
+          npm run test:live
 
   frontend-build:
     name: frontend / sdk & build

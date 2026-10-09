@@ -29,7 +29,7 @@ def error_payload(
 
 
 def _request_id_of(request: Request) -> str:
-    return request.headers.get("X-Request-ID") or request_id_var.get()
+    return getattr(request.state, "request_id", None) or request_id_var.get()
 
 
 async def validation_exception_handler(
@@ -50,11 +50,13 @@ async def validation_exception_handler(
 
 
 async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    request_id = _request_id_of(request)
     return JSONResponse(
         status_code=500,
+        headers={"X-Request-ID": request_id, "Cache-Control": "no-store"},
         content=error_payload(
             code="INTERNAL_ERROR",
             message="Unexpected server error.",
-            request_id=_request_id_of(request),
+            request_id=request_id,
         ),
     )

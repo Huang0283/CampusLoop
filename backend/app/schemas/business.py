@@ -10,20 +10,25 @@ from app.schemas.auth import StrictInput
 
 class ProductWrite(StrictInput):
     title: str = Field(min_length=1, max_length=100)
-    category: str = Field(min_length=1, max_length=32)
-    condition: str = Field(min_length=1, max_length=16)
+    category: Literal["BOOKS", "DIGITAL", "DAILY", "SPORTS", "clothing", "other"]
+    condition: Literal["NEW", "LIKE_NEW", "GOOD", "FAIR"]
     price: Decimal = Field(ge=0, max_digits=10, decimal_places=2)
     originalPrice: Decimal | None = Field(default=None, ge=0, max_digits=10, decimal_places=2)
     campusLocation: str = Field(min_length=1, max_length=128)
     description: str = Field(default="", max_length=3000)
     images: list[str] = Field(min_length=1, max_length=5)
 
-    @field_validator("price", "originalPrice", mode="before")
+    @field_validator("price", mode="before")
     @classmethod
     def money(cls, value):
         if isinstance(value, bool) or not isinstance(value, int | float | Decimal):
             raise ValueError("Numeric amount required.")
         return Decimal(str(value))
+
+    @field_validator("originalPrice", mode="before")
+    @classmethod
+    def optional_money(cls, value):
+        return None if value is None else cls.money(value)
 
     @field_validator("title", "category", "condition", "campusLocation")
     @classmethod
@@ -42,7 +47,7 @@ class WantedWrite(StrictInput):
     description: str = Field(default="", max_length=3000)
     budgetMin: Decimal = Field(ge=0, max_digits=10, decimal_places=2)
     budgetMax: Decimal = Field(ge=0, max_digits=10, decimal_places=2)
-    condition: str = Field(min_length=1, max_length=16)
+    condition: Literal["ANY", "NEW", "LIKE_NEW", "GOOD", "FAIR"]
     location: str = Field(min_length=1, max_length=128)
     expireAt: datetime
 

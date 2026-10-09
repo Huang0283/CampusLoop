@@ -45,3 +45,21 @@ pytestmark_integration = pytest.mark.integration
 requires_postgres = pytest.mark.skipif(
     not _postgres_reachable(), reason="需要可达的 PostgreSQL（CI 由 services 提供）"
 )
+
+
+@pytest.fixture(autouse=True)
+def isolated_rate_limits(request):
+    if request.node.get_closest_marker("integration") is None or not _postgres_reachable():
+        return
+    from urllib.parse import urlsplit
+
+    from redis import Redis
+
+    from app.core.config import get_settings
+
+    settings = get_settings()
+    if urlsplit(settings.redis_url).path not in ("/14", "/15"):
+        pytest.fail("Integration tests require dedicated Redis DB 14 or 15.")
+    with Redis.from_url(settings.redis_url) as redis:
+        for key in redis.scan_iter("auth:*"):
+            redis.delete(key)

@@ -44,9 +44,12 @@ class TestSeedIdempotency:
 
         from app.db.session import session_scope
         from app.models import User
+        from scripts.seed import seed_users
 
         with session_scope() as session:
-            seeded_emails = session.scalars(select(User.email).where(User.id >= 1000)).all()
+            seeded_emails = session.scalars(
+                select(User.email).where(User.id.in_([row["id"] for row in seed_users()]))
+            ).all()
         assert seeded_emails, "种子用户缺失"
         for email in seeded_emails:
             assert email.endswith("@example.com"), f"非演示邮箱混入种子数据: {email}"

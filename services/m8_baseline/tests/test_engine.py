@@ -51,6 +51,12 @@ class TrustTests(unittest.TestCase):
 
 
 class RiskTests(unittest.TestCase):
+    def test_missing_observation_is_not_a_zero_risk_claim(self):
+        result = risk_clues({**RISK, "failedPaymentCount24h": None, "sameDeviceAccountCount7d": None})
+        self.assertEqual("INSUFFICIENT_DATA", result["status"])
+        self.assertEqual(["failedPaymentCount24h", "sameDeviceAccountCount7d"], result["missingInputs"])
+        self.assertFalse(result["enforcementExecuted"])
+
     def test_no_clue_has_no_review(self):
         result = risk_clues(RISK)
         self.assertEqual("NO_RULE_CLUES", result["status"])

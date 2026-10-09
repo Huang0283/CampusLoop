@@ -11,7 +11,7 @@ from sqlalchemy import func, select
 from app.core.config import get_settings
 from app.db.session import SessionLocal
 from app.main import app
-from app.models import ChatMessage, Order, OrderEvent, Product, Review
+from app.models import ChatMessage, Offer, Order, OrderEvent, Product, Review
 from tests.conftest import requires_postgres
 from tests.test_auth import account, headers
 
@@ -282,6 +282,40 @@ def test_concurrent_accept_creates_one_order(client):
         )
 
 
+def test_accept_failure_rolls_back_product_offer_order_event(client, monkeypatch):
+    from app.api.routes import transactions
+    from app.core.errors import BusinessError
+
+    seller, buyer = account(client), account(client)
+    item = product(client, seller)
+    sid = client.post(
+        "/chat/sessions", headers=headers(buyer), json={"productId": item["id"]}
+    ).json()["data"]["id"]
+    quote = client.post(
+        f"/chat/sessions/{sid}/offers", headers=key_headers(buyer), json={"amount": 40}
+    ).json()["data"]
+
+    def failure(*_):
+        raise BusinessError(503, "TEST_TRANSACTION_FAILURE", "Injected transaction failure.")
+
+    with monkeypatch.context() as fault:
+        fault.setattr(transactions, "notify", failure)
+        assert (
+            client.post(f'/offers/{quote["id"]}/accept', headers=key_headers(seller)).status_code
+            == 503
+        )
+    with SessionLocal() as db:
+        assert db.get(Product, item["id"]).status == "ON_SALE"
+        assert db.get(Offer, quote["id"]).status == "PENDING"
+        assert (
+            db.scalar(select(func.count()).select_from(Order).where(Order.offer_id == quote["id"]))
+            == 0
+        )
+    assert (
+        client.post(f'/offers/{quote["id"]}/accept', headers=key_headers(seller)).status_code == 200
+    )
+
+
 def test_report_private_upload_favorites_and_wanted(client):
     seller, buyer = account(client), account(client)
     item = product(client, seller)
@@ -340,3 +374,19 @@ def test_report_private_upload_favorites_and_wanted(client):
     assert client.get(f"/wanted/{wid}").status_code == 200
     assert client.delete(f"/wanted/{wid}", headers=headers(seller)).status_code == 403
     assert client.delete(f"/wanted/{wid}", headers=headers(buyer)).status_code == 204
+
+
+def test_redis_failure_blocks_new_auth_not_existing_business(client, monkeypatch):
+    seller = account(client)
+    item = product(client, seller)
+    with monkeypatch.context() as fault:
+        fault.setenv("REDIS_URL", "redis://127.0.0.1:1/14")
+        get_settings.cache_clear()
+        response = client.post(
+            "/auth/login", json={"email": seller["user"]["email"], "password": "Valid@12345"}
+        )
+        assert response.status_code == 503
+        assert response.json()["code"] == "AUTH_SERVICE_UNAVAILABLE"
+        assert client.get("/products").status_code == 200
+        assert client.put(f'/favorites/{item["id"]}', headers=headers(seller)).status_code == 204
+    get_settings.cache_clear()

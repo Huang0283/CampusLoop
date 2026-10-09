@@ -45,6 +45,12 @@ a:hover {
   border-right: 1px solid #f0f0f0;
 }
 
+.live-layout { margin-left: 220px; }
+
+@media (max-width: 640px) {
+  .live-layout { margin-left: 0; }
+}
+
 .app-mobile-nav {
   display: none;
 }

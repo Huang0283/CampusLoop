@@ -37,6 +37,10 @@ class RefreshRequest(StrictInput):
     refreshToken: str = Field(min_length=1, max_length=512)
 
 
+class BrowserSessionRequest(StrictInput):
+    pass
+
+
 class ProfileUpdate(StrictInput):
     nickname: str | None = Field(default=None, min_length=1, max_length=40)
     avatar: str | None = Field(default=None, max_length=512)

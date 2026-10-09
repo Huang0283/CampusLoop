@@ -29,6 +29,46 @@ tags:
 security:
   - bearerAuth: []
 paths:
+  /chat/messages/{messageId}/image:
+    get:
+      tags: [Chat]
+      operationId: getChatMessageImage
+      x-campusloop-phase: 3
+      summary: Read a private chat image as a participant; bearer authentication required
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          schema: {type: integer, minimum: 1}
+      responses:
+        '200':
+          description: Private image; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /admin/reports/{reportId}/evidence/{imageIndex}:
+    get:
+      tags: [Admin]
+      operationId: getReportEvidence
+      x-campusloop-phase: 3
+      summary: Audited private evidence read in a specific report context
+      parameters:
+        - {$ref: '#/components/parameters/ReportId'}
+        - name: imageIndex
+          in: path
+          required: true
+          schema: {type: integer, minimum: 0, maximum: 4}
+      responses:
+        '200':
+          description: Private image; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
   /health:
     get:
       tags: [System]
@@ -68,6 +108,9 @@ paths:
       tags: [Auth]
       operationId: register
       summary: Register a campus user
+      description: With trusted Origin and X-CampusLoop-Browser=1, returns BrowserAuthResult and sets an HttpOnly SameSite=Strict session cookie; otherwise returns a JSON token pair. Browser families do not issue JSON refresh tokens.
+      parameters:
+        - {name: X-CampusLoop-Browser, in: header, schema: {type: string, enum: ['1']}}
       security: []
       x-campusloop-phase: BP2-01/FE3-01
       requestBody:
@@ -90,6 +133,9 @@ paths:
       tags: [Auth]
       operationId: login
       summary: Authenticate with email and password
+      description: Browser mode uses trusted Origin and X-CampusLoop-Browser=1; returns access token plus user and an HttpOnly session cookie. Other clients retain JSON refresh-token rotation.
+      parameters:
+        - {name: X-CampusLoop-Browser, in: header, schema: {type: string, enum: ['1']}}
       security: []
       x-campusloop-phase: BP2-01/FE3-01
       requestBody:
@@ -131,11 +177,48 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/TokenResponse' }
         '401': { $ref: '#/components/responses/Unauthorized' }
+  /auth/browser-session:
+    post:
+      tags: [Auth]
+      operationId: restoreBrowserSession
+      x-campusloop-phase: 3
+      summary: Restore a browser session after page reload or renew an expired access token
+      description: Requires HttpOnly cookie, exact allowed Origin, X-CampusLoop-Browser=1 and JSON. Issues only a short-lived access token and current private user; never exposes the cookie or extends the original absolute seven-day session lifetime. Rate limited to 30 renewals per family per minute.
+      security: [{browserSession: []}]
+      parameters:
+        - {name: X-CampusLoop-Browser, in: header, required: true, schema: {type: string, enum: ['1']}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: false}
+      responses:
+        '200':
+          description: Restored; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/BrowserAuthResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '423':
+          description: Account disabled
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '429':
+          description: Session renewal rate exceeded
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
   /auth/logout:
     post:
       tags: [Auth]
       operationId: logout
       summary: Revoke the active session
+      description: Browser mode requires allowed Origin and X-CampusLoop-Browser=1, revokes the cookie-bound family and expires the HttpOnly cookie even if access token expired. Non-browser mode retains Bearer logout.
+      security: [{bearerAuth: []}, {browserSession: []}]
+      parameters:
+        - {name: X-CampusLoop-Browser, in: header, schema: {type: string, enum: ['1']}}
       x-campusloop-phase: BP2-01/FE3-01
       responses:
         '204': { description: Session revoked. }
@@ -317,6 +400,9 @@ paths:
     get:
       tags: [Market]
       operationId: listFavorites
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
       x-campusloop-phase: BP2-03/FE3-04
       responses:
         '200':
@@ -346,6 +432,8 @@ paths:
       tags: [Market]
       operationId: uploadImage
       x-campusloop-phase: BP2-03/FE3-05
+      parameters:
+        - { name: purpose, in: query, schema: { type: string, enum: [product, evidence, chat], default: product } }
       requestBody:
         required: true
         content:
@@ -449,6 +537,47 @@ paths:
         '403': { $ref: '#/components/responses/Forbidden' }
         '409': { $ref: '#/components/responses/Conflict' }
 
+  /users/{userId}/trust:
+    get:
+      tags: [Intelligence]
+      operationId: getUserTrust
+      security: []
+      x-campusloop-phase: AI3-06/AI3-09
+      parameters:
+        - { name: userId, in: path, required: true, schema: { type: integer, format: int64, minimum: 1 } }
+      responses:
+        '200':
+          description: Smoothed completed-review facts; new users are neutral, not untrustworthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data: { $ref: '#/components/schemas/TrustSummary' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '503': { $ref: '#/components/responses/DependencyUnavailable' }
+  /admin/users/{userId}/risk-clues:
+    get:
+      tags: [Intelligence]
+      operationId: getUserRiskClues
+      x-campusloop-phase: AI3-07/AI3-09
+      description: Admin-only audited manual-review clues. Missing sources are explicit nulls, never zeros; never changes business state.
+      parameters:
+        - { name: userId, in: path, required: true, schema: { type: integer, format: int64, minimum: 1 } }
+      responses:
+        '200':
+          description: Explainable manual-review facts or explicit service unavailability.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data: { $ref: '#/components/schemas/RiskClues' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
   /search:
     get:
       tags: [Intelligence]
@@ -458,6 +587,11 @@ paths:
       parameters:
         - { name: query, in: query, required: true, schema: { type: string, minLength: 1 } }
         - { name: mode, in: query, schema: { type: string, enum: [keyword, hybrid, semantic], default: keyword } }
+        - { name: category, in: query, schema: { type: string } }
+        - { name: condition, in: query, schema: { type: string } }
+        - { name: minPrice, in: query, schema: { type: number, minimum: 0 } }
+        - { name: maxPrice, in: query, schema: { type: number, minimum: 0 } }
+        - { name: sort, in: query, schema: { type: string, enum: [relevance, newest, price_asc, price_desc], default: relevance } }
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
       responses:
@@ -550,6 +684,7 @@ paths:
       x-campusloop-phase: BP2-03/FE3-07/FE3-08
       parameters:
         - { name: afterId, in: query, schema: { type: integer, format: int64, minimum: 0 } }
+        - { name: beforeId, in: query, schema: { type: integer, format: int64, minimum: 1 } }
         - { name: limit, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 30 } }
       responses:
         '200':
@@ -595,34 +730,6 @@ paths:
       responses:
         '204': { description: Read cursor advanced idempotently. }
         '403': { $ref: '#/components/responses/Forbidden' }
-  /chat/sessions/{sessionId}/offers:
-    parameters:
-      - $ref: '#/components/parameters/SessionId'
-    post:
-      tags: [Transactions]
-      operationId: createOffer
-      x-campusloop-phase: BP2-03/BP2-04/FE3-09
-      parameters:
-        - $ref: '#/components/parameters/IdempotencyKey'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [amount]
-              properties:
-                amount: { type: number, exclusiveMinimum: 0, multipleOf: 0.01 }
-      responses:
-        '201':
-          description: Pending offer.
-          content:
-            application/json:
-              schema: { $ref: '#/components/schemas/OfferResponse' }
-        '403': { $ref: '#/components/responses/Forbidden' }
-        '409': { $ref: '#/components/responses/Conflict' }
-        '422': { $ref: '#/components/responses/ValidationError' }
-
   /offers/{offerId}/accept:
     post:
       tags: [Transactions]
@@ -946,6 +1053,80 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/UserListResponse' }
         '403': { $ref: '#/components/responses/Forbidden' }
+  /admin/users/{userId}/status:
+    parameters:
+      - $ref: '#/components/parameters/UserId'
+    patch:
+      tags: [Admin]
+      operationId: adminUpdateUserStatus
+      x-campusloop-phase: BP3-02/BP3-03
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [status, reason]
+              properties:
+                status: { type: string, enum: [ACTIVE, DISABLED] }
+                reason: { type: string, minLength: 1, maxLength: 200 }
+      responses:
+        '200':
+          description: Status changed with session revocation and transactional audit.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
+  /chat/sessions/{sessionId}/offers:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    get:
+      tags: [Transactions]
+      operationId: listSessionOffers
+      x-campusloop-phase: BP3-06/FE3-09
+      responses:
+        '200':
+          description: Participant-visible offers, including server state after reload.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiEnvelope'
+                  - type: object
+                    required: [data]
+                    properties:
+                      data: { type: array, items: { $ref: '#/components/schemas/Offer' } }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      tags: [Transactions]
+      operationId: createOffer
+      x-campusloop-phase: BP3-06/FE3-09
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [amount]
+              properties:
+                amount: { type: number, exclusiveMinimum: 0, multipleOf: 0.01 }
+      responses:
+        '201':
+          description: Pending offer.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OfferResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+
   /admin/reports:
     get:
       tags: [Admin]
@@ -991,6 +1172,11 @@ paths:
 
 components:
   securitySchemes:
+    browserSession:
+      type: apiKey
+      in: cookie
+      name: __Host-campusloop-session
+      description: Production HttpOnly/Secure/SameSite=Strict/Path=/ host-only opaque session cookie. Local HTTP uses configured campusloop-session. Origin and CSRF header are also mandatory.
     bearerAuth:
       type: http
       scheme: bearer
@@ -1154,6 +1340,14 @@ components:
           required: [user]
           properties:
             user: { $ref: '#/components/schemas/UserProfile' }
+    BrowserAuthResult:
+      type: object
+      additionalProperties: false
+      required: [accessToken, expiresIn, user]
+      properties:
+        accessToken: {type: string}
+        expiresIn: {type: integer, minimum: 1, maximum: 900}
+        user: {$ref: '#/components/schemas/UserProfile'}
     ProductStatus: { type: string, enum: [ON_SALE, RESERVED, SOLD, HIDDEN] }
     Product:
       type: object
@@ -1177,10 +1371,10 @@ components:
       required: [title, category, condition, price, campusLocation, images]
       properties:
         title: { type: string, minLength: 1, maxLength: 100 }
-        category: { type: string }
-        condition: { type: string }
+        category: { type: string, enum: [BOOKS, DIGITAL, DAILY, SPORTS, clothing, other] }
+        condition: { type: string, enum: [NEW, LIKE_NEW, GOOD, FAIR] }
         description: { type: string, maxLength: 3000 }
-        originalPrice: { type: number, minimum: 0 }
+        originalPrice: { type: [number, 'null'], minimum: 0 }
         price: { type: number, minimum: 0 }
         campusLocation: { type: string }
         images: { type: array, minItems: 1, maxItems: 5, items: { type: string, format: uri } }
@@ -1231,6 +1425,36 @@ components:
         constraints: { type: array, items: { type: string } }
         resultVersion: { type: string }
         expiresAt: { type: string, format: date-time }
+    TrustSummary:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string, enum: [AVAILABLE, NEW_USER_NEUTRAL, UNAVAILABLE] }
+        score: { type: number, minimum: 1, maximum: 5 }
+        validEventCount: { type: integer, minimum: 0 }
+        ignoredEventCount: { type: integer, minimum: 0 }
+        smoothing: { type: object, properties: { priorScore: { type: number }, priorWeight: { type: integer } } }
+        factors: { type: array, items: { type: object, additionalProperties: true } }
+        algorithmVersion: { type: string }
+        degraded: { type: boolean }
+        degradationReason: { type: string }
+        fallback: { type: string }
+    RiskClues:
+      type: object
+      required: [status, enforcementExecuted]
+      properties:
+        status: { type: string, enum: [CLUES_FOUND, NO_RULE_CLUES, INSUFFICIENT_DATA, UNAVAILABLE] }
+        enforcementExecuted: { type: boolean, enum: [false] }
+        manualReviewRecommended: { type: boolean }
+        recommendedAction: { type: string }
+        missingInputs: { type: array, items: { type: string } }
+        clues: { type: array, items: { type: object, additionalProperties: true } }
+        algorithmVersion: { type: string }
+        disclaimer: { type: string }
+        degraded: { type: boolean }
+        degradationReason: { type: string }
+        fallback: { type: string }
+        sourceWindowAsOf: { type: string, format: date-time }
     PriceAdviceRequest:
       type: object
       required: [category, condition]
@@ -1239,13 +1463,15 @@ components:
         condition: { type: string }
         title: { type: string }
         description: { type: string }
-        originalPrice: { type: number, minimum: 0 }
+        originalPrice: { type: [number, 'null'], exclusiveMinimum: 0, maximum: 99999999.99 }
     PriceAdvice:
       type: object
       required: [lower, upper, currency, factors, method, disclaimer, resultVersion]
       properties:
-        lower: { type: number, minimum: 0 }
-        upper: { type: number, minimum: 0 }
+        lower: { type: [number, 'null'], minimum: 0 }
+        upper: { type: [number, 'null'], minimum: 0 }
+        status: { type: string, enum: [AVAILABLE, INSUFFICIENT_DATA, UNAVAILABLE] }
+        degradationReason: { type: string }
         currency: { type: string, enum: [CNY] }
         factors: { type: array, items: { type: string } }
         sampleSize: { type: integer, minimum: 0 }
@@ -1431,7 +1657,8 @@ components:
                 status: { type: string, enum: [ok, degraded] }
                 dependencies: { type: object, additionalProperties: { type: string, enum: [ok, unavailable] } }
     TokenResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/TokenPair' } } }] }
-    AuthResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/AuthResult' } } }] }
+    AuthResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { oneOf: [{ $ref: '#/components/schemas/AuthResult' }, { $ref: '#/components/schemas/BrowserAuthResult' }] } } }] }
+    BrowserAuthResponse: {allOf: [{$ref: '#/components/schemas/ApiEnvelope'}, {type: object, required: [data], properties: {data: {$ref: '#/components/schemas/BrowserAuthResult'}}}]}
     UserResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/UserProfile' } } }] }
     PublicUserResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/UserBrief' } } }] }
     ChatSessionResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/ChatSession' } } }] }
@@ -1551,7 +1778,7 @@ components:
 
 x-campusloop-websocket:
   url: ws://localhost:8001/ws
-  authentication: Bearer token in the connection query until M5/M6 freeze a safer browser-compatible handshake.
+  authentication: First frame AUTH with accessToken within 5 seconds; tokens in URL/query are forbidden. AUTH_OK precedes business frames. Origins are checked and every private delivery reauthorizes against PostgreSQL.
   implementationPhase: Phase 3
   events:
     outgoing: [PING, SEND_MESSAGE, MARK_READ, TYPING]

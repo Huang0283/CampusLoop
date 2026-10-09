@@ -28,5 +28,6 @@
     "risk": "STORE_REPORT_FOR_MANUAL_QUEUE"
   },
   "logging": "operation, status, error code and duration only; no payload, token, user ID or device ID",
-  "riskEnforcementAllowed": false
+  "riskEnforcementAllowed": false,
+  "riskMissingObservationPolicy": "Every known field is present; null means not collected, not zero. Response includes missingInputs; no-clue plus missing inputs is INSUFFICIENT_DATA."
 }

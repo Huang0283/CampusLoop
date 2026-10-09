@@ -40,9 +40,7 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
         raise BusinessError(415, "UNSUPPORTED_IMAGE", "Invalid image.") from None
     settings = get_settings()
     key = f"{purpose}/{actor.id}/{uuid.uuid4().hex}.jpg"
-    bucket = (
-        settings.minio_private_bucket if purpose == "evidence" else settings.minio_public_bucket
-    )
+    bucket = settings.minio_public_bucket if purpose == "product" else settings.minio_private_bucket
     client = storage_client()
     try:
         data = output.getvalue()
@@ -71,7 +69,7 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
     # This URI is a private reference, not a readable object URL.
     url = (
         "https://private.campusloop.invalid/" + key
-        if purpose == "evidence"
+        if purpose != "product"
         else settings.s3_public_base_url.rstrip("/") + "/" + key
     )
     return {"url": url, "contentType": "image/jpeg", "size": len(data)}
@@ -80,7 +78,7 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
 def owned_keys(db, actor, urls: list[str], purpose: str) -> list[str]:
     base = (
         "https://private.campusloop.invalid"
-        if purpose == "evidence"
+        if purpose != "product"
         else get_settings().s3_public_base_url.rstrip("/")
     )
     keys = []

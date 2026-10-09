@@ -11,8 +11,9 @@ class ClientTests(unittest.TestCase):
         self.assertFalse(result["enforcementExecuted"])
         self.assertEqual("STORE_REPORT_FOR_MANUAL_QUEUE", result["fallback"])
 
-    @patch("services.m8_baseline.client.urlopen", side_effect=URLError("offline"))
-    def test_network_failure_degrades(self, _urlopen):
+    @patch("services.m8_baseline.client.build_opener")
+    def test_network_failure_degrades(self, opener):
+        opener.return_value.open.side_effect = URLError("offline")
         result = call("http://127.0.0.1:9", "price", {}, "x" * 32)
         self.assertEqual("MANUAL_PRICE_ENTRY", result["fallback"])
 

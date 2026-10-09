@@ -39,6 +39,13 @@ class Settings(BaseSettings):
     auth_access_ttl_seconds: int = 900
     auth_refresh_ttl_seconds: int = 604800
     auth_registration_domains: str = "example.com,example.invalid"
+    baseline_services_enabled: bool = True
+    matching_notifications_enabled: bool = True
+    auth_cookie_name: str = "campusloop-session"
+    auth_cookie_secure: bool = False  # Production always enforces Secure and __Host-.
+    baseline_rpc_token: str = ""
+    m7_service_url: str = "http://127.0.0.1:8787"
+    m8_service_url: str = "http://127.0.0.1:8788"
 
     # ---- database (PostgreSQL 16 + pgvector) ----
     database_url: str = "postgresql+psycopg://campusloop:campusloop@localhost:5432/campusloop"
@@ -56,7 +63,7 @@ class Settings(BaseSettings):
     minio_secret_key: str = "minioadmin"
     # 公共桶：商品图片等可公开内容，匿名可读
     minio_public_bucket: str = "campusloop-public"
-    # 私有桶：举报举证等敏感对象，禁止匿名访问，仅短时效预签名 URL
+    # 私有桶：私聊/举报敏感对象，禁止匿名访问，由鉴权媒体API读取。
     minio_private_bucket: str = "campusloop-private"
     minio_secure: bool = False
     s3_public_base_url: str = "http://localhost:9000/campusloop-public"

@@ -38,4 +38,6 @@ python -m services.m8_baseline.verify --output-dir ../m8-p3-run
 
 ## 接入边界
 
+2026-10-09 集中实现：公共 `/price-advice`、`/users/{userId}/trust` 和管理员 `/admin/users/{userId}/risk-clues` 已接入实际回环 RPC。信誉只传完成订单的真实评价，不为未评价交易编造五星。风险传商品发布、会话对手方和举报窗口计数；支付失败、设备指纹未采集，传 null 并输出 missingInputs/INSUFFICIENT_DATA。风险接口鉴权且读取留审计，不执行处罚。当前复现需区别作者技术验证与非作者签字，后者仍未取得。
+
 M6 负责授权、读取权威数据、把内部结果映射成公共 DTO，并在公开输出前移除风险内部字段。M3/M5/M6/M9/M10/M1 的契约、压测、安全与独立验收仍需各责任人确认。本分支以 `prep/m7-p3-search-matching-baseline` 为临时兼容基线；正式 `phase3/intelligence-baselines` 创建后应由 M7 统一归并。

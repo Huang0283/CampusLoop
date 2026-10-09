@@ -19,6 +19,7 @@ from app.core.security import (
 )
 from app.models import AuthSessionFamily, RefreshSession, User
 from app.schemas.auth import (
+    BrowserSessionRequest,
     LoginRequest,
     ProfileUpdate,
     RefreshRequest,
@@ -32,12 +33,17 @@ from app.services.auth import (
     audit,
     authenticate,
     bearer,
+    browser_access,
+    browser_origin,
+    browser_session,
+    cookie_options,
     login_failed,
     new_session,
     rate_limit,
+    refresh_window,
     revoke_family,
 )
-from app.services.serializers import private_user, public_user
+from app.services.serializers import private_user, private_users, public_user
 
 router = APIRouter(tags=["Auth"])
 
@@ -63,7 +69,7 @@ def register(body: RegisterRequest, request: Request, response: Response, db: Db
     try:
         db.add(user)
         db.flush()
-        pair = new_session(db, user)
+        pair = new_session(db, user, request, response)
         audit(db, "registered", user.id)
         result = ok({**pair, "user": private_user(db, user)})
         db.commit()
@@ -86,7 +92,7 @@ def login(body: LoginRequest, request: Request, response: Response, db: Db):
         raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
     if password_hasher.check_needs_rehash(user.password_hash):
         user.password_hash = hash_password(body.password)
-    pair = new_session(db, user)
+    pair = new_session(db, user, request, response)
     audit(db, "logged_in", user.id)
     result = ok({**pair, "user": private_user(db, user)})
     db.commit()
@@ -153,14 +159,41 @@ def refresh(body: RefreshRequest, response: Response, db: Db):
     return ok(pair)
 
 
+@router.post("/auth/browser-session", operation_id="restoreBrowserSession")
+def restore_browser(body: BrowserSessionRequest, request: Request, response: Response, db: Db):
+    user, family = browser_session(db, request)
+    refresh_window(family)
+    result = ok({**browser_access(user, family), "user": private_user(db, user)})
+    audit(db, "browser_session_restored", user.id)
+    db.commit()
+    response.headers["Cache-Control"] = "no-store"
+    return result
+
+
 @router.post("/auth/logout", status_code=204, operation_id="logout")
 def logout(request: Request, db: Db):
-    user, family = authenticate(db, bearer(request), allow_logout_replay=True)
+    browser = request.headers.get("X-CampusLoop-Browser") == "1"
+    if browser:
+        browser_origin(request)
+        try:
+            user, family = browser_session(db, request, allow_revoked=True)
+        except BusinessError as exc:
+            if exc.status != 401:
+                raise
+            # Even an expired/removed cookie must be cleared. No new authorization.
+            response = Response(status_code=204, headers={"Cache-Control": "no-store"})
+            response.delete_cookie(**cookie_options())
+            return response
+    else:
+        user, family = authenticate(db, bearer(request), allow_logout_replay=True)
     if family.revoked_at is None:
         revoke_family(db, family, "logout")
         audit(db, "logged_out", user.id)
         db.commit()
-    return Response(status_code=204, headers={"Cache-Control": "no-store"})
+    response = Response(status_code=204, headers={"Cache-Control": "no-store"})
+    if browser:
+        response.delete_cookie(**cookie_options())
+    return response
 
 
 @router.get("/users/me", operation_id="getCurrentUser")
@@ -201,7 +234,7 @@ def admin_users(
     ).all()
     result = ok(
         {
-            "items": [private_user(db, user) for user in users],
+            "items": private_users(db, users),
             "pagination": {
                 "page": page,
                 "pageSize": pageSize,
@@ -219,7 +252,9 @@ def admin_status(userId: int, body: UserStatusUpdate, db: Db, actor: Actor):
     administrator(actor)
     if userId == actor.id:
         raise BusinessError(403, "FORBIDDEN", "Self-administration is not permitted.")
-    user = db.scalar(select(User).where(User.id == userId).with_for_update())
+    # Do not acquire another administrator's lock: two admins targeting each other
+    # must fail without reversing the authorization lock order.
+    user = db.scalar(select(User).where(User.id == userId, User.role == "USER").with_for_update())
     if not user:
         raise BusinessError(404, "NOT_FOUND", "User not found.")
     if user.role == "ADMIN":
@@ -234,7 +269,13 @@ def admin_status(userId: int, body: UserStatusUpdate, db: Db, actor: Actor):
                 .with_for_update()
             ):
                 revoke_family(db, family, "disabled")
-        audit(db, "admin_user_" + body.status.lower(), actor.id, user.id)
+        audit(
+            db,
+            "admin_user_" + body.status.lower(),
+            actor.id,
+            user.id,
+            context={"reason": body.reason},
+        )
     db.flush()
     result = ok(private_user(db, user))
     db.commit()

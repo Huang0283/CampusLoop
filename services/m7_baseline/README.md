@@ -1,6 +1,6 @@
 # M7 Phase 3 搜索与匹配候选
 
-版本 m7-baseline-rpc-v1。关键词/规则真实计算，快照和内部任务持久保存到 M7 自有 SQLite。输入来自调用方提供的业务快照；尚未接入 M6 权威读取、事件 outbox、同库条件写入或通知系统，不能按项目 Phase 3 MVP 门禁验收。搜索只公开可见商品；匹配仅供可信后端代表求购发布者调用。
+版本 m7-baseline-rpc-v1。关键词/规则真实计算，内部分页快照保存在 SQLite；该文件不是生产任务事实库。第三阶段集中实现已由 `backend/app/services/intelligence.py` 提供 PostgreSQL 权威快照，`matching_jobs.py` 提供同库事务 outbox、条件写入、重试和通知去重。搜索只公开可见商品；匹配只供求购本人查看。通知政策和非作者验收尚待确认，不能仅凭技术测试关闭 Issue。
 
 ## 安装与复现
 
@@ -45,7 +45,7 @@ RPC 首请求要求 asOf 距当前时间不超过 60 秒；后续快照页不超
 
 `BaselineStore.submit(event_id, InputVersion, products, request, dictionary)` 同步计算并在一个 SQLite 事务中保存事件、结果和当前指针。同 event_id 不同输入冲突；同逻辑任务重试复用结果；任何已有修订号倒退均 SUPERSEDED；同修订组改变 asOf 或事实冲突。历史任务保留，read_task 显示 superseded。
 
-这不是生产异步队列：尚无 M6 事件消费、业务原子复核、租约/心跳、定时到期、站内通知 outbox 和发送前权限检查。notificationsEnabled 固定 false，notificationIntentCount 固定 0；不能将“未发送通知”当作通知去重验收通过。
+以上描述的是准备分支中的 SQLite 隔离验证工具，不是生产异步队列。2026-10-09 的集中接入将实际事件、任务领取/崩溃回滚恢复、版本复核、到期清理、通知事务和唯一键放在 backend/app/services/matching_jobs.py 的 PostgreSQL 实现中；SQLite 只保留RPC快照/历史测试用途。生产通知政策未获确认所以默认关闭；测试显式开启验证去重，不能将默认不发送当作去重证据。
 
 ## 评估限制
 

@@ -98,6 +98,12 @@ export type AuthResult = TokenPair & {
     user: UserProfile;
 };
 
+export type BrowserAuthResult = {
+    accessToken: string;
+    expiresIn: number;
+    user: UserProfile;
+};
+
 export type ProductStatus = 'ON_SALE' | 'RESERVED' | 'SOLD' | 'HIDDEN';
 
 export type Product = {
@@ -118,10 +124,10 @@ export type Product = {
 
 export type ProductWriteRequest = {
     title: string;
-    category: string;
-    condition: string;
+    category: 'BOOKS' | 'DIGITAL' | 'DAILY' | 'SPORTS' | 'clothing' | 'other';
+    condition: 'NEW' | 'LIKE_NEW' | 'GOOD' | 'FAIR';
     description?: string;
-    originalPrice?: number;
+    originalPrice?: number | null;
     price: number;
     campusLocation: string;
     images: Array<string>;
@@ -174,17 +180,54 @@ export type MatchResult = {
     expiresAt: string;
 };
 
+export type TrustSummary = {
+    status: 'AVAILABLE' | 'NEW_USER_NEUTRAL' | 'UNAVAILABLE';
+    score?: number;
+    validEventCount?: number;
+    ignoredEventCount?: number;
+    smoothing?: {
+        priorScore?: number;
+        priorWeight?: number;
+    };
+    factors?: Array<{
+        [key: string]: unknown;
+    }>;
+    algorithmVersion?: string;
+    degraded?: boolean;
+    degradationReason?: string;
+    fallback?: string;
+};
+
+export type RiskClues = {
+    status: 'CLUES_FOUND' | 'NO_RULE_CLUES' | 'INSUFFICIENT_DATA' | 'UNAVAILABLE';
+    enforcementExecuted: false;
+    manualReviewRecommended?: boolean;
+    recommendedAction?: string;
+    missingInputs?: Array<string>;
+    clues?: Array<{
+        [key: string]: unknown;
+    }>;
+    algorithmVersion?: string;
+    disclaimer?: string;
+    degraded?: boolean;
+    degradationReason?: string;
+    fallback?: string;
+    sourceWindowAsOf?: string;
+};
+
 export type PriceAdviceRequest = {
     category: string;
     condition: string;
     title?: string;
     description?: string;
-    originalPrice?: number;
+    originalPrice?: number | null;
 };
 
 export type PriceAdvice = {
-    lower: number;
-    upper: number;
+    lower: number | null;
+    upper: number | null;
+    status?: 'AVAILABLE' | 'INSUFFICIENT_DATA' | 'UNAVAILABLE';
+    degradationReason?: string;
     currency: 'CNY';
     factors: Array<string>;
     sampleSize?: number;
@@ -361,7 +404,11 @@ export type TokenResponse = ApiEnvelope & {
 };
 
 export type AuthResponse = ApiEnvelope & {
-    data: AuthResult;
+    data: AuthResult | BrowserAuthResult;
+};
+
+export type BrowserAuthResponse = ApiEnvelope & {
+    data: BrowserAuthResult;
 };
 
 export type UserResponse = ApiEnvelope & {
@@ -519,6 +566,73 @@ export type NotificationId = number;
 
 export type ReportId = number;
 
+export type GetChatMessageImageData = {
+    body?: never;
+    path: {
+        messageId: number;
+    };
+    query?: never;
+    url: '/chat/messages/{messageId}/image';
+};
+
+export type GetChatMessageImageErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+};
+
+export type GetChatMessageImageError = GetChatMessageImageErrors[keyof GetChatMessageImageErrors];
+
+export type GetChatMessageImageResponses = {
+    /**
+     * Private image; no-store
+     */
+    200: Blob | File;
+};
+
+export type GetChatMessageImageResponse = GetChatMessageImageResponses[keyof GetChatMessageImageResponses];
+
+export type GetReportEvidenceData = {
+    body?: never;
+    path: {
+        reportId: number;
+        imageIndex: number;
+    };
+    query?: never;
+    url: '/admin/reports/{reportId}/evidence/{imageIndex}';
+};
+
+export type GetReportEvidenceErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+};
+
+export type GetReportEvidenceError = GetReportEvidenceErrors[keyof GetReportEvidenceErrors];
+
+export type GetReportEvidenceResponses = {
+    /**
+     * Private image; no-store
+     */
+    200: Blob | File;
+};
+
+export type GetReportEvidenceResponse = GetReportEvidenceResponses[keyof GetReportEvidenceResponses];
+
 export type GetHealthData = {
     body?: never;
     path?: never;
@@ -562,6 +676,9 @@ export type GetReadinessResponse = GetReadinessResponses[keyof GetReadinessRespo
 
 export type RegisterData = {
     body: RegisterRequest;
+    headers?: {
+        'X-CampusLoop-Browser'?: '1';
+    };
     path?: never;
     query?: never;
     url: '/auth/register';
@@ -591,6 +708,9 @@ export type RegisterResponse = RegisterResponses[keyof RegisterResponses];
 
 export type LoginData = {
     body: LoginRequest;
+    headers?: {
+        'X-CampusLoop-Browser'?: '1';
+    };
     path?: never;
     query?: never;
     url: '/auth/login';
@@ -643,8 +763,53 @@ export type RefreshSessionResponses = {
 
 export type RefreshSessionResponse = RefreshSessionResponses[keyof RefreshSessionResponses];
 
+export type RestoreBrowserSessionData = {
+    body: {
+        [key: string]: never;
+    };
+    headers: {
+        'X-CampusLoop-Browser': '1';
+    };
+    path?: never;
+    query?: never;
+    url: '/auth/browser-session';
+};
+
+export type RestoreBrowserSessionErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Account disabled
+     */
+    423: ErrorResponse;
+    /**
+     * Session renewal rate exceeded
+     */
+    429: ErrorResponse;
+};
+
+export type RestoreBrowserSessionError = RestoreBrowserSessionErrors[keyof RestoreBrowserSessionErrors];
+
+export type RestoreBrowserSessionResponses = {
+    /**
+     * Restored; no-store
+     */
+    200: BrowserAuthResponse;
+};
+
+export type RestoreBrowserSessionResponse = RestoreBrowserSessionResponses[keyof RestoreBrowserSessionResponses];
+
 export type LogoutData = {
     body?: never;
+    headers?: {
+        'X-CampusLoop-Browser'?: '1';
+    };
     path?: never;
     query?: never;
     url: '/auth/logout';
@@ -979,7 +1144,10 @@ export type UpdateProductStatusResponse = UpdateProductStatusResponses[keyof Upd
 export type ListFavoritesData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
     url: '/favorites';
 };
 
@@ -1042,7 +1210,9 @@ export type UploadImageData = {
         file: Blob | File;
     };
     path?: never;
-    query?: never;
+    query?: {
+        purpose?: 'product' | 'evidence' | 'chat';
+    };
     url: '/uploads/images';
 };
 
@@ -1213,12 +1383,87 @@ export type UpdateWantedResponses = {
 
 export type UpdateWantedResponse = UpdateWantedResponses[keyof UpdateWantedResponses];
 
+export type GetUserTrustData = {
+    body?: never;
+    path: {
+        userId: number;
+    };
+    query?: never;
+    url: '/users/{userId}/trust';
+};
+
+export type GetUserTrustErrors = {
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * AI dependency unavailable; response identifies the allowed fallback.
+     */
+    503: ErrorResponse;
+};
+
+export type GetUserTrustError = GetUserTrustErrors[keyof GetUserTrustErrors];
+
+export type GetUserTrustResponses = {
+    /**
+     * Smoothed completed-review facts; new users are neutral, not untrustworthy.
+     */
+    200: {
+        data: TrustSummary;
+    };
+};
+
+export type GetUserTrustResponse = GetUserTrustResponses[keyof GetUserTrustResponses];
+
+export type GetUserRiskCluesData = {
+    body?: never;
+    path: {
+        userId: number;
+    };
+    query?: never;
+    url: '/admin/users/{userId}/risk-clues';
+};
+
+export type GetUserRiskCluesErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+};
+
+export type GetUserRiskCluesError = GetUserRiskCluesErrors[keyof GetUserRiskCluesErrors];
+
+export type GetUserRiskCluesResponses = {
+    /**
+     * Explainable manual-review facts or explicit service unavailability.
+     */
+    200: {
+        data: RiskClues;
+    };
+};
+
+export type GetUserRiskCluesResponse = GetUserRiskCluesResponses[keyof GetUserRiskCluesResponses];
+
 export type SearchProductsData = {
     body?: never;
     path?: never;
     query: {
         query: string;
         mode?: 'keyword' | 'hybrid' | 'semantic';
+        category?: string;
+        condition?: string;
+        minPrice?: number;
+        maxPrice?: number;
+        sort?: 'relevance' | 'newest' | 'price_asc' | 'price_desc';
         page?: number;
         pageSize?: number;
     };
@@ -1381,6 +1626,7 @@ export type ListMessagesData = {
     };
     query?: {
         afterId?: number;
+        beforeId?: number;
         limit?: number;
     };
     url: '/chat/sessions/{sessionId}/messages';
@@ -1467,49 +1713,6 @@ export type MarkSessionReadResponses = {
 };
 
 export type MarkSessionReadResponse = MarkSessionReadResponses[keyof MarkSessionReadResponses];
-
-export type CreateOfferData = {
-    body: {
-        amount: number;
-    };
-    headers: {
-        /**
-         * Client-generated UUID. Replays return the original successful result.
-         */
-        'Idempotency-Key': string;
-    };
-    path: {
-        sessionId: number;
-    };
-    query?: never;
-    url: '/chat/sessions/{sessionId}/offers';
-};
-
-export type CreateOfferErrors = {
-    /**
-     * Authenticated but not allowed for this role, object, field, or state.
-     */
-    403: ErrorResponse;
-    /**
-     * Duplicate request, stale version, expired object, or illegal state transition.
-     */
-    409: ErrorResponse;
-    /**
-     * Request fields failed validation.
-     */
-    422: ErrorResponse;
-};
-
-export type CreateOfferError = CreateOfferErrors[keyof CreateOfferErrors];
-
-export type CreateOfferResponses = {
-    /**
-     * Pending offer.
-     */
-    201: OfferResponse;
-};
-
-export type CreateOfferResponse = CreateOfferResponses[keyof CreateOfferResponses];
 
 export type AcceptOfferData = {
     body?: never;
@@ -2063,6 +2266,116 @@ export type AdminListUsersResponses = {
 };
 
 export type AdminListUsersResponse = AdminListUsersResponses[keyof AdminListUsersResponses];
+
+export type AdminUpdateUserStatusData = {
+    body: {
+        status: 'ACTIVE' | 'DISABLED';
+        reason: string;
+    };
+    path: {
+        userId: number;
+    };
+    query?: never;
+    url: '/admin/users/{userId}/status';
+};
+
+export type AdminUpdateUserStatusErrors = {
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminUpdateUserStatusError = AdminUpdateUserStatusErrors[keyof AdminUpdateUserStatusErrors];
+
+export type AdminUpdateUserStatusResponses = {
+    /**
+     * Status changed with session revocation and transactional audit.
+     */
+    200: UserResponse;
+};
+
+export type AdminUpdateUserStatusResponse = AdminUpdateUserStatusResponses[keyof AdminUpdateUserStatusResponses];
+
+export type ListSessionOffersData = {
+    body?: never;
+    path: {
+        sessionId: number;
+    };
+    query?: never;
+    url: '/chat/sessions/{sessionId}/offers';
+};
+
+export type ListSessionOffersErrors = {
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+};
+
+export type ListSessionOffersError = ListSessionOffersErrors[keyof ListSessionOffersErrors];
+
+export type ListSessionOffersResponses = {
+    /**
+     * Participant-visible offers, including server state after reload.
+     */
+    200: ApiEnvelope & {
+        data: Array<Offer>;
+    };
+};
+
+export type ListSessionOffersResponse = ListSessionOffersResponses[keyof ListSessionOffersResponses];
+
+export type CreateOfferData = {
+    body: {
+        amount: number;
+    };
+    headers: {
+        /**
+         * Client-generated UUID. Replays return the original successful result.
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        sessionId: number;
+    };
+    query?: never;
+    url: '/chat/sessions/{sessionId}/offers';
+};
+
+export type CreateOfferErrors = {
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Duplicate request, stale version, expired object, or illegal state transition.
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type CreateOfferError = CreateOfferErrors[keyof CreateOfferErrors];
+
+export type CreateOfferResponses = {
+    /**
+     * Pending offer.
+     */
+    201: OfferResponse;
+};
+
+export type CreateOfferResponse = CreateOfferResponses[keyof CreateOfferResponses];
 
 export type AdminListReportsData = {
     body?: never;

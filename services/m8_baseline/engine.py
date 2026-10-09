@@ -127,16 +127,18 @@ def risk_clues(payload: dict) -> dict:
     """Emit explainable clues for manual review; never apply a penalty."""
     value = _object(payload)
     allowed = {"failedPaymentCount24h", "listingCount1h", "distinctCounterpartyCount24h", "sameDeviceAccountCount7d", "reportCount7d"}
-    if set(value) != allowed or any(not _integer(value[name], 0, 1_000_000) for name in allowed):
+    if set(value) != allowed or any(value[name] is not None and not _integer(value[name], 0, 1_000_000) for name in allowed):
         raise ServiceError(422, "VALIDATION_ERROR")
     before = deepcopy(value)
-    rules = [
-        ("REPEATED_PAYMENT_FAILURES", value["failedPaymentCount24h"] >= 3, "failedPaymentCount24h", value["failedPaymentCount24h"], 3),
-        ("BURST_LISTING_ACTIVITY", value["listingCount1h"] >= 12, "listingCount1h", value["listingCount1h"], 12),
-        ("COUNTERPARTY_BURST", value["distinctCounterpartyCount24h"] >= 8, "distinctCounterpartyCount24h", value["distinctCounterpartyCount24h"], 8),
-        ("SHARED_DEVICE_CLUSTER", value["sameDeviceAccountCount7d"] >= 4, "sameDeviceAccountCount7d", value["sameDeviceAccountCount7d"], 4),
-        ("RECENT_REPORT_CLUSTER", value["reportCount7d"] >= 3, "reportCount7d", value["reportCount7d"], 3),
+    definitions = [
+        ("REPEATED_PAYMENT_FAILURES", "failedPaymentCount24h", 3),
+        ("BURST_LISTING_ACTIVITY", "listingCount1h", 12),
+        ("COUNTERPARTY_BURST", "distinctCounterpartyCount24h", 8),
+        ("SHARED_DEVICE_CLUSTER", "sameDeviceAccountCount7d", 4),
+        ("RECENT_REPORT_CLUSTER", "reportCount7d", 3),
     ]
+    rules = [(code, value[field] is not None and value[field] >= threshold, field, value[field], threshold) for code, field, threshold in definitions]
+    missing = sorted(field for field in allowed if value[field] is None)
     clues = [
         {"code": code, "field": field, "observed": observed, "threshold": threshold,
          "explanation": f"{field}={observed} 达到人工复核线 {threshold}"}
@@ -145,7 +147,8 @@ def risk_clues(payload: dict) -> dict:
     if value != before:
         raise RuntimeError("risk baseline mutated input")
     return {
-        "status": "CLUES_FOUND" if clues else "NO_RULE_CLUES",
+        "status": "CLUES_FOUND" if clues else "INSUFFICIENT_DATA" if missing else "NO_RULE_CLUES",
+        "missingInputs": missing,
         "clues": clues,
         "manualReviewRecommended": bool(clues),
         "recommendedAction": "MANUAL_REVIEW" if clues else "NONE",

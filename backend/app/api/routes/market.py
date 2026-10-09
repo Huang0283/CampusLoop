@@ -1,6 +1,6 @@
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Header, Query, Response, UploadFile
+from fastapi import APIRouter, Header, Query, Request, Response, UploadFile
 from sqlalchemy import delete, func, select
 
 from app.core.envelope import ok
@@ -9,7 +9,7 @@ from app.core.security import utcnow
 from app.models import Favorite, Product, ProductImage, User, WantedPost
 from app.schemas.business import ProductStatusWrite, ProductWrite, WantedWrite
 from app.services import business_serializers as dto
-from app.services.auth import Actor, Db, student
+from app.services.auth import Actor, Db, authenticate, bearer, student
 from app.services.business import idempotent, load
 from app.services.storage import owned_keys, upload
 
@@ -76,7 +76,7 @@ def my_products(
     page: Page = 1,
     pageSize: PageSize = 20,
     query: str = "",
-    status: str | None = None,
+    status: Literal["ON_SALE", "RESERVED", "SOLD", "HIDDEN"] | None = None,
 ):
     stmt = select(Product).where(Product.owner_id == actor.id, Product.deleted_at.is_(None))
     if query:
@@ -116,8 +116,17 @@ def create_product(body: ProductWrite, db: Db, actor: Actor, idempotency_key: Ke
 
 
 @router.get("/products/{productId}", operation_id="getProduct")
-def get_product(productId: int, db: Db):
+def get_product(productId: int, db: Db, request: Request, response: Response):
     item = db.scalar(visible_products().where(Product.id == productId))
+    if item is None and request.headers.get("Authorization"):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["Vary"] = "Authorization"
+        actor, _ = authenticate(db, bearer(request))
+        item = db.scalar(
+            select(Product).where(
+                Product.id == productId, Product.owner_id == actor.id, Product.deleted_at.is_(None)
+            )
+        )
     if item is None:
         raise BusinessError(404, "NOT_FOUND", "Product not found.")
     return ok(dto.product(db, item))
@@ -226,7 +235,11 @@ def upload_image(
 
 @router.get("/wanted", operation_id="listWanted")
 def list_wanted(
-    db: Db, page: Page = 1, pageSize: PageSize = 20, query: str = "", status: str = "OPEN"
+    db: Db,
+    page: Page = 1,
+    pageSize: PageSize = 20,
+    query: str = "",
+    status: Literal["OPEN", "MATCHED", "CLOSED", "EXPIRED"] = "OPEN",
 ):
     stmt = (
         select(WantedPost)
@@ -242,7 +255,7 @@ def list_wanted(
         stmt.order_by(WantedPost.id.desc()),
         page,
         pageSize,
-        lambda items: [dto.wanted(db, item) for item in items],
+        lambda items: dto.wanteds(db, items),
     )
 
 

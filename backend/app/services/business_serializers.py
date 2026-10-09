@@ -2,6 +2,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
+from app.core.security import utcnow
 from app.models import (
     ChatMessage,
     ChatReadCursor,
@@ -11,11 +12,10 @@ from app.models import (
     Order,
     Product,
     ProductImage,
-    Review,
     User,
     WantedPost,
 )
-from app.services.serializers import public_user
+from app.services.serializers import public_users
 
 
 def iso(value):
@@ -30,25 +30,7 @@ def products(db: Session, entities: list[Product]) -> list[dict]:
         user.id: user
         for user in db.scalars(select(User).where(User.id.in_({p.owner_id for p in entities})))
     }
-    owner_ids = list(owners)
-    ratings = dict(
-        db.execute(
-            select(Review.reviewee_id, func.avg(Review.rating))
-            .join(Order, Review.order_id == Order.id)
-            .where(Review.reviewee_id.in_(owner_ids), Order.status == "COMPLETED")
-            .group_by(Review.reviewee_id)
-        ).all()
-    )
-    counts = dict.fromkeys(owner_ids, 0)
-    for buyer, seller in db.execute(
-        select(Order.buyer_id, Order.seller_id).where(
-            Order.status == "COMPLETED",
-            (Order.buyer_id.in_(owner_ids)) | (Order.seller_id.in_(owner_ids)),
-        )
-    ):
-        for uid in (buyer, seller):
-            if uid in counts:
-                counts[uid] += 1
+    summaries = public_users(db, list(owners.values()))
     images = {identity: [] for identity in ids}
     base = get_settings().s3_public_base_url.rstrip("/")
     for image in db.scalars(
@@ -72,13 +54,7 @@ def products(db: Session, entities: list[Product]) -> list[dict]:
             "images": images[entity.id],
             "createdAt": iso(entity.created_at),
             "updatedAt": iso(entity.updated_at or entity.created_at),
-            "seller": {
-                "id": owner.id,
-                "nickname": owner.nickname,
-                "avatar": owner.avatar_url,
-                "rating": round(float(ratings.get(owner.id) or 0), 1),
-                "transactionCount": counts[owner.id],
-            },
+            "seller": summaries[owner.id],
         }
         if entity.original_price is not None:
             data["originalPrice"] = float(entity.original_price)
@@ -90,21 +66,35 @@ def product(db: Session, entity: Product) -> dict:
     return products(db, [entity])[0]
 
 
-def wanted(db: Session, entity: WantedPost) -> dict:
+def wanteds(db: Session, entities: list[WantedPost]) -> list[dict]:
+    if not entities:
+        return []
+    owners = db.scalars(select(User).where(User.id.in_({item.owner_id for item in entities}))).all()
+    summaries = public_users(db, owners)
+    return [wanted_fields(entity, summaries[entity.owner_id]) for entity in entities]
+
+
+def wanted_fields(entity, owner):
     requirements = entity.requirements or {}
     return {
         "id": entity.id,
-        "owner": public_user(db, db.get(User, entity.owner_id)),
+        "owner": owner,
         "title": entity.title,
         "description": entity.description,
         "budgetMin": float(entity.budget_min or 0),
         "budgetMax": float(entity.budget_max or 0),
         "condition": requirements.get("condition", "ANY"),
         "location": requirements.get("location", "ANY"),
-        "status": entity.status,
+        "status": "EXPIRED"
+        if entity.status == "OPEN" and entity.expires_at and entity.expires_at <= utcnow()
+        else entity.status,
         "expireAt": iso(entity.expires_at or entity.created_at),
         "createdAt": iso(entity.created_at),
     }
+
+
+def wanted(db: Session, entity: WantedPost) -> dict:
+    return wanteds(db, [entity])[0]
 
 
 def message(entity: ChatMessage) -> dict:
@@ -119,43 +109,123 @@ def message(entity: ChatMessage) -> dict:
     }
 
 
-def session(db: Session, entity, actor_id: int) -> dict:
-    peer_id = entity.seller_id if entity.buyer_id == actor_id else entity.buyer_id
-    cursor = db.get(ChatReadCursor, (entity.id, actor_id))
-    last = db.scalar(
-        select(ChatMessage)
-        .where(ChatMessage.session_id == entity.id)
-        .order_by(ChatMessage.id.desc())
-        .limit(1)
+def sessions(db: Session, entities: list[ChatSession], actor_id: int) -> list[dict]:
+    if not entities:
+        return []
+    ids = [entity.id for entity in entities]
+    peers = public_users(
+        db,
+        db.scalars(
+            select(User).where(
+                User.id.in_(
+                    {
+                        entity.seller_id if entity.buyer_id == actor_id else entity.buyer_id
+                        for entity in entities
+                    }
+                )
+            )
+        ).all(),
     )
-    unread = db.scalar(
-        select(func.count())
-        .select_from(ChatMessage)
-        .where(
-            ChatMessage.session_id == entity.id,
-            ChatMessage.sender_id != actor_id,
-            ChatMessage.id > (cursor.last_message_id if cursor else 0),
+    items = {
+        item["id"]: item
+        for item in products(
+            db,
+            db.scalars(
+                select(Product).where(
+                    Product.id.in_({entity.product_id for entity in entities if entity.product_id})
+                )
+            ).all(),
         )
-    )
-    result = {
-        "id": entity.id,
-        "type": entity.session_type,
-        "peer": public_user(db, db.get(User, peer_id)),
-        "unreadCount": unread or 0,
     }
-    if entity.product_id:
-        result["product"] = product(db, db.get(Product, entity.product_id))
-    if entity.wanted_id:
-        result["wanted"] = wanted(db, db.get(WantedPost, entity.wanted_id))
-    if last:
-        result["lastMessage"] = message(last)
+    posts = {
+        item["id"]: item
+        for item in wanteds(
+            db,
+            db.scalars(
+                select(WantedPost).where(
+                    WantedPost.id.in_({entity.wanted_id for entity in entities if entity.wanted_id})
+                )
+            ).all(),
+        )
+    }
+    latest_ids = (
+        select(func.max(ChatMessage.id))
+        .where(ChatMessage.session_id.in_(ids))
+        .group_by(ChatMessage.session_id)
+    )
+    latest = {
+        item.session_id: item
+        for item in db.scalars(select(ChatMessage).where(ChatMessage.id.in_(latest_ids)))
+    }
+    unread = dict(
+        db.execute(
+            select(ChatMessage.session_id, func.count())
+            .outerjoin(
+                ChatReadCursor,
+                (ChatReadCursor.session_id == ChatMessage.session_id)
+                & (ChatReadCursor.user_id == actor_id),
+            )
+            .where(
+                ChatMessage.session_id.in_(ids),
+                ChatMessage.sender_id != actor_id,
+                ChatMessage.id > func.coalesce(ChatReadCursor.last_message_id, 0),
+            )
+            .group_by(ChatMessage.session_id)
+        ).all()
+    )
+    result = []
+    for entity in entities:
+        peer = entity.seller_id if entity.buyer_id == actor_id else entity.buyer_id
+        data = {
+            "id": entity.id,
+            "type": entity.session_type,
+            "peer": peers[peer],
+            "unreadCount": unread.get(entity.id, 0),
+        }
+        if entity.product_id:
+            data["product"] = items[entity.product_id]
+        if entity.wanted_id:
+            data["wanted"] = posts[entity.wanted_id]
+        if entity.id in latest:
+            data["lastMessage"] = message(latest[entity.id])
+        result.append(data)
     return result
 
 
-def offer(db: Session, entity: Offer) -> dict:
-    context = db.get(ChatSession, entity.session_id)
-    item = db.get(Product, context.product_id)
-    accepted = db.scalar(select(Order).where(Order.offer_id == entity.id))
+def session(db: Session, entity, actor_id: int) -> dict:
+    return sessions(db, [entity], actor_id)[0]
+
+
+def offers(db: Session, entities: list[Offer]) -> list[dict]:
+    if not entities:
+        return []
+    contexts = {
+        item.id: item
+        for item in db.scalars(
+            select(ChatSession).where(
+                ChatSession.id.in_({entity.session_id for entity in entities})
+            )
+        )
+    }
+    items = {
+        item.id: item
+        for item in db.scalars(
+            select(Product).where(Product.id.in_({item.product_id for item in contexts.values()}))
+        )
+    }
+    accepted = {
+        item.offer_id: item
+        for item in db.scalars(
+            select(Order).where(Order.offer_id.in_({entity.id for entity in entities}))
+        )
+    }
+    return [
+        offer_fields(entity, items[contexts[entity.session_id].product_id], accepted.get(entity.id))
+        for entity in entities
+    ]
+
+
+def offer_fields(entity, item, accepted):
     result = {
         "id": entity.id,
         "sessionId": entity.session_id,
@@ -176,6 +246,10 @@ def offer(db: Session, entity: Offer) -> dict:
     return result
 
 
+def offer(db: Session, entity: Offer) -> dict:
+    return offers(db, [entity])[0]
+
+
 def meetup(entity: Meetup) -> dict:
     slots = entity.proposed_slots or {}
     return {
@@ -193,13 +267,46 @@ def meetup(entity: Meetup) -> dict:
     }
 
 
-def order(db: Session, entity: Order) -> dict:
-    arrangement = db.scalar(select(Meetup).where(Meetup.order_id == entity.id))
+def orders(db: Session, entities: list[Order]) -> list[dict]:
+    if not entities:
+        return []
+    arrangements = {
+        item.order_id: item
+        for item in db.scalars(
+            select(Meetup).where(Meetup.order_id.in_({entity.id for entity in entities}))
+        )
+    }
+    items = {
+        item["id"]: item
+        for item in products(
+            db,
+            db.scalars(
+                select(Product).where(Product.id.in_({entity.product_id for entity in entities}))
+            ).all(),
+        )
+    }
+    users = public_users(
+        db,
+        db.scalars(
+            select(User).where(
+                User.id.in_(
+                    {uid for entity in entities for uid in (entity.buyer_id, entity.seller_id)}
+                )
+            )
+        ).all(),
+    )
+    return [
+        order_fields(entity, items[entity.product_id], users, arrangements.get(entity.id))
+        for entity in entities
+    ]
+
+
+def order_fields(entity, item, users, arrangement):
     result = {
         "id": entity.id,
-        "product": product(db, db.get(Product, entity.product_id)),
-        "buyer": public_user(db, db.get(User, entity.buyer_id)),
-        "seller": public_user(db, db.get(User, entity.seller_id)),
+        "product": item,
+        "buyer": users[entity.buyer_id],
+        "seller": users[entity.seller_id],
         "status": entity.status,
         "amount": float(entity.amount),
         "buyerConfirmedComplete": entity.buyer_confirmed_complete,
@@ -210,3 +317,7 @@ def order(db: Session, entity: Order) -> dict:
     if arrangement:
         result["meetup"] = meetup(arrangement)
     return result
+
+
+def order(db: Session, entity: Order) -> dict:
+    return orders(db, [entity])[0]

@@ -94,7 +94,7 @@ def list_sessions(db: Db, actor: Actor):
         .order_by(ChatSession.last_message_at.desc().nullslast(), ChatSession.id.desc())
         .limit(100)
     ).all()
-    return ok([dto.session(db, item, actor.id) for item in items])
+    return ok(dto.sessions(db, items, actor.id))
 
 
 @router.get("/chat/sessions/{sessionId}/messages", operation_id="listMessages")
@@ -213,6 +213,24 @@ def new_offer(db, context, actor, amount):
         "New offer",
     )
     return entity
+
+
+@router.get("/chat/sessions/{sessionId}/offers", operation_id="listSessionOffers")
+def list_offers(sessionId: int, db: Db, actor: Actor):
+    chat(db, sessionId, actor)
+    return ok(
+        dto.offers(
+            db,
+            list(
+                db.scalars(
+                    select(Offer)
+                    .where(Offer.session_id == sessionId)
+                    .order_by(Offer.id.desc())
+                    .limit(100)
+                )
+            ),
+        )
+    )
 
 
 @router.post("/chat/sessions/{sessionId}/offers", status_code=201, operation_id="createOffer")
@@ -349,7 +367,7 @@ def list_orders(
         stmt.order_by(Order.id.desc()),
         page,
         pageSize,
-        lambda items: [dto.order(db, item) for item in items],
+        lambda items: dto.orders(db, items),
     )
 
 

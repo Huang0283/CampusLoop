@@ -2,7 +2,7 @@
 
 import { type Client, type ClientMeta, formDataBodySerializer, type Options as Options2, type RequestResult, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateChatSessionData, CreateChatSessionErrors, CreateChatSessionResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetHealthData, GetHealthResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetReadinessData, GetReadinessErrors, GetReadinessResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyProductsData, ListMyProductsErrors, ListMyProductsResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
+import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, AdminUpdateUserStatusData, AdminUpdateUserStatusErrors, AdminUpdateUserStatusResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateChatSessionData, CreateChatSessionErrors, CreateChatSessionResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetChatMessageImageData, GetChatMessageImageErrors, GetChatMessageImageResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetHealthData, GetHealthResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetReadinessData, GetReadinessErrors, GetReadinessResponses, GetReportEvidenceData, GetReportEvidenceErrors, GetReportEvidenceResponses, GetUserRiskCluesData, GetUserRiskCluesErrors, GetUserRiskCluesResponses, GetUserTrustData, GetUserTrustErrors, GetUserTrustResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyProductsData, ListMyProductsErrors, ListMyProductsResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListSessionOffersData, ListSessionOffersErrors, ListSessionOffersResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, RestoreBrowserSessionData, RestoreBrowserSessionErrors, RestoreBrowserSessionResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -17,6 +17,26 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
+
+/**
+ * Read a private chat image as a participant; bearer authentication required
+ */
+export const getChatMessageImage = <ThrowOnError extends boolean = false>(options: Options<GetChatMessageImageData, ThrowOnError>): RequestResult<GetChatMessageImageResponses, GetChatMessageImageErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetChatMessageImageResponses, GetChatMessageImageErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/chat/messages/{messageId}/image',
+    ...options
+});
+
+/**
+ * Audited private evidence read in a specific report context
+ */
+export const getReportEvidence = <ThrowOnError extends boolean = false>(options: Options<GetReportEvidenceData, ThrowOnError>): RequestResult<GetReportEvidenceResponses, GetReportEvidenceErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetReportEvidenceResponses, GetReportEvidenceErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/reports/{reportId}/evidence/{imageIndex}',
+    ...options
+});
 
 /**
  * Liveness and dependency status
@@ -38,6 +58,8 @@ export const getReadiness = <ThrowOnError extends boolean = false>(options?: Opt
 
 /**
  * Register a campus user
+ *
+ * With trusted Origin and X-CampusLoop-Browser=1, returns BrowserAuthResult and sets an HttpOnly SameSite=Strict session cookie; otherwise returns a JSON token pair. Browser families do not issue JSON refresh tokens.
  */
 export const register = <ThrowOnError extends boolean = false>(options: Options<RegisterData, ThrowOnError>): RequestResult<RegisterResponses, RegisterErrors, ThrowOnError, 'data'> => (options.client ?? client).post<RegisterResponses, RegisterErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
@@ -51,6 +73,8 @@ export const register = <ThrowOnError extends boolean = false>(options: Options<
 
 /**
  * Authenticate with email and password
+ *
+ * Browser mode uses trusted Origin and X-CampusLoop-Browser=1; returns access token plus user and an HttpOnly session cookie. Other clients retain JSON refresh-token rotation.
  */
 export const login = <ThrowOnError extends boolean = false>(options: Options<LoginData, ThrowOnError>): RequestResult<LoginResponses, LoginErrors, ThrowOnError, 'data'> => (options.client ?? client).post<LoginResponses, LoginErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
@@ -76,11 +100,37 @@ export const refreshSession = <ThrowOnError extends boolean = false>(options: Op
 });
 
 /**
+ * Restore a browser session after page reload or renew an expired access token
+ *
+ * Requires HttpOnly cookie, exact allowed Origin, X-CampusLoop-Browser=1 and JSON. Issues only a short-lived access token and current private user; never exposes the cookie or extends the original absolute seven-day session lifetime. Rate limited to 30 renewals per family per minute.
+ */
+export const restoreBrowserSession = <ThrowOnError extends boolean = false>(options: Options<RestoreBrowserSessionData, ThrowOnError>): RequestResult<RestoreBrowserSessionResponses, RestoreBrowserSessionErrors, ThrowOnError, 'data'> => (options.client ?? client).post<RestoreBrowserSessionResponses, RestoreBrowserSessionErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{
+            in: 'cookie',
+            name: '__Host-campusloop-session',
+            type: 'apiKey'
+        }],
+    url: '/auth/browser-session',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
  * Revoke the active session
+ *
+ * Browser mode requires allowed Origin and X-CampusLoop-Browser=1, revokes the cookie-bound family and expires the HttpOnly cookie even if access token expired. Non-browser mode retains Bearer logout.
  */
 export const logout = <ThrowOnError extends boolean = false>(options?: Options<LogoutData, ThrowOnError>): RequestResult<LogoutResponses, LogoutErrors, ThrowOnError, 'data'> => (options?.client ?? client).post<LogoutResponses, LogoutErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
-    security: [{ scheme: 'bearer', type: 'http' }],
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: '__Host-campusloop-session',
+            type: 'apiKey'
+        }],
     url: '/auth/logout',
     ...options
 });
@@ -245,6 +295,22 @@ export const updateWanted = <ThrowOnError extends boolean = false>(options: Opti
     }
 });
 
+export const getUserTrust = <ThrowOnError extends boolean = false>(options: Options<GetUserTrustData, ThrowOnError>): RequestResult<GetUserTrustResponses, GetUserTrustErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetUserTrustResponses, GetUserTrustErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    url: '/users/{userId}/trust',
+    ...options
+});
+
+/**
+ * Admin-only audited manual-review clues. Missing sources are explicit nulls, never zeros; never changes business state.
+ */
+export const getUserRiskClues = <ThrowOnError extends boolean = false>(options: Options<GetUserRiskCluesData, ThrowOnError>): RequestResult<GetUserRiskCluesResponses, GetUserRiskCluesErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetUserRiskCluesResponses, GetUserRiskCluesErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/users/{userId}/risk-clues',
+    ...options
+});
+
 export const searchProducts = <ThrowOnError extends boolean = false>(options: Options<SearchProductsData, ThrowOnError>): RequestResult<SearchProductsResponses, SearchProductsErrors, ThrowOnError, 'data'> => (options.client ?? client).get<SearchProductsResponses, SearchProductsErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
     url: '/search',
@@ -316,17 +382,6 @@ export const markSessionRead = <ThrowOnError extends boolean = false>(options: O
     responseStyle: 'data',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/chat/sessions/{sessionId}/read',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-export const createOffer = <ThrowOnError extends boolean = false>(options: Options<CreateOfferData, ThrowOnError>): RequestResult<CreateOfferResponses, CreateOfferErrors, ThrowOnError, 'data'> => (options.client ?? client).post<CreateOfferResponses, CreateOfferErrors, ThrowOnError, 'data'>({
-    responseStyle: 'data',
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/chat/sessions/{sessionId}/offers',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -490,6 +545,35 @@ export const adminListUsers = <ThrowOnError extends boolean = false>(options?: O
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/admin/users',
     ...options
+});
+
+export const adminUpdateUserStatus = <ThrowOnError extends boolean = false>(options: Options<AdminUpdateUserStatusData, ThrowOnError>): RequestResult<AdminUpdateUserStatusResponses, AdminUpdateUserStatusErrors, ThrowOnError, 'data'> => (options.client ?? client).patch<AdminUpdateUserStatusResponses, AdminUpdateUserStatusErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/users/{userId}/status',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const listSessionOffers = <ThrowOnError extends boolean = false>(options: Options<ListSessionOffersData, ThrowOnError>): RequestResult<ListSessionOffersResponses, ListSessionOffersErrors, ThrowOnError, 'data'> => (options.client ?? client).get<ListSessionOffersResponses, ListSessionOffersErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/chat/sessions/{sessionId}/offers',
+    ...options
+});
+
+export const createOffer = <ThrowOnError extends boolean = false>(options: Options<CreateOfferData, ThrowOnError>): RequestResult<CreateOfferResponses, CreateOfferErrors, ThrowOnError, 'data'> => (options.client ?? client).post<CreateOfferResponses, CreateOfferErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/chat/sessions/{sessionId}/offers',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 export const adminListReports = <ThrowOnError extends boolean = false>(options?: Options<AdminListReportsData, ThrowOnError>): RequestResult<AdminListReportsResponses, AdminListReportsErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<AdminListReportsResponses, AdminListReportsErrors, ThrowOnError, 'data'>({

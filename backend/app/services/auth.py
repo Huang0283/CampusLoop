@@ -2,11 +2,13 @@
 
 import hashlib
 import hmac
+import re
+import secrets
 import uuid
 from datetime import timedelta
 from typing import Annotated
 
-from fastapi import Depends, Request
+from fastapi import Depends, Request, Response
 from redis import Redis
 from redis.exceptions import RedisError
 from sqlalchemy import select, update
@@ -20,13 +22,21 @@ from app.core.security import decode_access, issue_pair, signing_key, token_dige
 from app.models import AuthAudit, AuthSessionFamily, RefreshSession, User
 
 
-def audit(db: Session, event: str, actor_id: int | None, target_id: int | None = None) -> None:
+def audit(
+    db: Session,
+    event: str,
+    actor_id: int | None,
+    target_id: int | None = None,
+    *,
+    context: dict | None = None,
+) -> None:
     db.add(
         AuthAudit(
             event=event,
             actor_id=actor_id,
             target_id=target_id,
             request_id=request_id_var.get()[:64],
+            context=context or {},
         )
     )
 
@@ -86,7 +96,79 @@ def administrator(user: User) -> None:
         raise BusinessError(403, "FORBIDDEN", "Administrator required.")
 
 
-def new_session(db: Session, user: User) -> dict:
+def browser_origin(request: Request) -> None:
+    if (
+        request.headers.get("X-CampusLoop-Browser") != "1"
+        or request.headers.get("Origin") not in get_settings().cors_origin_list
+    ):
+        raise BusinessError(403, "FORBIDDEN", "Trusted browser Origin and CSRF header required.")
+
+
+def cookie_options() -> dict:
+    settings = get_settings()
+    secure = settings.app_env == "prod" or settings.auth_cookie_secure
+    name = "__Host-campusloop-session" if secure else settings.auth_cookie_name
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", name):
+        raise BusinessError(
+            503, "AUTH_SERVICE_UNAVAILABLE", "Browser session cookie is not configured."
+        )
+    return dict(key=name, httponly=True, secure=secure, samesite="strict", path="/")
+
+
+def browser_session(db: Session, request: Request, *, allow_revoked=False):
+    browser_origin(request)
+    token = request.cookies.get(cookie_options()["key"], "")
+    if not 32 <= len(token) <= 128:
+        raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session unavailable.")
+    reference = db.scalar(
+        select(AuthSessionFamily).where(AuthSessionFamily.browser_token_hash == token_digest(token))
+    )
+    if not reference:
+        raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session unavailable.")
+    user = db.scalar(select(User).where(User.id == reference.user_id).with_for_update())
+    family = db.scalar(
+        select(AuthSessionFamily)
+        .where(AuthSessionFamily.id == reference.id)
+        .with_for_update()
+        .execution_options(populate_existing=True)
+    )
+    if (
+        not user
+        or not family
+        or family.expires_at <= utcnow()
+        or (family.revoked_at and not allow_revoked)
+    ):
+        raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session expired or revoked.")
+    if user.status != "ACTIVE" and not allow_revoked:
+        raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
+    return user, family
+
+
+def refresh_window(family):
+    now = utcnow()
+    if (
+        family.refresh_window_started_at is None
+        or family.refresh_window_started_at + timedelta(seconds=60) <= now
+    ):
+        family.refresh_window_started_at, family.refresh_window_count = now, 0
+    if family.refresh_window_count >= 30:
+        raise BusinessError(
+            429, "RATE_LIMITED", "Too many session renewals.", {"Retry-After": "60"}
+        )
+    family.refresh_window_count += 1
+
+
+def browser_access(user, family):
+    pair = issue_pair(user.id, family.id, family.expires_at)
+    return {key: pair[key] for key in ("accessToken", "expiresIn")}
+
+
+def new_session(
+    db: Session, user: User, request: Request | None = None, response: Response | None = None
+) -> dict:
+    browser = request is not None and request.headers.get("X-CampusLoop-Browser") == "1"
+    if browser:
+        browser_origin(request)
     family = AuthSessionFamily(
         id=str(uuid.uuid4()),
         user_id=user.id,
@@ -95,6 +177,16 @@ def new_session(db: Session, user: User) -> dict:
         refresh_window_count=0,
     )
     db.add(family)
+    if browser:
+        token = secrets.token_urlsafe(48)
+        family.browser_token_hash = token_digest(token)
+        response.set_cookie(
+            value=token,
+            max_age=max(1, int((family.expires_at - utcnow()).total_seconds())),
+            **cookie_options(),
+        )
+        db.flush()
+        return browser_access(user, family)
     db.flush()
     pair = issue_pair(user.id, family.id, family.expires_at)
     db.add(
