@@ -16,16 +16,16 @@ cp ../.env.example ../.env       # 按需修改连接串
 alembic upgrade head             # 建表
 python scripts/seed.py           # 种子（幂等，可重复执行）
 python scripts/seed.py --check   # 幂等性自检（CI 同款）
-uvicorn app.main:app --reload    # http://localhost:8000/docs
+uvicorn app.main:app --reload --port 8001    # http://localhost:8001/docs
 ```
 
 ## 健康检查
 
 ```bash
-curl http://localhost:8000/health
+curl http://localhost:8001/health
 # {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
 # 依赖不可用时：status=degraded 并标明哪个依赖 unavailable（仍返回 200，契约语义）
-curl http://localhost:8000/ready   # degraded 时返回 503，供探针使用
+curl http://localhost:8001/ready   # degraded 时返回 503，供探针使用
 ```
 
 ## 测试

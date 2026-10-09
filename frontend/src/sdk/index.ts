@@ -1,6 +1,6 @@
 import { client } from './generated/client.gen'
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001'
 
 client.setConfig({
   baseUrl: apiBaseUrl.replace(/\/$/, ''),

@@ -1,0 +1,5 @@
+# The root build context is used only by Dockerfile.minio, which builds fixed
+# upstream source tags. Do not send local worktrees, evidence or dependencies.
+**
+!Dockerfile.minio
+!.dockerignore

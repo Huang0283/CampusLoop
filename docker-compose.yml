@@ -2,7 +2,7 @@
 # 用法：
 #   cp .env.example .env
 #   docker compose up -d --build
-#   curl http://localhost:8000/health
+#   curl http://localhost:8001/health
 # 依赖：Docker Engine 24+ 与 Compose v2。
 # 说明：api 服务启动时自动执行 alembic upgrade head + 种子幂等校验。
 #
@@ -117,7 +117,7 @@ services:
       MINIO_PRIVATE_BUCKET: campusloop-private
       S3_PUBLIC_BASE_URL: http://localhost:9000/campusloop-public
     ports:
-      - "8000:8000"
+      - "8001:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -128,7 +128,7 @@ services:
       minio-init:
         condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/ready"]
       interval: 10s
       timeout: 5s
       retries: 12

@@ -12,7 +12,7 @@ info:
   x-campusloop-owner: M5/M6
   x-campusloop-consumers: [M2, M3, M4, M7, M8, M10]
 servers:
-  - url: http://localhost:8000
+  - url: http://localhost:8001
     description: Local FastAPI HTTP service
 tags:
   - name: System
@@ -1449,7 +1449,7 @@ components:
                 pagination: { $ref: '#/components/schemas/Pagination' }
 
 x-campusloop-websocket:
-  url: ws://localhost:8000/ws
+  url: ws://localhost:8001/ws
   authentication: Bearer token in the connection query until M5/M6 freeze a safer browser-compatible handshake.
   implementationPhase: Phase 3
   events:

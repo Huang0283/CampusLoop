@@ -53,7 +53,7 @@ docker compose up -d --build                   # 2. 构建 api 与 minio 镜像�
 docker compose ps                              # 3. 确认 db/redis/minio/api 均 healthy
 docker compose exec api alembic upgrade head   # 4. 空库迁移（api 启动时已自动执行，此处独立复核）
 docker compose exec api python scripts/seed.py --check   # 5. 种子两遍幂等校验
-curl http://localhost:8000/health              # 6. 健康探针
+curl http://localhost:8001/health              # 6. 健康探针（本地映射 8001 → 容器 8000）
 ```
 
 第 6 步期望输出：
