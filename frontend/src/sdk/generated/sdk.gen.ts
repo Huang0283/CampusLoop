@@ -2,7 +2,7 @@
 
 import { type Client, type ClientMeta, formDataBodySerializer, type Options as Options2, type RequestResult, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetHealthData, GetHealthResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
+import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateChatSessionData, CreateChatSessionErrors, CreateChatSessionResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetHealthData, GetHealthResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetReadinessData, GetReadinessErrors, GetReadinessResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyProductsData, ListMyProductsErrors, ListMyProductsResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -24,6 +24,15 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 export const getHealth = <ThrowOnError extends boolean = false>(options?: Options<GetHealthData, ThrowOnError>): RequestResult<GetHealthResponses, unknown, ThrowOnError, 'data'> => (options?.client ?? client).get<GetHealthResponses, unknown, ThrowOnError, 'data'>({
     responseStyle: 'data',
     url: '/health',
+    ...options
+});
+
+/**
+ * Readiness based on database and Redis availability
+ */
+export const getReadiness = <ThrowOnError extends boolean = false>(options?: Options<GetReadinessData, ThrowOnError>): RequestResult<GetReadinessResponses, GetReadinessErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<GetReadinessResponses, GetReadinessErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    url: '/ready',
     ...options
 });
 
@@ -115,6 +124,16 @@ export const createProduct = <ThrowOnError extends boolean = false>(options: Opt
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * Authenticated user's products, including hidden items; identity is derived from the token.
+ */
+export const listMyProducts = <ThrowOnError extends boolean = false>(options?: Options<ListMyProductsData, ThrowOnError>): RequestResult<ListMyProductsResponses, ListMyProductsErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<ListMyProductsResponses, ListMyProductsErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/products/mine',
+    ...options
 });
 
 export const deleteProduct = <ThrowOnError extends boolean = false>(options: Options<DeleteProductData, ThrowOnError>): RequestResult<DeleteProductResponses, DeleteProductErrors, ThrowOnError, 'data'> => (options.client ?? client).delete<DeleteProductResponses, DeleteProductErrors, ThrowOnError, 'data'>({
@@ -255,6 +274,24 @@ export const listChatSessions = <ThrowOnError extends boolean = false>(options?:
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/chat/sessions',
     ...options
+});
+
+/**
+ * Create or reuse a session for one product or wanted post. The other party
+ * is derived from resource ownership, not a client-supplied identity.
+ * Contacting one's own resource is rejected. An existing identical context
+ * and participant pair returns that session rather than creating duplicates.
+ *
+ */
+export const createChatSession = <ThrowOnError extends boolean = false>(options: Options<CreateChatSessionData, ThrowOnError>): RequestResult<CreateChatSessionResponses, CreateChatSessionErrors, ThrowOnError, 'data'> => (options.client ?? client).post<CreateChatSessionResponses, CreateChatSessionErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/chat/sessions',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
 });
 
 export const listMessages = <ThrowOnError extends boolean = false>(options: Options<ListMessagesData, ThrowOnError>): RequestResult<ListMessagesResponses, ListMessagesErrors, ThrowOnError, 'data'> => (options.client ?? client).get<ListMessagesResponses, ListMessagesErrors, ThrowOnError, 'data'>({

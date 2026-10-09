@@ -6,7 +6,17 @@
 
 Owner：M5（胡可铭）｜2026-10-08｜任务分支：`task/m5-p2-auth-contracts`。
 
-本索引记录 M5 的 BP2-01、BP2-02 和 BP2-11 走查准备；不把 M6/M9 或小组共同任务写成已验收。阶段和范围以 [Issue #21](https://github.com/Huang0283/CampusLoop/issues/21) 为准。
+本索引记录原 M5/M9 产物和本轮集中补充的 M6 产物；不把技术提交写成他人的 Review/签字或小组已验收。阶段和范围以 [Issue #21](https://github.com/Huang0283/CampusLoop/issues/21) 为准。
+
+## 2026-10-09 集中收尾新增
+
+- BP2-03：`business-api-catalog.md`；吸收 M5 核心请求/本人和公开资料 schema，补 `/ready`、我的商品、创建上下文会话、成色/求购状态筛选、报价 proposer；重新生成 SDK。
+- BP2-04：`write-operation-contracts.md`，逐领域写明权限、状态、原子性、幂等、并发和 rollback。
+- BP2-05：`state-enum-contract.md`；`scripts/m6_phase2/check_contract.py` 核对 54 个 operation、9 类枚举和请求/公开私有 schema 边界。
+- BP2-08：修复 psycopg 返回 rowcount=-1 导致错误的负插入数日志，添加重复 upsert 返回 0 的真实 PostgreSQL 测试。
+- 本地 API/SDK/运行指南改为 8001；Docker 容器内部仍为 8000。
+- 已运行的 Linux Python 3.13 隔离测试共 8 项通过；正式 Python 3.12 Compose/MinIO 以及干净检出完整验收另行记录，不冒充已通过。
+- canonical 仍有认证 headers/examples、私有证据上传、订单事件分页和管理员商品动作细节待补，不能据本索引关闭 #21。
 
 | 任务 | 交付文件 | 内容 | 当前证据等级 |
 |---|---|---|---|
