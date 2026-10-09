@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m7_baseline/tests",
+    "-v"
+  ],
+  "exitCode": 0,
+  "startedAt": "2026-10-07T17:04:59.815614+00:00",
+  "endedAt": "2026-10-07T17:05:00.588217+00:00",
+  "stdout": "",
+  "stderr": "test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility (test_engine.RankingTests.test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility) ... ok\ntest_keyword_title_weight_matches_published_hand_example (test_engine.RankingTests.test_keyword_title_weight_matches_published_hand_example) ... ok\ntest_matching_cannot_be_read_by_another_wanted_owner (test_engine.RankingTests.test_matching_cannot_be_read_by_another_wanted_owner) ... ok\ntest_matching_keeps_eligible_zero_text_score_and_explains_budget (test_engine.RankingTests.test_matching_keeps_eligible_zero_text_score_and_explains_budget) ... ok\ntest_matching_without_text_returns_null_score_not_perfect_score (test_engine.RankingTests.test_matching_without_text_returns_null_score_not_perfect_score) ... ok\ntest_relevance_ties_use_publication_time_then_numeric_id_and_price_sort (test_engine.RankingTests.test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort) ... ok\ntest_unknown_request_fields_are_rejected_instead_of_silently_ignored (test_engine.RankingTests.test_unknown_request_fields_are_rejected_instead_of_silently_ignored) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.017s\n\nOK\n"
+}

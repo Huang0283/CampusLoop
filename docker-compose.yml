@@ -30,7 +30,7 @@ services:
       POSTGRES_PASSWORD: campusloop
       POSTGRES_DB: campusloop
     ports:
-      - "5432:5432"
+      - "${CAMPUSLOOP_DB_PORT:-5432}:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
@@ -43,7 +43,7 @@ services:
   redis:
     image: redis:7.4-alpine
     ports:
-      - "6379:6379"
+      - "${CAMPUSLOOP_REDIS_PORT:-6379}:6379"
     volumes:
       - redis-data:/data
     healthcheck:
@@ -67,8 +67,8 @@ services:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
     ports:
-      - "9000:9000"   # S3 API
-      - "9001:9001"   # 管理控制台
+      - "${CAMPUSLOOP_STORAGE_PORT:-9000}:9000"   # S3 API
+      - "${CAMPUSLOOP_STORAGE_CONSOLE_PORT:-9001}:9001"   # 管理控制台
     volumes:
       - minio-data:/data
     healthcheck:
@@ -94,16 +94,27 @@ services:
       mc mb --ignore-existing local/campusloop-public &&
       mc mb --ignore-existing local/campusloop-private &&
       mc anonymous set download local/campusloop-public &&
+      mc anonymous set none local/campusloop-private &&
       echo '[minio-init] buckets campusloop-public(public-read) + campusloop-private(private) ready'
       "
 
   api:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     environment:
       APP_ENV: dev
       LOG_LEVEL: INFO
       LOG_JSON: "true"
-      CORS_ORIGINS: http://localhost:5173
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+      AUTH_SIGNING_KEY: ${AUTH_SIGNING_KEY:?Run python backend/scripts/init_local.py first}
+      AUTH_SIGNING_KID: ${AUTH_SIGNING_KID:-primary}
+      AUTH_REGISTRATION_DOMAINS: ${AUTH_REGISTRATION_DOMAINS:-example.com,example.invalid}
+      BASELINE_RPC_TOKEN: ${BASELINE_RPC_TOKEN:?Run python backend/scripts/init_local.py first}
+      BASELINE_SERVICES_ENABLED: ${BASELINE_SERVICES_ENABLED:-true}
+      MATCHING_NOTIFICATIONS_ENABLED: ${MATCHING_NOTIFICATIONS_ENABLED:-true}
+      AUTH_COOKIE_NAME: ${AUTH_COOKIE_NAME:-campusloop-session}
+      AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-false}
       # 容器网络内用服务名，不是 localhost
       DATABASE_URL: postgresql+psycopg://campusloop:campusloop@db:5432/campusloop
       REDIS_URL: redis://redis:6379/0
@@ -112,9 +123,9 @@ services:
       MINIO_SECRET_KEY: minioadmin
       MINIO_PUBLIC_BUCKET: campusloop-public
       MINIO_PRIVATE_BUCKET: campusloop-private
-      S3_PUBLIC_BASE_URL: http://localhost:9000/campusloop-public
+      S3_PUBLIC_BASE_URL: http://localhost:${CAMPUSLOOP_STORAGE_PORT:-9000}/campusloop-public
     ports:
-      - "8001:8000"
+      - "${CAMPUSLOOP_API_PORT:-8001}:8000"
     depends_on:
       db:
         condition: service_healthy

@@ -1,0 +1,274 @@
+{
+  "datasetVersion": "m8-p3-fixed-cases-v1",
+  "evaluationType": "RULE_ONLY_VALIDATION",
+  "evaluationVersion": "m8-rule-baseline-eval-v1",
+  "labeledPredictionMetrics": "NOT_EVALUATED",
+  "reason": "Fixed cases validate rule behavior and boundaries; no eligible L3 completed-transaction labels exist.",
+  "results": [
+    {
+      "caseId": "P-01-normal",
+      "output": {
+        "algorithmVersion": "m8-price-rule-v1",
+        "confidence": "LOW",
+        "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+        "degraded": true,
+        "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+        "factors": [
+          {
+            "code": "CONDITION_GOOD",
+            "effect": "RULE_FACTOR",
+            "explanation": "商品成色影响价格区间"
+          },
+          {
+            "code": "AGE_18_MONTHS",
+            "effect": "RULE_FACTOR",
+            "explanation": "购买年限影响折旧；未知年限按中性处理"
+          }
+        ],
+        "intervalFen": {
+          "lower": 227000,
+          "upper": 331000
+        },
+        "sampleSize": 0,
+        "status": "LOW_CONFIDENCE"
+      },
+      "passed": true,
+      "task": "price"
+    },
+    {
+      "caseId": "P-02-defect",
+      "output": {
+        "algorithmVersion": "m8-price-rule-v1",
+        "confidence": "LOW",
+        "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+        "degraded": true,
+        "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+        "factors": [
+          {
+            "code": "CONDITION_FAIR",
+            "effect": "RULE_FACTOR",
+            "explanation": "商品成色影响价格区间"
+          },
+          {
+            "code": "AGE_24_MONTHS",
+            "effect": "RULE_FACTOR",
+            "explanation": "购买年限影响折旧；未知年限按中性处理"
+          },
+          {
+            "code": "DEFECT_OR_ACCESSORY_PENALTY",
+            "effect": "RULE_FACTOR",
+            "explanation": "缺陷或配件不完整使建议区间下调"
+          }
+        ],
+        "intervalFen": {
+          "lower": 1500,
+          "upper": 3700
+        },
+        "sampleSize": 0,
+        "status": "LOW_CONFIDENCE"
+      },
+      "passed": true,
+      "task": "price"
+    },
+    {
+      "caseId": "P-03-insufficient",
+      "output": {
+        "algorithmVersion": "m8-price-rule-v1",
+        "confidence": "INSUFFICIENT",
+        "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+        "degraded": true,
+        "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+        "factors": [
+          {
+            "code": "ORIGINAL_PRICE_MISSING",
+            "effect": "RULE_FACTOR",
+            "explanation": "缺少经批准的原价锚点，无法生成区间"
+          }
+        ],
+        "intervalFen": {
+          "lower": null,
+          "upper": null
+        },
+        "sampleSize": 0,
+        "status": "INSUFFICIENT_DATA"
+      },
+      "passed": true,
+      "task": "price"
+    },
+    {
+      "caseId": "T-01-new-user",
+      "output": {
+        "algorithmVersion": "m8-trust-rule-v1",
+        "factors": [
+          {
+            "code": "NO_VALID_COMPLETED_EVENTS",
+            "effect": "NEUTRAL_PRIOR"
+          }
+        ],
+        "ignoredEventCount": 0,
+        "score": 3.5,
+        "smoothing": {
+          "priorScore": 3.5,
+          "priorWeight": 5
+        },
+        "status": "NEW_USER_NEUTRAL",
+        "validEventCount": 0
+      },
+      "passed": true,
+      "task": "trust"
+    },
+    {
+      "caseId": "T-02-smoothed",
+      "output": {
+        "algorithmVersion": "m8-trust-rule-v1",
+        "factors": [
+          {
+            "code": "VALID_COMPLETED_EVENTS",
+            "count": 2,
+            "effect": "AGGREGATED"
+          },
+          {
+            "code": "BAYESIAN_SMOOTHING",
+            "effect": "LIMIT_SMALL_SAMPLE_SWING"
+          }
+        ],
+        "ignoredEventCount": 0,
+        "score": 3.79,
+        "smoothing": {
+          "priorScore": 3.5,
+          "priorWeight": 5
+        },
+        "status": "AVAILABLE",
+        "validEventCount": 2
+      },
+      "passed": true,
+      "task": "trust"
+    },
+    {
+      "caseId": "T-03-invalid-filter",
+      "output": {
+        "algorithmVersion": "m8-trust-rule-v1",
+        "factors": [
+          {
+            "code": "NO_VALID_COMPLETED_EVENTS",
+            "effect": "NEUTRAL_PRIOR"
+          }
+        ],
+        "ignoredEventCount": 3,
+        "score": 3.5,
+        "smoothing": {
+          "priorScore": 3.5,
+          "priorWeight": 5
+        },
+        "status": "NEW_USER_NEUTRAL",
+        "validEventCount": 0
+      },
+      "passed": true,
+      "task": "trust"
+    },
+    {
+      "caseId": "R-01-clear",
+      "output": {
+        "algorithmVersion": "m8-risk-clue-rule-v1",
+        "clues": [],
+        "disclaimer": "规则只生成风险线索，不代表违规结论，也不会自动处罚、封禁或修改业务对象。",
+        "enforcementExecuted": false,
+        "manualReviewRecommended": false,
+        "recommendedAction": "NONE",
+        "status": "NO_RULE_CLUES"
+      },
+      "passed": true,
+      "task": "risk"
+    },
+    {
+      "caseId": "R-02-payment-threshold",
+      "output": {
+        "algorithmVersion": "m8-risk-clue-rule-v1",
+        "clues": [
+          {
+            "code": "REPEATED_PAYMENT_FAILURES",
+            "explanation": "failedPaymentCount24h=3 达到人工复核线 3",
+            "field": "failedPaymentCount24h",
+            "observed": 3,
+            "threshold": 3
+          }
+        ],
+        "disclaimer": "规则只生成风险线索，不代表违规结论，也不会自动处罚、封禁或修改业务对象。",
+        "enforcementExecuted": false,
+        "manualReviewRecommended": true,
+        "recommendedAction": "MANUAL_REVIEW",
+        "status": "CLUES_FOUND"
+      },
+      "passed": true,
+      "task": "risk"
+    },
+    {
+      "caseId": "R-03-multiple-clues",
+      "output": {
+        "algorithmVersion": "m8-risk-clue-rule-v1",
+        "clues": [
+          {
+            "code": "REPEATED_PAYMENT_FAILURES",
+            "explanation": "failedPaymentCount24h=4 达到人工复核线 3",
+            "field": "failedPaymentCount24h",
+            "observed": 4,
+            "threshold": 3
+          },
+          {
+            "code": "BURST_LISTING_ACTIVITY",
+            "explanation": "listingCount1h=15 达到人工复核线 12",
+            "field": "listingCount1h",
+            "observed": 15,
+            "threshold": 12
+          },
+          {
+            "code": "COUNTERPARTY_BURST",
+            "explanation": "distinctCounterpartyCount24h=10 达到人工复核线 8",
+            "field": "distinctCounterpartyCount24h",
+            "observed": 10,
+            "threshold": 8
+          },
+          {
+            "code": "SHARED_DEVICE_CLUSTER",
+            "explanation": "sameDeviceAccountCount7d=5 达到人工复核线 4",
+            "field": "sameDeviceAccountCount7d",
+            "observed": 5,
+            "threshold": 4
+          },
+          {
+            "code": "RECENT_REPORT_CLUSTER",
+            "explanation": "reportCount7d=4 达到人工复核线 3",
+            "field": "reportCount7d",
+            "observed": 4,
+            "threshold": 3
+          }
+        ],
+        "disclaimer": "规则只生成风险线索，不代表违规结论，也不会自动处罚、封禁或修改业务对象。",
+        "enforcementExecuted": false,
+        "manualReviewRecommended": true,
+        "recommendedAction": "MANUAL_REVIEW",
+        "status": "CLUES_FOUND"
+      },
+      "passed": true,
+      "task": "risk"
+    }
+  ],
+  "summary": {
+    "byTask": {
+      "price": {
+        "caseCount": 3,
+        "passed": 3
+      },
+      "risk": {
+        "caseCount": 3,
+        "passed": 3
+      },
+      "trust": {
+        "caseCount": 3,
+        "passed": 3
+      }
+    },
+    "caseCount": 9,
+    "passed": 9
+  }
+}

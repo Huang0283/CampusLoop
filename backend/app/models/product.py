@@ -46,6 +46,7 @@ class Product(TimestampMixin, Base):
     status: Mapped[str] = mapped_column(
         String(16), nullable=False, default=ProductStatus.ON_SALE.value
     )
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     # 分类扩展属性（版本、颜色、尺寸等），与迁移 0001 的 JSONB 列一致
     attributes: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     view_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)

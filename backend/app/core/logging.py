@@ -16,13 +16,27 @@ from typing import Any
 
 request_id_var: contextvars.ContextVar[str] = contextvars.ContextVar("request_id", default="-")
 
-_SENSITIVE_KEYS = {"password", "password_hash", "token", "refresh_token", "authorization", "secret"}
+_SENSITIVE_KEYS = {
+    "password",
+    "passwordhash",
+    "token",
+    "accesstoken",
+    "refreshtoken",
+    "authorization",
+    "secret",
+    "email",
+    "content",
+    "evidence",
+}
 
 
 def _scrub(value: Any) -> Any:
     """递归打码敏感键，防止日志泄漏。"""
     if isinstance(value, dict):
-        return {k: ("***" if k.lower() in _SENSITIVE_KEYS else _scrub(v)) for k, v in value.items()}
+        return {
+            k: ("***" if k.lower().replace("_", "") in _SENSITIVE_KEYS else _scrub(v))
+            for k, v in value.items()
+        }
     if isinstance(value, list):
         return [_scrub(v) for v in value]
     return value
@@ -38,7 +52,9 @@ class JsonFormatter(logging.Formatter):
             "message": record.getMessage(),
         }
         if record.exc_info:
-            payload["exception"] = self.formatException(record.exc_info)
+            # Exception text/tracebacks may contain SQL bind values and private
+            # request payloads. Retain only a diagnostic class name.
+            payload["exceptionType"] = record.exc_info[0].__name__
         extra = getattr(record, "extra_data", None)
         if extra:
             payload["extra"] = _scrub(extra)

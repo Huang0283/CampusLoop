@@ -1,0 +1,24 @@
+python.exe : test_default_evaluation_exposes_pending_provenance (services.m7_baseline.tests.test_review_archive.ReviewA
+rchiveTests.test_default_evaluation_exposes_pending_provenance) ... ERROR
+所在位置 行:2 字符: 66
++ ... TECODE='1'; & '../joint-clean-venv-20261008/Scripts/python.exe' -m un ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_default_ev...ance) ... ERROR:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+======================================================================
+ERROR: test_default_evaluation_exposes_pending_provenance (services.m7_baseline.tests.test_review_archive.ReviewArchive
+Tests.test_default_evaluation_exposes_pending_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\services\m7_baseline\tests\test_review_archive.py", l
+ine 37, in test_default_evaluation_exposes_pending_provenance
+    self.assertEqual(result['labelSource'], 'PENDING_HUMAN_REVIEW')
+                     ~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'labelSource'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.105s
+
+FAILED (errors=1)

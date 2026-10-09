@@ -1,5 +1,7 @@
 # BP2-11 认证契约联合走查登记
 
+2026-10-09用户批准D07浏览器体验变更：[Phase3 HttpOnly会话合同](../../phase-3/backend-platform/browser-session-contract.md)取代浏览器“重载重登”，canonical OpenAPI和SDK同步。以下Owner签字/历史走查不补造，新合同技术复验与独立验收在Phase3记录。
+
 维护：M5｜2026-10-08｜本文件仅登记 M5 输入及接收门禁，不代签他人，不代表 BP2-11 已完成。
 
 ## 1. 输入版本

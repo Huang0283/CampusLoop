@@ -1,13 +1,13 @@
 """种子与测试数据脚本（BP2-08）。
 
 幂等策略：
-- 所有种子行使用显式主键（1000+ 段，避开业务自增区间）；
+- 所有种子行使用显式主键；写入后抬高自增序列，防止新业务 ID 与种子碰撞；
 - 全部 INSERT ... ON CONFLICT DO NOTHING，重复执行零副作用；
 - 验收口径：连跑两遍，行数与内容完全一致（scripts/seed.py --check 可自动比对）。
 
 数据说明：
 - 全部为教学模拟数据：虚构姓名/邮箱（example.com 域），不含任何真实个人信息；
-- 密码用 stdlib scrypt 派生哈希（教学演示用，Phase 3 由 M5 换成正式认证方案）；
+- 新库密码使用与注册相同的 Argon2id；已有行不静默覆盖密码或重置业务数据；
 - 覆盖实体：users / products / favorites / wanted / chat_sessions / chat_messages /
   offers / orders / order_events / meetups / reviews / reports / notifications。
 
@@ -19,16 +19,21 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
+import io
 import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from botocore.exceptions import ClientError
+from PIL import Image
 from sqlalchemy import func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
+from app.core.config import get_settings
+from app.core.security import hash_password as secure_hash_password
+from app.db.sequences import align_sequences
 from app.db.session import session_scope
 from app.models import (
     ChatMessage,
@@ -43,6 +48,7 @@ from app.models import (
     ProductImage,
     Report,
     Review,
+    UploadedObject,
     User,
     WantedPost,
 )
@@ -61,14 +67,14 @@ from app.models.enums import (
     UserStatus,
     WantedStatus,
 )
+from app.services.storage import storage_client
 
 NOW = datetime(2026, 9, 22, 12, 0, 0, tzinfo=UTC)
 
 
 def hash_password(password: str, salt: str) -> str:
-    """教学演示哈希（scrypt）。格式：scrypt$<salt>$<hex>。Phase 3 换正式方案。"""
-    digest = hashlib.scrypt(password.encode(), salt=salt.encode(), n=16384, r=8, p=1, dklen=32)
-    return f"scrypt${salt}${digest.hex()}"
+    """Same Argon2id as registration; old signature retained for seed callers."""
+    return secure_hash_password(password)
 
 
 def upsert(session, model, rows: list[dict]) -> int:
@@ -183,7 +189,7 @@ def seed_products() -> list[dict]:
             price=560,
             original_price=1898,
             campus_location="北门车棚",
-            status=ProductStatus.ON_SALE.value,
+            status=ProductStatus.RESERVED.value,
             attributes={"size": 26},
             view_count=542,
             favorite_count=33,
@@ -246,7 +252,8 @@ def seed_wanted() -> list[dict]:
             category="DIGITAL",
             budget_min=100,
             budget_max=250,
-            requirements={"condition": ["NEW", "LIKE_NEW"], "campus": "east"},
+            requirements={"condition": "LIKE_NEW", "location": "ANY"},
+            expires_at=NOW + timedelta(days=90),
             status=WantedStatus.OPEN.value,
         ),
         dict(
@@ -257,7 +264,8 @@ def seed_wanted() -> list[dict]:
             category="BOOKS",
             budget_min=20,
             budget_max=50,
-            requirements=None,
+            requirements={"condition": "ANY", "location": "ANY"},
+            expires_at=NOW + timedelta(days=90),
             status=WantedStatus.OPEN.value,
         ),
     ]
@@ -278,6 +286,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
             id=4101,
             session_id=4001,
             sender_id=1002,
+            client_msg_id="00000000-0000-4000-8000-000000004101",
             kind=ChatMessageKind.TEXT.value,
             content="你好，车还在吗？能约北门看车吗？",
             created_at=NOW - timedelta(days=2, hours=3),
@@ -286,6 +295,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
             id=4102,
             session_id=4001,
             sender_id=1003,
+            client_msg_id="00000000-0000-4000-8000-000000004102",
             kind=ChatMessageKind.TEXT.value,
             content="在的，周六上午都可以",
             created_at=NOW - timedelta(days=2, hours=2),
@@ -294,6 +304,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
             id=4103,
             session_id=4001,
             sender_id=1002,
+            client_msg_id="00000000-0000-4000-8000-000000004103",
             kind=ChatMessageKind.TEXT.value,
             content="500 出吗？",
             created_at=NOW - timedelta(days=1, hours=4),
@@ -302,6 +313,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
     offers = [
         dict(
             id=5001,
+            proposer_id=1002,
             session_id=4001,
             buyer_id=1002,
             seller_id=1003,
@@ -393,7 +405,12 @@ def seed_orders() -> tuple[list[dict], list[dict], list[dict]]:
             id=8001,
             order_id=6002,
             place="北门车棚",
-            proposed_slots={"slots": [(NOW + timedelta(days=2)).isoformat()]},
+            proposed_slots={
+                "scheduledDate": "2026-09-24",
+                "timeSlotStart": "12:00",
+                "timeSlotEnd": "13:00",
+                "note": "Fictional demo arrangement",
+            },
             confirmed_slot=NOW + timedelta(days=2),
             status=MeetupStatus.CONFIRMED.value,
             version=1,
@@ -412,6 +429,9 @@ def seed_reviews() -> list[dict]:
             reviewer_id=1002,
             reviewee_id=1003,
             rating=5,
+            description_accuracy=5,
+            communication=5,
+            punctuality=5,
             comment="书有点旧但描述属实，人爽快",
         ),
     ]
@@ -515,6 +535,7 @@ def run_seed(session, *, verbose: bool = True) -> dict[str, int]:
 
     for model, rows in plan:
         inserted[model.__tablename__] = upsert(session, model, rows)
+    align_sequences(session.connection(), [model.__tablename__ for model in SEED_TABLES])
 
     if verbose:
         for table, count in inserted.items():
@@ -540,6 +561,7 @@ def main() -> int:
     with session_scope() as session:
         print("[seed] 第一遍写入：")
         run_seed(session)
+        seed_images(session)
         first = snapshot_counts(session)
 
         if not args.check:
@@ -548,6 +570,7 @@ def main() -> int:
 
         print("[seed] 第二遍写入（幂等性验证）：")
         run_seed(session)
+        seed_images(session)
         second = snapshot_counts(session)
 
     if first != second:
@@ -555,6 +578,33 @@ def main() -> int:
         return 1
     print("[seed][PASS] 两遍执行结果完全一致：", second)
     return 0
+
+
+def seed_images(session):
+    """Real small demo placeholders, not photos or claimed user uploads."""
+    client = storage_client()
+    bucket = get_settings().minio_public_bucket
+    image = io.BytesIO()
+    Image.new("RGB", (64, 64), "#c8d6e5").save(image, format="JPEG")
+    content = image.getvalue()
+    for key, owner in (("seed/product-2001-1.jpg", 1001), ("seed/product-2003-1.jpg", 1003)):
+        try:
+            client.head_object(Bucket=bucket, Key=key)
+        except ClientError as exc:
+            if exc.response["Error"]["Code"] not in ("404", "NoSuchKey", "NotFound"):
+                raise
+            client.put_object(Bucket=bucket, Key=key, Body=content, ContentType="image/jpeg")
+        session.execute(
+            pg_insert(UploadedObject)
+            .values(
+                owner_id=owner,
+                object_key=key,
+                purpose="product",
+                content_type="image/jpeg",
+                size=len(content),
+            )
+            .on_conflict_do_nothing(index_elements=["object_key"])
+        )
 
 
 if __name__ == "__main__":

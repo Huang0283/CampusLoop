@@ -1,0 +1,20 @@
+{
+  "codeCommit": "b88b2a1429003877abca547771c32f8e9423b25a",
+  "cleanGitCheckout": true,
+  "status": "PASS",
+  "phase2Tests": 116,
+  "phase3Tests": 31,
+  "totalTests": 147,
+  "contracts": 29,
+  "queryCount": 38,
+  "assetsUnchanged": true,
+  "deterministicEvaluation": true,
+  "metricsRecalculated": true,
+  "actualReviewSheet": {
+    "rows": 228,
+    "verifiedStructuredRecords": 0,
+    "readyToArchive": false,
+    "exitCode": 2
+  },
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY"
+}
