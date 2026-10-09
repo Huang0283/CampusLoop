@@ -120,7 +120,11 @@ jobs:
       # SDK 漂移门禁（验收整改恢复）：从 openapi/campusloop.v1.yaml 重新生成 SDK
       # 并编译校验；OpenAPI 改动而 SDK 未同步时在此红灯，阻止合入。
       - name: SDK drift check
-        run: npm run sdk:check
+        run: |
+          npm run sdk:check
+          git diff --exit-code -- src/sdk/generated/
+      - name: Transaction prototype state tests
+        run: npm run test:transaction
       - name: Lint
         run: npm run lint
       - name: Build
