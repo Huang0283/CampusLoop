@@ -34,6 +34,12 @@ class Settings(BaseSettings):
     log_json: bool = True
     cors_origins: str = "http://localhost:5173"
 
+    auth_signing_key: str = ""
+    auth_signing_kid: str = "primary"
+    auth_access_ttl_seconds: int = 900
+    auth_refresh_ttl_seconds: int = 604800
+    auth_registration_domains: str = "example.com,example.invalid"
+
     # ---- database (PostgreSQL 16 + pgvector) ----
     database_url: str = "postgresql+psycopg://campusloop:campusloop@localhost:5432/campusloop"
     db_pool_size: int = 5

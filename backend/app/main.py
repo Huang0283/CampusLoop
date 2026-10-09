@@ -14,13 +14,16 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
-from app.api.routes import system
+from app.api.routes import auth, market, realtime, system, transactions
 from app.core.config import get_settings
 from app.core.envelope import (
+    error_payload,
     unhandled_exception_handler,
     validation_exception_handler,
 )
+from app.core.errors import BusinessError, business_error_handler
 from app.core.logging import configure_logging, request_id_var
 
 
@@ -44,7 +47,7 @@ def create_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origin_list,
-        allow_credentials=True,
+        allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],
         expose_headers=["X-Request-ID"],
@@ -52,16 +55,50 @@ def create_app() -> FastAPI:
 
     @app.middleware("http")
     async def request_id_middleware(request, call_next):
-        rid = request.headers.get("X-Request-ID") or uuid.uuid4().hex[:12]
-        request_id_var.set(rid)
-        response = await call_next(request)
-        response.headers["X-Request-ID"] = rid
-        return response
+        provided = request.headers.get("X-Request-ID", "")
+        rid = (
+            provided
+            if 0 < len(provided) <= 64
+            and all(c.isascii() and (c.isalnum() or c in "-_") for c in provided)
+            else uuid.uuid4().hex[:12]
+        )
+        context = request_id_var.set(rid)
+        try:
+            auth_path = request.url.path.startswith("/auth/") or request.url.path == "/users/me"
+            if auth_path and request.method != "OPTIONS":
+                origin = request.headers.get("origin")
+                if origin and origin not in settings.cors_origin_list:
+                    return JSONResponse(
+                        status_code=403,
+                        content=error_payload("FORBIDDEN", "Origin is not permitted.", rid),
+                    )
+                if (
+                    request.method in ("POST", "PATCH")
+                    and request.url.path != "/auth/logout"
+                    and request.headers.get("content-type", "").split(";", 1)[0]
+                    != "application/json"
+                ):
+                    return JSONResponse(
+                        status_code=415,
+                        content=error_payload("UNSUPPORTED_MEDIA_TYPE", "JSON required.", rid),
+                    )
+            response = await call_next(request)
+            response.headers["X-Request-ID"] = rid
+            if auth_path:
+                response.headers["Cache-Control"] = "no-store"
+            return response
+        finally:
+            request_id_var.reset(context)
 
     app.include_router(system.router)
+    app.include_router(auth.router)
+    app.include_router(market.router)
+    app.include_router(transactions.router)
+    app.include_router(realtime.router)
 
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(Exception, unhandled_exception_handler)
+    app.add_exception_handler(BusinessError, business_error_handler)
     return app
 
 

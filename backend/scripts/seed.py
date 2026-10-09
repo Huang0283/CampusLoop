@@ -19,7 +19,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -29,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sqlalchemy import func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
+from app.core.security import hash_password as secure_hash_password
 from app.db.session import session_scope
 from app.models import (
     ChatMessage,
@@ -66,9 +66,8 @@ NOW = datetime(2026, 9, 22, 12, 0, 0, tzinfo=UTC)
 
 
 def hash_password(password: str, salt: str) -> str:
-    """教学演示哈希（scrypt）。格式：scrypt$<salt>$<hex>。Phase 3 换正式方案。"""
-    digest = hashlib.scrypt(password.encode(), salt=salt.encode(), n=16384, r=8, p=1, dklen=32)
-    return f"scrypt${salt}${digest.hex()}"
+    """Same Argon2id as registration; old signature retained for seed callers."""
+    return secure_hash_password(password)
 
 
 def upsert(session, model, rows: list[dict]) -> int:
@@ -278,6 +277,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
             id=4101,
             session_id=4001,
             sender_id=1002,
+            client_msg_id="00000000-0000-4000-8000-000000004101",
             kind=ChatMessageKind.TEXT.value,
             content="你好，车还在吗？能约北门看车吗？",
             created_at=NOW - timedelta(days=2, hours=3),
@@ -286,6 +286,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
             id=4102,
             session_id=4001,
             sender_id=1003,
+            client_msg_id="00000000-0000-4000-8000-000000004102",
             kind=ChatMessageKind.TEXT.value,
             content="在的，周六上午都可以",
             created_at=NOW - timedelta(days=2, hours=2),
@@ -294,6 +295,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
             id=4103,
             session_id=4001,
             sender_id=1002,
+            client_msg_id="00000000-0000-4000-8000-000000004103",
             kind=ChatMessageKind.TEXT.value,
             content="500 出吗？",
             created_at=NOW - timedelta(days=1, hours=4),
@@ -302,6 +304,7 @@ def seed_chat_and_offers() -> tuple[list[dict], list[dict], list[dict]]:
     offers = [
         dict(
             id=5001,
+            proposer_id=1002,
             session_id=4001,
             buyer_id=1002,
             seller_id=1003,
@@ -412,6 +415,9 @@ def seed_reviews() -> list[dict]:
             reviewer_id=1002,
             reviewee_id=1003,
             rating=5,
+            description_accuracy=5,
+            communication=5,
+            punctuality=5,
             comment="书有点旧但描述属实，人爽快",
         ),
     ]

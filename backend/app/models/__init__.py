@@ -7,11 +7,17 @@ from app.models.order import Meetup, Order, OrderEvent
 from app.models.product import Favorite, Product, ProductImage
 from app.models.report import Report
 from app.models.review import Review
-from app.models.user import RefreshSession, User
+from app.models.runtime import ChatReadCursor, IdempotencyRecord, UploadedObject
+from app.models.user import AuthAudit, AuthSessionFamily, RefreshSession, User
 from app.models.wanted import WantedPost
 
 __all__ = [
+    "AuthAudit",
+    "AuthSessionFamily",
     "ChatMessage",
+    "ChatReadCursor",
+    "IdempotencyRecord",
+    "UploadedObject",
     "ChatSession",
     "Favorite",
     "Meetup",

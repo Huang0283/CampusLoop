@@ -13,6 +13,7 @@ from sqlalchemy import (
     Integer,
     Numeric,
     String,
+    UniqueConstraint,
     func,
 )
 from sqlalchemy.orm import Mapped, mapped_column
@@ -38,6 +39,9 @@ class User(TimestampMixin, Base):
     # 契约用 423 表达禁用；库层显式存 ACTIVE/DISABLED
     status: Mapped[str] = mapped_column(String(16), nullable=False, default=UserStatus.ACTIVE.value)
     bio: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    school: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    college: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    major: Mapped[str | None] = mapped_column(String(80), nullable=True)
     # 冗余聚合字段：评价写入时由应用层在同一事务维护
     rating_avg: Mapped[float] = mapped_column(Numeric(2, 1), nullable=False, default=0)
     transaction_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
@@ -48,6 +52,35 @@ class User(TimestampMixin, Base):
         CheckConstraint("rating_avg >= 0 AND rating_avg <= 5", name="ck_rating_range"),
         Index("ix_users_role_status", "role", "status"),
     )
+
+
+class AuthSessionFamily(Base):
+    __tablename__ = "auth_session_families"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    revocation_reason: Mapped[str | None] = mapped_column(String(32))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    refresh_window_started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    refresh_window_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint("id", "user_id", name="uq_auth_family_user"),
+        Index("ix_auth_families_user_active", "user_id", "revoked_at"),
+    )
+
+
+class AuthAudit(Base):
+    __tablename__ = "auth_audits"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    actor_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    target_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    event: Mapped[str] = mapped_column(String(48), nullable=False)
+    request_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
 class RefreshSession(Base):
@@ -63,6 +96,10 @@ class RefreshSession(Base):
         BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
     token_hash: Mapped[str] = mapped_column(String(64), nullable=False, unique=True)
+    # Legacy rows remain revoked with no family; new issuance always binds a family.
+    family_id: Mapped[str | None] = mapped_column(ForeignKey("auth_session_families.id"))
+    consumed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    parent_id: Mapped[int | None] = mapped_column(ForeignKey("refresh_sessions.id"), unique=True)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(

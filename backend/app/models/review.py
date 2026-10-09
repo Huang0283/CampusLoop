@@ -32,6 +32,9 @@ class Review(TimestampMixin, Base):
     )
     # 1-5 星；0 表示未评分占位（防重复评价用唯一约束，见下）
     rating: Mapped[int] = mapped_column(Integer, nullable=False)
+    description_accuracy: Mapped[int | None] = mapped_column(Integer)
+    communication: Mapped[int | None] = mapped_column(Integer)
+    punctuality: Mapped[int | None] = mapped_column(Integer)
     comment: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     __table_args__ = (

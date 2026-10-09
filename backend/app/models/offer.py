@@ -39,6 +39,8 @@ class Offer(TimestampMixin, Base):
     seller_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("users.id", ondelete="RESTRICT"), nullable=False
     )
+    proposer_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
+    countered_by_offer_id: Mapped[int | None] = mapped_column(ForeignKey("offers.id"))
     amount: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
     message: Mapped[str | None] = mapped_column(String(500), nullable=True)
     status: Mapped[str] = mapped_column(

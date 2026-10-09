@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from datetime import datetime
+
 from sqlalchemy import (
     BigInteger,
     CheckConstraint,
+    DateTime,
     ForeignKey,
     Index,
     Numeric,
@@ -34,6 +37,7 @@ class WantedPost(TimestampMixin, Base):
     # 硬性要求（成色、校区、配件等），供 M7 求购匹配使用
     requirements: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     status: Mapped[str] = mapped_column(String(16), nullable=False, default=WantedStatus.OPEN.value)
+    expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     __table_args__ = (
         CheckConstraint(

@@ -36,12 +36,15 @@ async def validation_exception_handler(
     request: Request, exc: RequestValidationError
 ) -> JSONResponse:
     return JSONResponse(
-        status_code=422,
+        status_code=400 if any(item["type"] == "json_invalid" for item in exc.errors()) else 422,
         content=error_payload(
-            code="VALIDATION_ERROR",
+            code="INVALID_JSON"
+            if any(item["type"] == "json_invalid" for item in exc.errors())
+            else "VALIDATION_ERROR",
             message="Request validation failed.",
             request_id=_request_id_of(request),
-            details=exc.errors(),
+            # Never serialize Pydantic's input/ctx: those may contain passwords or tokens.
+            details={"fields": [".".join(map(str, item["loc"])) for item in exc.errors()]},
         ),
     )
 
