@@ -6,7 +6,6 @@ import {
   OFFER_EXPIRE_HOURS,
 } from '../../constants/offer'
 import type { Offer } from '../../types/transaction'
-import { CURRENT_USER_ID } from '../../mocks/transaction'
 import { useAuthStore } from '../../stores/auth'
 import { Button, Space } from 'antd'
 
@@ -36,14 +35,15 @@ function remainingText(offer: Offer): string {
 
 /**
  * 结构化报价卡片：出价 / 还价 / 接受 / 拒绝 / 撤回 / 过期 六态。
- * 只有卖家视角且 PENDING 状态才展示操作按钮（与 M6 核对权限规则）。
+ * 当前报价发起方可撤回；另一参与方可接受/还价/拒绝。
  */
 export default function OfferCard({ offer, onAccept, onReject, onCounter, onCancel }: OfferCardProps) {
   const expired = isExpired(offer)
   const status: Offer['status'] = expired && offer.status === 'PENDING' ? 'EXPIRED' : offer.status
-  const userId = useAuthStore((s) => s.user?.id ?? CURRENT_USER_ID)
-  const isMyOffer = offer.buyerId === userId
-  const canOperate = offer.status === 'PENDING' && !expired && !isMyOffer
+  const userId = useAuthStore((s) => s.user?.role === 'student' ? s.user.id : 0)
+  const isParticipant = offer.buyerId === userId || offer.sellerId === userId
+  const isMyOffer = (offer.proposerId ?? offer.buyerId) === userId
+  const canOperate = isParticipant && offer.status === 'PENDING' && !expired && !isMyOffer
 
   const diff = offer.amount - offer.originalPrice
   const diffText =

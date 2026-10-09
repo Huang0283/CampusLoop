@@ -12,11 +12,11 @@ interface ReportModalProps {
   targetLabel?: string
   onClose: () => void
   /** 提交回调：原型阶段写入 mockDb，接接口后换成 HTTP 调用 */
-  onSubmit?: (values: { reason: ReportReason; description?: string; evidence: string[] }) => void
+  onSubmit?: (values: { reason: ReportReason; description?: string; evidence: string[] }) => boolean
 }
 
 /** 证据图片上限（与 /report 旧页面、上传提示保持一致） */
-const MAX_EVIDENCE = 6
+const MAX_EVIDENCE = 5
 
 /**
  * 统一举报入口：用户 / 商品 / 交易 / 聊天 都从这走（任务 #8）。
@@ -36,6 +36,11 @@ export default function ReportModal({ open, targetType, targetId, targetLabel, o
       const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
       if (!isImage) {
         message.error('只支持 JPG、PNG 格式的图片')
+        return Upload.LIST_IGNORE
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        message.error('单张图片不能超过 5 MB')
+        return Upload.LIST_IGNORE
       }
       return false // 原型：阻止真实上传
     },
@@ -46,8 +51,11 @@ export default function ReportModal({ open, targetType, targetId, targetLabel, o
       .validateFields()
       .then((values: { reason: ReportReason; description?: string; evidence?: UploadFile[] }) => {
         const evidence = (values.evidence ?? []).map((file) => file.name)
-        onSubmit?.({ reason: values.reason, description: values.description, evidence })
-        message.success('举报已提交，管理员会在 48 小时内处理，结果将在通知中心告知')
+        if (!onSubmit?.({ reason: values.reason, description: values.description, evidence })) {
+          message.error('举报未保存：请检查登录身份、目标和证据限制')
+          return
+        }
+        message.success('举报已记录（Phase 2 Mock，尚未上传或提交给真实管理员）')
         form.resetFields()
         onClose()
       })
@@ -74,17 +82,16 @@ export default function ReportModal({ open, targetType, targetId, targetLabel, o
         <Form.Item
           label="补充说明"
           name="description"
-          rules={[{ max: 300, message: '最多 300 字' }]}
+          rules={[{ max: 2000, message: '最多 2000 字' }]}
         >
-          <Input.TextArea rows={3} placeholder="描述具体情况；聊天举报将自动附带相关消息证据（管理员访问会记录审计）" />
+          <Input.TextArea rows={3} placeholder="描述具体情况；原型仅记录目标和证据文件名，私密消息审计由后续后端实现" />
         </Form.Item>
         <Form.Item
           label="证据上传"
           name="evidence"
           valuePropName="fileList"
           getValueFromEvent={(e: unknown) => (Array.isArray(e) ? e : (e as { fileList?: UploadFile[] })?.fileList)}
-          rules={[{ required: true, message: '请上传证据图片' }]}
-          extra="最多上传 6 张图片，支持 JPG、PNG"
+          extra="最多上传 5 张图片，支持 JPG、PNG，单张不超过 5 MB（原型仅记录文件名）"
           style={{ marginBottom: 8 }}
         >
           <Upload.Dragger {...uploadProps} maxCount={MAX_EVIDENCE} listType="picture">

@@ -1,0 +1,7 @@
+{
+  "recordType": "legacy PowerShell combined transcript; no per-run timestamp or commit",
+  "originalBytesSha256": "d2885168871240141b276b324c3c7653a5a165f8fbdf48526b251a6416848833",
+  "sourceEncoding": "UTF-16 BOM",
+  "exportedEncoding": "UTF-8 LF; machine paths redacted",
+  "combinedOutput": "python.exe : test_keyword_title_weight_matches_published_hand_example (test_engine.RankingTests.test_keyword_title_weig\nht_matches_published_hand_example) ... ok\n所在位置 行:2 字符: 66\n+ ... TECODE='1'; & '<task-work>\\joint-clean-ve ...\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : NotSpecified: (test_keyword_ti...example) ... ok:String) [], RemoteException\n    + FullyQualifiedErrorId : NativeCommandError\n \n\n----------------------------------------------------------------------\nRan 1 test in 0.002s\n\nOK\n"
+}

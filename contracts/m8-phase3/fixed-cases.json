@@ -1,0 +1,66 @@
+{
+  "datasetVersion": "m8-p3-fixed-cases-v1",
+  "cases": [
+    {
+      "caseId": "P-01-normal",
+      "task": "price",
+      "input": {"category": "digital", "condition": "good", "originalPriceFen": 600000, "purchaseAgeMonths": 18, "accessoryState": "complete", "defectTags": []},
+      "expected": {"status": "LOW_CONFIDENCE", "confidence": "LOW", "sampleSize": 0, "degraded": true}
+    },
+    {
+      "caseId": "P-02-defect",
+      "task": "price",
+      "input": {"category": "books", "condition": "fair", "originalPriceFen": 8000, "purchaseAgeMonths": 24, "accessoryState": "partial", "defectTags": ["notes"]},
+      "expected": {"status": "LOW_CONFIDENCE", "confidence": "LOW", "sampleSize": 0}
+    },
+    {
+      "caseId": "P-03-insufficient",
+      "task": "price",
+      "input": {"category": "other", "condition": "good", "originalPriceFen": null, "purchaseAgeMonths": null, "accessoryState": "unknown", "defectTags": []},
+      "expected": {"status": "INSUFFICIENT_DATA", "intervalFen": {"lower": null, "upper": null}, "confidence": "INSUFFICIENT"}
+    },
+    {
+      "caseId": "T-01-new-user",
+      "task": "trust",
+      "input": {"events": []},
+      "expected": {"status": "NEW_USER_NEUTRAL", "score": 3.5, "validEventCount": 0, "ignoredEventCount": 0}
+    },
+    {
+      "caseId": "T-02-smoothed",
+      "task": "trust",
+      "input": {"events": [
+        {"type": "SALE", "status": "COMPLETED", "disputed": false, "invalid": false, "rating": 5},
+        {"type": "PURCHASE", "status": "COMPLETED", "disputed": false, "invalid": false, "rating": 4}
+      ]},
+      "expected": {"status": "AVAILABLE", "score": 3.79, "validEventCount": 2, "ignoredEventCount": 0}
+    },
+    {
+      "caseId": "T-03-invalid-filter",
+      "task": "trust",
+      "input": {"events": [
+        {"type": "SALE", "status": "CANCELLED", "disputed": false, "invalid": false, "rating": 5},
+        {"type": "SALE", "status": "COMPLETED", "disputed": true, "invalid": false, "rating": 5},
+        {"type": "REVIEW", "status": "COMPLETED", "disputed": false, "invalid": true, "rating": 5}
+      ]},
+      "expected": {"status": "NEW_USER_NEUTRAL", "score": 3.5, "validEventCount": 0, "ignoredEventCount": 3}
+    },
+    {
+      "caseId": "R-01-clear",
+      "task": "risk",
+      "input": {"failedPaymentCount24h": 0, "listingCount1h": 2, "distinctCounterpartyCount24h": 1, "sameDeviceAccountCount7d": 1, "reportCount7d": 0},
+      "expected": {"status": "NO_RULE_CLUES", "clues": [], "manualReviewRecommended": false, "recommendedAction": "NONE", "enforcementExecuted": false}
+    },
+    {
+      "caseId": "R-02-payment-threshold",
+      "task": "risk",
+      "input": {"failedPaymentCount24h": 3, "listingCount1h": 2, "distinctCounterpartyCount24h": 1, "sameDeviceAccountCount7d": 1, "reportCount7d": 0},
+      "expected": {"status": "CLUES_FOUND", "manualReviewRecommended": true, "recommendedAction": "MANUAL_REVIEW", "enforcementExecuted": false}
+    },
+    {
+      "caseId": "R-03-multiple-clues",
+      "task": "risk",
+      "input": {"failedPaymentCount24h": 4, "listingCount1h": 15, "distinctCounterpartyCount24h": 10, "sameDeviceAccountCount7d": 5, "reportCount7d": 4},
+      "expected": {"status": "CLUES_FOUND", "manualReviewRecommended": true, "recommendedAction": "MANUAL_REVIEW", "enforcementExecuted": false}
+    }
+  ]
+}

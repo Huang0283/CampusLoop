@@ -1,0 +1,16 @@
+{
+  "caseId": "matching-baseline-failed",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 503,
+  "response": {
+    "code": "BASELINE_UNAVAILABLE",
+    "message": "匹配暂不可用",
+    "requestId": "fixture-matching-baseline-failed",
+    "details": null
+  }
+}

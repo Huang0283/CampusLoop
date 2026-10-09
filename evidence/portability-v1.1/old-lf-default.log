@@ -1,0 +1,4 @@
+STDOUT
+EXPECTED_ORIGINAL_DEFECT: deterministic rebuild mismatch
+
+STDERR

@@ -1,0 +1,26 @@
+test_m8_committed_bytes_and_read_only (test_joint.AssetTests.test_m8_committed_bytes_and_read_only) ... ok
+test_schema_rejects_invalid_brand (test_joint.AssetTests.test_schema_rejects_invalid_brand) ... ok
+test_synthetic_source_cannot_claim_real_transaction_labels (test_joint.AssetTests.test_synthetic_source_cannot_claim_real_transaction_labels) ... ok
+test_tampered_derived_fails_without_repairing_it (test_joint.AssetTests.test_tampered_derived_fails_without_repairing_it) ... ok
+test_blank_threshold_is_no_go (test_joint.GateTests.test_blank_threshold_is_no_go) ... ok
+test_current_missing_signatures_and_labels_are_no_go (test_joint.GateTests.test_current_missing_signatures_and_labels_are_no_go) ... ok
+test_missing_capability_fails (test_joint.GateTests.test_missing_capability_fails) ... ok
+test_removing_required_approver_does_not_bypass_gate (test_joint.GateTests.test_removing_required_approver_does_not_bypass_gate) ... ok
+test_bool_is_not_label_or_k (test_joint.MetricTests.test_bool_is_not_label_or_k) ... ok
+test_cannot_claim_approved_labels (test_joint.MetricTests.test_cannot_claim_approved_labels) ... ok
+test_deduplicate_before_top_k (test_joint.MetricTests.test_deduplicate_before_top_k) ... ok
+test_duplicate_label_fails (test_joint.MetricTests.test_duplicate_label_fails) ... ok
+test_empty_input_fails (test_joint.MetricTests.test_empty_input_fails) ... ok
+test_missing_query_fails (test_joint.MetricTests.test_missing_query_fails) ... ok
+test_no_positive_denominator_is_null (test_joint.MetricTests.test_no_positive_denominator_is_null) ... ok
+test_phase1_hand_calculation (test_joint.MetricTests.test_phase1_hand_calculation) ... ok
+test_same_labels_across_algorithms (test_joint.MetricTests.test_same_labels_across_algorithms) ... ok
+test_sensitivity_report_is_separate (test_joint.MetricTests.test_sensitivity_report_is_separate) ... ok
+test_short_ranking_divides_by_k (test_joint.MetricTests.test_short_ranking_divides_by_k) ... ok
+test_unknown_excludes_whole_query_but_keeps_audit (test_joint.MetricTests.test_unknown_excludes_whole_query_but_keeps_audit) ... ok
+test_unknown_returned_product_fails (test_joint.MetricTests.test_unknown_returned_product_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.283s
+
+OK

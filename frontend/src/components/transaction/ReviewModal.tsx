@@ -14,7 +14,7 @@ interface ReviewModalProps {
   peerNickname: string
   onClose: () => void
   /** 提交回调：原型阶段写入 mockDb，接接口后换成 HTTP 调用 */
-  onSubmit?: (values: ReviewFormValues) => void
+  onSubmit?: (values: ReviewFormValues) => boolean
 }
 
 /**
@@ -26,11 +26,14 @@ export default function ReviewModal({ open, orderId, peerNickname, onClose, onSu
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      onSubmit?.(values)
-      message.success(`已提交对 ${peerNickname} 的评价（订单 #${orderId}）`)
+      if (!onSubmit?.(values)) {
+        message.error('评价未保存：订单未完成、身份无权限、重复评价或评分无效')
+        return
+      }
+      message.success(`已保存对 ${peerNickname} 的评价（订单 #${orderId}，Phase 2 Mock）`)
       form.resetFields()
       onClose()
-    })
+    }).catch(() => { /* 字段错误由表单提示 */ })
   }
 
   return (
@@ -45,21 +48,21 @@ export default function ReviewModal({ open, orderId, peerNickname, onClose, onSu
     >
       <Form form={form} layout="vertical" initialValues={{ overall: 5 }}>
         <Form.Item label="总体评分" name="overall" rules={[{ required: true, message: '请给出总体评分' }]}>
-          <Rate />
+          <Rate allowClear={false} />
         </Form.Item>
         <Form.Item label="描述准确" name="descriptionAccuracy" rules={[{ required: true, message: '请评分' }]}>
-          <Rate />
+          <Rate allowClear={false} />
         </Form.Item>
         <Form.Item label="沟通体验" name="communication" rules={[{ required: true, message: '请评分' }]}>
-          <Rate />
+          <Rate allowClear={false} />
         </Form.Item>
         <Form.Item label="守时程度" name="punctuality" rules={[{ required: true, message: '请评分' }]}>
-          <Rate />
+          <Rate allowClear={false} />
         </Form.Item>
         <Form.Item
           label="评论"
           name="comment"
-          rules={[{ max: 200, message: '最多 200 字' }]}
+          rules={[{ max: 1000, message: '最多 1000 字' }]}
         >
           <Input.TextArea rows={3} placeholder="与对方交易的真实感受（纯文本，平台会转义防 XSS）" />
         </Form.Item>

@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=2.54cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={CampusLoop Project Progress Update - 9 October 2026},pdfauthor={CampusLoop Group 5}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{3em}
+\AtBeginDocument{\fontsize{12}{18}\selectfont}
+\setlist[itemize]{leftmargin=1.5em,itemsep=3pt,topsep=4pt}
+\setlist[enumerate]{leftmargin=1.8em,itemsep=3pt,topsep=4pt}
+\urlstyle{same}
+\newcommand{\heading}[1]{\vspace{6pt}\textbf{#1}\par}
+\newcommand{\evidence}[2]{\href{#1}{#2}}
+
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{0.6cm}
+{\LARGE\bfseries CampusLoop\par}
+\vspace{0.25cm}
+{\large An Intelligent Campus Second-Hand Marketplace\par}
+\vspace{0.6cm}
+{\Large\bfseries Project Progress Update\par}
+\vspace{0.35cm}
+Group 5 \quad | \quad BSc (AI)\par
+Reporting date: 9 October 2026\par
+Submission deadline: 12 October 2026, 23:59 (UTC+8)\par
+\vspace{0.4cm}
+\textbf{Group members}\par
+Huang Qiwei -- 20253801012\par
+Chen Zihong -- 20253801098\par
+Gao Junjie -- 20253801010\par
+Hu Keming -- 20253801017\par
+Li Mingyuan -- 20253801016\par
+Ma Xuan -- 20253801040\par
+Chen Hongqing -- 20253801080\par
+Luo Kangrui -- 20253801022\par
+Liang Jiawen -- 20253801026\par
+Ye Zidan -- 20253801096\par
+\vfill
+Prepared for the assigned academic supervisor and course project-update submission.\par
+Repository: \href{https://github.com/Huang0283/CampusLoop}{github.com/Huang0283/CampusLoop}\par
+\end{titlepage}
+\setcounter{page}{1}
+
+\section*{1. Executive summary and current position}
+CampusLoop aims to make campus second-hand trading easier to discover, coordinate and review. It combines product listings and wanted requests with private conversations, structured offers, meetup arrangements and post-transaction feedback. Intelligent suggestions support the workflow; they do not decide whether a transaction has occurred or automatically impose penalties.
+
+As of 9 October 2026, the project has moved beyond clickable prototypes to a working, persistent minimum viable product (MVP). The frontend uses the generated API SDK, and the backend stores account, marketplace and transaction facts in PostgreSQL. A real two-account browser test covers publication, chat, negotiation, order creation, meetup agreement, separate completion confirmations and feedback. Rule-based search, matching and price-reference services are connected to authoritative business data.
+
+\heading{Repository and acceptance status}
+Pull Request (PR) \#92 was merged into \texttt{phase2/integration} on 9 October. Its integration commit is \texttt{8853338}; its application-source baseline is \texttt{a24bbef}. The integration commit passed all three GitHub CI jobs. This update accompanies the requested promotion of that tested integration baseline and the report into \texttt{main}. Promotion is a technical integration decision, not evidence that every stage Issue has been independently accepted.
+
+\heading{What is complete, and what is not}
+The core MVP implementation and automated technical checks are complete at this baseline. Human acceptance, the archive of reviewed search labels, advanced-model comparison, load testing and final release approval remain open. The report therefore does not claim that all Phase 3 Issues are closed, that Phase 4 models are approved, or that the system is ready for public deployment.
+
+\heading{Relation to the original plan}
+The five-phase plan remains one week per phase: requirements and scope (28 September--4 October), contracts and prototypes (5--11 October), persistent MVP (12--18 October), intelligent integration and freeze (19--25 October), and release verification (26 October--1 November). Some MVP implementation has been completed ahead of its planned week. This does not shorten the remaining acceptance and evaluation work or change course submission deadlines.
+
+\clearpage
+\section*{2. Implemented functionality and engineering approach}
+\heading{Accounts and marketplace}
+Registration, login, profile editing and role/object permissions use real backend responses. Browser reload restores the same account through a server-validated session. Guests can browse public products and wanted requests without a forced login prompt; publishing, favourites and contacting a seller require authentication. Listings support image upload, details, editing, search, filters and lifecycle changes. Wanted requests retain budget, location, minimum condition and expiry constraints.
+
+\heading{A closed transaction workflow}
+Two ordinary accounts can exchange text and private images, submit offers and create one order when an offer is accepted. Acceptance atomically reserves the product and records the order, state events and notifications. Database uniqueness and idempotency prevent duplicate business facts. A meetup arrangement has a version: changing it invalidates previous confirmations, and both participants must confirm the current version. One participant cannot complete the order for both; only two separate completion actions produce a completed order and sold listing. Reviews require a completed transaction and cannot be duplicated.
+
+\heading{Communication and governance}
+WebSocket authenticates before message exchange; HTTP supports sending and recovery when disconnected. Stable message identifiers prevent duplicates. Reports refer to products, users, messages or orders; private-media access requires participant or administrator authority. Notifications and read states persist. Administrator functionality is limited to user-status actions with reasons and audit records, not full moderation case management.
+
+\heading{Architecture and security boundaries}
+React/TypeScript consumes OpenAPI through a generated SDK. FastAPI uses PostgreSQL, Redis and MinIO; intelligence services use private RPC. Short-lived access tokens remain in browser memory. Session restoration uses an HttpOnly, SameSite=Strict cookie with origin and CSRF checks; production requires HTTPS and Secure cookies. Business requests require Bearer authority. Renewal cannot retry an old tab's operation as a newly selected account.
+
+Validated, re-encoded uploads keep private objects off public URLs. Migration 0008 and idempotent seeds support reproducible startup. Secrets remain outside Git. Fictional demo accounts do not provide university identity verification or online payments.
+
+\clearpage
+\section*{3. Verification results and evidence}
+Verification distinguishes executable tests, human acceptance and model effectiveness. Passing a mock UI test is not counted as a real transaction, and passing synthetic rule cases is not proof of predictive accuracy.
+
+\begin{itemize}
+\item \textbf{Backend:} 37 tests passed without skips, using Linux Python 3.12, PostgreSQL, Redis and real MinIO. Format and static checks also passed. Tests cover permissions, session restoration/revocation, transaction invariants, private media, matching jobs, rollback and bounded queries.
+\item \textbf{Intelligence services:} M7 has 31 passing baseline tests and M8 has 17. M8's nine fixed rule cases passed, and repeated results were byte-identical. These are implementation and reproducibility checks, not population-level accuracy estimates.
+\item \textbf{Contract and frontend:} checks passed for 61 OpenAPI operations, nine enums and 16 schema examples. Regenerating the SDK produced no drift. Frontend lint and production build passed. Eight historical mock scenarios remain separate from live acceptance.
+\item \textbf{Real browser flows:} five scenarios passed locally in 29.2 seconds: the two-account transaction, wanted/price services, guest and secure-session recovery, mobile navigation/empty results, and cross-tab account-change protection. The final CI also passed the live browser step against the real API and storage.
+\item \textbf{Database reproducibility:} an isolated audit database was upgraded to 0008, rolled back to base and upgraded again. Running the seed twice preserved counts with no second-run additions. Demo business data was not reset to manufacture a passing transaction.
+\end{itemize}
+
+\heading{Integration checks and resolved defects}
+Integration commit \texttt{8853338} passed all CI jobs in GitHub run \texttt{37920440816}. Earlier CI identified mismatched UI/API hostnames that prevented Strict-cookie restoration. Both now use \texttt{localhost}; security policy was not weakened. Resolved defects also included private-image exposure, message-cursor recovery, cross-tab identity renewal and missing-image rendering.
+
+\heading{Remaining acceptance boundary}
+Chen Zihong (M10) is the user responsible for human acceptance. No signed manual result or timed live presentation is claimed in this report. Full evidence is recorded in the repository's Phase 3 verification, defect register and manual-acceptance checklist. CI success supports technical integration, not an automatic final-release decision.
+
+\clearpage
+\section*{4. Intelligent functions, limitations and project risks}
+\heading{Current rule-based capability}
+Search and matching combine keywords with category, condition, budget, location and active-state constraints. Results include explanations rather than unsupported success probabilities. Product and wanted-request changes create durable matching jobs in the same database transaction as the business change. Before publishing, workers recheck versions and current eligibility. A wanted owner receives at most one matching notification for a given wanted/product pair; reranking or hiding and restoring the same product does not create another notification.
+
+Price references return a rule-based interval, factors and an uncertainty disclaimer, or explicitly report insufficient data. Trust summaries use completed-transaction reviews with a neutral prior for sparse evidence. Risk assistance marks uncollected payment/device inputs as missing, not as zero risk. These signals do not change accounts, order facts or penalties automatically.
+
+\heading{Evaluation limitations}
+M7 has a reproducible 38-query synthetic diagnostic set. The user has confirmed that all 228 candidate label pairs were manually checked and correct; the structured per-pair reviewer/date archive is still absent. The machine record remains \texttt{DIAGNOSTIC\_ONLY}. It must not be described as a sealed, independent test set. M8's current price samples are synthetic boundary cases; real completed-transaction price labels are not yet sufficient to claim trained-model accuracy. Advanced models require approved data, leakage controls, baseline comparison and independent review before integration.
+
+\heading{Risks and mitigations}
+\begin{itemize}
+\item \textbf{Acceptance and contributions:} recent implementation is centralised through Chen Zihong's AI-assisted workflow. Task IDs do not prove ten separate coding contributions. Human testing and documentation must identify actual participants and results.
+\item \textbf{Performance and deployment:} the frontend bundle is approximately 1.2 MB before compression. Load, optimisation and recovery checks remain planned; no SLA or public-deployment readiness is claimed.
+\item \textbf{Privacy and data quality:} older public chat/evidence objects require migration and removal of public copies. Clean demo data cannot establish historical safety. Model data needs authorisation and anonymisation.
+\end{itemize}
+
+Substantial scope changes require supervisor discussion. The transaction MVP remains the priority; rule-based fallbacks remain appropriate where stronger models lack evidence.
+
+\clearpage
+\section*{5. Next actions, coordination and submission}
+\heading{Before the 12 October update deadline}
+Chen Zihong (M10) will manually check accounts, guest access, uploads, chat recovery, unique orders, versioned meetups, two-party completion, reviews and notification deduplication using two browser contexts. Failures must identify the tested commit and reproduction steps. Huang Qiwei (M1) will confirm scope and arrange submission. Luo Kangrui (M7) and the actual reviewer will archive the 228-pair review without inventing identities or dates. Open acceptance items stay visible.
+
+\heading{Phase 3 acceptance week: 12--18 October}
+The goal is MVP acceptance, not additional scope. Frontend/backend owners will resolve defects; M9 will verify clean startup; M1/M10 will reconcile evidence and handoff. A ten-minute demo will be rehearsed without database edits. The reviewed commit and remaining limitations will be recorded before stage Issues close.
+
+\heading{Phase 4 and Phase 5: one week each}
+During 19--25 October, M7/M8 will provide justified baseline/candidate comparisons, M5/M6 will preserve authority and permissions, and M2/M3/M4 will integrate approved outputs and failure states. M1/M10 will record go/no-go decisions and freeze the supported feature set. During 26 October--1 November, the focus is regression, security, load/recovery checks, clean deployment, documents and a tagged delivery package; new features require an explicit scope-change decision.
+
+\heading{Evidence sources and responsible use}
+This report is based on the group's repository, not inferred completion percentages. Relevant records are \evidence{https://github.com/Huang0283/CampusLoop/pull/92}{PR \#92}, \evidence{https://github.com/Huang0283/CampusLoop/actions/runs/37920440816}{the integration CI run}, \evidence{https://github.com/Huang0283/CampusLoop/blob/8853338/docs/evidence/phase-3/management-quality/verification.md}{the verification record}, and \evidence{https://github.com/Huang0283/CampusLoop/blob/8853338/docs/evidence/phase-3/management-quality/m10-manual-acceptance.md}{the manual-acceptance checklist}. Framework and library sources are acknowledged through dependency manifests; test inputs are fictional or synthetic, not real student records.
+
+AI-assisted tools were used to help draft documentation, implement code and execute checks. This assistance is disclosed and does not substitute for group responsibility, human acceptance or supervisor agreement. The group should review the report and follow the University's current AI-use and academic-integrity guidance before submission.
+
+Four updates are scheduled; at least three must be submitted. Other submissions are not evidenced here. Upload this PDF through the course submission area by the deadline; GitHub is not course submission.
+\end{document}

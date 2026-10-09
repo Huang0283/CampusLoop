@@ -1,0 +1,1367 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campusloop.example.invalid/schemas/m7-contracts-candidate-v1",
+  "$defs": {
+    "PublicUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "nickname": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "avatar": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "nickname"
+      ],
+      "additionalProperties": false
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "seller": {
+          "$ref": "#/$defs/PublicUser"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "price": {
+          "type": "number",
+          "minimum": 0
+        },
+        "originalPrice": {
+          "type": "number",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 3000
+        },
+        "campusLocation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "maxItems": 5
+        },
+        "status": {
+          "const": "ON_SALE"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "seller",
+        "title",
+        "category",
+        "condition",
+        "price",
+        "images",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "additionalProperties": false
+    },
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "pageSize": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "page",
+        "pageSize",
+        "total"
+      ],
+      "additionalProperties": false
+    },
+    "Reason": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "TEXT_MATCH",
+            "BUDGET_MATCH",
+            "CONDITION_MATCH",
+            "CATEGORY_MATCH",
+            "LOCATION_MATCH"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "factor",
+            "constraint"
+          ]
+        },
+        "field": {
+          "enum": [
+            "text",
+            "priceFen",
+            "conditionRank",
+            "categoryId",
+            "placeIds"
+          ]
+        },
+        "observed": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "maxItems": 20
+            }
+          ]
+        },
+        "required": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "maxItems": 20
+            },
+            {
+              "type": "object",
+              "properties": {
+                "min": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "max": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "min",
+                "max"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "contribution": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ruleVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "code",
+        "kind",
+        "field",
+        "observed",
+        "required",
+        "contribution",
+        "ruleVersion"
+      ],
+      "additionalProperties": false
+    },
+    "SearchRequest": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "mode": {
+          "enum": [
+            "keyword",
+            "semantic",
+            "hybrid"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "pageSize": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "minPriceFen": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxPriceFen": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "minConditionRank": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "placeIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "sort": {
+          "enum": [
+            "relevance",
+            "newest",
+            "price_asc",
+            "price_desc"
+          ]
+        },
+        "snapshotVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "query",
+        "mode",
+        "page",
+        "pageSize",
+        "sort"
+      ],
+      "additionalProperties": false
+    },
+    "MatchRequest": {
+      "type": "object",
+      "properties": {
+        "wantedId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "pageSize": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "snapshotVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "wantedId",
+        "page",
+        "pageSize"
+      ],
+      "additionalProperties": false
+    },
+    "SearchExplanation": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "relevanceScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "minItems": 1
+        },
+        "explanationDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Reason"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "productId",
+        "relevanceScore",
+        "reasons",
+        "explanationDetails"
+      ],
+      "additionalProperties": false
+    },
+    "SearchData": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "m7-service-candidate-v1"
+        },
+        "ruleVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "tokenizerVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "dictionaryVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "modelVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "indexVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "policyGeneration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "snapshotVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "resultVersion": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "degraded": {
+          "type": "boolean"
+        },
+        "degradationReason": {
+          "anyOf": [
+            {
+              "enum": [
+                "MODEL_TIMEOUT",
+                "MODEL_ERROR",
+                "INDEX_NOT_READY",
+                "INDEX_VERSION_MISMATCH",
+                "MODEL_DISABLED"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Product"
+          },
+          "maxItems": 100
+        },
+        "requestedMode": {
+          "enum": [
+            "keyword",
+            "semantic",
+            "hybrid"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "keyword",
+            "semantic",
+            "hybrid"
+          ]
+        },
+        "pagination": {
+          "$ref": "#/$defs/Pagination"
+        },
+        "explanations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SearchExplanation"
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "ruleVersion",
+        "tokenizerVersion",
+        "dictionaryVersion",
+        "modelVersion",
+        "indexVersion",
+        "policyGeneration",
+        "snapshotVersion",
+        "resultVersion",
+        "generatedAt",
+        "expiresAt",
+        "degraded",
+        "degradationReason",
+        "items",
+        "requestedMode",
+        "mode",
+        "pagination",
+        "explanations"
+      ],
+      "additionalProperties": false
+    },
+    "MatchItem": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "$ref": "#/$defs/Product"
+        },
+        "productVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "wantedVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "relevanceScore": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scoreType": {
+          "enum": [
+            "rule_match_v0",
+            "constraints_only",
+            "semantic_match"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "minItems": 1
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "explanationDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Reason"
+          }
+        },
+        "resultVersion": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "product",
+        "productVersion",
+        "wantedVersion",
+        "relevanceScore",
+        "scoreType",
+        "reasons",
+        "constraints",
+        "explanationDetails",
+        "resultVersion",
+        "expiresAt"
+      ],
+      "additionalProperties": false
+    },
+    "MatchData": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "m7-service-candidate-v1"
+        },
+        "ruleVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "tokenizerVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "dictionaryVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "modelVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "indexVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "policyGeneration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "snapshotVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "resultVersion": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "degraded": {
+          "type": "boolean"
+        },
+        "degradationReason": {
+          "anyOf": [
+            {
+              "enum": [
+                "MODEL_TIMEOUT",
+                "MODEL_ERROR",
+                "INDEX_NOT_READY",
+                "INDEX_VERSION_MISMATCH",
+                "MODEL_DISABLED"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wantedId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "wantedVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "requestedMethod": {
+          "enum": [
+            "rule",
+            "semantic"
+          ]
+        },
+        "method": {
+          "enum": [
+            "rule",
+            "semantic"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MatchItem"
+          },
+          "maxItems": 100
+        },
+        "pagination": {
+          "$ref": "#/$defs/Pagination"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "ruleVersion",
+        "tokenizerVersion",
+        "dictionaryVersion",
+        "modelVersion",
+        "indexVersion",
+        "policyGeneration",
+        "snapshotVersion",
+        "resultVersion",
+        "generatedAt",
+        "expiresAt",
+        "degraded",
+        "degradationReason",
+        "wantedId",
+        "wantedVersion",
+        "requestedMethod",
+        "method",
+        "items",
+        "pagination"
+      ],
+      "additionalProperties": false
+    },
+    "SearchSuccess": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": 0
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "data": {
+          "$ref": "#/$defs/SearchData"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "MatchSuccess": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": 0
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "data": {
+          "$ref": "#/$defs/MatchData"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "VALIDATION_ERROR",
+            "UNAUTHENTICATED",
+            "FORBIDDEN",
+            "NOT_FOUND",
+            "SNAPSHOT_STALE",
+            "WANTED_INACTIVE",
+            "DEPENDENCY_UNAVAILABLE",
+            "BASELINE_UNAVAILABLE",
+            "RATE_LIMITED"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "requestId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "details": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "requestId",
+        "details"
+      ],
+      "additionalProperties": false
+    },
+    "Pending": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "const": 0
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "pending"
+            },
+            "wantedId": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "wantedVersion": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "retryAfterSeconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60
+            }
+          },
+          "required": [
+            "state",
+            "wantedId",
+            "wantedVersion",
+            "retryAfterSeconds"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "InputVersion": {
+      "type": "object",
+      "properties": {
+        "wantedId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "wantedVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "catalogRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "authorizationRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "policyGeneration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "refreshGeneration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "asOf": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "wantedId",
+        "wantedVersion",
+        "catalogRevision",
+        "authorizationRevision",
+        "policyGeneration",
+        "refreshGeneration",
+        "asOf"
+      ],
+      "additionalProperties": false
+    },
+    "Event": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "m7-event-candidate-v1"
+        },
+        "eventId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "entityType": {
+          "enum": [
+            "product",
+            "wanted",
+            "authorization",
+            "policy",
+            "refresh"
+          ]
+        },
+        "entityId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "entityVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "eventType": {
+          "enum": [
+            "PRODUCT_CHANGED",
+            "WANTED_CHANGED",
+            "AUTHORIZATION_CHANGED",
+            "POLICY_CHANGED",
+            "REFRESH_DUE"
+          ]
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "catalogRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "authorizationRevision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "policyGeneration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "refreshGeneration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "eventId",
+        "entityType",
+        "entityId",
+        "entityVersion",
+        "eventType",
+        "occurredAt",
+        "catalogRevision",
+        "authorizationRevision",
+        "policyGeneration",
+        "refreshGeneration"
+      ],
+      "additionalProperties": false
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "taskKey": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "input": {
+          "$ref": "#/$defs/InputVersion"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "running",
+            "succeeded",
+            "retry_wait",
+            "dead",
+            "superseded"
+          ]
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "leaseFence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "leaseUntil": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nextAttemptAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lastErrorCode": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "taskKey",
+        "input",
+        "status",
+        "attempt",
+        "leaseFence",
+        "leaseUntil",
+        "nextAttemptAt",
+        "lastErrorCode"
+      ],
+      "additionalProperties": false
+    },
+    "StoredResult": {
+      "type": "object",
+      "properties": {
+        "resultVersion": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "taskKey": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "input": {
+          "$ref": "#/$defs/InputVersion"
+        },
+        "schemaVersion": {
+          "const": "m7-result-candidate-v1"
+        },
+        "policyVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "ruleVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "tokenizerVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "dictionaryVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "modelVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "indexVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "method": {
+          "enum": [
+            "rule",
+            "semantic"
+          ]
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "enum": [
+            "current",
+            "stale",
+            "superseded"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "$ref": "#/$defs/Product"
+              },
+              "productVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "wantedVersion": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "relevanceScore": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "scoreType": {
+                "enum": [
+                  "rule_match_v0",
+                  "constraints_only",
+                  "semantic_match"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "minItems": 1
+              },
+              "constraints": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              },
+              "explanationDetails": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/Reason"
+                }
+              },
+              "expiresAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "product",
+              "productVersion",
+              "wantedVersion",
+              "relevanceScore",
+              "scoreType",
+              "reasons",
+              "constraints",
+              "explanationDetails",
+              "expiresAt"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "resultVersion",
+        "taskKey",
+        "input",
+        "schemaVersion",
+        "policyVersion",
+        "ruleVersion",
+        "tokenizerVersion",
+        "dictionaryVersion",
+        "modelVersion",
+        "indexVersion",
+        "method",
+        "generatedAt",
+        "expiresAt",
+        "state",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    "NotificationIntent": {
+      "type": "object",
+      "properties": {
+        "dedupKey": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "recipientId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "wantedId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "productId": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "eligibilityEpoch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "resultVersion": {
+          "type": "string",
+          "pattern": "^[a-z]+_[0-9a-f]{64}$"
+        },
+        "type": {
+          "const": "MATCH_FOUND"
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "sent",
+            "cancelled"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "dedupKey",
+        "recipientId",
+        "wantedId",
+        "productId",
+        "eligibilityEpoch",
+        "resultVersion",
+        "type",
+        "state",
+        "createdAt",
+        "expiresAt"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -108,6 +108,8 @@ export interface Offer {
   sessionId: number
   buyerId: number
   sellerId: number
+  /** 当前报价发起人；旧种子省略时视为买方首次出价。 */
+  proposerId?: number
   productId: number
   /** 卖家当前标价 */
   originalPrice: number

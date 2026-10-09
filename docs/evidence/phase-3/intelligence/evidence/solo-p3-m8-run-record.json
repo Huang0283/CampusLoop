@@ -1,0 +1,17 @@
+{
+  "deterministic": true,
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+  "python": "3.12.15",
+  "resultHash": "aa7374f747edffa7c2794b0240d0bd9e1be50f81efac203716e5d5b9f813b14f",
+  "sourceHashes": {
+    "contracts/m8-phase3/fixed-cases.json": "0cf5ae8296642df07bbb1ab314c67aadce145178c41a235e9383d8a106e2072d",
+    "contracts/m8-phase3/service-contract.json": "ca82841ca7f8c55b1627ccac6e417b19dff611b655347e71d556b8b890bfce79",
+    "services/m8_baseline/client.py": "4e4608c6260b6c260047784abe6f6a2e48fea62edef3eb753505e73320083d29",
+    "services/m8_baseline/engine.py": "8a62cf8798bb0be1c8705f00e03366821bcf2b65ff14ecbbe7a6c25e98e24c2a",
+    "services/m8_baseline/evaluate.py": "ae8c632b282d118e6d72201935df799308351b42aebfb4433c59db72a789a4c4",
+    "services/m8_baseline/http_service.py": "4ac8dd6c7cf618dfa6458ddadc71f97e7fac1f3241eed4ec80ae23d253c61561",
+    "services/m8_baseline/verify.py": "af6561f4171edb25aeed2016fa58476fc3c053b47d86043f48faf28d3644cbfb"
+  },
+  "testsReturnCode": 0,
+  "verificationVersion": "m8-p3-verification-v1"
+}

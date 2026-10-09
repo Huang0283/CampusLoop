@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "services.m7_baseline.tests.test_review_archive.ReviewArchiveTests.test_default_evaluation_exposes_pending_provenance",
+    "-v"
+  ],
+  "exitCode": 1,
+  "observedError": "KeyError: 'labelSource'",
+  "meaning": "Original report did not expose conditional review provenance.",
+  "originalCodeCommit": "744daa863f84ff52e5dcf54b01f6b376f6e7caa1",
+  "greenCodeCommit": "b88b2a1429003877abca547771c32f8e9423b25a",
+  "note": "RED captured in the author working tree with the new test before implementation; not independent acceptance."
+}

@@ -1,0 +1,50 @@
+{
+  "registerVersion": "m8-price-source-register-v1",
+  "asOf": "2026-09-29T00:00:00+08:00",
+  "sources": [
+    {
+      "sourceId": "PDS-03",
+      "name": "CampusLoop team synthetic boundary cases",
+      "sourceType": "synthetic",
+      "licenseStatus": "approved",
+      "licenseEvidence": "Team-authored records in this repository; no personal data or third-party content.",
+      "allowedUses": ["schema_validation", "rule_coverage", "reasonableness_checks"],
+      "prohibitedUses": ["prediction_accuracy_claim", "training_production_model"],
+      "containsPersonalData": false,
+      "owner": "M8"
+    },
+    {
+      "sourceId": "PDS-01",
+      "name": "CampusLoop listings",
+      "sourceType": "internal_listing",
+      "licenseStatus": "restricted",
+      "licenseEvidence": null,
+      "allowedUses": [],
+      "prohibitedUses": ["phase2_evaluation_until_M5_approval"],
+      "containsPersonalData": true,
+      "owner": "M5/M6/M8"
+    },
+    {
+      "sourceId": "PDS-02",
+      "name": "CampusLoop completed orders",
+      "sourceType": "completed_order",
+      "licenseStatus": "restricted",
+      "licenseEvidence": null,
+      "allowedUses": [],
+      "prohibitedUses": ["phase2_evaluation_until_M5_M6_approval"],
+      "containsPersonalData": true,
+      "owner": "M5/M6/M8"
+    },
+    {
+      "sourceId": "PDS-05",
+      "name": "Unapproved third-party marketplace data",
+      "sourceType": "third_party",
+      "licenseStatus": "unknown",
+      "licenseEvidence": null,
+      "allowedUses": [],
+      "prohibitedUses": ["collection", "training", "evaluation", "redistribution"],
+      "containsPersonalData": true,
+      "owner": "M1/M8"
+    }
+  ]
+}

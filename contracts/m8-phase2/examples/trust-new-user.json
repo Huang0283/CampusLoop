@@ -1,0 +1,1 @@
+{"kind":"trust_public","request":{"subjectUserId":"1001","viewerScope":"PUBLIC"},"response":{"status":"NEW","completedTransactions":0,"validReviewCount":0,"smoothedRating":null,"summary":"暂无已完成交易评价","ruleVersion":"trust-rule-v1.0-phase2","factsVersion":"orders-reviews-v1","updatedAt":"2026-09-29T00:00:00Z","degraded":false}}

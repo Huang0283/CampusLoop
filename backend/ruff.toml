@@ -1,0 +1,19 @@
+# ruff 配置（BP2-06/BP2-10：格式 + 静态检查同一工具）
+line-length = 100
+target-version = "py312"
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # bugbear 常见坑
+    "UP",  # pyupgrade 语法现代化
+]
+ignore = [
+    "E501",  # 行宽由 format 管
+]
+
+[lint.isort]
+known-first-party = ["app", "scripts", "tests"]

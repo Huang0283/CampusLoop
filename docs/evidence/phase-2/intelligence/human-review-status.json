@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "m7-human-review-status-v1",
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "labelVersion": "m7-label-draft-v1",
+  "status": "HUMAN_REVIEW_COMPLETE_RECORDS_PENDING",
+  "pairCount": 228,
+  "reportedReviewedPairs": 228,
+  "reportedCorrectPairs": 228,
+  "reportedLabelChanges": 0,
+  "evidenceSource": "USER_CONFIRMATION",
+  "confirmationDate": "2026-10-08",
+  "userConfirmations": [
+    "228 对数据标签人工复核",
+    "全对 复核记录我稍后给你"
+  ],
+  "structuredReviewRecordsStatus": "PENDING_USER_DELIVERY",
+  "verifiedStructuredReviewRecords": 0,
+  "reviewerIdentity": null,
+  "actualReviewedAt": null,
+  "formalLabelPromotion": "NOT_PERFORMED",
+  "testSetSealed": false,
+  "reviewQueuePath": "data/m7-phase2/derived/review-queue.csv",
+  "reviewQueueSha256": "f177a2f42a3b55e5ef7b2cf5e7a265e5c47816c6d7d25fe3c66eaf47db45eb9b",
+  "labelDraftSha256": "a3a103bf2858e740c0f997e6f321780332f43319cd4d738fd458aefd45fb83a8",
+  "providedReviewAid": {
+    "checkedDate": "2026-10-08",
+    "sheetPath": "review-aid/human-review-sheet.csv",
+    "sheetSha256": "55499ad827fd33e40c0240f1fbaf486a2e501bc3f3b2a79de04c63e2700171c6",
+    "suppliedReadmeSha256": "14f9ffdc3e470a5c5d6c7c207ab1ce309eb1ef9abc58e44898f43f690710ae0b",
+    "rows": 228,
+    "uniqueLabelIds": 228,
+    "matchesOriginalLabelIds": true,
+    "filledFieldCounts": {
+      "reviewer": 0,
+      "reviewLabel(2/1/0/U)": 0,
+      "reviewReason": 0,
+      "reviewedAt": 0,
+      "dispute": 0,
+      "adjudicator": 0,
+      "finalLabel": 0,
+      "adjudicatedAt": 0
+    },
+    "fileStatus": "UNFILLED_REVIEW_TEMPLATE",
+    "verifiedCompletedRecords": 0
+  }
+}

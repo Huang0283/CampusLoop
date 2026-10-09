@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  Alert,
+  Empty,
   Layout,
   Input,
   Avatar,
@@ -9,6 +11,7 @@ import {
   Tag,
   Progress,
   Pagination,
+  Spin,
 } from 'antd';
 import {
   AimOutlined,
@@ -23,10 +26,15 @@ import {
   LineChartOutlined,
 } from '@ant-design/icons';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
+import { getWanted, listWantedMatches } from '../../sdk/generated/sdk.gen';
+import type { Wanted } from '../../sdk/generated/types.gen';
+import { useNavigate, useParams } from 'react-router-dom';
+import { findWantedItem } from '../../mocks/wantedManagement';
+import { mockProducts } from '../market';
+import { useRequireAuthAction } from '../../hooks/useRequireAuthAction';
 
 const { Header, Sider, Content } = Layout;
 
-// -------------------- Mock 数据 --------------------
 interface MatchItem {
   id: number;
   title: string;
@@ -34,72 +42,12 @@ interface MatchItem {
   tags: string[];
   seller: { name: string; avatar: string };
   school: string;
-  distance: string;
   publishTime: string;
   matchScore: number;
   price: number;
-  priceRange: string;
+  originalPrice: string;
   reasons: string[];
 }
-
-const matchList: MatchItem[] = [
-  {
-    id: 1,
-    title: '戴尔 24寸显示器',
-    image: 'https://picsum.photos/seed/monitor/280/240',
-    tags: ['二手良好', 'LCD显示器', '24英寸', '1080P'],
-    seller: { name: '同学A', avatar: 'https://i.pravatar.cc/64?img=11' },
-    school: '清华大学',
-    distance: '3.2 km',
-    publishTime: '2天前',
-    matchScore: 92,
-    price: 900,
-    priceRange: '¥800 - ¥1000',
-    reasons: ['符合预算', '成色满足', '地点相近'],
-  },
-  {
-    id: 2,
-    title: 'MacBook Air M1',
-    image: 'https://picsum.photos/seed/macbook/280/240',
-    tags: ['二手优秀', '苹果', 'M1芯片', '8GB', '256GB'],
-    seller: { name: '同学B', avatar: 'https://i.pravatar.cc/64?img=32' },
-    school: '清华大学',
-    distance: '1.5 km',
-    publishTime: '5小时前',
-    matchScore: 88,
-    price: 3200,
-    priceRange: '¥3000 - ¥3400',
-    reasons: ['符合预算', '成色良好', '热门机型'],
-  },
-  {
-    id: 3,
-    title: '索尼 WH-1000XM4 耳机',
-    image: 'https://picsum.photos/seed/headphone/280/240',
-    tags: ['二手良好', '降噪耳机', '无线蓝牙', '黑色'],
-    seller: { name: '同学C', avatar: 'https://i.pravatar.cc/64?img=47' },
-    school: '清华大学',
-    distance: '2.8 km',
-    publishTime: '1天前',
-    matchScore: 85,
-    price: 800,
-    priceRange: '¥700 - ¥900',
-    reasons: ['符合预算', '成色满足', '卖家信誉好'],
-  },
-  {
-    id: 4,
-    title: '小米护眼台灯',
-    image: 'https://picsum.photos/seed/lamp/280/240',
-    tags: ['二手几乎全新', '小米', '护眼', 'LED'],
-    seller: { name: '同学D', avatar: 'https://i.pravatar.cc/64?img=56' },
-    school: '清华大学',
-    distance: '0.8 km',
-    publishTime: '12小时前',
-    matchScore: 78,
-    price: 120,
-    priceRange: '¥100 - ¥180',
-    reasons: ['价格合适', '成色优秀', '距离很近'],
-  },
-];
 
 // -------------------- 样式 --------------------
 const PRIMARY = '#1677ff';
@@ -188,9 +136,139 @@ const styles: Record<string, React.CSSProperties> = {
   actionArea: { width: 120, flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 12, justifyContent: 'center' },
 };
 
+// 将接口时间转换为页面展示所需的中文日期格式。
+const formatDate = (value: string) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('zh-CN');
+};
+
 // -------------------- 页面组件 --------------------
 const MatchResultPage: React.FC = () => {
+  const navigate = useNavigate();
+  const requireAuthAction = useRequireAuthAction();
+  const { wantedId } = useParams<{ wantedId: string }>();
+  const parsedWantedId = Number(wantedId);
+  const hasValidWantedId =
+    Boolean(wantedId) && Number.isInteger(parsedWantedId) && parsedWantedId > 0;
+  const [wanted, setWanted] = useState<Wanted | null>(null);
+  const [matchList, setMatchList] = useState<MatchItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [degraded, setDegraded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    // 路由参数无效时不调用接口，并由列表区域展示空状态。
+    if (!hasValidWantedId) return;
+
+    // 根据 wantedId 获取真实匹配结果，同时读取求购条件用于顶部信息栏。
+    const fetchMatches = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const [matchesResponse, wantedResponse] = await Promise.all([
+          listWantedMatches({
+            path: { wantedId: parsedWantedId },
+            auth: () => localStorage.getItem('token') ?? undefined,
+            throwOnError: true,
+          }),
+          getWanted({
+            path: { wantedId: parsedWantedId },
+            throwOnError: true,
+          }),
+        ]);
+
+        if (cancelled) return;
+
+        setWanted(wantedResponse.data);
+        setDegraded(false);
+        setMatchList(
+          matchesResponse.data.items.map(({ product, relevanceScore, reasons, constraints }) => ({
+            id: product.id,
+            title: product.title,
+            image: product.images[0] ?? '',
+            tags: [product.condition, product.category],
+            seller: {
+              name: product.seller.nickname,
+              avatar: product.seller.avatar ?? '',
+            },
+            school: product.campusLocation ?? '地点未填写',
+            publishTime: formatDate(product.createdAt),
+            matchScore: Math.round(relevanceScore * 100),
+            price: product.price,
+            originalPrice:
+              product.originalPrice === undefined ? '暂无数据' : `¥${product.originalPrice}`,
+            reasons:
+              reasons.length > 0
+                ? reasons
+                : constraints && constraints.length > 0
+                  ? constraints
+                  : ['暂无匹配原因'],
+          })),
+        );
+        setCurrentPage(1);
+      } catch (requestError) {
+        if (!cancelled) {
+          const mockWanted = findWantedItem(parsedWantedId) ?? null;
+          const isNotFound =
+            typeof requestError === 'object' &&
+            requestError !== null &&
+            'code' in requestError &&
+            requestError.code === 'NOT_FOUND';
+          if (mockWanted) {
+            setWanted(mockWanted);
+            setMatchList(
+              mockProducts.slice(0, 6).map((product, index) => ({
+                id: product.id,
+                title: product.title,
+                image: product.images[0] ?? '/favicon.svg',
+                tags: [product.condition, product.category],
+                seller: {
+                  name: product.seller.nickname,
+                  avatar: product.seller.avatar ?? '',
+                },
+                school: product.campusLocation ?? '地点未填写',
+                publishTime: formatDate(product.createdAt),
+                matchScore: Math.max(55, 92 - index * 7),
+                price: product.price,
+                originalPrice: product.originalPrice === undefined ? '暂无数据' : `¥${product.originalPrice}`,
+                reasons: [
+                  product.price <= mockWanted.budgetMax ? '价格位于预算上限内' : '价格高于预算，供比较参考',
+                  `商品成色：${product.condition}`,
+                  'Phase 2 规则候选，需人工确认',
+                ],
+              })),
+            );
+            setError(null);
+            setDegraded(true);
+          } else {
+            setWanted(null);
+            setMatchList([]);
+            setError(isNotFound ? null : '匹配结果加载失败，请稍后重试');
+            setDegraded(false);
+          }
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    void fetchMatches();
+
+    // 组件卸载或路由切换后忽略旧请求结果。
+    return () => {
+      cancelled = true;
+    };
+  }, [hasValidWantedId, parsedWantedId]);
+
+  const pageSize = 5;
+  const visibleMatches = matchList.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  );
 
 
   return (
@@ -244,7 +322,7 @@ const MatchResultPage: React.FC = () => {
               <BarChartOutlined style={{ fontSize: 30, color: PRIMARY }} />
               <div>
                 <div style={{ fontSize: 14, color: TEXT_MAIN }}>
-                  基于 AI 智能匹配，已为你找到 <span style={{ color: PRIMARY, fontWeight: 700 }}>24</span> 个相关商品
+                  基于 AI 智能匹配，已为你找到 <span style={{ color: PRIMARY, fontWeight: 700 }}>{matchList.length}</span> 个相关商品
                 </div>
                 <div style={{ fontSize: 12, color: TEXT_SUB, marginTop: 4 }}>
                   综合考虑价格、成色、距离、卖家信誉等多维度因素
@@ -253,26 +331,43 @@ const MatchResultPage: React.FC = () => {
             </div>
           </div>
 
+          {degraded && (
+            <Alert
+              showIcon
+              type="warning"
+              message="智能服务不可用，当前展示 Phase 2 规则匹配候选"
+              description="匹配分数只表示规则相关程度，不是成交概率；价格仅供参考，最终结果需用户确认。"
+              style={{ marginBottom: 16 }}
+            />
+          )}
+
           {/* 求购条件栏 */}
           <div style={styles.conditionBar}>
             <Space size={48} wrap>
               <Space size={8}>
                 <AimOutlined style={{ color: PRIMARY, fontSize: 16 }} />
                 <span style={{ color: TEXT_SUB }}>求购：</span>
-                <span style={{ color: TEXT_MAIN, fontWeight: 600 }}>显示器</span>
+                <span style={{ color: TEXT_MAIN, fontWeight: 600 }}>{wanted?.title ?? '-'}</span>
               </Space>
               <Space size={8}>
                 <MoneyCollectOutlined style={{ color: PRIMARY, fontSize: 16 }} />
                 <span style={{ color: TEXT_SUB }}>预算：</span>
-                <span style={{ color: TEXT_MAIN, fontWeight: 600 }}>¥800-1000</span>
+                <span style={{ color: TEXT_MAIN, fontWeight: 600 }}>
+                  {wanted ? `¥${wanted.budgetMin}-${wanted.budgetMax}` : '-'}
+                </span>
               </Space>
               <Space size={8}>
                 <EnvironmentOutlined style={{ color: PRIMARY, fontSize: 16 }} />
                 <span style={{ color: TEXT_SUB }}>地点：</span>
-                <span style={{ color: TEXT_MAIN, fontWeight: 600 }}>清华大学</span>
+                <span style={{ color: TEXT_MAIN, fontWeight: 600 }}>{wanted?.location ?? '-'}</span>
               </Space>
             </Space>
-            <Button type="link" icon={<EditOutlined />} style={{ padding: 0 }}>
+            <Button
+              type="link"
+              icon={<EditOutlined />}
+              style={{ padding: 0 }}
+              onClick={() => wanted && navigate(`/wanted/${wanted.id}/edit`)}
+            >
               修改求购条件
             </Button>
           </div>
@@ -280,7 +375,7 @@ const MatchResultPage: React.FC = () => {
           {/* 匹配结果列表 */}
           <div style={styles.listHeader}>
             <span style={{ fontSize: 16, color: TEXT_MAIN }}>
-              为你找到 <span style={{ color: PRIMARY, fontWeight: 700 }}>24</span> 个匹配商品
+              为你找到 <span style={{ color: PRIMARY, fontWeight: 700 }}>{matchList.length}</span> 个匹配商品
             </span>
             <Select
               defaultValue="综合排序"
@@ -295,7 +390,17 @@ const MatchResultPage: React.FC = () => {
             />
           </div>
 
-          {matchList.map((item) => (
+          {!hasValidWantedId ? (
+            <Empty description="未找到对应的求购信息" />
+          ) : loading ? (
+            <div style={{ padding: 48, textAlign: 'center' }}>
+              <Spin tip="正在加载匹配结果..." />
+            </div>
+          ) : error ? (
+            <Alert type="error" showIcon message={error} />
+          ) : matchList.length === 0 ? (
+            <Empty description="暂无匹配商品" />
+          ) : visibleMatches.map((item) => (
             <div key={item.id} style={styles.itemCard}>
               {/* 商品图片 */}
               <img src={item.image} alt={item.title} style={styles.itemImage} />
@@ -318,7 +423,7 @@ const MatchResultPage: React.FC = () => {
                   <Avatar src={item.seller.avatar} size={24} />
                   <span>{item.seller.name}</span>
                   <span style={{ color: '#bbb' }}>|</span>
-                  <span>{item.school} · {item.distance}</span>
+                  <span>{item.school}</span>
                   <span style={{ color: '#bbb' }}>|</span>
                   <ClockCircleOutlined />
                   <span>发布于 {item.publishTime}</span>
@@ -354,7 +459,7 @@ const MatchResultPage: React.FC = () => {
               <div style={styles.priceArea}>
                 <span style={{ fontSize: 24, fontWeight: 700, color: PRIMARY }}>¥{item.price}</span>
                 <div style={{ fontSize: 13, color: TEXT_SUB }}>
-                  建议区间：<span style={{ color: TEXT_MAIN }}>{item.priceRange}</span>
+                  商品原价：<span style={{ color: TEXT_MAIN }}>{item.originalPrice}</span>
                 </div>
                 <div style={{ fontSize: 12, color: '#999' }}>参考：原价 · 使用时间 · 成色 · 市场行情</div>
                 <Button
@@ -368,24 +473,29 @@ const MatchResultPage: React.FC = () => {
 
               {/* 操作区 */}
               <div style={styles.actionArea}>
-                <Button type="primary" block>
+                <Button type="primary" block onClick={() => navigate(`/product/${item.id}`)}>
                   查看详情
                 </Button>
-                <Button block>联系卖家</Button>
+                <Button
+                  block
+                  onClick={() => requireAuthAction(() => navigate('/chat', { state: { productId: item.id } }))}
+                >
+                  联系卖家
+                </Button>
               </div>
             </div>
           ))}
 
           {/* 分页 */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}>
+          {!loading && !error && matchList.length > 0 && <div style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}>
             <Pagination
               current={currentPage}
-              total={24}
-              pageSize={5}
+              total={matchList.length}
+              pageSize={pageSize}
               onChange={setCurrentPage}
               showSizeChanger={false}
             />
-          </div>
+          </div>}
         </Content>
       </Layout>
     </Layout>

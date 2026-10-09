@@ -1,0 +1,53 @@
+# CampusLoop MinIO 镜像（BP2-09，M9 维护，2026-10-08 二次整改）
+#
+# 项目选择从固定源码 tag 构建服务端与 mc，不依赖 minio/minio 和
+# minio/mc 的预构建镜像。此前拉取失败不证明镜像仓库在某日全网删除，
+# 本文件不将未核实的 registry 历史写为事实。
+# 首次构建仍需要基础镜像、GitHub、Alpine 仓库与 Go 模块网络访问。
+#
+# 构建来源（固定 tag，任何人可复核）：
+#   服务端 https://github.com/minio/minio/tree/RELEASE.2025-10-15T17-29-55Z
+#   客户端 https://github.com/minio/mc/tree/RELEASE.2025-08-13T08-35-41Z
+#
+# 构建：docker compose up -d --build（compose 自动执行，无需手动操作）
+# 耗时受网络与资源影响；固定 tag 不能代替安全审查或干净环境验收。
+
+# ---------- 构建阶段 ----------
+FROM golang:1.24-alpine AS build
+
+ARG MINIO_TAG=RELEASE.2025-10-15T17-29-55Z
+ARG MINIO_TIME=2025-10-15T17:29:55Z
+ARG MC_TAG=RELEASE.2025-08-13T08-35-41Z
+ARG MC_TIME=2025-08-13T08:35:41Z
+
+# Go 模块代理；网络不可达时构建会失败，不能声称任何网络都可用。
+ENV GOPROXY=https://goproxy.cn,direct
+
+RUN apk add --no-cache git
+
+RUN git clone -q --depth 1 -b ${MINIO_TAG} https://github.com/minio/minio /src/minio \
+ && git clone -q --depth 1 -b ${MC_TAG} https://github.com/minio/mc /src/mc
+
+# ldflags 由官方构建脚本生成，使二进制报告正确版本号（而非 DEVELOPMENT.GOGET）
+RUN cd /src/minio \
+ && MINIO_RELEASE=RELEASE CGO_ENABLED=0 \
+    go build -trimpath -tags kqueue -o /out/minio \
+    -ldflags="$(go run buildscripts/gen-ldflags.go ${MINIO_TIME})"
+
+RUN cd /src/mc \
+ && MC_RELEASE=RELEASE CGO_ENABLED=0 \
+    go build -trimpath -o /out/mc \
+    -ldflags="$(go run buildscripts/gen-ldflags.go ${MC_TIME})"
+
+# ---------- 运行阶段 ----------
+FROM alpine:3.22
+
+# ca-certificates：S3/TLS 需要；curl：docker-compose 健康检查探针使用
+RUN apk add --no-cache ca-certificates curl
+
+COPY --from=build /out/minio /usr/bin/minio
+COPY --from=build /out/mc /usr/bin/mc
+
+EXPOSE 9000 9001
+
+ENTRYPOINT ["/usr/bin/minio"]

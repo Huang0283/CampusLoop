@@ -22,6 +22,16 @@
 
 ---
 
+## 当前第三阶段候选：启动与验收
+
+第三阶段集中实现包含真实账号/市场/上传、双账号聊天和交易闭环、关键词/规则智能服务及自动化测试。现阶段属于待独立验收候选，不宣称已经正式发布。
+
+完整启动和本机页面地址见 [阶段三启动说明](docs/evidence/phase-3/management-quality/start-phase3.md)，测试与正式关闭门禁见 [验收记录](docs/evidence/phase-3/management-quality/verification.md)。
+
+浏览器刷新使用安全 HttpOnly Cookie 恢复本人，JS访问令牌仅在内存；不得持久化到localStorage。求购匹配采用first-pair-v1：只通知发布者、同求购/商品一次、失效不新增。范围仍为第三阶段MVP，不包含Phase4语义模型、高级治理或自动处罚。
+
+---
+
 ## 📌 About CampusLoop AI
 
 **CampusLoop AI** 是一个面向大学校园场景设计的 AI 增强型二手交易平台。

@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "codeCommit": "1c235abba1c7a337501aacdec14f987c447563b0",
+  "sourceHashesEqual": true,
+  "evaluationHashesEqual": true,
+  "checkpoints": "Windows clean checkouts only; no Linux/macOS execution"
+}

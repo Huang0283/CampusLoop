@@ -1,0 +1,100 @@
+{
+  "caseId": "matching-success",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 200,
+  "response": {
+    "code": 0,
+    "message": "成功",
+    "data": {
+      "schemaVersion": "m7-service-candidate-v1",
+      "ruleVersion": "match-v0",
+      "tokenizerVersion": "nfkc-bigram-v0",
+      "dictionaryVersion": "m7-fixture-dictionary-v1",
+      "modelVersion": null,
+      "indexVersion": null,
+      "policyGeneration": 1,
+      "snapshotVersion": "snapshot-fixture-1",
+      "resultVersion": "rs_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "generatedAt": "2026-09-28T00:00:00Z",
+      "expiresAt": "2026-09-28T00:05:00Z",
+      "degraded": false,
+      "degradationReason": null,
+      "wantedId": 201,
+      "wantedVersion": 1,
+      "requestedMethod": "rule",
+      "method": "rule",
+      "items": [
+        {
+          "product": {
+            "id": 101,
+            "seller": {
+              "id": 11,
+              "nickname": "测试同学甲"
+            },
+            "title": "计算器",
+            "category": "calculator",
+            "condition": "八成新",
+            "price": 180,
+            "campusLocation": "图书馆",
+            "images": [],
+            "status": "ON_SALE",
+            "createdAt": "2026-09-28T00:00:00Z",
+            "updatedAt": "2026-09-28T00:00:00Z"
+          },
+          "productVersion": 2,
+          "wantedVersion": 1,
+          "relevanceScore": 0.4444444444444444,
+          "scoreType": "rule_match_v0",
+          "reasons": [
+            "价格在预算范围内",
+            "标题包含求购词项"
+          ],
+          "constraints": [
+            "预算通过"
+          ],
+          "explanationDetails": [
+            {
+              "code": "BUDGET_MATCH",
+              "kind": "constraint",
+              "field": "priceFen",
+              "observed": 18000,
+              "required": {
+                "min": 10000,
+                "max": 20000
+              },
+              "contribution": null,
+              "ruleVersion": "match-v0"
+            },
+            {
+              "code": "TEXT_MATCH",
+              "kind": "factor",
+              "field": "text",
+              "observed": [
+                "计算",
+                "算器"
+              ],
+              "required": [
+                "计算",
+                "算器"
+              ],
+              "contribution": 0.4444444444444444,
+              "ruleVersion": "keyword-v0"
+            }
+          ],
+          "resultVersion": "rs_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expiresAt": "2026-09-28T00:05:00Z"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 20,
+        "total": 1
+      }
+    }
+  }
+}

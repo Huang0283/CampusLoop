@@ -1,0 +1,16 @@
+{
+  "caseId": "unauthenticated",
+  "operation": "match",
+  "request": {
+    "wantedId": 201,
+    "page": 1,
+    "pageSize": 20
+  },
+  "httpStatus": 401,
+  "response": {
+    "code": "UNAUTHENTICATED",
+    "message": "请先登录",
+    "requestId": "fixture-unauthenticated",
+    "details": null
+  }
+}

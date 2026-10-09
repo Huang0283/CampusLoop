@@ -7,6 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "sdk:generate": "openapi-ts -f openapi-ts.config.ts",
+    "sdk:check": "npm run sdk:generate && tsc -b",
+    "test:transaction": "node scripts/verify-transaction-prototype.mjs",
+    "test:live": "playwright test",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -22,6 +26,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@hey-api/openapi-ts": "^0.99.0",
+    "@playwright/test": "1.64.0",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",

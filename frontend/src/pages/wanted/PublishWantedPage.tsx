@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   ConfigProvider,
   Layout,
@@ -8,13 +8,17 @@ import {
   DatePicker,
   Button,
   Form,
+  message,
+  Alert,
 } from 'antd';
 import {
   SearchOutlined,
 } from '@ant-design/icons';
 import { AppSidebar, NotificationBell, UserMenu } from '../../components';
 import dayjs from 'dayjs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import type { Wanted } from '../../sdk/generated/types.gen';
+import { findWantedItem, readWantedItems, writeWantedItems } from '../../mocks/wantedManagement';
 
 const { Header, Sider, Content } = Layout;
 
@@ -27,7 +31,7 @@ const BORDER = '#eef0f3';
 
 /** 蓝色学士帽 Logo（自定义 SVG，antd 无此图标） */
 
-/** mock 数据 */
+/** 表单选项 */
 const conditionOptions = [
   { value: '全新', label: '全新' },
   { value: '九成新', label: '九成新' },
@@ -45,6 +49,7 @@ const locationOptions = [
 
 interface WantedFormValues {
   title: string;
+  description?: string;
   minBudget?: number;
   maxBudget?: number;
   condition: string;
@@ -55,20 +60,142 @@ interface WantedFormValues {
 const PublishWantedPage: React.FC = () => {
   const [form] = Form.useForm<WantedFormValues>();
   const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
+  const [dirty, setDirty] = useState(false);
+  const [draftRestored, setDraftRestored] = useState(false);
+  const { id } = useParams<{ id: string }>();
+  const wantedId = Number(id);
+  const isEditMode = Boolean(id) && Number.isInteger(wantedId) && wantedId > 0;
+  const existingWanted = useMemo(
+    () => (isEditMode ? findWantedItem(wantedId) : undefined),
+    [isEditMode, wantedId],
+  );
+  const draftKey = `campusloop:phase2:wanted-draft:${isEditMode ? wantedId : 'new'}`;
 
-  const handleSubmit = (values: WantedFormValues) => {
-    console.log('提交求购：', values);
-    navigate('/wanted/matches');
+  useEffect(() => {
+    if (isEditMode && !existingWanted) {
+      message.error('未找到可编辑的求购');
+      navigate('/wanted', { replace: true });
+      return;
+    }
+    const baseValues: WantedFormValues = existingWanted
+      ? {
+          title: existingWanted.title,
+          description: existingWanted.description,
+          minBudget: existingWanted.budgetMin,
+          maxBudget: existingWanted.budgetMax,
+          condition: existingWanted.condition,
+          location: existingWanted.location,
+          expireDate: dayjs(existingWanted.expireAt),
+        }
+      : {
+          title: '',
+          minBudget: 500,
+          maxBudget: 1500,
+          condition: '九成新',
+          location: '清华大学',
+          expireDate: dayjs().add(30, 'day'),
+        };
+    let restored = false;
+    try {
+      const rawDraft = localStorage.getItem(draftKey);
+      if (rawDraft) {
+        const draft = JSON.parse(rawDraft) as Partial<WantedFormValues> & { expireDate?: string };
+        Object.assign(baseValues, draft, {
+          expireDate: draft.expireDate ? dayjs(draft.expireDate) : baseValues.expireDate,
+        });
+        restored = true;
+      }
+    } catch {
+      localStorage.removeItem(draftKey);
+    }
+    const timer = window.setTimeout(() => {
+      form.setFieldsValue(baseValues);
+      setDraftRestored(restored);
+      setDirty(false);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [draftKey, existingWanted, form, isEditMode, navigate]);
+
+  useEffect(() => {
+    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (!dirty || submitting) return;
+      event.preventDefault();
+    };
+    window.addEventListener('beforeunload', warnBeforeUnload);
+    return () => window.removeEventListener('beforeunload', warnBeforeUnload);
+  }, [dirty, submitting]);
+
+  const saveDraft = (showFeedback = false) => {
+    const values = form.getFieldsValue(true);
+    localStorage.setItem(
+      draftKey,
+      JSON.stringify({
+        ...values,
+        expireDate: values.expireDate?.toISOString(),
+      }),
+    );
+    setDirty(true);
+    if (showFeedback) message.success('求购草稿已保存到本地');
   };
 
-  const handleSaveDraft = async () => {
+  // Phase 2 使用持久化 Mock 数据完成发布/编辑；Phase 3 再替换为生成 SDK。
+  const handleSubmit = async (values: WantedFormValues) => {
+    if (submitting) return;
+    setSubmitting(true);
+
     try {
-      const values = await form.validateFields();
-      console.log('保存草稿：', values);
-    } catch (err) {
-      console.log('表单校验未通过：', err);
+      await new Promise((resolve) => window.setTimeout(resolve, 350));
+      if (sessionStorage.getItem('wantedMockSubmitError') === 'true') {
+        throw new Error('Mock 求购提交失败，请保留草稿后重试');
+      }
+      const now = new Date().toISOString();
+      const item: Wanted = {
+        id: existingWanted?.id ?? Date.now(),
+        owner: existingWanted?.owner ?? {
+          id: 1,
+          nickname: '演示学生',
+          avatar: 'https://i.pravatar.cc/64?img=12',
+          rating: 4.9,
+          transactionCount: 18,
+        },
+        title: values.title.trim(),
+        description: values.description?.trim(),
+        budgetMin: values.minBudget!,
+        budgetMax: values.maxBudget!,
+        condition: values.condition,
+        location: values.location,
+        status: existingWanted?.status ?? 'OPEN',
+        expireAt: values.expireDate.endOf('day').toISOString(),
+        createdAt: existingWanted?.createdAt ?? now,
+      };
+      const items = readWantedItems();
+      writeWantedItems(
+        existingWanted
+          ? items.map((current) => (current.id === existingWanted.id ? item : current))
+          : [item, ...items],
+      );
+      localStorage.removeItem(draftKey);
+      setDirty(false);
+      setDraftRestored(false);
+      message.success(isEditMode ? '求购修改已保存' : '求购发布成功');
+      navigate('/wanted');
+    } catch (error) {
+      // 优先展示后端返回的错误信息，无法识别时使用统一提示。
+      const errorMessage =
+        typeof error === 'object' &&
+        error !== null &&
+        'message' in error &&
+        typeof error.message === 'string'
+          ? error.message
+          : '求购发布失败，请稍后重试';
+      message.error(errorMessage);
+    } finally {
+      setSubmitting(false);
     }
   };
+
+  const handleSaveDraft = () => saveDraft(true);
 
   return (
     <ConfigProvider
@@ -202,8 +329,30 @@ const PublishWantedPage: React.FC = () => {
                   marginBottom: 32,
                 }}
               >
-                发布求购
+                {isEditMode ? '编辑求购' : '发布求购'}
               </h1>
+
+              {draftRestored && (
+                <Alert
+                  showIcon
+                  type="info"
+                  message="已恢复上次保存的求购草稿"
+                  style={{ marginBottom: 24 }}
+                  action={
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        localStorage.removeItem(draftKey);
+                        setDraftRestored(false);
+                        setDirty(false);
+                        window.location.reload();
+                      }}
+                    >
+                      放弃草稿
+                    </Button>
+                  }
+                />
+              )}
 
               <Form<WantedFormValues>
                 form={form}
@@ -211,15 +360,8 @@ const PublishWantedPage: React.FC = () => {
                 labelAlign="left"
                 labelCol={{ style: { width: 110 } }}
                 wrapperCol={{ flex: 1 }}
-                initialValues={{
-                  title: '',
-                  minBudget: 500,
-                  maxBudget: 1500,
-                  condition: '九成新',
-                  location: '清华大学',
-                  expireDate: dayjs('2025-12-31'),
-                }}
                 onFinish={handleSubmit}
+                onValuesChange={() => saveDraft()}
                 requiredMark={false}
               >
                 <Form.Item
@@ -229,6 +371,20 @@ const PublishWantedPage: React.FC = () => {
                   style={{ marginBottom: 28 }}
                 >
                   <Input placeholder="求购一台显示器" maxLength={50} />
+                </Form.Item>
+
+                <Form.Item
+                  label="需求描述"
+                  name="description"
+                  rules={[{ max: 500, message: '需求描述不能超过 500 字' }]}
+                  style={{ marginBottom: 28 }}
+                >
+                  <Input.TextArea
+                    rows={4}
+                    maxLength={500}
+                    showCount
+                    placeholder="补充型号、配件、使用场景等要求"
+                  />
                 </Form.Item>
 
                 <Form.Item
@@ -253,7 +409,16 @@ const PublishWantedPage: React.FC = () => {
                     <Form.Item
                       name="maxBudget"
                       noStyle
-                      rules={[{ required: true, message: '请输入最高预算' }]}
+                      dependencies={['minBudget']}
+                      rules={[
+                        { required: true, message: '请输入最高预算' },
+                        ({ getFieldValue }) => ({
+                          validator: (_, value) =>
+                            Number(value) >= Number(getFieldValue('minBudget'))
+                              ? Promise.resolve()
+                              : Promise.reject(new Error('最高预算不能低于最低预算')),
+                        }),
+                      ]}
                     >
                       <InputNumber
                         style={{ width: 220 }}
@@ -306,8 +471,13 @@ const PublishWantedPage: React.FC = () => {
                   <Button size="large" onClick={handleSaveDraft}>
                     保存草稿
                   </Button>
-                  <Button type="primary" size="large" htmlType="submit">
-                    提交求购
+                  <Button
+                    type="primary"
+                    size="large"
+                    htmlType="submit"
+                    loading={submitting}
+                  >
+                    {isEditMode ? '保存修改' : '提交求购'}
                   </Button>
                 </div>
               </Form>

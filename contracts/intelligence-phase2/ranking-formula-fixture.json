@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "intelligence-ranking-eval-v1",
+  "datasetVersion": "synthetic-formula-fixture-v1",
+  "labelVersion": "hand-calculation-v1",
+  "snapshotVersion": "formula-only-no-business-snapshot",
+  "splitVersion": "formula-only-no-test-set",
+  "labelSource": "SYNTHETIC_FORMULA_FIXTURE",
+  "candidateScope": "COMPLETE_CATALOG_POOL",
+  "kValues": [
+    5,
+    10
+  ],
+  "requests": [
+    {
+      "requestId": "Q1",
+      "task": "search",
+      "labels": [
+        {
+          "productId": "a",
+          "label": 2,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "b",
+          "label": 2,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "c",
+          "label": 2,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "d",
+          "label": 2,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "x",
+          "label": 0,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "y",
+          "label": 0,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "z",
+          "label": 0,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "requestId": "Q2",
+      "task": "search",
+      "labels": [
+        {
+          "productId": "e",
+          "label": 2,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "f",
+          "label": 2,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        },
+        {
+          "productId": "x",
+          "label": 0,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "requestId": "Q3",
+      "task": "search",
+      "labels": [
+        {
+          "productId": "z",
+          "label": 0,
+          "failedConstraints": [],
+          "unknownConstraints": []
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "requestId": "M0",
+      "task": "matching",
+      "labels": [
+        {
+          "productId": "n",
+          "label": 0,
+          "failedConstraints": [
+            "budget"
+          ],
+          "unknownConstraints": []
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "requestId": "MU",
+      "task": "matching",
+      "labels": [
+        {
+          "productId": "u",
+          "label": "U",
+          "failedConstraints": [],
+          "unknownConstraints": [
+            "condition"
+          ]
+        },
+        {
+          "productId": "bad",
+          "label": 0,
+          "failedConstraints": [
+            "visibility"
+          ],
+          "unknownConstraints": []
+        }
+      ],
+      "excludedReason": null
+    }
+  ],
+  "runs": [
+    {
+      "algorithmVersion": "hand-authored-formula-rankings-v1",
+      "rankings": {
+        "Q1": [
+          "a",
+          "x",
+          "b",
+          "y",
+          "z"
+        ],
+        "Q2": [
+          "x",
+          "e"
+        ],
+        "Q3": [],
+        "M0": [
+          "n"
+        ],
+        "MU": [
+          "bad",
+          "u"
+        ]
+      }
+    }
+  ]
+}

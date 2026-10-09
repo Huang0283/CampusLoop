@@ -1,0 +1,11 @@
+{
+  "datasetVersion": "m8-price-eval-v1",
+  "eligibleL3Count": 0,
+  "inputs": {
+    "price-samples.jsonl": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+    "source-register.json": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3"
+  },
+  "recordCount": 12,
+  "ruleVersion": "price-rule-v1.0-phase2",
+  "schemaVersion": "m8-price-raw-v1"
+}

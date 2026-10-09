@@ -23,7 +23,20 @@ npm run dev
 ```bash
 npm run lint
 npm run build
+npm run sdk:check
 ```
+
+## OpenAPI SDK
+
+- 契约源：`../openapi/campusloop.v1.yaml`
+- 生成配置：`openapi-ts.config.ts`
+- 稳定入口：`src/sdk/index.ts`
+- 生成目录：`src/sdk/generated/`，禁止手工修改
+- HTTP 地址：`VITE_API_BASE_URL=http://localhost:8001`
+- WebSocket 地址：Phase 1/2 保持 `VITE_WS_URL` 为空并使用显式 Mock；Phase 3 联调时设置为 `ws://localhost:8001/ws`
+- Docker 对外映射为 `8001:8000`；容器内部仍使用 8000，避免占用其他项目的宿主机 8000 端口。
+
+契约变更后先运行 `npm run sdk:generate`，再运行 `npm run sdk:check`、`npm run lint` 和 `npm run build`。Phase 2 的 SDK 只代表契约可消费，不代表后端已经实现或页面已经完成真实联调。
 
 ## 原型边界
 
