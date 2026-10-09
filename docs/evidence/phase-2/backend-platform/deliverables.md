@@ -15,7 +15,7 @@ Owner：M5（胡可铭）｜2026-10-08｜任务分支：`task/m5-p2-auth-contrac
 - BP2-05：`state-enum-contract.md`；`scripts/m6_phase2/check_contract.py` 核对 54 个 operation、9 类枚举和请求/公开私有 schema 边界。
 - BP2-08：修复 psycopg 返回 rowcount=-1 导致错误的负插入数日志，添加重复 upsert 返回 0 的真实 PostgreSQL 测试。
 - 本地 API/SDK/运行指南改为 8001；Docker 容器内部仍为 8000。
-- 已运行的 Linux Python 3.13 隔离测试共 8 项通过；正式 Python 3.12 Compose/MinIO 以及干净检出完整验收另行记录，不冒充已通过。
+- 正式 Docker/Python 3.12 Compose/MinIO 已构建并启动；四服务 healthy、初始化退出 0、8 个后端测试和桶匿名访问隔离通过。实际记录见 `../solo-closeout-status.md`；这不是另一位成员独立签收。
 - canonical 仍有认证 headers/examples、私有证据上传、订单事件分页和管理员商品动作细节待补，不能据本索引关闭 #21。
 
 | 任务 | 交付文件 | 内容 | 当前证据等级 |
