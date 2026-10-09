@@ -1,5 +1,7 @@
 # BP2-01 提供给 M6 的认证 OpenAPI 输入
 
+2026-10-09当前浏览器输入已按用户批准的[Phase3 cookie合同](../../phase-3/backend-platform/browser-session-contract.md)更新canonical OpenAPI/生成SDK。本文件JSON refresh与D07重载重登条目为Phase2历史或非浏览器通路，不能用来否定当前刷新恢复验收。
+
 Owner：M5｜2026-10-08｜M5-P2-v1｜待 M6 评审合入，不是第二份 canonical OpenAPI。
 
 源文件：[当前 OpenAPI](../../../../openapi/campusloop.v1.yaml)，读取基线 `c3a49290bf29cd54c1b569ed7a08dbd175891913`。本 PR 不编辑该文件或生成 SDK。全部请求、样例、错误及前置条件以 [认证契约](auth-contract.md) 为准；运行设计见 [安全设计](auth-security-design.md)。

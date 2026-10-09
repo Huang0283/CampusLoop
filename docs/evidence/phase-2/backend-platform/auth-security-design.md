@@ -1,5 +1,7 @@
 # BP2-02 令牌、密码、撤销与字段安全设计
 
+2026-10-09获批Phase3修订：用户（M10陈梓弘）确认浏览器刷新保持身份，采用[HttpOnly会话恢复合同](../../phase-3/backend-platform/browser-session-contract.md)。本文件以下“JSON pair仅内存/重载重登”保留为Phase2历史及非浏览器通路，不再作为当前浏览器体验要求；浏览器只返回短access、长期凭据HttpOnly Cookie、Origin+CSRF、生产Secure、原绝对期限，不能混用同族JSON refresh。
+
 Owner：M5｜2026-10-08｜M5-P2-v1｜设计输入已定稿待评审；不声明真实认证已实现或安全测试通过。
 
 接口及样例见 [auth-contract.md](auth-contract.md)，M6 接口映射见 [auth-openapi-input.md](auth-openapi-input.md)。本设计把 Phase 1 候选收敛为明确规则，跨所有权变更由 [联合走查](contract-signoff.md) 的 Owner 接收。

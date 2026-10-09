@@ -1,5 +1,7 @@
 # AI3-05 M8 价格规则服务
 
+当前公共/price-advice已接真实回环服务与生成SDK，规则因素、版本、区间/不足数据由前端真实展示；服务不可用时明确null区间与原因，不编造价格。实现提交74d8c0c，测试test_live_intelligence及Playwright wanted/price场景。
+
 实现位于 `services/m8_baseline/engine.py::price_advice`，版本 `m8-price-rule-v1`。规则沿用 Phase 2 已冻结的品类折旧、成色区间、年龄衰减、缺陷/配件折减和整数分单位。
 
 ## 输出语义

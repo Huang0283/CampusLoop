@@ -1,5 +1,7 @@
 # AI3-09 M7 服务入口验证
 
+2026-10-09更新：backend/app/services/intelligence.py及api/routes/intelligence.py已把M7/M8内部结果映射为canonical公共契约，真实PostgreSQL权限/版本复核、生成SDK与浏览器接入都包含在74d8c0c。M7/M8默认只监听容器loopback，浏览器无RPC凭据；test_live_intelligence使用真实监听服务验证实际调用、硬约束、价格区间和关闭服务降级。结构合同校验PASS61操作/16样例不是独立验收；以下描述保留旧准备分支范围。
+
 2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
 
 私有 loopback RPC m7-baseline-rpc-v1：POST /v1/rank 与 /v1/page，JSON schema 位于 schemas/m7-phase3，processed 请求与商品校验沿用 Phase 2。字段不等同公共 API；不会改 SDK 或直接返回伪造商品 DTO。错误是 {schemaVersion,error:{code}}；成功 data 含内部 ID/版本、分数、原因、元数据和分页扫描信息。

@@ -1,5 +1,7 @@
 # M7 Phase 3 候选交付清单
 
+2026-10-09集中实施已接收M7/M8并完成真实业务适配（代码74d8c0c）。当前交付：AI3-01/02真实搜索/求购匹配、AI3-03PostgreSQL任务与通知去重、AI3-04固定38查询诊断；AI3-05/06/07/08价格/中性信誉/缺失数据风险/9规则用例；AI3-09真实M7/M8 RPC及关闭服务降级；AI3-10复现工具与作者测试，待M10陈梓弘本人签字和真实复核归档。当前结果见管理质量verification，以下旧表为准备分支历史，不是现在未接入M8/业务的断言。
+
 2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
 
 日期：2026-10-08。代码提交 `1c235abba1c7a337501aacdec14f987c447563b0`，准备分支 `prep/m7-p3-search-matching-baseline`；阶段任务来源 `docs/issues/intelligence-phase-3-baseline-services.md`。Phase 2 联合内容已提交 [草稿 PR #87](https://github.com/Huang0283/CampusLoop/pull/87)，等待真人评审。

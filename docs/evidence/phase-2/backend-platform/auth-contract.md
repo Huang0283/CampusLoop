@@ -1,5 +1,7 @@
 # BP2-01 认证与资料接口契约
 
+当前浏览器合同以2026-10-09用户批准的[Phase3会话修订](../../phase-3/backend-platform/browser-session-contract.md)及canonical OpenAPI为准：注册/登录浏览器模式只返回access/expiresIn/user并设HttpOnly cookie，/auth/browser-session恢复，浏览器退出撤销cookie族。以下JSON refresh示例为非浏览器/历史通路；“重载必须重新登录”已被新浏览器合同取代，不改写原验收运行事实。
+
 Owner：M5（胡可铭）｜2026-10-08｜版本：M5-P2-v1｜状态：个人设计交付，待联合评审及 M6 合入 canonical OpenAPI。
 
 依据：[Issue #21](https://github.com/Huang0283/CampusLoop/issues/21)。本文件是 Phase 2 契约，不是已运行的认证服务；Phase 3 才实现业务接口。字段映射见 [OpenAPI 输入](auth-openapi-input.md)，生命周期见 [安全设计](auth-security-design.md)，差异和接收状态见 [联合走查](contract-signoff.md)。

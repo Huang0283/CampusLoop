@@ -1,5 +1,11 @@
 # AI3-10 作者复现记录
 
+当前代码基准74d8c0c：M7测试31、M8测试17；M8结果hash为aa7374f747edffa7c2794b0240d0bd9e1be50f81efac203716e5d5b9f813b14f，固定用例9/9与两次字节一致。原始安全记录见evidence/solo-p3-m8-run-record.json与solo-p3-evaluation-status.json。后端37测试包括真实RPC与PostgreSQL任务/通知事务。用户已批准first-pair-v1默认开启，独立验收人是用户本人M10陈梓弘。以下历史范围限制仅对应各旧提交，不代表当前M6/outbox仍未接入；正式数据归档/独立签字仍待完成。
+
+## 2026-10-09 集中实现续验
+
+真实 API 现在已接入 M7/M8 回环 RPC，并使用 PostgreSQL 业务事实。Linux/Python 3.12.15：M7 基线 31 测试通过；M8 新增缺失观察边界后 17 测试通过，固定规则结果两次字节一致。后端 RPC 集成测试使用临时真实监听服务，不用固定响应冒充接口。现阶段 M7 固定 38 查询仍为 `DIAGNOSTIC_ONLY/PENDING_HUMAN_REVIEW`：用户已确认 228 标签内容正确，但逐条归档尚未提供。不得将本次模型运行输出的 humanReviewedPairs=0 解释成用户未复核，也不得伪造归档人员和时间。新业务联调及浏览器记录见管理质量组 verification；历史记录保留如下。
+
 2026-10-08 复核状态更新：用户确认 228/228 对标签已完成人工复核且全部正确，原标签不变；已提供的辅助 CSV 复核栏仍为空，逐条记录待归档。详情见 [Phase 2 复核状态](../../phase-2/intelligence/human-review-status.md)。原评估运行时的草稿、计数和日志保留，正式封存及阶段验收仍待完成。
 
 被检出的代码提交 `1c235abba1c7a337501aacdec14f987c447563b0`。Windows / Python 3.12，使用新的隔离 venv 与 scripts/m7_phase2/requirements.txt 六个锁定依赖；没有新增依赖。两个独立干净本地检出分别 autocrlf=true/false，运行前 workingTreeDirty=false。命令均从仓库根目录执行，输出在检出外空目录：
