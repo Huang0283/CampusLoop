@@ -1,11 +1,12 @@
-# Phase 4 M7 AI4-01—03 交付清单
+# M7 Phase 4 AI4-01—04 交付清单
 
-日期：2026-10-08。当前准备分支 prep/m7-p4-semantic-matching；正式分支 phase4/integration 和 phase4/intelligence-models 尚未建立。仅推进前三项，不代做 AI4-04/M8 任务或成员签字。
+更新：2026-10-11。准备分支 `prep/m7-p4-semantic-matching`。正式 Phase 4 分支尚未建立；个人技术完成与阶段验收分开记录。
 
-| 任务 | 当前交付 | 当前状态 |
+| 任务 | 交付 | 状态 |
 | --- | --- | --- |
-| AI4-01 | [模型卡](semantic-model-card.md)，官方来源与固定 revision、许可、维度、处理/批量/索引配置 | 来源和配置准备完成；实际依赖及推理重复性待运行 |
-| AI4-02 | [索引运行说明](vector-index-runbook.md) | 行为设计完成；代码、测试与真实索引尚待实现 |
-| AI4-03 | [混合排序与匹配说明](hybrid-ranking.md) | 行为设计完成；代码与测试尚待实现 |
+| AI4-01 | 模型卡、固定配置、来源哈希、完整 CPU 依赖锁；真实推理重复检查 | 技术实现完成；待交叉评审 |
+| AI4-02 | services/m7_semantic/index.py、构建/更新/查询 CLI、公共行为测试、索引手册 | 技术实现完成；生产业务事件联调待共同任务 |
+| AI4-03 | services/m7_semantic/hybrid.py、混合搜索及匹配、解释与回退测试 | 技术实现完成；公开服务未启用 |
+| AI4-04 | evaluate.py、verify.py、逐样本输出、统一重算、延迟及失败分析、搜索报告 | 诊断对比完成；冻结评估与正式验收受阻，不能勾选全完成 |
 
-验证与实现限制见 [verification.md](verification.md)，前置缺口及接收动作见 [handoff.md](handoff.md)。正式启用继续 NO_GO；准备成果不能作为前三项已验收或第四阶段收口的依据。
+正式效果比较须补齐真实逐条复核记录、封存评估集、达到样本门槛及环境/门槛签字。M8/M10/M1 尚未在本交付中签字，AI4-09/10 和整个 Phase 4 不因本次提交自动完成。

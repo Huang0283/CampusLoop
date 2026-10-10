@@ -1,6 +1,6 @@
 # AI4-01 固定句向量候选
 
-日期：2026-10-08。本次仅推进 M7 AI4-01—03，真实公平对比属于 AI4-04。当前正式启用仍为 NO_GO；评估集封存、事先批准的门槛及正式阶段输入未齐。模型选择不表示优于 Phase 3。
+更新：2026-10-11。本次推进 M7 AI4-01—04；真实模型诊断比较已运行，冻结集正式比较仍待输入。当前正式启用仍为 NO_GO；评估集封存、事先批准的门槛及正式阶段输入未齐。模型选择不表示优于 Phase 3。
 
 ## 来源、许可与版本
 
@@ -8,7 +8,7 @@
 
 只采用 safetensors 权重，不执行模型仓库的自定义代码。官方 model.safetensors 大小 95,827,648 字节，官方 LFS SHA256 `354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026`。配置、tokenizer 和权重需逐文件锁定哈希；获取失败或不一致不得假装模型就绪。大权重不放入项目 Git、交付 ZIP 或依赖缓存源码。
 
-机器可读候选参数见 [model-config.candidate.json](model-config.candidate.json)，实际从固定 revision 获取的六个配置/tokenizer/模型卡文件 SHA256 见 [source-provenance.json](source-provenance.json)。权重哈希当前仅核对官方 LFS 元数据，尚未下载权重或运行推理；不能用配置获取成功声明模型重复性已验证。
+机器可读候选参数见 [model-config.candidate.json](model-config.candidate.json)，实际从固定 revision 获取的六个配置/tokenizer/模型卡文件 SHA256 见 [source-provenance.json](source-provenance.json)。七个实际文件（含权重）均已下载并逐一校验哈希；已运行真实模型，72 个商品在固定批量与同机 CPU 上重复编码完全一致，逻辑索引重建一致。逐次进程及提交记录见验证证据；不承诺跨硬件逐位一致。
 
 ## 固定编码参数
 
@@ -16,7 +16,7 @@
 - 文本预处理版本 m7-semantic-text-v1：Unicode NFKC、折叠空白；文档按标题、型号、类别展示名、描述的固定次序拼接。未知型号保持空值，不补造；价格、身份和状态继续作为结构化条件。
 - 最大 token 长度 512（含特殊 token）；右侧截断，标题及型号先出现。保存实际截断信息或固定策略说明，不能称为无信息损失。
 - CLS pooling，512 维 float32、L2 归一化；余弦仅表示相关程度，不能解释为成交或匹配概率。
-- CPU 推理、eval 模式、禁用梯度、随机种子 0、单计算线程，batch size=16。依赖候选 torch 2.8.0 CPU、transformers 4.57.6；实际验证后记录完整锁定依赖和环境。跨硬件数值允许差异需另行预先约定，当前只承诺同配置复现检查。
+- CPU 推理、eval 模式、禁用梯度、随机种子 0、单计算线程，batch size=16。实际依赖 torch 2.8.0+cpu、transformers 4.57.6；完整锁见 services/m7_semantic/requirements.windows-cpu.lock.txt。推理采用 float32，索引保存归一化后的 JSON 数值，逻辑哈希按固定序列化计算。跨硬件数值允许差异需另行预先约定，当前只承诺同配置复现检查。
 
 上述 pooling 和 query/document 区别依据 [官方模型卡用法](https://huggingface.co/BAAI/bge-small-zh-v1.5#using-huggingface-transformers)。前处理、批量、线程与索引参数为本项目候选选择，未按 test_candidate 标签调优。
 

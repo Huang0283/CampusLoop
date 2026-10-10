@@ -30,3 +30,7 @@
 /docs/evidence/phase-3/intelligence/** text eol=lf
 # Preserve the user-supplied review template bytes for its evidence SHA256.
 docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text whitespace=cr-at-eol
+
+# Phase 4 source/config/evidence hashes must remain stable across checkouts.
+/services/m7_semantic/** text eol=lf
+/docs/evidence/phase-4/intelligence/** text eol=lf
