@@ -21,3 +21,9 @@ python -m services.m7_semantic.verify --model-dir C:/models/bge-small-zh-v1.5-79
 源码提交 `217d0e4f12ed7f21d55e5c4cff86d08efe6f6e2b` 的干净检出验证 PASS，共 196 项测试：Phase 4 33、Phase 2 116、M7 Phase 3 31、M8 Phase 3 16；全部返回成功。P2 还验证 29 个契约示例，原始资产哈希未变。两个独立进程的 8 个逐样本/指标文件字节一致，all/dev/test_candidate 均通过独立命令重算；实际向量增量/重复/旧事件/墓碑检查通过。
 
 补做 Windows core.autocrlf=false/true 两种检出配置的真实模型评估，8 个确定性文件一致；这只是检出换行验证，不等同 Linux/macOS 推理验证。运行主记录见 [run-record.json](evidence/m7-v1/run-record.json)，测试计数见 [作者汇总](evidence/m7-v1/author-summary.json)。正式评估与成员签字仍待办。
+
+## 审阅意见补充核对
+
+2026-10-11 根据用户提供的审阅截图补充交接与指标解释；没有改动算法、排序参数、原始标签或门槛。直接读取既有 evaluation-input-test_candidate.json 和 metrics-test_candidate.json，核对 MRR 的指标上限及搜索严格正例数，并保存输入哈希与计算结果至 [metric-ceiling-check.json](metric-ceiling-check.json)。本次为文档和证据说明修订，未将 196 项测试重跑或外部审阅者独立复现记作新增成功。
+
+重新读取用户指定的复核表：228 个 labelId，SHA256 仍为 55499ad827fd33e40c0240f1fbaf486a2e501bc3f3b2a79de04c63e2700171c6；八个逐条复核/裁决栏的非空计数均为 0。无争议时裁决栏允许为空，但复核者、结果、理由、时间仍无可归档记录。用户确认全对的事实保持有效，不能自动生成未提供的逐条记录或验收签字。
