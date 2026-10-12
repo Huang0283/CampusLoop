@@ -10,6 +10,7 @@ npx playwright test journey.spec.ts
 npx playwright test m2-phase4.spec.ts m2-async-state.spec.ts
 ```
 结果：SDK 无语义漂移；lint 无警告；build 成功（体积警告）；已有 5 项、新增 6 项 UI 通过。
+补充举报POST/私密Blob/不确定结果幂等重试契约测试另1项通过，新增M2总计7项；lint再次通过。属于夹具，不能当真实举报后台完成。
 真实管理员测试依赖隔离 seed 管理员；不要在生产执行禁用测试。已有数据库聚合确认 admin_users_read、admin_risk_clues_read、admin_user_disabled、admin_user_active 存在；聚合只证实审计机制，不冒充每次测试的唯一审计行。
 首次新增测试的按钮精确文字及动态模块加载选择失败，已改为表单提交按钮、实际列表响应读取 total；当前最终完整套件通过。测试日志/私密截图不提交仓库。
 整体端到端尚不能通过：报告管理接口缺失、商品治理契约缺失、正式语义候选 NO_GO。交接文档记录 Owner 与复验步骤。

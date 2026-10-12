@@ -1,6 +1,48 @@
 import { test, expect } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 
+test('report contract consumes private blobs and reuses an uncertain resolution key (contract fixtures)', async ({ page }) => {
+  const user = { id: 901, nickname: 'Fixture Admin', role: 'ADMIN', status: 'ACTIVE', email: 'fixture@example.invalid', rating: 0, transactionCount: 0 }
+  const report = { id: 803, targetType: 'PRODUCT', targetId: 804, reason: 'FAKE_PRODUCT', description: 'Fixture manual review', evidence: ['private/object-not-a-public-url'], status: 'PENDING', createdAt: '2026-10-12T00:00:00Z' }
+  const keys: string[] = []
+  let evidenceReads = 0, resolved = false
+  await page.route('**/auth/browser-session', (route) => route.fulfill({ json: { data: { accessToken: 'fixture-not-real', expiresIn: 600, user } } }))
+  await page.route('**/admin/users?**', (route) => route.fulfill({ json: { data: { items: [], pagination: { page: 1, pageSize: 20, total: 0 } } } }))
+  await page.route('**/admin/reports?**', (route) => route.fulfill({ json: { data: [{ ...report, status: resolved ? 'RESOLVED' : 'PENDING' }] } }))
+  await page.route('**/admin/reports/803/evidence/0', (route) => {
+    evidenceReads += 1
+    expect(route.request().headers().authorization).toBe('Bearer fixture-not-real')
+    return route.fulfill({ contentType: 'image/png', body: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==', 'base64') })
+  })
+  await page.route('**/admin/reports/803/resolve', (route) => {
+    expect(route.request().method()).toBe('POST')
+    expect(route.request().postDataJSON()).toEqual({ resolution: 'RESOLVED', note: 'Fixture resolution' })
+    keys.push(route.request().headers()['idempotency-key'])
+    if (keys.length === 1) return route.fulfill({ status: 503, json: { code: 'SERVICE_UNAVAILABLE' } })
+    resolved = true
+    return route.fulfill({ json: { data: { ...report, status: 'RESOLVED' } } })
+  })
+  await page.goto('/admin')
+  await page.getByRole('tab', { name: '举报处理', exact: true }).click()
+  await page.getByRole('button', { name: '举报详情 #803', exact: true }).click()
+  expect(evidenceReads).toBe(0)
+  await page.getByRole('button', { name: '读取私密证据（记录访问审计）', exact: true }).click()
+  const image = page.getByRole('img', { name: '举报私密证据 1', exact: true })
+  await expect(image).toHaveAttribute('src', /^blob:/)
+  await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBe(1)
+  await expect(page.getByText('private/object-not-a-public-url', { exact: true })).not.toBeVisible()
+  await page.getByLabel('人工处理结论', { exact: true }).click()
+  await page.getByText('处理完成', { exact: true }).click()
+  await page.getByLabel('处理说明', { exact: true }).fill('Fixture resolution')
+  await page.locator('.ant-drawer form button[type="submit"]').click()
+  await expect(page.getByText('SERVICE_UNAVAILABLE', { exact: true })).toBeVisible()
+  await expect(page.getByText('后端已确认处理结果。', { exact: true })).not.toBeVisible()
+  await page.locator('.ant-drawer form button[type="submit"]').click()
+  await expect(page.getByText('后端已确认处理结果。', { exact: true })).toBeVisible()
+  expect(keys[0]).toBeTruthy(); expect(keys).toHaveLength(2); expect(keys[1]).toBe(keys[0])
+  expect(evidenceReads).toBe(1)
+})
+
 test('ordinary user cannot reach admin; keyboard menu, offline banner and navigation focus', async ({ page, context }) => {
   await page.goto('/register')
   await page.getByLabel('校园邮箱', { exact: true }).fill(`m2p4-${randomUUID()}@example.invalid`)
