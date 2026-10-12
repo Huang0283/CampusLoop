@@ -1,0 +1,518 @@
+CampusLoop 干净环境验证日志
+开始时间：2026-10-12 20:02:15
+[0] 环境信息（uname / docker 版本 / 分支提交）
+
+============================================================
+[20:02:15] 系统信息
+$ uname -a
+------------------------------------------------------------
+MINGW64_NT-10.0-26200 Henry 3.6.10-5a1665c8.x86_64 2026-09-28 10:40 UTC x86_64 Msys
+
+============================================================
+[20:02:16] Docker 版本
+$ docker --version
+------------------------------------------------------------
+Docker version 29.8.2, build 7fc2dff
+
+============================================================
+[20:02:16] Compose 版本
+$ docker compose version
+------------------------------------------------------------
+Docker Compose version v5.5.1
+
+============================================================
+[20:02:17] 当前分支
+$ git rev-parse --abbrev-ref HEAD
+------------------------------------------------------------
+task/m9-p2-runtime-foundation
+
+============================================================
+[20:02:18] 当前提交
+$ git rev-parse --short HEAD
+------------------------------------------------------------
+a95f8c9
+
+============================================================
+[20:02:18] 工作区是否干净
+$ git status --porcelain
+------------------------------------------------------------
+?? clean-env-verify.sh
+
+[1] 拉取全部固定版本镜像（干净环境关键步骤：不允许本地已有缓存的说法，
+    如需严格模拟全新机器，可先 docker rmi 相关镜像或换机器执行）
+
+============================================================
+[20:02:19] 拉取镜像
+$ docker compose pull
+------------------------------------------------------------
+ minio Skipped No image to be pulled
+ minio-init Skipped No image to be pulled
+ api Skipped No image to be pulled
+ Image redis:7.4-alpine Pulling 
+ Image pgvector/pgvector:0.8.6-pg16 Pulling 
+ Image redis:7.4-alpine Pulled 
+ Image pgvector/pgvector:0.8.6-pg16 Pulled 
+
+[2] 构建并启动全部服务
+
+============================================================
+[20:02:24] 构建并启动
+$ docker compose up -d --build
+------------------------------------------------------------
+ Image campusloop-minio Building 
+ Image campusloop-minio-init Building 
+ Image campusloop-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.49kB 0.0s done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 890B 0.0s done
+#2 DONE 0.0s
+
+#3 [minio-init internal] load build definition from Dockerfile.minio
+#3 transferring dockerfile: 2.51kB 0.0s done
+#3 DONE 0.0s
+
+#4 [minio-init internal] load metadata for docker.io/library/alpine:3.22
+#4 ...
+
+#5 [api internal] load metadata for docker.io/library/python:3.12-slim
+#5 DONE 1.9s
+
+#6 [api internal] load .dockerignore
+#6 transferring context: 2B done
+#6 DONE 0.0s
+
+#7 [api 1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#7 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+#7 DONE 0.1s
+
+#8 [api internal] load build context
+#8 transferring context: 105.55kB 0.1s done
+#8 DONE 0.1s
+
+#7 [api 1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#7 sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 0B / 249B 0.2s
+#7 sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 249B / 249B 0.3s done
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0B / 12.12MB 0.2s
+#7 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0B / 1.29MB 0.2s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 0B / 29.84MB 0.2s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 1.05MB / 12.12MB 1.1s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 2.10MB / 12.12MB 1.5s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 3.15MB / 12.12MB 1.7s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 4.19MB / 12.12MB 2.0s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 5.24MB / 12.12MB 2.4s
+#7 sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 1.29MB / 1.29MB 2.3s done
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 6.29MB / 12.12MB 2.9s
+#7 ...
+
+#4 [minio-init internal] load metadata for docker.io/library/alpine:3.22
+#4 DONE 5.2s
+
+#7 [api 1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 7.34MB / 12.12MB 3.3s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 2.10MB / 29.84MB 3.5s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 8.39MB / 12.12MB 3.9s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 9.44MB / 12.12MB 4.5s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 10.49MB / 12.12MB 5.6s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 11.53MB / 12.12MB 6.8s
+#7 sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 12.12MB / 12.12MB 7.0s done
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 4.19MB / 29.84MB 7.5s
+#7 ...
+
+#9 [minio-init internal] load metadata for docker.io/library/golang:1.24-alpine
+#9 ...
+
+#7 [api 1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 6.29MB / 29.84MB 11.1s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 8.39MB / 29.84MB 14.7s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 10.49MB / 29.84MB 17.0s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 12.58MB / 29.84MB 20.1s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 14.68MB / 29.84MB 22.3s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 16.78MB / 29.84MB 24.9s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 18.87MB / 29.84MB 28.2s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 20.97MB / 29.84MB 30.0s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 23.07MB / 29.84MB 31.6s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 25.17MB / 29.84MB 33.3s
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 27.26MB / 29.84MB 35.1s
+#7 ...
+
+#9 [minio-init internal] load metadata for docker.io/library/golang:1.24-alpine
+#9 DONE 39.2s
+
+#10 [minio internal] load .dockerignore
+#10 transferring context: 2B done
+#10 DONE 0.0s
+
+#11 [minio stage-1 1/4] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#11 resolve docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8 0.0s done
+#11 resolve docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8 0.0s done
+#11 sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 0B / 3.79MB 0.2s
+#11 ...
+
+#7 [api 1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#7 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 29.84MB / 29.84MB 38.1s done
+#7 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 0.5s done
+#7 extracting sha256:75b6a36c64a1cf3520fc4b4aae4739d5caa8a6a05c27835a920a61784c9c32f8 0.1s done
+#7 extracting sha256:6912e23eb44595b44dc6d9882b34f305ad6f6e9667cec70b13e5dbc4f8cd97f4 0.2s done
+#7 extracting sha256:bbc5a12237474ec0b23b5051260d56d6436a24d70d9cad961adebe7a037ed813 0.0s done
+#7 DONE 39.0s
+
+#11 [minio-init stage-1 1/4] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#11 sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 0B / 3.79MB 5.3s
+#11 sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 1.05MB / 3.79MB 6.9s
+#11 sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 2.10MB / 3.79MB 9.3s
+#11 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 resolve docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191 0.0s done
+#12 sha256:c95d909b2488ff78a51d01ca745429e6d281e314006f231fe6e9f219cf5432ca 126B / 126B 0.8s done
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 9.6s
+#12 sha256:8f78851c25d251496dd39ebce311b4d914a4a97c0ba1983039165a05fd96b925 296.08kB / 296.08kB 1.9s done
+#12 sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 3.86MB / 3.86MB 2.5s done
+#12 extracting sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 0.1s done
+#12 extracting sha256:8f78851c25d251496dd39ebce311b4d914a4a97c0ba1983039165a05fd96b925 0.1s done
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 2.149 Hit:1 http://deb.debian.org/debian trixie InRelease
+#13 2.582 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 ...
+
+#11 [minio stage-1 1/4] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#11 sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 3.79MB / 3.79MB 12.5s done
+#11 extracting sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 0.1s done
+#11 DONE 12.7s
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 14.7s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 19.8s
+#12 ...
+
+#14 [minio-init stage-1 2/4] RUN apk add --no-cache ca-certificates curl
+#14 0.183 fetch https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/APKINDEX.tar.gz
+#14 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 24.9s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 30.0s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 35.1s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 40.2s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 32.98 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#13 41.40 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
+#13 42.84 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 45.3s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 50.4s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 55.5s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 58.30 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [266 kB]
+#13 58.36 Fetched 10.0 MB in 58s (172 kB/s)
+#13 58.36 Reading package lists...
+#13 58.87 Reading package lists...
+#13 59.45 Building dependency tree...
+#13 59.56 Reading state information...
+#13 59.74 The following additional packages will be installed:
+#13 59.74   libbrotli1 libcom-err2 libcurl4t64 libgnutls30t64 libgssapi-krb5-2 libidn2-0
+#13 59.74   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libnghttp2-14
+#13 59.74   libnghttp3-9 libp11-kit0 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db
+#13 59.74   libssh2-1t64 libtasn1-6 libunistring5
+#13 59.74 Suggested packages:
+#13 59.74   gnutls-bin krb5-doc krb5-user
+#13 59.74 Recommended packages:
+#13 59.74   bash-completion krb5-locales libldap-common publicsuffix libsasl2-modules
+#13 59.90 The following NEW packages will be installed:
+#13 59.90   curl libbrotli1 libcom-err2 libcurl4t64 libgnutls30t64 libgssapi-krb5-2
+#13 59.90   libidn2-0 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2
+#13 59.90   libnghttp2-14 libnghttp3-9 libp11-kit0 libpsl5t64 librtmp1 libsasl2-2
+#13 59.90   libsasl2-modules-db libssh2-1t64 libtasn1-6 libunistring5
+#13 ...
+
+#14 [minio-init stage-1 2/4] RUN apk add --no-cache ca-certificates curl
+#14 41.35 fetch https://dl-cdn.alpinelinux.org/alpine/v3.22/community/x86_64/APKINDEX.tar.gz
+#14 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 64.0s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 69.1s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 74.2s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 64.93 0 upgraded, 22 newly installed, 0 to remove and 1 not upgraded.
+#13 64.93 Need to get 4888 kB of archives.
+#13 64.93 After this operation, 14.7 MB of additional disk space will be used.
+#13 64.93 Err:1 http://deb.debian.org/debian trixie/main amd64 libbrotli1 amd64 1.1.0-2+b7
+#13 64.93   502  Bad Gateway [IP: 199.232.162.132 80]
+#13 66.50 Get:2 http://deb.debian.org/debian trixie/main amd64 libkrb5support0 amd64 1.21.3-5+deb13u1 [33.1 kB]
+#13 67.52 Get:3 http://deb.debian.org/debian trixie/main amd64 libcom-err2 amd64 1.47.2-3+b12 [25.0 kB]
+#13 67.92 Get:4 http://deb.debian.org/debian trixie/main amd64 libk5crypto3 amd64 1.21.3-5+deb13u1 [81.2 kB]
+#13 68.23 Get:5 http://deb.debian.org/debian trixie/main amd64 libkeyutils1 amd64 1.6.3-6 [9456 B]
+#13 68.95 Get:6 http://deb.debian.org/debian trixie/main amd64 libkrb5-3 amd64 1.21.3-5+deb13u1 [326 kB]
+#13 73.99 Ign:7 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 79.3s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 84.4s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 89.5s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 94.6s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 99.7s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 104.8s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 109.9s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 115.0s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 120.1s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 125.2s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 130.3s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 135.4s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 134.1 Ign:8 http://deb.debian.org/debian trixie/main amd64 libunistring5 amd64 1.3-2
+#13 134.6 Get:9 http://deb.debian.org/debian trixie/main amd64 libidn2-0 amd64 2.3.8-2 [109 kB]
+#13 135.0 Get:10 http://deb.debian.org/debian trixie/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9 [19.8 kB]
+#13 135.4 Get:11 http://deb.debian.org/debian trixie/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9 [57.5 kB]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 141.0s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 146.1s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 151.2s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 140.1 Get:12 http://deb.debian.org/debian trixie/main amd64 libldap2 amd64 2.6.10+dfsg-1 [194 kB]
+#13 140.6 Get:13 http://deb.debian.org/debian trixie/main amd64 libnghttp2-14 amd64 1.64.0-1.1+deb13u1 [76.2 kB]
+#13 141.1 Get:14 http://deb.debian.org/debian trixie/main amd64 libnghttp3-9 amd64 1.8.0-1 [67.7 kB]
+#13 141.6 Get:15 http://deb.debian.org/debian trixie/main amd64 libpsl5t64 amd64 0.21.2-1.1+b1 [57.2 kB]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 156.3s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 161.4s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 166.5s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 171.6s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 176.7s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 181.8s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 174.5 Get:16 http://deb.debian.org/debian trixie/main amd64 libp11-kit0 amd64 0.25.5-3 [425 kB]
+#13 176.7 Get:17 http://deb.debian.org/debian trixie/main amd64 libtasn1-6 amd64 4.20.0-2+deb13u1 [50.1 kB]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 186.9s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 192.0s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 197.1s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 202.2s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 207.3s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 212.4s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 217.5s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 222.6s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 227.7s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 232.8s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 237.9s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 236.7 Ign:18 http://deb.debian.org/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u4
+#13 241.8 Err:8 http://deb.debian.org/debian trixie/main amd64 libunistring5 amd64 1.3-2
+#13 241.8   Connection failed [IP: 199.232.162.132 80]
+#13 241.8   502  Bad Gateway [IP: 199.232.162.132 80]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 243.4s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 246.8 Err:19 http://deb.debian.org/debian trixie/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b5
+#13 246.8   502  Bad Gateway [IP: 199.232.162.132 80]
+#13 251.8 Err:20 http://deb.debian.org/debian trixie/main amd64 libssh2-1t64 amd64 1.11.1-1+deb13u2
+#13 251.8   502  Bad Gateway [IP: 199.232.162.132 80]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 253.5s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 256.8 Err:21 http://deb.debian.org/debian trixie/main amd64 libcurl4t64 amd64 8.14.1-2+deb13u5
+#13 256.8   502  Bad Gateway [IP: 199.232.162.132 80]
+#13 261.9 Err:22 http://deb.debian.org/debian trixie/main amd64 curl amd64 8.14.1-2+deb13u5
+#13 261.9   502  Bad Gateway [IP: 199.232.162.132 80]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 263.5s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 268.6s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 273.7s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 262.9 Get:7 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1 [138 kB]
+#13 ...
+
+#12 [minio-init build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 278.8s
+#12 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 0B / 79.13MB 283.9s
+#12 ...
+
+#13 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#13 282.9 Get:18 http://deb.debian.org/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u4 [1469 kB]
+#13 283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/b/brotli/libbrotli1_1.1.0-2%2bb7_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+#13 283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/libu/libunistring/libunistring5_1.3-2_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+#13 283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/r/rtmpdump/librtmp1_2.4%2b20151223.gitfa8646d.1-2%2bb5_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+#13 283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/libs/libssh2/libssh2-1t64_1.11.1-1%2bdeb13u2_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+#13 283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/c/curl/libcurl4t64_8.14.1-2%2bdeb13u5_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+#13 283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/c/curl/curl_8.14.1-2%2bdeb13u5_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+#13 283.0 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+#13 283.0 Fetched 3139 kB in 3min 43s (14.1 kB/s)
+#13 ERROR: process "/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+
+#12 [minio build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 CANCELED
+
+#15 [minio build 2/5] RUN apk add --no-cache git
+#15 CANCELED
+
+#14 [minio stage-1 2/4] RUN apk add --no-cache ca-certificates curl
+#14 CANCELED
+------
+ > [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*:
+262.9 Get:7 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1 [138 kB]
+282.9 Get:18 http://deb.debian.org/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u4 [1469 kB]
+283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/b/brotli/libbrotli1_1.1.0-2%2bb7_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/libu/libunistring/libunistring5_1.3-2_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/r/rtmpdump/librtmp1_2.4%2b20151223.gitfa8646d.1-2%2bb5_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/libs/libssh2/libssh2-1t64_1.11.1-1%2bdeb13u2_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/c/curl/libcurl4t64_8.14.1-2%2bdeb13u5_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+283.0 E: Failed to fetch http://deb.debian.org/debian/pool/main/c/curl/curl_8.14.1-2%2bdeb13u5_amd64.deb  502  Bad Gateway [IP: 199.232.162.132 80]
+283.0 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+283.0 Fetched 3139 kB in 3min 43s (14.1 kB/s)
+------
+Dockerfile:5
+
+--------------------
+
+   4 |     # 容器内健康检查用 curl；libpq 由 psycopg[binary] 自带
+
+   5 | >>> RUN apt-get update \
+
+   6 | >>>     && apt-get install -y --no-install-recommends curl \
+
+   7 | >>>     && rm -rf /var/lib/apt/lists/*
+
+   8 |     
+
+--------------------
+
+target api: failed to solve: process "/bin/sh -c apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+
+
+[3] 等待健康（最长 3 分钟）
+  第 1 次检查：healthy 0 / 0
+  第 2 次检查：healthy 0 / 0
+  第 3 次检查：healthy 0 / 0
+  第 4 次检查：healthy 0 / 0
+  第 5 次检查：healthy 0 / 0
+  第 6 次检查：healthy 0 / 0
+  第 7 次检查：healthy 0 / 0
+  第 8 次检查：healthy 0 / 0
+  第 9 次检查：healthy 0 / 0
+  第 10 次检查：healthy 0 / 0
+  第 11 次检查：healthy 0 / 0
+  第 12 次检查：healthy 0 / 0
+  第 13 次检查：healthy 0 / 0
+  第 14 次检查：healthy 0 / 0
+  第 15 次检查：healthy 0 / 0
+  第 16 次检查：healthy 0 / 0
+  第 17 次检查：healthy 0 / 0
+  第 18 次检查：healthy 0 / 0
+
+============================================================
+[20:11:04] 服务状态一览
+$ docker compose ps
+------------------------------------------------------------
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+
+[4] 健康接口
+
+============================================================
+[20:11:05] curl /health
+$ curl -sS http://localhost:8000/health
+------------------------------------------------------------
+curl: (7) Failed to connect to localhost:8000 after 1 ms: Could not connect to server
+
+[5] 迁移与种子（api 启动已自动执行过，此处独立复验幂等）
+
+============================================================
+[20:11:06] 当前迁移版本
+$ docker compose exec -T api alembic current
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[20:11:06] 种子幂等两遍
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+service "api" is not running
+
+[6] 回滚 -> 再升级 -> 种子重建（BP2-09 验收口径）
+
+============================================================
+[20:11:07] 降级到 base
+$ docker compose exec -T api alembic downgrade base
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[20:11:07] 重新升级到 head
+$ docker compose exec -T api alembic upgrade head
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[20:11:08] 种子重建后幂等复验
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+service "api" is not running
+
+[7] MinIO 双桶验证
+
+============================================================
+[20:11:09] minio-init 初始化日志
+$ docker compose logs minio-init
+------------------------------------------------------------
+
+============================================================
+[20:11:09] MinIO 存活探针(200无输出即活)
+$ curl -sS -o /dev/null -w %{http_code}\n http://localhost:9000/minio/health/live
+------------------------------------------------------------
+curl: (7) Failed to connect to localhost:9000 after 0 ms: Could not connect to server
+000
+
+[8] api 启动日志抽样（迁移+种子自动执行的证据）
+
+============================================================
+[20:11:10] api 日志尾部
+$ docker compose logs --tail 40 api
+------------------------------------------------------------
+
+============================================================
+============================================================
+汇总：存在失败步骤 ❌（把本日志发给 M9 定位）
+结束时间：2026-10-12 20:11:10
+日志文件：clean-env-verify-20261012-200215.log（请勿删除，随证据归档）

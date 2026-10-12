@@ -1,0 +1,210 @@
+CampusLoop 干净环境验证日志
+开始时间：2026-10-12 13:06:12
+[0] 环境信息（uname / docker 版本 / 分支提交）
+
+============================================================
+[13:06:12] 系统信息
+$ uname -a
+------------------------------------------------------------
+MINGW64_NT-10.0-26200 Henry 3.6.10-5a1665c8.x86_64 2026-09-28 10:40 UTC x86_64 Msys
+
+============================================================
+[13:06:13] Docker 版本
+$ docker --version
+------------------------------------------------------------
+Docker version 29.8.2, build 7fc2dff
+
+============================================================
+[13:06:13] Compose 版本
+$ docker compose version
+------------------------------------------------------------
+Docker Compose version v5.5.1
+
+============================================================
+[13:06:14] 当前分支
+$ git rev-parse --abbrev-ref HEAD
+------------------------------------------------------------
+task/m9-p2-runtime-foundation
+
+============================================================
+[13:06:14] 当前提交
+$ git rev-parse --short HEAD
+------------------------------------------------------------
+a95f8c9
+
+============================================================
+[13:06:14] 工作区是否干净
+$ git status --porcelain
+------------------------------------------------------------
+?? clean-env-verify.sh
+
+[1] 拉取全部固定版本镜像（干净环境关键步骤：不允许本地已有缓存的说法，
+    如需严格模拟全新机器，可先 docker rmi 相关镜像或换机器执行）
+
+============================================================
+[13:06:15] 拉取镜像
+$ docker compose pull
+------------------------------------------------------------
+ minio Skipped No image to be pulled
+ minio-init Skipped No image to be pulled
+ api Skipped No image to be pulled
+ Image redis:7.4-alpine Pulling 
+ Image pgvector/pgvector:0.8.6-pg16 Pulling 
+ Image redis:7.4-alpine Pulled 
+ Image pgvector/pgvector:0.8.6-pg16 Error failed to resolve reference "docker.io/pgvector/pgvector:0.8.6-pg16": failed to authorize: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Apgvector%2Fpgvector%3Apull&service=registry.docker.io": EOF
+Error response from daemon: failed to resolve reference "docker.io/pgvector/pgvector:0.8.6-pg16": failed to authorize: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Apgvector%2Fpgvector%3Apull&service=registry.docker.io": EOF
+
+[2] 构建并启动全部服务
+
+============================================================
+[13:06:23] 构建并启动
+$ docker compose up -d --build
+------------------------------------------------------------
+ Image campusloop-minio-init Building 
+ Image campusloop-api Building 
+ Image campusloop-minio Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.49kB 0.0s done
+#1 DONE 0.0s
+
+#2 [minio internal] load build definition from Dockerfile.minio
+#2 transferring dockerfile: 2.51kB 0.0s done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 890B 0.0s done
+#3 DONE 0.0s
+
+#4 [minio-init internal] load metadata for docker.io/library/golang:1.24-alpine
+#4 ...
+
+#5 [minio-init internal] load metadata for docker.io/library/alpine:3.22
+#5 ...
+
+#6 [api internal] load metadata for docker.io/library/python:3.12-slim
+#6 ...
+
+#5 [minio-init internal] load metadata for docker.io/library/alpine:3.22
+#5 ERROR: failed to authorize: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Alibrary%2Falpine%3Apull&service=registry.docker.io": dial tcp [2a03:2880:f10e:83:face:b00c:0:25de]:443: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+#4 [minio-init internal] load metadata for docker.io/library/golang:1.24-alpine
+#4 CANCELED
+
+#6 [api internal] load metadata for docker.io/library/python:3.12-slim
+#6 CANCELED
+------
+ > [minio internal] load metadata for docker.io/library/alpine:3.22:
+------
+Dockerfile.minio:48
+
+--------------------
+
+  46 |     
+
+  47 |     # ---------- 运行阶段 ----------
+
+  48 | >>> FROM alpine:3.22
+
+  49 |     
+
+  50 |     # ca-certificates：S3/TLS 需要；curl：docker-compose 健康检查探针使用
+
+--------------------
+
+target minio-init: failed to solve: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Alibrary%2Falpine%3Apull&service=registry.docker.io": dial tcp [2a03:2880:f10e:83:face:b00c:0:25de]:443: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+
+[3] 等待健康（最长 3 分钟）
+  第 1 次检查：healthy  / 0
+  第 2 次检查：healthy  / 0
+  第 3 次检查：healthy  / 0
+  第 4 次检查：healthy  / 0
+  第 5 次检查：healthy  / 0
+  第 6 次检查：healthy  / 0
+  第 7 次检查：healthy  / 0
+  第 8 次检查：healthy  / 0
+  第 9 次检查：healthy  / 0
+  第 10 次检查：healthy  / 0
+  第 11 次检查：healthy  / 0
+  第 12 次检查：healthy  / 0
+  第 13 次检查：healthy  / 0
+  第 14 次检查：healthy  / 0
+  第 15 次检查：healthy  / 0
+  第 16 次检查：healthy  / 0
+  第 17 次检查：healthy  / 0
+  第 18 次检查：healthy  / 0
+
+============================================================
+[13:10:13] 服务状态一览
+$ docker compose ps
+------------------------------------------------------------
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+
+[4] 健康接口
+
+============================================================
+[13:10:14] curl /health
+$ curl -sS http://localhost:8000/health
+------------------------------------------------------------
+curl: (7) Failed to connect to localhost:8000 after 0 ms: Could not connect to server
+
+[5] 迁移与种子（api 启动已自动执行过，此处独立复验幂等）
+
+============================================================
+[13:10:14] 当前迁移版本
+$ docker compose exec -T api alembic current
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[13:10:15] 种子幂等两遍
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+service "api" is not running
+
+[6] 回滚 -> 再升级 -> 种子重建（BP2-09 验收口径）
+
+============================================================
+[13:10:15] 降级到 base
+$ docker compose exec -T api alembic downgrade base
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[13:10:16] 重新升级到 head
+$ docker compose exec -T api alembic upgrade head
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[13:10:17] 种子重建后幂等复验
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+service "api" is not running
+
+[7] MinIO 双桶验证
+
+============================================================
+[13:10:17] minio-init 初始化日志
+$ docker compose logs minio-init
+------------------------------------------------------------
+
+============================================================
+[13:10:18] MinIO 存活探针(200无输出即活)
+$ curl -sS -o /dev/null -w %{http_code}\n http://localhost:9000/minio/health/live
+------------------------------------------------------------
+curl: (7) Failed to connect to localhost:9000 after 22 ms: Could not connect to server
+000
+
+[8] api 启动日志抽样（迁移+种子自动执行的证据）
+
+============================================================
+[13:10:18] api 日志尾部
+$ docker compose logs --tail 40 api
+------------------------------------------------------------
+
+============================================================
+============================================================
+汇总：存在失败步骤 ❌（把本日志发给 M9 定位）
+结束时间：2026-10-12 13:10:18
+日志文件：clean-env-verify-20261012-130612.log（请勿删除，随证据归档）

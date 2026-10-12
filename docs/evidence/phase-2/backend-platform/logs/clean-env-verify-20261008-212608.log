@@ -1,0 +1,198 @@
+CampusLoop 干净环境验证日志
+开始时间：2026-10-08 21:26:08
+[0] 环境信息（uname / docker 版本 / 分支提交）
+
+============================================================
+[21:26:08] 系统信息
+$ uname -a
+------------------------------------------------------------
+Linux rockyluk-TX-Gaming-FA608FM 7.0.0-38-generic #38-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 09:10:14 UTC 2026 x86_64 GNU/Linux
+
+============================================================
+[21:26:08] Docker 版本
+$ docker --version
+------------------------------------------------------------
+Docker version 29.8.2, build 7fc2dff
+
+============================================================
+[21:26:08] Compose 版本
+$ docker compose version
+------------------------------------------------------------
+Docker Compose version v5.6.0
+
+============================================================
+[21:26:09] 当前分支
+$ git rev-parse --abbrev-ref HEAD
+------------------------------------------------------------
+task/m9-p2-runtime-foundation
+
+============================================================
+[21:26:09] 当前提交
+$ git rev-parse --short HEAD
+------------------------------------------------------------
+2499d9b
+
+============================================================
+[21:26:09] 工作区是否干净
+$ git status --porcelain
+------------------------------------------------------------
+?? clean-env-verify.sh
+
+[1] 拉取全部固定版本镜像（干净环境关键步骤：不允许本地已有缓存的说法，
+    如需严格模拟全新机器，可先 docker rmi 相关镜像或换机器执行）
+
+============================================================
+[21:26:09] 拉取镜像
+$ docker compose pull
+------------------------------------------------------------
+ api Skipped No image to be pulled
+ Image pgvector/pgvector:0.8.6-pg16 Pulling 
+ Image minio/mc:RELEASE.2025-08-13T08-35-41Z Pulling 
+ Image redis:7.4-alpine Pulling 
+ Image minio/minio:RELEASE.2025-10-15T17-29-55Z Pulling 
+ Image minio/minio:RELEASE.2025-10-15T17-29-55Z Error error from registry: denied
+denied
+ Image minio/mc:RELEASE.2025-08-13T08-35-41Z Interrupted 
+Error response from daemon: error from registry: denied
+denied
+Error response from daemon: error from registry: denied
+denied
+Error response from daemon: error from registry: denied
+denied
+Error response from daemon: error from registry: denied
+denied
+
+[2] 构建并启动全部服务
+
+============================================================
+[21:26:28] 构建并启动
+$ docker compose up -d --build
+------------------------------------------------------------
+ Image pgvector/pgvector:0.8.6-pg16 Pulling 
+ Image minio/mc:RELEASE.2025-08-13T08-35-41Z Pulling 
+ Image redis:7.4-alpine Pulling 
+ Image minio/minio:RELEASE.2025-10-15T17-29-55Z Pulling 
+ 4eb14bae0e1d Pulling fs layer 0B
+ 7eb50503c2b0 Pulling fs layer 0B
+ 9928009b15c8 Pulling fs layer 0B
+ 16333ee0c00f Pulling fs layer 0B
+ 1522f9c6f453 Pulling fs layer 0B
+ 83234986c742 Pulling fs layer 0B
+ 4f4fb700ef54 Pulling fs layer 0B
+ 03995e31cd48 Pulling fs layer 0B
+ efb5baa83a6e Pulling fs layer 0B
+ 039e6f9f9752 Pulling fs layer 0B
+ f4b681e14ff8 Pulling fs layer 0B
+ 5471e06bfc52 Pulling fs layer 0B
+ d100bd361c59 Pulling fs layer 0B
+ c7449a7c51b4 Pulling fs layer 0B
+ ff16cf9d59a9 Pulling fs layer 0B
+ 8c8ff1de0b18 Pulling fs layer 0B
+ 32a162df1425 Pulling fs layer 0B
+ 537cf577f508 Pulling fs layer 0B
+ a8a8272ab698 Pulling fs layer 0B
+ 61c973a13167 Pulling fs layer 0B
+ a372a0a1082a Pulling fs layer 0B
+ e7c73af1eeb3 Pulling fs layer 0B
+ 8654846d99fb Pulling fs layer 0B
+ Image minio/minio:RELEASE.2025-10-15T17-29-55Z Error error from registry: denied
+denied
+ Image minio/mc:RELEASE.2025-08-13T08-35-41Z Interrupted 
+Error response from daemon: error from registry: denied
+denied
+Error response from daemon: No such image: minio/mc:RELEASE.2025-08-13T08-35-41Z
+
+[3] 等待健康（最长 3 分钟）
+  第 1 次检查：healthy  / 0
+  第 2 次检查：healthy  / 0
+  第 3 次检查：healthy  / 0
+  第 4 次检查：healthy  / 0
+  第 5 次检查：healthy  / 0
+  第 6 次检查：healthy  / 0
+  第 7 次检查：healthy  / 0
+  第 8 次检查：healthy  / 0
+  第 9 次检查：healthy  / 0
+  第 10 次检查：healthy  / 0
+  第 11 次检查：healthy  / 0
+  第 12 次检查：healthy  / 0
+  第 13 次检查：healthy  / 0
+  第 14 次检查：healthy  / 0
+  第 15 次检查：healthy  / 0
+  第 16 次检查：healthy  / 0
+  第 17 次检查：healthy  / 0
+  第 18 次检查：healthy  / 0
+
+============================================================
+[21:29:47] 服务状态一览
+$ docker compose ps
+------------------------------------------------------------
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+
+[4] 健康接口
+
+============================================================
+[21:29:47] curl /health
+$ curl -sS http://localhost:8000/health
+------------------------------------------------------------
+curl: (7) Failed to connect to localhost:8000 after 0 ms: Could not connect to server
+
+[5] 迁移与种子（api 启动已自动执行过，此处独立复验幂等）
+
+============================================================
+[21:29:47] 当前迁移版本
+$ docker compose exec -T api alembic current
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[21:29:47] 种子幂等两遍
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+service "api" is not running
+
+[6] 回滚 -> 再升级 -> 种子重建（BP2-09 验收口径）
+
+============================================================
+[21:29:47] 降级到 base
+$ docker compose exec -T api alembic downgrade base
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[21:29:47] 重新升级到 head
+$ docker compose exec -T api alembic upgrade head
+------------------------------------------------------------
+service "api" is not running
+
+============================================================
+[21:29:47] 种子重建后幂等复验
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+service "api" is not running
+
+[7] MinIO 双桶验证
+
+============================================================
+[21:29:47] minio-init 初始化日志
+$ docker compose logs minio-init
+------------------------------------------------------------
+
+============================================================
+[21:29:47] MinIO 存活探针(200无输出即活)
+$ curl -sS -o /dev/null -w %{http_code}\n http://localhost:9000/minio/health/live
+------------------------------------------------------------
+curl: (7) Failed to connect to localhost:9000 after 0 ms: Could not connect to server
+000
+
+[8] api 启动日志抽样（迁移+种子自动执行的证据）
+
+============================================================
+[21:29:48] api 日志尾部
+$ docker compose logs --tail 40 api
+------------------------------------------------------------
+
+============================================================
+============================================================
+汇总：存在失败步骤 ❌（把本日志发给 M9 定位）
+结束时间：2026-10-08 21:29:48
+日志文件：clean-env-verify-20261008-212608.log（请勿删除，随证据归档）

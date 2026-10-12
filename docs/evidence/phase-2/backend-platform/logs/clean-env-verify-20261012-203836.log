@@ -1,0 +1,700 @@
+CampusLoop 干净环境验证日志
+开始时间：2026-10-12 20:38:36
+[0] 环境信息（uname / docker 版本 / 分支提交）
+
+============================================================
+[20:38:36] 系统信息
+$ uname -a
+------------------------------------------------------------
+MINGW64_NT-10.0-26200 Henry 3.6.10-5a1665c8.x86_64 2026-09-28 10:40 UTC x86_64 Msys
+
+============================================================
+[20:38:36] Docker 版本
+$ docker --version
+------------------------------------------------------------
+Docker version 29.8.2, build 7fc2dff
+
+============================================================
+[20:38:37] Compose 版本
+$ docker compose version
+------------------------------------------------------------
+Docker Compose version v5.5.1
+
+============================================================
+[20:38:37] 当前分支
+$ git rev-parse --abbrev-ref HEAD
+------------------------------------------------------------
+task/m9-p2-runtime-foundation
+
+============================================================
+[20:38:38] 当前提交
+$ git rev-parse --short HEAD
+------------------------------------------------------------
+1f46ecc
+
+============================================================
+[20:38:38] 工作区是否干净
+$ git status --porcelain
+------------------------------------------------------------
+?? clean-env-verify.sh
+
+[1] 拉取全部固定版本镜像（干净环境关键步骤：不允许本地已有缓存的说法，
+    如需严格模拟全新机器，可先 docker rmi 相关镜像或换机器执行）
+
+============================================================
+[20:38:38] 拉取镜像
+$ docker compose pull
+------------------------------------------------------------
+ minio Skipped No image to be pulled
+ minio-init Skipped No image to be pulled
+ api Skipped No image to be pulled
+ Image redis:7.4-alpine Pulling 
+ Image pgvector/pgvector:0.8.6-pg16 Pulling 
+ Image pgvector/pgvector:0.8.6-pg16 Pulled 
+ Image redis:7.4-alpine Pulled 
+
+[2] 构建并启动全部服务
+
+============================================================
+[20:38:41] 构建并启动
+$ docker compose up -d --build
+------------------------------------------------------------
+ Image campusloop-minio Building 
+ Image campusloop-minio-init Building 
+ Image campusloop-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.49kB 0.0s done
+#1 DONE 0.0s
+
+#2 [minio-init internal] load build definition from Dockerfile.minio
+#2 DONE 0.0s
+
+#2 [minio internal] load build definition from Dockerfile.minio
+#2 transferring dockerfile: 2.99kB done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 890B done
+#3 DONE 0.0s
+
+#4 [minio internal] load metadata for docker.io/library/alpine:3.22
+#4 DONE 0.5s
+
+#5 [minio internal] load metadata for docker.io/library/golang:1.24-alpine
+#5 DONE 0.5s
+
+#6 [api internal] load metadata for docker.io/library/python:3.12-slim
+#6 DONE 0.4s
+
+#7 [api internal] load .dockerignore
+#7 transferring context: 2B done
+#7 DONE 0.0s
+
+#8 [minio internal] load .dockerignore
+#8 transferring context: 2B done
+#8 DONE 0.0s
+
+#9 [api 1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#9 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+#9 DONE 0.0s
+
+#10 [minio stage-1 1/4] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+#10 resolve docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8 0.0s done
+#10 DONE 0.0s
+
+#11 [minio stage-1 2/4] RUN sed -i 's@dl-cdn.alpinelinux.org@mirrors.tuna.tsinghua.edu.cn@g' /etc/apk/repositories  && apk add --no-cache ca-certificates curl
+#11 CACHED
+
+#12 [minio build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+#12 resolve docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191 0.0s done
+#12 DONE 0.0s
+
+#13 [minio-init build 2/5] RUN sed -i 's@dl-cdn.alpinelinux.org@mirrors.tuna.tsinghua.edu.cn@g' /etc/apk/repositories  && apk add --no-cache git
+#13 CACHED
+
+#14 [minio-init build 3/5] RUN git clone -q --depth 1 -b RELEASE.2025-10-15T17-29-55Z https://github.com/minio/minio /src/minio  && git clone -q --depth 1 -b RELEASE.2025-08-13T08-35-41Z https://github.com/minio/mc /src/mc
+#14 CACHED
+
+#15 [api internal] load build context
+#15 transferring context: 1.73kB done
+#15 DONE 0.0s
+
+#16 [api 4/7] COPY requirements.txt .
+#16 CACHED
+
+#17 [api 2/7] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#17 CACHED
+
+#18 [api 6/7] COPY . .
+#18 CACHED
+
+#19 [api 3/7] WORKDIR /srv/campusloop
+#19 CACHED
+
+#20 [api 5/7] RUN pip install --no-cache-dir -r requirements.txt
+#20 CACHED
+
+#21 [api 7/7] RUN useradd --create-home appuser && chown -R appuser:appuser /srv/campusloop
+#21 CACHED
+
+#22 [api] exporting to image
+#22 exporting layers done
+#22 exporting manifest sha256:27063027cff2b20898ff882a17f3b4d08411adf4004b05b9aa26f8255baf172e done
+#22 exporting config sha256:0390618f482347b00e722f03fe658eb539c7ae638d4d3b4d71700c718745d79e done
+#22 exporting attestation manifest sha256:5767c35471781c90f65a73a6652e99fec536153d4ed69e7d3288f7c8d9c10c4a
+#22 exporting attestation manifest sha256:5767c35471781c90f65a73a6652e99fec536153d4ed69e7d3288f7c8d9c10c4a 0.0s done
+#22 exporting manifest list sha256:31793c6898da56467aa324bc887459f5e059c277f79ad76af1bc738e6405ca0f 0.0s done
+#22 naming to docker.io/library/campusloop-api:latest done
+#22 unpacking to docker.io/library/campusloop-api:latest done
+#22 DONE 0.1s
+
+#23 [api] resolving provenance for metadata file
+#23 DONE 0.0s
+
+#24 [minio build 4/5] RUN cd /src/minio  && MINIO_RELEASE=RELEASE CGO_ENABLED=0     go build -trimpath -tags kqueue -o /out/minio     -ldflags="$(go run buildscripts/gen-ldflags.go 2025-10-15T17:29:55Z)"
+#24 2.645 go: downloading cloud.google.com/go/storage v1.52.0
+#24 2.645 go: downloading github.com/cheggaaa/pb v1.0.29
+#24 2.645 go: downloading github.com/coreos/go-oidc/v3 v3.14.1
+#24 2.645 go: downloading github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.9.0
+#24 2.645 go: downloading github.com/coreos/go-systemd/v22 v22.5.0
+#24 2.645 go: downloading github.com/Azure/azure-sdk-for-go/sdk/azcore v1.18.0
+#24 2.645 go: downloading github.com/dchest/siphash v1.2.3
+#24 2.645 go: downloading github.com/Azure/azure-sdk-for-go/sdk/storage/azblob v1.6.1
+#24 2.645 go: downloading github.com/cespare/xxhash/v2 v2.3.0
+#24 2.645 go: downloading github.com/cosnicolaou/pbzip2 v1.0.5
+#24 2.646 go: downloading github.com/dustin/go-humanize v1.0.1
+#24 2.647 go: downloading github.com/fatih/color v1.18.0
+#24 2.648 go: downloading github.com/felixge/fgprof v0.9.5
+#24 2.651 go: downloading github.com/go-openapi/loads v0.22.0
+#24 2.651 go: downloading github.com/golang-jwt/jwt/v4 v4.5.2
+#24 2.652 go: downloading github.com/google/uuid v1.6.0
+#24 2.653 go: downloading github.com/inconshreveable/mousetrap v1.1.0
+#24 2.655 go: downloading github.com/json-iterator/go v1.1.12
+#24 2.655 go: downloading github.com/klauspost/compress v1.18.0
+#24 3.928 go: downloading github.com/klauspost/filepathx v1.1.1
+#24 3.928 go: downloading github.com/klauspost/pgzip v1.2.6
+#24 3.929 go: downloading github.com/klauspost/readahead v1.4.0
+#24 4.277 go: downloading cloud.google.com/go v0.120.1
+#24 5.487 go: downloading github.com/lithammer/shortuuid/v4 v4.2.0
+#24 5.487 go: downloading github.com/minio/cli v1.24.2
+#24 5.487 go: downloading github.com/minio/console v1.7.7-0.20250905210349-2017f33b26e1
+#24 5.487 go: downloading github.com/klauspost/reedsolomon v1.12.4
+#24 5.487 go: downloading github.com/miekg/dns v1.1.65
+#24 5.926 go: downloading github.com/minio/dnscache v0.1.1
+#24 5.926 go: downloading github.com/minio/dperf v0.6.3
+#24 5.927 go: downloading github.com/minio/kms-go/kes v0.3.1
+#24 5.927 go: downloading github.com/minio/highwayhash v1.0.3
+#24 5.950 go: downloading github.com/minio/madmin-go/v3 v3.0.109
+#24 7.439 go: downloading github.com/minio/minio-go/v7 v7.0.91
+#24 10.57 go: downloading github.com/minio/mux v1.9.2
+#24 10.57 go: downloading github.com/minio/pkg/v3 v3.1.3
+#24 15.69 go: downloading github.com/minio/selfupdate v0.6.0
+#24 15.69 go: downloading github.com/minio/sio v0.4.1
+#24 15.69 go: downloading github.com/mitchellh/go-homedir v1.1.0
+#24 15.69 go: downloading github.com/minio/zipindex v0.4.0
+#24 15.69 go: downloading github.com/pierrec/lz4/v4 v4.1.22
+#24 15.69 go: downloading github.com/minio/xxml v0.0.3
+#24 15.69 go: downloading github.com/philhofer/fwd v1.2.0
+#24 15.69 go: downloading github.com/pkg/errors v0.9.1
+#24 15.69 go: downloading github.com/pkg/sftp v1.13.9
+#24 15.69 go: downloading github.com/pkg/xattr v0.4.10
+#24 15.69 go: downloading github.com/prometheus/client_golang v1.22.0
+#24 15.69 go: downloading github.com/prometheus/client_model v0.6.2
+#24 15.69 go: downloading github.com/prometheus/common v0.63.0
+#24 19.99 go: downloading github.com/prometheus/procfs v0.16.1
+#24 19.99 go: downloading github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9
+#24 19.99 go: downloading github.com/puzpuzpuz/xsync/v3 v3.5.1
+#24 19.99 go: downloading github.com/rs/cors v1.11.1
+#24 20.12 go: downloading github.com/secure-io/sio-go v0.3.1
+#24 20.12 go: downloading go.etcd.io/etcd/api/v3 v3.5.21
+#24 20.12 go: downloading go.etcd.io/etcd/client/v3 v3.5.21
+#24 20.12 go: downloading github.com/shirou/gopsutil/v3 v3.24.5
+#24 20.12 go: downloading github.com/valyala/bytebufferpool v1.0.0
+#24 20.12 go: downloading goftp.io/server/v2 v2.0.1
+#24 20.12 go: downloading github.com/tinylib/msgp v1.4.0
+#24 20.12 go: downloading go.uber.org/atomic v1.11.0
+#24 20.12 go: downloading golang.org/x/crypto v0.37.0
+#24 20.12 go: downloading github.com/zeebo/xxh3 v1.0.2
+#24 20.78 go: downloading golang.org/x/oauth2 v0.29.0
+#24 24.47 go: downloading golang.org/x/sync v0.13.0
+#24 24.47 go: downloading golang.org/x/sys v0.32.0
+#24 24.50 go: downloading golang.org/x/term v0.31.0
+#24 24.53 go: downloading google.golang.org/api v0.230.0
+#24 24.80 go: downloading gopkg.in/yaml.v2 v2.4.0
+#24 24.80 go: downloading gopkg.in/yaml.v3 v3.0.1
+#24 24.85 go: downloading github.com/mattn/go-isatty v0.0.20
+#24 24.85 go: downloading github.com/mattn/go-colorable v0.1.14
+#24 24.86 go: downloading github.com/go-jose/go-jose/v4 v4.1.0
+#24 24.86 go: downloading github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+#24 24.86 go: downloading github.com/modern-go/reflect2 v1.0.2
+#24 24.87 go: downloading github.com/mattn/go-runewidth v0.0.16
+#24 24.90 go: downloading github.com/google/pprof v0.0.0-20250422154841-e1f9c1950416
+#24 25.00 go: downloading github.com/go-openapi/analysis v0.23.0
+#24 25.00 go: downloading github.com/go-openapi/spec v0.21.0
+#24 25.70 go: downloading github.com/go-openapi/swag v0.23.1
+#24 29.51 go: downloading github.com/AzureAD/microsoft-authentication-library-for-go v1.4.2
+#24 29.51 go: downloading github.com/Azure/azure-sdk-for-go/sdk/internal v1.11.1
+#24 29.51 go: downloading cloud.google.com/go/compute/metadata v0.6.0
+#24 29.51 go: downloading cloud.google.com/go/iam v1.5.2
+#24 31.92 go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric v0.51.0
+#24 31.92 go: downloading github.com/googleapis/gax-go/v2 v2.14.1
+#24 32.09 go: downloading go.opentelemetry.io/contrib/detectors/gcp v1.35.0
+#24 32.33 go: downloading go.opentelemetry.io/otel v1.35.0
+#24 35.40 go: downloading go.opentelemetry.io/otel/sdk/metric v1.35.0
+#24 35.40 go: downloading go.opentelemetry.io/otel/sdk v1.35.0
+#24 38.69 go: downloading go.opentelemetry.io/otel/trace v1.35.0
+#24 38.82 go: downloading google.golang.org/genproto v0.0.0-20250422160041-2d3770c4ea7f
+#24 38.89 go: downloading google.golang.org/grpc v1.72.0
+#24 45.05 go: downloading google.golang.org/protobuf v1.36.6
+#24 48.25 go: downloading github.com/ncw/directio v1.0.5
+#24 48.25 go: downloading aead.dev/mem v0.2.0
+#24 48.25 go: downloading github.com/prometheus/prom2json v1.4.2
+#24 48.25 go: downloading github.com/safchain/ethtool v0.5.10
+#24 48.25 go: downloading golang.org/x/net v0.39.0
+#24 48.26 go: downloading golang.org/x/time v0.11.0
+#24 48.26 go: downloading github.com/beevik/ntp v1.4.3
+#24 50.62 go: downloading go.uber.org/zap v1.27.0
+#24 50.64 go: downloading github.com/go-ldap/ldap/v3 v3.4.11
+#24 50.64 go: downloading github.com/rabbitmq/amqp091-go v1.10.0
+#24 50.70 go: downloading github.com/IBM/sarama v1.45.1
+#24 50.70 go: downloading github.com/eclipse/paho.mqtt.golang v1.5.0
+#24 50.70 go: downloading github.com/elastic/go-elasticsearch/v7 v7.17.10
+#24 50.70 go: downloading github.com/go-sql-driver/mysql v1.9.2
+#24 50.70 go: downloading github.com/gomodule/redigo v1.9.2
+#24 52.46 go: downloading github.com/lib/pq v1.10.9
+#24 52.46 go: downloading github.com/nats-io/nats.go v1.41.2
+#24 52.47 go: downloading github.com/nats-io/stan.go v0.10.4
+#24 52.48 go: downloading github.com/nsqio/go-nsq v1.1.0
+#24 52.57 go: downloading github.com/xdg/scram v1.0.5
+#24 52.62 go: downloading github.com/buger/jsonparser v1.1.1
+#24 53.02 go: downloading aead.dev/mtls v0.2.1
+#24 53.38 go: downloading github.com/minio/kms-go/kms v0.5.1-0.20250225090116-4e64ce8d0f35
+#24 53.48 go: downloading github.com/gobwas/ws v1.4.0
+#24 53.70 go: downloading github.com/minio/simdjson-go v0.4.5
+#24 53.71 go: downloading github.com/klauspost/cpuid/v2 v2.2.10
+#24 53.71 go: downloading github.com/go-ini/ini v1.67.0
+#24 53.75 go: downloading github.com/goccy/go-json v0.10.5
+#24 53.78 go: downloading github.com/minio/crc64nvme v1.0.1
+#24 53.95 go: downloading github.com/minio/md5-simd v1.1.2
+#24 57.47 go: downloading github.com/rs/xid v1.6.0
+#24 57.50 go: downloading github.com/rjeczalik/notify v0.9.3
+#24 57.50 go: downloading github.com/lestrrat-go/jwx/v2 v2.1.4
+#24 57.61 go: downloading github.com/fatih/structs v1.1.0
+#24 57.61 go: downloading github.com/go-openapi/runtime v0.28.0
+#24 57.61 go: downloading github.com/go-openapi/errors v0.22.1
+#24 57.62 go: downloading github.com/go-openapi/strfmt v0.23.0
+#24 57.62 go: downloading github.com/jessevdk/go-flags v1.6.1
+#24 57.62 go: downloading github.com/minio/mc v0.0.0-20250313080218-cf909e1063a9
+#24 57.62 go: downloading github.com/minio/websocket v1.6.0
+#24 57.99 go: downloading github.com/unrolled/secure v1.17.0
+#24 58.41 go: downloading github.com/kr/fs v0.1.0
+#24 58.42 go: downloading aead.dev/minisign v0.3.0
+#24 58.42 go: downloading github.com/beorn7/perks v1.0.1
+#24 58.42 go: downloading github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
+#24 58.42 go: downloading github.com/gogo/protobuf v1.3.2
+#24 58.42 go: downloading github.com/golang/protobuf v1.5.4
+#24 58.42 go: downloading github.com/tklauser/go-sysconf v0.3.15
+#24 58.42 go: downloading go.etcd.io/etcd/client/pkg/v3 v3.5.21
+#24 58.44 go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20250422160041-2d3770c4ea7f
+#24 58.44 go: downloading google.golang.org/genproto/googleapis/rpc v0.0.0-20250422160041-2d3770c4ea7f
+#24 58.44 go: downloading github.com/rivo/uniseg v0.4.7
+#24 59.77 go: downloading github.com/go-openapi/jsonpointer v0.21.1
+#24 59.77 go: downloading github.com/go-openapi/jsonreference v0.21.0
+#24 59.77 go: downloading github.com/mailru/easyjson v0.9.0
+#24 59.77 go: downloading github.com/kylelemons/godebug v1.1.0
+#24 59.77 go: downloading github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
+#24 59.77 go: downloading cloud.google.com/go/monitoring v1.24.2
+#24 59.77 go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.51.0
+#24 59.77 go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp v1.27.0
+#24 59.77 go: downloading github.com/go-logr/logr v1.4.2
+#24 59.77 go: downloading go.opentelemetry.io/otel/metric v1.35.0
+#24 59.78 go: downloading github.com/matttproud/golang_protobuf_extensions v1.0.4
+#24 59.78 go: downloading go.uber.org/multierr v1.11.0
+#24 59.78 go: downloading github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358
+#24 59.78 go: downloading github.com/go-asn1-ber/asn1-ber v1.5.8-0.20250403174932-29230038a667
+#24 59.78 go: downloading github.com/gorilla/websocket v1.5.3
+#24 59.78 go: downloading github.com/minio/csvparser v1.0.0
+#24 59.78 go: downloading github.com/fraugster/parquet-go v0.12.0
+#24 59.78 go: downloading github.com/alecthomas/participle v0.7.1
+#24 60.32 go: downloading github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
+#24 60.32 go: downloading github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3
+#24 60.32 go: downloading github.com/eapache/go-resiliency v1.7.0
+#24 60.34 go: downloading github.com/eapache/queue v1.1.0
+#24 60.34 go: downloading github.com/hashicorp/go-multierror v1.1.1
+#24 60.34 go: downloading github.com/jcmturner/gokrb5/v8 v8.4.4
+#24 60.34 go: downloading github.com/jcmturner/gofork v1.7.6
+#24 60.35 go: downloading filippo.io/edwards25519 v1.1.0
+#24 60.36 go: downloading github.com/nats-io/nuid v1.0.1
+#24 60.39 go: downloading github.com/nats-io/nkeys v0.4.11
+#24 60.40 go: downloading github.com/golang/snappy v1.0.0
+#24 60.40 go: downloading github.com/xdg/stringprep v1.0.3
+#24 60.40 go: downloading github.com/gobwas/pool v0.2.1
+#24 60.40 go: downloading github.com/gobwas/httphead v0.1.0
+#24 60.56 go: downloading github.com/go-openapi/validate v0.24.0
+#24 60.56 go: downloading github.com/lestrrat-go/option v1.0.1
+#24 60.56 go: downloading github.com/lestrrat-go/blackmagic v1.0.2
+#24 60.56 go: downloading github.com/lestrrat-go/httprc v1.0.6
+#24 60.58 go: downloading github.com/lestrrat-go/iter v1.0.2
+#24 60.59 go: downloading github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
+#24 60.62 go: downloading github.com/mitchellh/mapstructure v1.5.0
+#24 60.95 go: downloading github.com/oklog/ulid v1.3.1
+#24 60.95 go: downloading go.mongodb.org/mongo-driver v1.17.3
+#24 60.99 go: downloading github.com/coreos/go-semver v0.3.1
+#24 62.02 go: downloading github.com/docker/go-units v0.5.0
+#24 62.05 go: downloading github.com/charmbracelet/bubbles v0.20.0
+#24 62.88 go: downloading github.com/charmbracelet/bubbletea v1.3.4
+#24 62.88 go: downloading github.com/charmbracelet/lipgloss v1.0.0
+#24 62.90 go: downloading github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
+#24 62.90 go: downloading github.com/jedib0t/go-pretty/v6 v6.6.7
+#24 62.90 go: downloading github.com/mattn/go-ieproxy v0.0.12
+#24 62.90 go: downloading github.com/minio/colorjson v1.0.8
+#24 62.91 go: downloading github.com/muesli/reflow v0.3.0
+#24 62.91 go: downloading github.com/muesli/termenv v0.16.0
+#24 62.91 go: downloading github.com/minio/filepath v1.0.0
+#24 62.91 go: downloading github.com/olekukonko/tablewriter v0.0.5
+#24 63.84 go: downloading github.com/posener/complete v1.2.3
+#24 64.43 go: downloading github.com/tidwall/gjson v1.18.0
+#24 64.43 go: downloading golang.org/x/text v0.24.0
+#24 64.43 go: downloading github.com/golang-jwt/jwt/v5 v5.2.2
+#24 64.43 go: downloading github.com/tklauser/numcpus v0.10.0
+#24 64.43 go: downloading github.com/go-logr/stdr v1.2.2
+#24 64.43 go: downloading go.opentelemetry.io/auto/sdk v1.1.0
+#24 64.43 go: downloading github.com/vbauerster/mpb/v8 v8.9.3
+#24 64.43 go: downloading cloud.google.com/go/auth v0.16.0
+#24 64.43 go: downloading github.com/envoyproxy/go-control-plane/envoy v1.32.4
+#24 64.43 go: downloading github.com/prometheus/prometheus v0.303.0
+#24 64.43 go: downloading cloud.google.com/go/auth/oauth2adapt v0.2.8
+#24 64.43 go: downloading go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.60.0
+#24 64.46 go: downloading go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.60.0
+#24 64.46 go: downloading github.com/josharian/intern v1.0.0
+#24 64.46 go: downloading github.com/apache/thrift v0.21.0
+#24 66.59 go: downloading github.com/hashicorp/errwrap v1.1.0
+#24 69.62 go: downloading github.com/lestrrat-go/httpcc v1.0.1
+#24 71.06 go: downloading github.com/jcmturner/dnsutils/v2 v2.0.0
+#24 71.06 go: downloading github.com/hashicorp/go-uuid v1.0.3
+#24 71.06 go: downloading github.com/juju/ratelimit v1.0.2
+#24 71.06 go: downloading github.com/charmbracelet/x/ansi v0.8.0
+#24 71.06 go: downloading github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6
+#24 71.06 go: downloading github.com/muesli/cancelreader v0.2.2
+#24 71.06 go: downloading github.com/charmbracelet/x/term v0.2.1
+#24 71.06 go: downloading github.com/google/s2a-go v0.1.9
+#24 71.06 go: downloading github.com/spiffe/go-spiffe/v2 v2.5.0
+#24 74.11 go: downloading github.com/cncf/xds/go v0.0.0-20250326154945-ae57f3c0d45f
+#24 74.11 go: downloading github.com/googleapis/enterprise-certificate-proxy v0.3.6
+#24 74.11 go: downloading github.com/aymanbagabas/go-osc52/v2 v2.0.1
+#24 74.11 go: downloading github.com/lucasb-eyer/go-colorful v1.2.0
+#24 74.11 go: downloading github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d
+#24 74.11 go: downloading github.com/tidwall/match v1.1.1
+#24 74.38 go: downloading github.com/VividCortex/ewma v1.2.0
+#24 74.38 go: downloading github.com/tidwall/pretty v1.2.1
+#24 74.39 go: downloading github.com/jcmturner/rpc/v2 v2.0.3
+#24 74.39 go: downloading github.com/felixge/httpsnoop v1.0.4
+#24 74.39 go: downloading github.com/envoyproxy/protoc-gen-validate v1.2.1
+#24 74.40 go: downloading github.com/jcmturner/aescts/v2 v2.0.0
+#24 74.97 go: downloading github.com/zeebo/errs v1.4.0
+#24 74.97 go: downloading cel.dev/expr v0.23.1
+#24 DONE 121.7s
+
+#24 [minio-init build 4/5] RUN cd /src/minio  && MINIO_RELEASE=RELEASE CGO_ENABLED=0     go build -trimpath -tags kqueue -o /out/minio     -ldflags="$(go run buildscripts/gen-ldflags.go 2025-10-15T17:29:55Z)"
+#24 DONE 121.7s
+
+#25 [minio-init build 5/5] RUN cd /src/mc  && MC_RELEASE=RELEASE CGO_ENABLED=0     go build -trimpath -o /out/mc     -ldflags="$(go run buildscripts/gen-ldflags.go 2025-08-13T08:35:41Z)"
+#25 0.462 go: downloading github.com/minio/pkg/v3 v3.1.0
+#25 0.536 go: downloading github.com/minio/madmin-go/v3 v3.0.107-0.20250415152934-4b504b82db63
+#25 0.536 go: downloading github.com/minio/minio-go/v7 v7.0.90
+#25 1.150 go: downloading github.com/prometheus/client_golang v1.21.1
+#25 1.150 go: downloading github.com/prometheus/procfs v0.16.0
+#25 1.150 go: downloading golang.org/x/net v0.42.0
+#25 1.150 go: downloading golang.org/x/term v0.33.0
+#25 1.150 go: downloading golang.org/x/text v0.27.0
+#25 1.151 go: downloading golang.org/x/sys v0.34.0
+#25 1.155 go: downloading golang.org/x/sync v0.16.0
+#25 2.365 go: downloading github.com/tinylib/msgp v1.2.5
+#25 2.365 go: downloading golang.org/x/crypto v0.40.0
+#25 2.367 go: downloading go.etcd.io/etcd/client/v3 v3.5.19
+#25 5.243 go: downloading go.etcd.io/etcd/api/v3 v3.5.19
+#25 5.243 go: downloading go.etcd.io/etcd/client/pkg/v3 v3.5.19
+#25 5.243 go: downloading google.golang.org/grpc v1.71.0
+#25 6.334 go: downloading github.com/philhofer/fwd v1.1.3-0.20240916144458-20a13a1f6b7c
+#25 6.334 go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20250311173030-29e43e6258d7
+#25 7.157 go: downloading google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb
+#25 DONE 14.7s
+
+#25 [minio build 5/5] RUN cd /src/mc  && MC_RELEASE=RELEASE CGO_ENABLED=0     go build -trimpath -o /out/mc     -ldflags="$(go run buildscripts/gen-ldflags.go 2025-08-13T08:35:41Z)"
+#25 DONE 14.7s
+
+#26 [minio stage-1 3/4] COPY --from=build /out/minio /usr/bin/minio
+#26 DONE 0.1s
+
+#26 [minio-init stage-1 3/4] COPY --from=build /out/minio /usr/bin/minio
+#26 DONE 0.1s
+
+#27 [minio stage-1 4/4] COPY --from=build /out/mc /usr/bin/mc
+#27 DONE 0.1s
+
+#28 [minio-init] exporting to image
+#28 exporting layers
+#28 exporting layers 3.1s done
+#28 exporting manifest sha256:2c2756db4f08d5f3d004b591dfefaab5884d89db640b03342acc1f60ddb3d28b 0.0s done
+#28 exporting config sha256:b3ff842de9701d368f486b0c18c9b2dc25aa93ff0904956aa5edaf3f558faf87 0.0s done
+#28 exporting attestation manifest sha256:71f12f1e526c4c534c08e88379d6eacbb07d2f7d734f1a42c4772a43d4108d70 0.0s done
+#28 exporting manifest list sha256:95f6b95c184fead58b7021d2e7e8dca52d9b024ba10d0dee04aa80c231fc8ff0 0.0s done
+#28 naming to docker.io/library/campusloop-minio-init:latest done
+#28 unpacking to docker.io/library/campusloop-minio-init:latest
+#28 unpacking to docker.io/library/campusloop-minio-init:latest 0.6s done
+#28 DONE 3.8s
+
+#29 [minio] exporting to image
+#29 exporting layers 3.1s done
+#29 exporting manifest sha256:4eab88fa08e2725ff729cbcc4ce48bdc2e796bc5b1743213e9b02a639778c1ff 0.0s done
+#29 exporting config sha256:a8a544c99972a61694df5dc5227831d96b600d30c41b8f6bf8117943643d2bbc 0.0s done
+#29 exporting attestation manifest sha256:1a4f1c8eee3f9eeb03b2833ad6cef41caaaba9126b55d0e2969c6d41bfc98caa 0.0s done
+#29 exporting manifest list sha256:e17a4be4f2697ef64eb0ed02eed1e6234371690fc002132cc9a750d82546d2ea 0.0s done
+#29 naming to docker.io/library/campusloop-minio:latest done
+#29 unpacking to docker.io/library/campusloop-minio:latest 0.6s done
+#29 DONE 3.8s
+
+#30 [minio-init] resolving provenance for metadata file
+#30 DONE 0.0s
+
+#31 [minio] resolving provenance for metadata file
+#31 DONE 0.0s
+ Image campusloop-minio Built 
+ Image campusloop-minio-init Built 
+ Image campusloop-api Built 
+ Volume campusloop_redis-data Creating 
+ Volume campusloop_db-data Creating 
+ Network campusloop_default Creating 
+ Volume campusloop_minio-data Creating 
+ Volume campusloop_redis-data Creating 
+ Volume campusloop_db-data Creating 
+ Network campusloop_default Creating 
+ Volume campusloop_minio-data Creating 
+ Volume campusloop_minio-data Created 
+ Volume campusloop_minio-data Created 
+ Volume campusloop_redis-data Created 
+ Volume campusloop_redis-data Created 
+ Volume campusloop_db-data Created 
+ Volume campusloop_db-data Created 
+ Network campusloop_default Created 
+ Network campusloop_default Created 
+ Container campusloop-redis-1 Creating 
+ Container campusloop-minio-1 Creating 
+ Container campusloop-db-1 Creating 
+ Container campusloop-redis-1 Created 
+ Container campusloop-db-1 Created 
+ Container campusloop-minio-1 Created 
+ Container campusloop-minio-init-1 Creating 
+ Container campusloop-minio-init-1 Created 
+ Container campusloop-api-1 Creating 
+ Container campusloop-api-1 Created 
+ Container campusloop-redis-1 Starting 
+ Container campusloop-db-1 Starting 
+ Container campusloop-minio-1 Starting 
+ Container campusloop-redis-1 Started 
+ Container campusloop-db-1 Started 
+ Container campusloop-minio-1 Started 
+ Container campusloop-minio-1 Waiting 
+ Container campusloop-minio-1 Healthy 
+ Container campusloop-minio-init-1 Starting 
+ Container campusloop-minio-init-1 Started 
+ Container campusloop-db-1 Waiting 
+ Container campusloop-redis-1 Waiting 
+ Container campusloop-minio-1 Waiting 
+ Container campusloop-minio-init-1 Waiting 
+ Container campusloop-redis-1 Healthy 
+ Container campusloop-db-1 Healthy 
+ Container campusloop-minio-1 Healthy 
+ Container campusloop-minio-init-1 Exited 
+ Container campusloop-api-1 Starting 
+ Container campusloop-api-1 Started 
+
+[3] 等待健康（最长 3 分钟）
+  第 1 次检查：healthy 3 / 4
+  第 2 次检查：healthy 4 / 4
+
+============================================================
+[20:41:23] 服务状态一览
+$ docker compose ps
+------------------------------------------------------------
+NAME                 IMAGE                          COMMAND                   SERVICE   CREATED          STATUS                    PORTS
+campusloop-api-1     campusloop-api                 "sh -c 'alembic upgr…"   api       19 seconds ago   Up 12 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+campusloop-db-1      pgvector/pgvector:0.8.6-pg16   "docker-entrypoint.s…"   db        19 seconds ago   Up 18 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+campusloop-minio-1   campusloop-minio               "/usr/bin/minio serv…"   minio     19 seconds ago   Up 18 seconds (healthy)   0.0.0.0:9000-9001->9000-9001/tcp, [::]:9000-9001->9000-9001/tcp
+campusloop-redis-1   redis:7.4-alpine               "docker-entrypoint.s…"   redis     19 seconds ago   Up 19 seconds (healthy)   0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp
+
+[4] 健康接口
+
+============================================================
+[20:41:24] curl /health
+$ curl -sS http://localhost:8000/health
+------------------------------------------------------------
+{"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+[5] 迁移与种子（api 启动已自动执行过，此处独立复验幂等）
+
+============================================================
+[20:41:24] 当前迁移版本
+$ docker compose exec -T api alembic current
+------------------------------------------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+0001 (head)
+
+============================================================
+[20:41:25] 种子幂等两遍
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+[seed] 第一遍写入：
+  users            +-1
+  products         +-1
+  product_images   +-1
+  favorites        +-1
+  wanted_posts     +-1
+  chat_sessions    +-1
+  chat_messages    +-1
+  offers           +-1
+  orders           +-1
+  order_events     +-1
+  meetups          +-1
+  reviews          +-1
+  reports          +-1
+  notifications    +-1
+[seed] 第二遍写入（幂等性验证）：
+  users            +-1
+  products         +-1
+  product_images   +-1
+  favorites        +-1
+  wanted_posts     +-1
+  chat_sessions    +-1
+  chat_messages    +-1
+  offers           +-1
+  orders           +-1
+  order_events     +-1
+  meetups          +-1
+  reviews          +-1
+  reports          +-1
+  notifications    +-1
+[seed][PASS] 两遍执行结果完全一致： {'users': 4, 'products': 6, 'product_images': 2, 'favorites': 2, 'wanted_posts': 2, 'chat_sessions': 1, 'chat_messages': 3, 'offers': 1, 'orders': 2, 'order_events': 5, 'meetups': 1, 'reviews': 1, 'reports': 1, 'notifications': 3}
+
+[6] 回滚 -> 再升级 -> 种子重建（BP2-09 验收口径）
+
+============================================================
+[20:41:27] 降级到 base
+$ docker compose exec -T api alembic downgrade base
+------------------------------------------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 0001 -> , initial schema: all Phase 2 tables (BP2-07)
+
+============================================================
+[20:41:28] 重新升级到 head
+$ docker compose exec -T api alembic upgrade head
+------------------------------------------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001, initial schema: all Phase 2 tables (BP2-07)
+
+============================================================
+[20:41:30] 种子重建后幂等复验
+$ docker compose exec -T api python scripts/seed.py --check
+------------------------------------------------------------
+[seed] 第一遍写入：
+  users            +-1
+  products         +-1
+  product_images   +-1
+  favorites        +-1
+  wanted_posts     +-1
+  chat_sessions    +-1
+  chat_messages    +-1
+  offers           +-1
+  orders           +-1
+  order_events     +-1
+  meetups          +-1
+  reviews          +-1
+  reports          +-1
+  notifications    +-1
+[seed] 第二遍写入（幂等性验证）：
+  users            +-1
+  products         +-1
+  product_images   +-1
+  favorites        +-1
+  wanted_posts     +-1
+  chat_sessions    +-1
+  chat_messages    +-1
+  offers           +-1
+  orders           +-1
+  order_events     +-1
+  meetups          +-1
+  reviews          +-1
+  reports          +-1
+  notifications    +-1
+[seed][PASS] 两遍执行结果完全一致： {'users': 4, 'products': 6, 'product_images': 2, 'favorites': 2, 'wanted_posts': 2, 'chat_sessions': 1, 'chat_messages': 3, 'offers': 1, 'orders': 2, 'order_events': 5, 'meetups': 1, 'reviews': 1, 'reports': 1, 'notifications': 3}
+
+[7] MinIO 双桶验证
+
+============================================================
+[20:41:32] minio-init 初始化日志
+$ docker compose logs minio-init
+------------------------------------------------------------
+minio-init-1  | Added `local` successfully.
+minio-init-1  | Bucket created successfully `local/campusloop-public`.
+minio-init-1  | Bucket created successfully `local/campusloop-private`.
+minio-init-1  | Access permission for `local/campusloop-public` is set to `download`
+minio-init-1  | [minio-init] buckets campusloop-public(public-read) + campusloop-private(private) ready
+
+============================================================
+[20:41:32] MinIO 存活探针(200无输出即活)
+$ curl -sS -o /dev/null -w %{http_code}\n http://localhost:9000/minio/health/live
+------------------------------------------------------------
+200
+
+[8] api 启动日志抽样（迁移+种子自动执行的证据）
+
+============================================================
+[20:41:33] api 日志尾部
+$ docker compose logs --tail 40 api
+------------------------------------------------------------
+api-1  | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+api-1  | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+api-1  | INFO  [alembic.runtime.migration] Running upgrade  -> 0001, initial schema: all Phase 2 tables (BP2-07)
+api-1  | [seed] 第一遍写入：
+api-1  |   users            +-1
+api-1  |   products         +-1
+api-1  |   product_images   +-1
+api-1  |   favorites        +-1
+api-1  |   wanted_posts     +-1
+api-1  |   chat_sessions    +-1
+api-1  |   chat_messages    +-1
+api-1  |   offers           +-1
+api-1  |   orders           +-1
+api-1  |   order_events     +-1
+api-1  |   meetups          +-1
+api-1  |   reviews          +-1
+api-1  |   reports          +-1
+api-1  |   notifications    +-1
+api-1  | [seed] 第二遍写入（幂等性验证）：
+api-1  |   users            +-1
+api-1  |   products         +-1
+api-1  |   product_images   +-1
+api-1  |   favorites        +-1
+api-1  |   wanted_posts     +-1
+api-1  |   chat_sessions    +-1
+api-1  |   chat_messages    +-1
+api-1  |   offers           +-1
+api-1  |   orders           +-1
+api-1  |   order_events     +-1
+api-1  |   meetups          +-1
+api-1  |   reviews          +-1
+api-1  |   reports          +-1
+api-1  |   notifications    +-1
+api-1  | [seed][PASS] 两遍执行结果完全一致： {'users': 4, 'products': 6, 'product_images': 2, 'favorites': 2, 'wanted_posts': 2, 'chat_sessions': 1, 'chat_messages': 3, 'offers': 1, 'orders': 2, 'order_events': 5, 'meetups': 1, 'reviews': 1, 'reports': 1, 'notifications': 3}
+api-1  | INFO:     Started server process [55]
+api-1  | INFO:     Waiting for application startup.
+api-1  | INFO:     Application startup complete.
+api-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
+============================================================
+============================================================
+汇总：全部关键步骤通过 ✅（以此日志作为 BP2-09 干净环境验收证据）
+结束时间：2026-10-12 20:41:33
+日志文件：clean-env-verify-20261012-203836.log（请勿删除，随证据归档）
