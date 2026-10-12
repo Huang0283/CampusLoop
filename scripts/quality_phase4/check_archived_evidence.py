@@ -17,7 +17,10 @@ def main():
         path = (evidence / name).resolve()
         if path.parent != evidence.resolve():
             raise ValueError("invalid archive path")
-        if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+        # Archives are generated with LF. Windows Git may check text out as CRLF;
+        # normalize only line endings, without changing JSON or its ordering.
+        content = path.read_bytes().replace(b"\r\n", b"\n")
+        if hashlib.sha256(content).hexdigest() != expected:
             raise ValueError("archive hash mismatch: " + name)
     for split in ("all", "dev", "test_candidate"):
         document = json.loads((evidence / f"evaluation-input-{split}.json").read_text(encoding="utf-8"))

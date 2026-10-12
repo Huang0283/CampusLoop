@@ -6,3 +6,4 @@ RPC真实故障诊断18项13PASS/5FAIL；报告与原始JSON不允许修改成�
 脚本：archive_evaluation.py、check_archived_evidence.py、probe_rpc_degradation.py；文档：independent-ai-evaluation.md、ai-degradation-test-report.md、mvp-regression-report.md。
 共用冻结计划、演示、接收清单由M1任务分支另交付；M10 PR不关闭#33，不代签M1/同组Review/真实汇报。这里只提交合成模型评估与脱敏故障结果，不提交SQLdump、私密图片或模型权重。
 当前GitHub OAuth凭证没有workflow scope，不能新增证据CI工作流；不修改账号授权。本PR保留离线证据核对命令，现有CI仍检查原有后端/SDK/前端与旅程。手动证据核对已通过，不能声称新增自动门禁已经上线。
+Windows重新检出会把JSON文本LF转CRLF；档案验证只规范换行后核对生成时SHA，不改JSON内容/排序/数值。重新检出后已复验通过，Linux仍使用原始LF。07b2922为初始证据提交，后续提交仅修复跨平台档案读取。
