@@ -1,0 +1,17 @@
+# FE4-01 管理后台接入
+日期：2026-10-12。代码基线：`8803e639302324e13183af336431dbbb550aea2f`。任务分支：`task/m2-p4-admin-freeze`，PR 目标：`phase4/frontend-integration`。结论：部分完成，上游缺口明确，不能作为前端组整体完成。
+
+## 已实现和真实验收
+入口 `/admin` 经过 ADMIN Guard，普通用户看到 403；后端仍独立校验权限。用户列表调用生成 SDK `adminListUsers`，每页 20 条，详情展示编号、邮箱、状态、角色和交易数。编号/昵称/邮箱和状态筛选仅作用于本页，界面明确说明；后端尚无全文筛选参数。
+
+账号禁用/恢复调用 `adminUpdateUserStatus`，原因必填并最多 200 字。不提前显示成功，只有后端确认后才更新处理状态。真实浏览器用新建测试学生完成禁用、旧会话撤销、恢复；数据库已有 `admin_users_read`、`admin_user_disabled`、`admin_user_active` 审计记录。
+
+风险线索通过详情按钮显式读取 `getUserRiskClues`，展示状态、算法版本、事实窗口、缺少数据、降级、内部线索和限制。展示不触发处罚；真实新用户返回 INSUFFICIENT_DATA 和缺失输入，数据库记录 `admin_risk_clues_read`。
+
+## 已写前端、尚不能真实验收
+举报队列/状态筛选/分页、详情、人工处理说明、处理结果，以及私密证据读取均消费现有生成 SDK。`resolveReport` 带 Idempotency-Key；说明最多 500 字；只有确认响应才显示成功。证据只通过鉴权 Blob 接口获取，并在关闭时撤销本地 URL。
+当前后端未实现 GET /admin/reports 与 PATCH /admin/reports/{id}/resolve，因此真实环境显示“举报管理接口尚未接通”，不冒充空队列。商品管理没有 OpenAPI 契约，页签显示“商品治理接口待交付”，未猜测接口。
+举报流程当前仅有契约路径代码，不能宣称真实可用；商品列表、详情、人工处理尚未实现。M5/M6 交付正式 SDK 后由 M2 接入与复验，详见 handoff.md。
+
+## 验证
+`npx playwright test m2-phase4.spec.ts`：5 项通过，分别涵盖真实普通权限、注入渲染错误、契约夹具、注入 HTTP 超时、真实管理员操作。夹具不算后端验收。现有举报私密媒体与管理员权限另由后端真实回归验证。
