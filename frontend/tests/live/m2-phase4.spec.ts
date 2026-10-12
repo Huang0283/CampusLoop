@@ -147,7 +147,7 @@ test('real admin pagination, risk audit request and status processing revoke ano
   await student.goto('/profile')
   await expect(student.getByRole('link', { name: '登录', exact: true })).toBeVisible()
   await admin.getByRole('button', { name: /恢复账号/ }).click()
-  await expect(admin.getByRole('button', { name: '禁用账号并撤销会话', exact: true })).toBeVisible()
+  await expect(admin.getByRole('button', { name: /禁用账号并撤销会话/ })).toBeEnabled()
   await admin.getByRole('button', { name: 'Close', exact: true }).click()
   await admin.getByRole('tab', { name: '举报处理', exact: true }).click()
   await expect(admin.getByText('举报管理接口尚未接通', { exact: true })).toBeVisible()
