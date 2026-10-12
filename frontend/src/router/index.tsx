@@ -1,11 +1,13 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter, Link, Navigate } from 'react-router-dom'
 import { Result } from 'antd'
 import { Guard, Shell } from '../live/common'
-import { AdminPage, AuthPage, ProfilePage } from '../live/AccountPages'
+import { AuthPage, ProfilePage } from '../live/AccountPages'
+import { AdminPage } from '../live/AdminPages'
+import { RouteFailure } from '../live/ErrorBoundary'
 import { CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage } from '../live/MarketPages'
 import { ChatPage, ChatListPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
 
-export const router = createBrowserRouter([{ element: <Shell />, children: [
+export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ errorElement: <RouteFailure />, children: [
   { path: '/', element: <Navigate to="/market" replace /> },
   { path: '/login', element: <AuthPage /> }, { path: '/register', element: <AuthPage registering /> },
   { path: '/profile', element: <Guard><ProfilePage /></Guard> },
@@ -32,5 +34,5 @@ export const router = createBrowserRouter([{ element: <Shell />, children: [
   { path: '/orders/:id/review', element: <Guard><ReviewPage /></Guard> },
   { path: '/profile/transactions', element: <Navigate to="/transactions" replace /> },
   { path: '/admin', element: <Guard admin><AdminPage /></Guard> },
-  { path: '*', element: <Result status="404" title="页面不存在" /> },
-] }])
+  { path: '*', element: <Result status="404" title="页面不存在" extra={<Link to="/market">返回首页</Link>} /> },
+] }] }])
