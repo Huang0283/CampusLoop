@@ -98,6 +98,81 @@ services:
       echo '[minio-init] buckets campusloop-public(public-read) + campusloop-private(private) ready'
       "
 
+  # ---------- M7/M8 建议服务容器（BP4-07，M9 维护） ----------
+  # phase-3 环回内嵌 -> phase-4 独立容器（worker 跨进程调用所需）。
+  # 仅监听 compose 内网（不发布宿主端口）；BASELINE_RPC_TOKEN(>=32) 必需。
+  # 实验开关：docker compose stop baseline 即关闭模型——API/worker 自动降级
+  # （SERVICE_DISABLED 有界重试），交易主链路不受影响（BP4-07 验收项）。
+  baseline:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["python", "scripts/baseline_services.py"]
+    environment:
+      APP_ENV: dev
+      LOG_LEVEL: INFO
+      LOG_JSON: "true"
+      BASELINE_RPC_TOKEN: ${BASELINE_RPC_TOKEN:?Run python backend/scripts/init_local.py first}
+      BASELINE_BIND_HOST: 0.0.0.0
+      BASELINE_DATA_DIR: /data
+      # 服务名解析自身端口；仅用作"该容器对外地址"的声明。
+      M7_SERVICE_URL: http://baseline:8787
+      M8_SERVICE_URL: http://baseline:8788
+    volumes:
+      - baseline-data:/data
+    healthcheck:
+      # 仅探测两个 RPC 端口可达（服务无公开健康端点，token 由调用方持有）。
+      test: ["CMD", "python", "-c", "import socket;[socket.create_connection(('127.0.0.1',p),3).close() for p in (8787,8788)]"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    restart: unless-stopped
+
+  # ---------- AI 任务 Worker（BP4-07/08，M9 维护） ----------
+  # 独立进程消费 PostgreSQL 队列（matching_jobs，SKIP LOCKED 语义零改动）；
+  # /healthz 提供独立健康检查（主循环心跳 + 队列深度 + 最近运行摘要）。
+  # 依赖 api healthy：迁移由 api 容器统一执行（职责单一），迁移完成前
+  # worker 的观测写入只会计数告警、不影响任务（observer 兜底设计）。
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["python", "scripts/worker.py"]
+    environment:
+      APP_ENV: dev
+      LOG_LEVEL: INFO
+      LOG_JSON: "true"
+      BASELINE_RPC_TOKEN: ${BASELINE_RPC_TOKEN:?Run python backend/scripts/init_local.py first}
+      BASELINE_SERVICES_ENABLED: "true"
+      BASELINE_INPROCESS: "false"
+      MATCHING_WORKER_INPROCESS: "true"
+      MATCHING_NOTIFICATIONS_ENABLED: ${MATCHING_NOTIFICATIONS_ENABLED:-true}
+      WORKER_ID: ${WORKER_ID:-}
+      M7_SERVICE_URL: http://baseline:8787
+      M8_SERVICE_URL: http://baseline:8788
+      DATABASE_URL: postgresql+psycopg://campusloop:campusloop@db:5432/campusloop
+      REDIS_URL: redis://redis:6379/0
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_PUBLIC_BUCKET: campusloop-public
+      MINIO_PRIVATE_BUCKET: campusloop-private
+    ports:
+      - "${CAMPUSLOOP_WORKER_PORT:-8002}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
   api:
     build:
       context: .
@@ -112,6 +187,12 @@ services:
       AUTH_REGISTRATION_DOMAINS: ${AUTH_REGISTRATION_DOMAINS:-example.com,example.invalid}
       BASELINE_RPC_TOKEN: ${BASELINE_RPC_TOKEN:?Run python backend/scripts/init_local.py first}
       BASELINE_SERVICES_ENABLED: ${BASELINE_SERVICES_ENABLED:-true}
+      # BP4-07（M9）：phase-4 拓扑——API 不再内嵌 worker 与建议服务，
+      # 两者分别由独立容器承担；API 仅作为建议服务的客户端。
+      BASELINE_INPROCESS: "false"
+      MATCHING_WORKER_INPROCESS: "false"
+      M7_SERVICE_URL: http://baseline:8787
+      M8_SERVICE_URL: http://baseline:8788
       MATCHING_NOTIFICATIONS_ENABLED: ${MATCHING_NOTIFICATIONS_ENABLED:-true}
       AUTH_COOKIE_NAME: ${AUTH_COOKIE_NAME:-campusloop-session}
       AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-false}
@@ -147,3 +228,5 @@ volumes:
   db-data:
   redis-data:
   minio-data:
+  # M7 建议服务快照存储（BP4-07，M9）：跨重启保留 snapshotVersion 语义。
+  baseline-data:
