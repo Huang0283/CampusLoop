@@ -3,7 +3,7 @@ from datetime import date, datetime, time
 from decimal import Decimal
 from typing import Literal
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, ValidationInfo, field_validator, model_validator
 
 from app.schemas.auth import StrictInput
 
@@ -29,6 +29,14 @@ class ProductWrite(StrictInput):
     @classmethod
     def optional_money(cls, value):
         return None if value is None else cls.money(value)
+
+    @field_validator("originalPrice")
+    @classmethod
+    def ordered_prices(cls, value, info: ValidationInfo):
+        price = info.data.get("price")
+        if value is not None and price is not None and value < price:
+            raise ValueError("Original price must not be lower than sale price.")
+        return value
 
     @field_validator("title", "category", "condition", "campusLocation")
     @classmethod

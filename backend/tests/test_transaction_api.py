@@ -81,6 +81,47 @@ def pending_order(client, seller, buyer):
     return item, sid, accepted.json()["data"]["order"]
 
 
+def test_product_price_order_rejection_is_422_and_correction_can_retry(client):
+    seller = account(client)
+    title = "Price validation " + uuid.uuid4().hex
+    body = {
+        "title": title,
+        "category": "other",
+        "condition": "GOOD",
+        "price": 2,
+        "originalPrice": 0.5,
+        "campusLocation": "Library",
+        "images": [image_url(client, seller)],
+    }
+    request_headers = key_headers(seller)
+    rejected = client.post("/products", headers=request_headers, json=body)
+    assert rejected.status_code == 422, rejected.text
+    assert rejected.json()["code"] == "VALIDATION_ERROR"
+    assert rejected.json()["details"]["fields"] == ["body.originalPrice"]
+    with SessionLocal() as db:
+        assert (
+            db.scalar(select(func.count()).select_from(Product).where(Product.title == title)) == 0
+        )
+
+    # An input rejection must not consume the idempotency key or upload reference.
+    created = client.post(
+        "/products", headers=request_headers, json={**body, "originalPrice": None}
+    )
+    assert created.status_code == 201, created.text
+    identity = created.json()["data"]["id"]
+    edited = client.patch(f"/products/{identity}", headers=headers(seller), json=body)
+    assert edited.status_code == 422, edited.text
+    saved = client.get(f"/products/{identity}").json()["data"]
+    assert saved["price"] == 2 and "originalPrice" not in saved
+    corrected = client.patch(
+        f"/products/{identity}",
+        headers=headers(seller),
+        json={**body, "originalPrice": 2},
+    )
+    assert corrected.status_code == 200, corrected.text
+    assert corrected.json()["data"]["originalPrice"] == 2
+
+
 def test_two_account_durable_journey_and_permissions(client):
     seller, buyer, stranger = account(client), account(client), account(client)
     item, sid, order = pending_order(client, seller, buyer)

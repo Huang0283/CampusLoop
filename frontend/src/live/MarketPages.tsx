@@ -116,7 +116,12 @@ export function ProductFormPage() {
       <Form.Item name="images" label="商品图片" rules={[{ type: 'array', required: true, min: 1, max: 5 }]}><ImageQueue onBusyChange={setUploadBlocked} /></Form.Item>
       <Row gutter={16}><Col span={12}><Form.Item name="category" label="分类" rules={[{ required: true }]}><Select options={categories} /></Form.Item></Col><Col span={12}><Form.Item name="condition" label="成色" rules={[{ required: true }]}><Select options={conditions} /></Form.Item></Col></Row>
       <Form.Item name="price" label="出售价格（元）" rules={[{ required: true }]}><InputNumber min={0} max={99999999.99} precision={2} /></Form.Item>
-      <Form.Item name="originalPrice" label="原价（可选）"><InputNumber min={0} precision={2} /></Form.Item>
+      <Form.Item name="originalPrice" label="原价（可选）" dependencies={['price']} extra="不知道原价可留空；填写时不能低于出售价格。" rules={[({ getFieldValue }) => ({
+        validator(_, value) {
+          const price = getFieldValue('price')
+          return value == null || price == null || value >= price ? Promise.resolve() : Promise.reject(new Error('原价不能低于出售价格；不知道原价时可留空。'))
+        },
+      })]}><InputNumber min={0} max={99999999.99} precision={2} /></Form.Item>
       <Form.Item name="campusLocation" label="校内交易地点" rules={[{ required: true, whitespace: true, max: 128 }]}><Input /></Form.Item>
       <Form.Item name="description" label="描述"><Input.TextArea maxLength={3000} rows={4} /></Form.Item>
       <Space><Button type="primary" htmlType="submit" loading={mutation.busy} disabled={uploadBlocked}>保存商品</Button><Link to="/publish/price-advice">查看规则价格建议</Link></Space>

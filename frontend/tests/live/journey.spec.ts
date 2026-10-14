@@ -117,6 +117,42 @@ test('wanted constraints and price baseline are real services', async ({ page })
   await expect(page.getByText(/规则参考区间：¥/)).toBeVisible()
 })
 
+test('product original-price validation blocks invalid requests and recovers after price changes', async ({ page }) => {
+  await register(page, 'Price validation')
+  await page.getByRole('button', { name: '发布商品', exact: true }).click()
+  const title = `Price boundary ${randomUUID().slice(0, 8)}`
+  await page.getByLabel('商品名称', { exact: true }).fill(title)
+  const uploaded = page.waitForResponse((response) => response.url().includes('/uploads/images') && response.request().method() === 'POST')
+  await page.locator('input[type=file]').setInputFiles({ name: 'price.png', mimeType: 'image/png', buffer: image })
+  expect((await uploaded).status()).toBe(201)
+  await page.getByLabel('校内交易地点', { exact: true }).fill('Library')
+  await page.getByLabel('出售价格（元）', { exact: true }).fill('2')
+  await page.getByLabel('原价（可选）', { exact: true }).fill('0.5')
+  let writes = 0
+  page.on('request', (request) => {
+    if (new URL(request.url()).pathname === '/products' && request.method() === 'POST') writes += 1
+  })
+  const error = page.getByText('原价不能低于出售价格；不知道原价时可留空。', { exact: true })
+  await page.getByRole('button', { name: '保存商品', exact: true }).click()
+  await expect(error).toBeVisible()
+  expect(writes).toBe(0)
+  await page.getByLabel('原价（可选）', { exact: true }).fill('2')
+  await page.getByLabel('出售价格（元）', { exact: true }).fill('3')
+  await page.getByRole('button', { name: '保存商品', exact: true }).click()
+  await expect(error).toBeVisible()
+  expect(writes).toBe(0)
+  await page.getByLabel('原价（可选）', { exact: true }).fill('')
+  await page.getByRole('button', { name: '保存商品', exact: true }).click()
+  await expect(page).toHaveURL(/\/product\/\d+$/)
+  expect(writes).toBe(1)
+  await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible()
+  await page.getByRole('link', { name: '编辑商品', exact: true }).click()
+  await expect(page.getByLabel('原价（可选）', { exact: true })).toHaveValue('')
+  await page.getByLabel('原价（可选）', { exact: true }).fill('3')
+  await page.getByRole('button', { name: '保存商品', exact: true }).click()
+  await expect(page).toHaveURL(/\/product\/\d+$/)
+})
+
 test('guest browse, failure recovery, secure reload restoration, logout and fixed navigation', async ({ page }) => {
   await page.goto('/market')
   await expect(page.getByRole('heading', { name: '校园市场' })).toBeVisible()
