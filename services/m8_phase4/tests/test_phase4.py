@@ -110,6 +110,18 @@ class RouterTests(unittest.TestCase):
         self.assertEqual("PHASE4_PRICE_CANDIDATE", result["selectedEngine"])
         self.assertFalse(result["fallbackApplied"])
 
+    def test_unavailable_candidate_cannot_be_selected(self):
+        result = route_price(PAYLOAD, GO, candidate_enabled=True, candidate=lambda _: candidate(status="UNAVAILABLE"))
+        self.assertEqual("CANDIDATE_INVALID_RESULT", result["fallbackReason"])
+
+    def test_interval_unknown_fields_are_rejected(self):
+        result = route_price(PAYLOAD, GO, candidate_enabled=True, candidate=lambda _: candidate(intervalFen={"lower": 200000, "upper": 300000, "email": "private"}))
+        self.assertEqual("CANDIDATE_INVALID_RESULT", result["fallbackReason"])
+
+    def test_malformed_confidence_falls_back_without_raising(self):
+        result = route_price(PAYLOAD, GO, candidate_enabled=True, candidate=lambda _: candidate(confidence=[]))
+        self.assertEqual("CANDIDATE_LOW_CONFIDENCE", result["fallbackReason"])
+
     def test_rollback_restores_identical_phase3_output(self):
         enabled = route_price(PAYLOAD, NO_GO, candidate_enabled=True, candidate=lambda _: candidate())
         disabled = route_price(PAYLOAD, NO_GO, candidate_enabled=False, candidate=lambda _: candidate())

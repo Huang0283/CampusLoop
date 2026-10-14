@@ -30,15 +30,18 @@ def _valid_candidate(value: object) -> tuple[bool, str]:
         return False, "CANDIDATE_INVALID_RESULT"
     if value.get("modelVersion") != CANDIDATE_VERSION or value.get("featureVersion") != FEATURE_VERSION:
         return False, "CANDIDATE_VERSION_MISMATCH"
-    if value.get("confidence") not in {"MEDIUM", "HIGH"}:
+    if not isinstance(value.get("confidence"), str) or value["confidence"] not in {"MEDIUM", "HIGH"}:
         return False, "CANDIDATE_LOW_CONFIDENCE"
     if set(value) != {"status", "modelVersion", "featureVersion", "confidence", "recommendedFen", "intervalFen", "factors"}:
+        return False, "CANDIDATE_INVALID_RESULT"
+    if value["status"] != "AVAILABLE":
         return False, "CANDIDATE_INVALID_RESULT"
     interval = value.get("intervalFen")
     factors = value.get("factors")
     recommended = value.get("recommendedFen")
     if (
         not isinstance(interval, dict)
+        or set(interval) != {"lower", "upper"}
         or not isinstance(interval.get("lower"), int)
         or isinstance(interval.get("lower"), bool)
         or not isinstance(interval.get("upper"), int)
