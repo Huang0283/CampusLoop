@@ -12,8 +12,9 @@ from app.core.errors import BusinessError
 from app.core.security import utcnow
 from app.models import ChatSession, Order, Product, Report, Review, User, WantedPost
 from app.schemas.auth import StrictInput
-from app.services.auth import Actor, Db, administrator, audit
+from app.services.auth import Actor, Db, administrator
 from app.services.business import load
+from app.services.governance import read_audit, trust_view
 from app.services.intelligence import CATEGORIES, CONDITIONS, rank_live
 
 router = APIRouter(tags=["Intelligence"])
@@ -36,10 +37,9 @@ def call_advisory(task, payload):
         ) from None
 
 
-@router.get("/users/{userId}/trust", operation_id="getUserTrust")
-def trust(userId: int, db: Db):
+def trust_data(userId: int, db, *, allow_disabled=False):
     user = db.get(User, userId)
-    if user is None or user.status != "ACTIVE":
+    if user is None or (user.status != "ACTIVE" and not allow_disabled):
         raise BusinessError(404, "NOT_FOUND", "User unavailable.")
     # Completed reviews are real observed ratings. Unrated trades are not invented 5-star events.
     ratings = db.scalars(
@@ -66,11 +66,21 @@ def trust(userId: int, db: Db):
             ]
         },
     )
-    return ok(result)
+    return result
+
+
+@router.get("/users/{userId}/trust", operation_id="getUserTrust")
+def trust(userId: int, db: Db):
+    return ok(trust_view(trust_data(userId, db), "PUBLIC"))
 
 
 @router.get("/admin/users/{userId}/risk-clues", operation_id="getUserRiskClues")
-def risk(userId: int, db: Db, actor: Actor):
+def risk(
+    userId: int,
+    db: Db,
+    actor: Actor,
+    reason: str = Query(default="manual_review", min_length=1, max_length=500, pattern=r"\S"),
+):
     administrator(actor)
     if db.get(User, userId) is None:
         raise BusinessError(404, "NOT_FOUND", "User unavailable.")
@@ -103,7 +113,16 @@ def risk(userId: int, db: Db, actor: Actor):
         ),
     }
     result = call_advisory("risk", payload)
-    audit(db, "admin_risk_clues_read", actor.id, userId, context={"purpose": "manual_review"})
+    read_audit(
+        db,
+        "admin_risk_clues_read",
+        actor.id,
+        target_id=userId,
+        reason=reason,
+        snapshot={"status": result["status"], "enforcementExecuted": False},
+        purpose="manual_review",
+        sourceWindowAsOf=now.isoformat(),
+    )
     db.commit()
     return ok({**result, "sourceWindowAsOf": now.isoformat()})
 

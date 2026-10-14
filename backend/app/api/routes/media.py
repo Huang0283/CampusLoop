@@ -1,11 +1,12 @@
 from botocore.exceptions import BotoCoreError, ClientError
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Query, Response
 from sqlalchemy import select
 
 from app.core.config import get_settings
 from app.core.errors import BusinessError
 from app.models import ChatMessage, ChatSession, Report, UploadedObject
-from app.services.auth import Actor, Db, administrator, audit
+from app.services.auth import Actor, Db, administrator
+from app.services.governance import read_audit
 from app.services.storage import storage_client
 
 router = APIRouter(tags=["Media"])
@@ -60,7 +61,15 @@ def chat_image(messageId: int, db: Db, actor: Actor):
 
 
 @router.get("/admin/reports/{reportId}/evidence/{imageIndex}", operation_id="getReportEvidence")
-def report_evidence(reportId: int, imageIndex: int, db: Db, actor: Actor):
+def report_evidence(
+    reportId: int,
+    imageIndex: int,
+    db: Db,
+    actor: Actor,
+    reason: str = Query(
+        default="report_evidence_review", min_length=1, max_length=500, pattern=r"\S"
+    ),
+):
     administrator(actor)
     report = db.get(Report, reportId)
     keys = (report.evidence or {}).get("keys", []) if report else []
@@ -68,11 +77,14 @@ def report_evidence(reportId: int, imageIndex: int, db: Db, actor: Actor):
         raise BusinessError(404, "NOT_FOUND", "Evidence not found.")
     response = image_response(keys[imageIndex])
     # Target identifies the reviewed report, not the reported person; no evidence content in audit.
-    audit(
+    read_audit(
         db,
         "admin_report_evidence_read",
         actor.id,
-        context={"reportId": reportId, "imageIndex": imageIndex},
+        reason=reason,
+        snapshot={"reportId": reportId, "imageIndex": imageIndex, "status": report.status},
+        reportId=reportId,
+        imageIndex=imageIndex,
     )
     db.commit()
     return response
