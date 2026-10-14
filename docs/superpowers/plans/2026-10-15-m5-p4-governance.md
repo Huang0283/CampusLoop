@@ -23,5 +23,10 @@ Execute inline under the user's authorization, with checkpoints at validation.
 - [x] Write trust-api.md, moderation-api.md, verification.md, deliverables.md,
   ai-integration-signoff.md and handoff.md under the Issue's evidence directory.
   Include exact contract handoff and distinguish local validation from team signoff.
-- [ ] Commit, push task branch, open PR against phase4/backend-integration, inspect
+- [x] Commit, push task branch, open PR against phase4/backend-integration, inspect
   CI and fix failures. Report PR and remaining human review/integration dependencies.
+
+Delivered through PR #100. Actual local results: 47 backend tests (0 skipped),
+10 governance tests, 31/17 M7/M8 tests, migration rollback/seed, Ruff, frontend
+checks and 5 real MVP browser scenarios passed. GitHub CI is monitored on the PR;
+cross-member Review and Phase 4 joint signoff remain explicit handoff gates.

@@ -1,6 +1,8 @@
 # M5 Phase 4 交付清单
 
 Owner：M5 胡可铭（Tomori-na）。2026-10-15。
+个人任务 PR：[#100](https://github.com/Huang0283/CampusLoop/pull/100)，
+目标 `phase4/backend-integration`；待同组交叉 Review，尚未合并。
 任务来源：[BP-P4 Issue #30](https://github.com/Huang0283/CampusLoop/issues/30)，按五个 Phase 执行。
 阶段输入：main `829ffbfc7f5c310917b2ff7c9627fe98b117824a`；
 个人/小组创建基线：phase4/integration `cdf814364eec988e0d197c0a0098a92eb5db4d6e`，包含 M8 #97。
