@@ -33,10 +33,11 @@ M6 在自己的 PR 前从已评审合入的最新 `phase4/backend-integration` �
 | H4-03 | M8 → M5/M6/M10 | #98 仍未合入基线；RPC 无效响应加固与上游语义待跨组确认，合入后复跑信誉/风险降级 | 待上游 Review/集成；建议2026-10-15 18:00 |
 | H4-04 | M6/M9/M2/M3 → M5/M10 | 组内编排、Worker和Phase4页面联合检查后补 BP4-10 签字；当前只能验收M5局部链路 | 待相关Owner交付；建议2026-10-15 18:00核对，阶段冻结前完成 |
 | H4-05 | M5/M6/M9 → M1/M10 | 按M5→M6→M9合并，M5再发组汇总到phase4/integration；M10/M1独立验收与最终收口 | 未发组汇总；建议2026-10-15 18:00核对，按M1最终DDL |
-| H4-06 | M6/M9 → M10/M1 | 既有 ReportWrite.description 最大2000但数据库String(1000)，超长输入可能失败；由schema/迁移Owner明确修正或缺陷冻结 | 本次未修改共享schema/迁移；建议2026-10-15 18:00确认归属 |
+| H4-06 | M6/M9 → M10/M1 | 既有 ReportWrite.description 最大2000但数据库String(1000)，超长输入可能失败；由schema/迁移Owner明确修正或缺陷冻结 | 已修复：请求 schema 与 OpenAPI 统一为1000；1000字符创建通过、1001字符在写库前返回422；无需迁移 |
 
-H4-06 是读取既有源码发现的长度不一致，本次未提交2000字符复现测试，
-不得声称该缺陷已验证/修复；与新增处理 note 的校验无关。
+H4-06 已在修复提交中关闭：请求 schema、OpenAPI 与现有 `reports.description VARCHAR(1000)` 一致，
+并由 `test_report_description_matches_database_limit` 覆盖边界。超长输入不会进入数据库，
+也不会被错误包装为 503；与新增处理 note 的校验无关。
 M9 不需要为本次治理接口新增表，需在自己的运行基线复验现有事务/审计。
 M10 按 verification.md 命令从实际阶段集成 SHA 检出，并记录其复测提交与结论。
 

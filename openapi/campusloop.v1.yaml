@@ -1621,7 +1621,7 @@ components:
         targetType: { $ref: '#/components/schemas/ReportTargetType' }
         targetId: { type: integer, format: int64 }
         reason: { $ref: '#/components/schemas/ReportReason' }
-        description: { type: string, maxLength: 2000 }
+        description: { type: string, maxLength: 1000 }
         evidence: { type: array, maxItems: 5, items: { type: string, format: uri } }
     Report:
       allOf:

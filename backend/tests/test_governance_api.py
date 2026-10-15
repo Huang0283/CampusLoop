@@ -45,6 +45,32 @@ def report_user(client, reporter, target, evidence=None):
     return response.json()["data"]
 
 
+def test_report_description_matches_database_limit(client):
+    reporter, target, second_target = account(client), account(client), account(client)
+    base = {
+        "targetType": "USER",
+        "reason": "SPAM",
+        "evidence": [],
+    }
+
+    accepted = client.post(
+        "/reports",
+        headers=key_headers(reporter),
+        json=base | {"targetId": target["user"]["id"], "description": "x" * 1000},
+    )
+    assert accepted.status_code == 201, accepted.text
+    assert len(accepted.json()["data"]["description"]) == 1000
+
+    rejected = client.post(
+        "/reports",
+        headers=key_headers(reporter),
+        json=base | {"targetId": second_target["user"]["id"], "description": "x" * 1001},
+    )
+    assert rejected.status_code == 422, rejected.text
+    assert rejected.json()["code"] == "VALIDATION_ERROR"
+    assert "body.description" in rejected.json()["details"]["fields"]
+
+
 def audit_rows(actor, name):
     with SessionLocal() as db:
         return list(
