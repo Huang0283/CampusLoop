@@ -92,11 +92,19 @@ def main():
                 "m7Port": m7_port,
                 "m8Port": m8_port,
                 "storeDir": str(data_dir),
-            },
-            flush=True,
-        )
+            }
+        ),
+        flush=True,
     )
     try:
+        # HTTPServer 不会自行 serve：必须在独立线程进入 serve_forever 循环，
+        # 否则端口已绑定但永不处理请求（worker 侧表现为连接被拒 -> 降级）。
+        threads = [
+            threading.Thread(target=server.serve_forever, daemon=True)
+            for server in servers
+        ]
+        for thread in threads:
+            thread.start()
         while not stop.is_set():
             stop.wait(1)
     finally:
