@@ -1,9 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { Result } from 'antd'
 import { Guard, Shell } from '../live/common'
-import { ReportsPage } from '../live/ReportsPage'
 import { AdminPage, AuthPage, ProfilePage } from '../live/AccountPages'
 import { CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage } from '../live/MarketPages'
+import { ReportsPage } from '../live/ReportsPage'
 import { ChatPage, ChatListPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
 
 export const router = createBrowserRouter([{ element: <Shell />, children: [

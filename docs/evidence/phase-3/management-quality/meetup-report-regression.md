@@ -30,6 +30,7 @@
 - `python -m pytest -p no:cacheprovider tests/test_meetup_time.py tests/test_transaction_api.py -q`：11 passed，无跳过。覆盖 UTC 跨日、开始等于当前、今天已过去、结束早于开始、拒绝无副作用、确认前过期、改约恢复与成功重试。
 - `CAMPUSLOOP_UI_URL=http://localhost:5184 npm run test:live -- --grep 'real two-account browser transaction'`：1 passed，20.6 秒。真实注册双账号、上传商品/私聊图片、报价、约定、双方确认完成、评价、买卖方举报选项差异、提交提示跳转、菜单入口、刷新持久化与另一账号记录隔离均通过，页面错误为空。
 - `npm run lint`、`npm run build`、后端相关四个文件的 ruff check/format 与 `git diff --check` 均通过。构建保留原有大包提示，不作为业务失败或已完成性能优化的证据。
+- `git merge-tree --write-tree origin/phase4/frontend-integration HEAD` 与后端集成分支的同命令均成功，无内容冲突。仅作合并模拟，没有把第四阶段合入修复分支或 main。另对照确认 M6 的 #102 与原有 main 已存在 OpenAPI 合并冲突，本次未修改该文件，不能把该既有冲突宣称为已解决。
 
 ## 第四阶段仍需完成
 
