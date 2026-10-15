@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -155,6 +156,8 @@ def input_snapshot(db, query, wanted: WantedPost | None = None, filters=None):
     if not wanted and filters:
         for field, parameter in (("minPriceFen", "minPrice"), ("maxPriceFen", "maxPrice")):
             if filters.get(parameter) is not None:
+                if not math.isfinite(filters[parameter] * 100):
+                    raise BusinessError(422, "VALIDATION_ERROR", "Invalid price filter.")
                 request["filters"][field] = round(filters[parameter] * 100)
         if filters.get("condition"):
             # Search's chosen condition is exact; matching uses the minimum condition rank.

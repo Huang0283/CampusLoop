@@ -158,3 +158,10 @@ def test_timeout_does_not_rollback_publish_and_filters_expired_wanted(client, mo
         db.commit()
     assert client.get(f"/wanted/{wid}/matches", headers=headers(buyer)).status_code == 409
     assert client.get(f'/products/{item["id"]}').status_code == 200
+
+
+@pytest.mark.parametrize("parameter", ["minPrice", "maxPrice"])
+@pytest.mark.parametrize("value", ["inf", "1e309", "1e308"])
+def test_search_rejects_nonfinite_prices_without_server_error(client, parameter, value):
+    response = client.get("/search", params={"query": "book", parameter: value})
+    assert response.status_code == 422, response.text
