@@ -12,7 +12,10 @@ from .http_service import unique_object, invalid_constant
 
 def call_baseline(url, payload, token, *, timeout=1.5):
     parsed = urlsplit(url)
-    if parsed.scheme != "http" or parsed.hostname != "127.0.0.1" or parsed.path not in {"", "/"} or parsed.query or parsed.fragment or parsed.username:
+    # phase-4（BP4-07，M9）：worker 经 compose 内网 DNS 以服务名访问（如
+    # http://baseline:8787），不再限定环回主机名；仍强制 http 明文、根路径、
+    # 无查询/片段/凭据，令牌约束见下一行（>=32 字符，不降级）。
+    if parsed.scheme != "http" or parsed.path not in {"", "/"} or parsed.query or parsed.fragment or parsed.username or parsed.password:
         raise ServiceError(422, "VALIDATION_ERROR")
     if not isinstance(token, str) or len(token) < 32 or isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not 0 < timeout <= 10:
         raise ServiceError(422, "VALIDATION_ERROR")
