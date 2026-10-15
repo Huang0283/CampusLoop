@@ -172,5 +172,8 @@ class ReportWrite(StrictInput):
     reason: Literal[
         "FAKE_PRODUCT", "DESCRIPTION_MISMATCH", "SPAM", "ABNORMAL_PRICE", "HARASSMENT", "VIOLATION"
     ]
-    description: str = Field(default="", max_length=2000)
+    # Keep the request contract aligned with reports.description (VARCHAR(1000)).
+    # Reject oversized input before it reaches the database so it cannot surface
+    # as a misleading dependency/503 error.
+    description: str = Field(default="", max_length=1000)
     evidence: list[str] = Field(default_factory=list, max_length=5)

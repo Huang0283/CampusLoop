@@ -6,6 +6,14 @@
 逐用例记录：[evidence/m5-api-results.json](evidence/m5-api-results.json)。
 作者自检不是 M10 独立验收或其他成员签字。
 
+## H4-06 修复复验
+
+后续修复将 `ReportWrite.description`、OpenAPI `ReportWriteRequest.description` 与现有数据库
+`reports.description VARCHAR(1000)` 统一。1000 个字符的举报描述可以创建；1001 个字符在
+Pydantic 请求校验阶段返回 `422 VALIDATION_ERROR`，字段为 `body.description`，不会执行数据库
+写入，也不会返回误导性的 `503 Database unavailable`。对应测试为
+`test_report_description_matches_database_limit`。
+
 ## 环境与实际结果
 
 Windows / PowerShell、Python 3.12 隔离 .venv，依赖按 backend/requirements.txt 锁定。

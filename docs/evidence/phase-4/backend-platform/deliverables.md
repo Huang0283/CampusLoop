@@ -39,3 +39,6 @@ git log -1 --format=%H -- docs/evidence/phase-4/backend-platform/deliverables.md
 
 原始逐用例成功结果经去除本机路径/主机名后归档于 `evidence/m5-api-results.json`。
 验证命令、运行环境和剩余接收工作见 verification.md / handoff.md。
+
+H4-06 后续修复：`fix/m5-p4-h4-06` 将举报描述输入上限收窄至数据库现有的 1000 字符，
+同步 OpenAPI 并增加 1000/1001 字符边界测试；该修复无需数据库迁移。
