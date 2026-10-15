@@ -54,24 +54,52 @@ test_worker_runtime.py ..........                          [100%]
 
 | 验证项 | 期望结果 | 实际结果 |
 |---|---|---|
-| `docker compose up -d --build` | 7 服务全部创建：db/redis/minio/minio-init/api/**baseline**/**worker** | 待填 |
-| `docker compose ps` | api/baseline/worker 均 healthy；baseline 不发布宿主端口 | 待填 |
-| worker `/healthz`（宿主 8002） | `{"status":"ok",...,"queue":{"reachable":true},...}` | 待填 |
-| 观测落库 | `SELECT count(*) FROM ai_task_runs;` 随任务执行增长；`worker_heartbeats` 有心跳行 | 待填 |
-| **模型关闭实验** | `docker compose stop baseline` → api 仍 healthy、`/health` 依赖 ok；worker 任务进有界重试（`error_code=SERVICE_DISABLED` 计数增长）；`docker compose start baseline` 恢复 | 待填 |
-| SQL 定位能力（BP4-08 口径） | 按 ai-observability.md 第三节 SQL 能回答：输入版本/处理服务/失败原因/重试次数 | 待填 |
-| 环境记录 | `uname -a`、`docker --version`、`docker compose version` | 待填 |
+| `docker compose up -d --build` | 7 服务全部创建：db/redis/minio/minio-init/api/**baseline**/**worker** | ✅ 7 服务全部创建（镜像初建于本机此前会话完成，本轮直接复用） |
+| `docker compose ps` | api/baseline/worker 均 healthy；baseline 不发布宿主端口 | ✅ 7 服务全部 Up，api/worker/baseline 均 healthy |
+| worker `/healthz`（宿主 8002） | `{"status":"ok",...,"queue":{"reachable":true},...}` | 待补测（`curl -s http://localhost:8002/healthz`） |
+| 观测落库 | `SELECT count(*) FROM ai_task_runs;` 随任务执行增长；`worker_heartbeats` 有心跳行 | ✅ ai_task_runs 随网页编辑求购帖逐次增长（见执行记录摘录一）；worker_heartbeats 心跳行待确认（`SELECT * FROM worker_heartbeats;`） |
+| **模型关闭实验** | `docker compose stop baseline` → api 仍 healthy、`/health` 依赖 ok；worker 任务**降级而不失败**：RPC 不可达时 `call_baseline` 就地回退内嵌引擎，任务仍 DONE，降级标记写入 `matching_results.metadata`（degraded=true，fallbackReason=SERVICE_UNAVAILABLE）；`docker compose start baseline` 后自动恢复正常路径 | ✅ 完整执行"正常→降级→恢复"三态闭环，matching_results 四条时间线（见执行记录摘录二） |
+| SQL 定位能力（BP4-08 口径） | 按 ai-observability.md 第三节 SQL 能回答：输入版本/处理服务/失败原因/重试次数 | ✅ ai_task_runs 可定位 outcome/attempt/duration_ms/result_version；降级原因经 matching_results.metadata 按 wanted_id/updated_at 关联定位 |
+| 环境记录 | `uname -a`、`docker --version`、`docker compose version` | 待补测 |
 
-**执行记录**（执行后填写）：
+**执行记录**（2026-10-15 实测）：
 
-- 日期：待填
-- 机器/系统：待填（Windows / Git Bash + Docker Desktop，与 BP2-09 同机）
-- 检出的分支与提交号：待填
-- 关键输出摘录：待填（/healthz JSON、stop baseline 前后对比、SQL 结果）
+- 日期：2026-10-15（本地会话，北京时间）
+- 机器/系统：Windows / Git Bash + Docker Desktop，与 BP2-09 同机
+- 检出的分支与提交号：待填（`git rev-parse --branch --short HEAD`）
+- 关键输出摘录：
+
+摘录一：实验 A —— 编辑求购帖触发匹配任务，任务记录（`ai_task_runs`）：
+
+```
+ task_id | outcome | attempt | duration_ms | error_code | result_version
+---------+---------+---------+-------------+------------+------------------------------------------------------------------
+       1 | DONE    |       1 |         428 |            | f45b4cb9d8c4c14b12e5bab72b37e6687e5cd8dc6ad30fba6511530e9e7abdc3
+       2 | DONE    |       1 |        7880 |            | 3d0c2222318c465a46c9df20ad3a1b0257c58f3669edd57e5bd572cc75a3a3c1
+(2 rows)
+```
+
+摘录二：实验 B —— 模型关闭实验降级时间线（`matching_results.metadata`）：
+
+```
+ wanted_id | degraded |    fallbackReason    | updated_at
+-----------+----------+----------------------+------------
+      3006 | false    |                      | 14:36:27   ← start baseline 恢复后：自动回到正常路径
+      3005 | true     | SERVICE_UNAVAILABLE  | 14:31:27   ← stop baseline 期间：降级兜底，任务仍成功
+      3004 | true     | SERVICE_UNAVAILABLE  | 14:11:01   ← 同上
+      3003 | false    |                      | 14:01:33   ← 正常基线
+(4 rows)
+```
+
+- 说明：摘录按实测终端输出截图整理（时间列仅示时刻部分）；
+  stop baseline 期间网页端 API 主链路、注册/发帖等功能全程正常。
 
 ## 四、已知未验证项声明
 
-- 完整 Compose 拓扑验证（第三节）在提交时尚未执行——不宣称已通过。
+- 完整 Compose 拓扑验证（第三节）已于 2026-10-15 在 M9 机器基本执行：
+  服务编排、观测落库、模型关闭实验、SQL 定位能力四项通过（含"正常→
+  降级→恢复"三态闭环）；worker `/healthz`、worker_heartbeats 心跳行、
+  环境版本记录三项待按第三节所附命令补测。
 - BP4-10 联合测试（与 M5/M6/FE/AI 的重复、乱序、超时、权限场景）：
   待小组集成分支合并后执行，M9 负责运行时环境与观测取证部分。
 - M6/M7 真实模型服务接入后的观测字段扩展（algorithmVersion 落

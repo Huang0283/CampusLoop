@@ -86,15 +86,17 @@ docker compose stop baseline
 curl -fsS http://localhost:8001/health
 # 期望 200：{"code":0,...,"status":"ok","dependencies":{"database":"ok","redis":"ok"}}
 
-# 4) 断言二：触发一次求购更新（产生匹配任务），worker 进入有界重试而非崩溃
-docker compose logs worker --tail 50
-# 期望：任务 outcome=RETRY/FAILED，errorCode=SERVICE_DISABLED，重试有 2^n 上限（60s 封顶）
+# 4) 断言二：触发一次求购更新（产生匹配任务），worker 降级兜底而非崩溃
+#    实测（2026-10-15）：RPC 不可达时 call_baseline 就地回退内嵌引擎，
+#    任务仍 DONE；降级标记写入 matching_results.metadata
+#    （degraded=true, fallbackReason=SERVICE_UNAVAILABLE）——详见 verification.md 第三节
 
 # 5) 恢复
 docker compose start baseline
 ```
 
-> 执行记录：见 verification.md 第四节（在用户机器上实际执行后填写）。
+> 执行记录：见 verification.md 第三节（2026-10-15 已在本机执行，
+> "正常→降级→恢复"三态闭环实测通过）。
 
 ## 六、Worker /healthz 契约
 

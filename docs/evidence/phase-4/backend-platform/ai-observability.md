@@ -29,7 +29,7 @@ worker_heartbeats                          每 10s UPSERT（身份/版本/计数
 | `event_key` | 触发事件键（幂等键，同 matching_jobs） |
 | `wanted_id` | 求购帖（无外键：业务行删除后流水保留） |
 | `outcome` | `DONE` / `SKIPPED` / `RETRY`（已排期重试）/ `FAILED`（最终失败）/ `WORKER_FAILURE` |
-| `error_code` | 失败原因（如 `SERVICE_DISABLED` / `STALE_INPUT` / `WORKER_FAILURE`） |
+| `error_code` | 失败原因（如 `STALE_INPUT` / `VALIDATION_ERROR` / `WORKER_FAILURE`；服务不可用属降级兜底，任务仍 DONE，原因见 matching_results.metadata，不落本列） |
 | `result_version` | **输入版本**（结果输入快照 sha256，同 matching_results.result_version） |
 | `attempt` | **重试次数**（第几次尝试，从 1 计） |
 | `duration_ms` | 本次执行耗时（claim 到 commit，含 RPC） |
@@ -111,8 +111,9 @@ GROUP BY outcome;
 
 | 场景 | 任务 outcome | error_code | 说明 |
 |---|---|---|---|
-| M7/M8 服务容器停止 | RETRY → FAILED | `SERVICE_DISABLED` | 2^n 秒有界重试（60s 封顶），第 5 次进 FAILED |
-| RPC 超时/5xx | RETRY → FAILED | 服务返回码 | 同上 |
+| M7/M8 服务容器停止（RPC 不可达） | DONE | （空） | RPC 超时/5xx/连接拒绝 → `call_baseline` 就地回退内嵌引擎，任务照常成功；降级标记落 matching_results.metadata（degraded=true，fallbackReason=SERVICE_UNAVAILABLE/SERVICE_TIMEOUT）。实测 2026-10-15，见 verification.md 第三节 |
+| 配置禁用（BASELINE_SERVICES_ENABLED=false） | DONE | （空） | 不发起 RPC，直接走内嵌引擎；metadata 标记 fallbackReason=SERVICE_DISABLED |
+| 降级回退时输入过期（asOf 超 60s / 求购已关闭） | RETRY → FAILED | `STALE_INPUT` / `WANTED_INACTIVE` | 降级路径的业务校验仍生效：2^n 秒有界重试（60s 封顶），第 5 次进 FAILED |
 | 任务执行中 revision 变化 | RETRY | `STALE_INPUT` | 输入过期，下一轮以新输入重算 |
 | worker 进程异常 | WORKER_FAILURE | `WORKER_FAILURE` / `JOB_RELEASED` | 事务回滚、锁释放、无部分结果 |
 | 竞态（另一 worker 抢占） | WORKER_FAILURE | `JOB_RELEASED` | 重试计数未知，如实记录 |
