@@ -50,23 +50,23 @@ test_worker_runtime.py ..........                          [100%]
 > 前置：沿用 BP2-09 的干净环境标准流程（startup-guide.md），
 > 新增服务的构建走同一 backend/Dockerfile（无新基础镜像、无新外网依赖）。
 
-### 记录表（执行后填写）
+### 记录表（2026-10-15 已执行）
 
 | 验证项 | 期望结果 | 实际结果 |
 |---|---|---|
 | `docker compose up -d --build` | 7 服务全部创建：db/redis/minio/minio-init/api/**baseline**/**worker** | ✅ 7 服务全部创建（镜像初建于本机此前会话完成，本轮直接复用） |
 | `docker compose ps` | api/baseline/worker 均 healthy；baseline 不发布宿主端口 | ✅ 7 服务全部 Up，api/worker/baseline 均 healthy |
-| worker `/healthz`（宿主 8002） | `{"status":"ok",...,"queue":{"reachable":true},...}` | 待补测（`curl -s http://localhost:8002/healthz`） |
-| 观测落库 | `SELECT count(*) FROM ai_task_runs;` 随任务执行增长；`worker_heartbeats` 有心跳行 | ✅ ai_task_runs 随网页编辑求购帖逐次增长（见执行记录摘录一）；worker_heartbeats 心跳行待确认（`SELECT * FROM worker_heartbeats;`） |
+| worker `/healthz`（宿主 8002） | `{"status":"ok",...,"queue":{"reachable":true},...}` | ✅ `status=ok`，checks.mainLoopAlive/dbReachable、queue.reachable 均 true，queue.pending=0；workerId=worker-869aab7f32b6-1（见摘录三） |
+| 观测落库 | `SELECT count(*) FROM ai_task_runs;` 随任务执行增长；`worker_heartbeats` 有心跳行 | ✅ ai_task_runs 随网页编辑求购帖逐次增长（见执行记录摘录一）；worker_heartbeats 4 行：3 条历史实例行（容器重建所致）+ 当前实例 worker-869aab7f32b6-1（runs_total=6、runs_failed=0，与 /healthz 一致，见摘录三） |
 | **模型关闭实验** | `docker compose stop baseline` → api 仍 healthy、`/health` 依赖 ok；worker 任务**降级而不失败**：RPC 不可达时 `call_baseline` 就地回退内嵌引擎，任务仍 DONE，降级标记写入 `matching_results.metadata`（degraded=true，fallbackReason=SERVICE_UNAVAILABLE）；`docker compose start baseline` 后自动恢复正常路径 | ✅ 完整执行"正常→降级→恢复"三态闭环，matching_results 四条时间线（见执行记录摘录二） |
 | SQL 定位能力（BP4-08 口径） | 按 ai-observability.md 第三节 SQL 能回答：输入版本/处理服务/失败原因/重试次数 | ✅ ai_task_runs 可定位 outcome/attempt/duration_ms/result_version；降级原因经 matching_results.metadata 按 wanted_id/updated_at 关联定位 |
-| 环境记录 | `uname -a`、`docker --version`、`docker compose version` | 待补测 |
+| 环境记录 | `uname -a`、`docker --version`、`docker compose version` | ✅ Windows 10（Git Bash / MINGW64，x86_64）、Docker 29.8.2、Docker Compose v5.5.1 |
 
 **执行记录**（2026-10-15 实测）：
 
 - 日期：2026-10-15（本地会话，北京时间）
-- 机器/系统：Windows / Git Bash + Docker Desktop，与 BP2-09 同机
-- 检出的分支与提交号：待填（`git rev-parse --branch --short HEAD`）
+- 机器/系统：Windows 10（Git Bash / MINGW64，x86_64）+ Docker Desktop（Docker 29.8.2 / Compose v5.5.1），与 BP2-09 同机
+- 检出的分支与提交号：`task/m9-p4-worker-runtime` @ `5ccfe03`
 - 关键输出摘录：
 
 摘录一：实验 A —— 编辑求购帖触发匹配任务，任务记录（`ai_task_runs`）：
@@ -94,12 +94,41 @@ test_worker_runtime.py ..........                          [100%]
 - 说明：摘录按实测终端输出截图整理（时间列仅示时刻部分）；
   stop baseline 期间网页端 API 主链路、注册/发帖等功能全程正常。
 
+摘录三：worker `/healthz` 关键字段（完整 JSON 截图留存）与 `worker_heartbeats`：
+
+```
+{"status":"ok","workerId":"worker-869aab7f32b6-1","workerVersion":"bp4-worker-runtime-v1",
+ "secondsSinceLastLoopTick":0.113,
+ "runs":{"total":6,"succeeded":4,"skipped":2,"retryScheduled":0,"failed":0,
+         "workerFailure":0,"droppedEvents":0,"dbWriteErrors":0},
+ "queue":{"reachable":true,"pending":0,"oldestPendingSeconds":null},
+ "checks":{"mainLoopAlive":true,"dbReachable":true}}
+```
+
+```
+ worker_id              | version               | runs_total | runs_failed
+------------------------+-----------------------+------------+-------------
+ worker-574c7778e268-1  | bp4-worker-runtime-v1 |          0 |           0
+ worker-9bdee26a6591-1  | bp4-worker-runtime-v1 |          0 |           0
+ worker-2f62d6d1df0b-1  | bp4-worker-runtime-v1 |          0 |           0
+ worker-869aab7f32b6-1  | bp4-worker-runtime-v1 |          6 |           0
+(4 rows)
+```
+
+- `/healthz` 的 recentRuns 与 ai_task_runs 一一对应：6 次运行 =
+  4 次 DONE（task 1–4，对应 3003–3006）+ 2 次 SKIPPED（求购帖状态
+  变更后触发，业务输入不再有效，无需重算——SKIPPED 语义正常）；
+  failed=0，droppedEvents=0；
+- worker_heartbeats 为按 worker_id UPSERT：3 条 runs_total=0 的行为
+  容器重建期间的历史实例（身份含 hostname-pid），当前实例
+  worker-869aab7f32b6-1 runs_total=6、runs_failed=0，与 /healthz 一致。
+
 ## 四、已知未验证项声明
 
-- 完整 Compose 拓扑验证（第三节）已于 2026-10-15 在 M9 机器基本执行：
-  服务编排、观测落库、模型关闭实验、SQL 定位能力四项通过（含"正常→
-  降级→恢复"三态闭环）；worker `/healthz`、worker_heartbeats 心跳行、
-  环境版本记录三项待按第三节所附命令补测。
+- 完整 Compose 拓扑验证（第三节）已于 2026-10-15 在 M9 机器全部执行：
+  服务编排、worker /healthz、观测落库（ai_task_runs + worker_heartbeats）、
+  模型关闭实验、SQL 定位能力、环境记录共 7 项全部通过；其中模型关闭
+  实验含"正常→降级→恢复"三态闭环实测。
 - BP4-10 联合测试（与 M5/M6/FE/AI 的重复、乱序、超时、权限场景）：
   待小组集成分支合并后执行，M9 负责运行时环境与观测取证部分。
 - M6/M7 真实模型服务接入后的观测字段扩展（algorithmVersion 落
