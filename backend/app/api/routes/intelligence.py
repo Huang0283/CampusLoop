@@ -137,8 +137,8 @@ def search(
     pageSize: PageSize = 20,
     category: str = "",
     condition: str = "",
-    minPrice: float | None = Query(default=None, ge=0),
-    maxPrice: float | None = Query(default=None, ge=0),
+    minPrice: float | None = Query(default=None, ge=0, allow_inf_nan=False),
+    maxPrice: float | None = Query(default=None, ge=0, allow_inf_nan=False),
     sort: Literal["relevance", "newest", "price_asc", "price_desc"] = "relevance",
 ):
     if not query.strip() or len(query) > 200:
