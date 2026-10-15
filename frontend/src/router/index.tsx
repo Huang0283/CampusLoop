@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { Result } from 'antd'
 import { Guard, Shell } from '../live/common'
+import { ReportsPage } from '../live/ReportsPage'
 import { AdminPage, AuthPage, ProfilePage } from '../live/AccountPages'
 import { CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage } from '../live/MarketPages'
 import { ChatPage, ChatListPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
@@ -26,7 +27,7 @@ export const router = createBrowserRouter([{ element: <Shell />, children: [
   { path: '/transactions/:id/meetup', element: <Guard><MeetupPage /></Guard> },
   { path: '/transactions/:id/review', element: <Guard><ReviewPage /></Guard> },
   { path: '/notifications', element: <Guard><NotificationsPage /></Guard> },
-  { path: '/report', element: <Guard><NotificationsPage /></Guard> },
+  { path: '/report', element: <Guard><ReportsPage /></Guard> },
   { path: '/orders', element: <Navigate to="/transactions" replace /> },
   { path: '/orders/:id', element: <Guard><OrderPage /></Guard> },
   { path: '/orders/:id/review', element: <Guard><ReviewPage /></Guard> },

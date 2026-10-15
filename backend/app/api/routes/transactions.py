@@ -38,6 +38,7 @@ from app.schemas.business import (
 from app.services import business_serializers as dto
 from app.services.auth import Actor, Db, student
 from app.services.business import chat, event, idempotent, load, notify, order, require_participant
+from app.services.meetup_time import require_future_meetup
 from app.services.storage import owned_keys
 
 router = APIRouter(tags=["Transactions"])
@@ -417,6 +418,7 @@ def save_meetup(orderId: int, body: MeetupWrite, db: Db, actor: Actor, idempoten
         entity = writable_order(db, orderId, actor)
         if entity.status in ("COMPLETED", "CANCELLED", "DISPUTED"):
             raise BusinessError(409, "ORDER_STATE_CONFLICT", "Order is terminal.")
+        require_future_meetup(body.scheduledDate, body.timeSlotStart)
         arrangement = db.scalar(select(Meetup).where(Meetup.order_id == orderId).with_for_update())
         if arrangement is None:
             arrangement = Meetup(order_id=orderId, place=body.campusLocation, version=1)
@@ -456,6 +458,8 @@ def confirm_meetup(
             "buyer_confirmed_version" if actor.id == entity.buyer_id else "seller_confirmed_version"
         )
         if getattr(arrangement, field) != arrangement.version:
+            slots = MeetupWrite.model_validate(arrangement.proposed_slots)
+            require_future_meetup(slots.scheduledDate, slots.timeSlotStart, confirmation=True)
             setattr(arrangement, field, arrangement.version)
             both = (
                 arrangement.buyer_confirmed_version
