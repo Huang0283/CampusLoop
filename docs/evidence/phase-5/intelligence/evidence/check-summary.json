@@ -1,10 +1,12 @@
 {
+  "AI5_04": "DELIVERED; FINAL_STAGE_ACCEPTANCE_PENDING",
   "acceptance": "NOT_FINAL_STAGE_ACCEPTANCE",
   "archiveSourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
-  "baselineFullVerifyStatus": "FAIL: four loopback test errors; WinError 10013",
+  "baselineFullVerifyStatus": "PASS: v3 after network permissions restored; prior failures retained",
   "baselineLabelSource": "PENDING_HUMAN_REVIEW",
   "baselineSourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
   "candidateDecision": "NO_GO",
+  "candidateFullVerifyStatus": "PASS",
   "candidateLabelSource": "PENDING_HUMAN_REVIEW",
   "candidateModelDownloadedThisRun": false,
   "candidateRealInferenceThisRun": true,
@@ -34,6 +36,10 @@
   "formalPageServiceVersionCheck": false,
   "freshDependencyInstallation": false,
   "historicalFailuresPreserved": true,
+  "latestRecords": [
+    "author-reproduction-v3/run-record.json",
+    "limitations-v1/run-record.json"
+  ],
   "phase2Status": "PASS",
   "rawAttempts": [
     "author-reproduction-v1/run-record.json",
@@ -41,7 +47,7 @@
   ],
   "requestCount": 38,
   "schemaVersion": "m7-p5-author-check-summary-v1",
-  "serviceSmokeStatus": "BLOCKED: loopback connection denied; WinError 10013",
-  "status": "PARTIAL_ENVIRONMENT_BLOCKED",
+  "serviceSmokeStatus": "PASS: v3 six real process/RPC cases; prior failures retained",
+  "status": "AUTHOR_TECHNICAL_PASS_FINAL_ACCEPTANCE_PENDING",
   "testSetSealed": false
 }

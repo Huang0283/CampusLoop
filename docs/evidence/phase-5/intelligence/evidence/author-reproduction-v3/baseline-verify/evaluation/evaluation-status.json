@@ -1,0 +1,14 @@
+{
+  "humanReviewedPairs": 0,
+  "labelReview": {
+    "archiveManifestSha256": null,
+    "humanReviewedPairs": 0,
+    "labelSource": "PENDING_HUMAN_REVIEW",
+    "labelVersion": "m7-label-draft-v1",
+    "status": "STRUCTURED_RECORDS_PENDING",
+    "testSetSealed": false
+  },
+  "labelSource": "PENDING_HUMAN_REVIEW",
+  "scope": "six-product complete catalog pools; historical synthetic snapshots; not live full-corpus recall",
+  "status": "DIAGNOSTIC_ONLY"
+}

@@ -1,0 +1,38 @@
+{
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY; NO HUMAN SIGNATURE",
+  "endedAt": "2026-10-17T12:10:15.789511+00:00",
+  "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+  "startedAt": "2026-10-17T12:08:29.778562+00:00",
+  "status": "PASS",
+  "steps": [
+    {
+      "command": [
+        "<workspace-work>\\phase4-venv\\Scripts\\python.exe",
+        "-m",
+        "services.m7_semantic.verify",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--output-dir",
+        "<workspace-work>\\phase5-limitations-v1\\candidate-verify"
+      ],
+      "durationSeconds": 97.984,
+      "exitCode": 0,
+      "name": "candidate-full-verify"
+    },
+    {
+      "command": [
+        "<workspace-work>\\phase4-venv\\Scripts\\python.exe",
+        "<workspace-work>\\CampusLoop-phase5\\docs\\evidence\\phase-5\\intelligence\\evidence\\limitations-v1\\measure_first_query.py",
+        "--checkout",
+        "<workspace-work>\\p5-candidate-clean",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--output",
+        "<workspace-work>\\phase5-limitations-v1\\first-query.json"
+      ],
+      "durationSeconds": 7.954,
+      "exitCode": 0,
+      "name": "candidate-first-query"
+    }
+  ]
+}

@@ -1,4 +1,24 @@
-# AI5-01～03 作者验证
+# AI5-01～04 作者验证
+
+2026-10-17 续验结论：`AUTHOR_TECHNICAL_PASS_FINAL_ACCEPTANCE_PENDING`。网络权限恢复后，在原干净 Git 检出补跑，基线完整 verify 与真实服务 smoke 均通过；未更改生产代码。此前 v1/v2 的权限失败保留在下方和原始日志，不改写成历史成功。
+
+| 新执行 | 实际结果 | 原始证据 |
+| --- | --- | --- |
+| v3 数据 verify / 重建 verify | PASS，字节重建一致 | evidence/author-reproduction-v3/run-record.json |
+| v3 基线完整 verify | PASS；31 项 M7 Phase 3 测试通过；Phase 2 回归通过；两次评估字节一致、三 split 重算一致、资产未变 | evidence/author-reproduction-v3/baseline-verify/run-record.json |
+| v3 真实 RPC 子进程 smoke | 6 场景 PASS：缺认证、关闭语义、持久分页、未知字段、错误 token 不回退、停服务本地回退；临时随机 token 未归档 | evidence/author-reproduction-v3/service-process-smoke.json |
+| 固定候选完整 semantic.verify | PASS，既有 Phase 2/3/4 与 M8 回归、两次真实 BGE 评估、三 split 重算、真实更新/幂等/旧事件/删除 tombstone 通过 | evidence/limitations-v1/candidate-verify/run-record.json |
+| 新进程首次编码探针 | 实际本地 BGE 首次 encode + 5 次同查询预热；向量一致；不清 OS 缓存、不含 HTTP/DB/商品索引，不是 SLA | evidence/limitations-v1/first-query.json |
+| AI5-04 失败审计 | 原始全部 split 失败行与零计数类别保留；聚合门槛失败、U/过期/无答案及弱相关召回分别说明 | evidence/limitations-audit.json |
+
+基线来源提交仍为 `0c6528674a57dd555f070dc3a568d1fcf13fadf0`，行为代码等同 `6df25176866a6b1df2c1da5dcd28229b965f73ff`；候选仍为 `e4dc076d7a589f41b3d8cd61c246dabe67e9c39d`。环境为 Windows / Python 3.12.14，复用已锁定隔离环境与模型，并非本次全新安装。
+完整候选验证是本次新执行，不能与历史 M7/M10 记录混为同一轮。技术 PASS 不改变候选效果 NO_GO，不代表 M10/M1 签署。正式阶段检出、全新安装独立复现和发布链路仍待完成。
+
+本次为文档、审计与测量驱动交付，未改变生产行为，不声称进行了新功能 TDD。支持性 verification/deliverables 不等于共同 AI5-10 已完成。
+
+## 以下为网络受限时的原始记录
+
+# AI5-01～03 原始受限环境验证
 
 日期：2026-10-17。结论：`PARTIAL_ENVIRONMENT_BLOCKED`。文档、版本和数据清单可交付；本次完整服务验证没有通过，不是 M10 独立验收或最终阶段签署。
 机器汇总：[evidence/check-summary.json](evidence/check-summary.json)。两次尝试的原始记录和 stdout/stderr 全部保留。

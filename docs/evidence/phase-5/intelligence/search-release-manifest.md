@@ -20,7 +20,7 @@
 | --- | --- |
 | 搜索算法 | `m7-keyword-v0`；词元版本 `m7-tokenizer-v0`；NFKC、小写、中文二元词/索引单字、字母数字词；去重词元 |
 | 字段权重 | title=4，model=2，categoryDisplayName=2，description=1；关键词得分按 `9 × 查询词数` 归一；不是成交概率 |
-| 匹配算法 | `m7-match-v0`；先执行同校区/状态/可见性/类别/预算/成色/地点/卖家与求购发布者等硬约束，再排序；具体边界以 pipeline 和 engine 固定源码为准 |
+| 匹配算法 | `m7-match-v0`；先执行状态/可见性/类别/预算/成色/地点/卖家与求购发布者等硬约束，再排序；校区仅参与 campus 可见性判断，没有独立的同校区筛选规则；具体边界以 pipeline 和 engine 固定源码为准 |
 | 关键词索引 | `KeywordIndex` 从传入的权威商品池构建内存倒排索引；分页结果持久于 SQLite `store.py`；不复用语义向量库 |
 | RPC/result schema | `m7-baseline-rpc-v1` / `m7-baseline-result-v1`；内部契约 `schemas/m7-phase3/rpc.schema.json`；商品/请求 `schemas/m7-phase2/dataset.schema.json` |
 | 词典 | 合成评估 `m7-fixture-dictionary-v1`；真实后端桥接 `live-dictionary-v1`；两者用途不同，不能互换作同一评估输入 |

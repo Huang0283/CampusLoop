@@ -33,7 +33,7 @@ $env:TMP = $env:TEMP
 $env:TMPDIR = $env:TEMP
 ```
 
-本次 loopback 连接另被沙箱以 `WinError 10013` 拒绝，完整基线 verify 和服务 smoke 因而未通过。临时目录设置不能解决网络访问限制；应在允许本地回环的独立验收环境运行，保留当前失败记录，不以跳过 HTTP 测试或 mock 代替通过。
+首次两轮 loopback 连接另被沙箱以 `WinError 10013` 拒绝；本次续验在权限恢复后，原完整基线 verify 和服务 smoke 已通过，原失败日志保留。临时目录设置不能解决网络访问限制；应在允许本地回环的独立验收环境运行，保留当前失败记录，不以跳过 HTTP 测试或 mock 代替通过。
 
 ## 2. 数据字节重建
 
@@ -81,7 +81,7 @@ $result | ConvertTo-Json -Depth 20
 ```
 
 预期返回真实 rank 结果和版本元数据；无 token 应为 401。example_request 模块仅在此集成提交存在；不在实验候选提交调用该模块。它用当前 asOf 包装合成查询，不改冻结数据；超过服务 freshness 窗口需重新生成。历史 wanted 过期是预期边界，不改样本时间冒充匹配成功。
-执行成功时保存响应形状和结果 ID。本次实际 smoke 在连接阶段被沙箱阻止，日志见 verification，不能据此声称 HTTP 认证、分页或降级已通过本次验证。端到端数据库/worker/页面链路不由该 loopback 演示代替，属于 AI5-09。
+执行成功时保存响应形状和结果 ID。最初 smoke 被沙箱阻止，续验 v3 已真实验证认证、分页与停服务降级通过；成功与失败日志均见 verification。端到端数据库/worker/页面链路不由该 loopback 演示代替，属于 AI5-09。
 
 ## 5. 单独复现未采用的语义候选
 
@@ -123,7 +123,7 @@ Path('../m7-p5-query-products.jsonl').write_text(''.join(json.dumps(x, ensure_as
 ```
 
 build 后相同内容 update 应为幂等；指标 JSON 及逐项排序两次应一致。索引物理文件的跨平台字节不作一致承诺。query 明确处于私有 experimental=True 路径。
-需要完整候选回归时执行以下命令并原样保留失败；本次 AI5-03 的分步实跑范围另见 verification，不把历史 196 PASS 充当本次执行：
+需要完整候选回归时执行以下命令并原样保留失败；AI5-04 续验已实际运行完整候选 verify，结果和原始日志见 verification；历史记录仍单独保留：
 
 ```powershell
 & $cp -m services.m7_semantic.verify --model-dir ../m7-p5-model --output-dir ../m7-p5-candidate-verify
@@ -156,3 +156,14 @@ python scripts/quality_phase4/check_archived_evidence.py
 ## 8. 最终接收记录
 
 M10 必须从正式阶段提交干净检出，记录提交、OS/硬件、Python/依赖锁、安装日志、模型文件哈希、命令、退出码、实际结果、失败路径与同环境重复比较。M3/M6/M9 补发布页面、业务事实、服务与降级链路；M1 核对冻结标签。当前作者验证仅支持文档可执行性，不代替这些签署。
+
+
+## 9. AI5-04 首次查询测量重放
+
+在已完成模型哈希核验的候选环境，用本次文档检出中的 `evidence/limitations-v1/measure_first_query.py`，传入真实候选 Git 检出与本地模型目录：
+
+```text
+<candidate-python> <documentation-checkout>/docs/evidence/phase-5/intelligence/evidence/limitations-v1/measure_first_query.py --checkout <candidate-checkout> --model-dir <pinned-model-dir> --output <new-first-query.json>
+```
+
+占位参数需替换成实际路径。探针只读取固定 calculator 请求并编码，不修改模型或评估集；保留首次调用与五次预热的全部数值，不把进程首次加载等同 OS 冷缓存。解释范围见 search-limitations.md。
