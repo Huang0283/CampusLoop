@@ -48,3 +48,10 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/phase-4/intelligence/evidence/joint-v1/** -text
 /docs/evidence/phase-4/intelligence/joint-delivery/** text eol=lf
 /services/intelligence_phase4/** text eol=lf
+
+# Preserve original test stderr formatting rather than editing archived evidence.
+/docs/evidence/phase-4/intelligence/evidence/m7-v1/**/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/evidence/m7-v1/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/evidence/joint-v1/**/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/evidence/joint-v1/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/*.md text eol=lf

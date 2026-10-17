@@ -1,3 +1,7 @@
+2026-10-17 联合归档：下文保留 e4dc076 的 M7 原实验说明与历史记录；当前组合、服务修复和原负责人接收入口见 [联合交付](joint-delivery/README.md)。候选仍 NO_GO，新增技术验证不代替冻结。
+
+---
+
 # AI4-02 向量索引运行手册
 
 更新：2026-10-11。实现位于 `services/m7_semantic/index.py`，入口 `VectorIndex.rebuild/upsert/delete/query/logical_digest/close`。可运行命令见 [服务说明](../../../../services/m7_semantic/README.md)。
