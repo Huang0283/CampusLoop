@@ -1,3 +1,30 @@
+# AI5-08～10 本轮作者技术验证
+
+2026-10-17；技术代码提交 `45acf879bf41c18baae4f89584c9e1732f848c97`，运行前后三个完整验证记录均为工作树干净。结论：`AUTHOR_TECHNICAL_PASS_RELEASE_AND_INDEPENDENT_ACCEPTANCE_PENDING`。
+
+| 实际操作 | 结果 | 证据 |
+| --- | --- | --- |
+| 新建轻量 venv 并安装原六版本锁 | 安装成功，pip check PASS，六版本逐项一致 | [环境审计](evidence/joint-v1/environment-audit.json) / baseline-fresh.freeze.txt |
+| 原 TEMP 的首轮基线与联合 verify | Phase2 子进程 60 秒超时，FAIL；保留原失败，不改超时参数 | evidence/joint-v1/baseline-profile/run-record.json、joint-profile/run-record.json |
+| 可写 TEMP 的完整基线 verify | PASS；M7 38 单测、Phase2 回归、两次评估和三 split 重算一致、资产未变 | [fresh-baseline-v2/run-record](evidence/joint-v1/fresh-baseline-v2/run-record.json) |
+| 真实联合 verify | 四步骤 PASS；candidate profile；真实模型推理完成；dirty=false | [joint-v2/run-record](evidence/joint-v1/joint-v2/run-record.json) |
+| M8 回归 | Phase2 14 / Phase3 31 / Phase4 23 测试 PASS，重复输出一致，价格 NO_GO | [M8 run-record](evidence/joint-v1/joint-v2/m8/run-record.json) |
+| 两服务真实部署/停止/回滚与权限 | 12 场景 PASS；独立 SQLite 分页重启、401、关闭候选及四能力停止恢复 | [deployment/smoke](evidence/joint-v1/joint-v2/deployment/smoke.json) |
+| M7 私有候选 | 33 单测；两次真实 BGE 38 查询；向量/索引重复一致；更新/幂等/旧事件/删除检查通过 | [semantic run-record](evidence/joint-v1/joint-v2/m7-semantic/run-record.json) |
+| 固定 M10 公式由作者重算 | all/dev/test_candidate 一致，容差 1e-12；不是 M10 本次独立验收 | [formula-recalculation](evidence/joint-v1/formula-recalculation.json) |
+| 固定 M10 RPC 故障脚本由作者重放 | 18/18 PASS；真实超时/关闭/坏 JSON/坏结构/旧输入 | [quality-probes](evidence/joint-v1/quality-probes.json) 与原始 stdout/stderr |
+| 源资产/模型核对 | 154 资产 Git blob 哈希，1643 跟踪文件扫描，七模型文件哈希通过 | [asset-audit](evidence/joint-v1/asset-audit.json)、[model-audit](evidence/joint-v1/model-audit.json) |
+
+原始命令与环境见各 run-record，[联合指南](joint-delivery/reproduction-guide.md) 提供可执行步骤。基线新安装使用缓存 wheel 亦属于新 venv 安装；候选环境复用、模型复用不是首次安装/下载。Windows 路径占位仅用于导出副本；原日志内容和失败不变。副本完整性以本轮 [FILES.sha256](evidence/joint-v1/FILES.sha256.json) 为准，嵌套原记录中 stdoutSha/sourceHashes 属于原执行位置/原文件，不与脱敏副本混用。
+
+无新增生产行为：本次为合并已有修复、环境核对、原命令复现、文档与原始结果归档，因此不声称新功能 TDD。P4 修复原 RED/GREEN 保留在 P4 证据，不当作本轮新增测试。重复测试次数不累加。两个候选仍 NO_GO；M7 test_candidate=12，结构化标签=0、未封存；M8 成交标签=0，MAE/MAPE/覆盖率 NOT_EVALUATED。
+
+CI 结果若完成会追加本轮具体提交、运行链接与原始日志。CI 不是 M9 发布环境，作者复用 M10 实现不等于 M10 签署。正式阶段检出、M9/M6/M3 发布全链路、M10/M1 仍按 [接收状态](joint-delivery/acceptance-status.json) 待完成。
+
+---
+
+## 以下为原个人任务作者验证历史，保留原日期与限制
+
 # AI5-01～04 作者验证
 
 2026-10-17 续验结论：`AUTHOR_TECHNICAL_PASS_FINAL_ACCEPTANCE_PENDING`。网络权限恢复后，在原干净 Git 检出补跑，基线完整 verify 与真实服务 smoke 均通过；未更改生产代码。此前 v1/v2 的权限失败保留在下方和原始日志，不改写成历史成功。
