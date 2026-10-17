@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "candidateTechnicalPassNoGo": true,
+    "ciOriginalLogHashValid": true,
+    "cleanTechnicalRunPass": true,
+    "independentFormulaPass": true,
+    "jointDeployment12Pass": true,
+    "jointStepLogHashesValid": true,
+    "jsonSyntaxValid": true,
+    "m8SourceAndEvidencePreserved": true,
+    "newDocumentLinksResolve": true,
+    "newDriverSyntaxValid": true,
+    "noAuthorImpersonation": true,
+    "originalM10Probes18Pass": true,
+    "originalOwnerAcceptancePending": true,
+    "realBackendAndBrowserPass": true,
+    "realCiAllJobsPass": true,
+    "recalculationCliPass": true,
+    "runtimeSameAsTestedCommit": true,
+    "sourceDataAndBusinessScopeUnchanged": true,
+    "versionGitBlobsValid": true
+  },
+  "codeCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "formalAcceptance": false,
+  "issueClosed": false,
+  "status": "PASS_TECHNICAL_DELIVERY_ONLY"
+}

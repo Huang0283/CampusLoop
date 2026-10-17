@@ -1,18 +1,12 @@
-# M7 Phase 5：AI5-01～AI5-04
+# Phase 5 智能组个人与共同交付
 
-整理日期：2026-10-17。状态：四项个人交付物已准备，正式验收待完成。
+2026-10-17 更新：本次推进 AI5-08～10 的作者技术交付。入口见 [共同交付](joint-delivery/README.md)、[环境](reproducibility-environment.md)、[最终集成报告](final-integration-report.md)。正式 Phase4/5 冻结、发布全链路、M8 互审与 M10/M1 签署仍待完成。
 
-| 任务 | 入口 | 本次范围 | 验收状态 |
-| --- | --- | --- | --- |
-| AI5-01 | [版本清单](search-release-manifest.md) | 固定集成基线、实验候选、schema、模型、索引、权重和消费者出处 | 最终发布页面/服务版本核对待 M3/M6/M9/M10 |
-| AI5-02 | [数据说明](search-data-documentation.md) | 来源许可、17 个数据文件哈希、划分、标注、泄漏和可执行重建 | 结构化复核归档与团队许可接收待完成 |
-| AI5-03 | [复现指南](search-reproduction-guide.md) | 数据、基线、RPC、候选索引/增量/评估、独立重算的分步命令 | 本次作者实跑见 verification；M10 最终干净环境验收待完成 |
-| AI5-04 | [失败分析与适用限制](search-limitations.md) | 完整失败类别、数据偏差、首次编码、延迟/资源与降级矩阵 | 作者技术验证通过；正式发布接收待完成 |
+M7 个人 AI5-01～04 原说明与历史证据保留；本次整合 Phase4 PR #107 后，当前准备技术版本与运行结果以 [联合清单](joint-delivery/release-manifest.json) 及 [verification](verification.md) 顶部为准。M8 的 AI5-05～07 专项交付当前未在远端出现，不能用本次资产归集替代 M8 个人验收。
 
-[交付清单](deliverables.md) · [实际验证](verification.md) · [交接与阻塞](handoff.md)
-
-基于 `phase4/integration@6df25176866a6b1df2c1da5dcd28229b965f73ff` 整理。
-工作分支为 `prep/m7-p5-search-reproducibility`。尚无 Phase 5 正式集成输入，不能将准备分支冒充正式分支。
-`source-snapshots/` 保存带完整提交号和 SHA256 的上游证据原文，不代表本次新增签署。
-
-M7 四项个人交付材料已准备；M8 任务 AI5-05～07、共同任务 AI5-08～10 不在本次完成范围。此处支持性 verification/deliverables 文件不等于 AI5-10 已完成。
+| 范围 | 文件 |
+| --- | --- |
+| AI5-01～04 | [版本](search-release-manifest.md)、[数据](search-data-documentation.md)、[命令](search-reproduction-guide.md)、[限制](search-limitations.md) |
+| AI5-08 | [环境与清理](reproducibility-environment.md) |
+| AI5-09 | [发布集成报告](final-integration-report.md) |
+| AI5-10 | [验证](verification.md)、[交付](deliverables.md)、[交接](handoff.md)、[审阅输入](joint-delivery/review-input.json) |

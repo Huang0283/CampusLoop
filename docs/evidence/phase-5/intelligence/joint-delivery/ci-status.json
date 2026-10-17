@@ -1,0 +1,206 @@
+{
+  "environment": "GitHub-hosted Ubuntu, real pgvector PostgreSQL, Redis, MinIO and Chromium; not M9 release environment",
+  "formalReleaseAcceptance": false,
+  "headCommit": "e608315a0c76f61d4ae79b5a8baca1c7a5f2ee49",
+  "humanSignoff": false,
+  "jobs": [
+    {
+      "conclusion": "success",
+      "name": "backend / migrations, seed & tests",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Initialize containers"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "Real object storage for upload and private-media tests"
+        },
+        {
+          "conclusion": "success",
+          "name": "Migrate on empty database"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify rollback then re-migrate"
+        },
+        {
+          "conclusion": "success",
+          "name": "Seed idempotency check (run twice, compare)"
+        },
+        {
+          "conclusion": "success",
+          "name": "Health smoke via TestClient"
+        },
+        {
+          "conclusion": "success",
+          "name": "Full test suite"
+        },
+        {
+          "conclusion": "success",
+          "name": "Intelligence baseline tests (real loopback RPC)"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install browser test dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "Live browser acceptance against the real API and storage"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Stop containers"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39047423914/job/117438866751"
+    },
+    {
+      "conclusion": "success",
+      "name": "backend / format & lint",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "Ruff format check"
+        },
+        {
+          "conclusion": "success",
+          "name": "Ruff lint"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39047423914/job/117438866867"
+    },
+    {
+      "conclusion": "success",
+      "name": "frontend / sdk & build",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "SDK drift check"
+        },
+        {
+          "conclusion": "success",
+          "name": "Transaction prototype state tests"
+        },
+        {
+          "conclusion": "success",
+          "name": "Lint"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39047423914/job/117438866893"
+    }
+  ],
+  "observedTestSummaryLines": [
+    "2026-10-17T16:02:56.3954444Z ========================= 5 passed, 1 warning in 0.05s =========================",
+    "2026-10-17T16:03:06.2024621Z tests/test_live_intelligence.py: 1 warning",
+    "2026-10-17T16:03:06.2025036Z tests/test_matching_jobs.py: 2 warnings",
+    "2026-10-17T16:03:06.2030744Z 37 passed, 19 warnings in 8.17s",
+    "2026-10-17T16:03:50.9910406Z Running 5 tests using 1 worker",
+    "2026-10-17T16:04:25.5389523Z   5 passed (35.2s)"
+  ],
+  "rawLog": {
+    "bytes": 161609,
+    "path": "../evidence/joint-v1/ci-backend-job.txt",
+    "sha256": "f88acf9553372c45440df1c76a6ad3ac4609aed8f6c23862fde2c4a41a2b79ba"
+  },
+  "recordedAt": "2026-10-17T16:06:56.277568+00:00",
+  "status": "PASS",
+  "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39047423914",
+  "workflowRunId": 39047423914
+}

@@ -1,0 +1,215 @@
+{
+  "backendLog": {
+    "bytes": 161390,
+    "download": "Original job log from GitHub; signed download URL and request credentials not archived",
+    "path": "../evidence/joint-v1/ci-backend-job.txt",
+    "sha256": "6efce061b273ee58d343e35a048f3be170aee7e0913c9e57c32a289899bed175"
+  },
+  "conclusion": "success",
+  "environment": "GitHub-hosted Ubuntu CI, real PostgreSQL pgvector/Redis/MinIO and Chromium; not M9 release environment or M10 human signoff",
+  "event": "pull_request",
+  "headCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "humanAcceptance": false,
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 117405527263,
+      "name": "backend / migrations, seed & tests",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Initialize containers"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "Real object storage for upload and private-media tests"
+        },
+        {
+          "conclusion": "success",
+          "name": "Migrate on empty database"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify rollback then re-migrate"
+        },
+        {
+          "conclusion": "success",
+          "name": "Seed idempotency check (run twice, compare)"
+        },
+        {
+          "conclusion": "success",
+          "name": "Health smoke via TestClient"
+        },
+        {
+          "conclusion": "success",
+          "name": "Full test suite"
+        },
+        {
+          "conclusion": "success",
+          "name": "Intelligence baseline tests (real loopback RPC)"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install browser test dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "Live browser acceptance against the real API and storage"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Stop containers"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39035915371/job/117405527263"
+    },
+    {
+      "conclusion": "success",
+      "id": 117405527351,
+      "name": "backend / format & lint",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "Ruff format check"
+        },
+        {
+          "conclusion": "success",
+          "name": "Ruff lint"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39035915371/job/117405527351"
+    },
+    {
+      "conclusion": "success",
+      "id": 117405527373,
+      "name": "frontend / sdk & build",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install dependencies"
+        },
+        {
+          "conclusion": "success",
+          "name": "SDK drift check"
+        },
+        {
+          "conclusion": "success",
+          "name": "Transaction prototype state tests"
+        },
+        {
+          "conclusion": "success",
+          "name": "Lint"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job"
+        }
+      ],
+      "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39035915371/job/117405527373"
+    }
+  ],
+  "observedAt": "2026-10-17T13:46:01.413876+00:00",
+  "observedTestSummaryLines": [
+    "2026-10-17T13:31:00.6940841Z ========================= 5 passed, 1 warning in 0.04s =========================",
+    "2026-10-17T13:31:10.1230079Z tests/test_live_intelligence.py: 1 warning",
+    "2026-10-17T13:31:10.1230586Z tests/test_matching_jobs.py: 2 warnings",
+    "2026-10-17T13:31:10.1234454Z 37 passed, 19 warnings in 7.99s",
+    "2026-10-17T13:31:54.3061057Z Running 5 tests using 1 worker",
+    "2026-10-17T13:32:26.6552232Z   5 passed (33.0s)"
+  ],
+  "phase4FreezeApproved": false,
+  "status": "PASS",
+  "url": "https://github.com/Huang0283/CampusLoop/actions/runs/39035915371",
+  "workflowRunId": 39035915371
+}
