@@ -41,3 +41,19 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 
 # Phase 5 provenance snapshots and execution evidence retain exact recorded bytes.
 /docs/evidence/phase-5/intelligence/** -text
+# M7 private candidate sources and archived Phase 4 evidence use stable bytes.
+/services/m7_semantic/** text eol=lf
+/docs/evidence/phase-4/intelligence/model-config.candidate.json -text
+/docs/evidence/phase-4/intelligence/source-provenance.json -text
+/docs/evidence/phase-4/intelligence/metric-ceiling-check.json -text
+/docs/evidence/phase-4/intelligence/evidence/m7-v1/** -text
+/docs/evidence/phase-4/intelligence/evidence/joint-v1/** -text
+/docs/evidence/phase-4/intelligence/joint-delivery/** text eol=lf
+/services/intelligence_phase4/** text eol=lf
+
+# Preserve original test stderr formatting rather than editing archived evidence.
+/docs/evidence/phase-4/intelligence/evidence/m7-v1/**/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/evidence/m7-v1/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/evidence/joint-v1/**/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/evidence/joint-v1/*.txt -whitespace
+/docs/evidence/phase-4/intelligence/*.md text eol=lf

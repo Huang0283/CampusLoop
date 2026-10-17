@@ -8,6 +8,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request, build_opener, ProxyHandler
 from .engine import ServiceError, rank
 from .http_service import unique_object, invalid_constant
+from .response_validation import valid_response
 
 
 def call_baseline(url, payload, token, *, timeout=1.5):
@@ -28,10 +29,16 @@ def call_baseline(url, payload, token, *, timeout=1.5):
     reason = None
     try:
         with build_opener(ProxyHandler({})).open(request, timeout=timeout) as response:
-            result = json.loads(response.read(8 * 1024 * 1024), object_pairs_hook=unique_object, parse_constant=invalid_constant)
-            if result.get("schemaVersion") != "m7-baseline-rpc-v1" or "data" not in result:
-                raise ServiceError(503, "INVALID_SERVICE_RESPONSE")
-            return result["data"]
+            raw = response.read(8 * 1024 * 1024 + 1)
+            if len(raw) > 8 * 1024 * 1024:
+                reason = "INVALID_SERVICE_RESPONSE"
+            else:
+                result = json.loads(raw.decode("utf-8"), object_pairs_hook=unique_object, parse_constant=invalid_constant)
+                if (isinstance(result, dict) and set(result) == {"schemaVersion", "data"}
+                        and result["schemaVersion"] == "m7-baseline-rpc-v1"
+                        and valid_response(result["data"], payload, options)):
+                    return result["data"]
+                reason = "INVALID_SERVICE_RESPONSE"
     except HTTPError as error:
         with error:
             if error.code not in {503, 504}:
@@ -47,6 +54,8 @@ def call_baseline(url, payload, token, *, timeout=1.5):
         reason = "SERVICE_TIMEOUT" if isinstance(error.reason, TimeoutError) else "SERVICE_UNAVAILABLE"
     except (OSError, HTTPException):
         reason = "SERVICE_UNAVAILABLE"
+    except (ValueError, KeyError, TypeError):
+        reason = "INVALID_SERVICE_RESPONSE"
     result = rank(payload["products"], payload["request"], payload["dictionary"], **options)
     context = payload["request"]["context"]
     age = (datetime.now(timezone.utc) - datetime.fromisoformat(context["asOf"].replace("Z", "+00:00"))).total_seconds()
