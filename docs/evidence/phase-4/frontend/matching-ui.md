@@ -1,23 +1,22 @@
-# 规则匹配结果 UI（FE4-05 与匹配接入）
+# M3 供需匹配 UI（FE4-05）
 
-## 功能说明
+## 交付与行为
 
-- MatchesPage 调用 `api.listWantedMatches` 获取某条求购信息的规则匹配结果。
-- 每条匹配展示 `relevanceScore` 相关度（百分比），并明确标注该分值不是成交概率。
-- 读取 `MatchResult.expiresAt`，当匹配结果已过期时渲染「已过期」Tag（`color="warning"`），未过期时正常展示。
+- 页面：`/wanted/{wantedId}/matches`；实现：`frontend/src/live/MarketPages.tsx` 的 `MatchesPage`。
+- 通过统一生成 SDK 的 `listWantedMatches` 获取结果，普通用户守卫保留；业务 API 返回 403 时不显示匹配数据。
+- 展示商品、后端匹配原因、硬约束 `constraints`、相关度、`resultVersion` 和有效期；明确“不是成交概率”。
+- 每秒更新时间，并在窗口重新获得焦点时重算过期状态；到期即显示“已过期”及刷新提示。
+- 缺失/无效 expiresAt 显示“有效期未知，请刷新确认”，不冒充仍有效。
+- 页首提供“刷新匹配”和“查看匹配通知”入口，后者进入现有 `/notifications`。
+- 展示降级原因，刷新只调用读取接口，不在页面重复生成通知或执行业务写入。
 
-## 对应代码路径
+## 验收
 
-文件：`frontend/src/live/MarketPages.tsx`
+`frontend/tests/live/m3-phase4.spec.ts` 验证硬约束、版本、相关度语义、通知链接、停留跨过到期点、无效时间刷新恢复，以及后端 403。
 
-- `api.listWantedMatches` 调用：第 213 行。
-- 关键词/规则降级提示：第 217 行。
-- 过期标识：第 220–225 行（`expiresAt` 读取在第 221 行，`isExpired` 判断在第 222 行，「已过期」Tag 渲染在第 225 行）。
-- 相关度展示：第 224 行。
+## 尚不能签署的部分
 
-## 验收标准达成情况
+当前 listWantedMatches 是同步结果接口。生成 SDK 没有供页面消费的排队、运行、失败、超时、过期、重试任务查询/操作契约；页面没有伪造 taskId 或任务状态。
 
-- FE4-05 过期标识：达成。`expiresAt` 为 ISO 时间字符串，缺失或解析失败时按未过期处理；过期项展示 warning 样式的「已过期」Tag。
-- 匹配结果接入：达成，使用 `api.listWantedMatches`。
-- 相关度分展示：达成，`relevanceScore` 以百分比展示，并注明「不是成交概率」。
+接收人：M6/M9 确认任务查询/重试契约并由 M6 生成 SDK，M3 接公共异步组件；M4 与 M10 验证实际任务通知幂等和已读同步。现有结果展示的浏览器测试不替代真实匹配任务、持久化和通知端到端验收。见 `m3-acceptance.md`。
 

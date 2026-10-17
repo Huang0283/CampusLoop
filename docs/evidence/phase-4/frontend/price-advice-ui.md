@@ -1,28 +1,23 @@
-# 价格建议 UI（FE4-06）
+# M3 价格建议 UI（FE4-06）
 
-## 功能说明
+## 交付与行为
 
-- PricePage 调用 `api.getPriceAdvice` 获取规则价格建议。
-- 展示价格区间 `lower` / `upper`、免责声明 `disclaimer`、`factors`、`resultVersion` 与 `degradationReason`。
-- 按 `result.status` 区分三种状态：
-  - `AVAILABLE`：展示规则参考区间。
-  - `INSUFFICIENT_DATA`：提示样本不足，有区间时展示「样本不足，以下为规则区间参考」并附区间；无区间时提示「样本不足，请手动定价」。
-  - `UNAVAILABLE`：提示「暂不可用，请手动定价」。
-  - `status` 未定义：退回原有的 `result.lower === null` 兜底逻辑。
-- `sampleSize` 存在且展示区间时，追加「基于 N 个样本」。
+- 页面：`/publish/price-advice`；实现：`frontend/src/live/MarketPages.tsx` 的 `PricePage`。
+- 通过统一生成 SDK 的 `getPriceAdvice` 调用业务 API；不由前端计算权威价格区间。
+- 区间以响应 method 区分“模型参考区间”与“规则参考区间”，不把模型结果写成规则。
+- AVAILABLE 展示有效区间；INSUFFICIENT_DATA 提示样本不足，仅在后端确有合法规则区间时展示，否则提示手动定价，不继续展示样本不足的模型区间。
+- 兼容后端组已出现的 LOW_CONFIDENCE，明确提示置信度较低；等待 M6 将其正式生成 SDK 合入前端组，不手改生成文件或另建 DTO。
+- UNAVAILABLE / method=unavailable / 区间缺失或非法时不展示可用区间，提示手动定价。
+- 展示样本数（包含 0）、因素、降级事实与原因、版本、免责声明；缺失免责声明有“仅供参考，不保证成交价”兜底。
+- 每次请求前清除旧结果；失败不会留下上次成功区间；修改输入也清除旧结果。
+- 请求期间禁用表单，避免用户修改输入后收到旧输入的区间。
+- 可选原价与现有后端校验一致：填写时大于 0，至多 99999999.99。
 
-## 对应代码路径
+## 验收
 
-文件：`frontend/src/live/MarketPages.tsx`
+`frontend/tests/live/m3-phase4.spec.ts` 验证模型区间、LOW_CONFIDENCE、样本不足、无数据、不可用、降级、失败清除旧区间、输入变化清除旧结果和免责声明兜底。
 
-- `api.getPriceAdvice` 调用：第 263 行。
-- `status` 三态分支：第 234–260 行。
-- 价格区间 `lower` / `upper`：第 242–243 行。
-- `sampleSize` 样本数展示：第 244 行。
-- 免责声明 `disclaimer` 展示：第 269 行。
+## 尚不能签署的部分
 
-## 验收标准达成情况
-
-- FE4-06 样本不足：达成。已区分 `AVAILABLE` / `INSUFFICIENT_DATA` / `UNAVAILABLE` 三种状态，`INSUFFICIENT_DATA` 有专门的样本不足提示与区间展示，`UNAVAILABLE` 明确提示手动定价。
-- 免责声明保留展示：达成。
+当前 getPriceAdvice 是同步结果接口，没有价格任务查询/重试 DTO。M6/M9 先明确可消费任务契约，再由 M3 接入 M2 公共组件。真实模型与回退区间、结果持久化由 M8/M6 与 M10 在阶段集成分支验证，不能用 HTTP 夹具代表模型真实可用。见 `m3-acceptance.md`。
 

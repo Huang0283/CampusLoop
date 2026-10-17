@@ -1,30 +1,30 @@
-# 智能搜索 UI 接入（FE4-04）
+# M3 智能搜索 UI（FE4-04）
 
-## 功能说明
+## 交付与行为
 
-- CatalogPage 在用户输入关键词后调用 `api.searchProducts` 发起智能搜索。
-- 支持 `searchMode` 模式选择：`keyword`（关键词）、`hybrid`（混合）、`semantic`（语义），默认值为 `hybrid`，并通过 URL 参数 `searchMode` 保留状态。
-- 搜索结果包含 `mode`、`degraded`、`degradationReason` 等元数据，前端据此展示当前检索模式和降级提示。
-- 503 降级处理：当搜索请求返回 503 时，前端自动以 `keyword` 模式重试一次；重试仍失败才进入错误态。
+- 页面：`/market?query=教材&searchMode=hybrid`；实现：`frontend/src/live/MarketPages.tsx` 的 `CatalogPage`。
+- 仅通过统一生成 SDK 的 `searchProducts` 请求业务 API，不新建手写智能 DTO。
+- 下拉框及 URL 保存 keyword/hybrid/semantic 请求模式；实际使用模式以响应 `mode` 为准，不能以用户选择冒充语义模型已经运行。
+- 展示实际模式、`resultVersion`、检索模式说明、`degraded` 和 `degradationReason`。缺少版本明确写“后端未提供”。
+- 非关键词请求遇到 HTTP 503，仅自动关键词重试一次。前端保留该次降级事实和原因，即使关键词响应 `degraded=false` 也会提示。
+- 自动重试保留 query、category、condition、sort、page、pageSize。关键词也失败时进入错误态，不无限循环。
+- 网络/超时和其他 5xx 提供“改用关键词搜索”；401/403/422 不通过降级绕过鉴权或输入校验。
+- 空结果显示调整筛选条件提示。没有搜索词时继续使用商品列表接口，游客仍可浏览。
 
-## 对应代码路径
+## 验收
 
-文件：`frontend/src/live/MarketPages.tsx`
+在 frontend 目录执行：
 
-- 模式选项与文案常量：第 14–15 行（`searchModeOptions` / `searchModeLabel`）。
-- `searchMode` 解析与默认值：第 41–42 行。
-- `loadCatalog` 请求分流：第 46–57 行。
-- `api.searchProducts` 调用与 `mode` 参数：第 50 行。
-- 503 重试逻辑：第 51–56 行（`try/catch` 中 `status === 503` 且当前模式非 `keyword` 时用 `keyword` 重试）。
-- 搜索模式下拉框：第 66 行。
-- `degraded` 降级提示：第 73 行。
-- 当前检索模式展示：第 63、74 行。
+```powershell
+$env:CAMPUSLOOP_UI_URL='http://127.0.0.1:5184'
+npx playwright test m3-phase4.spec.ts
+```
 
-## 验收标准达成情况
+用例验证 503 后的真实降级提示、版本、筛选保留、500/超时手动恢复、关键词再次失败不循环、403 不降级和游客搜索。
 
-- FE4-04 搜索降级：达成。
-- 已接入 `api.searchProducts`，并传入 `mode` 参数（`keyword` / `hybrid` / `semantic`），默认 `hybrid`。
-- UI 提供模式下拉框，选择结果写入 URL 参数 `searchMode`，刷新或分享链接后状态可保留。
-- `degraded === true` 时展示「搜索正在使用关键词降级结果」警告条。
-- 遇到 503 时自动降级为 `keyword` 重试一次，重试仍失败才显示错误。
+## 契约边界
+
+当前生成的 SearchResult 只有商品列表和模式/版本/降级元数据，没有逐商品解释字段。页面的“检索说明”解释响应模式，不冒充模型逐商品解释。M7/M6 需确认是否为 FE4-04 补充逐商品解释并生成 SDK，M3 再消费。
+
+检查的后端组分支仍返回 keyword 基线模式。真实语义/混合模型、结果持久化及跨组正常/关闭验收未由此 UI 测试证明。详见 `m3-acceptance.md`。
 
