@@ -9,6 +9,15 @@ async function setup(page: Page) {
   await page.route('**/notifications', (route) => route.fulfill({ json: { data: [] } }))
 }
 
+// Match API requests on either the local 8001 server or CI's 8000 server.
+// Keep document navigation out of the fixture route; /wanted/... is also a UI path.
+async function routeApi(page: Page, path: string, handler: Parameters<Page['route']>[1]) {
+  await page.route(`**${path}`, (route) => {
+    if (route.request().resourceType() === 'document') return route.continue()
+    return handler(route)
+  })
+}
+
 test.beforeEach(async ({ page }) => { await setup(page) })
 
 test('503 search fallback preserves filters and exposes actual mode, reason and version', async ({ page }) => {
@@ -69,7 +78,7 @@ test('search timeout has a keyword escape and keyword failure stops after one fa
 
 test('matching renders constraints/version and updates expiry while page remains open', async ({ page }) => {
   await page.clock.install({ time: new Date('2030-01-01T00:00:00Z') })
-  await page.route('http://localhost:8001/wanted/701/matches', (route) => route.fulfill({ json: { data: { items: [{ product, relevanceScore: 0.8, reasons: ['标题相关'], constraints: ['BUDGET_OK'], resultVersion: 'match-fixture-v4', expiresAt: '2030-01-01T00:01:00Z' }], degraded: false } } }))
+  await routeApi(page, '/wanted/701/matches', (route) => route.fulfill({ json: { data: { items: [{ product, relevanceScore: 0.8, reasons: ['标题相关'], constraints: ['BUDGET_OK'], resultVersion: 'match-fixture-v4', expiresAt: '2030-01-01T00:01:00Z' }], degraded: false } } }))
   await page.goto('/wanted/701/matches')
   await expect(page.getByText(/硬约束：BUDGET_OK/)).toBeVisible()
   await expect(page.getByText(/结果版本：match-fixture-v4/)).toBeVisible()
@@ -82,7 +91,7 @@ test('matching renders constraints/version and updates expiry while page remains
 
 test('invalid matching expiry is explicitly unknown and refresh can recover', async ({ page }) => {
   let reads = 0
-  await page.route('http://localhost:8001/wanted/701/matches', (route) => {
+  await routeApi(page, '/wanted/701/matches', (route) => {
     reads += 1
     return route.fulfill({ json: { data: { items: [{ product, relevanceScore: 0.5, reasons: [], constraints: [], resultVersion: 'match-v4', expiresAt: reads === 1 ? 'bad-time' : '2020-01-01T00:00:00Z' }], degraded: true, degradationReason: 'SERVICE_DISABLED' } } })
   })
@@ -93,7 +102,7 @@ test('invalid matching expiry is explicitly unknown and refresh can recover', as
 })
 
 test('matching owner permission rejection does not expose results', async ({ page }) => {
-  await page.route('http://localhost:8001/wanted/701/matches', (route) => route.fulfill({ status: 403, json: { code: 'FORBIDDEN' } }))
+  await routeApi(page, '/wanted/701/matches', (route) => route.fulfill({ status: 403, json: { code: 'FORBIDDEN' } }))
   await page.goto('/wanted/701/matches')
   await expect(page.getByText('无权访问', { exact: true })).toBeVisible()
   await expect(page.getByText(/结果版本：/)).not.toBeVisible()
@@ -101,7 +110,7 @@ test('matching owner permission rejection does not expose results', async ({ pag
 
 test('price advice distinguishes model and low confidence, and clears stale success on failure', async ({ page }) => {
   let attempt = 0
-  await page.route('http://localhost:8001/price-advice', (route) => {
+  await routeApi(page, '/price-advice', (route) => {
     attempt += 1
     if (attempt === 3) return route.fulfill({ status: 503, json: { code: 'SERVICE_UNAVAILABLE' } })
     return route.fulfill({ json: { data: { lower: 20, upper: 40, currency: 'CNY', status: attempt === 1 ? 'AVAILABLE' : 'LOW_CONFIDENCE', factors: ['成色因素'], method: 'model', sampleSize: 3, degraded: false, disclaimer: '仅供参考，不保证成交价。', resultVersion: 'price-model-v4' } } })
@@ -126,7 +135,7 @@ test('sample shortage, unavailable and degraded price results remain explicit', 
     { status: 'AVAILABLE', lower: 10, upper: 25, method: 'rule', sampleSize: 2 },
     { status: 'INSUFFICIENT_DATA', lower: 20, upper: 40, method: 'model', sampleSize: 0 },
   ]
-  await page.route('http://localhost:8001/price-advice', (route) => route.fulfill({ json: { data: { ...states.shift(), currency: 'CNY', factors: ['成色因素'], degraded: true, degradationReason: 'SERVICE_DISABLED', disclaimer: '仅供参考，不保证成交价。', resultVersion: 'rule-v4' } } }))
+  await routeApi(page, '/price-advice', (route) => route.fulfill({ json: { data: { ...states.shift(), currency: 'CNY', factors: ['成色因素'], degraded: true, degradationReason: 'SERVICE_DISABLED', disclaimer: '仅供参考，不保证成交价。', resultVersion: 'rule-v4' } } }))
   await page.goto('/publish/price-advice')
   const submit = page.locator('form button[type="submit"]')
   await submit.click()
@@ -144,7 +153,7 @@ test('sample shortage, unavailable and degraded price results remain explicit', 
 })
 
 test('editing price inputs invalidates the old range and empty disclaimers have a safe fallback', async ({ page }) => {
-  await page.route('http://localhost:8001/price-advice', (route) => route.fulfill({ json: { data: { lower: 10, upper: 25, status: 'AVAILABLE', currency: 'CNY', factors: [], method: 'rule', sampleSize: 0, degraded: false, disclaimer: '', resultVersion: 'rule-v4' } } }))
+  await routeApi(page, '/price-advice', (route) => route.fulfill({ json: { data: { lower: 10, upper: 25, status: 'AVAILABLE', currency: 'CNY', factors: [], method: 'rule', sampleSize: 0, degraded: false, disclaimer: '', resultVersion: 'rule-v4' } } }))
   await page.goto('/publish/price-advice')
   const price = page.getByRole('spinbutton', { name: '原价（元）', exact: true })
   await price.fill('50')

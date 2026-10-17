@@ -229,7 +229,7 @@ export function MatchesPage() {
     window.addEventListener('focus', update)
     return () => { window.clearInterval(timer); window.removeEventListener('focus', update) }
   }, [])
-  return <Page title="供需匹配结果" extra={<Space><Link to="/notifications">查看匹配通知</Link><Button onClick={remote.reload}>刷新匹配</Button></Space>}><Resource {...remote}>
+  return <Page title="规则匹配结果" extra={<Space><Link to="/notifications">查看匹配通知</Link><Button onClick={remote.reload}>刷新匹配</Button></Space>}><Resource {...remote}>
     {remote.value?.degraded && <Alert type="warning" title="正在使用关键词/规则降级结果" description={remote.value.degradationReason} style={{ marginBottom: 16 }} />}
     {remote.value?.items.length ? <ProductCards products={remote.value.items.map((item) => item.product)} actions={(product) => {
       const match = remote.value?.items.find((item) => item.product.id === product.id)
