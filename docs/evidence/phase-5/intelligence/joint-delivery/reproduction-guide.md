@@ -42,3 +42,11 @@ verify 中的 run-record 必须 status=PASS、dirty=false、各 step exitCode=0�
 本次故障重放原始检查器在 `../evidence/joint-v1/m10-fault-checker.original.py`，可按现有 replay_quality_probes.py 的 --checkout/--checker/--output 参数从本次交付提交运行；检查器需与 1cc5cbf 的固定源一致。旧 M10 实现的公式/诊断被复用，执行人仍是作者，不变成 M10 新签署。
 
 不传 --model-dir 时联合 verify 只跑私有单测，不能宣称真实模型复现。发布数据库、Worker、页面和回滚另按 [集成报告](../final-integration-report.md) 操作。
+
+交付文档/证据自身可在交付提交检出后独立校验（使用标准库，不要求模型）：
+
+```powershell
+python docs/evidence/phase-5/intelligence/joint-delivery/verify_delivery.py --output ../p5-delivery-check.json
+```
+
+输出必须为 PASS_AUTHOR_PREPARATION_ONLY，且 formalAcceptance=false / phase5Complete=false。源码/证据不一致或哈希被改时失败；该工具不签署发布验收。

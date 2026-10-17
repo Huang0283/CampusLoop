@@ -30,7 +30,20 @@
 5. 执行规则开关/服务停止、超时、坏 JSON/坏结构、权限拒绝、无结果与回滚场景。M7 允许的传输/坏返回故障用本地硬过滤基线，401/403/409/422 保持拒绝；M8 公开 RPC 不可用则手动定价/不可用路径，私有候选 NO_GO 则原规则。不能把这两个 M8 路径混为一谈。
 6. 用 [发布接收记录模板](joint-delivery/release-acceptance-template.json) 填真实执行、结果与日志路径；M10 独立复核，M1 才能引用最终数字/签署。
 
-可复用的现有测试命令（M9 已按项目 runbook 启动真实基础设施、完成迁移后）：
+以下只读查询由 M6/M9 在接收时绑定本次实际 `:wanted_id`，关联同一业务记录；不需要修改数据库制造结果：
+
+```sql
+SELECT id, wanted_id, event_key, status, result_version, last_error
+FROM matching_jobs WHERE wanted_id = :wanted_id ORDER BY id;
+SELECT wanted_id, result_version, facts->'metadata' AS metadata
+FROM matching_results WHERE wanted_id = :wanted_id;
+SELECT mn.wanted_id, mn.product_id, mn.result_version, n.id AS notification_id,
+       n.payload->>'resultVersion' AS notification_result_version
+FROM matching_notifications mn JOIN notifications n ON n.id = mn.notification_id
+WHERE mn.wanted_id = :wanted_id;
+```
+
+可复用的现有自动测试命令应在 M9 部署的隔离验收副本执行，使用专用测试数据库、Redis 14/15 与合成账号。它们会创建业务记录并清理测试限流键，不能连接真实业务共享数据。发布实例本身按上方测试账号页面/API与只读追踪步骤接收：
 
 ```powershell
 Set-Location backend
@@ -46,3 +59,6 @@ npm run test:live
 ## 明确遗留
 
 本机没有 Docker/PostgreSQL/Redis、没有获确认的发布地址或正式阶段基点。现有 Phase4 CI 37 后端/5 浏览器通过是上游技术证据；新准备分支 CI 另行登记，任何 CI 都不代签 M9 发布接收。发布环境 image digest、同一记录跨层关联、M3 截图、M10/M1 签署暂为 null/NOT_RUN，见 [接收状态](joint-delivery/acceptance-status.json)。AI5-09 不记为正式完成。
+
+
+本轮准备提交 e608315 的 [GitHub CI](https://github.com/Huang0283/CampusLoop/actions/runs/39047423914) 已全部通过：37 项后端测试（无 skipped）及 5 项真实浏览器测试；格式检查、SDK/lint/build、空库迁移/回滚/重迁移与种子检查通过。当前源码不包含远端未合并 M3 新分支；不把本轮结果扩大为其他小组已验收。完整 job 日志与步骤见 [CI 状态](joint-delivery/ci-status.json)，不替代发布环境接收或 M10/M1 签署。
