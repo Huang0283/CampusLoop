@@ -1,10 +1,40 @@
 # AI5-01～03 作者验证
 
-状态：实际运行后追加结果；当前不是最终阶段验收。来源提交、环境、命令、退出码和日志归档在 `evidence/author-reproduction-v1/`。
+日期：2026-10-17。结论：`PARTIAL_ENVIRONMENT_BLOCKED`。文档、版本和数据清单可交付；本次完整服务验证没有通过，不是 M10 独立验收或最终阶段签署。
+机器汇总：[evidence/check-summary.json](evidence/check-summary.json)。两次尝试的原始记录和 stdout/stderr 全部保留。
 
-本次为文档、机器清单和已有命令复现；没有新增生产行为、模型、依赖或数据。TDD 不适用于此次 docs-only 变更；使用已有数据/契约/基线回归及真实模型命令验证文档步骤。
+## 本次实际环境与提交
 
-## 上游历史证据
+| 项目 | 实际值 |
+| --- | --- |
+| 基线干净 Git 检出 | `0c6528674a57dd555f070dc3a568d1fcf13fadf0`，其行为代码来自 `6df25176866a6b1df2c1da5dcd28229b965f73ff`；此提交仅追加本次文档和作用于本目录的 gitattributes |
+| 实验候选干净检出 | `e4dc076d7a589f41b3d8cd61c246dabe67e9c39d` |
+| M10 归档检出 | `1cc5cbf7633017ea69560cc2f43e0e308658b1da` |
+| 运行环境 | Windows / AMD64 / Python 3.12.14；基线复用既有六依赖隔离环境；候选复用既有 CPU 锁定环境和本地模型；两环境 pip check 均通过 |
+| 安装/下载边界 | 本次没有重新干净安装依赖；没有重新下载模型；已运行下载器核验现存七个固定文件，不伪称首次下载成功 |
+| 工作树和资产 | 三个检出运行前后干净；31 项 Git blob 版本哈希、17 个数据文件哈希、上游证据快照哈希全部一致 |
+
+完整命令、环境、退出码、时间和来源提交见各 run-record。绝对工作路径在文本副本中替换为占位符；运行结论、错误码和 traceback 保留，未变造 PASS。模型/venv/SQLite/缓存不进入 Git。
+
+## 本次执行结果
+
+| 操作 | 实际结果 | 证据 |
+| --- | --- | --- |
+| 数据 verify / build / 重建 verify | 首次默认临时目录 WinError 5；改为工作目录内 TEMP/TMP/TMPDIR 后两次 verify 均通过，字节重建一致；72 商品/38 请求/228 对 | author-reproduction-v1/data-* 和 author-reproduction-v2/data-* |
+| Phase 2 完整回归 | PASS；原 run_all 的全部检查通过，模型门禁登记 NO_GO 属于预期出口，不改为 GO | author-reproduction-v2/baseline-verify/phase2/run-record.json |
+| M7 Phase 3 完整测试 | 跑 31 项，27 通过，4 个 HTTP 测试因 WinError 10013 连接权限错误；verify 退出 2，不能算全通过 | author-reproduction-v2/baseline-verify/phase3-tests.stderr.txt |
+| 基线离线评估 | 两个独立进程各 38 请求，all/dev/test_candidate 指标与逐项排序一致，三个 split 独立进程重算一致 | author-reproduction-v1/baseline-eval、baseline-eval-repeat、baseline-recalculated-*.json |
+| 实际服务子进程 smoke | 重试后服务可启动，但第一条本地 HTTP 连接被沙箱拒绝；认证/分页/服务停止降级未通过本次验证 | author-reproduction-v2/service-process-smoke.stderr.txt |
+| 真实模型/索引 | 七文件 SHA256 核验通过；真实 BGE 构建索引；相同 72 商品 update 全部 IDEMPOTENT；calculator-search-exact 私有查询通过 | author-reproduction-v1/candidate-model-hashes、candidate-index-*、candidate-query stdout |
+| 候选离线评估 | 两独立进程各 38 请求，编码/逻辑索引自身重复一致；跨进程逐项排序和指标一致；三个 split 指标重算一致；正式结论保持 NO_GO | author-reproduction-v1/candidate-eval、candidate-eval-repeat、candidate-recalculated-*.json |
+| M10 历史归档离线核对 | PASS，既有归档哈希和独立公式核验通过；没有重新作为 M10 运行模型或签署 | author-reproduction-v1/m10-archive-check.stdout.txt |
+| 实际复核 CSV | 228 行，无重复/缺失 labelId，结构化有效记录 0，readyToArchive=false，预期退出 2；用户已确认内容全对的事实保留 | author-reproduction-v1/review-sheet-summary.json 与完整检查 stdout |
+
+基线和候选的 test_candidate MRR 均为 1.0，严格搜索 P@5 为 0.5；真实模型推理不代表满足上线门槛。原数据和标签未更改，labelSource 仍为 PENDING_HUMAN_REVIEW，testSetSealed=false。没有运行本次完整 semantic.verify，不引用历史 196 项充当本次测试数。
+
+本次没有新增生产行为或数据；为文档、机器清单、已有命令复现和服务检查驱动。TDD 不适用于此次 docs-only 交付；使用已有回归验证，没有新写生产行为测试。
+
+## 保留的上游历史证据
 
 | 记录 | 真实范围 | 不能据此声称 |
 | --- | --- | --- |
@@ -13,3 +43,7 @@
 | M10 Windows/Linux 差异 | Windows 基线测试出现 4 个 loopback 错误和 1 个超时预期失败；Linux 容器相关测试通过 | 因数值一致就删除或覆盖失败记录 |
 
 完整原文固定副本见 source-snapshots。M10 原执行为在 M10 请求下由 Codex 执行，不是人工签名。本次所有新执行均为作者技术验证。
+
+## 尚不能验收的部分
+
+需要在允许本地回环且能全新安装依赖的独立环境重跑完整基线/服务，并从 M1 的正式 Phase 5 集成提交核对发布页面、服务与冻结版本。现有沙箱禁止相应 socket 访问，本次不修改安全策略、跳过失败或用 mock 声称通过。Owner、依赖和动作见 handoff；最终验收仍待 M10/M1。

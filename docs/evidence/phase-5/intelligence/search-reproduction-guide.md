@@ -24,6 +24,17 @@ $bp = (Resolve-Path ../m7-p5-baseline-venv/Scripts/python.exe).Path
 预期 HEAD 与固定提交一致，运行前工作树干净。Linux/macOS 使用 `python3.12 -m venv` 和 `../m7-p5-baseline-venv/bin/python`，其余 Python 参数相同；Windows CPU 候选锁的跨平台安装仍需单独实跑验证，不能从文档推断。
 若镜像缺少 rpds-py 等锁定版本，切换允许访问的官方源/可信完整镜像后重装原版本，不静默修改 lock。离线场景先在允许联网的相同平台下载全部 wheels，再用 `--no-index --find-links <wheelhouse>` 安装并记录 wheel 哈希。
 
+本次沙箱默认临时目录报 `WinError 5`，将进程临时目录设为可写工作目录后，数据重建和 Phase 2 回归通过。遇到同样问题时可在当前终端设置，不更改生产代码：
+
+```powershell
+New-Item -ItemType Directory -Force ../m7-p5-temp | Out-Null
+$env:TEMP = (Resolve-Path ../m7-p5-temp).Path
+$env:TMP = $env:TEMP
+$env:TMPDIR = $env:TEMP
+```
+
+本次 loopback 连接另被沙箱以 `WinError 10013` 拒绝，完整基线 verify 和服务 smoke 因而未通过。临时目录设置不能解决网络访问限制；应在允许本地回环的独立验收环境运行，保留当前失败记录，不以跳过 HTTP 测试或 mock 代替通过。
+
 ## 2. 数据字节重建
 
 ```powershell
@@ -44,7 +55,7 @@ $bp = (Resolve-Path ../m7-p5-baseline-venv/Scripts/python.exe).Path
 
 verify 依次跑 Phase 2、M7 Phase 3 测试、两次固定评估和 all/dev/test_candidate 的重算，记录 `codeCommit`、环境、`workingTreeDirty`、`assetsUnchanged`、重复字节一致和重算一致。不能仅检查进程退出 0 而忽略内部状态。
 
-`per-query.json` 提供 38 条完整结果；代表性检查包括 calculator-search-exact 的精确型号、bicycle-search-semantic 的同义词边界、camera-matching-no-answer 空答案、tennis-matching-expired 的 `WANTED_INACTIVE`、lamp/tablet 的未知约束。指标必须连同 labelSource 和排除请求一起引用，不能把诊断结果写成正式效果。
+`per-query.json` 提供 38 条完整结果；代表性检查包括 calculator-search-exact 的精确型号、bicycle-search-natural 的同义词边界、camera-matching-no-answer 空答案、tennis-matching-expired 的 `WANTED_INACTIVE`、lamp/tablet 的未知约束。指标必须连同 labelSource 和排除请求一起引用，不能把诊断结果写成正式效果。
 
 如有任一步失败，保留 `run-record.json` 的该步与 stdout/stderr，不删失败记录重写 PASS。上游 M10 曾在 Windows 的同一候选上遇到 loopback/超时测试失败，Linux 容器相关测试通过；本次验证不能抹掉该历史差异。
 
@@ -70,7 +81,7 @@ $result | ConvertTo-Json -Depth 20
 ```
 
 预期返回真实 rank 结果和版本元数据；无 token 应为 401。example_request 模块仅在此集成提交存在；不在实验候选提交调用该模块。它用当前 asOf 包装合成查询，不改冻结数据；超过服务 freshness 窗口需重新生成。历史 wanted 过期是预期边界，不改样本时间冒充匹配成功。
-使用本次实际 smoke 日志核对响应形状和结果 ID。端到端数据库/worker/页面链路不由该 loopback 演示代替，属于 AI5-09。
+执行成功时保存响应形状和结果 ID。本次实际 smoke 在连接阶段被沙箱阻止，日志见 verification，不能据此声称 HTTP 认证、分页或降级已通过本次验证。端到端数据库/worker/页面链路不由该 loopback 演示代替，属于 AI5-09。
 
 ## 5. 单独复现未采用的语义候选
 
