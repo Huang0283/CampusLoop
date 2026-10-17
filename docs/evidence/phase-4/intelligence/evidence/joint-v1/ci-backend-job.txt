@@ -1,0 +1,1728 @@
+﻿2026-10-17T13:16:59.6175142Z Current runner version: '2.337.0'
+2026-10-17T13:16:59.6200802Z ##[group]Runner Image Provisioner
+2026-10-17T13:16:59.6201625Z Hosted Compute Agent
+2026-10-17T13:16:59.6202242Z Version: 20261012.601
+2026-10-17T13:16:59.6202881Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-17T13:16:59.6203940Z Build Date: 2026-10-12T17:48:21Z
+2026-10-17T13:16:59.6206347Z Worker ID: {07673250-b290-4131-9fcf-a87fe061edaa}
+2026-10-17T13:16:59.6207458Z Region: westus3
+2026-10-17T13:16:59.6208242Z Cloud: Azure
+2026-10-17T13:16:59.6209283Z ##[endgroup]
+2026-10-17T13:16:59.6211883Z ##[group]Operating System
+2026-10-17T13:16:59.6212945Z Ubuntu
+2026-10-17T13:16:59.6213682Z 24.04.5
+2026-10-17T13:16:59.6214393Z LTS
+2026-10-17T13:16:59.6215200Z ##[endgroup]
+2026-10-17T13:16:59.6215988Z ##[group]Runner Image
+2026-10-17T13:16:59.6216854Z Image: ubuntu-24.04
+2026-10-17T13:16:59.6217650Z Version: 20261012.334.1
+2026-10-17T13:16:59.6219568Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-17T13:16:59.6222010Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-17T13:16:59.6222949Z ##[endgroup]
+2026-10-17T13:16:59.6224080Z ##[group]GITHUB_TOKEN Permissions
+2026-10-17T13:16:59.6226205Z Contents: read
+2026-10-17T13:16:59.6226780Z Metadata: read
+2026-10-17T13:16:59.6227340Z Packages: read
+2026-10-17T13:16:59.6227915Z ##[endgroup]
+2026-10-17T13:16:59.6229987Z Secret source: Actions
+2026-10-17T13:16:59.6231171Z Cache mode: write
+2026-10-17T13:16:59.6231842Z Prepare workflow directory
+2026-10-17T13:16:59.6673461Z Prepare all required actions
+2026-10-17T13:16:59.6722121Z Getting action download info
+2026-10-17T13:16:59.9698951Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-17T13:17:00.1099320Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-17T13:17:00.2268745Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-17T13:17:00.3955346Z Complete job name: backend / migrations, seed & tests
+2026-10-17T13:17:00.4543063Z ##[group]Checking docker version
+2026-10-17T13:17:00.4555922Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-10-17T13:17:01.4999854Z '1.48'
+2026-10-17T13:17:01.5008873Z Docker daemon API version: '1.48'
+2026-10-17T13:17:01.5009791Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-10-17T13:17:01.5162159Z '1.48'
+2026-10-17T13:17:01.5169939Z Docker client API version: '1.48'
+2026-10-17T13:17:01.5175443Z ##[endgroup]
+2026-10-17T13:17:01.5178779Z ##[group]Clean up resources from previous jobs
+2026-10-17T13:17:01.5184350Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=da1e9a"
+2026-10-17T13:17:01.5363873Z ##[command]/usr/bin/docker network prune --force --filter "label=da1e9a"
+2026-10-17T13:17:01.5485113Z ##[endgroup]
+2026-10-17T13:17:01.5485713Z ##[group]Create local container network
+2026-10-17T13:17:01.5496392Z ##[command]/usr/bin/docker network create --label da1e9a github_network_dd2840abaad1485dbf4abe5cf71ae554
+2026-10-17T13:17:01.5994485Z b994707c0c00b0727db9b3d5b400a581b5afae3ab887f23be6a6c7a1deec4de6
+2026-10-17T13:17:01.6010893Z ##[endgroup]
+2026-10-17T13:17:01.6037010Z ##[group]Starting postgres service container
+2026-10-17T13:17:01.6058019Z ##[command]/usr/bin/docker pull pgvector/pgvector:0.8.6-pg16
+2026-10-17T13:17:02.3914936Z 0.8.6-pg16: Pulling from pgvector/pgvector
+2026-10-17T13:17:02.6194035Z 039e6f9f9752: Pulling fs layer
+2026-10-17T13:17:02.6195263Z 32a162df1425: Pulling fs layer
+2026-10-17T13:17:02.6200032Z d100bd361c59: Pulling fs layer
+2026-10-17T13:17:02.6201359Z ff16cf9d59a9: Pulling fs layer
+2026-10-17T13:17:02.6203585Z f4b681e14ff8: Pulling fs layer
+2026-10-17T13:17:02.6207589Z a8a8272ab698: Pulling fs layer
+2026-10-17T13:17:02.6208722Z 61c973a13167: Pulling fs layer
+2026-10-17T13:17:02.6209584Z a372a0a1082a: Pulling fs layer
+2026-10-17T13:17:02.6211233Z e7c73af1eeb3: Pulling fs layer
+2026-10-17T13:17:02.6212032Z 8654846d99fb: Pulling fs layer
+2026-10-17T13:17:02.6212827Z 03995e31cd48: Pulling fs layer
+2026-10-17T13:17:02.6213670Z 537cf577f508: Pulling fs layer
+2026-10-17T13:17:02.6214504Z efb5baa83a6e: Pulling fs layer
+2026-10-17T13:17:02.6215568Z 5471e06bfc52: Pulling fs layer
+2026-10-17T13:17:02.6222479Z c7449a7c51b4: Pulling fs layer
+2026-10-17T13:17:02.6223611Z 8c8ff1de0b18: Pulling fs layer
+2026-10-17T13:17:02.6224355Z ff16cf9d59a9: Waiting
+2026-10-17T13:17:02.6224997Z f4b681e14ff8: Waiting
+2026-10-17T13:17:02.6225589Z a8a8272ab698: Waiting
+2026-10-17T13:17:02.6226182Z 61c973a13167: Waiting
+2026-10-17T13:17:02.6226803Z a372a0a1082a: Waiting
+2026-10-17T13:17:02.6227452Z e7c73af1eeb3: Waiting
+2026-10-17T13:17:02.6228130Z 8654846d99fb: Waiting
+2026-10-17T13:17:02.6228753Z 03995e31cd48: Waiting
+2026-10-17T13:17:02.6229374Z 537cf577f508: Waiting
+2026-10-17T13:17:02.6230031Z efb5baa83a6e: Waiting
+2026-10-17T13:17:02.6230873Z 5471e06bfc52: Waiting
+2026-10-17T13:17:02.6231490Z 8c8ff1de0b18: Waiting
+2026-10-17T13:17:02.6231920Z c7449a7c51b4: Waiting
+2026-10-17T13:17:02.8026062Z 32a162df1425: Download complete
+2026-10-17T13:17:02.8213878Z d100bd361c59: Verifying Checksum
+2026-10-17T13:17:02.8214555Z d100bd361c59: Download complete
+2026-10-17T13:17:02.8769728Z 039e6f9f9752: Download complete
+2026-10-17T13:17:02.9796418Z ff16cf9d59a9: Verifying Checksum
+2026-10-17T13:17:02.9797285Z ff16cf9d59a9: Download complete
+2026-10-17T13:17:03.0209598Z f4b681e14ff8: Verifying Checksum
+2026-10-17T13:17:03.0210409Z f4b681e14ff8: Download complete
+2026-10-17T13:17:03.0649880Z a8a8272ab698: Verifying Checksum
+2026-10-17T13:17:03.0651268Z a8a8272ab698: Download complete
+2026-10-17T13:17:03.1460411Z 61c973a13167: Verifying Checksum
+2026-10-17T13:17:03.1484307Z 61c973a13167: Download complete
+2026-10-17T13:17:03.1867781Z a372a0a1082a: Verifying Checksum
+2026-10-17T13:17:03.1868242Z a372a0a1082a: Download complete
+2026-10-17T13:17:03.3179427Z 8654846d99fb: Verifying Checksum
+2026-10-17T13:17:03.3179944Z 8654846d99fb: Download complete
+2026-10-17T13:17:03.3595580Z 03995e31cd48: Verifying Checksum
+2026-10-17T13:17:03.3596692Z 03995e31cd48: Download complete
+2026-10-17T13:17:03.4861639Z 537cf577f508: Verifying Checksum
+2026-10-17T13:17:03.4862720Z 537cf577f508: Download complete
+2026-10-17T13:17:03.5250345Z efb5baa83a6e: Download complete
+2026-10-17T13:17:03.5514582Z e7c73af1eeb3: Verifying Checksum
+2026-10-17T13:17:03.5515478Z e7c73af1eeb3: Download complete
+2026-10-17T13:17:03.6581077Z 5471e06bfc52: Verifying Checksum
+2026-10-17T13:17:03.6581607Z 5471e06bfc52: Download complete
+2026-10-17T13:17:03.6995068Z c7449a7c51b4: Verifying Checksum
+2026-10-17T13:17:03.6995943Z c7449a7c51b4: Download complete
+2026-10-17T13:17:03.7267421Z 8c8ff1de0b18: Verifying Checksum
+2026-10-17T13:17:03.7268265Z 8c8ff1de0b18: Download complete
+2026-10-17T13:17:03.8451517Z 039e6f9f9752: Pull complete
+2026-10-17T13:17:07.0083140Z 32a162df1425: Pull complete
+2026-10-17T13:17:07.1248457Z d100bd361c59: Pull complete
+2026-10-17T13:17:07.1615722Z ff16cf9d59a9: Pull complete
+2026-10-17T13:17:07.3960607Z f4b681e14ff8: Pull complete
+2026-10-17T13:17:07.4594648Z a8a8272ab698: Pull complete
+2026-10-17T13:17:07.4652995Z 61c973a13167: Pull complete
+2026-10-17T13:17:07.4724822Z a372a0a1082a: Pull complete
+2026-10-17T13:17:10.0583832Z e7c73af1eeb3: Pull complete
+2026-10-17T13:17:10.0729680Z 8654846d99fb: Pull complete
+2026-10-17T13:17:10.0856036Z 03995e31cd48: Pull complete
+2026-10-17T13:17:10.0932315Z 537cf577f508: Pull complete
+2026-10-17T13:17:10.0993210Z efb5baa83a6e: Pull complete
+2026-10-17T13:17:10.1076463Z 5471e06bfc52: Pull complete
+2026-10-17T13:17:10.1469570Z c7449a7c51b4: Pull complete
+2026-10-17T13:17:10.1997953Z 8c8ff1de0b18: Pull complete
+2026-10-17T13:17:10.2054372Z Digest: sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b
+2026-10-17T13:17:10.2064231Z Status: Downloaded newer image for pgvector/pgvector:0.8.6-pg16
+2026-10-17T13:17:10.2075361Z docker.io/pgvector/pgvector:0.8.6-pg16
+2026-10-17T13:17:10.2147993Z ##[command]/usr/bin/docker create --name 4369a7579cf6473db118b8c409a8786f_pgvectorpgvector086pg16_c58be1 --label da1e9a --network github_network_dd2840abaad1485dbf4abe5cf71ae554 --network-alias postgres -p 5432:5432 --health-cmd "pg_isready -U campusloop" --health-interval 5s --health-timeout 3s --health-retries 10 -e "POSTGRES_USER=campusloop" -e "POSTGRES_PASSWORD=campusloop" -e "POSTGRES_DB=campusloop" -e GITHUB_ACTIONS=true -e CI=true pgvector/pgvector:0.8.6-pg16
+2026-10-17T13:17:10.2418017Z 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:17:10.2438119Z ##[command]/usr/bin/docker start 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:17:10.9191077Z 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:17:10.9205093Z ##[command]/usr/bin/docker ps --all --filter id=954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-17T13:17:10.9337430Z 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822 Up Less than a second (health: starting)
+2026-10-17T13:17:10.9361250Z ##[command]/usr/bin/docker port 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:17:10.9496952Z 5432/tcp -> 0.0.0.0:5432
+2026-10-17T13:17:10.9497466Z 5432/tcp -> [::]:5432
+2026-10-17T13:17:10.9541584Z ##[endgroup]
+2026-10-17T13:17:10.9542828Z ##[group]Starting redis service container
+2026-10-17T13:17:10.9544040Z ##[command]/usr/bin/docker pull redis:7.4-alpine
+2026-10-17T13:17:11.6781499Z 7.4-alpine: Pulling from library/redis
+2026-10-17T13:17:11.9364789Z 16333ee0c00f: Pulling fs layer
+2026-10-17T13:17:11.9365488Z 83234986c742: Pulling fs layer
+2026-10-17T13:17:11.9365853Z 7eb50503c2b0: Pulling fs layer
+2026-10-17T13:17:11.9366146Z 1522f9c6f453: Pulling fs layer
+2026-10-17T13:17:11.9366509Z 9928009b15c8: Pulling fs layer
+2026-10-17T13:17:11.9366949Z 4f4fb700ef54: Pulling fs layer
+2026-10-17T13:17:11.9367814Z 4eb14bae0e1d: Pulling fs layer
+2026-10-17T13:17:11.9368597Z 9928009b15c8: Waiting
+2026-10-17T13:17:11.9368971Z 4f4fb700ef54: Waiting
+2026-10-17T13:17:11.9370075Z 4eb14bae0e1d: Waiting
+2026-10-17T13:17:11.9370604Z 1522f9c6f453: Waiting
+2026-10-17T13:17:12.1063425Z 83234986c742: Verifying Checksum
+2026-10-17T13:17:12.1063908Z 83234986c742: Download complete
+2026-10-17T13:17:12.1070912Z 7eb50503c2b0: Verifying Checksum
+2026-10-17T13:17:12.1071670Z 7eb50503c2b0: Download complete
+2026-10-17T13:17:12.1227271Z 16333ee0c00f: Download complete
+2026-10-17T13:17:12.2116328Z 16333ee0c00f: Pull complete
+2026-10-17T13:17:12.2253213Z 83234986c742: Pull complete
+2026-10-17T13:17:12.2776803Z 9928009b15c8: Verifying Checksum
+2026-10-17T13:17:12.2781146Z 9928009b15c8: Download complete
+2026-10-17T13:17:12.2998783Z 4f4fb700ef54: Download complete
+2026-10-17T13:17:12.3109633Z 1522f9c6f453: Verifying Checksum
+2026-10-17T13:17:12.3110094Z 1522f9c6f453: Download complete
+2026-10-17T13:17:12.3361906Z 7eb50503c2b0: Pull complete
+2026-10-17T13:17:12.4529588Z 4eb14bae0e1d: Verifying Checksum
+2026-10-17T13:17:12.4530471Z 4eb14bae0e1d: Download complete
+2026-10-17T13:17:12.5111361Z 1522f9c6f453: Pull complete
+2026-10-17T13:17:12.5183854Z 9928009b15c8: Pull complete
+2026-10-17T13:17:12.5228663Z 4f4fb700ef54: Pull complete
+2026-10-17T13:17:12.5287745Z 4eb14bae0e1d: Pull complete
+2026-10-17T13:17:12.5314383Z Digest: sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499
+2026-10-17T13:17:12.5321431Z Status: Downloaded newer image for redis:7.4-alpine
+2026-10-17T13:17:12.5328020Z docker.io/library/redis:7.4-alpine
+2026-10-17T13:17:12.5339598Z ##[command]/usr/bin/docker create --name b4eb02b3f1004532a2e6f0181e6a9a96_redis74alpine_868b8d --label da1e9a --network github_network_dd2840abaad1485dbf4abe5cf71ae554 --network-alias redis -p 6379:6379 --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10 -e GITHUB_ACTIONS=true -e CI=true redis:7.4-alpine
+2026-10-17T13:17:12.5568801Z bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:17:12.5579711Z ##[command]/usr/bin/docker start bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:17:12.6706634Z bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:17:12.6718310Z ##[command]/usr/bin/docker ps --all --filter id=bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-17T13:17:12.6840855Z bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487 Up Less than a second (health: starting)
+2026-10-17T13:17:12.6851958Z ##[command]/usr/bin/docker port bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:17:12.6967504Z 6379/tcp -> 0.0.0.0:6379
+2026-10-17T13:17:12.6967883Z 6379/tcp -> [::]:6379
+2026-10-17T13:17:12.6976955Z ##[endgroup]
+2026-10-17T13:17:12.6987477Z ##[group]Waiting for all services to be ready
+2026-10-17T13:17:12.7001692Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:17:12.7115109Z starting
+2026-10-17T13:17:12.7132600Z postgres service is starting, waiting 2 seconds before checking again.
+2026-10-17T13:17:14.7137475Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:17:14.7293966Z starting
+2026-10-17T13:17:14.7304479Z postgres service is starting, waiting 3 seconds before checking again.
+2026-10-17T13:17:18.5113666Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:17:18.5246126Z healthy
+2026-10-17T13:17:18.5257681Z postgres service is healthy.
+2026-10-17T13:17:18.5258517Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:17:18.5365770Z healthy
+2026-10-17T13:17:18.5372889Z redis service is healthy.
+2026-10-17T13:17:18.5373569Z ##[endgroup]
+2026-10-17T13:17:18.5649998Z ##[group]Run actions/checkout@v4
+2026-10-17T13:17:18.5650710Z with:
+2026-10-17T13:17:18.5650930Z   repository: Huang0283/CampusLoop
+2026-10-17T13:17:18.5653875Z   token: ***
+2026-10-17T13:17:18.5654080Z   ssh-strict: true
+2026-10-17T13:17:18.5654296Z   ssh-user: git
+2026-10-17T13:17:18.5654517Z   persist-credentials: true
+2026-10-17T13:17:18.5654760Z   clean: true
+2026-10-17T13:17:18.5654980Z   sparse-checkout-cone-mode: true
+2026-10-17T13:17:18.5655232Z   fetch-depth: 1
+2026-10-17T13:17:18.5655438Z   fetch-tags: false
+2026-10-17T13:17:18.5655645Z   show-progress: true
+2026-10-17T13:17:18.5655853Z   lfs: false
+2026-10-17T13:17:18.5656052Z   submodules: false
+2026-10-17T13:17:18.5656272Z   set-safe-directory: true
+2026-10-17T13:17:18.5656521Z   allow-unsafe-pr-checkout: false
+2026-10-17T13:17:18.5656938Z env:
+2026-10-17T13:17:18.5657122Z   APP_ENV: ci
+2026-10-17T13:17:18.5657316Z   LOG_JSON: false
+2026-10-17T13:17:18.5657519Z   LOG_LEVEL: WARNING
+2026-10-17T13:17:18.5658097Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:17:18.5658417Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:17:18.5658786Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:17:18.5659227Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:17:18.5659589Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:17:18.5659857Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:17:18.5660347Z ##[endgroup]
+2026-10-17T13:17:18.6612530Z Syncing repository: Huang0283/CampusLoop
+2026-10-17T13:17:18.6614004Z ##[group]Getting Git version info
+2026-10-17T13:17:18.6614498Z Working directory is '/home/runner/work/CampusLoop/CampusLoop'
+2026-10-17T13:17:18.6615157Z [command]/usr/bin/git version
+2026-10-17T13:17:18.6678366Z git version 2.55.0
+2026-10-17T13:17:18.6702883Z ##[endgroup]
+2026-10-17T13:17:18.6719147Z Temporarily overriding HOME='/home/runner/work/_temp/9a2a1746-a476-4cee-908d-4aa5da7d58c4' before making global git config changes
+2026-10-17T13:17:18.6720417Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-17T13:17:18.6726582Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CampusLoop/CampusLoop
+2026-10-17T13:17:18.6772809Z Deleting the contents of '/home/runner/work/CampusLoop/CampusLoop'
+2026-10-17T13:17:18.6776574Z ##[group]Initializing the repository
+2026-10-17T13:17:18.6782144Z [command]/usr/bin/git init /home/runner/work/CampusLoop/CampusLoop
+2026-10-17T13:17:18.6886164Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-17T13:17:18.6887620Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-17T13:17:18.6888138Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-17T13:17:18.6888531Z hint: call:
+2026-10-17T13:17:18.6888733Z hint:
+2026-10-17T13:17:18.6889019Z hint: 	git config --global init.defaultBranch <name>
+2026-10-17T13:17:18.6889327Z hint:
+2026-10-17T13:17:18.6889620Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-17T13:17:18.6890085Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-17T13:17:18.6890815Z hint:
+2026-10-17T13:17:18.6891140Z hint: 	git branch -m <name>
+2026-10-17T13:17:18.6891517Z hint:
+2026-10-17T13:17:18.6892102Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-17T13:17:18.6893000Z Initialized empty Git repository in /home/runner/work/CampusLoop/CampusLoop/.git/
+2026-10-17T13:17:18.6908118Z [command]/usr/bin/git remote add origin https://github.com/Huang0283/CampusLoop
+2026-10-17T13:17:18.6943552Z ##[endgroup]
+2026-10-17T13:17:18.6944176Z ##[group]Disabling automatic garbage collection
+2026-10-17T13:17:18.6948967Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-17T13:17:18.6977657Z ##[endgroup]
+2026-10-17T13:17:18.6978139Z ##[group]Setting up auth
+2026-10-17T13:17:18.6986674Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-17T13:17:18.7015893Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-17T13:17:18.7322873Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-17T13:17:18.7355281Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-17T13:17:18.7561066Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-17T13:17:18.7600121Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-17T13:17:18.7780963Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-17T13:17:18.7814549Z ##[endgroup]
+2026-10-17T13:17:18.7815032Z ##[group]Fetching the repository
+2026-10-17T13:17:18.7824370Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4b23751b62d1afc6fb26135489b078fac08b492b:refs/remotes/pull/107/merge
+2026-10-17T13:17:19.8021932Z From https://github.com/Huang0283/CampusLoop
+2026-10-17T13:17:19.8022724Z  * [new ref]         4b23751b62d1afc6fb26135489b078fac08b492b -> pull/107/merge
+2026-10-17T13:17:19.8026446Z ##[endgroup]
+2026-10-17T13:17:19.8027035Z ##[group]Determining the checkout info
+2026-10-17T13:17:19.8031138Z ##[endgroup]
+2026-10-17T13:17:19.8035945Z [command]/usr/bin/git sparse-checkout disable
+2026-10-17T13:17:19.8078583Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-17T13:17:19.8102278Z ##[group]Checking out the ref
+2026-10-17T13:17:19.8106968Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/107/merge
+2026-10-17T13:17:19.8607336Z Note: switching to 'refs/remotes/pull/107/merge'.
+2026-10-17T13:17:19.8607653Z 
+2026-10-17T13:17:19.8607872Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-17T13:17:19.8608357Z changes and commit them, and you can discard any commits you make in this
+2026-10-17T13:17:19.8608835Z state without impacting any branches by switching back to a branch.
+2026-10-17T13:17:19.8609098Z 
+2026-10-17T13:17:19.8609325Z If you want to create a new branch to retain commits you create, you may
+2026-10-17T13:17:19.8609776Z do so (now or later) by using -c with the switch command. Example:
+2026-10-17T13:17:19.8610023Z 
+2026-10-17T13:17:19.8610357Z   git switch -c <new-branch-name>
+2026-10-17T13:17:19.8610538Z 
+2026-10-17T13:17:19.8610654Z Or undo this operation with:
+2026-10-17T13:17:19.8610813Z 
+2026-10-17T13:17:19.8610926Z   git switch -
+2026-10-17T13:17:19.8611076Z 
+2026-10-17T13:17:19.8611303Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-17T13:17:19.8611591Z 
+2026-10-17T13:17:19.8611964Z HEAD is now at 4b23751 Merge c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec into 6df25176866a6b1df2c1da5dcd28229b965f73ff
+2026-10-17T13:17:19.8619047Z ##[endgroup]
+2026-10-17T13:17:19.8659609Z [command]/usr/bin/git log -1 --format=%H
+2026-10-17T13:17:19.8681149Z 4b23751b62d1afc6fb26135489b078fac08b492b
+2026-10-17T13:17:19.8908142Z ##[group]Run actions/setup-python@v5
+2026-10-17T13:17:19.8908422Z with:
+2026-10-17T13:17:19.8908630Z   python-version: 3.12
+2026-10-17T13:17:19.8908850Z   cache: pip
+2026-10-17T13:17:19.8909089Z   cache-dependency-path: backend/requirements.txt
+2026-10-17T13:17:19.8909381Z   check-latest: false
+2026-10-17T13:17:19.8912308Z   token: ***
+2026-10-17T13:17:19.8912523Z   update-environment: true
+2026-10-17T13:17:19.8912769Z   allow-prereleases: false
+2026-10-17T13:17:19.8913000Z   freethreaded: false
+2026-10-17T13:17:19.8913228Z env:
+2026-10-17T13:17:19.8913407Z   APP_ENV: ci
+2026-10-17T13:17:19.8913601Z   LOG_JSON: false
+2026-10-17T13:17:19.8913794Z   LOG_LEVEL: WARNING
+2026-10-17T13:17:19.8914259Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:17:19.8914564Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:17:19.8914910Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:17:19.8915386Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:17:19.8915739Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:17:19.8915995Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:17:19.8916226Z ##[endgroup]
+2026-10-17T13:17:20.0249877Z ##[group]Installed versions
+2026-10-17T13:17:20.0815076Z (node:2961) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-17T13:17:20.0816004Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-17T13:17:20.0816683Z Successfully set up CPython (3.12.15)
+2026-10-17T13:17:20.0817321Z ##[endgroup]
+2026-10-17T13:17:20.1148540Z [command]/opt/hostedtoolcache/Python/3.12.15/x64/bin/pip cache dir
+2026-10-17T13:17:21.5170043Z /home/runner/.cache/pip
+2026-10-17T13:17:21.8114542Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-f16bf89813149603ba100caafa53079939cb16a386af9f4b576122c82b2d9539
+2026-10-17T13:17:21.8216525Z (node:2961) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-17T13:17:23.0250072Z Received 37748736 of 74493067 (50.7%), 36.0 MBs/sec
+2026-10-17T13:17:23.2240066Z Received 74493067 of 74493067 (100.0%), 59.3 MBs/sec
+2026-10-17T13:17:23.2241776Z Cache Size: ~71 MB (74493067 B)
+2026-10-17T13:17:23.2312392Z [command]/usr/bin/tar -xf /home/runner/work/_temp/94dc31bb-75f4-4a92-b92b-89379b38e19f/cache.tzst -P -C /home/runner/work/CampusLoop/CampusLoop --use-compress-program unzstd
+2026-10-17T13:17:23.3141034Z Cache restored successfully
+2026-10-17T13:17:23.3182987Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-f16bf89813149603ba100caafa53079939cb16a386af9f4b576122c82b2d9539
+2026-10-17T13:17:23.3301657Z ##[group]Run pip install -r requirements.txt
+2026-10-17T13:17:23.3302110Z [36;1mpip install -r requirements.txt[0m
+2026-10-17T13:17:23.3443721Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:17:23.3444014Z env:
+2026-10-17T13:17:23.3444225Z   APP_ENV: ci
+2026-10-17T13:17:23.3444438Z   LOG_JSON: false
+2026-10-17T13:17:23.3444642Z   LOG_LEVEL: WARNING
+2026-10-17T13:17:23.3445260Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:17:23.3445571Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:17:23.3445942Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:17:23.3446392Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:17:23.3446773Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:17:23.3447043Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:17:23.3447372Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:23.3447802Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:17:23.3448273Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:23.3448646Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:23.3449021Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:23.3449403Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:17:23.3449720Z ##[endgroup]
+2026-10-17T13:17:24.8623703Z Collecting fastapi==0.115.6 (from -r requirements.txt (line 4))
+2026-10-17T13:17:24.8637371Z   Using cached fastapi-0.115.6-py3-none-any.whl.metadata (27 kB)
+2026-10-17T13:17:24.8911186Z Collecting uvicorn==0.32.1 (from uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:24.8922764Z   Using cached uvicorn-0.32.1-py3-none-any.whl.metadata (6.6 kB)
+2026-10-17T13:17:25.2099720Z Collecting sqlalchemy==2.0.36 (from -r requirements.txt (line 6))
+2026-10-17T13:17:25.2116674Z   Using cached SQLAlchemy-2.0.36-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.7 kB)
+2026-10-17T13:17:25.2366243Z Collecting alembic==1.14.0 (from -r requirements.txt (line 7))
+2026-10-17T13:17:25.2377784Z   Using cached alembic-1.14.0-py3-none-any.whl.metadata (7.4 kB)
+2026-10-17T13:17:25.2566603Z Collecting psycopg==3.2.3 (from psycopg[binary]==3.2.3->-r requirements.txt (line 8))
+2026-10-17T13:17:25.2577857Z   Using cached psycopg-3.2.3-py3-none-any.whl.metadata (4.3 kB)
+2026-10-17T13:17:25.2753711Z Collecting pgvector==0.3.6 (from -r requirements.txt (line 9))
+2026-10-17T13:17:25.2764323Z   Using cached pgvector-0.3.6-py3-none-any.whl.metadata (13 kB)
+2026-10-17T13:17:25.3808183Z Collecting pydantic==2.10.3 (from -r requirements.txt (line 10))
+2026-10-17T13:17:25.3820733Z   Using cached pydantic-2.10.3-py3-none-any.whl.metadata (172 kB)
+2026-10-17T13:17:25.4068868Z Collecting pydantic-settings==2.6.1 (from -r requirements.txt (line 11))
+2026-10-17T13:17:25.4080339Z   Using cached pydantic_settings-2.6.1-py3-none-any.whl.metadata (3.5 kB)
+2026-10-17T13:17:25.4331407Z Collecting redis==5.2.1 (from -r requirements.txt (line 12))
+2026-10-17T13:17:25.4343759Z   Using cached redis-5.2.1-py3-none-any.whl.metadata (9.1 kB)
+2026-10-17T13:17:25.4567671Z Collecting argon2-cffi==23.1.0 (from -r requirements.txt (line 13))
+2026-10-17T13:17:25.4579637Z   Using cached argon2_cffi-23.1.0-py3-none-any.whl.metadata (5.2 kB)
+2026-10-17T13:17:25.4780119Z Collecting PyJWT==2.10.1 (from -r requirements.txt (line 14))
+2026-10-17T13:17:25.4791760Z   Using cached PyJWT-2.10.1-py3-none-any.whl.metadata (4.0 kB)
+2026-10-17T13:17:25.4970885Z Collecting python-multipart==0.0.20 (from -r requirements.txt (line 15))
+2026-10-17T13:17:25.4981894Z   Using cached python_multipart-0.0.20-py3-none-any.whl.metadata (1.8 kB)
+2026-10-17T13:17:25.7027075Z Collecting boto3==1.35.90 (from -r requirements.txt (line 16))
+2026-10-17T13:17:25.7039227Z   Using cached boto3-1.35.90-py3-none-any.whl.metadata (6.7 kB)
+2026-10-17T13:17:25.8630386Z Collecting Pillow==11.1.0 (from -r requirements.txt (line 17))
+2026-10-17T13:17:25.8644909Z   Using cached pillow-11.1.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+2026-10-17T13:17:25.8884492Z Collecting jsonschema==4.25.1 (from -r requirements.txt (line 18))
+2026-10-17T13:17:25.8896040Z   Using cached jsonschema-4.25.1-py3-none-any.whl.metadata (7.6 kB)
+2026-10-17T13:17:25.9176490Z Collecting pytest==8.3.4 (from -r requirements.txt (line 21))
+2026-10-17T13:17:25.9189742Z   Using cached pytest-8.3.4-py3-none-any.whl.metadata (7.5 kB)
+2026-10-17T13:17:25.9389627Z Collecting httpx==0.28.1 (from -r requirements.txt (line 22))
+2026-10-17T13:17:25.9400958Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-10-17T13:17:26.2481672Z Collecting ruff==0.8.4 (from -r requirements.txt (line 23))
+2026-10-17T13:17:26.2496027Z   Using cached ruff-0.8.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (25 kB)
+2026-10-17T13:17:26.2772524Z Collecting starlette<0.42.0,>=0.40.0 (from fastapi==0.115.6->-r requirements.txt (line 4))
+2026-10-17T13:17:26.2783892Z   Using cached starlette-0.41.3-py3-none-any.whl.metadata (6.0 kB)
+2026-10-17T13:17:26.3257860Z Collecting typing-extensions>=4.8.0 (from fastapi==0.115.6->-r requirements.txt (line 4))
+2026-10-17T13:17:26.3269161Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-10-17T13:17:26.3423552Z Collecting annotated-types>=0.6.0 (from pydantic==2.10.3->-r requirements.txt (line 10))
+2026-10-17T13:17:26.3434941Z   Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-10-17T13:17:26.9110437Z Collecting pydantic-core==2.27.1 (from pydantic==2.10.3->-r requirements.txt (line 10))
+2026-10-17T13:17:26.9123320Z   Using cached pydantic_core-2.27.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+2026-10-17T13:17:26.9655151Z Collecting click>=7.0 (from uvicorn==0.32.1->uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:26.9667993Z   Using cached click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-10-17T13:17:26.9821897Z Collecting h11>=0.8 (from uvicorn==0.32.1->uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:26.9831868Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-10-17T13:17:27.1095143Z Collecting greenlet!=0.4.17 (from sqlalchemy==2.0.36->-r requirements.txt (line 6))
+2026-10-17T13:17:27.1106699Z   Using cached greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+2026-10-17T13:17:27.1327864Z Collecting Mako (from alembic==1.14.0->-r requirements.txt (line 7))
+2026-10-17T13:17:27.1339815Z   Using cached mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+2026-10-17T13:17:27.3127579Z Collecting numpy (from pgvector==0.3.6->-r requirements.txt (line 9))
+2026-10-17T13:17:27.3816709Z   Downloading numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-10-17T13:17:27.4038352Z Collecting python-dotenv>=0.21.0 (from pydantic-settings==2.6.1->-r requirements.txt (line 11))
+2026-10-17T13:17:27.4050027Z   Using cached python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+2026-10-17T13:17:27.4258053Z Collecting argon2-cffi-bindings (from argon2-cffi==23.1.0->-r requirements.txt (line 13))
+2026-10-17T13:17:27.4270799Z   Using cached argon2_cffi_bindings-26.1.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (7.5 kB)
+2026-10-17T13:17:27.6588085Z Collecting botocore<1.36.0,>=1.35.90 (from boto3==1.35.90->-r requirements.txt (line 16))
+2026-10-17T13:17:27.6600614Z   Using cached botocore-1.35.99-py3-none-any.whl.metadata (5.7 kB)
+2026-10-17T13:17:27.6783993Z Collecting jmespath<2.0.0,>=0.7.1 (from boto3==1.35.90->-r requirements.txt (line 16))
+2026-10-17T13:17:27.6795635Z   Using cached jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+2026-10-17T13:17:27.6986590Z Collecting s3transfer<0.11.0,>=0.10.0 (from boto3==1.35.90->-r requirements.txt (line 16))
+2026-10-17T13:17:27.6998107Z   Using cached s3transfer-0.10.4-py3-none-any.whl.metadata (1.7 kB)
+2026-10-17T13:17:27.7175890Z Collecting attrs>=22.2.0 (from jsonschema==4.25.1->-r requirements.txt (line 18))
+2026-10-17T13:17:27.7186794Z   Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-10-17T13:17:27.7351389Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema==4.25.1->-r requirements.txt (line 18))
+2026-10-17T13:17:27.7362260Z   Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-10-17T13:17:27.7624695Z Collecting referencing>=0.28.4 (from jsonschema==4.25.1->-r requirements.txt (line 18))
+2026-10-17T13:17:27.7637840Z   Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-10-17T13:17:27.9796557Z Collecting rpds-py>=0.7.1 (from jsonschema==4.25.1->-r requirements.txt (line 18))
+2026-10-17T13:17:27.9807906Z   Using cached rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-10-17T13:17:27.9963869Z Collecting iniconfig (from pytest==8.3.4->-r requirements.txt (line 21))
+2026-10-17T13:17:27.9975279Z   Using cached iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-10-17T13:17:28.0173901Z Collecting packaging (from pytest==8.3.4->-r requirements.txt (line 21))
+2026-10-17T13:17:28.0186526Z   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-10-17T13:17:28.0352110Z Collecting pluggy<2,>=1.5 (from pytest==8.3.4->-r requirements.txt (line 21))
+2026-10-17T13:17:28.0455522Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-10-17T13:17:28.0691220Z Collecting anyio (from httpx==0.28.1->-r requirements.txt (line 22))
+2026-10-17T13:17:28.0702736Z   Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+2026-10-17T13:17:28.0919305Z Collecting certifi (from httpx==0.28.1->-r requirements.txt (line 22))
+2026-10-17T13:17:28.0931076Z   Using cached certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+2026-10-17T13:17:28.1126066Z Collecting httpcore==1.* (from httpx==0.28.1->-r requirements.txt (line 22))
+2026-10-17T13:17:28.1137642Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-10-17T13:17:28.1328603Z Collecting idna (from httpx==0.28.1->-r requirements.txt (line 22))
+2026-10-17T13:17:28.1339787Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-10-17T13:17:28.2659882Z Collecting psycopg-binary==3.2.3 (from psycopg[binary]==3.2.3->-r requirements.txt (line 8))
+2026-10-17T13:17:28.2672979Z   Using cached psycopg_binary-3.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.8 kB)
+2026-10-17T13:17:28.3064252Z Collecting httptools>=0.6.3 (from uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:28.3169228Z   Downloading httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+2026-10-17T13:17:28.3549789Z Collecting pyyaml>=5.1 (from uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:28.3562382Z   Using cached pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-10-17T13:17:28.3941570Z Collecting uvloop!=0.15.0,!=0.15.1,>=0.14.0 (from uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:28.3954385Z   Using cached uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+2026-10-17T13:17:28.4636681Z Collecting watchfiles>=0.13 (from uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:28.4650626Z   Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+2026-10-17T13:17:28.6088437Z Collecting websockets>=10.4 (from uvicorn[standard]==0.32.1->-r requirements.txt (line 5))
+2026-10-17T13:17:28.6101517Z   Using cached websockets-17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+2026-10-17T13:17:28.6282894Z Collecting python-dateutil<3.0.0,>=2.1 (from botocore<1.36.0,>=1.35.90->boto3==1.35.90->-r requirements.txt (line 16))
+2026-10-17T13:17:28.6294500Z   Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-10-17T13:17:28.6537338Z Collecting urllib3!=2.2.0,<3,>=1.25.4 (from botocore<1.36.0,>=1.35.90->boto3==1.35.90->-r requirements.txt (line 16))
+2026-10-17T13:17:28.6548879Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-10-17T13:17:28.6747248Z Collecting six>=1.5 (from python-dateutil<3.0.0,>=2.1->botocore<1.36.0,>=1.35.90->boto3==1.35.90->-r requirements.txt (line 16))
+2026-10-17T13:17:28.6759491Z   Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-10-17T13:17:28.8018689Z Collecting cffi>=1.0.1 (from argon2-cffi-bindings->argon2-cffi==23.1.0->-r requirements.txt (line 13))
+2026-10-17T13:17:28.8033688Z   Using cached cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+2026-10-17T13:17:28.8194004Z Collecting pycparser (from cffi>=1.0.1->argon2-cffi-bindings->argon2-cffi==23.1.0->-r requirements.txt (line 13))
+2026-10-17T13:17:28.8204817Z   Using cached pycparser-3.11-py3-none-any.whl.metadata (8.2 kB)
+2026-10-17T13:17:28.8748030Z Collecting MarkupSafe>=2.0 (from Mako->alembic==1.14.0->-r requirements.txt (line 7))
+2026-10-17T13:17:28.8761574Z   Using cached markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-10-17T13:17:28.8810866Z Using cached fastapi-0.115.6-py3-none-any.whl (94 kB)
+2026-10-17T13:17:28.8822356Z Using cached pydantic-2.10.3-py3-none-any.whl (456 kB)
+2026-10-17T13:17:28.8835210Z Using cached uvicorn-0.32.1-py3-none-any.whl (63 kB)
+2026-10-17T13:17:28.8846363Z Using cached SQLAlchemy-2.0.36-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.2 MB)
+2026-10-17T13:17:28.8871390Z Using cached alembic-1.14.0-py3-none-any.whl (233 kB)
+2026-10-17T13:17:28.8882807Z Using cached psycopg-3.2.3-py3-none-any.whl (197 kB)
+2026-10-17T13:17:28.8894142Z Using cached pgvector-0.3.6-py3-none-any.whl (24 kB)
+2026-10-17T13:17:28.8904552Z Using cached pydantic_settings-2.6.1-py3-none-any.whl (28 kB)
+2026-10-17T13:17:28.8914872Z Using cached redis-5.2.1-py3-none-any.whl (261 kB)
+2026-10-17T13:17:28.8926267Z Using cached argon2_cffi-23.1.0-py3-none-any.whl (15 kB)
+2026-10-17T13:17:28.8936816Z Using cached PyJWT-2.10.1-py3-none-any.whl (22 kB)
+2026-10-17T13:17:28.8947576Z Using cached python_multipart-0.0.20-py3-none-any.whl (24 kB)
+2026-10-17T13:17:28.8957797Z Using cached boto3-1.35.90-py3-none-any.whl (139 kB)
+2026-10-17T13:17:28.8969046Z Using cached pillow-11.1.0-cp312-cp312-manylinux_2_28_x86_64.whl (4.5 MB)
+2026-10-17T13:17:28.8998341Z Using cached jsonschema-4.25.1-py3-none-any.whl (90 kB)
+2026-10-17T13:17:28.9009356Z Using cached pytest-8.3.4-py3-none-any.whl (343 kB)
+2026-10-17T13:17:28.9021370Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-10-17T13:17:28.9032678Z Using cached ruff-0.8.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.2 MB)
+2026-10-17T13:17:28.9085387Z Using cached psycopg_binary-3.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.2 MB)
+2026-10-17T13:17:28.9111609Z Using cached pydantic_core-2.27.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
+2026-10-17T13:17:28.9130037Z Using cached botocore-1.35.99-py3-none-any.whl (13.3 MB)
+2026-10-17T13:17:28.9193035Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-10-17T13:17:28.9203707Z Using cached jmespath-1.1.0-py3-none-any.whl (20 kB)
+2026-10-17T13:17:28.9308590Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-10-17T13:17:28.9388330Z Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-10-17T13:17:28.9399666Z Using cached s3transfer-0.10.4-py3-none-any.whl (83 kB)
+2026-10-17T13:17:28.9410509Z Using cached starlette-0.41.3-py3-none-any.whl (73 kB)
+2026-10-17T13:17:28.9420928Z Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+2026-10-17T13:17:28.9431520Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-10-17T13:17:28.9441901Z Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-10-17T13:17:28.9452115Z Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-10-17T13:17:28.9462510Z Using cached click-8.5.0-py3-none-any.whl (125 kB)
+2026-10-17T13:17:28.9473509Z Using cached greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (621 kB)
+2026-10-17T13:17:28.9486313Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-10-17T13:17:28.9590455Z Downloading httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (552 kB)
+2026-10-17T13:17:28.9983870Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 552.8/552.8 kB 17.7 MB/s  0:00:00
+2026-10-17T13:17:28.9998602Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+2026-10-17T13:17:29.0013025Z Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-10-17T13:17:29.0026350Z Using cached python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+2026-10-17T13:17:29.0040814Z Using cached pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+2026-10-17T13:17:29.0056427Z Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-10-17T13:17:29.0067923Z Using cached rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+2026-10-17T13:17:29.0080372Z Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-10-17T13:17:29.0091572Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-10-17T13:17:29.0103306Z Using cached uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.5 MB)
+2026-10-17T13:17:29.0132701Z Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+2026-10-17T13:17:29.0145609Z Using cached websockets-17.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (225 kB)
+2026-10-17T13:17:29.0157679Z Using cached argon2_cffi_bindings-26.1.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (26 kB)
+2026-10-17T13:17:29.0169270Z Using cached cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+2026-10-17T13:17:29.0181056Z Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+2026-10-17T13:17:29.0192503Z Using cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-10-17T13:17:29.0203293Z Using cached mako-1.4.3-py3-none-any.whl (80 kB)
+2026-10-17T13:17:29.0215062Z Using cached markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-10-17T13:17:29.0320451Z Downloading numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-10-17T13:17:29.1294598Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 175.2 MB/s  0:00:00
+2026-10-17T13:17:29.1306761Z Using cached packaging-26.3-py3-none-any.whl (129 kB)
+2026-10-17T13:17:29.1318357Z Using cached pycparser-3.11-py3-none-any.whl (51 kB)
+2026-10-17T13:17:29.5311072Z Installing collected packages: websockets, uvloop, urllib3, typing-extensions, six, ruff, rpds-py, redis, pyyaml, python-multipart, python-dotenv, PyJWT, pycparser, psycopg-binary, pluggy, Pillow, packaging, numpy, MarkupSafe, jmespath, iniconfig, idna, httptools, h11, greenlet, click, certifi, attrs, annotated-types, uvicorn, sqlalchemy, referencing, python-dateutil, pytest, pydantic-core, psycopg, pgvector, Mako, httpcore, cffi, anyio, watchfiles, starlette, pydantic, jsonschema-specifications, httpx, botocore, argon2-cffi-bindings, alembic, s3transfer, pydantic-settings, jsonschema, fastapi, argon2-cffi, boto3
+2026-10-17T13:17:35.7096512Z 
+2026-10-17T13:17:35.7141785Z Successfully installed Mako-1.4.3 MarkupSafe-3.0.4 Pillow-11.1.0 PyJWT-2.10.1 alembic-1.14.0 annotated-types-0.8.0 anyio-4.15.1 argon2-cffi-23.1.0 argon2-cffi-bindings-26.1.0 attrs-26.1.0 boto3-1.35.90 botocore-1.35.99 certifi-2026.7.22 cffi-2.1.1 click-8.5.0 fastapi-0.115.6 greenlet-3.5.6 h11-0.16.0 httpcore-1.0.9 httptools-0.9.0 httpx-0.28.1 idna-3.20 iniconfig-2.3.1 jmespath-1.1.0 jsonschema-4.25.1 jsonschema-specifications-2025.9.1 numpy-2.5.4 packaging-26.3 pgvector-0.3.6 pluggy-1.7.0 psycopg-3.2.3 psycopg-binary-3.2.3 pycparser-3.11 pydantic-2.10.3 pydantic-core-2.27.1 pydantic-settings-2.6.1 pytest-8.3.4 python-dateutil-2.9.0.post0 python-dotenv-1.2.4 python-multipart-0.0.20 pyyaml-6.0.3 redis-5.2.1 referencing-0.37.0 rpds-py-2026.9.1 ruff-0.8.4 s3transfer-0.10.4 six-1.17.0 sqlalchemy-2.0.36 starlette-0.41.3 typing-extensions-4.16.0 urllib3-2.8.0 uvicorn-0.32.1 uvloop-0.23.0 watchfiles-1.3.0 websockets-17.2
+2026-10-17T13:17:35.9798205Z ##[group]Run docker build -f Dockerfile.minio -t campusloop-ci-minio .
+2026-10-17T13:17:35.9798725Z [36;1mdocker build -f Dockerfile.minio -t campusloop-ci-minio .[0m
+2026-10-17T13:17:35.9799455Z [36;1mdocker run -d --name campusloop-ci-minio -p 9000:9000 -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin campusloop-ci-minio server /data[0m
+2026-10-17T13:17:35.9800094Z [36;1mfor attempt in $(seq 1 60); do[0m
+2026-10-17T13:17:35.9800727Z [36;1m  if curl -fsS http://localhost:9000/minio/health/live; then break; fi[0m
+2026-10-17T13:17:35.9801108Z [36;1m  sleep 2[0m
+2026-10-17T13:17:35.9801330Z [36;1mdone[0m
+2026-10-17T13:17:35.9801601Z [36;1mcurl -fsS http://localhost:9000/minio/health/live[0m
+2026-10-17T13:17:35.9802117Z [36;1mdocker exec campusloop-ci-minio mc alias set local http://localhost:9000 minioadmin minioadmin[0m
+2026-10-17T13:17:35.9802731Z [36;1mdocker exec campusloop-ci-minio mc mb --ignore-existing local/campusloop-public[0m
+2026-10-17T13:17:35.9803396Z [36;1mdocker exec campusloop-ci-minio mc mb --ignore-existing local/campusloop-private[0m
+2026-10-17T13:17:35.9803970Z [36;1mdocker exec campusloop-ci-minio mc anonymous set download local/campusloop-public[0m
+2026-10-17T13:17:35.9804538Z [36;1mdocker exec campusloop-ci-minio mc anonymous set none local/campusloop-private[0m
+2026-10-17T13:17:35.9843781Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:17:35.9844061Z env:
+2026-10-17T13:17:35.9844259Z   APP_ENV: ci
+2026-10-17T13:17:35.9844469Z   LOG_JSON: false
+2026-10-17T13:17:35.9844679Z   LOG_LEVEL: WARNING
+2026-10-17T13:17:35.9845234Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:17:35.9845554Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:17:35.9845922Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:17:35.9846373Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:17:35.9846753Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:17:35.9847032Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:17:35.9847347Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:35.9847768Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:17:35.9848183Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:35.9848554Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:35.9848925Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:17:35.9849301Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:17:35.9849623Z ##[endgroup]
+2026-10-17T13:17:38.5158674Z #0 building with "default" instance using docker driver
+2026-10-17T13:17:38.5158961Z 
+2026-10-17T13:17:38.5159165Z #1 [internal] load build definition from Dockerfile.minio
+2026-10-17T13:17:38.5159564Z #1 transferring dockerfile: 2.15kB 0.0s done
+2026-10-17T13:17:38.5159943Z #1 DONE 0.0s
+2026-10-17T13:17:38.5160067Z 
+2026-10-17T13:17:38.5160715Z #2 [internal] load metadata for docker.io/library/golang:1.24-alpine
+2026-10-17T13:17:38.6847420Z #2 ...
+2026-10-17T13:17:38.6847646Z 
+2026-10-17T13:17:38.6847868Z #3 [auth] library/alpine:pull token for registry-1.docker.io
+2026-10-17T13:17:38.6848260Z #3 DONE 0.0s
+2026-10-17T13:17:38.6848387Z 
+2026-10-17T13:17:38.6848549Z #4 [auth] library/golang:pull token for registry-1.docker.io
+2026-10-17T13:17:38.6848858Z #4 DONE 0.0s
+2026-10-17T13:17:38.8346853Z 
+2026-10-17T13:17:38.8347675Z #5 [internal] load metadata for docker.io/library/alpine:3.22
+2026-10-17T13:17:39.1260051Z #5 ...
+2026-10-17T13:17:39.1260677Z 
+2026-10-17T13:17:39.1261290Z #2 [internal] load metadata for docker.io/library/golang:1.24-alpine
+2026-10-17T13:17:39.1262035Z #2 DONE 0.8s
+2026-10-17T13:17:39.2294806Z 
+2026-10-17T13:17:39.2295775Z #5 [internal] load metadata for docker.io/library/alpine:3.22
+2026-10-17T13:17:39.2296453Z #5 DONE 0.8s
+2026-10-17T13:17:39.2296655Z 
+2026-10-17T13:17:39.2296843Z #6 [internal] load .dockerignore
+2026-10-17T13:17:39.2297578Z #6 transferring context: 235B done
+2026-10-17T13:17:39.2298017Z #6 DONE 0.0s
+2026-10-17T13:17:39.2298227Z 
+2026-10-17T13:17:39.2298920Z #7 [stage-1 1/4] FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8
+2026-10-17T13:17:39.2302240Z #7 resolve docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8 done
+2026-10-17T13:17:39.2303519Z #7 extracting sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887
+2026-10-17T13:17:39.3421307Z #7 extracting sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 0.1s done
+2026-10-17T13:17:39.3422795Z #7 sha256:53f8f5e03afd86ade91b7aa57a749f5a3d1419c113be5d8c10e7ee61bb5ab887 3.79MB / 3.79MB 0.1s done
+2026-10-17T13:17:39.3424014Z #7 sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8 9.22kB / 9.22kB done
+2026-10-17T13:17:39.3425185Z #7 sha256:3e9b4b680bfc9fb5269227cffbd6d42be39fbf7c0b908123913864aa4447e764 1.02kB / 1.02kB done
+2026-10-17T13:17:39.3426247Z #7 sha256:c83674e1999044d33d751661371b873539f47e5b5c5ca3320c7e0377acca6238 611B / 611B done
+2026-10-17T13:17:39.4496451Z #7 DONE 0.2s
+2026-10-17T13:17:39.4496831Z 
+2026-10-17T13:17:39.4498237Z #8 [build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+2026-10-17T13:17:39.4499594Z #8 resolve docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191 done
+2026-10-17T13:17:39.4501535Z #8 sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191 10.30kB / 10.30kB done
+2026-10-17T13:17:39.4502743Z #8 sha256:757779acac4af1b349a20f357c7296097b4a0b89da4ad0e370b339060077282a 1.92kB / 1.92kB done
+2026-10-17T13:17:39.4503950Z #8 sha256:ebe4e0721205a049b6806724e1ccb05c99e334b1dc1f59e0729b31130bce3aed 2.19kB / 2.19kB done
+2026-10-17T13:17:39.4505222Z #8 sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 3.86MB / 3.86MB 0.1s done
+2026-10-17T13:17:39.4506480Z #8 sha256:8f78851c25d251496dd39ebce311b4d914a4a97c0ba1983039165a05fd96b925 0B / 296.08kB 0.1s
+2026-10-17T13:17:39.4507688Z #8 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 34.60MB / 79.13MB 0.3s
+2026-10-17T13:17:39.4508896Z #8 extracting sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 0.1s done
+2026-10-17T13:17:39.4510125Z #8 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B 0.2s done
+2026-10-17T13:17:39.4511459Z #8 extracting sha256:8f78851c25d251496dd39ebce311b4d914a4a97c0ba1983039165a05fd96b925 0.1s done
+2026-10-17T13:17:39.6498983Z #8 sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 79.13MB / 79.13MB 0.5s done
+2026-10-17T13:17:40.3342732Z #8 extracting sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581
+2026-10-17T13:17:40.5611498Z #8 ...
+2026-10-17T13:17:40.5611748Z 
+2026-10-17T13:17:40.5612548Z #9 [stage-1 2/4] RUN apk add --no-cache ca-certificates curl
+2026-10-17T13:17:40.5613689Z #9 0.138 fetch https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/APKINDEX.tar.gz
+2026-10-17T13:17:40.5614704Z #9 0.415 fetch https://dl-cdn.alpinelinux.org/alpine/v3.22/community/x86_64/APKINDEX.tar.gz
+2026-10-17T13:17:40.5616653Z #9 0.866 (1/10) Installing ca-certificates (20260909-r0)
+2026-10-17T13:17:40.5617353Z #9 0.916 (2/10) Installing brotli-libs (1.1.0-r2)
+2026-10-17T13:17:40.5618282Z #9 0.945 (3/10) Installing c-ares (1.34.8-r0)
+2026-10-17T13:17:40.5619048Z #9 0.957 (4/10) Installing libunistring (1.3-r0)
+2026-10-17T13:17:40.5619589Z #9 0.985 (5/10) Installing libidn2 (2.3.7-r0)
+2026-10-17T13:17:40.5621001Z #9 0.996 (6/10) Installing nghttp2-libs (1.69.0-r0)
+2026-10-17T13:17:40.5621557Z #9 1.007 (7/10) Installing libpsl (0.21.5-r3)
+2026-10-17T13:17:40.5622197Z #9 1.017 (8/10) Installing zstd-libs (1.5.7-r0)
+2026-10-17T13:17:40.5623174Z #9 1.034 (9/10) Installing libcurl (8.14.1-r3)
+2026-10-17T13:17:40.5623695Z #9 1.049 (10/10) Installing curl (8.14.1-r3)
+2026-10-17T13:17:40.5624379Z #9 1.061 Executing busybox-1.37.0-r20.trigger
+2026-10-17T13:17:40.5625272Z #9 1.067 Executing ca-certificates-20260909-r0.trigger
+2026-10-17T13:17:40.5625831Z #9 1.094 OK: 13 MiB in 26 packages
+2026-10-17T13:17:40.5626262Z #9 DONE 1.2s
+2026-10-17T13:17:40.5626461Z 
+2026-10-17T13:17:40.5627401Z #8 [build 1/5] FROM docker.io/library/golang:1.24-alpine@sha256:8bee1901f1e530bfb4a7850aa7a479d17ae3a18beb6e09064ed54cfd245b7191
+2026-10-17T13:17:43.8354608Z #8 extracting sha256:f7bdfd728ac2ad72d43b82689890dc698260d3a1049845f48fb3fb942df6c581 3.4s done
+2026-10-17T13:17:44.2106578Z #8 extracting sha256:c95d909b2488ff78a51d01ca745429e6d281e314006f231fe6e9f219cf5432ca
+2026-10-17T13:17:44.3872981Z #8 extracting sha256:c95d909b2488ff78a51d01ca745429e6d281e314006f231fe6e9f219cf5432ca done
+2026-10-17T13:17:44.3873627Z #8 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 done
+2026-10-17T13:17:44.3874068Z #8 DONE 5.1s
+2026-10-17T13:17:44.3874188Z 
+2026-10-17T13:17:44.3874342Z #10 [build 2/5] RUN apk add --no-cache git
+2026-10-17T13:17:44.6967027Z #10 0.460 ( 1/12) Installing brotli-libs (1.2.0-r0)
+2026-10-17T13:17:44.8090376Z #10 0.480 ( 2/12) Installing c-ares (1.34.8-r0)
+2026-10-17T13:17:44.8090888Z #10 0.491 ( 3/12) Installing libunistring (1.4.1-r0)
+2026-10-17T13:17:44.8091221Z #10 0.512 ( 4/12) Installing libidn2 (2.3.8-r0)
+2026-10-17T13:17:44.8091570Z #10 0.522 ( 5/12) Installing nghttp2-libs (1.69.0-r0)
+2026-10-17T13:17:44.8091918Z #10 0.532 ( 6/12) Installing libpsl (0.21.5-r3)
+2026-10-17T13:17:44.8092227Z #10 0.542 ( 7/12) Installing zstd-libs (1.5.7-r2)
+2026-10-17T13:17:44.8092533Z #10 0.556 ( 8/12) Installing libcurl (8.22.0-r0)
+2026-10-17T13:17:44.8092837Z #10 0.572 ( 9/12) Installing libexpat (2.8.5-r0)
+2026-10-17T13:17:44.9097888Z #10 0.582 (10/12) Installing pcre2 (10.49-r0)
+2026-10-17T13:17:44.9098479Z #10 0.597 (11/12) Installing git (2.52.0-r0)
+2026-10-17T13:17:44.9099044Z #10 0.658 (12/12) Installing git-init-template (2.52.0-r0)
+2026-10-17T13:17:44.9099463Z #10 0.668 Executing busybox-1.37.0-r30.trigger
+2026-10-17T13:17:44.9099764Z #10 0.673 OK: 20.5 MiB in 29 packages
+2026-10-17T13:17:45.1047387Z #10 DONE 0.7s
+2026-10-17T13:17:45.1047585Z 
+2026-10-17T13:17:45.1048274Z #11 [build 3/5] RUN git clone -q --depth 1 -b RELEASE.2025-10-15T17-29-55Z https://github.com/minio/minio /src/minio  && git clone -q --depth 1 -b RELEASE.2025-08-13T08-35-41Z https://github.com/minio/mc /src/mc
+2026-10-17T13:17:46.8922818Z #11 1.938 Note: switching to '9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a'.
+2026-10-17T13:17:46.8923410Z #11 1.938 
+2026-10-17T13:17:46.8923791Z #11 1.938 You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-17T13:17:46.8924288Z #11 1.938 changes and commit them, and you can discard any commits you make in this
+2026-10-17T13:17:46.8924773Z #11 1.938 state without impacting any branches by switching back to a branch.
+2026-10-17T13:17:46.8925161Z #11 1.938 
+2026-10-17T13:17:46.8925469Z #11 1.938 If you want to create a new branch to retain commits you create, you may
+2026-10-17T13:17:46.8925949Z #11 1.938 do so (now or later) by using -c with the switch command. Example:
+2026-10-17T13:17:46.8926302Z #11 1.938 
+2026-10-17T13:17:46.8926529Z #11 1.938   git switch -c <new-branch-name>
+2026-10-17T13:17:46.8926790Z #11 1.938 
+2026-10-17T13:17:46.8927009Z #11 1.938 Or undo this operation with:
+2026-10-17T13:17:46.8927282Z #11 1.938 
+2026-10-17T13:17:46.8927478Z #11 1.938   git switch -
+2026-10-17T13:17:46.8927963Z #11 1.938 
+2026-10-17T13:17:46.8928318Z #11 1.938 Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-17T13:17:46.8928741Z #11 1.938 
+2026-10-17T13:17:47.9929621Z #11 3.038 warning: refs/tags/RELEASE.2025-08-13T08-35-41Z d6541ea280b73a834b64d4097e21f2be77676104 is not a commit!
+2026-10-17T13:17:48.2228556Z #11 3.039 Note: switching to '7394ce0dd2a80935aded936b09fa12cbb3cb8096'.
+2026-10-17T13:17:48.2229367Z #11 3.039 
+2026-10-17T13:17:48.2229930Z #11 3.039 You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-17T13:17:48.2231432Z #11 3.039 changes and commit them, and you can discard any commits you make in this
+2026-10-17T13:17:48.2232418Z #11 3.039 state without impacting any branches by switching back to a branch.
+2026-10-17T13:17:48.2233144Z #11 3.039 
+2026-10-17T13:17:48.2233747Z #11 3.039 If you want to create a new branch to retain commits you create, you may
+2026-10-17T13:17:48.2234685Z #11 3.039 do so (now or later) by using -c with the switch command. Example:
+2026-10-17T13:17:48.2235395Z #11 3.039 
+2026-10-17T13:17:48.2235834Z #11 3.039   git switch -c <new-branch-name>
+2026-10-17T13:17:48.2236377Z #11 3.039 
+2026-10-17T13:17:48.2237166Z #11 3.039 Or undo this operation with:
+2026-10-17T13:17:48.2237512Z #11 3.039 
+2026-10-17T13:17:48.2237728Z #11 3.039   git switch -
+2026-10-17T13:17:48.2237953Z #11 3.039 
+2026-10-17T13:17:48.2238287Z #11 3.039 Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-17T13:17:48.2238687Z #11 3.039 
+2026-10-17T13:17:48.2238886Z #11 DONE 3.1s
+2026-10-17T13:17:48.2239029Z 
+2026-10-17T13:17:48.2239576Z #12 [build 4/5] RUN cd /src/minio  && MINIO_RELEASE=RELEASE CGO_ENABLED=0     go build -trimpath -tags kqueue -o /out/minio     -ldflags="$(go run buildscripts/gen-ldflags.go 2025-10-15T17:29:55Z)"
+2026-10-17T13:17:52.0952384Z #12 4.024 go: downloading cloud.google.com/go/storage v1.52.0
+2026-10-17T13:17:52.2507886Z #12 4.029 go: downloading github.com/Azure/azure-sdk-for-go/sdk/azcore v1.18.0
+2026-10-17T13:17:52.2508558Z #12 4.030 go: downloading github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.9.0
+2026-10-17T13:17:53.3562796Z #12 5.286 go: downloading github.com/Azure/azure-sdk-for-go/sdk/storage/azblob v1.6.1
+2026-10-17T13:17:53.8524527Z #12 5.782 go: downloading github.com/cespare/xxhash/v2 v2.3.0
+2026-10-17T13:17:54.0455433Z #12 5.975 go: downloading cloud.google.com/go v0.120.1
+2026-10-17T13:17:55.0946778Z #12 7.024 go: downloading github.com/cheggaaa/pb v1.0.29
+2026-10-17T13:17:55.0947582Z #12 7.024 go: downloading github.com/coreos/go-oidc/v3 v3.14.1
+2026-10-17T13:17:55.2451378Z #12 7.024 go: downloading github.com/coreos/go-systemd/v22 v22.5.0
+2026-10-17T13:17:55.4643852Z #12 7.394 go: downloading github.com/cosnicolaou/pbzip2 v1.0.5
+2026-10-17T13:17:55.6187768Z #12 7.394 go: downloading github.com/dchest/siphash v1.2.3
+2026-10-17T13:17:55.6188346Z #12 7.398 go: downloading github.com/dustin/go-humanize v1.0.1
+2026-10-17T13:17:56.8310598Z #12 8.760 go: downloading github.com/fatih/color v1.18.0
+2026-10-17T13:17:56.9821015Z #12 8.761 go: downloading github.com/felixge/fgprof v0.9.5
+2026-10-17T13:17:58.5724037Z #12 10.50 go: downloading github.com/go-openapi/loads v0.22.0
+2026-10-17T13:18:00.4279263Z #12 12.36 go: downloading github.com/golang-jwt/jwt/v4 v4.5.2
+2026-10-17T13:18:04.3994467Z #12 16.33 go: downloading github.com/google/uuid v1.6.0
+2026-10-17T13:18:04.3995175Z #12 16.33 go: downloading github.com/inconshreveable/mousetrap v1.1.0
+2026-10-17T13:18:05.1665025Z #12 17.10 go: downloading github.com/json-iterator/go v1.1.12
+2026-10-17T13:18:07.1658177Z #12 19.10 go: downloading github.com/klauspost/compress v1.18.0
+2026-10-17T13:19:51.3097576Z #12 123.2 go: downloading github.com/klauspost/filepathx v1.1.1
+2026-10-17T13:19:51.3098135Z #12 123.2 go: downloading github.com/klauspost/pgzip v1.2.6
+2026-10-17T13:19:51.3098538Z #12 123.2 go: downloading github.com/klauspost/reedsolomon v1.12.4
+2026-10-17T13:19:51.3098947Z #12 123.2 go: downloading github.com/klauspost/readahead v1.4.0
+2026-10-17T13:19:52.9187759Z #12 124.8 go: downloading github.com/lithammer/shortuuid/v4 v4.2.0
+2026-10-17T13:19:52.9188476Z #12 124.8 go: downloading github.com/miekg/dns v1.1.65
+2026-10-17T13:19:53.0694372Z #12 124.8 go: downloading github.com/minio/cli v1.24.2
+2026-10-17T13:19:54.4897425Z #12 126.4 go: downloading github.com/minio/console v1.7.7-0.20250905210349-2017f33b26e1
+2026-10-17T13:20:39.5746009Z #12 171.5 go: downloading github.com/minio/dnscache v0.1.1
+2026-10-17T13:20:39.5746599Z #12 171.5 go: downloading github.com/minio/highwayhash v1.0.3
+2026-10-17T13:20:39.7249879Z #12 171.5 go: downloading github.com/minio/dperf v0.6.3
+2026-10-17T13:20:39.7250632Z #12 171.5 go: downloading github.com/minio/kms-go/kes v0.3.1
+2026-10-17T13:20:39.9919203Z #12 171.9 go: downloading github.com/minio/madmin-go/v3 v3.0.109
+2026-10-17T13:20:40.9247171Z #12 172.9 go: downloading github.com/minio/minio-go/v7 v7.0.91
+2026-10-17T13:20:41.8422697Z #12 173.8 go: downloading github.com/minio/mux v1.9.2
+2026-10-17T13:20:41.8423160Z #12 173.8 go: downloading github.com/minio/pkg/v3 v3.1.3
+2026-10-17T13:20:42.5895462Z #12 174.5 go: downloading github.com/minio/selfupdate v0.6.0
+2026-10-17T13:20:42.5896016Z #12 174.5 go: downloading github.com/minio/xxml v0.0.3
+2026-10-17T13:20:42.7399841Z #12 174.5 go: downloading github.com/minio/sio v0.4.1
+2026-10-17T13:20:42.7400404Z #12 174.5 go: downloading github.com/minio/zipindex v0.4.0
+2026-10-17T13:20:44.0151604Z #12 175.9 go: downloading github.com/mitchellh/go-homedir v1.1.0
+2026-10-17T13:20:44.1657731Z #12 175.9 go: downloading github.com/philhofer/fwd v1.2.0
+2026-10-17T13:20:46.9845901Z #12 178.9 go: downloading github.com/pierrec/lz4/v4 v4.1.22
+2026-10-17T13:20:47.9797675Z #12 179.9 go: downloading github.com/pkg/errors v0.9.1
+2026-10-17T13:20:47.9798155Z #12 179.9 go: downloading github.com/pkg/sftp v1.13.9
+2026-10-17T13:20:51.4684961Z #12 183.4 go: downloading github.com/pkg/xattr v0.4.10
+2026-10-17T13:20:51.4685594Z #12 183.4 go: downloading github.com/prometheus/client_golang v1.22.0
+2026-10-17T13:21:01.4674793Z #12 193.4 go: downloading github.com/prometheus/client_model v0.6.2
+2026-10-17T13:21:01.6178141Z #12 193.4 go: downloading github.com/prometheus/procfs v0.16.1
+2026-10-17T13:21:01.6178655Z #12 193.4 go: downloading github.com/prometheus/common v0.63.0
+2026-10-17T13:21:04.5738178Z #12 196.5 go: downloading github.com/puzpuzpuz/xsync/v3 v3.5.1
+2026-10-17T13:21:07.1276940Z #12 199.1 go: downloading github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9
+2026-10-17T13:21:07.5389213Z #12 199.5 go: downloading github.com/rs/cors v1.11.1
+2026-10-17T13:21:09.2493627Z #12 201.2 go: downloading github.com/secure-io/sio-go v0.3.1
+2026-10-17T13:21:10.1242567Z #12 202.1 go: downloading github.com/shirou/gopsutil/v3 v3.24.5
+2026-10-17T13:21:17.5724106Z #12 209.5 go: downloading github.com/tinylib/msgp v1.4.0
+2026-10-17T13:21:17.7229910Z #12 209.5 go: downloading github.com/valyala/bytebufferpool v1.0.0
+2026-10-17T13:21:17.7230666Z #12 209.5 go: downloading github.com/zeebo/xxh3 v1.0.2
+2026-10-17T13:21:20.7406208Z #12 212.7 go: downloading go.etcd.io/etcd/api/v3 v3.5.21
+2026-10-17T13:21:25.0416939Z #12 217.0 go: downloading go.etcd.io/etcd/client/v3 v3.5.21
+2026-10-17T13:21:25.0417482Z #12 217.0 go: downloading go.uber.org/atomic v1.11.0
+2026-10-17T13:21:25.4975002Z #12 217.4 go: downloading goftp.io/server/v2 v2.0.1
+2026-10-17T13:21:29.2043681Z #12 221.1 go: downloading golang.org/x/crypto v0.37.0
+2026-10-17T13:21:29.9642623Z #12 221.9 go: downloading golang.org/x/oauth2 v0.29.0
+2026-10-17T13:21:35.7783995Z #12 227.7 go: downloading golang.org/x/sync v0.13.0
+2026-10-17T13:21:39.8331861Z #12 231.8 go: downloading golang.org/x/sys v0.32.0
+2026-10-17T13:22:03.8381876Z #12 255.8 go: downloading google.golang.org/api v0.230.0
+2026-10-17T13:22:03.8382654Z #12 255.8 go: downloading golang.org/x/term v0.31.0
+2026-10-17T13:22:52.7315235Z #12 304.7 go: downloading gopkg.in/yaml.v2 v2.4.0
+2026-10-17T13:22:57.2462185Z #12 309.2 go: downloading gopkg.in/yaml.v3 v3.0.1
+2026-10-17T13:23:02.0586799Z #12 314.0 go: downloading github.com/Azure/azure-sdk-for-go/sdk/internal v1.11.1
+2026-10-17T13:23:10.1296911Z #12 322.1 go: downloading github.com/AzureAD/microsoft-authentication-library-for-go v1.4.2
+2026-10-17T13:23:17.8772570Z #12 329.8 go: downloading github.com/mattn/go-runewidth v0.0.16
+2026-10-17T13:23:23.2230738Z #12 335.2 go: downloading cloud.google.com/go/compute/metadata v0.6.0
+2026-10-17T13:23:25.9489371Z #12 337.9 go: downloading cloud.google.com/go/iam v1.5.2
+2026-10-17T13:23:36.1084956Z #12 348.0 go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric v0.51.0
+2026-10-17T13:23:41.1449246Z #12 353.1 go: downloading github.com/googleapis/gax-go/v2 v2.14.1
+2026-10-17T13:23:48.0949203Z #12 360.0 go: downloading go.opentelemetry.io/contrib/detectors/gcp v1.35.0
+2026-10-17T13:23:52.8204226Z #12 364.7 go: downloading go.opentelemetry.io/otel v1.35.0
+2026-10-17T13:24:26.7272521Z #12 398.7 go: downloading go.opentelemetry.io/otel/sdk/metric v1.35.0
+2026-10-17T13:24:31.1096177Z #12 403.0 go: downloading go.opentelemetry.io/otel/sdk v1.35.0
+2026-10-17T13:24:40.7306350Z #12 412.7 go: downloading go.opentelemetry.io/otel/trace v1.35.0
+2026-10-17T13:25:08.9620031Z #12 440.9 go: downloading google.golang.org/genproto v0.0.0-20250422160041-2d3770c4ea7f
+2026-10-17T13:25:08.9620676Z #12 440.9 go: downloading google.golang.org/grpc v1.72.0
+2026-10-17T13:25:21.0647879Z #12 453.0 go: downloading google.golang.org/protobuf v1.36.6
+2026-10-17T13:25:46.9101823Z #12 478.8 go: downloading github.com/go-jose/go-jose/v4 v4.1.0
+2026-10-17T13:25:46.9102434Z #12 478.8 go: downloading github.com/mattn/go-colorable v0.1.14
+2026-10-17T13:25:46.9102893Z #12 478.8 go: downloading github.com/mattn/go-isatty v0.0.20
+2026-10-17T13:25:47.0606748Z #12 478.8 go: downloading github.com/go-openapi/analysis v0.23.0
+2026-10-17T13:25:49.4013243Z #12 481.3 go: downloading github.com/go-openapi/spec v0.21.0
+2026-10-17T13:25:49.4014209Z #12 481.3 go: downloading github.com/go-openapi/swag v0.23.1
+2026-10-17T13:25:49.5543374Z #12 481.3 go: downloading github.com/google/pprof v0.0.0-20250422154841-e1f9c1950416
+2026-10-17T13:25:50.7935175Z #12 482.7 go: downloading github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
+2026-10-17T13:25:51.2407539Z #12 483.2 go: downloading github.com/modern-go/reflect2 v1.0.2
+2026-10-17T13:25:51.6488801Z #12 483.6 go: downloading github.com/klauspost/cpuid/v2 v2.2.10
+2026-10-17T13:25:54.7732717Z #12 486.7 go: downloading golang.org/x/net v0.39.0
+2026-10-17T13:25:56.8778515Z #12 488.8 go: downloading github.com/go-openapi/errors v0.22.1
+2026-10-17T13:26:00.6685571Z #12 492.6 go: downloading github.com/go-openapi/runtime v0.28.0
+2026-10-17T13:26:06.2610037Z #12 498.2 go: downloading github.com/jessevdk/go-flags v1.6.1
+2026-10-17T13:26:09.0540345Z #12 501.0 go: downloading github.com/go-openapi/strfmt v0.23.0
+2026-10-17T13:26:09.2045425Z #12 501.0 go: downloading github.com/minio/mc v0.0.0-20250313080218-cf909e1063a9
+2026-10-17T13:26:14.0524138Z #12 506.0 go: downloading github.com/minio/websocket v1.6.0
+2026-10-17T13:26:14.2028345Z #12 506.0 go: downloading github.com/unrolled/secure v1.17.0
+2026-10-17T13:26:15.1080723Z #12 507.0 go: downloading aead.dev/mem v0.2.0
+2026-10-17T13:26:15.2586589Z #12 507.0 go: downloading github.com/ncw/directio v1.0.5
+2026-10-17T13:26:15.2587161Z #12 507.0 go: downloading github.com/prometheus/prom2json v1.4.2
+2026-10-17T13:26:15.3242230Z #12 507.3 go: downloading github.com/safchain/ethtool v0.5.10
+2026-10-17T13:26:15.4752145Z #12 507.3 go: downloading github.com/go-ini/ini v1.67.0
+2026-10-17T13:26:15.4752664Z #12 507.3 go: downloading github.com/goccy/go-json v0.10.5
+2026-10-17T13:26:17.0585933Z #12 509.0 go: downloading github.com/rs/xid v1.6.0
+2026-10-17T13:26:17.0587142Z #12 509.0 go: downloading github.com/minio/crc64nvme v1.0.1
+2026-10-17T13:26:17.0588357Z #12 509.0 go: downloading github.com/minio/md5-simd v1.1.2
+2026-10-17T13:26:17.4485100Z #12 509.4 go: downloading golang.org/x/time v0.11.0
+2026-10-17T13:26:17.4485881Z #12 509.4 go: downloading github.com/beevik/ntp v1.4.3
+2026-10-17T13:26:17.4486553Z #12 509.4 go: downloading go.uber.org/zap v1.27.0
+2026-10-17T13:26:17.6710581Z #12 509.5 go: downloading github.com/go-ldap/ldap/v3 v3.4.11
+2026-10-17T13:26:18.2130906Z #12 510.1 go: downloading github.com/rabbitmq/amqp091-go v1.10.0
+2026-10-17T13:26:18.3635599Z #12 510.1 go: downloading github.com/IBM/sarama v1.45.1
+2026-10-17T13:26:19.6827596Z #12 511.6 go: downloading github.com/eclipse/paho.mqtt.golang v1.5.0
+2026-10-17T13:26:19.6828950Z #12 511.6 go: downloading github.com/elastic/go-elasticsearch/v7 v7.17.10
+2026-10-17T13:26:21.0595883Z #12 513.0 go: downloading github.com/go-sql-driver/mysql v1.9.2
+2026-10-17T13:26:21.2101785Z #12 513.0 go: downloading github.com/gomodule/redigo v1.9.2
+2026-10-17T13:26:22.0455466Z #12 514.0 go: downloading github.com/lib/pq v1.10.9
+2026-10-17T13:26:25.7782967Z #12 517.7 go: downloading github.com/nats-io/nats.go v1.41.2
+2026-10-17T13:26:25.9621582Z #12 517.7 go: downloading github.com/nats-io/stan.go v0.10.4
+2026-10-17T13:26:27.8499531Z #12 519.8 go: downloading github.com/nsqio/go-nsq v1.1.0
+2026-10-17T13:26:27.8500789Z #12 519.8 go: downloading github.com/xdg/scram v1.0.5
+2026-10-17T13:26:28.4131904Z #12 520.3 go: downloading github.com/gobwas/ws v1.4.0
+2026-10-17T13:26:28.5636155Z #12 520.3 go: downloading github.com/buger/jsonparser v1.1.1
+2026-10-17T13:26:29.0953597Z #12 521.0 go: downloading aead.dev/mtls v0.2.1
+2026-10-17T13:26:29.0954841Z #12 521.0 go: downloading github.com/minio/kms-go/kms v0.5.1-0.20250225090116-4e64ce8d0f35
+2026-10-17T13:26:29.2514228Z #12 521.0 go: downloading github.com/minio/simdjson-go v0.4.5
+2026-10-17T13:26:29.4789739Z #12 521.4 go: downloading github.com/rjeczalik/notify v0.9.3
+2026-10-17T13:26:31.0742404Z #12 523.0 go: downloading github.com/fatih/structs v1.1.0
+2026-10-17T13:26:31.2739985Z #12 523.1 go: downloading github.com/lestrrat-go/jwx/v2 v2.1.4
+2026-10-17T13:26:43.9885198Z #12 535.9 go: downloading aead.dev/minisign v0.3.0
+2026-10-17T13:26:43.9890869Z #12 535.9 go: downloading github.com/kr/fs v0.1.0
+2026-10-17T13:26:44.1396638Z #12 535.9 go: downloading github.com/beorn7/perks v1.0.1
+2026-10-17T13:26:44.1976374Z #12 536.1 go: downloading github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
+2026-10-17T13:26:44.4112691Z #12 536.1 go: downloading github.com/tklauser/go-sysconf v0.3.15
+2026-10-17T13:26:44.4113349Z #12 536.1 go: downloading github.com/gogo/protobuf v1.3.2
+2026-10-17T13:26:44.4113810Z #12 536.2 go: downloading github.com/golang/protobuf v1.5.4
+2026-10-17T13:26:46.0581305Z #12 538.0 go: downloading go.etcd.io/etcd/client/pkg/v3 v3.5.21
+2026-10-17T13:26:50.6604591Z #12 542.6 go: downloading github.com/kylelemons/godebug v1.1.0
+2026-10-17T13:26:51.3764010Z #12 543.3 go: downloading github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
+2026-10-17T13:26:51.5267549Z #12 543.3 go: downloading github.com/rivo/uniseg v0.4.7
+2026-10-17T13:26:55.7368311Z #12 547.7 go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20250422160041-2d3770c4ea7f
+2026-10-17T13:26:55.8886712Z #12 547.7 go: downloading google.golang.org/genproto/googleapis/rpc v0.0.0-20250422160041-2d3770c4ea7f
+2026-10-17T13:26:55.8887739Z #12 547.7 go: downloading cloud.google.com/go/monitoring v1.24.2
+2026-10-17T13:26:58.9440040Z #12 550.9 go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.51.0
+2026-10-17T13:26:59.0946839Z #12 550.9 go: downloading github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp v1.27.0
+2026-10-17T13:26:59.2707805Z #12 551.2 go: downloading github.com/go-logr/logr v1.4.2
+2026-10-17T13:26:59.4211785Z #12 551.2 go: downloading go.opentelemetry.io/otel/metric v1.35.0
+2026-10-17T13:27:00.3519749Z #12 552.3 go: downloading cloud.google.com/go/auth v0.16.0
+2026-10-17T13:27:01.7592290Z #12 553.7 go: downloading cloud.google.com/go/auth/oauth2adapt v0.2.8
+2026-10-17T13:27:01.8633982Z #12 553.8 go: downloading go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.60.0
+2026-10-17T13:27:02.0151181Z #12 553.8 go: downloading github.com/go-openapi/jsonpointer v0.21.1
+2026-10-17T13:27:02.0151727Z #12 553.8 go: downloading github.com/mailru/easyjson v0.9.0
+2026-10-17T13:27:02.5809093Z #12 554.5 go: downloading github.com/go-openapi/jsonreference v0.21.0
+2026-10-17T13:27:02.7763892Z #12 554.5 go: downloading github.com/docker/go-units v0.5.0
+2026-10-17T13:27:02.7764444Z #12 554.6 go: downloading github.com/go-openapi/validate v0.24.0
+2026-10-17T13:27:02.7765037Z #12 554.6 go: downloading github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
+2026-10-17T13:27:04.7442150Z #12 556.7 go: downloading github.com/mitchellh/mapstructure v1.5.0
+2026-10-17T13:27:04.7442689Z #12 556.7 go: downloading github.com/oklog/ulid v1.3.1
+2026-10-17T13:27:05.4323267Z #12 557.4 go: downloading go.mongodb.org/mongo-driver v1.17.3
+2026-10-17T13:27:07.6720954Z #12 559.6 go: downloading github.com/charmbracelet/bubbles v0.20.0
+2026-10-17T13:27:11.6973963Z #12 563.6 go: downloading github.com/charmbracelet/bubbletea v1.3.4
+2026-10-17T13:27:16.6217653Z #12 568.6 go: downloading github.com/charmbracelet/lipgloss v1.0.0
+2026-10-17T13:27:21.4422984Z #12 573.4 go: downloading github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
+2026-10-17T13:27:26.0942896Z #12 578.0 go: downloading github.com/jedib0t/go-pretty/v6 v6.6.7
+2026-10-17T13:27:29.0850688Z #12 581.0 go: downloading github.com/mattn/go-ieproxy v0.0.12
+2026-10-17T13:27:29.0851525Z #12 581.0 go: downloading github.com/minio/colorjson v1.0.8
+2026-10-17T13:27:29.9981514Z #12 581.9 go: downloading github.com/minio/filepath v1.0.0
+2026-10-17T13:27:30.1886470Z #12 581.9 go: downloading github.com/muesli/reflow v0.3.0
+2026-10-17T13:27:30.1886909Z #12 582.0 go: downloading github.com/muesli/termenv v0.16.0
+2026-10-17T13:27:31.2953116Z #12 583.2 go: downloading github.com/olekukonko/tablewriter v0.0.5
+2026-10-17T13:27:31.2954009Z #12 583.2 go: downloading github.com/posener/complete v1.2.3
+2026-10-17T13:27:31.4878237Z #12 583.4 go: downloading github.com/tidwall/gjson v1.18.0
+2026-10-17T13:27:31.6622999Z #12 583.4 go: downloading github.com/vbauerster/mpb/v8 v8.9.3
+2026-10-17T13:27:31.7862439Z #12 583.7 go: downloading golang.org/x/text v0.24.0
+2026-10-17T13:27:33.9075273Z #12 585.8 go: downloading github.com/matttproud/golang_protobuf_extensions v1.0.4
+2026-10-17T13:27:34.0581647Z #12 585.8 go: downloading go.uber.org/multierr v1.11.0
+2026-10-17T13:27:34.0582301Z #12 585.8 go: downloading github.com/Azure/go-ntlmssp v0.0.0-20221128193559-754e69321358
+2026-10-17T13:27:37.0426870Z #12 589.0 go: downloading github.com/go-asn1-ber/asn1-ber v1.5.8-0.20250403174932-29230038a667
+2026-10-17T13:27:37.0427611Z #12 589.0 go: downloading github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
+2026-10-17T13:27:37.5975743Z #12 589.5 go: downloading github.com/eapache/go-resiliency v1.7.0
+2026-10-17T13:27:41.2758297Z #12 593.2 go: downloading github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3
+2026-10-17T13:27:41.2759041Z #12 593.2 go: downloading github.com/eapache/queue v1.1.0
+2026-10-17T13:27:41.2759873Z #12 593.2 go: downloading github.com/hashicorp/go-multierror v1.1.1
+2026-10-17T13:27:43.7815005Z #12 595.7 go: downloading github.com/jcmturner/gofork v1.7.6
+2026-10-17T13:27:43.7815535Z #12 595.7 go: downloading github.com/jcmturner/gokrb5/v8 v8.4.4
+2026-10-17T13:27:49.6557419Z #12 601.6 go: downloading github.com/gorilla/websocket v1.5.3
+2026-10-17T13:27:49.8063007Z #12 601.6 go: downloading filippo.io/edwards25519 v1.1.0
+2026-10-17T13:27:49.8063642Z #12 601.6 go: downloading github.com/nats-io/nuid v1.0.1
+2026-10-17T13:27:51.6119996Z #12 603.5 go: downloading github.com/golang/snappy v1.0.0
+2026-10-17T13:27:52.2408541Z #12 604.2 go: downloading github.com/nats-io/nkeys v0.4.11
+2026-10-17T13:27:52.8355162Z #12 604.8 go: downloading github.com/xdg/stringprep v1.0.3
+2026-10-17T13:27:55.6670857Z #12 607.6 go: downloading github.com/gobwas/httphead v0.1.0
+2026-10-17T13:27:55.6671367Z #12 607.6 go: downloading github.com/gobwas/pool v0.2.1
+2026-10-17T13:27:56.7490520Z #12 608.7 go: downloading github.com/minio/csvparser v1.0.0
+2026-10-17T13:27:57.3544888Z #12 608.7 go: downloading github.com/fraugster/parquet-go v0.12.0
+2026-10-17T13:27:57.3545373Z #12 609.3 go: downloading github.com/alecthomas/participle v0.7.1
+2026-10-17T13:27:57.5473945Z #12 609.3 go: downloading github.com/lestrrat-go/option v1.0.1
+2026-10-17T13:27:57.5475101Z #12 609.5 go: downloading github.com/lestrrat-go/blackmagic v1.0.2
+2026-10-17T13:27:57.7187874Z #12 609.5 go: downloading github.com/lestrrat-go/httprc v1.0.6
+2026-10-17T13:27:57.7188673Z #12 609.5 go: downloading github.com/lestrrat-go/iter v1.0.2
+2026-10-17T13:27:57.7189055Z #12 609.6 go: downloading github.com/coreos/go-semver v0.3.1
+2026-10-17T13:27:57.8412389Z #12 609.7 go: downloading github.com/tklauser/numcpus v0.10.0
+2026-10-17T13:27:57.8412868Z #12 609.7 go: downloading github.com/golang-jwt/jwt/v5 v5.2.2
+2026-10-17T13:27:57.8413449Z #12 609.7 go: downloading go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.60.0
+2026-10-17T13:27:57.8414008Z #12 609.8 go: downloading github.com/go-logr/stdr v1.2.2
+2026-10-17T13:27:58.0799550Z #12 610.0 go: downloading go.opentelemetry.io/auto/sdk v1.1.0
+2026-10-17T13:27:58.2618833Z #12 610.0 go: downloading github.com/google/s2a-go v0.1.9
+2026-10-17T13:27:58.2769256Z #12 610.2 go: downloading github.com/googleapis/enterprise-certificate-proxy v0.3.6
+2026-10-17T13:27:59.2637901Z #12 611.2 go: downloading github.com/envoyproxy/go-control-plane/envoy v1.32.4
+2026-10-17T13:28:00.8134629Z #12 612.7 go: downloading github.com/felixge/httpsnoop v1.0.4
+2026-10-17T13:28:03.2147651Z #12 615.1 go: downloading github.com/josharian/intern v1.0.0
+2026-10-17T13:28:06.3529679Z #12 618.3 go: downloading github.com/charmbracelet/x/ansi v0.8.0
+2026-10-17T13:28:11.7456290Z #12 623.7 go: downloading github.com/charmbracelet/x/term v0.2.1
+2026-10-17T13:28:12.2731693Z #12 624.2 go: downloading github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6
+2026-10-17T13:28:12.3869171Z #12 624.3 go: downloading github.com/muesli/cancelreader v0.2.2
+2026-10-17T13:28:12.5165748Z #12 624.4 go: downloading github.com/juju/ratelimit v1.0.2
+2026-10-17T13:28:12.6342402Z #12 624.6 go: downloading github.com/aymanbagabas/go-osc52/v2 v2.0.1
+2026-10-17T13:28:12.8021716Z #12 624.6 go: downloading github.com/lucasb-eyer/go-colorful v1.2.0
+2026-10-17T13:28:12.8022180Z #12 624.6 go: downloading github.com/tidwall/match v1.1.1
+2026-10-17T13:28:12.8022563Z #12 624.6 go: downloading github.com/tidwall/pretty v1.2.1
+2026-10-17T13:28:14.8868788Z #12 626.8 go: downloading github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d
+2026-10-17T13:28:14.8870110Z #12 626.8 go: downloading github.com/prometheus/prometheus v0.303.0
+2026-10-17T13:28:15.0373355Z #12 626.8 go: downloading github.com/VividCortex/ewma v1.2.0
+2026-10-17T13:28:18.3363692Z #12 630.3 go: downloading github.com/hashicorp/errwrap v1.1.0
+2026-10-17T13:28:18.3364354Z #12 630.3 go: downloading github.com/hashicorp/go-uuid v1.0.3
+2026-10-17T13:28:19.8049376Z #12 631.7 go: downloading github.com/jcmturner/dnsutils/v2 v2.0.0
+2026-10-17T13:28:22.1264985Z #12 634.1 go: downloading github.com/apache/thrift v0.21.0
+2026-10-17T13:28:22.2777210Z #12 634.1 go: downloading github.com/lestrrat-go/httpcc v1.0.1
+2026-10-17T13:28:22.7851759Z #12 634.7 go: downloading github.com/spiffe/go-spiffe/v2 v2.5.0
+2026-10-17T13:28:25.4673222Z #12 637.4 go: downloading github.com/cncf/xds/go v0.0.0-20250326154945-ae57f3c0d45f
+2026-10-17T13:28:32.4037746Z #12 644.3 go: downloading github.com/envoyproxy/protoc-gen-validate v1.2.1
+2026-10-17T13:28:32.5541198Z #12 644.3 go: downloading github.com/jcmturner/rpc/v2 v2.0.3
+2026-10-17T13:28:37.1490016Z #12 649.1 go: downloading github.com/zeebo/errs v1.4.0
+2026-10-17T13:28:39.1675233Z #12 651.1 go: downloading cel.dev/expr v0.23.1
+2026-10-17T13:28:40.1733359Z #12 652.1 go: downloading github.com/jcmturner/aescts/v2 v2.0.0
+2026-10-17T13:30:30.9533109Z #12 DONE 762.9s
+2026-10-17T13:30:31.1043827Z 
+2026-10-17T13:30:31.1045043Z #13 [build 5/5] RUN cd /src/mc  && MC_RELEASE=RELEASE CGO_ENABLED=0     go build -trimpath -o /out/mc     -ldflags="$(go run buildscripts/gen-ldflags.go 2025-08-13T08:35:41Z)"
+2026-10-17T13:30:31.1757336Z #13 0.222 go: downloading github.com/minio/pkg/v3 v3.1.0
+2026-10-17T13:30:31.3527485Z #13 0.243 go: downloading github.com/minio/madmin-go/v3 v3.0.107-0.20250415152934-4b504b82db63
+2026-10-17T13:30:31.3528350Z #13 0.248 go: downloading github.com/minio/minio-go/v7 v7.0.90
+2026-10-17T13:30:32.3514239Z #13 1.397 go: downloading github.com/prometheus/client_golang v1.21.1
+2026-10-17T13:30:32.5018649Z #13 1.397 go: downloading github.com/prometheus/procfs v0.16.0
+2026-10-17T13:30:32.5690662Z #13 1.615 go: downloading golang.org/x/net v0.42.0
+2026-10-17T13:30:32.5691408Z #13 1.615 go: downloading golang.org/x/sys v0.34.0
+2026-10-17T13:30:32.7196292Z #13 1.615 go: downloading golang.org/x/term v0.33.0
+2026-10-17T13:30:32.7460487Z #13 1.792 go: downloading golang.org/x/text v0.27.0
+2026-10-17T13:30:32.8714364Z #13 1.917 go: downloading golang.org/x/sync v0.16.0
+2026-10-17T13:30:33.3552612Z #13 2.401 go: downloading github.com/tinylib/msgp v1.2.5
+2026-10-17T13:30:33.5780018Z #13 2.624 go: downloading golang.org/x/crypto v0.40.0
+2026-10-17T13:30:35.1093613Z #13 4.155 go: downloading go.etcd.io/etcd/client/v3 v3.5.19
+2026-10-17T13:30:35.2667008Z #13 4.162 go: downloading github.com/philhofer/fwd v1.1.3-0.20240916144458-20a13a1f6b7c
+2026-10-17T13:30:35.3007460Z #13 4.347 go: downloading go.etcd.io/etcd/api/v3 v3.5.19
+2026-10-17T13:30:35.4224024Z #13 4.468 go: downloading go.etcd.io/etcd/client/pkg/v3 v3.5.19
+2026-10-17T13:30:35.5733055Z #13 4.469 go: downloading google.golang.org/grpc v1.71.0
+2026-10-17T13:30:36.0716466Z #13 5.118 go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20250311173030-29e43e6258d7
+2026-10-17T13:30:36.2236139Z #13 5.119 go: downloading google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb
+2026-10-17T13:30:51.0005943Z #13 DONE 20.0s
+2026-10-17T13:30:51.1303044Z 
+2026-10-17T13:30:51.1303861Z #14 [stage-1 3/4] COPY --from=build /out/minio /usr/bin/minio
+2026-10-17T13:30:51.2539914Z #14 DONE 0.1s
+2026-10-17T13:30:51.4983281Z 
+2026-10-17T13:30:51.4983707Z #15 [stage-1 4/4] COPY --from=build /out/mc /usr/bin/mc
+2026-10-17T13:30:51.4984080Z #15 DONE 0.1s
+2026-10-17T13:30:51.4984204Z 
+2026-10-17T13:30:51.4984308Z #16 exporting to image
+2026-10-17T13:30:51.4984536Z #16 exporting layers
+2026-10-17T13:30:52.0060975Z #16 exporting layers 0.7s done
+2026-10-17T13:30:52.0197221Z #16 writing image sha256:eb895614e676f905703fa268001a6efc0e0c6b82f20f863ea5a65a39396c40f3 done
+2026-10-17T13:30:52.0198064Z #16 naming to docker.io/library/campusloop-ci-minio done
+2026-10-17T13:30:52.0198577Z #16 DONE 0.7s
+2026-10-17T13:30:52.0443908Z d28a867982fe405cd88846eb62a165fcdca6c644d273084c837a1efa52ab504f
+2026-10-17T13:30:52.1541507Z curl: (56) Recv failure: Connection reset by peer
+2026-10-17T13:30:54.2288356Z Added `local` successfully.
+2026-10-17T13:30:54.2897745Z Bucket created successfully `local/campusloop-public`.
+2026-10-17T13:30:54.3537490Z Bucket created successfully `local/campusloop-private`.
+2026-10-17T13:30:54.4198975Z Access permission for `local/campusloop-public` is set to `download`
+2026-10-17T13:30:54.4837823Z Access permission for `local/campusloop-private` is set to `private`
+2026-10-17T13:30:54.4899435Z ##[group]Run alembic upgrade head
+2026-10-17T13:30:54.4899747Z [36;1malembic upgrade head[0m
+2026-10-17T13:30:54.4937619Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:30:54.4937882Z env:
+2026-10-17T13:30:54.4938082Z   APP_ENV: ci
+2026-10-17T13:30:54.4938291Z   LOG_JSON: false
+2026-10-17T13:30:54.4938498Z   LOG_LEVEL: WARNING
+2026-10-17T13:30:54.4939056Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:30:54.4939370Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:30:54.4939734Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:30:54.4940420Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:30:54.4940795Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:30:54.4941212Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:30:54.4941530Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:54.4941951Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:30:54.4942422Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:54.4942797Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:54.4943167Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:54.4943552Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:30:54.4943866Z ##[endgroup]
+2026-10-17T13:30:55.4591993Z INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+2026-10-17T13:30:55.4592806Z INFO  [alembic.runtime.migration] Will assume transactional DDL.
+2026-10-17T13:30:55.4771356Z INFO  [alembic.runtime.migration] Running upgrade  -> 0001, initial schema: all Phase 2 tables (BP2-07)
+2026-10-17T13:30:55.5729950Z INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, BP3-01/02: refresh families, private profile and transactional audit.
+2026-10-17T13:30:55.5928578Z INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, BP3-04 through BP3-11: durable writes, idempotency and transaction invariants.
+2026-10-17T13:30:55.6169190Z INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Persist bounded admin operation context without copying private evidence.
+2026-10-17T13:30:55.6219621Z INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Repair sequences for existing Phase 2 explicit-ID seeds (no row changes).
+2026-10-17T13:30:55.6456437Z INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Transactional matching outbox/current result and durable notification dedup.
+2026-10-17T13:30:55.6566754Z INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Authoritative catalog/authorization revision for conditional result writes.
+2026-10-17T13:30:55.6593860Z INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, HttpOnly browser credentials; existing JSON-refresh families remain unchanged.
+2026-10-17T13:30:55.7667824Z ##[group]Run alembic downgrade base
+2026-10-17T13:30:55.7668160Z [36;1malembic downgrade base[0m
+2026-10-17T13:30:55.7668421Z [36;1malembic upgrade head[0m
+2026-10-17T13:30:55.7709621Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:30:55.7709898Z env:
+2026-10-17T13:30:55.7710104Z   APP_ENV: ci
+2026-10-17T13:30:55.7710647Z   LOG_JSON: false
+2026-10-17T13:30:55.7710856Z   LOG_LEVEL: WARNING
+2026-10-17T13:30:55.7711423Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:30:55.7711739Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:30:55.7712113Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:30:55.7712560Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:30:55.7712930Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:30:55.7713231Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:30:55.7713574Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:55.7714043Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:30:55.7714458Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:55.7714827Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:55.7715201Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:55.7715572Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:30:55.7715886Z ##[endgroup]
+2026-10-17T13:30:56.3832313Z INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+2026-10-17T13:30:56.3832874Z INFO  [alembic.runtime.migration] Will assume transactional DDL.
+2026-10-17T13:30:56.3904510Z INFO  [alembic.runtime.migration] Running downgrade 0008 -> 0007, HttpOnly browser credentials; existing JSON-refresh families remain unchanged.
+2026-10-17T13:30:56.3934446Z INFO  [alembic.runtime.migration] Running downgrade 0007 -> 0006, Authoritative catalog/authorization revision for conditional result writes.
+2026-10-17T13:30:56.3950464Z INFO  [alembic.runtime.migration] Running downgrade 0006 -> 0005, Transactional matching outbox/current result and durable notification dedup.
+2026-10-17T13:30:56.3993842Z INFO  [alembic.runtime.migration] Running downgrade 0005 -> 0004, Repair sequences for existing Phase 2 explicit-ID seeds (no row changes).
+2026-10-17T13:30:56.4000840Z INFO  [alembic.runtime.migration] Running downgrade 0004 -> 0003, Persist bounded admin operation context without copying private evidence.
+2026-10-17T13:30:56.4029895Z INFO  [alembic.runtime.migration] Running downgrade 0003 -> 0002, BP3-04 through BP3-11: durable writes, idempotency and transaction invariants.
+2026-10-17T13:30:56.4126327Z INFO  [alembic.runtime.migration] Running downgrade 0002 -> 0001, BP3-01/02: refresh families, private profile and transactional audit.
+2026-10-17T13:30:56.4203416Z INFO  [alembic.runtime.migration] Running downgrade 0001 -> , initial schema: all Phase 2 tables (BP2-07)
+2026-10-17T13:30:57.1426346Z INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+2026-10-17T13:30:57.1427155Z INFO  [alembic.runtime.migration] Will assume transactional DDL.
+2026-10-17T13:30:57.1499548Z INFO  [alembic.runtime.migration] Running upgrade  -> 0001, initial schema: all Phase 2 tables (BP2-07)
+2026-10-17T13:30:57.2307677Z INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, BP3-01/02: refresh families, private profile and transactional audit.
+2026-10-17T13:30:57.2503953Z INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, BP3-04 through BP3-11: durable writes, idempotency and transaction invariants.
+2026-10-17T13:30:57.2774707Z INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Persist bounded admin operation context without copying private evidence.
+2026-10-17T13:30:57.2826605Z INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Repair sequences for existing Phase 2 explicit-ID seeds (no row changes).
+2026-10-17T13:30:57.3077811Z INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Transactional matching outbox/current result and durable notification dedup.
+2026-10-17T13:30:57.3183082Z INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Authoritative catalog/authorization revision for conditional result writes.
+2026-10-17T13:30:57.3211008Z INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, HttpOnly browser credentials; existing JSON-refresh families remain unchanged.
+2026-10-17T13:30:57.4242067Z ##[group]Run python scripts/seed.py --check
+2026-10-17T13:30:57.4242652Z [36;1mpython scripts/seed.py --check[0m
+2026-10-17T13:30:57.4293470Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:30:57.4293800Z env:
+2026-10-17T13:30:57.4294006Z   APP_ENV: ci
+2026-10-17T13:30:57.4294215Z   LOG_JSON: false
+2026-10-17T13:30:57.4294425Z   LOG_LEVEL: WARNING
+2026-10-17T13:30:57.4295144Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:30:57.4295461Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:30:57.4295855Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:30:57.4296296Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:30:57.4296660Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:30:57.4296925Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:30:57.4297245Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:57.4297690Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:30:57.4298160Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:57.4298545Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:57.4298921Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:57.4299313Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:30:57.4299633Z ##[endgroup]
+2026-10-17T13:30:58.9601427Z [seed] 第一遍写入：
+2026-10-17T13:30:58.9602097Z   users            +4
+2026-10-17T13:30:58.9603056Z   products         +6
+2026-10-17T13:30:58.9603666Z   product_images   +2
+2026-10-17T13:30:58.9604265Z   favorites        +2
+2026-10-17T13:30:58.9604851Z   wanted_posts     +2
+2026-10-17T13:30:58.9605440Z   chat_sessions    +1
+2026-10-17T13:30:58.9606040Z   chat_messages    +3
+2026-10-17T13:30:58.9606630Z   offers           +1
+2026-10-17T13:30:58.9607222Z   orders           +2
+2026-10-17T13:30:58.9607804Z   order_events     +5
+2026-10-17T13:30:58.9608384Z   meetups          +1
+2026-10-17T13:30:58.9609087Z   reviews          +1
+2026-10-17T13:30:58.9609699Z   reports          +1
+2026-10-17T13:30:58.9610493Z   notifications    +3
+2026-10-17T13:30:58.9611267Z [seed] 第二遍写入（幂等性验证）：
+2026-10-17T13:30:58.9611838Z   users            +0
+2026-10-17T13:30:58.9612422Z   products         +0
+2026-10-17T13:30:58.9613025Z   product_images   +0
+2026-10-17T13:30:58.9613629Z   favorites        +0
+2026-10-17T13:30:58.9614229Z   wanted_posts     +0
+2026-10-17T13:30:58.9614835Z   chat_sessions    +0
+2026-10-17T13:30:58.9615459Z   chat_messages    +0
+2026-10-17T13:30:58.9616050Z   offers           +0
+2026-10-17T13:30:58.9616627Z   orders           +0
+2026-10-17T13:30:58.9617200Z   order_events     +0
+2026-10-17T13:30:58.9617780Z   meetups          +0
+2026-10-17T13:30:58.9618377Z   reviews          +0
+2026-10-17T13:30:58.9618954Z   reports          +0
+2026-10-17T13:30:58.9619562Z   notifications    +0
+2026-10-17T13:30:58.9622842Z [seed][PASS] 两遍执行结果完全一致： {'users': 4, 'products': 6, 'product_images': 2, 'favorites': 2, 'wanted_posts': 2, 'chat_sessions': 1, 'chat_messages': 3, 'offers': 1, 'orders': 2, 'order_events': 5, 'meetups': 1, 'reviews': 1, 'reports': 1, 'notifications': 3}
+2026-10-17T13:30:59.1247893Z ##[group]Run python -m pytest tests/test_health.py -v
+2026-10-17T13:30:59.1248745Z [36;1mpython -m pytest tests/test_health.py -v[0m
+2026-10-17T13:30:59.1302699Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:30:59.1302967Z env:
+2026-10-17T13:30:59.1303167Z   APP_ENV: ci
+2026-10-17T13:30:59.1303370Z   LOG_JSON: false
+2026-10-17T13:30:59.1303593Z   LOG_LEVEL: WARNING
+2026-10-17T13:30:59.1304134Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:30:59.1304446Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:30:59.1304810Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:30:59.1305250Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:30:59.1305611Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:30:59.1305877Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:30:59.1306197Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:59.1306656Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:30:59.1307067Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:59.1307437Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:59.1307814Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:30:59.1308189Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:30:59.1308519Z ##[endgroup]
+2026-10-17T13:31:00.6709853Z ============================= test session starts ==============================
+2026-10-17T13:31:00.6711362Z platform linux -- Python 3.12.15, pytest-8.3.4, pluggy-1.7.0
+2026-10-17T13:31:00.6712334Z rootdir: /home/runner/work/CampusLoop/CampusLoop/backend
+2026-10-17T13:31:00.6713140Z configfile: pytest.ini
+2026-10-17T13:31:00.6713600Z plugins: anyio-4.15.1
+2026-10-17T13:31:00.6714046Z collected 5 items
+2026-10-17T13:31:00.6714286Z 
+2026-10-17T13:31:00.6936032Z tests/test_health.py .....                                               [100%]
+2026-10-17T13:31:00.6936540Z 
+2026-10-17T13:31:00.6936725Z =============================== warnings summary ===============================
+2026-10-17T13:31:00.6937286Z ../../../../../../opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/starlette/testclient.py:40
+2026-10-17T13:31:00.6938314Z   /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+2026-10-17T13:31:00.6939584Z     _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+2026-10-17T13:31:00.6939943Z 
+2026-10-17T13:31:00.6940305Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2026-10-17T13:31:00.6940841Z ========================= 5 passed, 1 warning in 0.04s =========================
+2026-10-17T13:31:00.8728354Z ##[group]Run python -m pytest
+2026-10-17T13:31:00.8728658Z [36;1mpython -m pytest[0m
+2026-10-17T13:31:00.8765384Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:31:00.8765655Z env:
+2026-10-17T13:31:00.8765855Z   APP_ENV: ci
+2026-10-17T13:31:00.8766060Z   LOG_JSON: false
+2026-10-17T13:31:00.8766270Z   LOG_LEVEL: WARNING
+2026-10-17T13:31:00.8766845Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:31:00.8767156Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:31:00.8767517Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:31:00.8767986Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:31:00.8768350Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:31:00.8768615Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:31:00.8768931Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:00.8769361Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:31:00.8769821Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:00.8770396Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:00.8770816Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:00.8771196Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:31:00.8771528Z ##[endgroup]
+2026-10-17T13:31:10.1225820Z .....................................                                    [100%]
+2026-10-17T13:31:10.1226592Z =============================== warnings summary ===============================
+2026-10-17T13:31:10.1227560Z ../../../../../../opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/starlette/testclient.py:40
+2026-10-17T13:31:10.1228616Z   /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+2026-10-17T13:31:10.1229603Z     _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+2026-10-17T13:31:10.1229961Z 
+2026-10-17T13:31:10.1230079Z tests/test_live_intelligence.py: 1 warning
+2026-10-17T13:31:10.1230586Z tests/test_matching_jobs.py: 2 warnings
+2026-10-17T13:31:10.1230877Z tests/test_query_budget.py: 1 warning
+2026-10-17T13:31:10.1231155Z tests/test_realtime_media.py: 7 warnings
+2026-10-17T13:31:10.1231448Z tests/test_transaction_api.py: 7 warnings
+2026-10-17T13:31:10.1232535Z   /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/botocore/auth.py:424: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+2026-10-17T13:31:10.1233637Z     datetime_now = datetime.datetime.utcnow()
+2026-10-17T13:31:10.1233844Z 
+2026-10-17T13:31:10.1234057Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2026-10-17T13:31:10.1234454Z 37 passed, 19 warnings in 7.99s
+2026-10-17T13:31:10.4288520Z ##[group]Run python -m unittest discover -s services/m7_baseline/tests -v
+2026-10-17T13:31:10.4289369Z [36;1mpython -m unittest discover -s services/m7_baseline/tests -v[0m
+2026-10-17T13:31:10.4290115Z [36;1mpython -m unittest discover -s services/m8_baseline/tests -v[0m
+2026-10-17T13:31:10.4347581Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:31:10.4347990Z env:
+2026-10-17T13:31:10.4348292Z   APP_ENV: ci
+2026-10-17T13:31:10.4348610Z   LOG_JSON: false
+2026-10-17T13:31:10.4349166Z   LOG_LEVEL: WARNING
+2026-10-17T13:31:10.4350059Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:31:10.4350857Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:31:10.4351399Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:31:10.4352084Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:31:10.4352664Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:31:10.4353109Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:31:10.4353686Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:10.4354390Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:31:10.4355087Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:10.4355720Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:10.4356324Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:10.4356968Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:31:10.4357500Z ##[endgroup]
+2026-10-17T13:31:10.6025665Z test_closed_service_returns_filtered_local_baseline_with_degradation_reason (test_client.FallbackTests.test_closed_service_returns_filtered_local_baseline_with_degradation_reason) ... ok
+2026-10-17T13:31:10.6226124Z test_connection_closed_mid_request_also_returns_local_fallback (test_client.FallbackTests.test_connection_closed_mid_request_also_returns_local_fallback) ... ok
+2026-10-17T13:31:10.6246517Z test_blank_browse_has_null_score_but_punctuation_is_not_browse (test_engine.RankingTests.test_blank_browse_has_null_score_but_punctuation_is_not_browse) ... ok
+2026-10-17T13:31:10.6273095Z test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility (test_engine.RankingTests.test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility) ... ok
+2026-10-17T13:31:10.6281442Z test_invalid_dictionary_rank_types_are_dependency_failure (test_engine.RankingTests.test_invalid_dictionary_rank_types_are_dependency_failure) ... ok
+2026-10-17T13:31:10.6292996Z test_keyword_title_weight_matches_published_hand_example (test_engine.RankingTests.test_keyword_title_weight_matches_published_hand_example) ... ok
+2026-10-17T13:31:10.6304869Z test_matching_cannot_be_read_by_another_wanted_owner (test_engine.RankingTests.test_matching_cannot_be_read_by_another_wanted_owner) ... ok
+2026-10-17T13:31:10.6317682Z test_matching_keeps_eligible_zero_text_score_and_explains_budget (test_engine.RankingTests.test_matching_keeps_eligible_zero_text_score_and_explains_budget) ... ok
+2026-10-17T13:31:10.6330667Z test_matching_without_text_returns_null_score_not_perfect_score (test_engine.RankingTests.test_matching_without_text_returns_null_score_not_perfect_score) ... ok
+2026-10-17T13:31:10.6355893Z test_missing_category_display_name_does_not_turn_raw_id_into_search_text (test_engine.RankingTests.test_missing_category_display_name_does_not_turn_raw_id_into_search_text) ... ok
+2026-10-17T13:31:10.6378270Z test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort (test_engine.RankingTests.test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort) ... ok
+2026-10-17T13:31:10.6390319Z test_unavailable_semantic_candidate_returns_versioned_explicit_rule_fallback (test_engine.RankingTests.test_unavailable_semantic_candidate_returns_versioned_explicit_rule_fallback) ... ok
+2026-10-17T13:31:10.6398781Z test_unknown_request_fields_are_rejected_instead_of_silently_ignored (test_engine.RankingTests.test_unknown_request_fields_are_rejected_instead_of_silently_ignored) ... ok
+2026-10-17T13:31:10.7254327Z test_fixed_evaluation_covers_38_queries_and_preserves_diagnostic_label_status (test_evaluation.EvaluationTests.test_fixed_evaluation_covers_38_queries_and_preserves_diagnostic_label_status) ... ok
+2026-10-17T13:31:11.2511313Z test_duplicate_json_keys_cannot_hide_an_invalid_schema_version (test_http.RpcTests.test_duplicate_json_keys_cannot_hide_an_invalid_schema_version) ... ok
+2026-10-17T13:31:11.7648371Z test_paged_rpc_uses_persisted_snapshot_and_rejects_changed_query (test_http.RpcTests.test_paged_rpc_uses_persisted_snapshot_and_rejects_changed_query) ... ok
+2026-10-17T13:31:11.7736114Z test_real_versioned_rpc_requires_service_auth_and_returns_computed_rank (test_http.RpcTests.test_real_versioned_rpc_requires_service_auth_and_returns_computed_rank) ... ok
+2026-10-17T13:31:12.2807245Z test_snapshot_token_type_is_a_schema_error (test_http.RpcTests.test_snapshot_token_type_is_a_schema_error) ... ok
+2026-10-17T13:31:12.4942259Z test_503_504_and_timeout_recover_with_explicit_reasons (test_response_http.ResponseRecoveryTests.test_503_504_and_timeout_recover_with_explicit_reasons) ... ok
+2026-10-17T13:31:12.5840522Z test_error_statuses_never_fall_back_around_permission_or_state_rejection (test_response_http.ResponseRecoveryTests.test_error_statuses_never_fall_back_around_permission_or_state_rejection) ... ok
+2026-10-17T13:31:12.6148389Z test_invalid_reply_cannot_turn_stale_input_into_a_current_result (test_response_http.ResponseRecoveryTests.test_invalid_reply_cannot_turn_stale_input_into_a_current_result) ... ok
+2026-10-17T13:31:12.8374054Z test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_malformed_json_and_envelopes_recover_to_the_filtered_baseline) ... ok
+2026-10-17T13:31:13.1499641Z test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) ... ok
+2026-10-17T13:31:13.2217614Z test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) ... ok
+2026-10-17T13:31:13.3251739Z test_valid_keyword_semantic_disabled_browse_and_empty_results_are_preserved (test_response_http.ResponseRecoveryTests.test_valid_keyword_semantic_disabled_browse_and_empty_results_are_preserved) ... ok
+2026-10-17T13:31:13.3728637Z test_blank_sheet_reports_missing_fields_and_creates_no_archive (test_review_archive.ReviewArchiveTests.test_blank_sheet_reports_missing_fields_and_creates_no_archive) ... ok
+2026-10-17T13:31:13.4573589Z test_default_evaluation_exposes_pending_provenance (test_review_archive.ReviewArchiveTests.test_default_evaluation_exposes_pending_provenance) ... ok
+2026-10-17T13:31:13.4963803Z test_draft_version_and_nonempty_output_are_rejected (test_review_archive.ReviewArchiveTests.test_draft_version_and_nonempty_output_are_rejected) ... ok
+2026-10-17T13:31:13.5232556Z test_duplicate_and_missing_ids_fail (test_review_archive.ReviewArchiveTests.test_duplicate_and_missing_ids_fail) ... ok
+2026-10-17T13:31:13.5541037Z test_label_differences_are_reported_and_not_silently_promoted (test_review_archive.ReviewArchiveTests.test_label_differences_are_reported_and_not_silently_promoted) ... ok
+2026-10-17T13:31:13.6449570Z test_tampered_archive_fails_even_when_file_hash_is_rewritten (test_review_archive.ReviewArchiveTests.test_tampered_archive_fails_even_when_file_hash_is_rewritten) ... ok
+2026-10-17T13:31:13.6757096Z test_timezone_and_dispute_resolution_are_required (test_review_archive.ReviewArchiveTests.test_timezone_and_dispute_resolution_are_required) ... ok
+2026-10-17T13:31:13.8236256Z test_valid_archive_updates_evaluation_without_claiming_sealed_approval (test_review_archive.ReviewArchiveTests.test_valid_archive_updates_evaluation_without_claiming_sealed_approval) ... ok
+2026-10-17T13:31:13.8315282Z test_bad_product_is_quarantined_without_turning_page_into_empty_success (test_store.PersistenceTests.test_bad_product_is_quarantined_without_turning_page_into_empty_success) ... ok
+2026-10-17T13:31:14.0029142Z test_historical_task_is_marked_superseded_after_new_wanted_version (test_store.PersistenceTests.test_historical_task_is_marked_superseded_after_new_wanted_version) ... ok
+2026-10-17T13:31:14.1709304Z test_late_old_wanted_version_cannot_replace_current_result (test_store.PersistenceTests.test_late_old_wanted_version_cannot_replace_current_result) ... ok
+2026-10-17T13:31:14.1829456Z test_snapshot_survives_reopen_and_scans_past_revoked_product_without_duplicates (test_store.PersistenceTests.test_snapshot_survives_reopen_and_scans_past_revoked_product_without_duplicates) ... ok
+2026-10-17T13:31:14.4310042Z test_task_redelivery_reopens_one_result_and_conflicting_event_is_rejected (test_store.PersistenceTests.test_task_redelivery_reopens_one_result_and_conflicting_event_is_rejected) ... ok
+2026-10-17T13:31:14.4311932Z 
+2026-10-17T13:31:14.4312803Z ----------------------------------------------------------------------
+2026-10-17T13:31:14.4313827Z Ran 38 tests in 3.850s
+2026-10-17T13:31:14.4314213Z 
+2026-10-17T13:31:14.4314430Z OK
+2026-10-17T13:31:14.5886017Z test_empty_and_missing_data_degrade_for_all_tasks (test_client.ClientTests.test_empty_and_missing_data_degrade_for_all_tasks) ... ok
+2026-10-17T13:31:14.5984018Z test_every_missing_output_field_degrades (test_client.ClientTests.test_every_missing_output_field_degrades) ... ok
+2026-10-17T13:31:14.6006316Z test_invalid_price_interval_degrades (test_client.ClientTests.test_invalid_price_interval_degrades) ... ok
+2026-10-17T13:31:14.6028230Z test_invalid_trust_score_and_status_degrade (test_client.ClientTests.test_invalid_trust_score_and_status_degrade) ... ok
+2026-10-17T13:31:14.6111939Z test_malformed_json_and_non_object_envelopes_degrade (test_client.ClientTests.test_malformed_json_and_non_object_envelopes_degrade) ... ok
+2026-10-17T13:31:14.6116686Z test_network_failure_degrades (test_client.ClientTests.test_network_failure_degrades) ... ok
+2026-10-17T13:31:14.6137991Z test_risk_cannot_enforce_or_hide_manual_review (test_client.ClientTests.test_risk_cannot_enforce_or_hide_manual_review) ... ok
+2026-10-17T13:31:14.6139347Z test_risk_fallback_never_enforces (test_client.ClientTests.test_risk_fallback_never_enforces) ... ok
+2026-10-17T13:31:14.6164605Z test_valid_engine_outputs_are_preserved (test_client.ClientTests.test_valid_engine_outputs_are_preserved) ... ok
+2026-10-17T13:31:14.6199008Z test_wrong_versions_and_unknown_fields_degrade (test_client.ClientTests.test_wrong_versions_and_unknown_fields_degrade) ... ok
+2026-10-17T13:31:15.1798663Z test_closed_service_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_closed_service_degrades_all_three_capabilities) ... ok
+2026-10-17T13:31:15.7957572Z test_empty_or_missing_data_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_empty_or_missing_data_degrades_all_three_capabilities) ... ok
+2026-10-17T13:31:16.3554148Z test_invalid_json_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_invalid_json_degrades_all_three_capabilities) ... ok
+2026-10-17T13:31:16.9220785Z test_normal_rpc_preserves_each_engine_output (test_client_http.ClientHttpTests.test_normal_rpc_preserves_each_engine_output) ... ok
+2026-10-17T13:31:17.6825087Z test_timeout_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_timeout_degrades_all_three_capabilities) ... ok
+2026-10-17T13:31:18.2411616Z test_wrong_algorithm_version_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_wrong_algorithm_version_degrades_all_three_capabilities) ... ok
+2026-10-17T13:31:18.2413715Z test_interval_is_ordered_and_not_exact_promise (test_engine.PriceTests.test_interval_is_ordered_and_not_exact_promise) ... ok
+2026-10-17T13:31:18.2415316Z test_missing_anchor_is_insufficient (test_engine.PriceTests.test_missing_anchor_is_insufficient) ... ok
+2026-10-17T13:31:18.2417084Z test_rejects_boolean_price (test_engine.PriceTests.test_rejects_boolean_price) ... ok
+2026-10-17T13:31:18.2418245Z test_input_is_not_mutated (test_engine.RiskTests.test_input_is_not_mutated) ... ok
+2026-10-17T13:31:18.2419672Z test_missing_observation_is_not_a_zero_risk_claim (test_engine.RiskTests.test_missing_observation_is_not_a_zero_risk_claim) ... ok
+2026-10-17T13:31:18.2421226Z test_no_clue_has_no_review (test_engine.RiskTests.test_no_clue_has_no_review) ... ok
+2026-10-17T13:31:18.2422486Z test_threshold_emits_explanation_but_no_penalty (test_engine.RiskTests.test_threshold_emits_explanation_but_no_penalty) ... ok
+2026-10-17T13:31:18.2424634Z test_cancelled_disputed_and_invalid_do_not_increase_score (test_engine.TrustTests.test_cancelled_disputed_and_invalid_do_not_increase_score) ... ok
+2026-10-17T13:31:18.2426241Z test_new_user_is_neutral (test_engine.TrustTests.test_new_user_is_neutral) ... ok
+2026-10-17T13:31:18.2427408Z test_smoothing_limits_small_sample (test_engine.TrustTests.test_smoothing_limits_small_sample) ... ok
+2026-10-17T13:31:18.2428578Z test_all_fixed_cases_pass (test_evaluation.EvaluationTests.test_all_fixed_cases_pass) ... ok
+2026-10-17T13:31:18.2633726Z test_authentication_is_required (test_http.HttpTests.test_authentication_is_required) ... ok
+2026-10-17T13:31:18.2642135Z test_unknown_fields_are_rejected (test_http.HttpTests.test_unknown_fields_are_rejected) ... ok
+2026-10-17T13:31:18.2649579Z test_versioned_price_route (test_http.HttpTests.test_versioned_price_route) ... ok
+2026-10-17T13:31:18.2656648Z test_wrong_media_type_is_rejected (test_http.HttpTests.test_wrong_media_type_is_rejected) ... ok
+2026-10-17T13:31:18.7665402Z 
+2026-10-17T13:31:18.7666488Z ----------------------------------------------------------------------
+2026-10-17T13:31:18.7666995Z Ran 31 tests in 4.182s
+2026-10-17T13:31:18.7667169Z 
+2026-10-17T13:31:18.7667275Z OK
+2026-10-17T13:31:18.7970903Z ##[group]Run actions/setup-node@v4
+2026-10-17T13:31:18.7971190Z with:
+2026-10-17T13:31:18.7971420Z   node-version: 22
+2026-10-17T13:31:18.7971628Z   cache: npm
+2026-10-17T13:31:18.7971878Z   cache-dependency-path: frontend/package-lock.json
+2026-10-17T13:31:18.7972188Z   always-auth: false
+2026-10-17T13:31:18.7972411Z   check-latest: false
+2026-10-17T13:31:18.7974933Z   token: ***
+2026-10-17T13:31:18.7975126Z env:
+2026-10-17T13:31:18.7975323Z   APP_ENV: ci
+2026-10-17T13:31:18.7975519Z   LOG_JSON: false
+2026-10-17T13:31:18.7975721Z   LOG_LEVEL: WARNING
+2026-10-17T13:31:18.7976158Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:31:18.7976463Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:31:18.7976834Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:31:18.7977266Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:31:18.7977621Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:31:18.7977920Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:31:18.7978229Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:18.7978639Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:31:18.7979056Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:18.7979428Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:18.7979794Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:18.7980501Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:31:18.7980830Z ##[endgroup]
+2026-10-17T13:31:18.9495004Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+2026-10-17T13:31:18.9501531Z (node:20659) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-17T13:31:18.9509336Z ##[group]Environment details
+2026-10-17T13:31:18.9530689Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-17T13:31:21.8558999Z node: v22.23.3
+2026-10-17T13:31:21.8559395Z npm: 10.9.9
+2026-10-17T13:31:21.8559716Z yarn: 1.22.22
+2026-10-17T13:31:21.8560492Z ##[endgroup]
+2026-10-17T13:31:21.8582867Z [command]/opt/hostedtoolcache/node/22.23.3/x64/bin/npm config get cache
+2026-10-17T13:31:22.1296490Z /home/runner/.npm
+2026-10-17T13:31:22.3410977Z Cache hit for: node-cache-Linux-x64-npm-4d4b15d4fc9a55f08fa26ce5443b2b6a01d4704d9ea0d8b2228c7d9ee76737c7
+2026-10-17T13:31:22.3515720Z (node:20659) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-17T13:31:23.5579609Z Received 41943040 of 74763715 (56.1%), 40.0 MBs/sec
+2026-10-17T13:31:23.7207923Z Received 74763715 of 74763715 (100.0%), 61.3 MBs/sec
+2026-10-17T13:31:23.7208499Z Cache Size: ~71 MB (74763715 B)
+2026-10-17T13:31:23.7273111Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9f4981f9-85ea-4dcd-aa2e-696e51a85db3/cache.tzst -P -C /home/runner/work/CampusLoop/CampusLoop --use-compress-program unzstd
+2026-10-17T13:31:23.8258755Z Cache restored successfully
+2026-10-17T13:31:23.8294021Z Cache restored from key: node-cache-Linux-x64-npm-4d4b15d4fc9a55f08fa26ce5443b2b6a01d4704d9ea0d8b2228c7d9ee76737c7
+2026-10-17T13:31:23.8412682Z ##[group]Run npm ci
+2026-10-17T13:31:23.8412961Z [36;1mnpm ci[0m
+2026-10-17T13:31:23.8413234Z [36;1mnpx playwright install --with-deps chromium[0m
+2026-10-17T13:31:23.8495440Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:31:23.8495711Z env:
+2026-10-17T13:31:23.8495918Z   APP_ENV: ci
+2026-10-17T13:31:23.8496126Z   LOG_JSON: false
+2026-10-17T13:31:23.8496334Z   LOG_LEVEL: WARNING
+2026-10-17T13:31:23.8496944Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:31:23.8497267Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:31:23.8497654Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:31:23.8498117Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:31:23.8498492Z   BASELINE_SERVICES_ENABLED: false
+2026-10-17T13:31:23.8498794Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:31:23.8499124Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:23.8499601Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:31:23.8500027Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:23.8500611Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:23.8500995Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:23.8501399Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:31:23.8501729Z ##[endgroup]
+2026-10-17T13:31:31.0287001Z 
+2026-10-17T13:31:31.0297742Z added 310 packages, and audited 311 packages in 7s
+2026-10-17T13:31:31.0298354Z 
+2026-10-17T13:31:31.0298727Z 74 packages are looking for funding
+2026-10-17T13:31:31.0299335Z   run `npm fund` for details
+2026-10-17T13:31:31.0484633Z 
+2026-10-17T13:31:31.0485566Z 5 high severity vulnerabilities
+2026-10-17T13:31:31.0486292Z 
+2026-10-17T13:31:31.0486886Z To address issues that do not require attention, run:
+2026-10-17T13:31:31.0487657Z   npm audit fix
+2026-10-17T13:31:31.0488027Z 
+2026-10-17T13:31:31.0488599Z To address all issues (including breaking changes), run:
+2026-10-17T13:31:31.0489317Z   npm audit fix --force
+2026-10-17T13:31:31.0489700Z 
+2026-10-17T13:31:31.0490046Z Run `npm audit` for details.
+2026-10-17T13:31:31.8668036Z Installing dependencies...
+2026-10-17T13:31:31.8767485Z Switching to root user to install dependencies...
+2026-10-17T13:31:31.9581766Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-17T13:31:31.9885635Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-17T13:31:32.0022778Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-17T13:31:32.0078767Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-17T13:31:32.0134849Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-17T13:31:32.0199691Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-17T13:31:32.0604039Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [556 kB]
+2026-10-17T13:31:32.0776408Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.4 kB]
+2026-10-17T13:31:32.0806585Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [617 kB]
+2026-10-17T13:31:32.1507978Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1397 kB]
+2026-10-17T13:31:32.1577734Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [308 kB]
+2026-10-17T13:31:32.1598592Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1704 kB]
+2026-10-17T13:31:32.1679746Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-17T13:31:32.1705589Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1805 kB]
+2026-10-17T13:31:32.1812082Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [411 kB]
+2026-10-17T13:31:32.2322216Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1144 kB]
+2026-10-17T13:31:32.2377651Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-17T13:31:32.2396160Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+2026-10-17T13:31:32.2461838Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [246 kB]
+2026-10-17T13:31:32.2889386Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1713 kB]
+2026-10-17T13:31:32.2965412Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [392 kB]
+2026-10-17T13:31:35.2252051Z Fetched 12.5 MB in 1s (10.0 MB/s)
+2026-10-17T13:31:36.1570079Z Reading package lists...
+2026-10-17T13:31:36.1816891Z Reading package lists...
+2026-10-17T13:31:36.3703371Z Building dependency tree...
+2026-10-17T13:31:36.3721832Z Reading state information...
+2026-10-17T13:31:36.5252870Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-17T13:31:36.5256528Z libasound2t64 set to manually installed.
+2026-10-17T13:31:36.5257349Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-17T13:31:36.5258166Z libatk-bridge2.0-0t64 set to manually installed.
+2026-10-17T13:31:36.5258865Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-17T13:31:36.5259490Z libatk1.0-0t64 set to manually installed.
+2026-10-17T13:31:36.5260426Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-17T13:31:36.5261087Z libatspi2.0-0t64 set to manually installed.
+2026-10-17T13:31:36.5261695Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-17T13:31:36.5262184Z libcairo2 set to manually installed.
+2026-10-17T13:31:36.5262613Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-17T13:31:36.5263015Z libcups2t64 set to manually installed.
+2026-10-17T13:31:36.5263437Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-17T13:31:36.5263837Z libdbus-1-3 set to manually installed.
+2026-10-17T13:31:36.5264255Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+2026-10-17T13:31:36.5264659Z libdrm2 set to manually installed.
+2026-10-17T13:31:36.5265378Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+2026-10-17T13:31:36.5265768Z libgbm1 set to manually installed.
+2026-10-17T13:31:36.5266189Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+2026-10-17T13:31:36.5266616Z libglib2.0-0t64 set to manually installed.
+2026-10-17T13:31:36.5267038Z libnspr4 is already the newest version (2:4.35-1.1build1).
+2026-10-17T13:31:36.5267407Z libnspr4 set to manually installed.
+2026-10-17T13:31:36.5267784Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+2026-10-17T13:31:36.5268328Z libnss3 set to manually installed.
+2026-10-17T13:31:36.5268731Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-17T13:31:36.5269148Z libpango-1.0-0 set to manually installed.
+2026-10-17T13:31:36.5269553Z libx11-6 is already the newest version (2:1.8.7-1ubuntu0.1).
+2026-10-17T13:31:36.5269932Z libx11-6 set to manually installed.
+2026-10-17T13:31:36.5270609Z libxcb1 is already the newest version (1.15-1ubuntu2).
+2026-10-17T13:31:36.5271168Z libxcb1 set to manually installed.
+2026-10-17T13:31:36.5271891Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-17T13:31:36.5272940Z libxcomposite1 set to manually installed.
+2026-10-17T13:31:36.5273358Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-17T13:31:36.5273750Z libxdamage1 set to manually installed.
+2026-10-17T13:31:36.5274130Z libxext6 is already the newest version (2:1.3.4-1build2).
+2026-10-17T13:31:36.5274503Z libxext6 set to manually installed.
+2026-10-17T13:31:36.5274882Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-17T13:31:36.5275269Z libxfixes3 set to manually installed.
+2026-10-17T13:31:36.5275780Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-17T13:31:36.5276172Z libxkbcommon0 set to manually installed.
+2026-10-17T13:31:36.5276577Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-17T13:31:36.5276950Z libxrandr2 set to manually installed.
+2026-10-17T13:31:36.5277345Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+2026-10-17T13:31:36.5277867Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+2026-10-17T13:31:36.5278441Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+2026-10-17T13:31:36.5279172Z libfontconfig1 set to manually installed.
+2026-10-17T13:31:36.5279952Z libfreetype6 is already the newest version (2.13.2+dfsg-1ubuntu0.2).
+2026-10-17T13:31:36.5280763Z libfreetype6 set to manually installed.
+2026-10-17T13:31:36.5281184Z fonts-liberation is already the newest version (1:2.1.5-3).
+2026-10-17T13:31:36.5281583Z fonts-liberation set to manually installed.
+2026-10-17T13:31:36.5281991Z The following additional packages will be installed:
+2026-10-17T13:31:36.5282356Z   xfonts-encodings xfonts-utils
+2026-10-17T13:31:36.5282652Z Recommended packages:
+2026-10-17T13:31:36.5282943Z   fonts-ipafont-mincho fonts-tlwg-loma
+2026-10-17T13:31:36.5435831Z The following NEW packages will be installed:
+2026-10-17T13:31:36.5436714Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+2026-10-17T13:31:36.5446924Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+2026-10-17T13:31:36.5449363Z   xfonts-utils
+2026-10-17T13:31:36.5606553Z 0 upgraded, 9 newly installed, 0 to remove and 44 not upgraded.
+2026-10-17T13:31:36.5607261Z Need to get 21.1 MB of archives.
+2026-10-17T13:31:36.5607968Z After this operation, 79.5 MB of additional disk space will be used.
+2026-10-17T13:31:36.5608801Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-17T13:31:36.6391307Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+2026-10-17T13:31:36.7748599Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+2026-10-17T13:31:36.9532037Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+2026-10-17T13:31:37.0195029Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+2026-10-17T13:31:37.1440010Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+2026-10-17T13:31:37.3608033Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+2026-10-17T13:31:37.4364608Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+2026-10-17T13:31:37.5017953Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+2026-10-17T13:31:37.5691471Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+2026-10-17T13:31:37.8035750Z Fetched 21.1 MB in 1s (20.7 MB/s)
+2026-10-17T13:31:37.8242748Z Selecting previously unselected package fonts-ipafont-gothic.
+2026-10-17T13:31:37.8435792Z (Reading database ... 
+2026-10-17T13:31:37.8436255Z (Reading database ... 5%
+2026-10-17T13:31:37.8436610Z (Reading database ... 10%
+2026-10-17T13:31:37.8436952Z (Reading database ... 15%
+2026-10-17T13:31:37.8437258Z (Reading database ... 20%
+2026-10-17T13:31:37.8437791Z (Reading database ... 25%
+2026-10-17T13:31:37.8438058Z (Reading database ... 30%
+2026-10-17T13:31:37.8438361Z (Reading database ... 35%
+2026-10-17T13:31:37.8438658Z (Reading database ... 40%
+2026-10-17T13:31:37.8438966Z (Reading database ... 45%
+2026-10-17T13:31:37.8439267Z (Reading database ... 50%
+2026-10-17T13:31:37.8468739Z (Reading database ... 55%
+2026-10-17T13:31:37.9663158Z (Reading database ... 60%
+2026-10-17T13:31:38.1971665Z (Reading database ... 65%
+2026-10-17T13:31:38.3995198Z (Reading database ... 70%
+2026-10-17T13:31:38.5649200Z (Reading database ... 75%
+2026-10-17T13:31:38.7513681Z (Reading database ... 80%
+2026-10-17T13:31:38.9584846Z (Reading database ... 85%
+2026-10-17T13:31:39.1239319Z (Reading database ... 90%
+2026-10-17T13:31:39.3187162Z (Reading database ... 95%
+2026-10-17T13:31:39.3187737Z (Reading database ... 100%
+2026-10-17T13:31:39.3188457Z (Reading database ... 203540 files and directories currently installed.)
+2026-10-17T13:31:39.3231794Z Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+2026-10-17T13:31:39.3307891Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-17T13:31:39.5608453Z Selecting previously unselected package fonts-freefont-ttf.
+2026-10-17T13:31:39.5718179Z Preparing to unpack .../1-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+2026-10-17T13:31:39.5723667Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-17T13:31:39.6484347Z Selecting previously unselected package fonts-tlwg-loma-otf.
+2026-10-17T13:31:39.6596599Z Preparing to unpack .../2-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+2026-10-17T13:31:39.6605916Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-17T13:31:39.6759980Z Selecting previously unselected package fonts-unifont.
+2026-10-17T13:31:39.6868466Z Preparing to unpack .../3-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+2026-10-17T13:31:39.6874436Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+2026-10-17T13:31:39.7785639Z Selecting previously unselected package fonts-wqy-zenhei.
+2026-10-17T13:31:39.7896471Z Preparing to unpack .../4-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+2026-10-17T13:31:39.7977982Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-17T13:31:40.2756463Z Selecting previously unselected package xfonts-encodings.
+2026-10-17T13:31:40.2867006Z Preparing to unpack .../5-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+2026-10-17T13:31:40.2872602Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-17T13:31:40.3073998Z Selecting previously unselected package xfonts-utils.
+2026-10-17T13:31:40.3184721Z Preparing to unpack .../6-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+2026-10-17T13:31:40.3189431Z Unpacking xfonts-utils (1:7.7+6build3) ...
+2026-10-17T13:31:40.3448566Z Selecting previously unselected package xfonts-cyrillic.
+2026-10-17T13:31:40.3557941Z Preparing to unpack .../7-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+2026-10-17T13:31:40.3566764Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-17T13:31:40.3792239Z Selecting previously unselected package xfonts-scalable.
+2026-10-17T13:31:40.3903018Z Preparing to unpack .../8-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+2026-10-17T13:31:40.3915497Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-17T13:31:40.4254129Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-17T13:31:40.4343257Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-17T13:31:40.4354204Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-17T13:31:40.4366230Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-17T13:31:40.4376952Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-17T13:31:40.4425958Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+2026-10-17T13:31:40.4435433Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+2026-10-17T13:31:40.4446466Z Setting up xfonts-utils (1:7.7+6build3) ...
+2026-10-17T13:31:40.4474392Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-17T13:31:40.4719121Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-17T13:31:40.4929476Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-17T13:31:40.4946004Z Not building database; man-db/auto-update is not 'true'.
+2026-10-17T13:31:40.4957331Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+2026-10-17T13:31:41.1442298Z 
+2026-10-17T13:31:41.1442971Z Running kernel seems to be up-to-date.
+2026-10-17T13:31:41.1443261Z 
+2026-10-17T13:31:41.1443422Z No services need to be restarted.
+2026-10-17T13:31:41.1443631Z 
+2026-10-17T13:31:41.1444023Z No containers need to be restarted.
+2026-10-17T13:31:41.1444207Z 
+2026-10-17T13:31:41.1444402Z No user sessions are running outdated binaries.
+2026-10-17T13:31:41.1444623Z 
+2026-10-17T13:31:41.1444903Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-17T13:31:42.0664470Z Downloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip
+2026-10-17T13:31:42.5053774Z |                                                                                |   0% of 191.1 MiB
+2026-10-17T13:31:42.6929910Z |■■■■■■■■                                                                        |  10% of 191.1 MiB
+2026-10-17T13:31:42.7677499Z |■■■■■■■■■■■■■■■■                                                                |  20% of 191.1 MiB
+2026-10-17T13:31:42.8345904Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 191.1 MiB
+2026-10-17T13:31:42.9053922Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 191.1 MiB
+2026-10-17T13:31:42.9751530Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 191.1 MiB
+2026-10-17T13:31:43.0626486Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 191.1 MiB
+2026-10-17T13:31:43.1387166Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 191.1 MiB
+2026-10-17T13:31:43.2113677Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 191.1 MiB
+2026-10-17T13:31:43.2855608Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 191.1 MiB
+2026-10-17T13:31:43.3740786Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 191.1 MiB
+2026-10-17T13:31:45.9480053Z Chrome for Testing 156.0.8078.4 (playwright chromium v1248) downloaded to /home/runner/.cache/ms-playwright/chromium-1248
+2026-10-17T13:31:45.9481909Z Downloading FFmpeg (playwright ffmpeg v1013) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip
+2026-10-17T13:31:46.3080959Z |                                                                                |   0% of 2.2 MiB
+2026-10-17T13:31:46.3118055Z |■■■■■■■■                                                                        |  10% of 2.2 MiB
+2026-10-17T13:31:46.3153680Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.2 MiB
+2026-10-17T13:31:46.3174437Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.2 MiB
+2026-10-17T13:31:46.3189354Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.2 MiB
+2026-10-17T13:31:46.3212010Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.2 MiB
+2026-10-17T13:31:46.3219725Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.2 MiB
+2026-10-17T13:31:46.3239476Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.2 MiB
+2026-10-17T13:31:46.3250588Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.2 MiB
+2026-10-17T13:31:46.3265751Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.2 MiB
+2026-10-17T13:31:46.3275342Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.2 MiB
+2026-10-17T13:31:46.3843835Z FFmpeg (playwright ffmpeg v1013) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1013
+2026-10-17T13:31:46.3847966Z Downloading Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-headless-shell-linux64.zip
+2026-10-17T13:31:46.8017192Z |                                                                                |   0% of 120 MiB
+2026-10-17T13:31:46.9529550Z |■■■■■■■■                                                                        |  10% of 120 MiB
+2026-10-17T13:31:46.9948259Z |■■■■■■■■■■■■■■■■                                                                |  20% of 120 MiB
+2026-10-17T13:31:47.0444591Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 120 MiB
+2026-10-17T13:31:47.0942953Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+2026-10-17T13:31:47.1531186Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+2026-10-17T13:31:47.2167955Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+2026-10-17T13:31:47.2664843Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+2026-10-17T13:31:47.3776754Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+2026-10-17T13:31:47.4289357Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+2026-10-17T13:31:47.4767053Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+2026-10-17T13:31:49.3204759Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+2026-10-17T13:31:49.3395642Z ##[group]Run python scripts/reset_test_limiter.py
+2026-10-17T13:31:49.3396068Z [36;1mpython scripts/reset_test_limiter.py[0m
+2026-10-17T13:31:49.3396465Z [36;1mpython scripts/serve.py > /tmp/campusloop-api.log 2>&1 &[0m
+2026-10-17T13:31:49.3396842Z [36;1mfor attempt in $(seq 1 60); do[0m
+2026-10-17T13:31:49.3397212Z [36;1m  if curl -fsS http://localhost:8000/ready; then break; fi[0m
+2026-10-17T13:31:49.3397568Z [36;1m  sleep 1[0m
+2026-10-17T13:31:49.3397789Z [36;1mdone[0m
+2026-10-17T13:31:49.3398035Z [36;1mcurl -fsS http://localhost:8000/ready[0m
+2026-10-17T13:31:49.3398338Z [36;1mcd ../frontend[0m
+2026-10-17T13:31:49.3398862Z [36;1mVITE_API_BASE_URL=http://localhost:8000 npm run dev -- --host 127.0.0.1 --port 5174 --strictPort > /tmp/campusloop-web.log 2>&1 &[0m
+2026-10-17T13:31:49.3399425Z [36;1mfor attempt in $(seq 1 60); do[0m
+2026-10-17T13:31:49.3399786Z [36;1m  if curl -fsS http://127.0.0.1:5174/ > /dev/null; then break; fi[0m
+2026-10-17T13:31:49.3400425Z [36;1m  sleep 1[0m
+2026-10-17T13:31:49.3400648Z [36;1mdone[0m
+2026-10-17T13:31:49.3400865Z [36;1mnpm run test:live[0m
+2026-10-17T13:31:49.3437922Z shell: /usr/bin/bash -e {0}
+2026-10-17T13:31:49.3438207Z env:
+2026-10-17T13:31:49.3438406Z   APP_ENV: ci
+2026-10-17T13:31:49.3438609Z   LOG_JSON: false
+2026-10-17T13:31:49.3438832Z   LOG_LEVEL: WARNING
+2026-10-17T13:31:49.3439379Z   DATABASE_URL: ***localhost:5432/campusloop
+2026-10-17T13:31:49.3439695Z   REDIS_URL: redis://localhost:6379/15
+2026-10-17T13:31:49.3440067Z   AUTH_SIGNING_KEY: ci-only-not-for-deployment-key-000000000000
+2026-10-17T13:31:49.3440708Z   BASELINE_RPC_TOKEN: ci-only-private-loopback-token-000000000000
+2026-10-17T13:31:49.3441082Z   BASELINE_SERVICES_ENABLED: true
+2026-10-17T13:31:49.3441347Z   MINIO_ENDPOINT: localhost:9000
+2026-10-17T13:31:49.3441665Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:49.3442094Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-17T13:31:49.3442531Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:49.3442914Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:49.3443290Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-17T13:31:49.3443673Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-17T13:31:49.3444075Z   CORS_ORIGINS: http://localhost:5174,http://127.0.0.1:5174
+2026-10-17T13:31:49.3444419Z   CAMPUSLOOP_UI_URL: http://localhost:5174
+2026-10-17T13:31:49.3444707Z ##[endgroup]
+2026-10-17T13:31:49.5494880Z Isolated test auth counters reset; no business facts or application cache removed.
+2026-10-17T13:31:49.5835170Z curl: (7) Failed to connect to localhost port 8000 after 0 ms: Couldn't connect to server
+2026-10-17T13:31:50.5901978Z curl: (7) Failed to connect to localhost port 8000 after 0 ms: Couldn't connect to server
+2026-10-17T13:31:51.6497774Z curl: (7) Failed to connect to 127.0.0.1 port 5174 after 0 ms: Couldn't connect to server
+2026-10-17T13:31:52.8738971Z {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}{"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+2026-10-17T13:31:52.8740944Z > frontend@0.0.0 test:live
+2026-10-17T13:31:52.8829936Z > playwright test
+2026-10-17T13:31:52.8830648Z 
+2026-10-17T13:31:54.3049009Z 
+2026-10-17T13:31:54.3061057Z Running 5 tests using 1 worker
+2026-10-17T13:31:54.3061437Z 
+2026-10-17T13:32:14.0423432Z   ✓  1 tests/live/journey.spec.ts:14:1 › real two-account browser transaction; no database editing (19.0s)
+2026-10-17T13:32:16.4348577Z   ✓  2 tests/live/journey.spec.ts:101:1 › wanted constraints and price baseline are real services (2.4s)
+2026-10-17T13:32:22.0834808Z   ✓  3 tests/live/journey.spec.ts:120:1 › guest browse, failure recovery, secure reload restoration, logout and fixed navigation (5.6s)
+2026-10-17T13:32:23.2749590Z   ✓  4 tests/live/journey.spec.ts:166:1 › mobile navigation and empty-state filter recovery (1.2s)
+2026-10-17T13:32:26.6183460Z   ✓  5 tests/live/journey.spec.ts:179:1 › another tab changing account cannot retry an old request as the new user (3.3s)
+2026-10-17T13:32:26.6547719Z 
+2026-10-17T13:32:26.6552232Z   5 passed (33.0s)
+2026-10-17T13:32:26.6755293Z Post job cleanup.
+2026-10-17T13:32:26.7937693Z (node:22158) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-17T13:32:26.7938440Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-17T13:32:26.7942151Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-4d4b15d4fc9a55f08fa26ce5443b2b6a01d4704d9ea0d8b2228c7d9ee76737c7, not saving cache.
+2026-10-17T13:32:26.8038401Z Post job cleanup.
+2026-10-17T13:32:26.9270922Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-f16bf89813149603ba100caafa53079939cb16a386af9f4b576122c82b2d9539, not saving cache.
+2026-10-17T13:32:26.9272920Z (node:22166) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-17T13:32:26.9273726Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-17T13:32:26.9408647Z Post job cleanup.
+2026-10-17T13:32:27.0273188Z [command]/usr/bin/git version
+2026-10-17T13:32:27.0311480Z git version 2.55.0
+2026-10-17T13:32:27.0349119Z Temporarily overriding HOME='/home/runner/work/_temp/f8adbe2f-4071-4fbc-b3b7-952c34653c38' before making global git config changes
+2026-10-17T13:32:27.0352854Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-17T13:32:27.0356380Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CampusLoop/CampusLoop
+2026-10-17T13:32:27.0394124Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-17T13:32:27.0429215Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-17T13:32:27.0671730Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-17T13:32:27.0696937Z http.https://github.com/.extraheader
+2026-10-17T13:32:27.0708708Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-17T13:32:27.0743077Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-17T13:32:27.0958162Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-17T13:32:27.0992440Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-17T13:32:27.1319948Z Print service container logs: 4369a7579cf6473db118b8c409a8786f_pgvectorpgvector086pg16_c58be1
+2026-10-17T13:32:27.1325306Z ##[command]/usr/bin/docker logs --details 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:32:27.1484133Z  The files belonging to this database system will be owned by user "postgres".
+2026-10-17T13:32:27.1485604Z  This user must also own the server process.
+2026-10-17T13:32:27.1486045Z  
+2026-10-17T13:32:27.1486437Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-10-17T13:32:27.1486914Z  The default database encoding has accordingly been set to "UTF8".
+2026-10-17T13:32:27.1487357Z  The default text search configuration will be set to "english".
+2026-10-17T13:32:27.1487679Z  
+2026-10-17T13:32:27.1487887Z  Data page checksums are disabled.
+2026-10-17T13:32:27.1488134Z  
+2026-10-17T13:32:27.1488436Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-10-17T13:32:27.1488883Z  creating subdirectories ... ok
+2026-10-17T13:32:27.1489196Z  selecting dynamic shared memory implementation ... posix
+2026-10-17T13:32:27.1489558Z  selecting default max_connections ... 100
+2026-10-17T13:32:27.1490559Z  selecting default shared_buffers ... 128MB
+2026-10-17T13:32:27.1491053Z  selecting default time zone ... Etc/UTC
+2026-10-17T13:32:27.1491501Z  creating configuration files ... ok
+2026-10-17T13:32:27.1491820Z  running bootstrap script ... ok
+2026-10-17T13:32:27.1492128Z  performing post-bootstrap initialization ... ok
+2026-10-17T13:32:27.1492436Z  syncing data to disk ... ok
+2026-10-17T13:32:27.1494039Z  initdb: warning: enabling "trust" authentication for local connections
+2026-10-17T13:32:27.1494730Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-10-17T13:32:27.1495712Z  2026-10-17 13:17:11.706 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-17T13:32:27.1496430Z  2026-10-17 13:17:11.706 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-17T13:32:27.1496916Z  2026-10-17 13:17:11.706 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-17T13:32:27.1497552Z  2026-10-17 13:17:11.708 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-17T13:32:27.1498309Z  2026-10-17 13:17:11.711 UTC [64] LOG:  database system was shut down at 2026-10-17 13:17:11 UTC
+2026-10-17T13:32:27.1499175Z  2026-10-17 13:17:11.716 UTC [1] LOG:  database system is ready to accept connections
+2026-10-17T13:32:27.1499633Z  2026-10-17 13:22:11.783 UTC [62] LOG:  checkpoint starting: time
+2026-10-17T13:32:27.1500766Z  2026-10-17 13:22:15.994 UTC [62] LOG:  checkpoint complete: wrote 45 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.208 s, sync=0.001 s, total=4.212 s; sync files=12, longest=0.001 s, average=0.001 s; distance=261 kB, estimate=261 kB; lsn=0/1953570, redo lsn=0/1953538
+2026-10-17T13:32:27.1501865Z  2026-10-17 13:31:02.461 UTC [1428] ERROR:  duplicate key value violates unique constraint "uq_users_email"
+2026-10-17T13:32:27.1502551Z  2026-10-17 13:31:02.461 UTC [1428] DETAIL:  Key (email)=(p3-b4fc3714c0e941d0bb0b0471db2b9fa5@example.invalid) already exists.
+2026-10-17T13:32:27.1504069Z  2026-10-17 13:31:02.461 UTC [1428] STATEMENT:  INSERT INTO users (email, password_hash, nickname, avatar_url, campus_email_verified, role, status, bio, school, college, major, rating_avg, transaction_count) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::VARCHAR, $12, $13::INTEGER) RETURNING users.id, users.created_at, users.updated_at
+2026-10-17T13:32:27.1505397Z  2026-10-17 13:32:12.163 UTC [62] LOG:  checkpoint starting: time
+2026-10-17T13:32:27.1505716Z  
+2026-10-17T13:32:27.1505897Z  
+2026-10-17T13:32:27.1506149Z  Success. You can now start the database server using:
+2026-10-17T13:32:27.1506681Z  
+2026-10-17T13:32:27.1506935Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-10-17T13:32:27.1507237Z  
+2026-10-17T13:32:27.1507874Z  waiting for server to start....2026-10-17 13:17:11.419 UTC [48] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-17T13:32:27.1508710Z  2026-10-17 13:17:11.420 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-17T13:32:27.1509245Z  2026-10-17 13:17:11.421 UTC [51] LOG:  database system was shut down at 2026-10-17 13:17:11 UTC
+2026-10-17T13:32:27.1509731Z  2026-10-17 13:17:11.424 UTC [48] LOG:  database system is ready to accept connections
+2026-10-17T13:32:27.1510101Z   done
+2026-10-17T13:32:27.1510429Z  server started
+2026-10-17T13:32:27.1510643Z  CREATE DATABASE
+2026-10-17T13:32:27.1510861Z  
+2026-10-17T13:32:27.1511043Z  
+2026-10-17T13:32:27.1511378Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-10-17T13:32:27.1511767Z  
+2026-10-17T13:32:27.1512124Z  waiting for server to shut down...2026-10-17 13:17:11.586 UTC [48] LOG:  received fast shutdown request
+2026-10-17T13:32:27.1512753Z  .2026-10-17 13:17:11.587 UTC [48] LOG:  aborting any active transactions
+2026-10-17T13:32:27.1513306Z  2026-10-17 13:17:11.588 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+2026-10-17T13:32:27.1513825Z  2026-10-17 13:17:11.590 UTC [49] LOG:  shutting down
+2026-10-17T13:32:27.1514204Z  2026-10-17 13:17:11.590 UTC [49] LOG:  checkpoint starting: shutdown immediate
+2026-10-17T13:32:27.1515209Z  2026-10-17 13:17:11.601 UTC [49] LOG:  checkpoint complete: wrote 922 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.008 s, sync=0.004 s, total=0.012 s; sync files=301, longest=0.003 s, average=0.001 s; distance=4255 kB, estimate=4255 kB; lsn=0/1912118, redo lsn=0/1912118
+2026-10-17T13:32:27.1516199Z  2026-10-17 13:17:11.605 UTC [48] LOG:  database system is shut down
+2026-10-17T13:32:27.1516921Z   done
+2026-10-17T13:32:27.1517126Z  server stopped
+2026-10-17T13:32:27.1517357Z  
+2026-10-17T13:32:27.1517618Z  PostgreSQL init process complete; ready for start up.
+2026-10-17T13:32:27.1517936Z  
+2026-10-17T13:32:27.1524439Z Stop and remove container: 4369a7579cf6473db118b8c409a8786f_pgvectorpgvector086pg16_c58be1
+2026-10-17T13:32:27.1529075Z ##[command]/usr/bin/docker rm --force 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:32:28.0158847Z 954ab8d138720904596519b50abd3c272ef62ad786972090a178c2a7e40dc822
+2026-10-17T13:32:28.0176522Z Print service container logs: b4eb02b3f1004532a2e6f0181e6a9a96_redis74alpine_868b8d
+2026-10-17T13:32:28.0178033Z ##[command]/usr/bin/docker logs --details bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:32:28.0299914Z  1:C 17 Oct 2026 13:17:12.676 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2026-10-17T13:32:28.0301778Z  1:C 17 Oct 2026 13:17:12.676 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+2026-10-17T13:32:28.0302294Z  1:C 17 Oct 2026 13:17:12.676 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+2026-10-17T13:32:28.0303061Z  1:C 17 Oct 2026 13:17:12.676 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+2026-10-17T13:32:28.0303715Z  1:M 17 Oct 2026 13:17:12.676 * monotonic clock: POSIX clock_gettime
+2026-10-17T13:32:28.0304113Z  1:M 17 Oct 2026 13:17:12.677 * Running mode=standalone, port=6379.
+2026-10-17T13:32:28.0304467Z  1:M 17 Oct 2026 13:17:12.677 * Server initialized
+2026-10-17T13:32:28.0305272Z  1:M 17 Oct 2026 13:17:12.677 * Ready to accept connections tcp
+2026-10-17T13:32:28.0305994Z  1:M 17 Oct 2026 13:31:09.716 * 100 changes in 300 seconds. Saving...
+2026-10-17T13:32:28.0306763Z  1:M 17 Oct 2026 13:31:09.716 * Background saving started by pid 1018
+2026-10-17T13:32:28.0307422Z  1018:C 17 Oct 2026 13:31:09.717 * DB saved on disk
+2026-10-17T13:32:28.0308126Z  1018:C 17 Oct 2026 13:31:09.717 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB
+2026-10-17T13:32:28.0308934Z  1:M 17 Oct 2026 13:31:09.817 * Background saving terminated with success
+2026-10-17T13:32:28.0316496Z Stop and remove container: b4eb02b3f1004532a2e6f0181e6a9a96_redis74alpine_868b8d
+2026-10-17T13:32:28.0317249Z ##[command]/usr/bin/docker rm --force bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:32:28.1410446Z bdd5d8715adf83caf633f1832e8451e47eb3123d77b47c6d7667554e1fdbd487
+2026-10-17T13:32:28.1428930Z Remove container network: github_network_dd2840abaad1485dbf4abe5cf71ae554
+2026-10-17T13:32:28.1434716Z ##[command]/usr/bin/docker network rm github_network_dd2840abaad1485dbf4abe5cf71ae554
+2026-10-17T13:32:28.2259060Z github_network_dd2840abaad1485dbf4abe5cf71ae554
+2026-10-17T13:32:28.2331907Z Cleaning up orphan processes
+2026-10-17T13:32:28.2642745Z Terminate orphan process: pid (21597) (python)
+2026-10-17T13:32:28.2688902Z Terminate orphan process: pid (21639) (npm run dev --host 127.0.0.1 --port 5174 --strictPort)
+2026-10-17T13:32:28.2719256Z Terminate orphan process: pid (21653) (sh)
+2026-10-17T13:32:28.2749092Z Terminate orphan process: pid (21654) (node)
+2026-10-17T13:32:28.2780022Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -11,7 +11,7 @@ python -m pip install -r scripts/m7_phase2/requirements.txt
 python -m services.m7_baseline.verify --output-dir ../m7-p3-new-run
 ```
 
-输出目录必须为空。该命令执行 Phase 2 回归、23 项 Phase 3 测试、38 条固定历史查询、两次评估字节比对和 all/dev/test_candidate 指标独立重算，保存提交号、环境、源文件哈希和完整日志。技术 PASS 不代表 M10 验收或模型 GO。
+输出目录必须为空。该命令执行 Phase 2 回归、38 项当前基线测试（含本轮 7 项真实 HTTP 恢复测试）、38 条固定历史查询、两次评估字节比对和 all/dev/test_candidate 指标独立重算，保存提交号、环境、源文件哈希和完整日志。技术 PASS 不代表 M10 验收或模型 GO。
 
 ## 运行内部服务
 
@@ -39,13 +39,15 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8787/v1/rank -ContentType '
 
 可信后端可调用 `client.call_baseline(url, payload, token, timeout=...)`。503/504、连接失败、读取超时或连接中断时，对同一份新鲜且已授权输入执行本地关键词/规则算法，并返回 SERVICE_UNAVAILABLE/SERVICE_TIMEOUT；401/403/409/422 原样拒绝，不通过降级放宽条件。该适配器仅处理无状态 rank，不能在服务失联后继续旧分页快照。
 
+Phase 4 联合修复另验证返回 envelope、算法/字典/事实版本、商品身份、分数与解释结构。坏 JSON、缺字段、非法数值、重复/未知/旧版本商品等返回 `INVALID_SERVICE_RESPONSE` 并恢复同硬约束的本地基线，不把损坏 DTO 交给业务调用方。协议和排序算法版本未改变；具体代码提交与回滚验收见 [联合交付](../../docs/evidence/phase-4/intelligence/joint-delivery/README.md)。
+
 RPC 首请求要求 asOf 距当前时间不超过 60 秒；后续快照页不超过 300 秒且求购仍有效。网络读取超时为候选配置，服务端连接读取 3 秒、请求体上限 8 MiB、候选上限 5000。没有实现可强制中断计算的总截止时间、生产并发控制或 M9 压测，不能把这些数值当作获批 SLA。
 
 ## 持久任务边界
 
 `BaselineStore.submit(event_id, InputVersion, products, request, dictionary)` 同步计算并在一个 SQLite 事务中保存事件、结果和当前指针。同 event_id 不同输入冲突；同逻辑任务重试复用结果；任何已有修订号倒退均 SUPERSEDED；同修订组改变 asOf 或事实冲突。历史任务保留，read_task 显示 superseded。
 
-以上描述的是准备分支中的 SQLite 隔离验证工具，不是生产异步队列。2026-10-09 的集中接入将实际事件、任务领取/崩溃回滚恢复、版本复核、到期清理、通知事务和唯一键放在 backend/app/services/matching_jobs.py 的 PostgreSQL 实现中；SQLite 只保留RPC快照/历史测试用途。生产通知政策未获确认所以默认关闭；测试显式开启验证去重，不能将默认不发送当作去重证据。
+以上描述的是准备分支中的 SQLite 隔离验证工具，不是生产异步队列。2026-10-09 的集中接入将实际事件、任务领取/崩溃回滚恢复、版本复核、到期清理、通知事务和唯一键放在 backend/app/services/matching_jobs.py 的 PostgreSQL 实现中；SQLite 只保留 RPC 快照/历史测试用途。当前集成代码的 `MATCHING_NOTIFICATIONS_ENABLED` 默认 true，本轮未改变通知配置和政策；实际通知、关闭与去重以 M6 编排和发布环境验证为准，不用私有 SQLite 代替。
 
 ## 评估限制
 
