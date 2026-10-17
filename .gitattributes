@@ -38,3 +38,6 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/phase-4/intelligence/evidence/phase123-ops-v2/** -text
 # Raw command output intentionally includes tool-emitted whitespace.
 /docs/evidence/phase-4/intelligence/evidence/phase123-ops-v2/**/*.txt -whitespace
+
+# Phase 5 provenance snapshots and execution evidence retain exact recorded bytes.
+/docs/evidence/phase-5/intelligence/** -text
