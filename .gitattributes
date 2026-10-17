@@ -38,3 +38,13 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/phase-4/intelligence/evidence/phase123-ops-v2/** -text
 # Raw command output intentionally includes tool-emitted whitespace.
 /docs/evidence/phase-4/intelligence/evidence/phase123-ops-v2/**/*.txt -whitespace
+
+# M7 private candidate sources and archived Phase 4 evidence use stable bytes.
+/services/m7_semantic/** text eol=lf
+/docs/evidence/phase-4/intelligence/model-config.candidate.json -text
+/docs/evidence/phase-4/intelligence/source-provenance.json -text
+/docs/evidence/phase-4/intelligence/metric-ceiling-check.json -text
+/docs/evidence/phase-4/intelligence/evidence/m7-v1/** -text
+/docs/evidence/phase-4/intelligence/evidence/joint-v1/** -text
+/docs/evidence/phase-4/intelligence/joint-delivery/** text eol=lf
+/services/intelligence_phase4/** text eol=lf
