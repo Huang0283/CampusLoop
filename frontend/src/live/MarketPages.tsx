@@ -13,6 +13,7 @@ const categories = [{ value: 'BOOKS', label: '图书教材' }, { value: 'DIGITAL
 const conditions = [{ value: 'NEW', label: '全新' }, { value: 'LIKE_NEW', label: '九成新' }, { value: 'GOOD', label: '八成新' }, { value: 'FAIR', label: '七成新' }]
 const searchModeOptions: Array<{ value: 'keyword' | 'hybrid' | 'semantic'; label: string }> = [{ value: 'keyword', label: '关键词' }, { value: 'hybrid', label: '混合' }, { value: 'semantic', label: '语义' }]
 const searchModeLabel: Record<'keyword' | 'hybrid' | 'semantic', string> = { keyword: '关键词检索', hybrid: '混合检索', semantic: '语义检索' }
+const searchExplanation: Record<api.SearchResult['mode'], string> = { keyword: '当前结果来自关键词检索；分类、成色与排序条件仍然生效。', hybrid: '后端返回混合检索结果；筛选条件仍然生效。', semantic: '后端返回语义检索结果；筛选条件仍然生效。' }
 const stateLabel: Record<string, string> = { ON_SALE: '在售', HIDDEN: '已下架', RESERVED: '已预订', SOLD: '已售出' }
 
 function requireStudent(navigate: ReturnType<typeof useNavigate>, from: string) {
@@ -51,7 +52,10 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
     try {
       return await runSearch(searchMode)
     } catch (error) {
-      if (error instanceof api.ApiError && error.status === 503 && searchMode !== 'keyword') return await runSearch('keyword')
+      if (error instanceof api.ApiError && error.status === 503 && searchMode !== 'keyword') {
+        const fallback = await runSearch('keyword')
+        return { ...fallback, degraded: true, degradationReason: `智能搜索暂不可用，已自动改用关键词。${fallback.degradationReason || error.code}` }
+      }
       throw error
     }
   }
@@ -60,7 +64,8 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const navigate = useNavigate()
   const location = useLocation()
   const change = (field: string, value: string) => { const next = new URLSearchParams(params); if (value) next.set(field, value); else next.delete(field); if (field !== 'page') next.delete('page'); setParams(next) }
-  const resultMode = remote.value && 'mode' in remote.value ? (remote.value as api.SearchResult).mode : undefined
+  const searchResult = remote.value && 'mode' in remote.value ? remote.value as api.SearchResult : undefined
+  const canRecoverSearch = mode === 'public' && query.trim() && searchMode !== 'keyword' && remote.error instanceof api.ApiError && (remote.error.status === 0 || remote.error.status >= 500)
   return <Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} extra={<Button type="primary" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
     <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
       {mode === 'public' && <><Select aria-label="搜索模式" value={searchMode} options={searchModeOptions} onChange={(value) => change('searchMode', value)} style={{ width: 120 }} />
@@ -69,9 +74,15 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
         <Select aria-label="商品排序" value={sort} options={[{ value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', value)} style={{ width: 160 }} /></>}
       <Button onClick={remote.reload}>刷新</Button>
     </Space>
-    <Failure error={mutation.error} /><Resource {...remote}>
-      {remote.value && 'degraded' in remote.value && Boolean(remote.value.degraded) && <Alert type="warning" title="搜索正在使用关键词降级结果" style={{ marginBottom: 16 }} />}
-      {resultMode && <Typography.Text type="secondary" style={{ display: 'block', marginBottom: 16 }}>当前使用：{searchModeLabel[resultMode]}</Typography.Text>}
+    <Failure error={mutation.error} />
+    {canRecoverSearch && <Button style={{ marginBottom: 16 }} onClick={() => change('searchMode', 'keyword')}>改用关键词搜索</Button>}
+    <Resource {...remote}>
+      {searchResult?.degraded && <Alert type="warning" title="搜索正在使用关键词降级结果" description={searchResult.degradationReason || '智能检索不可用，当前展示关键词结果。'} style={{ marginBottom: 16 }} />}
+      {searchResult && <div style={{ marginBottom: 16 }}>
+        <Typography.Text type="secondary">当前使用：{searchModeLabel[searchResult.mode]}</Typography.Text>
+        <div>结果版本：{searchResult.resultVersion || '后端未提供'}</div>
+        <Typography.Paragraph type="secondary">检索说明：{searchExplanation[searchResult.mode]}</Typography.Paragraph>
+      </div>}
       {remote.value?.items.length ? <ProductCards products={remote.value.items} from={location.pathname + location.search} actions={mode === 'mine' ? (product) => <Space wrap>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => navigate(`/product/${product.id}/edit`)}>编辑</Button>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.updateProductStatus({ path: { productId: product.id }, body: { status: product.status === 'ON_SALE' ? 'HIDDEN' : 'ON_SALE' } }); remote.reload() })}>{product.status === 'ON_SALE' ? '下架' : '上架'}</Button>
@@ -211,18 +222,26 @@ export function WantedFormPage() {
 export function MatchesPage() {
   const { wantedId } = useParams()
   const remote = useRemote(`matches-${wantedId}`, (signal) => api.data(api.listWantedMatches({ path: { wantedId: Number(wantedId) }, signal })))
-  // FE4-05 过期标识：惰性初始化只读取一次当前时间，避免在渲染期间直接调用 Date.now()（react-hooks/purity）。
-  const [now] = useState<number>(() => Date.now())
-  return <Page title="规则匹配结果" extra={<Button onClick={remote.reload}>刷新匹配</Button>}><Resource {...remote}>
+  const [now, setNow] = useState(() => Date.now())
+  useEffect(() => {
+    const update = () => setNow(Date.now())
+    const timer = window.setInterval(update, 1000)
+    window.addEventListener('focus', update)
+    return () => { window.clearInterval(timer); window.removeEventListener('focus', update) }
+  }, [])
+  return <Page title="供需匹配结果" extra={<Space><Link to="/notifications">查看匹配通知</Link><Button onClick={remote.reload}>刷新匹配</Button></Space>}><Resource {...remote}>
     {remote.value?.degraded && <Alert type="warning" title="正在使用关键词/规则降级结果" description={remote.value.degradationReason} style={{ marginBottom: 16 }} />}
     {remote.value?.items.length ? <ProductCards products={remote.value.items.map((item) => item.product)} actions={(product) => {
       const match = remote.value?.items.find((item) => item.product.id === product.id)
-      // FE4-05 过期标识：expiresAt 为 ISO 时间字符串，缺失或解析失败时按未过期处理，避免误标。
-      const expiresAt = match?.expiresAt
-      const isExpired = expiresAt ? Date.parse(expiresAt) < now : false
+      const expiresAt = Date.parse(match?.expiresAt || '')
+      const expiryKnown = Number.isFinite(expiresAt)
+      const isExpired = expiryKnown && expiresAt <= now
       return <>
-        <Typography.Paragraph type="secondary">{match?.reasons.join(' · ')}<br />规则相关度：{Math.round((match?.relevanceScore || 0) * 100)}%（不是成交概率）</Typography.Paragraph>
-        {isExpired && <Tag color="warning">已过期</Tag>}
+        <Typography.Paragraph type="secondary">匹配原因：{match?.reasons.join(' · ') || '后端未提供'}<br />相关度：{Math.round((match?.relevanceScore || 0) * 100)}%（不是成交概率）</Typography.Paragraph>
+        <div>硬约束：{match?.constraints?.join(' · ') || '后端未提供约束明细'}</div>
+        <div>结果版本：{match?.resultVersion || '后端未提供'}</div>
+        {expiryKnown ? <div>有效期至：{new Date(expiresAt).toLocaleString()}</div> : <Tag color="warning">有效期未知，请刷新确认</Tag>}
+        {isExpired && <><Tag color="warning">已过期</Tag><Typography.Paragraph type="warning">结果仅供历史参考，请刷新匹配确认当前商品。</Typography.Paragraph></>}
       </>
     }} /> : <NoItems />}
   </Resource></Page>
@@ -231,41 +250,50 @@ export function MatchesPage() {
 export function PricePage() {
   const mutation = useMutation()
   const [result, setResult] = useState<api.PriceAdvice>()
-  // FE4-06 样本不足：按 status 区分可用 / 样本不足 / 不可用三种状态，未定义时退回原有 lower === null 兜底逻辑。
+  // Read LOW_CONFIDENCE defensively until M6's updated generated SDK reaches this branch.
   let alertType: 'info' | 'warning' = 'info'
   let alertTitle = ''
   let rangeText = ''
-  let sampleText = ''
   let bodyRange = false
-  let showSample = false
   if (result) {
-    const hasRange = result.lower != null && result.upper != null
-    rangeText = hasRange ? `规则参考区间：¥${result.lower}–¥${result.upper}` : ''
-    sampleText = result.sampleSize != null ? `基于 ${result.sampleSize} 个样本` : ''
-    if (result.status === 'UNAVAILABLE') {
+    const hasRange = result.method !== 'unavailable' && result.lower != null && result.upper != null && Number.isFinite(result.lower) && Number.isFinite(result.upper) && result.lower >= 0 && result.upper >= result.lower
+    const source = result.method === 'model' ? '模型' : '规则'
+    rangeText = hasRange ? `${source}参考区间：¥${result.lower}–¥${result.upper}` : ''
+    if (result.status === 'UNAVAILABLE' || result.method === 'unavailable') {
       alertType = 'warning'
       alertTitle = '暂不可用，请手动定价'
     } else if (result.status === 'INSUFFICIENT_DATA') {
       alertType = 'warning'
-      alertTitle = hasRange ? '样本不足，以下为规则区间参考' : '样本不足，请手动定价'
+      bodyRange = hasRange && result.method === 'rule'
+      alertTitle = bodyRange ? '样本不足，以下为规则区间参考' : '样本不足，请手动定价'
+    } else if (String(result.status) === 'LOW_CONFIDENCE') {
+      alertType = 'warning'
+      alertTitle = hasRange ? '置信度较低，请结合实际情况手动定价' : '置信度较低，暂无法给出区间，请手动定价'
       bodyRange = hasRange
-      showSample = hasRange && sampleText !== ''
-    } else if (result.status === 'AVAILABLE') {
-      alertType = 'info'
-      alertTitle = hasRange ? rangeText : '数据不足或服务不可用，请手动定价。'
-      showSample = hasRange && sampleText !== ''
     } else {
-      alertType = result.method === 'unavailable' ? 'warning' : 'info'
-      alertTitle = result.lower === null ? '数据不足或服务不可用，请手动定价。' : `规则参考区间：¥${result.lower}–¥${result.upper}`
+      alertType = !hasRange || result.degraded ? 'warning' : 'info'
+      alertTitle = hasRange ? rangeText : '数据不足或服务不可用，请手动定价。'
     }
   }
-  return <Page title="规则价格建议"><Card><Failure error={mutation.error} />
-    <Form layout="vertical" initialValues={{ category: 'BOOKS', condition: 'GOOD' }} onFinish={(body: PriceAdviceRequest) => void mutation.run(async () => setResult(await api.data(api.getPriceAdvice({ body }))))}>
+  return <Page title="价格建议"><Card><Failure error={mutation.error} />
+    {mutation.error != null && !result && <Alert type="warning" title="价格建议获取失败，请重试或手动定价。" style={{ marginBottom: 16 }} />}
+    <Form layout="vertical" disabled={mutation.busy} initialValues={{ category: 'BOOKS', condition: 'GOOD' }} onValuesChange={() => setResult(undefined)} onFinish={(body: PriceAdviceRequest) => void mutation.run(async () => {
+      setResult(undefined)
+      setResult(await api.data(api.getPriceAdvice({ body })))
+    })}>
       <Form.Item name="category" label="分类" rules={[{ required: true }]}><Select options={categories} /></Form.Item>
       <Form.Item name="condition" label="成色" rules={[{ required: true }]}><Select options={conditions} /></Form.Item>
-      <Form.Item name="originalPrice" label="原价（元）"><InputNumber min={0} precision={2} /></Form.Item>
+      <Form.Item name="originalPrice" label="原价（元）" rules={[{ type: 'number', min: 0.01, max: 99999999.99 }]}><InputNumber min={0.01} max={99999999.99} precision={2} /></Form.Item>
       <Button type="primary" htmlType="submit" loading={mutation.busy}>计算区间</Button>
     </Form>
-    {result && <Alert style={{ marginTop: 20 }} type={alertType} title={alertTitle} description={<>{bodyRange && <div>{rangeText}</div>}{showSample && <div>{sampleText}</div>}<div>{result.factors.join(' · ')}</div><div>{result.disclaimer}</div><small>{result.resultVersion} · {result.degradationReason}</small></>} />}
+    {result && <Alert style={{ marginTop: 20 }} type={alertType} title={alertTitle} description={<>
+      {bodyRange && <div>{rangeText}</div>}
+      {result.sampleSize != null && <div>基于 {result.sampleSize} 个样本</div>}
+      {result.degraded && <div>已降级：{result.degradationReason || '智能服务不可用，当前仅供参考。'}</div>}
+      {!result.degraded && result.degradationReason && <div>{result.degradationReason}</div>}
+      <div>影响因素：{result.factors.join(' · ') || '后端未提供'}</div>
+      <div>{result.disclaimer || '仅供参考，不保证成交价，请自主协商。'}</div>
+      <small>结果版本：{result.resultVersion || '后端未提供'}</small>
+    </>} />}
   </Card></Page>
 }
