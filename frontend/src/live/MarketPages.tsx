@@ -11,6 +11,8 @@ import { useAttemptKey } from './idempotency'
 
 const categories = [{ value: 'BOOKS', label: '图书教材' }, { value: 'DIGITAL', label: '数码电子' }, { value: 'DAILY', label: '生活用品' }, { value: 'SPORTS', label: '运动户外' }, { value: 'clothing', label: '服饰鞋包' }, { value: 'other', label: '其他' }]
 const conditions = [{ value: 'NEW', label: '全新' }, { value: 'LIKE_NEW', label: '九成新' }, { value: 'GOOD', label: '八成新' }, { value: 'FAIR', label: '七成新' }]
+const searchModeOptions: Array<{ value: 'keyword' | 'hybrid' | 'semantic'; label: string }> = [{ value: 'keyword', label: '关键词' }, { value: 'hybrid', label: '混合' }, { value: 'semantic', label: '语义' }]
+const searchModeLabel: Record<'keyword' | 'hybrid' | 'semantic', string> = { keyword: '关键词检索', hybrid: '混合检索', semantic: '语义检索' }
 const stateLabel: Record<string, string> = { ON_SALE: '在售', HIDDEN: '已下架', RESERVED: '已预订', SOLD: '已售出' }
 
 function requireStudent(navigate: ReturnType<typeof useNavigate>, from: string) {
@@ -36,20 +38,40 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const query = params.get('query') || ''
   const page = Math.max(1, Number(params.get('page')) || 1)
   const sort = params.get('sort') === 'price_asc' ? 'price_asc' : params.get('sort') === 'price_desc' ? 'price_desc' : 'newest'
-  const remote = useRemote(`catalog-${mode}-${params.toString()}`, (signal) => mode === 'mine' ? api.data(api.listMyProducts({ signal, query: { query, page, pageSize: 12 } })) : mode === 'favorites' ? api.data(api.listFavorites({ signal, query: { page, pageSize: 12 } })) : query.trim() ? api.data(api.searchProducts({ signal, query: { query, page, pageSize: 12, sort, category: params.get('category') || undefined, condition: params.get('condition') || undefined } })) : api.data(api.listProducts({ signal, query: { query, page, pageSize: 12, sort, category: params.get('category') || undefined, condition: params.get('condition') || undefined } })))
+  const rawSearchMode = params.get('searchMode')
+  const searchMode: 'keyword' | 'hybrid' | 'semantic' = rawSearchMode === 'keyword' || rawSearchMode === 'semantic' ? rawSearchMode : 'hybrid'
+  const category = params.get('category') || undefined
+  const condition = params.get('condition') || undefined
+  // FE4-04 搜索降级：先按所选模式请求，503 且非 keyword 时自动用 keyword 重试一次，仍失败才交给 error 状态。
+  const loadCatalog = async (signal: AbortSignal) => {
+    if (mode === 'mine') return api.data(api.listMyProducts({ signal, query: { query, page, pageSize: 12 } }))
+    if (mode === 'favorites') return api.data(api.listFavorites({ signal, query: { page, pageSize: 12 } }))
+    if (!query.trim()) return api.data(api.listProducts({ signal, query: { query, page, pageSize: 12, sort, category, condition } }))
+    const runSearch = (searchModeArg: 'keyword' | 'hybrid' | 'semantic') => api.data(api.searchProducts({ signal, query: { query, page, pageSize: 12, sort, category, condition, mode: searchModeArg } }))
+    try {
+      return await runSearch(searchMode)
+    } catch (error) {
+      if (error instanceof api.ApiError && error.status === 503 && searchMode !== 'keyword') return await runSearch('keyword')
+      throw error
+    }
+  }
+  const remote = useRemote(`catalog-${mode}-${params.toString()}`, loadCatalog)
   const mutation = useMutation()
   const navigate = useNavigate()
   const location = useLocation()
   const change = (field: string, value: string) => { const next = new URLSearchParams(params); if (value) next.set(field, value); else next.delete(field); if (field !== 'page') next.delete('page'); setParams(next) }
+  const resultMode = remote.value && 'mode' in remote.value ? (remote.value as api.SearchResult).mode : undefined
   return <Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} extra={<Button type="primary" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
     <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
-      {mode === 'public' && <><Select aria-label="商品分类" placeholder="全部分类" allowClear style={{ width: 140 }} options={categories} value={params.get('category') || undefined} onChange={(value) => change('category', value || '')} />
+      {mode === 'public' && <><Select aria-label="搜索模式" value={searchMode} options={searchModeOptions} onChange={(value) => change('searchMode', value)} style={{ width: 120 }} />
+        <Select aria-label="商品分类" placeholder="全部分类" allowClear style={{ width: 140 }} options={categories} value={params.get('category') || undefined} onChange={(value) => change('category', value || '')} />
         <Select aria-label="商品成色" placeholder="全部成色" allowClear style={{ width: 140 }} options={conditions} value={params.get('condition') || undefined} onChange={(value) => change('condition', value || '')} />
         <Select aria-label="商品排序" value={sort} options={[{ value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', value)} style={{ width: 160 }} /></>}
       <Button onClick={remote.reload}>刷新</Button>
     </Space>
     <Failure error={mutation.error} /><Resource {...remote}>
       {remote.value && 'degraded' in remote.value && Boolean(remote.value.degraded) && <Alert type="warning" title="搜索正在使用关键词降级结果" style={{ marginBottom: 16 }} />}
+      {resultMode && <Typography.Text type="secondary" style={{ display: 'block', marginBottom: 16 }}>当前使用：{searchModeLabel[resultMode]}</Typography.Text>}
       {remote.value?.items.length ? <ProductCards products={remote.value.items} from={location.pathname + location.search} actions={mode === 'mine' ? (product) => <Space wrap>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => navigate(`/product/${product.id}/edit`)}>编辑</Button>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.updateProductStatus({ path: { productId: product.id }, body: { status: product.status === 'ON_SALE' ? 'HIDDEN' : 'ON_SALE' } }); remote.reload() })}>{product.status === 'ON_SALE' ? '下架' : '上架'}</Button>
@@ -189,11 +211,19 @@ export function WantedFormPage() {
 export function MatchesPage() {
   const { wantedId } = useParams()
   const remote = useRemote(`matches-${wantedId}`, (signal) => api.data(api.listWantedMatches({ path: { wantedId: Number(wantedId) }, signal })))
+  // FE4-05 过期标识：惰性初始化只读取一次当前时间，避免在渲染期间直接调用 Date.now()（react-hooks/purity）。
+  const [now] = useState<number>(() => Date.now())
   return <Page title="规则匹配结果" extra={<Button onClick={remote.reload}>刷新匹配</Button>}><Resource {...remote}>
     {remote.value?.degraded && <Alert type="warning" title="正在使用关键词/规则降级结果" description={remote.value.degradationReason} style={{ marginBottom: 16 }} />}
     {remote.value?.items.length ? <ProductCards products={remote.value.items.map((item) => item.product)} actions={(product) => {
       const match = remote.value?.items.find((item) => item.product.id === product.id)
-      return <Typography.Paragraph type="secondary">{match?.reasons.join(' · ')}<br />规则相关度：{Math.round((match?.relevanceScore || 0) * 100)}%（不是成交概率）</Typography.Paragraph>
+      // FE4-05 过期标识：expiresAt 为 ISO 时间字符串，缺失或解析失败时按未过期处理，避免误标。
+      const expiresAt = match?.expiresAt
+      const isExpired = expiresAt ? Date.parse(expiresAt) < now : false
+      return <>
+        <Typography.Paragraph type="secondary">{match?.reasons.join(' · ')}<br />规则相关度：{Math.round((match?.relevanceScore || 0) * 100)}%（不是成交概率）</Typography.Paragraph>
+        {isExpired && <Tag color="warning">已过期</Tag>}
+      </>
     }} /> : <NoItems />}
   </Resource></Page>
 }
@@ -201,6 +231,34 @@ export function MatchesPage() {
 export function PricePage() {
   const mutation = useMutation()
   const [result, setResult] = useState<api.PriceAdvice>()
+  // FE4-06 样本不足：按 status 区分可用 / 样本不足 / 不可用三种状态，未定义时退回原有 lower === null 兜底逻辑。
+  let alertType: 'info' | 'warning' = 'info'
+  let alertTitle = ''
+  let rangeText = ''
+  let sampleText = ''
+  let bodyRange = false
+  let showSample = false
+  if (result) {
+    const hasRange = result.lower != null && result.upper != null
+    rangeText = hasRange ? `规则参考区间：¥${result.lower}–¥${result.upper}` : ''
+    sampleText = result.sampleSize != null ? `基于 ${result.sampleSize} 个样本` : ''
+    if (result.status === 'UNAVAILABLE') {
+      alertType = 'warning'
+      alertTitle = '暂不可用，请手动定价'
+    } else if (result.status === 'INSUFFICIENT_DATA') {
+      alertType = 'warning'
+      alertTitle = hasRange ? '样本不足，以下为规则区间参考' : '样本不足，请手动定价'
+      bodyRange = hasRange
+      showSample = hasRange && sampleText !== ''
+    } else if (result.status === 'AVAILABLE') {
+      alertType = 'info'
+      alertTitle = hasRange ? rangeText : '数据不足或服务不可用，请手动定价。'
+      showSample = hasRange && sampleText !== ''
+    } else {
+      alertType = result.method === 'unavailable' ? 'warning' : 'info'
+      alertTitle = result.lower === null ? '数据不足或服务不可用，请手动定价。' : `规则参考区间：¥${result.lower}–¥${result.upper}`
+    }
+  }
   return <Page title="规则价格建议"><Card><Failure error={mutation.error} />
     <Form layout="vertical" initialValues={{ category: 'BOOKS', condition: 'GOOD' }} onFinish={(body: PriceAdviceRequest) => void mutation.run(async () => setResult(await api.data(api.getPriceAdvice({ body }))))}>
       <Form.Item name="category" label="分类" rules={[{ required: true }]}><Select options={categories} /></Form.Item>
@@ -208,6 +266,6 @@ export function PricePage() {
       <Form.Item name="originalPrice" label="原价（元）"><InputNumber min={0} precision={2} /></Form.Item>
       <Button type="primary" htmlType="submit" loading={mutation.busy}>计算区间</Button>
     </Form>
-    {result && <Alert style={{ marginTop: 20 }} type={result.method === 'unavailable' ? 'warning' : 'info'} title={result.lower === null ? '数据不足或服务不可用，请手动定价。' : `规则参考区间：¥${result.lower}–¥${result.upper}`} description={<><div>{result.factors.join(' · ')}</div><div>{result.disclaimer}</div><small>{result.resultVersion} · {result.degradationReason}</small></>} />}
+    {result && <Alert style={{ marginTop: 20 }} type={alertType} title={alertTitle} description={<>{bodyRange && <div>{rangeText}</div>}{showSample && <div>{sampleText}</div>}<div>{result.factors.join(' · ')}</div><div>{result.disclaimer}</div><small>{result.resultVersion} · {result.degradationReason}</small></>} />}
   </Card></Page>
 }
