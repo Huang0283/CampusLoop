@@ -17,6 +17,9 @@ class VectorIndex:
                     vector TEXT, deleted INTEGER NOT NULL);
             """)
         except sqlite3.Error as exc:
+            connection = getattr(self, "connection", None)
+            if connection is not None:
+                connection.close()
             raise CandidateUnavailable("INDEX_UNAVAILABLE") from exc
 
     def close(self):
