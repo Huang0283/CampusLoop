@@ -23,7 +23,7 @@ python -m services.intelligence_phase4.verify --output-dir C:/Users/Administrato
 
 ## Follow-up acceptance status
 
-M8 subsequently reran the latest group branch `f1b9b7519b51d896c09d36e391632d9460da1940`, completed the group review, and recorded `ACCEPTED_WITH_NO_GO`; see [m8-closeout.md](m8-closeout.md). The original author-only observations below remain as historical context.
+M8 subsequently reran the latest group branch `f1b9b7519b51d896c09d36e391632d9460da1940`, completed the author technical check, and recorded `ACCEPTED_WITH_NO_GO`; formal cross-review remains pending. See [m8-closeout.md](m8-closeout.md). The original author-only observations below remain as historical context.
 
 - Keep candidate deployment disabled while the readiness decision is `NO_GO`.
 - Rerun pinned-model inference when the approved BGE model artifact is available and verify its recorded digest.
