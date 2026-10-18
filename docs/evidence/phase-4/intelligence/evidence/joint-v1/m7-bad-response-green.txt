@@ -1,0 +1,25 @@
+python.exe : test_503_504_and_timeout_recover_with_explicit_reasons (test_response_http.ResponseRecoveryTests.test_503_
+504_and_timeout_recover_with_explicit_reasons) ... ok
+所在位置 行:4 字符: 1
++ & '../joint-clean-venv-20261008/Scripts/python.exe' -m unittest disco ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_503_504_an...reasons) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_error_statuses_never_fall_back_around_permission_or_state_rejection (test_response_http.ResponseRecoveryTests.test
+_error_statuses_never_fall_back_around_permission_or_state_rejection) ... ok
+test_invalid_reply_cannot_turn_stale_input_into_a_current_result (test_response_http.ResponseRecoveryTests.test_invalid
+_reply_cannot_turn_stale_input_into_a_current_result) ... ok
+test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_malfo
+rmed_json_and_envelopes_recover_to_the_filtered_baseline) ... ok
+test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTests.
+test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) ... ok
+test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.test_u
+nknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) ... ok
+test_valid_keyword_semantic_disabled_browse_and_empty_results_are_preserved (test_response_http.ResponseRecoveryTests.t
+est_valid_keyword_semantic_disabled_browse_and_empty_results_are_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.102s
+
+OK
