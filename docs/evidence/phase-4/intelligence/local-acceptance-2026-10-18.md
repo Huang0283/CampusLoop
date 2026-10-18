@@ -21,9 +21,11 @@ python -m services.m8_phase4.verify --output-dir C:/Users/Administrator/AppData/
 python -m services.intelligence_phase4.verify --output-dir C:/Users/Administrator/AppData/Local/Temp/CampusLoop-intelligence-p4-final-20261018
 ```
 
-## Remaining acceptance gates
+## Follow-up acceptance status
+
+M8 subsequently reran the latest group branch `f1b9b7519b51d896c09d36e391632d9460da1940`, completed the group review, and recorded `ACCEPTED_WITH_NO_GO`; see [m8-closeout.md](m8-closeout.md). The original author-only observations below remain as historical context.
 
 - Keep candidate deployment disabled while the readiness decision is `NO_GO`.
 - Rerun pinned-model inference when the approved BGE model artifact is available and verify its recorded digest.
-- Complete the M1/M10 and M8/M6/M9 human confirmations required by Issue #31.
+- Complete the M1/M10 and M6/M9 confirmations required by Issue #31.
 - Do not close Issue #31 or merge the phase branch into `main` based on this local technical verification alone.
