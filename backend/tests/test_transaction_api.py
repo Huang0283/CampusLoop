@@ -81,6 +81,47 @@ def pending_order(client, seller, buyer):
     return item, sid, accepted.json()["data"]["order"]
 
 
+def test_product_price_order_rejection_is_422_and_correction_can_retry(client):
+    seller = account(client)
+    title = "Price validation " + uuid.uuid4().hex
+    body = {
+        "title": title,
+        "category": "other",
+        "condition": "GOOD",
+        "price": 2,
+        "originalPrice": 0.5,
+        "campusLocation": "Library",
+        "images": [image_url(client, seller)],
+    }
+    request_headers = key_headers(seller)
+    rejected = client.post("/products", headers=request_headers, json=body)
+    assert rejected.status_code == 422, rejected.text
+    assert rejected.json()["code"] == "VALIDATION_ERROR"
+    assert rejected.json()["details"]["fields"] == ["body.originalPrice"]
+    with SessionLocal() as db:
+        assert (
+            db.scalar(select(func.count()).select_from(Product).where(Product.title == title)) == 0
+        )
+
+    # An input rejection must not consume the idempotency key or upload reference.
+    created = client.post(
+        "/products", headers=request_headers, json={**body, "originalPrice": None}
+    )
+    assert created.status_code == 201, created.text
+    identity = created.json()["data"]["id"]
+    edited = client.patch(f"/products/{identity}", headers=headers(seller), json=body)
+    assert edited.status_code == 422, edited.text
+    saved = client.get(f"/products/{identity}").json()["data"]
+    assert saved["price"] == 2 and "originalPrice" not in saved
+    corrected = client.patch(
+        f"/products/{identity}",
+        headers=headers(seller),
+        json={**body, "originalPrice": 2},
+    )
+    assert corrected.status_code == 200, corrected.text
+    assert corrected.json()["data"]["originalPrice"] == 2
+
+
 def test_two_account_durable_journey_and_permissions(client):
     seller, buyer, stranger = account(client), account(client), account(client)
     item, sid, order = pending_order(client, seller, buyer)
@@ -198,7 +239,7 @@ def test_meetup_revision_clears_confirmations_and_cancel_eligibility(client):
     oid = entity["id"]
     body = {
         "campusLocation": "Gate",
-        "scheduledDate": "2026-10-12",
+        "scheduledDate": (datetime.now(UTC) + timedelta(days=1)).date().isoformat(),
         "timeSlotStart": "12:00",
         "timeSlotEnd": "13:00",
     }
@@ -249,6 +290,68 @@ def test_meetup_revision_clears_confirmations_and_cancel_eligibility(client):
         ).status_code
         == 409
     )
+
+
+def test_meetup_time_rejection_preserves_state_and_requires_reschedule(client, monkeypatch):
+    from app.services import meetup_time
+
+    clock = datetime(2026, 10, 15, 1, tzinfo=UTC)  # Campus time 09:00.
+    monkeypatch.setattr(meetup_time, "utcnow", lambda: clock)
+    seller, buyer = account(client), account(client)
+    _, _, entity = pending_order(client, seller, buyer)
+    oid = entity["id"]
+    body = {
+        "campusLocation": "Library",
+        "scheduledDate": "2026-10-15",
+        "timeSlotStart": "10:00",
+        "timeSlotEnd": "11:00",
+    }
+    before = client.get(f"/orders/{oid}/events", headers=headers(buyer)).json()
+    for invalid in (
+        {**body, "scheduledDate": "2026-10-14"},
+        {**body, "timeSlotStart": "08:00"},
+        {**body, "timeSlotStart": "09:00"},
+        {**body, "timeSlotEnd": "09:30"},
+    ):
+        rejected = client.post(f"/orders/{oid}/meetup", headers=key_headers(buyer), json=invalid)
+        assert rejected.status_code == 422, rejected.text
+        assert rejected.json()["code"] == "VALIDATION_ERROR"
+    assert client.get(f"/orders/{oid}", headers=headers(buyer)).json()["data"].get("meetup") is None
+    assert client.get(f"/orders/{oid}/events", headers=headers(buyer)).json() == before
+    save_headers = key_headers(buyer)
+    saved = client.post(f"/orders/{oid}/meetup", headers=save_headers, json=body)
+    assert saved.status_code == 200, saved.text
+    meeting = saved.json()["data"]
+    confirm = {"meetupId": meeting["id"], "version": meeting["version"]}
+    assert (
+        client.post(
+            f"/orders/{oid}/meetup/confirm", headers=key_headers(buyer), json=confirm
+        ).status_code
+        == 200
+    )
+    clock += timedelta(hours=2)  # It is now 11:00; the unconfirmed slot has elapsed.
+    assert (
+        client.post(f"/orders/{oid}/meetup", headers=save_headers, json=body).json() == saved.json()
+    )  # Retry returns the original result without another version.
+    rejected = client.post(
+        f"/orders/{oid}/meetup/confirm", headers=key_headers(seller), json=confirm
+    )
+    assert rejected.status_code == 409, rejected.text
+    assert rejected.json()["code"] == "ORDER_STATE_CONFLICT"
+    unchanged = client.get(f"/orders/{oid}", headers=headers(buyer)).json()["data"]["meetup"]
+    assert unchanged["version"] == meeting["version"] and not unchanged["sellerConfirmed"]
+    assert (
+        client.post(f"/orders/{oid}/meetup", headers=key_headers(buyer), json=body).status_code
+        == 422
+    )
+    revised = client.post(
+        f"/orders/{oid}/meetup",
+        headers=key_headers(buyer),
+        json={**body, "scheduledDate": "2026-10-16"},
+    )
+    assert revised.status_code == 200, revised.text
+    assert revised.json()["data"]["version"] == meeting["version"] + 1
+    assert not revised.json()["data"]["buyerConfirmed"]
 
 
 def test_concurrent_accept_creates_one_order(client):
