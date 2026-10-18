@@ -23,10 +23,10 @@
       "status": "PENDING"
     },
     "M8": {
-      "date": null,
-      "reviewer": null,
-      "signature": null,
-      "status": "PENDING"
+      "date": "2026-10-18",
+      "reviewer": "M8",
+      "signature": "task/m8-p4-closeout",
+      "status": "ACCEPTED_WITH_NO_GO"
     },
     "M9": {
       "date": null,
