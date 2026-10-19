@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "examples": 7,
+  "kinds": {
+    "price_public": 2,
+    "risk_admin": 1,
+    "risk_public": 1,
+    "fallback": 1,
+    "trust_public": 2
+  }
+}

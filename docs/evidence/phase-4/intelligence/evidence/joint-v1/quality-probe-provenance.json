@@ -1,0 +1,120 @@
+{
+  "checkerNormalizedSha256": "4df094ead762533adaca82845f124ce3b3dd4b021c79fbe2c7d38621c2b50a0f",
+  "checkerSourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+  "executedAt": "2026-10-17T13:37:55.807932+00:00",
+  "executionRole": "M7_AUTHOR_REPLAY_NOT_M10_SIGNOFF",
+  "formalAcceptance": false,
+  "observations": [
+    {
+      "actual": "response-returned",
+      "capability": "M7 ranking",
+      "scenario": "normal",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M7 ranking",
+      "scenario": "timeout",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M7 ranking",
+      "scenario": "off",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M7 ranking",
+      "scenario": "bad-shape",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M7 ranking",
+      "scenario": "bad-json",
+      "status": "PASS"
+    },
+    {
+      "actual": "ServiceError:STALE_INPUT",
+      "capability": "M7 ranking",
+      "scenario": "stale-input",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 price",
+      "scenario": "timeout",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 price",
+      "scenario": "off",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 price",
+      "scenario": "bad-shape",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 price",
+      "scenario": "bad-json",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 trust",
+      "scenario": "timeout",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 trust",
+      "scenario": "off",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 trust",
+      "scenario": "bad-shape",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 trust",
+      "scenario": "bad-json",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 risk",
+      "scenario": "timeout",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 risk",
+      "scenario": "off",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 risk",
+      "scenario": "bad-shape",
+      "status": "PASS"
+    },
+    {
+      "actual": "safe-fallback",
+      "capability": "M8 risk",
+      "scenario": "bad-json",
+      "status": "PASS"
+    }
+  ],
+  "rootBinding": "Pinned diagnostic source bytes unchanged; imports and ROOT bound to explicit selected checkout",
+  "targetCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "targetWorkingTreeDirty": false
+}

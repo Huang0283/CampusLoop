@@ -1,0 +1,74 @@
+{
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY; M8_REVIEW_M10_M1_SIGNOFF_PENDING",
+  "deploymentEnabled": false,
+  "endedAt": "2026-10-17T15:51:12.718992+00:00",
+  "environment": {
+    "machine": "AMD64",
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.14"
+  },
+  "formalStageComplete": false,
+  "semanticInferenceReproduced": true,
+  "sourceCommit": "45acf879bf41c18baae4f89584c9e1732f848c97",
+  "startedAt": "2026-10-17T15:47:35.883279+00:00",
+  "status": "PASS",
+  "steps": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m7_baseline.verify",
+        "--output-dir",
+        "<output>\\m7-baseline"
+      ],
+      "exitCode": 0,
+      "name": "m7-baseline",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "4a3a29ce52082e89f8021a4966fe4d38fa1235ea590f5373f7b79c9ba61f5965"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m8_phase4.verify",
+        "--output-dir",
+        "<output>\\m8",
+        "--source-commit",
+        "45acf879bf41c18baae4f89584c9e1732f848c97"
+      ],
+      "exitCode": 0,
+      "name": "m8-regression",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "8c63dd4e4f309e3b9a9d35f52b287083f1c397256490846ae8c905a4c47bf33e"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.intelligence_phase4.smoke",
+        "--output-dir",
+        "<output>\\deployment"
+      ],
+      "exitCode": 0,
+      "name": "joint-deployment",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "eaf5f80a3d9bb78eaa33828c4737fec006e3647ee72fda604f72ba714bcf153d"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m7_semantic.verify",
+        "--model-dir",
+        "<pinned-model>",
+        "--output-dir",
+        "<output>\\m7-semantic"
+      ],
+      "exitCode": 0,
+      "name": "m7-model-reproduction",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "535f304ef1380b41e010c86691d89815c634012041410e0a74b563f8d1190b12"
+    }
+  ],
+  "workingTreeDirty": false
+}

@@ -1,0 +1,126 @@
+{
+  "actualReviewerSource": "Direct user confirmation; one named reviewer, not an M8 independent signoff",
+  "authorRole": "Codex records user-confirmed prior review and organizes factual reasons; diagnostic execution is author-run",
+  "candidateDecision": "NO_GO",
+  "environment": {
+    "baseline": "Fresh isolated Python3.12.14 exact six-version profile created earlier; reused for this run",
+    "candidate": "Existing Windows AMD64 CPU32-version profile and hash-pinned BGE model"
+  },
+  "evaluationCommands": [
+    [
+      "python",
+      "-m",
+      "services.m7_baseline.evaluate",
+      "--review-archive",
+      "archive",
+      "--output-dir",
+      "baseline"
+    ],
+    [
+      "python",
+      "-m",
+      "services.m7_semantic.evaluate",
+      "--review-archive",
+      "archive",
+      "--model-dir",
+      "<pinned-local-model>",
+      "--output-dir",
+      "candidate"
+    ]
+  ],
+  "formalAcceptance": false,
+  "humanReviewedPairs": 228,
+  "labelDifferences": 0,
+  "labelVersion": "m7-label-reviewed-20261018-v1",
+  "metricsUnchangedFromOriginalLabels": true,
+  "originalNonReviewFieldsUnchanged": true,
+  "originalSourceSheetUnchanged": true,
+  "recalculations": [
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "baseline/evaluation-input-all.json",
+        "--output",
+        "baseline/recalculated-all.json"
+      ],
+      "kind": "baseline",
+      "split": "all",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "baseline/evaluation-input-dev.json",
+        "--output",
+        "baseline/recalculated-dev.json"
+      ],
+      "kind": "baseline",
+      "split": "dev",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "baseline/evaluation-input-test_candidate.json",
+        "--output",
+        "baseline/recalculated-test_candidate.json"
+      ],
+      "kind": "baseline",
+      "split": "test_candidate",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "candidate/evaluation-input-all.json",
+        "--output",
+        "candidate/recalculated-all.json"
+      ],
+      "kind": "candidate",
+      "split": "all",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "candidate/evaluation-input-dev.json",
+        "--output",
+        "candidate/recalculated-dev.json"
+      ],
+      "kind": "candidate",
+      "split": "dev",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "candidate/evaluation-input-test_candidate.json",
+        "--output",
+        "candidate/recalculated-test_candidate.json"
+      ],
+      "kind": "candidate",
+      "split": "test_candidate",
+      "status": "PASS"
+    }
+  ],
+  "recordedAt": "2026-10-19T01:03:38.170156+00:00",
+  "reviewArchiveStatus": "HUMAN_REVIEWED_UNSEALED",
+  "reviewedAt": "2026-10-18T23:31:00+08:00",
+  "reviewer": "KkkkRui",
+  "sourceCommit": "ca5a884c4980f2412da7bbd04ffb969ada5baae2",
+  "sourceDraftLabelsUnchanged": true,
+  "status": "PASS_REVIEW_ARCHIVE_AND_DIAGNOSTIC_REEVALUATION",
+  "testSetSealed": false
+}

@@ -1,3 +1,7 @@
+2026-10-17 联合续交付：M7 私有候选、坏响应修复、AI4-09 双服务回滚，以及 AI4-10 待原负责人确认材料已提交 [PR #107](https://github.com/Huang0283/CampusLoop/pull/107)。见 [联合交付入口](joint-delivery/README.md)。下文 M8 原交付清单保留，不代表原负责人已经确认新增联合材料。
+
+---
+
 # Phase 4 智能功能组交付清单：M8 验收补齐
 
 本清单对应 [Issue #31](https://github.com/Huang0283/CampusLoop/issues/31) 的 M8 范围，承接已合并 PR #97；不代填 M7、M10 或 M1 的交付结果。

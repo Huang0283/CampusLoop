@@ -1,0 +1,43 @@
+{
+  "AI4_09": "TECHNICAL_PASS_M6_M9_RELEASE_ACCEPTANCE_PENDING",
+  "AI4_10": "EVIDENCE_READY_ORIGINAL_M10_M1_CONFIRMATION_PENDING",
+  "M1FreezeApproved": false,
+  "codeCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "confirmations": {
+    "M1": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M10": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M6": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M8": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M9": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    }
+  },
+  "currentM10IndependentSignoff": false,
+  "humanDecisionOwnerChoice": "User explicitly chose original responsible members to confirm on 2026-10-17",
+  "originalM10HistoricalDiagnostic": true,
+  "recordedOn": "2026-10-17",
+  "technicalRecommendation": "KEEP_PHASE3_BASELINES; BOTH_CANDIDATES_NO_GO"
+}

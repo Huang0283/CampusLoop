@@ -1,0 +1,2692 @@
+{
+  "metadata": {
+    "candidateScope": "COMPLETE_CATALOG_POOL",
+    "datasetVersion": "m7-synthetic-p2-v1.1",
+    "kValues": [
+      1,
+      5,
+      10
+    ],
+    "labelSource": "PENDING_HUMAN_REVIEW",
+    "labelVersion": "m7-label-draft-v1",
+    "schemaVersion": "intelligence-ranking-eval-v1",
+    "snapshotVersion": "m7-historical-asof-20260926",
+    "splitVersion": "m7-catalog-split-v1:all"
+  },
+  "metricVersion": "ranking-metrics-v1",
+  "modelEffectEvaluated": false,
+  "recallScope": "COMPLETE_CATALOG_POOL",
+  "runs": [
+    {
+      "algorithmVersion": "m7-keyword-v0+match-v0",
+      "byTask": {
+        "matching": {
+          "excludedRequestCount": 3,
+          "hardViolationCount": 0,
+          "hardViolationRate": 0.0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 10,
+              "precision": 1.0,
+              "recall": 0.48333333333333334
+            },
+            "label>=1@10": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 10,
+              "precision": 0.21000000000000002,
+              "recall": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 10,
+              "precision": 0.42000000000000004,
+              "recall": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 10,
+              "precision": 1.0,
+              "recall": 0.48333333333333334
+            },
+            "label>=2@10": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 10,
+              "precision": 0.21000000000000002,
+              "recall": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": 1,
+              "noAnswerRequestCount": 1,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 10,
+              "precision": 0.42000000000000004,
+              "recall": 1.0
+            }
+          },
+          "requestCount": 14,
+          "returnedCount": 25
+        },
+        "search": {
+          "excludedRequestCount": 0,
+          "hardViolationCount": 0,
+          "hardViolationRate": 0.0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": null,
+              "noAnswerRequestCount": 0,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 24,
+              "precision": 1.0,
+              "recall": 0.29166666666666663
+            },
+            "label>=1@10": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": null,
+              "noAnswerRequestCount": 0,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 24,
+              "precision": 0.3458333333333333,
+              "recall": 0.9861111111111112
+            },
+            "label>=1@5": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": null,
+              "noAnswerRequestCount": 0,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 24,
+              "precision": 0.6916666666666667,
+              "recall": 0.9861111111111112
+            },
+            "label>=2@1": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": null,
+              "noAnswerRequestCount": 0,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 24,
+              "precision": 1.0,
+              "recall": 0.41666666666666663
+            },
+            "label>=2@10": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": null,
+              "noAnswerRequestCount": 0,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 24,
+              "precision": 0.25,
+              "recall": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendationCount": 0,
+              "mrr": 1.0,
+              "noAnswerEmptyAccuracy": null,
+              "noAnswerRequestCount": 0,
+              "positiveEmptyRate": 0,
+              "positiveRequestCount": 24,
+              "precision": 0.5,
+              "recall": 1.0
+            }
+          },
+          "requestCount": 24,
+          "returnedCount": 83
+        }
+      },
+      "perRequest": [
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "bicycle-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "302",
+            "301"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "bicycle-search-exact",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "301",
+            "302",
+            "303"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 0.6666666666666666,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 0.6666666666666666,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "bicycle-search-natural",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "302",
+            "301"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "calculator-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "102",
+            "101"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "calculator-search-exact",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "101",
+            "102",
+            "103"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "calculator-search-natural",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "102",
+            "101",
+            "103"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "calculus-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "402",
+            "401"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "calculus-search-exact",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "401",
+            "403",
+            "402"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "calculus-search-natural",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "402",
+            "401",
+            "403"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "camera-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "801",
+            "802"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=1@10": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=1@5": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=2@1": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=2@10": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            },
+            "label>=2@5": {
+              "falseRecommendations": 0,
+              "noAnswerEmpty": true,
+              "positiveCount": 0,
+              "positiveReturnedEmpty": null,
+              "precision": null,
+              "recall": null,
+              "reciprocalRank": null
+            }
+          },
+          "requestId": "camera-matching-no-answer",
+          "returnedCount": 0,
+          "returnedProductIds": [],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "camera-search-exact",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "801",
+            "802",
+            "803"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "camera-search-natural",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "801",
+            "802",
+            "803"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "fan-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "602",
+            "601"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "fan-search-exact",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "601",
+            "606",
+            "602",
+            "603"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "fan-search-natural",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "602",
+            "601",
+            "606",
+            "603"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "guitar-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "1101",
+            "1102"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "guitar-search-exact",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "1101",
+            "1106",
+            "1102",
+            "1103"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "guitar-search-natural",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "1101",
+            "1102",
+            "1106",
+            "1103"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "headphones-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "902",
+            "901"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "headphones-search-exact",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "901",
+            "902",
+            "903"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "headphones-search-natural",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "902",
+            "901",
+            "903"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "keyboard-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "502",
+            "501"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "keyboard-search-exact",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "501",
+            "506",
+            "502",
+            "503"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "keyboard-search-natural",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "502",
+            "501",
+            "506",
+            "503"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": "unresolved_U_exclude_entire_query_from_all_main_comparisons",
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {},
+          "requestId": "lamp-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "702",
+            "701"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "lamp-search-exact",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "701",
+            "706",
+            "702",
+            "703"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "lamp-search-natural",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "702",
+            "701",
+            "706",
+            "703"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "monitor-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "202",
+            "201"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "monitor-search-exact",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "201",
+            "203",
+            "202"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.5,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.2,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 2,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "monitor-search-natural",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "202",
+            "201",
+            "203"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": "unresolved_U_exclude_entire_query_from_all_main_comparisons",
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {},
+          "requestId": "tablet-matching",
+          "returnedCount": 2,
+          "returnedProductIds": [
+            "1002",
+            "1001"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "tablet-search-exact",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "1001",
+            "1002",
+            "1006",
+            "1003"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "tablet-search-natural",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "1002",
+            "1001",
+            "1003",
+            "1006"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "tennis-matching",
+          "returnedCount": 3,
+          "returnedProductIds": [
+            "1202",
+            "1201",
+            "1206"
+          ],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": "inactive_wanted_boundary_case_not_relevance_benchmark",
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {},
+          "requestId": "tennis-matching-expired",
+          "returnedCount": 0,
+          "returnedProductIds": [],
+          "task": "matching",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "tennis-search-exact",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "1201",
+            "1206",
+            "1202",
+            "1203"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        },
+        {
+          "duplicatesRemoved": 0,
+          "excludedReason": null,
+          "hardViolationByConstraint": {},
+          "hardViolationCount": 0,
+          "metrics": {
+            "label>=1@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.25,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.4,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=1@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 4,
+              "positiveReturnedEmpty": false,
+              "precision": 0.8,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@1": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 1.0,
+              "recall": 0.3333333333333333,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@10": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.3,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            },
+            "label>=2@5": {
+              "falseRecommendations": null,
+              "noAnswerEmpty": null,
+              "positiveCount": 3,
+              "positiveReturnedEmpty": false,
+              "precision": 0.6,
+              "recall": 1.0,
+              "reciprocalRank": 1.0
+            }
+          },
+          "requestId": "tennis-search-natural",
+          "returnedCount": 4,
+          "returnedProductIds": [
+            "1202",
+            "1201",
+            "1206",
+            "1203"
+          ],
+          "task": "search",
+          "unknownEligibilityCount": 0
+        }
+      ]
+    }
+  ],
+  "status": "DIAGNOSTIC_ONLY"
+}
