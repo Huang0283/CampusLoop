@@ -10,6 +10,8 @@ import { useSession } from './session'
 import { useChat } from './useChat'
 import { PrivateImage } from './PrivateImage'
 import { useAttemptKey } from './idempotency'
+import { campusToday, validateMeetupEnd, validateMeetupStart } from './meetupTime'
+import { MyReports } from './ReportsPage'
 
 const orderLabels: Record<OrderStatus, string> = { PENDING_CONFIRM: '待约定', BOOKED: '已预订', MEETUP_ARRANGED: '见面已确认', COMPLETED: '已完成', CANCELLED: '已取消', DISPUTED: '争议中' }
 const offerLabels = { PENDING: '等待回应', ACCEPTED: '已接受', REJECTED: '已拒绝', COUNTERED: '已有还价', EXPIRED: '已过期', CANCELLED: '已撤回' }
@@ -97,6 +99,8 @@ export function OrderListPage() {
 export function OrderPage() {
   const { id } = useParams()
   const orderId = Number(id)
+  const [now, setNow] = useState(() => Date.now())
+  useEffect(() => { const timer = window.setInterval(() => setNow(Date.now()), 1000); return () => window.clearInterval(timer) }, [])
   const user = useSession((state) => state.user)!
   const remote = useRemote(`order-${id}`, (signal) => api.data(api.getOrder({ path: { orderId }, signal })), 5000)
   const events = useRemote(`events-${id}`, (signal) => api.data(api.listOrderEvents({ path: { orderId }, signal })), 5000)
@@ -105,17 +109,19 @@ export function OrderPage() {
   const item = remote.value
   const confirmedComplete = item && (user.id === item.buyer.id ? item.buyerConfirmedComplete : item.sellerConfirmedComplete)
   const confirmedMeetup = item?.meetup && (user.id === item.buyer.id ? item.meetup.buyerConfirmed : item.meetup.sellerConfirmed)
+  const meetupNeedsReschedule = Boolean(item?.meetup && !(item.meetup.buyerConfirmed && item.meetup.sellerConfirmed) && new Date(`${item.meetup.scheduledDate}T${item.meetup.timeSlotStart}+08:00`).getTime() <= now)
   const mutable = item && !['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(item.status)
   return <Page title={`订单 #${id}`} extra={<Link to="/transactions">返回交易中心</Link>}><Resource {...remote}><Failure error={mutation.error} retry={remote.reload} />{item && <>
     <Card><Descriptions column={1} items={[{ key: 'product', label: '商品', children: <Link to={`/product/${item.product.id}`}>{item.product.title}</Link> }, { key: 'price', label: '成交金额', children: `¥${item.amount.toFixed(2)}` }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'parties', label: '参与者', children: `${item.buyer.nickname}（买家） / ${item.seller.nickname}（卖家）` }]} />
       {item.meetup && <><Typography.Title level={5}>见面约定 · 版本 {item.meetup.version}</Typography.Title><Typography.Paragraph>{item.meetup.campusLocation} · {item.meetup.scheduledDate} · {item.meetup.timeSlotStart}–{item.meetup.timeSlotEnd}<br />{item.meetup.note}</Typography.Paragraph><Space wrap><Tag color={item.meetup.buyerConfirmed ? 'success' : undefined}>买家{item.meetup.buyerConfirmed ? '已确认' : '未确认'}</Tag><Tag color={item.meetup.sellerConfirmed ? 'success' : undefined}>卖家{item.meetup.sellerConfirmed ? '已确认' : '未确认'}</Tag></Space></>}
       <div style={{ margin: '16px 0' }}><Space wrap>
         {mutable && <Link to={`/transactions/${item.id}/meetup`}>{item.meetup ? '修改见面约定' : '安排见面'}</Link>}
-        {mutable && item.meetup && <Button disabled={confirmedMeetup} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.confirmMeetup({ path: { orderId }, body: { meetupId: item.meetup!.id, version: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}>确认当前版本</Button>}
+        {mutable && item.meetup && <Button disabled={confirmedMeetup || meetupNeedsReschedule} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.confirmMeetup({ path: { orderId }, body: { meetupId: item.meetup!.id, version: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}>确认当前版本</Button>}
         {item.status === 'MEETUP_ARRANGED' && <Popconfirm title="确认已实际完成这次交易？" onConfirm={() => mutation.run(async () => { await api.confirmOrderComplete({ path: { orderId }, body: { meetupVersion: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}><Button type="primary" disabled={confirmedComplete} loading={mutation.busy}>我已完成交易</Button></Popconfirm>}
         {item.status === 'COMPLETED' && <Link to={`/transactions/${item.id}/review`}>评价交易</Link>}
-        <ReportButton targetType="ORDER" targetId={item.id} />
+        <ReportButton targetType="ORDER" targetId={item.id} orderRole={user.id === item.seller.id ? 'seller' : 'buyer'} />
       </Space></div>
+      {mutable && meetupNeedsReschedule && <Alert type="warning" style={{ marginBottom: 16 }} title="见面开始时间已过且尚未完成双方确认，请修改见面约定后重新确认。" />}
       {mutable && <Alert type="info" title={`完成确认：买家${item.buyerConfirmedComplete ? '已确认' : '未确认'}，卖家${item.sellerConfirmedComplete ? '已确认' : '未确认'}；双方确认后才完成。`} />}
       {mutable && !item.buyerConfirmedComplete && !item.sellerConfirmedComplete && <Space wrap style={{ marginTop: 16 }}><Input aria-label="取消原因" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="取消原因" maxLength={200} /><Popconfirm title="取消这笔订单？商品将恢复在售。" onConfirm={() => mutation.run(async () => { await api.cancelOrder({ path: { orderId }, body: { reason } }); remote.reload(); events.reload() })}><Button danger disabled={!reason.trim()} loading={mutation.busy}>取消订单</Button></Popconfirm></Space>}
     </Card><Card title="订单时间线" style={{ marginTop: 16 }}><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: <>{event.description}<br /><Typography.Text type="secondary">{new Date(event.createdAt).toLocaleString()}</Typography.Text></> }))} /></Resource></Card>
@@ -130,10 +136,10 @@ export function MeetupPage() {
   const navigate = useNavigate()
   const attemptKey = useAttemptKey()
   useEffect(() => { if (remote.value?.meetup) form.setFieldsValue(remote.value.meetup) }, [remote.value, form])
-  return <Page title="安排见面" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card><Failure error={mutation.error} /><Alert type="info" title="每次修改生成新版本，双方需要重新确认。" style={{ marginBottom: 16 }} /><Form form={form} layout="vertical" onFinish={(body) => void mutation.run(async () => { await api.saveMeetup({ path: { orderId: Number(id) }, body, headers: api.idempotencyHeaders(attemptKey(body)) }); navigate(`/transactions/${id}`) })}>
+  return <Page title="安排见面" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card><Failure error={mutation.error} /><Alert type="info" title="请使用北京时间选择未来的开始时间；每次修改生成新版本，双方需要重新确认。" style={{ marginBottom: 16 }} /><Form form={form} layout="vertical" noValidate onFinish={(body) => void mutation.run(async () => { validateMeetupStart(body.scheduledDate, body.timeSlotStart); await api.saveMeetup({ path: { orderId: Number(id) }, body, headers: api.idempotencyHeaders(attemptKey(body)) }); navigate(`/transactions/${id}`) })}>
     <Form.Item name="campusLocation" label="校内见面地点" rules={[{ required: true, whitespace: true, max: 100 }]}><Input /></Form.Item>
-    <Form.Item name="scheduledDate" label="日期" rules={[{ required: true }]}><Input type="date" /></Form.Item>
-    <Space wrap><Form.Item name="timeSlotStart" label="开始时间" rules={[{ required: true }]}><Input type="time" /></Form.Item><Form.Item name="timeSlotEnd" label="结束时间" rules={[{ required: true }]}><Input type="time" /></Form.Item></Space>
+    <Form.Item name="scheduledDate" label="日期" rules={[{ required: true }]}><Input type="date" min={campusToday()} /></Form.Item>
+    <Space wrap><Form.Item name="timeSlotStart" label="开始时间" dependencies={['scheduledDate']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupStart(form.getFieldValue('scheduledDate'), value) } }]}><Input type="time" /></Form.Item><Form.Item name="timeSlotEnd" label="结束时间" dependencies={['timeSlotStart']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupEnd(form.getFieldValue('timeSlotStart'), value) } }]}><Input type="time" /></Form.Item></Space>
     <Form.Item name="note" label="备注"><Input.TextArea maxLength={500} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy} disabled={!remote.value || ['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(remote.value.status)}>保存新约定</Button>
   </Form></Card></Resource></Page>
 }
@@ -152,10 +158,9 @@ export function ReviewPage() {
 
 export function NotificationsPage() {
   const remote = useRemote('notifications', (signal) => api.data(api.listNotifications({ signal })), 5000)
-  const reports = useRemote('my-reports', (signal) => api.data(api.listMyReports({ signal })), 5000)
   const mutation = useMutation()
   const navigate = useNavigate()
   return <Page title="通知与举报记录" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); remote.reload() })}>全部已读</Button>}><Failure error={mutation.error} /><Resource {...remote}>
     {remote.value?.length ? <List dataSource={remote.value} renderItem={(item) => <List.Item actions={[<Button key="read" disabled={item.read} onClick={() => void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); remote.reload() })}>标为已读</Button>, ...(item.link && /^\/(?!\/)/.test(item.link) ? [<Button key="open" onClick={() => void mutation.run(async () => { if (!item.read) await api.markNotificationRead({ path: { notificationId: item.id } }); navigate(item.link!) })}>查看</Button>] : [])]}><List.Item.Meta title={<Space><Badge dot={!item.read} /><span>{item.title}</span></Space>} description={<>{item.content}<br />{new Date(item.createdAt).toLocaleString()}</>} /></List.Item>} /> : <NoItems />}
-  </Resource><Card title="我的举报" style={{ marginTop: 16 }}><Resource {...reports}>{reports.value?.length ? <List dataSource={reports.value} renderItem={(item) => <List.Item>#{item.id} · {item.targetType} #{item.targetId} · {item.reason}<Tag>{item.status}</Tag></List.Item>} /> : <NoItems />}</Resource></Card></Page>
+  </Resource><MyReports /></Page>
 }

@@ -127,6 +127,9 @@ export type ProductWriteRequest = {
     category: 'BOOKS' | 'DIGITAL' | 'DAILY' | 'SPORTS' | 'clothing' | 'other';
     condition: 'NEW' | 'LIKE_NEW' | 'GOOD' | 'FAIR';
     description?: string;
+    /**
+     * Optional original price; when supplied, must be greater than or equal to price. Omit or use null if unknown.
+     */
     originalPrice?: number | null;
     price: number;
     campusLocation: string;

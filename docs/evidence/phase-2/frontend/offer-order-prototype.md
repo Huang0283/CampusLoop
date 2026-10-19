@@ -32,3 +32,11 @@
 - 命令：在 `frontend/` 执行 `npm run test:transaction`；2026-10-09 八个状态层场景全部通过，包括还价角色切换、过期、重复订单、非参与者拒绝和双确认。
 - 测试属于内存 Mock，不证明数据库并发锁、HTTP 幂等、真实 WS 或跨设备一致性。
 - Phase 3 由后端实现写入、权限、产品锁定、错误响应与事务；前端将 store 写入替换为 SDK 调用。Phase 4 实现实时订单事件与断线一致性。
+
+## 2026-10-18 收尾验收补录
+
+- 分支 `task/m4-p4-governance-regression`（`6c69925`），已接收 main 上 PR #103 的约见时间修复。
+- 执行：`npm run lint`、`npm run build`、`npm run test:transaction`、`npm run test:m4`；全部通过。
+- 约见时间：`validateMeetupStart` 按北京时间拒绝昨天、今天已过和非法日期；`validateMeetupEnd` 拒绝结束时间不晚于开始时间。两条规则由 `test:m4` 的 6 项断言覆盖，页面 validator 与保存前校验共用同一函数。
+- 过期未双确认的约定展示改约提示并禁用“确认当前版本”，见 `docs/evidence/phase-4/frontend/m4-governance-regression.md`。
+- 2026-10-19 浏览器补验：`journey.spec.ts:14` 通过，覆盖过去日期被拒且不写请求、结束时间早于开始被拒、改到未来时间保存成功、双方同版本确认、双方完成与评价。

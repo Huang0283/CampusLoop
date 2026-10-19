@@ -84,7 +84,7 @@
 
 | 项 | 前端需求 | 契约 | 状态 |
 |---|---|---|---|
-| 举报 | targetType、targetId、reason、最多 6 张证据 | POST /reports（最多 5 张证据） | 不对齐：证据数量 |
+| 举报 | targetType、targetId、reason、最多 5 张证据 | POST /reports（最多 5 张证据） | 已对齐：前端 `MAX_EVIDENCE`/`maxCount` 与 `maxItems` 均为 5 |
 | 我的举报 | 分页 | GET /reports/mine | 待 M6 确认是否需要 |
 | 通知列表 | 分页、unreadOnly | GET /notifications | 对齐 |
 | 已读 | 单条、全部 | POST /notifications/{id}/read、/read-all | 对齐 |
