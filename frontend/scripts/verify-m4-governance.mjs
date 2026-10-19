@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { campusToday, validateMeetupEnd, validateMeetupStart } from '../src/live/meetupTime.ts'
 import { reportReasons } from '../src/live/reportReasons.ts'
+import { uniqueNotifications } from '../src/live/notifications.ts'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const read = (path) => readFileSync(resolve(root, path), 'utf8')
@@ -124,6 +125,24 @@ check('守卫：公开商品/求购页的举报动作走统一登录动作守卫
   assert.match(read('src/pages/market/ProductDetailPage.tsx'), /requireAuthAction\(\(\) => setReportTarget/)
   assert.match(read('src/pages/wanted/WantedDetailPage.tsx'), /requireAuthAction\(\(\) => setReportOpen\(true\)\)/)
   assert.match(read('src/hooks/useRequireAuthAction.ts'), /toReturnPath|returnTo/)
+})
+
+check('通知：重复任务通知按通知 ID 去重，保留首次顺序', () => {
+  const items = [
+    { id: 11, type: 'MATCH_FOUND', title: 'match', content: '', read: false, createdAt: '2026-01-01T00:00:00Z' },
+    { id: 11, type: 'MATCH_FOUND', title: 'retry', content: '', read: false, createdAt: '2026-01-01T00:00:01Z' },
+    { id: 12, type: 'REPORT_RESULT', title: 'report', content: '', read: true, createdAt: '2026-01-01T00:00:02Z' },
+  ]
+  assert.deepEqual(uniqueNotifications(items).map((item) => item.id), [11, 12])
+  assert.equal(uniqueNotifications(items)[0].title, 'match')
+})
+
+check('通知：已读操作通知外壳刷新未读数，缓存按账号隔离', () => {
+  const page = read('src/live/TransactionPages.tsx')
+  const shell = read('src/live/common.tsx')
+  assert.match(page, /notifyNotificationsChanged\(\)/)
+  assert.match(page, /`notifications-\$\{user\?\.id\}`/)
+  assert.match(shell, /NOTIFICATIONS_CHANGED_EVENT/)
 })
 
 console.log(`M4 governance checks passed: ${results.length}`)
