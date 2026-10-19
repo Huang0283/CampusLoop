@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "allNewArchiveHashes": true,
+    "archive228Unsealed": true,
+    "archiveFilesExact": true,
+    "currentDocLinksResolve": true,
+    "currentMachineCountsAligned": true,
+    "newEvaluationUses228": true,
+    "oneReviewerNoM8Signoff": true,
+    "originalAssetsAndRuntimeUnchanged": true,
+    "ownerConfirmationsRemainPending": true,
+    "reasonAttributionExplicit": true,
+    "sixMetricRecalculations": true,
+    "stillNoGo": true,
+    "userIdentityAndTimeExact": true,
+    "validatorReadyNoDifferences": true
+  },
+  "formalStageComplete": false,
+  "labelVersion": "m7-label-reviewed-20261018-v1",
+  "missingLinks": [],
+  "records": 228,
+  "status": "PASS_REVIEW_RECORDS_NOT_FORMAL_ACCEPTANCE"
+}

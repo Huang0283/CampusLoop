@@ -43,6 +43,8 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/phase-5/intelligence/** -text
 # Preserve original CI log whitespace; integrity is verified by its SHA256.
 /docs/evidence/phase-5/intelligence/evidence/joint-v1/ci-backend-job.txt -whitespace
+# Reviewed CSV keeps its recorded UTF-8/CRLF bytes for the archive hash.
+/docs/evidence/phase-5/intelligence/human-review/**/review-records.csv whitespace=cr-at-eol
 # M7 private candidate sources and archived Phase 4 evidence use stable bytes.
 /services/m7_semantic/** text eol=lf
 /docs/evidence/phase-4/intelligence/model-config.candidate.json -text

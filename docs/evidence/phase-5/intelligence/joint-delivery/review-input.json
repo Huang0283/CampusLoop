@@ -30,18 +30,18 @@
     },
     "decision": "NO_GO",
     "labelReview": {
-      "archiveManifestSha256": null,
-      "humanReviewedPairs": 0,
-      "labelSource": "PENDING_HUMAN_REVIEW",
-      "labelVersion": "m7-label-draft-v1",
-      "status": "STRUCTURED_RECORDS_PENDING",
+      "archiveManifestSha256": "5a8b951bbad7ed216d456bd97e35ad2f392d615adfcb446e12b4c43ce748b3c8",
+      "humanReviewedPairs": 228,
+      "labelSource": "HUMAN_REVIEWED_UNSEALED",
+      "labelVersion": "m7-label-reviewed-20261018-v1",
+      "status": "HUMAN_REVIEWED_UNSEALED",
       "testSetSealed": false
     },
     "modelInferenceExecuted": true,
     "requestsAll": 38,
     "requestsTestCandidate": 12,
     "scope": "DIAGNOSTIC_ONLY",
-    "source": "../evidence/joint-v1/joint-v2/m7-semantic/evaluation/evaluation-status.json"
+    "source": "../human-review/20261018-kkkkrui-v1/candidate/evaluation-status.json"
   },
   "m8": {
     "comparison": {
@@ -73,6 +73,7 @@
     "decision": "NO_GO",
     "source": "../evidence/joint-v1/joint-v2/m8/price-comparison.json"
   },
+  "recordedOn": "2026-10-19",
   "signedForFinalReport": false,
-  "sourceCommit": "45acf879bf41c18baae4f89584c9e1732f848c97"
+  "sourceCommit": "ca5a884c4980f2412da7bbd04ffb969ada5baae2"
 }

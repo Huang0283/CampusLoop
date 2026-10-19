@@ -621,15 +621,21 @@
   "formalStageComplete": false,
   "formalTaskBranch": null,
   "hashConvention": "SHA256 of git show technicalSourceCommit:path bytes; checkout line endings may differ",
+  "labelVersionConvention": "Original data/ assets and technicalSourceCommit remain draft. Current reviewed labels are an external archive and require --review-archive; old recorded runs keep their original pending status.",
   "m7": {
+    "archiveManifestSha256": "5a8b951bbad7ed216d456bd97e35ad2f392d615adfcb446e12b4c43ce748b3c8",
     "datasetVersion": "m7-synthetic-p2-v1.1",
     "decision": "NO_GO",
     "experimental": "m7-hybrid-rrf-v1",
-    "labelSource": "PENDING_HUMAN_REVIEW",
-    "labelVersion": "m7-label-draft-v1",
+    "labelSource": "HUMAN_REVIEWED_UNSEALED",
+    "labelVersion": "m7-label-reviewed-20261018-v1",
     "matching": "m7-match-v0",
+    "reviewArchivePath": "../human-review/20261018-kkkkrui-v1/archive",
+    "reviewedAt": "2026-10-18T23:31:00+08:00",
+    "reviewer": "KkkkRui",
     "search": "m7-keyword-v0",
-    "structuredReviewRecords": 0,
+    "sourceLabelVersion": "m7-label-draft-v1",
+    "structuredReviewRecords": 228,
     "testSetSealed": false
   },
   "m8": {
@@ -641,7 +647,7 @@
     "router": "m8-price-phase4-router-v1",
     "trust": "m8-trust-rule-v1"
   },
-  "observedOn": "2026-10-17",
+  "observedOn": "2026-10-19",
   "parameters": {
     "batchSize": 16,
     "configVersion": "m7-semantic-model-candidate-v1",
@@ -689,6 +695,7 @@
   "phase5IntegrationCommit": null,
   "phase5Tag": null,
   "preparationBranch": "prep/m7-p5-joint-delivery",
+  "reviewedEvaluationSourceCommit": "ca5a884c4980f2412da7bbd04ffb969ada5baae2",
   "schemaVersion": "intelligence-p5-joint-preparation-v1",
   "status": "PREPARED_TECHNICAL_PASS_NOT_FINAL_RELEASE",
   "technicalSourceCommit": "45acf879bf41c18baae4f89584c9e1732f848c97"
