@@ -8,6 +8,7 @@ import { ApiError, data, listNotifications, logout } from '../sdk'
 import { useSession } from './session'
 import type { Notification } from '../sdk'
 import { AsyncTaskState } from './AsyncTaskState'
+import { NOTIFICATIONS_CHANGED_EVENT } from './notifications'
 
 export function errorText(error: unknown) { return error instanceof Error ? error.message : '操作失败，请重试。' }
 
@@ -99,6 +100,12 @@ export function Shell() {
   useEffect(() => { mainRef.current?.focus() }, [location.pathname])
   const mutation = useMutation()
   const notifications = useRemote<Notification[]>(`shell-notifications-${user?.id}`, (signal) => user?.role === 'USER' ? data(listNotifications({ signal })) : Promise.resolve([]), 5000)
+  const reloadNotifications = notifications.reload
+  useEffect(() => {
+    const refreshNotifications = () => reloadNotifications()
+    window.addEventListener(NOTIFICATIONS_CHANGED_EVENT, refreshNotifications)
+    return () => window.removeEventListener(NOTIFICATIONS_CHANGED_EVENT, refreshNotifications)
+  }, [reloadNotifications])
   const unread = notifications.value?.filter((item) => !item.read).length ?? 0
   const nav = [
     { key: '/market', icon: <HomeOutlined />, label: '首页' },
