@@ -11,3 +11,11 @@ FE4-09/10：M3/M4 提交个人结果，M2 更新整体冻结清单，M10 在实�
 ## 已交付与接收动作
 M3/M4 从合并后的 M2 组分支同步；运行 npm run lint、npm run build 和上述 UI 测试，不直接修改 M2 公共文件。出现共享组件需求先提给 M2。
 Phase5 M2 只接收已冻结壳层、后台与构建拆包修复；M3/M4 只接收各自冻结页修复。本登记是待 Review 的交接，不代签其他成员验收。
+
+## M4 交接补充（2026-10-18）
+
+- 分支 `task/m4-p4-governance-regression` 基于 `b281ba6`，已合并 `origin/main` 至 `6c69925` 以接收 PR #103 的约见/举报修复；PR 目标为 `phase4/frontend-integration`。
+- 已完成：三项回归的逻辑层验证（`npm run test:m4` 15 项）、lint、build、交易 Mock 8 项；真实浏览器 `npm run test:live` 分批 23 项通过（2026-10-19，API 8001 + Vite 5173）；证据见 `m4-governance-regression.md`。
+- 未完成：FE4-07 智能任务通知去重与已读同步（阻塞于 M6 任务枚举/重试契约）、FE4-08 管理员处理后的用户可见反馈与 M10 独立验收。
+- 需 M1 注意：`phase4/integration` 当前不包含 main 的 #99/#103 修复，本分支已先行同步；小组汇总时应确认阶段分支同样接收，避免回归基线不一致。
+- 下一动作：M2/M3 交叉评审本分支；M10 复跑双账号旅程；截止为 Phase 4 阶段收口前。

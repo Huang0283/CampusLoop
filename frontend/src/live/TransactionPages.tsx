@@ -10,7 +10,7 @@ import { useSession } from './session'
 import { useChat } from './useChat'
 import { PrivateImage } from './PrivateImage'
 import { useAttemptKey } from './idempotency'
-import { campusToday, validateMeetupStart } from './meetupTime'
+import { campusToday, validateMeetupEnd, validateMeetupStart } from './meetupTime'
 import { MyReports } from './ReportsPage'
 
 const orderLabels: Record<OrderStatus, string> = { PENDING_CONFIRM: '待约定', BOOKED: '已预订', MEETUP_ARRANGED: '见面已确认', COMPLETED: '已完成', CANCELLED: '已取消', DISPUTED: '争议中' }
@@ -139,7 +139,7 @@ export function MeetupPage() {
   return <Page title="安排见面" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card><Failure error={mutation.error} /><Alert type="info" title="请使用北京时间选择未来的开始时间；每次修改生成新版本，双方需要重新确认。" style={{ marginBottom: 16 }} /><Form form={form} layout="vertical" noValidate onFinish={(body) => void mutation.run(async () => { validateMeetupStart(body.scheduledDate, body.timeSlotStart); await api.saveMeetup({ path: { orderId: Number(id) }, body, headers: api.idempotencyHeaders(attemptKey(body)) }); navigate(`/transactions/${id}`) })}>
     <Form.Item name="campusLocation" label="校内见面地点" rules={[{ required: true, whitespace: true, max: 100 }]}><Input /></Form.Item>
     <Form.Item name="scheduledDate" label="日期" rules={[{ required: true }]}><Input type="date" min={campusToday()} /></Form.Item>
-    <Space wrap><Form.Item name="timeSlotStart" label="开始时间" dependencies={['scheduledDate']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupStart(form.getFieldValue('scheduledDate'), value) } }]}><Input type="time" /></Form.Item><Form.Item name="timeSlotEnd" label="结束时间" dependencies={['timeSlotStart']} rules={[{ required: true }, { validator: async (_, value) => { const start = form.getFieldValue('timeSlotStart'); if (start && value && start >= value) throw new Error('结束时间必须晚于开始时间。') } }]}><Input type="time" /></Form.Item></Space>
+    <Space wrap><Form.Item name="timeSlotStart" label="开始时间" dependencies={['scheduledDate']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupStart(form.getFieldValue('scheduledDate'), value) } }]}><Input type="time" /></Form.Item><Form.Item name="timeSlotEnd" label="结束时间" dependencies={['timeSlotStart']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupEnd(form.getFieldValue('timeSlotStart'), value) } }]}><Input type="time" /></Form.Item></Space>
     <Form.Item name="note" label="备注"><Input.TextArea maxLength={500} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy} disabled={!remote.value || ['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(remote.value.status)}>保存新约定</Button>
   </Form></Card></Resource></Page>
 }
