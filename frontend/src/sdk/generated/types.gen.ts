@@ -184,10 +184,18 @@ export type MatchResult = {
 };
 
 export type TrustSummary = {
+    visibility: 'PUBLIC' | 'SELF' | 'ADMIN';
+    explanation: string;
     status: 'AVAILABLE' | 'NEW_USER_NEUTRAL' | 'UNAVAILABLE';
     score?: number;
     validEventCount?: number;
+    /**
+     * Omitted for PUBLIC visibility
+     */
     ignoredEventCount?: number;
+    /**
+     * Omitted for PUBLIC visibility
+     */
     smoothing?: {
         priorScore?: number;
         priorWeight?: number;
@@ -229,7 +237,7 @@ export type PriceAdviceRequest = {
 export type PriceAdvice = {
     lower: number | null;
     upper: number | null;
-    status?: 'AVAILABLE' | 'INSUFFICIENT_DATA' | 'UNAVAILABLE';
+    status?: 'AVAILABLE' | 'LOW_CONFIDENCE' | 'INSUFFICIENT_DATA' | 'UNAVAILABLE';
     degradationReason?: string;
     currency: 'CNY';
     factors: Array<string>;
@@ -375,10 +383,54 @@ export type ReportWriteRequest = {
     evidence?: Array<string>;
 };
 
-export type Report = ReportWriteRequest & {
+export type Report = {
     id: number;
+    targetType: ReportTargetType;
+    targetId: number;
+    reason: ReportReason;
+    description: string;
     status: ReportStatus;
     createdAt: string;
+};
+
+export type ReportResolutionRequest = {
+    resolution: 'RESOLVED' | 'REJECTED';
+    note: string;
+};
+
+export type ReportOverrideRequest = {
+    resolution: 'RESOLVED' | 'REJECTED';
+    note: string;
+    expectedStatus: 'RESOLVED' | 'REJECTED';
+    expectedHandledAt: string;
+};
+
+export type AdminReport = {
+    id: number;
+    targetType: ReportTargetType;
+    targetId: number;
+    reason: ReportReason;
+    description: string;
+    status: ReportStatus;
+    createdAt: string;
+    handledBy: number | null;
+    handledAt: string | null;
+    /**
+     * Protected administrator evidence paths; never anonymous image URLs
+     */
+    evidence: Array<string>;
+};
+
+export type TrustSummaryResponse = ApiEnvelope & {
+    data: TrustSummary;
+};
+
+export type AdminReportResponse = ApiEnvelope & {
+    data: AdminReport;
+};
+
+export type AdminReportListResponse = ApiEnvelope & {
+    data: Array<AdminReport>;
 };
 
 export type NotificationType = 'MESSAGE' | 'OFFER_RECEIVED' | 'OFFER_ACCEPTED' | 'OFFER_REJECTED' | 'MATCH_FOUND' | 'ORDER_STATUS_CHANGED' | 'MEETUP_REMINDER' | 'REVIEW_REQUEST' | 'REPORT_RESULT';
@@ -544,6 +596,11 @@ export type UserListResponse = ApiEnvelope & {
     };
 };
 
+/**
+ * Nonblank key scoped to actor/report/action. Identical body replays; different body conflicts.
+ */
+export type ModerationIdempotencyKey = string;
+
 export type Page = number;
 
 export type PageSize = number;
@@ -606,7 +663,9 @@ export type GetReportEvidenceData = {
         reportId: number;
         imageIndex: number;
     };
-    query?: never;
+    query?: {
+        reason?: string;
+    };
     url: '/admin/reports/{reportId}/evidence/{imageIndex}';
 };
 
@@ -1386,6 +1445,88 @@ export type UpdateWantedResponses = {
 
 export type UpdateWantedResponse = UpdateWantedResponses[keyof UpdateWantedResponses];
 
+export type GetMyTrustData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/users/me/trust';
+};
+
+export type GetMyTrustErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Account disabled
+     */
+    423: unknown;
+    /**
+     * AI dependency unavailable; response identifies the allowed fallback.
+     */
+    503: ErrorResponse;
+};
+
+export type GetMyTrustError = GetMyTrustErrors[keyof GetMyTrustErrors];
+
+export type GetMyTrustResponses = {
+    /**
+     * Own trust projection, visibility SELF
+     */
+    200: TrustSummaryResponse;
+};
+
+export type GetMyTrustResponse = GetMyTrustResponses[keyof GetMyTrustResponses];
+
+export type AdminGetUserTrustData = {
+    body?: never;
+    path: {
+        userId: number;
+    };
+    query?: {
+        reason?: string;
+    };
+    url: '/admin/users/{userId}/trust';
+};
+
+export type AdminGetUserTrustErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+    /**
+     * Account disabled
+     */
+    423: unknown;
+    /**
+     * AI dependency unavailable; response identifies the allowed fallback.
+     */
+    503: ErrorResponse;
+};
+
+export type AdminGetUserTrustError = AdminGetUserTrustErrors[keyof AdminGetUserTrustErrors];
+
+export type AdminGetUserTrustResponses = {
+    /**
+     * Administrator trust projection, visibility ADMIN
+     */
+    200: TrustSummaryResponse;
+};
+
+export type AdminGetUserTrustResponse = AdminGetUserTrustResponses[keyof AdminGetUserTrustResponses];
+
 export type GetUserTrustData = {
     body?: never;
     path: {
@@ -1424,7 +1565,9 @@ export type GetUserRiskCluesData = {
     path: {
         userId: number;
     };
-    query?: never;
+    query?: {
+        reason?: string;
+    };
     url: '/admin/users/{userId}/risk-clues';
 };
 
@@ -2387,15 +2530,32 @@ export type AdminListReportsData = {
         page?: number;
         pageSize?: number;
         status?: ReportStatus;
+        reason?: string;
     };
     url: '/admin/reports';
 };
 
 export type AdminListReportsErrors = {
     /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
      * Authenticated but not allowed for this role, object, field, or state.
      */
     403: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+    /**
+     * Account disabled
+     */
+    423: unknown;
+    /**
+     * AI dependency unavailable; response identifies the allowed fallback.
+     */
+    503: ErrorResponse;
 };
 
 export type AdminListReportsError = AdminListReportsErrors[keyof AdminListReportsErrors];
@@ -2404,19 +2564,16 @@ export type AdminListReportsResponses = {
     /**
      * Admin report queue with access auditing.
      */
-    200: ReportListResponse;
+    200: AdminReportListResponse;
 };
 
 export type AdminListReportsResponse = AdminListReportsResponses[keyof AdminListReportsResponses];
 
 export type ResolveReportData = {
-    body: {
-        resolution: 'RESOLVED' | 'REJECTED';
-        note?: string;
-    };
+    body: ReportResolutionRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/report/action. Identical body replays; different body conflicts.
          */
         'Idempotency-Key': string;
     };
@@ -2429,13 +2586,33 @@ export type ResolveReportData = {
 
 export type ResolveReportErrors = {
     /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
      * Authenticated but not allowed for this role, object, field, or state.
      */
     403: ErrorResponse;
     /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
      * Duplicate request, stale version, expired object, or illegal state transition.
      */
     409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+    /**
+     * Account disabled
+     */
+    423: unknown;
+    /**
+     * AI dependency unavailable; response identifies the allowed fallback.
+     */
+    503: ErrorResponse;
 };
 
 export type ResolveReportError = ResolveReportErrors[keyof ResolveReportErrors];
@@ -2444,7 +2621,64 @@ export type ResolveReportResponses = {
     /**
      * Resolution recorded with an immutable admin audit event.
      */
-    200: ReportResponse;
+    200: AdminReportResponse;
 };
 
 export type ResolveReportResponse = ResolveReportResponses[keyof ResolveReportResponses];
+
+export type OverrideReportData = {
+    body: ReportOverrideRequest;
+    headers: {
+        /**
+         * Nonblank key scoped to actor/report/action. Identical body replays; different body conflicts.
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        reportId: number;
+    };
+    query?: never;
+    url: '/admin/reports/{reportId}/override';
+};
+
+export type OverrideReportErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Duplicate request, stale version, expired object, or illegal state transition.
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+    /**
+     * Account disabled
+     */
+    423: unknown;
+    /**
+     * AI dependency unavailable; response identifies the allowed fallback.
+     */
+    503: ErrorResponse;
+};
+
+export type OverrideReportError = OverrideReportErrors[keyof OverrideReportErrors];
+
+export type OverrideReportResponses = {
+    /**
+     * Audited manual decision
+     */
+    200: AdminReportResponse;
+};
+
+export type OverrideReportResponse = OverrideReportResponses[keyof OverrideReportResponses];

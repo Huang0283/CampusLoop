@@ -112,3 +112,56 @@ def test_trust_and_risk_use_current_facts_no_enforcement(client):
     assert clues["enforcementExecuted"] is False
     assert clues["status"] == "INSUFFICIENT_DATA"
     assert client.get("/users/me", headers=headers(actor)).json()["data"]["status"] == "ACTIVE"
+
+
+def test_timeout_does_not_rollback_publish_and_filters_expired_wanted(client, monkeypatch):
+    from services.m7_baseline import client as m7_client
+    from services.m8_baseline import client as m8_client
+
+    from app.db.session import SessionLocal
+    from app.models import WantedPost
+
+    def timeout(*args, **kwargs):
+        raise TimeoutError("injected provider timeout")
+
+    monkeypatch.setattr(m7_client, "call_baseline", timeout)
+    monkeypatch.setattr(m8_client, "call", timeout)
+    seller, buyer = account(client), account(client)
+    item = product(client, seller)
+    response = client.get("/search", params={"query": "MVP test book"})
+    assert response.status_code == 200
+    assert response.json()["data"]["degraded"]
+    assert item["id"] in [row["id"] for row in response.json()["data"]["items"]]
+    price = client.post(
+        "/price-advice",
+        headers=headers(seller),
+        json={"category": "BOOKS", "condition": "GOOD", "originalPrice": 100},
+    )
+    assert price.status_code == 200 and price.json()["data"]["method"] == "unavailable"
+    wanted = client.post(
+        "/wanted",
+        headers=key_headers(buyer),
+        json={
+            "title": "book",
+            "budgetMin": 0,
+            "budgetMax": 100,
+            "condition": "ANY",
+            "location": "ANY",
+            "expireAt": (utcnow() + timedelta(days=1)).isoformat(),
+        },
+    )
+    assert wanted.status_code == 201
+    wid = wanted.json()["data"]["id"]
+    assert client.get(f"/wanted/{wid}/matches", headers=headers(buyer)).status_code == 200
+    with SessionLocal() as db:
+        db.get(WantedPost, wid).expires_at = utcnow() - timedelta(seconds=1)
+        db.commit()
+    assert client.get(f"/wanted/{wid}/matches", headers=headers(buyer)).status_code == 409
+    assert client.get(f'/products/{item["id"]}').status_code == 200
+
+
+@pytest.mark.parametrize("parameter", ["minPrice", "maxPrice"])
+@pytest.mark.parametrize("value", ["inf", "1e309", "1e308"])
+def test_search_rejects_nonfinite_prices_without_server_error(client, parameter, value):
+    response = client.get("/search", params={"query": "book", parameter: value})
+    assert response.status_code == 422, response.text
