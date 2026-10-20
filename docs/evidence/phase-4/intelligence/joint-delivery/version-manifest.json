@@ -1,0 +1,85 @@
+{
+  "assets": [
+    {
+      "gitBlobSha256": "21c00c14d4c7ca1a138e5010c8197db5e5f763b201170a9f8525689223534970",
+      "path": "services/m7_baseline/client.py"
+    },
+    {
+      "gitBlobSha256": "538adc04105aa149f719d8bf4ee9d683932b227e7238ba22fa0f50e7544cca6f",
+      "path": "services/m7_baseline/response_validation.py"
+    },
+    {
+      "gitBlobSha256": "8ad4b82fde7d3035d9f65ef87753b2a07e78826152459ab7be8399be62c65da0",
+      "path": "services/m7_baseline/http_service.py"
+    },
+    {
+      "gitBlobSha256": "9b09c640990068a8258082d192da8ce085ff0f6dd28790e4577710b1c2a33f55",
+      "path": "services/m7_semantic/model.py"
+    },
+    {
+      "gitBlobSha256": "ed2f8fd0b426cae473fbcb1553e93d33bf591dede7152973c952b9acd0b99359",
+      "path": "services/m7_semantic/hybrid.py"
+    },
+    {
+      "gitBlobSha256": "7b1a3481a08a4b740cccb5e0686cba624ed42625bf51d63d503f953cdd685570",
+      "path": "services/m7_semantic/index.py"
+    },
+    {
+      "gitBlobSha256": "e1a2e092c9c6eea38c7e5d1e11d8b340bcfb9a1c519ae49863c07f50685055fe",
+      "path": "services/m8_baseline/client.py"
+    },
+    {
+      "gitBlobSha256": "11770f31d9e6518b70cf6697b943b29666f3467d53495bccff72d925494d56de",
+      "path": "services/m8_baseline/response_validation.py"
+    },
+    {
+      "gitBlobSha256": "da631d6d95c4adb0ddcd3932a796a7aec7b14a53ada05ecef72644647d50a71b",
+      "path": "services/m8_phase4/router.py"
+    },
+    {
+      "gitBlobSha256": "f6adc9f7d0b3c495c6aaac50562211611bb38a30ddbd6d2acd07a509cdf15084",
+      "path": "contracts/m8-phase4/service-contract.json"
+    },
+    {
+      "gitBlobSha256": "7df09831395df05a01c7b47e1334a831ad8efe8807e74b6644bbe4530dac0847",
+      "path": "contracts/m8-phase4/readiness-policy.json"
+    },
+    {
+      "gitBlobSha256": "99e17080dfff6bd694acec4b719be93110f6a34a31bd53acb79a140cc4960a23",
+      "path": "schemas/m7-phase3/rpc.schema.json"
+    },
+    {
+      "gitBlobSha256": "054868b85e12955baacf733ae5f07706fcf4ea61fb1b8d419b14fad5d51a7608",
+      "path": "backend/scripts/serve.py"
+    },
+    {
+      "gitBlobSha256": "ea0de52d95bfdd2eb1684f8708cda2606aed6080bf85aefa1c0ce1c51c0b92b2",
+      "path": "docker-compose.yml"
+    }
+  ],
+  "baseCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff",
+  "candidateDeploymentEnabled": false,
+  "codeCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "formalStageComplete": false,
+  "groupBranch": "phase4/intelligence-models",
+  "hashConvention": "SHA256 of git blob bytes; checkout text line endings can differ",
+  "m7": {
+    "decision": "NO_GO",
+    "experimental": "m7-hybrid-rrf-v1",
+    "matching": "m7-match-v0",
+    "result": "m7-baseline-result-v1",
+    "rpc": "m7-baseline-rpc-v1",
+    "search": "m7-keyword-v0"
+  },
+  "m8": {
+    "decision": "NO_GO",
+    "learnedModelAvailable": false,
+    "price": "m8-price-rule-v1",
+    "router": "m8-price-phase4-router-v1"
+  },
+  "phase4FreezeCommit": null,
+  "phase4Tag": null,
+  "status": "TECHNICAL_RELEASE_CANDIDATE_NOT_FORMAL_FREEZE",
+  "taskBranch": "task/m7-p4-semantic-matching",
+  "taskPR": "https://github.com/Huang0283/CampusLoop/pull/107"
+}

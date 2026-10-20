@@ -7,6 +7,20 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, build_opener, ProxyHandler
 from urllib.parse import urlsplit
 from .engine import ServiceError
+from .response_validation import valid_response
+
+
+def _unique(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate response key")
+        result[key] = value
+    return result
+
+
+def _reject_constant(_value):
+    raise ValueError("non-finite response number")
 
 
 def fallback(task: str, reason: str) -> dict:
@@ -33,8 +47,10 @@ def call(url: str, task: str, payload: dict, token: str, timeout: float = 0.5) -
             raw = response.read(1024 * 1024 + 1)
             if len(raw) > 1024 * 1024:
                 return fallback(task, "INVALID_SERVICE_RESPONSE")
-            result = json.loads(raw.decode("utf-8"))
-            if result.get("schemaVersion") != "m8-baseline-rpc-v1" or not isinstance(result.get("data"), dict):
+            result = json.loads(raw.decode("utf-8"), object_pairs_hook=_unique, parse_constant=_reject_constant)
+            if (not isinstance(result, dict) or set(result) != {"schemaVersion", "data"}
+                    or result.get("schemaVersion") != "m8-baseline-rpc-v1"
+                    or not valid_response(task, result.get("data"))):
                 return fallback(task, "INVALID_SERVICE_RESPONSE")
             return result["data"]
     except HTTPError as exc:

@@ -52,15 +52,17 @@ def evaluate_price(samples_path: Path = SAMPLES) -> dict:
         })
     metrics = regression_metrics(metric_rows)
     return {
-        "evaluationVersion": "m8-price-phase4-eval-v1",
+        "evaluationVersion": "m8-price-phase4-eval-v2",
         "datasetVersion": readiness["checks"][0]["observed"],
         "decision": readiness["decision"],
         "comparison": {
             "baselineVersion": "m8-price-rule-v1",
             "candidateVersion": "m8-price-candidate-v1",
-            "candidateState": "NOT_TRAINED_GATE_NO_GO" if readiness["decision"] == "NO_GO" else "READY_FOR_EXPERIMENT",
+            "candidateState": "NOT_TRAINED_GATE_NO_GO",
             "baselineMetrics": metrics,
-            "candidateMetrics": metrics if readiness["decision"] != "NO_GO" else {**metrics, "reason": "Candidate was not trained because the data gate is NO_GO."},
+            "candidateMetrics": {"status": "NOT_EVALUATED", "eligibleL3Count": 0, "maeFen": None, "nmae": None,
+                                 "mape": None, "intervalCoverage": None, "normalizedWidth": None,
+                                 "reason": "No candidate model was trained or evaluated; Phase 3 baseline metrics are not candidate metrics."},
             "fallbackParityRate": sum(item["sameOutputAfterFallback"] for item in results) / len(results) if results else None,
         },
         "drift": {
