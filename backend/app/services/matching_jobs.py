@@ -6,9 +6,12 @@ crash rolls back and releases the claim; SKIP LOCKED allows multiple workers.
 
 import hashlib
 import json
+import logging
 import threading
+from collections.abc import Callable
 from datetime import datetime, timedelta
 from decimal import Decimal
+from typing import Any
 
 from sqlalchemy import event, inspect, select, text
 from sqlalchemy.dialects.postgresql import insert
@@ -127,7 +130,23 @@ def discard_uncommitted_changes(db):
     db.info.pop("matching_changes", None)
 
 
+# BP4-08（M9）：任务运行观察者。独立 worker 运行时（app/worker）安装钩子后，
+# 每次任务执行产生一条观测事件（落 ai_task_runs），主循环每轮产生 tick 事件
+# （供 /healthz 判定主循环存活）。不安装钩子时零行为变化（phase-3 语义不变）。
+RUN_OBSERVERS: list[Callable[[dict[str, Any]], None]] = []
+
+
+def _emit_run(event: dict[str, Any]) -> None:
+    for observer in list(RUN_OBSERVERS):
+        try:
+            observer(event)
+        except Exception:
+            # 钩子内部已兜底，这里再兜一层：观测绝不能影响任务执行。
+            logging.getLogger("matching").warning("任务观测钩子失败（已忽略）。")
+
+
 def run_one():
+    started = utcnow()
     with SessionLocal() as db:
         job = db.scalar(
             select(MatchingJob)
@@ -140,7 +159,9 @@ def run_one():
             return False
         identity = job.id
         try:
-            return process_claim(db, job)
+            done = process_claim(db, job)
+            _emit_run(_run_event(job, started))
+            return done
         except Exception:
             # Roll back every partial result/notification, then record a bounded,
             # safe retry. Another worker may already have completed the released job.
@@ -154,7 +175,57 @@ def run_one():
                 retry.attempts += 1
                 schedule_retry(retry, "WORKER_FAILURE")
                 db.commit()
+                _emit_run(_run_event(retry, started))
+            else:
+                # 另一个 worker 已抢先接管该任务：记录竞态事实，重试计数未知。
+                _emit_run(
+                    _run_event(
+                        None,
+                        started,
+                        identity=identity,
+                        outcome="WORKER_FAILURE",
+                        error="JOB_RELEASED",
+                    )
+                )
             return True
+
+
+def _run_event(job, started, *, identity=None, outcome=None, error=None):
+    """构造观测事件（BP4-08）。字段与 ai_task_runs 列一一对应。
+
+    outcome 映射：DONE/SKIPPED/FAILED 原样；PENDING（已排期重试）记为 RETRY，
+    便于 SQL 直接统计"最终失败 vs 安排重试"。
+    """
+    finished = utcnow()
+    if job is not None:
+        status = job.status or "WORKER_FAILURE"
+        mapped = status if status in ("DONE", "SKIPPED", "FAILED") else "RETRY"
+        return {
+            "taskType": "matching",
+            "taskId": job.id,
+            "eventKey": job.event_key,
+            "wantedId": job.wanted_id,
+            "outcome": outcome or mapped,
+            "errorCode": job.last_error,
+            "resultVersion": job.result_version,
+            "attempt": job.attempts,
+            "durationMs": int((finished - started).total_seconds() * 1000),
+            "startedAt": started.isoformat(),
+            "finishedAt": finished.isoformat(),
+        }
+    return {
+        "taskType": "matching",
+        "taskId": identity,
+        "eventKey": None,
+        "wantedId": None,
+        "outcome": outcome or "WORKER_FAILURE",
+        "errorCode": error,
+        "resultVersion": None,
+        "attempt": 0,
+        "durationMs": int((finished - started).total_seconds() * 1000),
+        "startedAt": started.isoformat(),
+        "finishedAt": finished.isoformat(),
+    }
 
 
 def process_claim(db, job):
@@ -254,6 +325,7 @@ def worker_loop(stop: threading.Event):
 
     initialized = False
     while not stop.is_set():
+        _emit_run({"tick": True})  # BP4-08：主循环存活信号（/healthz 依赖）
         try:
             with SessionLocal() as db:
                 if not initialized:

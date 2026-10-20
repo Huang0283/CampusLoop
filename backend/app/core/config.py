@@ -47,6 +47,18 @@ class Settings(BaseSettings):
     m7_service_url: str = "http://127.0.0.1:8787"
     m8_service_url: str = "http://127.0.0.1:8788"
 
+    # ---- worker / advisory 运行时（BP4-07/08，M9）----
+    # phase-3 兼容默认值：单进程模式（serve.py 内嵌 worker 线程与环回服务）。
+    # Compose 拓扑下由环境变量翻转为独立容器（见 docker-compose.yml 注释）。
+    matching_worker_inprocess: bool = True  # false = worker 由独立容器承担
+    baseline_inprocess: bool = True  # false = M7/M8 服务由独立容器承担
+    worker_health_port: int = 8000  # worker 容器内 /healthz 端口
+    worker_id: str = ""  # 空 = 自动生成（hostname-pid）；固定值便于跨重启追踪
+    worker_beat_interval_seconds: float = 10.0  # worker_heartbeats 心跳节流
+    worker_observe_queue_size: int = 2000  # 观测事件内存队列上限（防 DB 故障时无限堆积）
+    baseline_bind_host: str = "127.0.0.1"  # baseline 容器内为 0.0.0.0（仅内网，不发布宿主端口）
+    baseline_data_dir: str = ""  # M7 快照存储目录；空 = 临时目录（容器挂卷时设 /data）
+
     # ---- database (PostgreSQL 16 + pgvector) ----
     database_url: str = "postgresql+psycopg://campusloop:campusloop@localhost:5432/campusloop"
     db_pool_size: int = 5
