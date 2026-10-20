@@ -10,8 +10,9 @@ import { useSession } from './session'
 import { useChat } from './useChat'
 import { PrivateImage } from './PrivateImage'
 import { useAttemptKey } from './idempotency'
-import { campusToday, validateMeetupStart } from './meetupTime'
+import { campusToday, validateMeetupEnd, validateMeetupStart } from './meetupTime'
 import { MyReports } from './ReportsPage'
+import { notifyNotificationsChanged, uniqueNotifications } from './notifications'
 
 const orderLabels: Record<OrderStatus, string> = { PENDING_CONFIRM: '待约定', BOOKED: '已预订', MEETUP_ARRANGED: '见面已确认', COMPLETED: '已完成', CANCELLED: '已取消', DISPUTED: '争议中' }
 const offerLabels = { PENDING: '等待回应', ACCEPTED: '已接受', REJECTED: '已拒绝', COUNTERED: '已有还价', EXPIRED: '已过期', CANCELLED: '已撤回' }
@@ -139,7 +140,7 @@ export function MeetupPage() {
   return <Page title="安排见面" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card><Failure error={mutation.error} /><Alert type="info" title="请使用北京时间选择未来的开始时间；每次修改生成新版本，双方需要重新确认。" style={{ marginBottom: 16 }} /><Form form={form} layout="vertical" noValidate onFinish={(body) => void mutation.run(async () => { validateMeetupStart(body.scheduledDate, body.timeSlotStart); await api.saveMeetup({ path: { orderId: Number(id) }, body, headers: api.idempotencyHeaders(attemptKey(body)) }); navigate(`/transactions/${id}`) })}>
     <Form.Item name="campusLocation" label="校内见面地点" rules={[{ required: true, whitespace: true, max: 100 }]}><Input /></Form.Item>
     <Form.Item name="scheduledDate" label="日期" rules={[{ required: true }]}><Input type="date" min={campusToday()} /></Form.Item>
-    <Space wrap><Form.Item name="timeSlotStart" label="开始时间" dependencies={['scheduledDate']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupStart(form.getFieldValue('scheduledDate'), value) } }]}><Input type="time" /></Form.Item><Form.Item name="timeSlotEnd" label="结束时间" dependencies={['timeSlotStart']} rules={[{ required: true }, { validator: async (_, value) => { const start = form.getFieldValue('timeSlotStart'); if (start && value && start >= value) throw new Error('结束时间必须晚于开始时间。') } }]}><Input type="time" /></Form.Item></Space>
+    <Space wrap><Form.Item name="timeSlotStart" label="开始时间" dependencies={['scheduledDate']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupStart(form.getFieldValue('scheduledDate'), value) } }]}><Input type="time" /></Form.Item><Form.Item name="timeSlotEnd" label="结束时间" dependencies={['timeSlotStart']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupEnd(form.getFieldValue('timeSlotStart'), value) } }]}><Input type="time" /></Form.Item></Space>
     <Form.Item name="note" label="备注"><Input.TextArea maxLength={500} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy} disabled={!remote.value || ['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(remote.value.status)}>保存新约定</Button>
   </Form></Card></Resource></Page>
 }
@@ -157,10 +158,12 @@ export function ReviewPage() {
 }
 
 export function NotificationsPage() {
-  const remote = useRemote('notifications', (signal) => api.data(api.listNotifications({ signal })), 5000)
+  const user = useSession((state) => state.user)
+  const remote = useRemote(`notifications-${user?.id}`, (signal) => api.data(api.listNotifications({ signal })), 5000)
   const mutation = useMutation()
   const navigate = useNavigate()
-  return <Page title="通知与举报记录" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); remote.reload() })}>全部已读</Button>}><Failure error={mutation.error} /><Resource {...remote}>
-    {remote.value?.length ? <List dataSource={remote.value} renderItem={(item) => <List.Item actions={[<Button key="read" disabled={item.read} onClick={() => void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); remote.reload() })}>标为已读</Button>, ...(item.link && /^\/(?!\/)/.test(item.link) ? [<Button key="open" onClick={() => void mutation.run(async () => { if (!item.read) await api.markNotificationRead({ path: { notificationId: item.id } }); navigate(item.link!) })}>查看</Button>] : [])]}><List.Item.Meta title={<Space><Badge dot={!item.read} /><span>{item.title}</span></Space>} description={<>{item.content}<br />{new Date(item.createdAt).toLocaleString()}</>} /></List.Item>} /> : <NoItems />}
+  const notifications = uniqueNotifications(remote.value ?? [])
+  return <Page title="通知与举报记录" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged(); remote.reload() })}>全部已读</Button>}><Failure error={mutation.error} /><Resource {...remote}>
+    {notifications.length ? <List dataSource={notifications} renderItem={(item) => <List.Item actions={[<Button key="read" disabled={item.read} onClick={() => void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged(); remote.reload() })}>标为已读</Button>, ...(item.link && /^\/(?!\/)/.test(item.link) ? [<Button key="open" onClick={() => void mutation.run(async () => { if (!item.read) { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() } navigate(item.link!) })}>查看</Button>] : [])]}><List.Item.Meta title={<Space><Badge dot={!item.read} /><span>{item.title}</span></Space>} description={<>{item.content}<br />{new Date(item.createdAt).toLocaleString()}</>} /></List.Item>} /> : <NoItems />}
   </Resource><MyReports /></Page>
 }

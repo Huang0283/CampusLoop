@@ -1,0 +1,155 @@
+import { test, expect } from '@playwright/test'
+import { randomUUID } from 'node:crypto'
+
+test('report contract consumes private blobs and reuses an uncertain resolution key (contract fixtures)', async ({ page }) => {
+  const user = { id: 901, nickname: 'Fixture Admin', role: 'ADMIN', status: 'ACTIVE', email: 'fixture@example.invalid', rating: 0, transactionCount: 0 }
+  const report = { id: 803, targetType: 'PRODUCT', targetId: 804, reason: 'FAKE_PRODUCT', description: 'Fixture manual review', evidence: ['private/object-not-a-public-url'], status: 'PENDING', createdAt: '2026-10-12T00:00:00Z' }
+  const keys: string[] = []
+  let evidenceReads = 0, resolved = false
+  await page.route('**/auth/browser-session', (route) => route.fulfill({ json: { data: { accessToken: 'fixture-not-real', expiresIn: 600, user } } }))
+  await page.route('**/admin/users?**', (route) => route.fulfill({ json: { data: { items: [], pagination: { page: 1, pageSize: 20, total: 0 } } } }))
+  await page.route('**/admin/reports?**', (route) => route.fulfill({ json: { data: [{ ...report, status: resolved ? 'RESOLVED' : 'PENDING' }] } }))
+  await page.route('**/admin/reports/803/evidence/0', (route) => {
+    evidenceReads += 1
+    expect(route.request().headers().authorization).toBe('Bearer fixture-not-real')
+    return route.fulfill({ contentType: 'image/png', body: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==', 'base64') })
+  })
+  await page.route('**/admin/reports/803/resolve', (route) => {
+    expect(route.request().method()).toBe('POST')
+    expect(route.request().postDataJSON()).toEqual({ resolution: 'RESOLVED', note: 'Fixture resolution' })
+    keys.push(route.request().headers()['idempotency-key'])
+    if (keys.length === 1) return route.fulfill({ status: 503, json: { code: 'SERVICE_UNAVAILABLE' } })
+    resolved = true
+    return route.fulfill({ json: { data: { ...report, status: 'RESOLVED' } } })
+  })
+  await page.goto('/admin')
+  await page.getByRole('tab', { name: '举报处理', exact: true }).click()
+  await page.getByRole('button', { name: '举报详情 #803', exact: true }).click()
+  expect(evidenceReads).toBe(0)
+  await page.getByRole('button', { name: '读取私密证据（记录访问审计）', exact: true }).click()
+  const image = page.getByRole('img', { name: '举报私密证据 1', exact: true })
+  await expect(image).toHaveAttribute('src', /^blob:/)
+  await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBe(1)
+  await expect(page.getByText('private/object-not-a-public-url', { exact: true })).not.toBeVisible()
+  await page.getByLabel('人工处理结论', { exact: true }).click()
+  await page.getByText('处理完成', { exact: true }).click()
+  await page.getByLabel('处理说明', { exact: true }).fill('Fixture resolution')
+  await page.locator('.ant-drawer form button[type="submit"]').click()
+  await expect(page.getByText('SERVICE_UNAVAILABLE', { exact: true })).toBeVisible()
+  await expect(page.getByText('后端已确认处理结果。', { exact: true })).not.toBeVisible()
+  await page.locator('.ant-drawer form button[type="submit"]').click()
+  await expect(page.getByText('后端已确认处理结果。', { exact: true })).toBeVisible()
+  expect(keys[0]).toBeTruthy(); expect(keys).toHaveLength(2); expect(keys[1]).toBe(keys[0])
+  expect(evidenceReads).toBe(1)
+})
+
+test('ordinary user cannot reach admin; keyboard menu, offline banner and navigation focus', async ({ page, context }) => {
+  await page.goto('/register')
+  await page.getByLabel('校园邮箱', { exact: true }).fill(`m2p4-${randomUUID()}@example.invalid`)
+  await page.getByLabel('昵称', { exact: true }).fill('M2 Phase4 tester')
+  await page.getByLabel('密码', { exact: true }).fill('Valid@12345')
+  await page.getByRole('button', { name: '注册并登录' }).click()
+  await expect(page).toHaveURL(/\/market$/)
+  await page.goto('/admin')
+  await expect(page.getByText('当前账号无权访问', { exact: true })).toBeVisible()
+  await expect(page.getByRole('tab', { name: '用户与风险线索' })).not.toBeVisible()
+  await page.getByRole('link', { name: '返回首页', exact: true }).click()
+  await page.getByRole('button', { name: '账号菜单：M2 Phase4 tester', exact: true }).focus()
+  await page.keyboard.press('Enter')
+  await expect(page.getByRole('menuitem', { name: '个人中心' })).toBeVisible()
+  await page.getByRole('menuitem', { name: '个人中心' }).click()
+  await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
+  await expect(page.getByRole('main')).toBeFocused()
+  await context.setOffline(true)
+  await expect(page.getByText('当前离线，请恢复网络后刷新。提交过的操作请先确认记录，避免重复。', { exact: true })).toBeVisible()
+  await context.setOffline(false)
+  await expect(page.getByText('当前离线，请恢复网络后刷新。提交过的操作请先确认记录，避免重复。', { exact: true })).not.toBeVisible()
+  await page.goto('/missing-phase4-page')
+  await expect(page.getByText('页面不存在', { exact: true })).toBeVisible()
+  await page.getByRole('link', { name: '返回首页', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '校园市场' })).toBeVisible()
+})
+
+test('route render exception has a safe fallback and a working home link (injected fault)', async ({ page }) => {
+  await page.route('**/products?**', (route) => route.fulfill({ json: { data: { items: null, pagination: { page: 1, pageSize: 12, total: 1 } } } }))
+  await page.goto('/market')
+  await expect(page.getByText('页面暂时无法显示', { exact: true })).toBeVisible()
+  await expect(page.getByRole('menuitem', { name: '求购' })).toBeVisible()
+  await page.unroute('**/products?**')
+  await page.getByRole('link', { name: '返回首页', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '校园市场' })).toBeVisible()
+})
+
+test('admin users/risk and missing upstream governance are explicit (contract fixtures)', async ({ page }) => {
+  const user = { id: 901, nickname: 'Fixture Admin', avatar: null, rating: 0, transactionCount: 0, role: 'ADMIN', status: 'ACTIVE', email: 'fixture@example.invalid', campusVerified: true, bio: null, school: null, college: null, major: null, tradeCount: 0, creditLevel: null }
+  const target = { ...user, id: 902, nickname: 'Fixture Student', role: 'USER' }
+  let auditRead = 0, statusWrite = 0
+  await page.route('**/auth/browser-session', (route) => route.fulfill({ json: { data: { accessToken: 'fixture-not-real', expiresIn: 600, user } } }))
+  await page.route('**/admin/users?**', (route) => route.fulfill({ json: { data: { items: [target], pagination: { page: 1, pageSize: 20, total: 21 } } } }))
+  await page.route('**/admin/users/902/risk-clues', (route) => { auditRead += 1; return route.fulfill({ json: { data: { status: 'INSUFFICIENT_DATA', enforcementExecuted: false, missingInputs: ['device'], clues: [], algorithmVersion: 'fixture-v1', sourceWindowAsOf: '2026-10-12T00:00:00Z' } } }) })
+  await page.route('**/admin/users/902/status', (route) => { statusWrite += 1; return route.fulfill({ json: { data: { ...target, status: 'DISABLED' } } }) })
+  await page.route('**/admin/reports?**', (route) => route.fulfill({ status: 404, json: { code: 'NOT_FOUND', message: 'Missing endpoint fixture' } }))
+  await page.goto('/admin')
+  await page.getByRole('button', { name: '详情与人工处理 #902', exact: true }).click()
+  await page.getByRole('button', { name: '读取风险线索（记录访问审计）', exact: true }).click()
+  await expect(page.getByText('INSUFFICIENT_DATA', { exact: true })).toBeVisible()
+  await page.getByLabel('状态变更原因', { exact: true }).fill('Fixture review only')
+  await page.getByRole('button', { name: '禁用账号并撤销会话', exact: true }).click()
+  await expect(page.getByRole('button', { name: /恢复账号/ })).toBeEnabled()
+  await expect(page.getByText('后端已确认状态变更。操作已记录审计。', { exact: true })).toBeVisible()
+  expect(statusWrite).toBe(1); expect(auditRead).toBe(1)
+  await page.getByRole('button', { name: 'Close', exact: true }).click()
+  await page.getByRole('tab', { name: '举报处理', exact: true }).click()
+  await expect(page.getByText('举报管理接口尚未接通', { exact: true })).toBeVisible()
+  await page.getByRole('tab', { name: '商品治理', exact: true }).click()
+  await expect(page.getByText('商品治理接口待交付', { exact: true })).toBeVisible()
+})
+
+test('timeout does not leave permanent spinner; manual refresh recovers (injected fault)', async ({ page }) => {
+  await page.route('**/products?**', async (route) => { await new Promise((resolve) => setTimeout(resolve, 11000)); await route.abort().catch(() => {}) })
+  await page.goto('/market')
+  await expect(page.getByText('等待已超时。请先刷新确认处理结果，再决定是否重试。', { exact: true })).toBeVisible({ timeout: 15000 })
+  await page.unroute('**/products?**')
+  await page.getByRole('button', { name: '刷新状态', exact: true }).click()
+  await expect(page.locator('[data-task-phase="timeout"]')).not.toBeVisible()
+})
+
+test('real admin pagination, risk audit request and status processing revoke another session', async ({ browser }) => {
+  const studentContext = await browser.newContext(), adminContext = await browser.newContext()
+  const student = await studentContext.newPage(), admin = await adminContext.newPage()
+  const nickname = `p4-${randomUUID().slice(0, 8)}`
+  const email = `admin-test-${randomUUID()}@example.invalid`
+  await student.goto('/register')
+  await student.getByLabel('校园邮箱', { exact: true }).fill(email)
+  await student.getByLabel('昵称', { exact: true }).fill(nickname)
+  await student.getByLabel('密码', { exact: true }).fill('Valid@12345')
+  const registered = student.waitForResponse((response) => response.url().endsWith('/auth/register') && response.status() === 201)
+  await student.getByRole('button', { name: '注册并登录' }).click()
+  const id = (await (await registered).json()).data.user.id as number
+  await expect(student).toHaveURL(/\/market$/)
+  await admin.goto('/admin')
+  await expect(admin).toHaveURL(/\/login$/)
+  await admin.getByLabel('校园邮箱', { exact: true }).fill('admin.demo@example.com')
+  await admin.getByLabel('密码', { exact: true }).fill('Demo@12345')
+  const listed = admin.waitForResponse((response) => response.url().includes('/admin/users?') && response.status() === 200)
+  await admin.locator('form button[type="submit"]').click()
+  await expect(admin.getByRole('heading', { name: '管理后台' })).toBeVisible()
+  // User IDs are ordered, but gaps are possible; get the actual total from server.
+  const total = (await (await listed).json()).data.pagination.total as number
+  await admin.locator(`.ant-pagination-item-${Math.ceil(total / 20)}`).click()
+  await admin.getByRole('textbox', { name: '筛选本页用户', exact: true }).fill(nickname)
+  await admin.getByRole('button', { name: `详情与人工处理 #${id}`, exact: true }).click()
+  await admin.getByRole('button', { name: '读取风险线索（记录访问审计）', exact: true }).click()
+  await expect(admin.getByText('INSUFFICIENT_DATA', { exact: true })).toBeVisible()
+  await admin.getByLabel('状态变更原因', { exact: true }).fill('Phase4 isolated browser acceptance')
+  await admin.getByRole('button', { name: '禁用账号并撤销会话', exact: true }).click()
+  await expect(admin.getByRole('button', { name: /恢复账号/ })).toBeEnabled()
+  await student.goto('/profile')
+  await expect(student.getByRole('link', { name: '登录', exact: true })).toBeVisible()
+  await admin.getByRole('button', { name: /恢复账号/ }).click()
+  await expect(admin.getByRole('button', { name: /禁用账号并撤销会话/ })).toBeEnabled()
+  await admin.getByRole('button', { name: 'Close', exact: true }).click()
+  await admin.getByRole('tab', { name: '举报处理', exact: true }).click()
+  await expect(admin.getByText('举报管理接口尚未接通', { exact: true })).toBeVisible()
+  await studentContext.close(); await adminContext.close()
+})

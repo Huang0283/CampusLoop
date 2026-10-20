@@ -1,7 +1,6 @@
-import { useRef } from 'react'
 import { Alert, Button, Card, Form, Input, Space, Typography } from 'antd'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { adminListUsers, adminUpdateUserStatus, data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
+import { data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
 import type { UpdateProfileRequest } from '../sdk'
 import { Failure, Page, Resource, useMutation, useRemote } from './common'
 import { useSession } from './session'
@@ -50,18 +49,3 @@ export function ProfilePage() {
   </Resource></Page>
 }
 
-export function AdminPage() {
-  const remote = useRemote('admin-users', (signal) => data(adminListUsers({ signal })))
-  const mutation = useMutation()
-  const reason = useRef('')
-  return <Page title="用户管理"><Resource {...remote}><Failure error={mutation.error} />
-    <Alert type="info" title="账号状态操作会记录审计；禁用同时撤销已有会话。后台高级治理属于下一阶段。" style={{ marginBottom: 16 }} />
-    <Input placeholder="填写本次状态变更原因" maxLength={200} onChange={(event) => { reason.current = event.target.value }} style={{ marginBottom: 16 }} />
-    {remote.value?.items.map((user) => <Card key={user.id} style={{ marginBottom: 12 }}><Space wrap><strong>{user.nickname}</strong><span>{user.status}</span><span>{user.role}</span>
-      {user.role === 'USER' && <Button loading={mutation.busy} onClick={() => void mutation.run(async () => {
-        if (!reason.current.trim()) throw new Error('请填写变更原因。')
-        await adminUpdateUserStatus({ path: { userId: user.id }, body: { status: user.status === 'ACTIVE' ? 'DISABLED' : 'ACTIVE', reason: reason.current } }); remote.reload()
-      })}>{user.status === 'ACTIVE' ? '禁用' : '恢复'}</Button>}
-    </Space></Card>)}
-  </Resource></Page>
-}
