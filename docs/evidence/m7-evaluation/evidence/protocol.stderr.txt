@@ -26,6 +26,6 @@ test_untouched_data_with_sufficient_reviews_can_be_frozen (test_protocol.Protoco
 test_versions_catalog_provenance_and_unseen_declaration_required (test_protocol.ProtocolTests.test_versions_catalog_provenance_and_unseen_declaration_required) ... ok
 
 ----------------------------------------------------------------------
-Ran 26 tests in 9.697s
+Ran 26 tests in 8.299s
 
 OK

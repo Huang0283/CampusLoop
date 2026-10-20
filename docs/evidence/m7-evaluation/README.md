@@ -108,6 +108,7 @@ python -m scripts.m7_evaluation run --snapshot /path/to/frozen-v1 --model-dir /p
 真实 BGE 重放使用原 `services/m7_semantic/requirements.windows-cpu.lock.txt` 固定 CPU 环境；当前锁针对 Windows，不宣称是跨平台的完整模型锁。
 新增协议单元测试在 Windows/Linux 上检查数据/计分/封存逻辑，不等于在两平台执行完整 BGE。
 M10 应检出封存时的实际源码提交、核验 freeze.json 外部公布哈希、干净安装、独立运行。
+封存记录同时登记源码提交和工作区是否有改动；若工作区有改动或缺 Git 提交，只能用于工具调试，不能作为正式封存证据，须先提交对应源码再重建封存包。
 不得拿 ZIP 源码快照、CI head 或另一个文档提交冒充封存源码。
 
 ## 输出与当前缺口

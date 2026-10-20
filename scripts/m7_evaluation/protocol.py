@@ -389,6 +389,14 @@ def _runtime_hashes():
     return {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(set(paths)) if 'tests' not in p.parts}
 
 
+def _source_identity():
+    commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
+    status = subprocess.run(['git', 'status', '--porcelain'], cwd=ROOT, capture_output=True, text=True)
+    return dict(commit=commit.stdout.strip() if commit.returncode == 0 else None,
+                workingTreeDirty=bool(status.stdout.strip()) if status.returncode == 0 else None,
+                note='runtime hashes are authoritative; M10 must obtain the matching committed source and verify external freeze receipt')
+
+
 def seal_bundle(source, destination):
     source, destination = Path(source).resolve(), Path(destination).resolve()
     report = inspect_bundle(source)
@@ -406,6 +414,7 @@ def seal_bundle(source, destination):
     manifest = dict(schemaVersion='m7-evaluation-freeze-v1', status='SEALED_FOR_REPLAY_NOT_ACCEPTED',
                     formalAcceptance=False, M10IndependentExecution=None, M1ModelDecision=None,
                     sealedAtUtc=datetime.now(timezone.utc).isoformat(),
+                    sourceIdentity=_source_identity(),
                     files={name: sha(destination / name) for name in FILES},
                     runtimeHashes=_runtime_hashes(), reviewSummary=copied_report,
                     scope='constructed scenarios; no claim of real user traffic or production acceptance')
@@ -588,12 +597,12 @@ def run_snapshot(snapshot, output, *, model_dir):
             write(output / (name + '-metrics.json'), score)
         write(output / 'rankings.json', rankings)
         comparisons = compare_quality(scores['baseline'], scores['candidate'], data['policy.json']['criticalSlices'], runtime['hardConstraintViolationCounts'])
-        git = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
+        source_identity = _source_identity()
         report = dict(status='REPLAY_COMPLETE_NOT_ACCEPTED', formalAcceptance=False,
                       qualityGatePass=all(c['qualityGatePass'] for c in comparisons.values()),
                       formalDecision='NO_GO_PENDING_INDEPENDENT_ACCEPTANCE', comparisons=comparisons,
                       runtime=runtime, snapshotManifestSha256=sha(Path(snapshot) / 'freeze.json'),
-                      sourceCommit=git.stdout.strip() if git.returncode == 0 else None,
+                      sourceCommit=source_identity['commit'], sourceIdentity=source_identity,
                       checkedAtUtc=datetime.now(timezone.utc).isoformat(),
                       environment=dict(python=platform.python_version(), platform=platform.platform(),
                            packages={d.metadata['Name']: d.version for d in importlib.metadata.distributions()}),
