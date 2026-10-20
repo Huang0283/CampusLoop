@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures'
 
 test('shared async component exposes all seven states/actions; outer boundary hides private errors', async ({ page }) => {
   await page.goto('/market')

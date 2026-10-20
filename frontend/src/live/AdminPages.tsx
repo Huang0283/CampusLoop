@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Alert, Button, Card, Descriptions, Drawer, Form, Image, Input, Pagination, Select, Space, Tabs, Tag, Typography } from 'antd'
 import * as api from '../sdk'
-import type { AdminReport, ReportStatus, UserProfile } from '../sdk'
+import type { AdminProduct, AdminReport, ReportStatus, UserProfile } from '../sdk'
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useAttemptKey } from './idempotency'
 
@@ -134,10 +134,63 @@ function ReportsPanel() {
   </>
 }
 
+function ProductDetail({ productId, refresh }: { productId: number; refresh: () => void }) {
+  const remote = useRemote(`admin-product-${productId}`, (signal) => api.data(api.adminGetProduct({ path: { productId }, signal })))
+  const mutation = useMutation()
+  const attemptKey = useAttemptKey()
+  const [confirmed, setConfirmed] = useState<AdminProduct>()
+  const current = confirmed || remote.value
+  const item = current?.product
+  return <Resource {...remote}>{item && <>
+    <Descriptions column={1} bordered items={[
+      { key: 'id', label: '商品编号', children: item.id },
+      { key: 'title', label: '商品名称', children: item.title },
+      { key: 'seller', label: '发布者', children: item.seller.nickname },
+      { key: 'price', label: '售价', children: `¥${item.price.toFixed(2)}` },
+      { key: 'status', label: '商品状态', children: item.status },
+      { key: 'description', label: '商品说明', children: item.description || '无' },
+      { key: 'hold', label: '人工下架', children: current?.moderationBlocked ? '管理员已下架，发布者不能自行上架' : '无人工下架限制' },
+    ]} />
+    <Space wrap style={{ margin: '16px 0' }}>{item.images.map((url) => <Image key={url} src={url} width={120} alt="商品审核图片" />)}</Space>
+    <Failure error={mutation.error} retry={() => { setConfirmed(undefined); remote.reload() }} />
+    {confirmed && <Alert type="success" role="status" title="后端已确认商品处理，已记录人工审计。" />}
+    {(item.status === 'ON_SALE' || current?.moderationBlocked) ? <Form layout="vertical" onFinish={(values: { reason: string }) => void mutation.run(async () => {
+      const body = { hidden: !current?.moderationBlocked, reason: values.reason.trim(), expectedUpdatedAt: item.updatedAt }
+      setConfirmed(await api.data(api.adminModerateProduct({ path: { productId }, body, headers: api.idempotencyHeaders(attemptKey({ productId, body })) })))
+      refresh()
+    })}>
+      <Form.Item name="reason" label="商品处理原因" rules={[{ required: true, whitespace: true, max: 500 }]}><Input.TextArea maxLength={500} /></Form.Item>
+      <Button htmlType="submit" danger={!current?.moderationBlocked} loading={mutation.busy}>{current?.moderationBlocked ? '解除人工下架' : '人工下架商品'}</Button>
+    </Form> : <Alert type="info" title="已预订、已售出或发布者自行下架的商品不能通过此入口更改交易状态。" />}
+  </>}</Resource>
+}
+
+function ProductsPanel() {
+  const [page, setPage] = useState(1)
+  const [query, setQuery] = useState('')
+  const [status, setStatus] = useState<api.ProductStatus>()
+  const [selected, setSelected] = useState<number>()
+  const remote = useRemote(`admin-products-${page}-${query}-${status}`, (signal) => api.data(api.adminListProducts({ signal, query: { query, status, page, pageSize: 20 } })))
+  return <>
+    <Alert type="info" showIcon title="管理员人工处理商品，读取和处理均记录审计；不会自动处罚账号，也不会改变已预订或已售出的商品。" />
+    <Space wrap style={{ margin: '16px 0' }}>
+      <Input.Search aria-label="搜索治理商品" placeholder="搜索商品名称" onSearch={(value) => { setPage(1); setQuery(value); setSelected(undefined) }} allowClear />
+      <Select aria-label="筛选治理商品状态" placeholder="全部商品状态" allowClear style={{ width: 180 }} value={status} options={(['ON_SALE', 'HIDDEN', 'RESERVED', 'SOLD'] as const).map((value) => ({ value, label: value }))} onChange={(value) => { setStatus(value); setPage(1); setSelected(undefined) }} />
+      <Button onClick={remote.reload}>刷新商品</Button>
+    </Space>
+    {remote.error instanceof api.ApiError && [404, 501].includes(remote.error.status) ? <Alert type="warning" title="商品治理接口尚未接通" action={<Button onClick={remote.reload}>重新检查接口</Button>} /> : <Resource {...remote}>
+      {remote.value?.items.length === 0 && <NoItems filtered={Boolean(query || status)} />}
+      {remote.value?.items.map(({ product, moderationBlocked }) => <Card key={product.id} style={{ marginBottom: 12 }}><Space wrap><strong>{product.title}</strong><Tag>{product.status}</Tag>{moderationBlocked && <Tag color="red">人工下架</Tag>}<Button onClick={() => setSelected(product.id)}>查看并处理商品 #{product.id}</Button></Space></Card>)}
+      {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => { setPage(value); setSelected(undefined) }} />}
+    </Resource>}
+    <Drawer title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</Drawer>
+  </>
+}
+
 export function AdminPage() {
   return <Page title="管理后台"><Tabs destroyOnHidden items={[
     { key: 'users', label: '用户与风险线索', children: <UsersPanel /> },
     { key: 'reports', label: '举报处理', children: <ReportsPanel /> },
-    { key: 'products', label: '商品治理', children: <Alert type="warning" showIcon title="商品治理接口待交付" description="管理员商品队列、隐藏商品详情和审计处理契约尚未提供。当前不能执行治理操作。" /> },
+    { key: 'products', label: '商品治理', children: <ProductsPanel /> },
   ]} /></Page>
 }

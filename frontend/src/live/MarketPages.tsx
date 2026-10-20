@@ -24,11 +24,12 @@ function requireStudent(navigate: ReturnType<typeof useNavigate>, from: string) 
 }
 
 export function ProductCards({ products, from, actions }: { products: Product[]; from?: string; actions?: (product: Product) => React.ReactNode }) {
-  return <Row gutter={[16, 16]}>{products.map((product) => <Col key={product.id} xs={24} sm={12} lg={8}>
-    <Card cover={<Link to={`/product/${product.id}`} state={{ from }}>{product.images[0] ? <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: 180, objectFit: 'cover' }} /> : <div style={{ height: 180, display: 'grid', placeItems: 'center', background: '#f5f5f5', color: '#595959' }}>暂无商品图片</div>}</Link>}>
-      <Link to={`/product/${product.id}`} state={{ from }}>{product.title}</Link>
-      <Typography.Title level={4}>¥{product.price.toFixed(2)}</Typography.Title>
-      <Space wrap><Tag>{stateLabel[product.status]}</Tag><span>{product.condition}</span><span>{product.campusLocation}</span></Space>
+  return <Row gutter={[24, 24]}>{products.map((product) => <Col key={product.id} xs={24} sm={12} md={8} lg={6}>
+    <Card hoverable style={{ height: '100%', borderRadius: 12, overflow: 'hidden' }} styles={{ body: { padding: 16 } }} cover={<Link to={`/product/${product.id}`} state={{ from }}>{product.images[0] ? <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: 180, objectFit: 'cover', display: 'block' }} /> : <div style={{ height: 180, display: 'grid', placeItems: 'center', background: '#f5f5f5', color: '#595959' }}>暂无商品图片</div>}</Link>}>
+      <Link to={`/product/${product.id}`} state={{ from }} style={{ display: 'block', color: 'inherit', fontSize: 15, fontWeight: 600 }}>{product.title}</Link>
+      <Typography.Title level={4} style={{ color: '#1677ff', margin: '8px 0' }}>¥{product.price.toFixed(2)}</Typography.Title>
+      <Space wrap><Tag color={product.status === 'ON_SALE' ? 'green' : undefined}>{stateLabel[product.status]}</Tag><span>{conditions.find((entry) => entry.value === product.condition)?.label || product.condition}</span></Space>
+      <Typography.Paragraph type="secondary" style={{ margin: '8px 0 0' }}>{product.campusLocation || '地点未填写'}</Typography.Paragraph>
       <div style={{ marginTop: 12 }}>{actions?.(product)}</div>
     </Card>
   </Col>)}</Row>
@@ -67,6 +68,9 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const searchResult = remote.value && 'mode' in remote.value ? remote.value as api.SearchResult : undefined
   const canRecoverSearch = mode === 'public' && query.trim() && searchMode !== 'keyword' && remote.error instanceof api.ApiError && (remote.error.status === 0 || remote.error.status >= 500)
   return <Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} extra={<Button type="primary" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
+    {mode === 'public' && <Space wrap aria-label="商品分类快捷筛选" style={{ marginBottom: 20 }}>
+      {[{ value: '', label: '全部' }, ...categories].map((entry) => <Button key={entry.value} shape="round" type={(category || '') === entry.value ? 'primary' : 'default'} aria-pressed={(category || '') === entry.value} onClick={() => change('category', entry.value)}>{entry.label}</Button>)}
+    </Space>}
     <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
       {mode === 'public' && <><Select aria-label="搜索模式" value={searchMode} options={searchModeOptions} onChange={(value) => change('searchMode', value)} style={{ width: 120 }} />
         <Select aria-label="商品分类" placeholder="全部分类" allowClear style={{ width: 140 }} options={categories} value={params.get('category') || undefined} onChange={(value) => change('category', value || '')} />

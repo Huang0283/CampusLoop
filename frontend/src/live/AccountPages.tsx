@@ -25,7 +25,7 @@ export function AuthPage({ registering = false }: { registering?: boolean }) {
       <Button type="primary" htmlType="submit" block loading={mutation.busy}>{registering ? '注册并登录' : '登录'}</Button>
     </Form>
     <Space style={{ marginTop: 16 }}><Link to={registering ? '/login' : '/register'}>{registering ? '已有账号，去登录' : '注册账号'}</Link><Link to="/market">先逛逛</Link></Space>
-    {registering && <Alert style={{ marginTop: 16 }} type="info" title="当前为教学模拟邮箱域验证，不代表真实学籍认证。开发环境支持 example.com / example.invalid。" />}
+    {registering && <Alert style={{ marginTop: 16 }} type="info" title="教学演示注册" description="请填写类似 name@example.invalid 或 name@example.com 的测试邮箱，并自行设置密码。无需真实邮箱，也不会发送验证码；这不代表真实学校身份认证。已有账号请直接登录。" />}
   </Card>
 }
 

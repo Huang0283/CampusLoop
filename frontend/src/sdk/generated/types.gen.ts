@@ -122,6 +122,25 @@ export type Product = {
     updatedAt: string;
 };
 
+export type AdminProduct = {
+    product: Product;
+    /**
+     * Only an administrator may release this human review hold.
+     */
+    moderationBlocked: boolean;
+};
+
+export type AdminProductResponse = ApiEnvelope & {
+    data: AdminProduct;
+};
+
+export type AdminProductListResponse = ApiEnvelope & {
+    data: {
+        items: Array<AdminProduct>;
+        pagination: Pagination;
+    };
+};
+
 export type ProductWriteRequest = {
     title: string;
     category: 'BOOKS' | 'DIGITAL' | 'DAILY' | 'SPORTS' | 'clothing' | 'other';
@@ -2384,6 +2403,131 @@ export type MarkAllNotificationsReadResponses = {
 };
 
 export type MarkAllNotificationsReadResponse = MarkAllNotificationsReadResponses[keyof MarkAllNotificationsReadResponses];
+
+export type AdminListProductsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+        query?: string;
+        status?: ProductStatus;
+        reason?: string;
+    };
+    url: '/admin/products';
+};
+
+export type AdminListProductsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+};
+
+export type AdminListProductsError = AdminListProductsErrors[keyof AdminListProductsErrors];
+
+export type AdminListProductsResponses = {
+    /**
+     * Audited administrator product queue.
+     */
+    200: AdminProductListResponse;
+};
+
+export type AdminListProductsResponse = AdminListProductsResponses[keyof AdminListProductsResponses];
+
+export type AdminGetProductData = {
+    body?: never;
+    path: {
+        productId: number;
+    };
+    query?: {
+        reason?: string;
+    };
+    url: '/admin/products/{productId}';
+};
+
+export type AdminGetProductErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+};
+
+export type AdminGetProductError = AdminGetProductErrors[keyof AdminGetProductErrors];
+
+export type AdminGetProductResponses = {
+    /**
+     * Audited administrator product detail.
+     */
+    200: AdminProductResponse;
+};
+
+export type AdminGetProductResponse = AdminGetProductResponses[keyof AdminGetProductResponses];
+
+export type AdminModerateProductData = {
+    body: {
+        hidden: boolean;
+        reason: string;
+        expectedUpdatedAt: string;
+    };
+    headers: {
+        /**
+         * Client-generated UUID. Replays return the original successful result.
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        productId: number;
+    };
+    query?: never;
+    url: '/admin/products/{productId}/moderation';
+};
+
+export type AdminModerateProductErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Duplicate request, stale version, expired object, or illegal state transition.
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminModerateProductError = AdminModerateProductErrors[keyof AdminModerateProductErrors];
+
+export type AdminModerateProductResponses = {
+    /**
+     * Decision, moderation hold and audit commit atomically.
+     */
+    200: AdminProductResponse;
+};
+
+export type AdminModerateProductResponse = AdminModerateProductResponses[keyof AdminModerateProductResponses];
 
 export type AdminListUsersData = {
     body?: never;

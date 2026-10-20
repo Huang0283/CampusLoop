@@ -78,7 +78,14 @@ def read_audit(db, event, actor_id, *, reason, snapshot, target_id=None, **metad
 
 
 def admin_idempotent(
-    db, actor, scope: str, key: str | None, body: dict, action: Callable[[], dict]
+    db,
+    actor,
+    scope: str,
+    key: str | None,
+    body: dict,
+    action: Callable[[], dict],
+    *,
+    replay_audit: Callable[[dict], None] | None = None,
 ) -> dict:
     administrator(actor)
     if key is None or not key.strip() or len(key) > 64:
@@ -100,15 +107,18 @@ def admin_idempotent(
                 409, "IDEMPOTENCY_CONFLICT", "Key was used with a different request."
             )
         cached = prior.result["data"]
-        read_audit(
-            db,
-            "admin_report_replay",
-            actor.id,
-            reason=body["note"],
-            snapshot={name: cached[name] for name in ("status", "handledBy", "handledAt")},
-            reportId=cached["id"],
-            purpose="idempotent_response_replay",
-        )
+        if replay_audit:
+            replay_audit(cached)
+        else:
+            read_audit(
+                db,
+                "admin_report_replay",
+                actor.id,
+                reason=body["note"],
+                snapshot={name: cached[name] for name in ("status", "handledBy", "handledAt")},
+                reportId=cached["id"],
+                purpose="idempotent_response_replay",
+            )
         db.commit()
         return prior.result
     result = action()

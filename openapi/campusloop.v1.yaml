@@ -1078,6 +1078,78 @@ paths:
       responses:
         '204': { description: All current notifications marked read idempotently. }
 
+  /admin/products:
+    get:
+      tags: [Admin]
+      operationId: adminListProducts
+      x-campusloop-phase: BP4-02/FE4-01
+      description: Administrator-only listing queue, including hidden goods. Reads are audited; deleted goods are excluded.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: query, in: query, schema: { type: string } }
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/ProductStatus' } }
+        - { name: reason, in: query, schema: { type: string, minLength: 1, maxLength: 500, pattern: '\S' } }
+      responses:
+        '200':
+          description: Audited administrator product queue.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminProductListResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /admin/products/{productId}:
+    parameters:
+      - $ref: '#/components/parameters/ProductId'
+    get:
+      tags: [Admin]
+      operationId: adminGetProduct
+      x-campusloop-phase: BP4-02/FE4-01
+      description: Administrator-only product detail, including hidden goods. Reads are audited.
+      parameters:
+        - { name: reason, in: query, schema: { type: string, minLength: 1, maxLength: 500, pattern: '\S' } }
+      responses:
+        '200':
+          description: Audited administrator product detail.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminProductResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /admin/products/{productId}/moderation:
+    parameters:
+      - $ref: '#/components/parameters/ProductId'
+    post:
+      tags: [Admin]
+      operationId: adminModerateProduct
+      x-campusloop-phase: BP4-02/FE4-01
+      description: Human hide/restore with mandatory reason, optimistic updatedAt and idempotency. Cannot change reserved/sold/deleted goods or republish owner-hidden goods. Owners cannot bypass a moderation hold.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [hidden, reason, expectedUpdatedAt]
+              properties:
+                hidden: { type: boolean }
+                reason: { type: string, minLength: 1, maxLength: 500, pattern: '\S' }
+                expectedUpdatedAt: { type: string, format: date-time }
+      responses:
+        '200':
+          description: Decision, moderation hold and audit commit atomically.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminProductResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/ValidationError' }
   /admin/users:
     get:
       tags: [Admin]
@@ -1445,6 +1517,31 @@ components:
         status: { $ref: '#/components/schemas/ProductStatus' }
         createdAt: { type: string, format: date-time }
         updatedAt: { type: string, format: date-time }
+    AdminProduct:
+      type: object
+      required: [product, moderationBlocked]
+      properties:
+        product: { $ref: '#/components/schemas/Product' }
+        moderationBlocked: { type: boolean, description: Only an administrator may release this human review hold. }
+    AdminProductResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data: { $ref: '#/components/schemas/AdminProduct' }
+    AdminProductListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/AdminProduct' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
     ProductWriteRequest:
       type: object
       required: [title, category, condition, price, campusLocation, images]

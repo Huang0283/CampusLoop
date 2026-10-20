@@ -1,4 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
+import { type Page } from '@playwright/test'
+import { test, expect } from './fixtures'
 
 const user = { id: 501, nickname: 'M3 acceptance', role: 'USER', status: 'ACTIVE', email: 'm3@example.invalid', rating: 0, transactionCount: 0 }
 const product = { id: 601, title: '验收教材', images: [], price: 30, originalPrice: 60, category: 'BOOKS', condition: 'GOOD', campusLocation: 'Library', status: 'ON_SALE', seller: { id: 502, nickname: '卖家' } }

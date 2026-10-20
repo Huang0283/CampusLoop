@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures'
 import { randomUUID } from 'node:crypto'
 
 test('report contract consumes private blobs and reuses an uncertain resolution key (contract fixtures)', async ({ page }) => {
@@ -89,6 +89,7 @@ test('admin users/risk and missing upstream governance are explicit (contract fi
   await page.route('**/admin/users/902/risk-clues', (route) => { auditRead += 1; return route.fulfill({ json: { data: { status: 'INSUFFICIENT_DATA', enforcementExecuted: false, missingInputs: ['device'], clues: [], algorithmVersion: 'fixture-v1', sourceWindowAsOf: '2026-10-12T00:00:00Z' } } }) })
   await page.route('**/admin/users/902/status', (route) => { statusWrite += 1; return route.fulfill({ json: { data: { ...target, status: 'DISABLED' } } }) })
   await page.route('**/admin/reports?**', (route) => route.fulfill({ status: 404, json: { code: 'NOT_FOUND', message: 'Missing endpoint fixture' } }))
+  await page.route('**/admin/products?**', (route) => route.fulfill({ status: 404, json: { code: 'NOT_FOUND', message: 'Missing endpoint fixture' } }))
   await page.goto('/admin')
   await page.getByRole('button', { name: '详情与人工处理 #902', exact: true }).click()
   await page.getByRole('button', { name: '读取风险线索（记录访问审计）', exact: true }).click()
@@ -102,7 +103,7 @@ test('admin users/risk and missing upstream governance are explicit (contract fi
   await page.getByRole('tab', { name: '举报处理', exact: true }).click()
   await expect(page.getByText('举报管理接口尚未接通', { exact: true })).toBeVisible()
   await page.getByRole('tab', { name: '商品治理', exact: true }).click()
-  await expect(page.getByText('商品治理接口待交付', { exact: true })).toBeVisible()
+  await expect(page.getByText('商品治理接口尚未接通', { exact: true })).toBeVisible()
 })
 
 test('timeout does not leave permanent spinner; manual refresh recovers (injected fault)', async ({ page }) => {
@@ -149,7 +150,10 @@ test('real admin pagination, risk audit request and status processing revoke ano
   await admin.getByRole('button', { name: /恢复账号/ }).click()
   await expect(admin.getByRole('button', { name: /禁用账号并撤销会话/ })).toBeEnabled()
   await admin.getByRole('button', { name: 'Close', exact: true }).click()
+  const reports = admin.waitForResponse((response) => response.url().includes('/admin/reports?') && response.status() === 200)
   await admin.getByRole('tab', { name: '举报处理', exact: true }).click()
-  await expect(admin.getByText('举报管理接口尚未接通', { exact: true })).toBeVisible()
+  expect(Array.isArray((await (await reports).json()).data)).toBe(true)
+  await expect(admin.getByRole('button', { name: '刷新举报', exact: true })).toBeVisible()
+  await expect(admin.getByText('举报管理接口尚未接通', { exact: true })).not.toBeVisible()
   await studentContext.close(); await adminContext.close()
 })
