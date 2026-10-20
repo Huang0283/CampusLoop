@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "scripts.m7_evaluation",
+    "seal",
+    "--bundle",
+    "docs/evidence/m7-evaluation/starter",
+    "--output",
+    "../m7-evaluation-evidence/SHOULD_NOT_SEAL"
+  ],
+  "exitCode": 2,
+  "elapsedSeconds": 0.9839999999967404
+}

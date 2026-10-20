@@ -1,0 +1,5 @@
+{
+  "status": "REFUSED",
+  "formalAcceptance": false,
+  "error": "seal refused: datasetVersion and labelVersion must be assigned before sealing; members must declare unseen test inputs with evidence before first replay; M1 independent protocol approval receipt pending; M10 independent protocol approval receipt pending; criticalSlices must be a nonempty unique list agreed before replay; source must have approved provenance; AI drafts are not independent human input; source must have approved provenance; AI drafts are not independent human input; independent authored queries and reviewed complete corpus annotations are required; search: independently reviewed test requests 0 < 100; matching: independently reviewed test requests 0 < 100"
+}

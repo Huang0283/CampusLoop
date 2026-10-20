@@ -1,0 +1,23 @@
+﻿python.exe : test_future_dated_human_evidence_is_not_accepted (scripts.m7_evaluation.tests.test_protocol.ProtocolTests.
+test_future_dated_human_evidence_is_not_accepted) ... FAIL
+所在位置 行:6 字符: 1
++ & ../phase5-fresh-baseline/Scripts/python.exe -m unittest scripts.m7_ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_future_dat...epted) ... FAIL:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+======================================================================
+FAIL: test_future_dated_human_evidence_is_not_accepted (scripts.m7_evaluation.tests.test_protocol.ProtocolTests.test_fu
+ture_dated_human_evidence_is_not_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Dates\Codex\2026-09-23\new-chat\work\CampusLoop-m7-evaluation\scripts\m7_evaluation\tests\test_protocol.py",
+ line 246, in test_future_dated_human_evidence_is_not_accepted
+    self.assertFalse(inspect_bundle(self.bundle)['readyToSeal'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.400s
+
+FAILED (failures=1)
