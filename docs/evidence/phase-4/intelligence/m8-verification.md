@@ -1,5 +1,7 @@
 # M8 Phase 4 验证记录
 
+> 历史记录：本文件记录 2026-10-14 对 PR #97 的验证，不是 2026-10-18 的最新状态。最新 M8 作者技术复验和交叉评审状态见 [m8-closeout.md](m8-closeout.md) 与 [joint-delivery/acceptance-status.json](joint-delivery/acceptance-status.json)。
+
 ## 本次修复与实际结果
 
 2026-10-14，基于 PR #97 的阶段集成提交 `cdf814364eec988e0d197c0a0098a92eb5db4d6e` 验证修复提交 `dd45e484ec043af88f65c69cc672678e9143c3a4`。证据记录中的 `dd45e48` 指此提交。

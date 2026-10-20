@@ -1,0 +1,42 @@
+# Daily local environment. Always use scripts/start-local.ps1; do not change
+# the project name or volume names to run another acceptance exercise.
+name: campusloop-local
+
+services:
+  db:
+    ports: !override
+      - "127.0.0.1:15432:5432"
+  redis:
+    ports: !override
+      - "127.0.0.1:16379:6379"
+  minio:
+    image: campusloop-local-minio:dev
+    ports: !override
+      - "127.0.0.1:19000:9000"
+      - "127.0.0.1:19001:9001"
+  minio-init:
+    image: campusloop-local-minio:dev
+  baseline:
+    image: campusloop-local-api:dev
+  worker:
+    image: campusloop-local-api:dev
+    ports: !override
+      - "127.0.0.1:8002:8000"
+  api:
+    image: campusloop-local-api:dev
+    environment:
+      CORS_ORIGINS: http://127.0.0.1:5174
+      AUTH_COOKIE_NAME: campusloop-local-session
+      S3_PUBLIC_BASE_URL: http://127.0.0.1:19000/campusloop-public
+    ports: !override
+      - "127.0.0.1:8001:8000"
+
+volumes:
+  db-data:
+    name: campusloop-local-db
+  redis-data:
+    name: campusloop-local-redis
+  minio-data:
+    name: campusloop-local-media
+  baseline-data:
+    name: campusloop-local-baseline

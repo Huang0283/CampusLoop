@@ -1,0 +1,22 @@
+test_network_failure_degrades (test_client.ClientTests.test_network_failure_degrades) ... ok
+test_risk_fallback_never_enforces (test_client.ClientTests.test_risk_fallback_never_enforces) ... ok
+test_interval_is_ordered_and_not_exact_promise (test_engine.PriceTests.test_interval_is_ordered_and_not_exact_promise) ... ok
+test_missing_anchor_is_insufficient (test_engine.PriceTests.test_missing_anchor_is_insufficient) ... ok
+test_rejects_boolean_price (test_engine.PriceTests.test_rejects_boolean_price) ... ok
+test_input_is_not_mutated (test_engine.RiskTests.test_input_is_not_mutated) ... ok
+test_missing_observation_is_not_a_zero_risk_claim (test_engine.RiskTests.test_missing_observation_is_not_a_zero_risk_claim) ... ok
+test_no_clue_has_no_review (test_engine.RiskTests.test_no_clue_has_no_review) ... ok
+test_threshold_emits_explanation_but_no_penalty (test_engine.RiskTests.test_threshold_emits_explanation_but_no_penalty) ... ok
+test_cancelled_disputed_and_invalid_do_not_increase_score (test_engine.TrustTests.test_cancelled_disputed_and_invalid_do_not_increase_score) ... ok
+test_new_user_is_neutral (test_engine.TrustTests.test_new_user_is_neutral) ... ok
+test_smoothing_limits_small_sample (test_engine.TrustTests.test_smoothing_limits_small_sample) ... ok
+test_all_fixed_cases_pass (test_evaluation.EvaluationTests.test_all_fixed_cases_pass) ... ok
+test_authentication_is_required (test_http.HttpTests.test_authentication_is_required) ... ok
+test_unknown_fields_are_rejected (test_http.HttpTests.test_unknown_fields_are_rejected) ... ok
+test_versioned_price_route (test_http.HttpTests.test_versioned_price_route) ... ok
+test_wrong_media_type_is_rejected (test_http.HttpTests.test_wrong_media_type_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.521s
+
+OK

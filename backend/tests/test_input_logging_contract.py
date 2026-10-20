@@ -49,6 +49,34 @@ def test_private_log_fields_and_exception_parameters_are_not_emitted():
         assert "safe-id" in result
 
 
+@pytest.mark.parametrize("original", [None, 2, 2.5])
+def test_product_original_price_accepts_unknown_equal_or_higher(original):
+    body = ProductWrite(
+        title="Book",
+        category="BOOKS",
+        condition="GOOD",
+        price=2,
+        originalPrice=original,
+        campusLocation="Library",
+        images=["https://example.invalid/image.jpg"],
+    )
+    assert body.originalPrice == original
+
+
+def test_product_original_price_below_sale_is_a_field_validation_error():
+    with pytest.raises(ValidationError) as error:
+        ProductWrite(
+            title="Book",
+            category="BOOKS",
+            condition="GOOD",
+            price=2,
+            originalPrice=0.5,
+            campusLocation="Library",
+            images=["https://example.invalid/image.jpg"],
+        )
+    assert error.value.errors()[0]["loc"] == ("originalPrice",)
+
+
 def test_invalid_request_id_is_sanitized_in_headers_and_error_body(client):
     response = client.post("/auth/login", json={}, headers={"X-Request-ID": "invalid request id"})
     assert response.status_code == 422

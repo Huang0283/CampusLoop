@@ -22,7 +22,19 @@
 
 ---
 
-## 当前第三阶段候选：启动与验收
+## 本机日常启动
+
+为避免连接到临时验收数据库，日常使用统一运行：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
+```
+
+固定页面地址为 http://127.0.0.1:5174/market ，账号和图片保存在固定持久卷。启动命令、数据保护和历史环境说明见 [本机启动说明](docs/development/local-startup.md)。
+
+2026-10-20 的前四阶段技术复验、修复和手动验收入口见 [集成验收记录](docs/evidence/phase-4/management-quality/phase1-4-closure-audit.md)。第四阶段仍待人工冻结与阶段收口，不把规则可用解释为候选模型已获上线批准。
+
+## 第三阶段交付记录
 
 第三阶段集中实现包含真实账号/市场/上传、双账号聊天和交易闭环、关键词/规则智能服务及自动化测试。现阶段属于待独立验收候选，不宣称已经正式发布。
 

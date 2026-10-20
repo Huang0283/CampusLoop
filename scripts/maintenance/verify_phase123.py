@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import subprocess
 import sys
 import time
@@ -25,9 +26,10 @@ def main():
     database = urlsplit(os.environ.get("DATABASE_URL", ""))
     redis = urlsplit(os.environ.get("REDIS_URL", ""))
     # The rollback and integration tests are never allowed on a demo/user DB.
-    if (database.hostname != "campusloop-ops-db" or database.path != "/campusloop_ops"
-            or redis.hostname != "campusloop-ops-redis" or redis.path != "/15"):
-        raise SystemExit("Dedicated campusloop-ops-db/campusloop_ops and Redis DB 15 required")
+    if (os.environ.get("APP_ENV") != "test"
+            or not re.fullmatch(r"/campusloop_(test|audit_[A-Za-z0-9_]+)", database.path)
+            or redis.path not in ("/14", "/15")):
+        raise SystemExit("APP_ENV=test, a dedicated campusloop_test/campusloop_audit_* database and Redis DB14/15 required; daily databases are forbidden")
     if output.exists() and any(output.iterdir()):
         raise SystemExit("Use an empty evidence directory")
     output.mkdir(parents=True, exist_ok=True)

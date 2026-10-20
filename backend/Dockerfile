@@ -21,6 +21,13 @@ COPY data/ ../data/
 
 # 非 root 运行（教学项目基线安全要求）
 RUN useradd --create-home appuser && chown -R appuser:appuser /srv/campusloop
+
+# baseline 容器的卷挂载点 /data：预创建 + 占位文件 + 归属 appuser。
+# named volume 只在挂载点"非空"时才触发 copy-on-first-use（继承镜像内
+# 目录属主）；空目录不会触发拷贝，卷会以 root 属主创建，appuser 无法
+# 在其中创建 snapshots.sqlite（sqlite3.OperationalError: unable to open）。
+RUN mkdir -p /data && echo '{}' > /data/.keep && chown -R appuser:appuser /data
+
 USER appuser
 
 EXPOSE 8000

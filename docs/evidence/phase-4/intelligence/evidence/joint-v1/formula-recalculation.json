@@ -1,0 +1,34 @@
+{
+  "auditorGitBlobSha256": "9d9d1d3e404cd06723d644ebb9997408d00d60f84b3c5f43294af7de3cd9411b",
+  "auditorSourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+  "auditorSourcePath": "scripts/quality_phase4/archive_evaluation.py",
+  "candidateCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "checks": {
+    "all": {
+      "independentFormulaImplementation": true,
+      "mrrRecallPrecisionTolerance": 1e-12,
+      "repeatedMetricsIdentical": true,
+      "requests": 38
+    },
+    "dev": {
+      "independentFormulaImplementation": true,
+      "mrrRecallPrecisionTolerance": 1e-12,
+      "repeatedMetricsIdentical": true,
+      "requests": 26
+    },
+    "test_candidate": {
+      "independentFormulaImplementation": true,
+      "mrrRecallPrecisionTolerance": 1e-12,
+      "repeatedMetricsIdentical": true,
+      "requests": 12
+    }
+  },
+  "executedAt": "2026-10-17T13:27:40.448282+00:00",
+  "executedFunction": "strict_check only; did not run M10 CLI main or emit its hard-coded execution attribution",
+  "executionRole": "M7_AUTHOR_TECHNICAL_RECALCULATION",
+  "formalAcceptance": "PENDING_ORIGINAL_M10_M1",
+  "formalDecision": "NO_GO",
+  "freezeApproved": false,
+  "humanIndependentExecution": false,
+  "status": "PASS"
+}
