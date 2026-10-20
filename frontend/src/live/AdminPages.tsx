@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Alert, Button, Card, Descriptions, Drawer, Form, Image, Input, Pagination, Select, Space, Tabs, Tag, Typography } from 'antd'
 import * as api from '../sdk'
-import type { Report, ReportStatus, UserProfile } from '../sdk'
+import type { AdminReport, ReportStatus, UserProfile } from '../sdk'
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useAttemptKey } from './idempotency'
 
@@ -88,11 +88,11 @@ function Evidence({ reportId, index }: { reportId: number; index: number }) {
   return image.url ? <Image src={image.url} alt={`举报私密证据 ${index + 1}`} width={160} /> : image.error ? <Failure error={image.error} retry={() => { setImage({}); setAttempt((value) => value + 1) }} /> : <Typography.Text role="status">正在读取私密证据…</Typography.Text>
 }
 
-function ReportDetail({ report, refresh }: { report: Report; refresh: () => void }) {
+function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () => void }) {
   const mutation = useMutation()
   const attemptKey = useAttemptKey()
   const [showEvidence, setShowEvidence] = useState(false)
-  const [confirmed, setConfirmed] = useState<Report>()
+  const [confirmed, setConfirmed] = useState<AdminReport>()
   const current = confirmed || report
   return <>
     <Descriptions column={1} bordered items={[
@@ -121,7 +121,7 @@ function ReportDetail({ report, refresh }: { report: Report; refresh: () => void
 function ReportsPanel() {
   const [page, setPage] = useState(1)
   const [status, setStatus] = useState<ReportStatus>()
-  const [selected, setSelected] = useState<Report>()
+  const [selected, setSelected] = useState<AdminReport>()
   const remote = useRemote(`admin-reports-${page}-${status}`, (signal) => api.data(api.adminListReports({ signal, query: { page, pageSize: 20, status } })))
   return <>
     <Space wrap style={{ marginBottom: 16 }}><Select aria-label="举报状态筛选" placeholder="全部举报状态" allowClear value={status} onChange={(next) => { setSelected(undefined); setPage(1); setStatus(next) }} style={{ width: 200 }} options={(['PENDING', 'PROCESSING', 'RESOLVED', 'REJECTED'] as const).map((value) => ({ value, label: value }))} /><Button onClick={remote.reload}>刷新举报</Button></Space>
