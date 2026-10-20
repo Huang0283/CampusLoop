@@ -1,13 +1,13 @@
 {
   "purpose": "diagnostic-only; failures block freeze",
-  "codeCommit": "UNAVAILABLE; verify source hashes in accompanying report",
+  "codeCommit": "87750c161b59a8e496c7b6775cdfd353267017e6",
   "sourceHashes": {
-    "services/m7_baseline/client.py": "917c9a437040a20be257a40b3f0b66e28a462d17ad0708d38d4ce7f47b0a1352",
-    "services/m8_baseline/client.py": "54221a5ae387488c082ce432674a19ef05c29f826b1653f9ca9b914d03e01808"
+    "services/m7_baseline/client.py": "0debf470829db20469841ecc749cecd058822dc1cb90de01a7146c979d9c9131",
+    "services/m8_baseline/client.py": "4bffbb54a858e50c7241b0f7c74c31e38bb2b291b6aa0e9aa87259d14f297061"
   },
   "environment": {
-    "python": "3.12.15",
-    "os": "Linux"
+    "python": "3.14.7",
+    "os": "Windows"
   },
   "observations": [
     {
@@ -31,14 +31,14 @@
     {
       "capability": "M7 ranking",
       "scenario": "bad-shape",
-      "status": "FAIL",
-      "actual": "response-returned"
+      "status": "PASS",
+      "actual": "safe-fallback"
     },
     {
       "capability": "M7 ranking",
       "scenario": "bad-json",
-      "status": "FAIL",
-      "actual": "JSONDecodeError"
+      "status": "PASS",
+      "actual": "safe-fallback"
     },
     {
       "capability": "M7 ranking",
@@ -61,8 +61,8 @@
     {
       "capability": "M8 price",
       "scenario": "bad-shape",
-      "status": "FAIL",
-      "actual": "response-returned"
+      "status": "PASS",
+      "actual": "safe-fallback"
     },
     {
       "capability": "M8 price",
@@ -85,8 +85,8 @@
     {
       "capability": "M8 trust",
       "scenario": "bad-shape",
-      "status": "FAIL",
-      "actual": "response-returned"
+      "status": "PASS",
+      "actual": "safe-fallback"
     },
     {
       "capability": "M8 trust",
@@ -109,8 +109,8 @@
     {
       "capability": "M8 risk",
       "scenario": "bad-shape",
-      "status": "FAIL",
-      "actual": "response-returned"
+      "status": "PASS",
+      "actual": "safe-fallback"
     },
     {
       "capability": "M8 risk",
@@ -119,6 +119,6 @@
       "actual": "safe-fallback"
     }
   ],
-  "passCount": 13,
-  "failCount": 5
+  "passCount": 18,
+  "failCount": 0
 }

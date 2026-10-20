@@ -55,3 +55,7 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/phase-4/intelligence/evidence/joint-v1/**/*.txt -whitespace
 /docs/evidence/phase-4/intelligence/evidence/joint-v1/*.txt -whitespace
 /docs/evidence/phase-4/intelligence/*.md text eol=lf
+
+# Joint audit logs contain byte hashes; never normalize their archived bytes.
+/docs/evidence/phase-4/management-quality/audit-2026-10-20/** -text -whitespace
+/docs/evidence/phase-4/management-quality/rpc-fault-observations*.json -text whitespace=cr-at-eol

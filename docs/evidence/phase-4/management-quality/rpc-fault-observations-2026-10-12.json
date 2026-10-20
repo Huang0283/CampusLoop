@@ -1,0 +1,124 @@
+{
+  "purpose": "diagnostic-only; failures block freeze",
+  "codeCommit": "UNAVAILABLE; verify source hashes in accompanying report",
+  "sourceHashes": {
+    "services/m7_baseline/client.py": "917c9a437040a20be257a40b3f0b66e28a462d17ad0708d38d4ce7f47b0a1352",
+    "services/m8_baseline/client.py": "54221a5ae387488c082ce432674a19ef05c29f826b1653f9ca9b914d03e01808"
+  },
+  "environment": {
+    "python": "3.12.15",
+    "os": "Linux"
+  },
+  "observations": [
+    {
+      "capability": "M7 ranking",
+      "scenario": "normal",
+      "status": "PASS",
+      "actual": "response-returned"
+    },
+    {
+      "capability": "M7 ranking",
+      "scenario": "timeout",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M7 ranking",
+      "scenario": "off",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M7 ranking",
+      "scenario": "bad-shape",
+      "status": "FAIL",
+      "actual": "response-returned"
+    },
+    {
+      "capability": "M7 ranking",
+      "scenario": "bad-json",
+      "status": "FAIL",
+      "actual": "JSONDecodeError"
+    },
+    {
+      "capability": "M7 ranking",
+      "scenario": "stale-input",
+      "status": "PASS",
+      "actual": "ServiceError:STALE_INPUT"
+    },
+    {
+      "capability": "M8 price",
+      "scenario": "timeout",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 price",
+      "scenario": "off",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 price",
+      "scenario": "bad-shape",
+      "status": "FAIL",
+      "actual": "response-returned"
+    },
+    {
+      "capability": "M8 price",
+      "scenario": "bad-json",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 trust",
+      "scenario": "timeout",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 trust",
+      "scenario": "off",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 trust",
+      "scenario": "bad-shape",
+      "status": "FAIL",
+      "actual": "response-returned"
+    },
+    {
+      "capability": "M8 trust",
+      "scenario": "bad-json",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 risk",
+      "scenario": "timeout",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 risk",
+      "scenario": "off",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    },
+    {
+      "capability": "M8 risk",
+      "scenario": "bad-shape",
+      "status": "FAIL",
+      "actual": "response-returned"
+    },
+    {
+      "capability": "M8 risk",
+      "scenario": "bad-json",
+      "status": "PASS",
+      "actual": "safe-fallback"
+    }
+  ],
+  "passCount": 13,
+  "failCount": 5
+}

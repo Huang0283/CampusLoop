@@ -1,4 +1,7 @@
 # MQ4-05 MVP、权限与人工后台回归
+
+2026-10-20 复验：四组与 M9 代码集成后，`87750c1` 的后端 118 项、浏览器 24 项真实旅程及明确夹具通过；举报与商品真实治理缺口已补。最新命令、范围与人工待确认事项见 [集成复验](phase1-4-closure-audit.md)。下文为 10-12 的旧环境与当时结果，不是当前缺陷状态。
+
 2026-10-12；后端 main829ffbfc7f5c310917b2ff7c9627fe98b117824a（测试镜像campusloop-phase3:local的后端源码74d8c0c与当前后端一致），M2代码8803e639302324e13183af336431dbbb550aea2f/PR94。
 Linux Python3.12.15、PostgreSQL phase3_verify、Redis14、真实 MinIO。停止同库 API/worker 再跑测试，结束恢复；不动演示库/Redis13/OceanScope服务。
 
