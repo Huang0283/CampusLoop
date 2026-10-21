@@ -1,5 +1,12 @@
 # M7 审核时间补录
 
+## 本轮确认
+
+2026-10-21 交付修复说明：本节恢复已有 JSONL 中 `human-confirmation.md#本轮确认` 的可追溯入口，不新增真人声明。按本目录 `review-status.json` 和最初补录目录 `../m7-review-confirmation-20261021/` 已有记录，KkkkRui 的批量确认范围是 20,736 对原标签保持不变。
+
+`estimatedReviewTime` 是 `2026-10-21T01:00+08:00` 的整批估计；真实 `reviewedAt` / `reviewDate` 仍为空，时间先后没有被独立核验。这里不把估计改为实际时间，也不代替 M8 的独立审核或 M10/M1 的接收。
+
+最后提交 `f43c78623ce7489a3da6423954c421a14775f141` 更换了工作簿并删去原确认章节；修复保留该用户修订的 `M7_审核结果_通过.xlsx` 原字节，不恢复旧工作簿。版本差异及原清单哈希见 `delivery-repair-20261021.md`。原 `verification.json` 描述更换前版本，不证明更换后的 Excel 与 JSONL 逐格相同。
 
 ## 早期材料
 
@@ -7,7 +14,7 @@
 
 ## 文件与状态
 
-- 工作簿保留搜索审核、求购审核两页，原事实、标签、理由、审核人、校验和冻结窗格保留。
+- 本次修复保留用户最后提交工作簿的原字节。更换前版本的原事实、标签、校验和冻结窗格保留结论属于历史验证；更换后的逐格一致性尚未重验，不据此沿用该结论。
 - 配套 JSONL 同步保留时间、原标签及来源。原始补录目录不变，新目录记录本次更正。
 - legacy-materials-review.json 是早期交付包的整批确认清单，legacy-228-additional-review.jsonl 是旧 228 对的新增复核时段。
 - 无新增模型评估、测试封存、独立审核签署或准入通过。structuredArchiveAccepted=false、formalAcceptance=false，NO_GO 保留。
