@@ -9,7 +9,9 @@
 这些草稿保留 AI 来源，尚不属于原方案要求的成员独立编写或已复核 test，不改变本页 starter 的 0 条正式新增查询状态。
 
 本轮用户已确认 KkkkRui 完成全部 20,736 对 M7 标签审核，原 0/1/2/U 标签均无修改。
-最新 [M7 审核补录](m7-review-confirmation-20261021/human-confirmation.md) 记录结论“通过”；实际审核日期/时间未记录，未补造。
+最初 [M7 审核补录](m7-review-confirmation-20261021/human-confirmation.md) 记录结论“通过”。
+最新 [时间补录](review-time-supplement-20261021/human-confirmation.md) 按用户要求填写 2026-10-21 约01:00（北京时间，整批估计时间）；用户不记得准确时间，verified reviewedAt 仍为空。
+早期材料另登记 2026-10-20 23:30–23:40 的新增整批复核，保留原 10/18 首轮记录。
 这更新了 M7 的用户确认状态，不代表 M8 独立确认、结构化归档验收或正式测试封存完成。
 
 历史的 228 对标签由 KkkkRui 确认保持原标签，并按用户提供的
