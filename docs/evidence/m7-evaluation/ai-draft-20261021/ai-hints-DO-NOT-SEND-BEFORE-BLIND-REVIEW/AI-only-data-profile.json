@@ -1,0 +1,22 @@
+{
+  "algorithmsExecuted": false,
+  "byTask": {
+    "matching": {
+      "draftQueryCount": 144,
+      "noStrictPositiveQueryCount": 22,
+      "positiveQueryCount": 105,
+      "precisionAt5TheoreticalUpperBoundOnAiDraftLabels": 0.6952380952380952,
+      "unknownLabelQueryCount": 17
+    },
+    "search": {
+      "draftQueryCount": 144,
+      "noStrictPositiveQueryCount": 22,
+      "positiveQueryCount": 105,
+      "precisionAt5TheoreticalUpperBoundOnAiDraftLabels": 0.7123809523809523,
+      "unknownLabelQueryCount": 17
+    }
+  },
+  "formalAcceptance": false,
+  "note": "Ceilings are calculated from unaccepted AI/rule proposals, not reviewed truth. No model ranking was executed.",
+  "status": "AI_PROPOSAL_DIAGNOSTIC_ONLY"
+}

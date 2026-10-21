@@ -1,0 +1,12 @@
+{
+  "branch": "prep/m7-evaluation-evidence",
+  "formalAcceptance": false,
+  "generatedBy": "Codex (AI)",
+  "generatorReferenceSha256": "1fae60e67c3d5498452679c51c1d9b5dda3b1efce245893f6004d73948edf725",
+  "humanReviewRecordsCompleted": 0,
+  "note": "AI authorship is retained. No human signs, approval receipts or historical review times have been backfilled.",
+  "pullRequest": "https://github.com/Huang0283/CampusLoop/pull/115",
+  "querySource": "AI_CONSTRUCTED_SCENARIOS_ONLY",
+  "repository": "https://github.com/Huang0283/CampusLoop",
+  "toolAndCatalogSourceCommit": "aabc0c399f66e76caea4d0f3db514e031be2ff38"
+}

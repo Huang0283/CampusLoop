@@ -1,0 +1,35 @@
+{
+  "M8IndependentReview": "PENDING_UNCHANGED",
+  "actualReviewDate": null,
+  "actualReviewTime": null,
+  "confirmationTimeIsNotReviewTime": true,
+  "confirmedAtUtc": "2026-10-20T17:22:02.660925+00:00",
+  "declaredHumanReviewedPairs": 20736,
+  "estimatedReviewTime": "2026-10-21T01:00+08:00",
+  "formalAcceptance": false,
+  "labelCounts": {
+    "0": 19744,
+    "1": 118,
+    "2": 757,
+    "U": 117
+  },
+  "modifiedLabels": 0,
+  "noGoRemains": true,
+  "reviewConclusion": "APPROVED_UNCHANGED",
+  "reviewTimeChronologyVerified": false,
+  "reviewTimePrecision": "APPROXIMATE_BATCH_TIME",
+  "reviewTimeStatus": "USER_REQUESTED_ESTIMATE_ACTUAL_TIME_NOT_RECALLED",
+  "reviewer": "KkkkRui",
+  "sourceQueryAuthorship": "Codex (AI); preserved independently from human review authorship",
+  "sourceQueryDatasetVersion": "m7-ai-scenarios-draft-20261021-v1",
+  "status": "M7_LABELS_APPROVED_REVIEW_TIME_ESTIMATED",
+  "structuredArchiveAccepted": false,
+  "taskCounts": {
+    "matching": 10368,
+    "search": 10368
+  },
+  "testSetSealed": false,
+  "timeAmendedAtUtc": "2026-10-21T02:33:26.461197+00:00",
+  "timestampCompletePairs": 0,
+  "userDeclaredReviewTime": "2026-10-21T01:00+08:00"
+}
