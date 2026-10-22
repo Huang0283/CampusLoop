@@ -17,7 +17,7 @@ cd "$REPO_ROOT"
 DUMP="${1:?用法: db_restore.sh <dump 文件>}"
 [ -f "$DUMP" ] || { echo "[FAIL] 备份文件不存在: ${DUMP}" >&2; exit 1; }
 
-docker compose ps db 2>/dev/null | grep -q running \
+docker compose ps db 2>/dev/null | grep -qE ' Up ' \
   || { echo "[FAIL] db 容器未运行：先 docker compose up -d" >&2; exit 1; }
 
 echo ">>> 0/4 备份完整性自检（pg_restore --list 前 5 行）"
