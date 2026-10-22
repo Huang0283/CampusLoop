@@ -1,6 +1,6 @@
 # MQ4-04 智能降级检查
 
-2026-10-20 复验：`87750c1` 上 18/18 RPC 探针通过，DEF-P4-01/02 已修复。最新结果为 `rpc-fault-observations.json`；下文 13 PASS/5 FAIL 的历史原件另存 `rpc-fault-observations-2026-10-12.json`。关闭智能与 Worker 的真实双账号交易仍通过。详情见 [集成复验](phase1-4-closure-audit.md)；技术修复不改变语义/回归模型 NO_GO，也不代签正式冻结。
+2026-10-22 最新复验绑定 `phase4/integration` 提交 `018ba69ea73987f2a6febc716b634416d4049727`：18/18 RPC 探针通过，DEF-P4-01/02 的坏结构/JSON 场景均安全降级。最新原始结果为 `m10-2026-10-22/rpc-fault-observations.json`。关闭智能与 Worker 的真实双账号浏览器旅程 1/1 是 `87750c1` 审计记录；本地本轮未重跑数据库/浏览器旅程，勿将历史结果说成最新 tip 现场复验。历史 13 PASS/5 FAIL 仍保存在 `rpc-fault-observations-2026-10-12.json`，不改写。技术检查不改变语义/回归模型 NO_GO，也不代表正式冻结、汇报或签字已完成。
 
 2026-10-12；当前业务源 main 829ffbfc7f5c310917b2ff7c9627fe98b117824a，Linux Python3.12.15。状态：诊断执行完成，冻结验收失败，不能关闭本任务验收。
 

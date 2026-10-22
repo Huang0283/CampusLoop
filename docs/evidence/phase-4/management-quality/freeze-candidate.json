@@ -1,25 +1,29 @@
 {
   "schemaVersion": "campusloop-freeze-candidate-v1",
-  "date": "2026-10-20",
-  "currentAuditCodeCommit": "87750c161b59a8e496c7b6775cdfd353267017e6",
-  "currentAuditReport": "phase1-4-closure-audit.md",
-  "historicalRpcEvidence": "rpc-fault-observations-2026-10-12.json",
-  "businessCommit": "829ffbfc7f5c310917b2ff7c9627fe98b117824a",
-  "m10EvidenceCommit": "07b2922a4c7b2029ab2512e340f5e551883a25fa",
-  "m2CodeCommit": "8803e639302324e13183af336431dbbb550aea2f",
-  "phase4FreezeCommit": null,
-  "phase4Tag": null,
+  "date": "2026-10-22",
+  "integrationBranch": "phase4/integration",
+  "integrationCandidateCommit": "018ba69ea73987f2a6febc716b634416d4049727",
+  "mainCommitBeforePhase4Closeout": "2eb166897fa1953b4514eef72b6d06baa869cf34",
+  "m10EvidenceDirectory": "m10-2026-10-22",
+  "modelDecision": "KEEP_RULE_BASELINES_BOTH_LEARNING_CANDIDATES_NO_GO",
   "openP1": [],
   "gates": {
-    "phase3InputConfirmed": false,
-    "allFourGroupsIntegrated": false,
+    "phase3InputConfirmed": true,
+    "allFourGroupsIntegrated": true,
     "backendGovernanceComplete": true,
     "frontendPhase4ConsumersVerified": true,
     "rpcBadResultDegradationPassed": true,
-    "independentQualitySigned": false,
-    "scopeSignedByM1": false,
+    "independentQualityTechnicalChecksPassed": true,
+    "scopeDecisionRecordedForReview": true,
     "fourthPresentationRecorded": false,
-    "stageMergedToMain": false
+    "stageMergedToMain": false,
+    "phaseTagCreated": false
   },
-  "decision": "BLOCKED"
+  "approval": {
+    "m1": "CANDIDATE_DECISION_IN_PR_REQUIRES_OWNER_REVIEW",
+    "m10": "AUTHORIZED_TECHNICAL_VERIFICATION_RECORDED_REQUIRES_OWNER_REVIEW",
+    "signedApproval": false
+  },
+  "decision": "BLOCKED_PENDING_PRESENTATION_MAIN_MERGE_AND_TAG",
+  "note": "This file is a readiness/gate record. It does not create a freeze tag or represent a human signature. Update actual merge commit and tag only after they exist."
 }

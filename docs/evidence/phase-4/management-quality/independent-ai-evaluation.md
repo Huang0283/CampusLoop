@@ -1,5 +1,5 @@
 # MQ4-03 独立智能评估
-执行日期：2026-10-12。由 Codex 根据 M10 陈梓弘授权实际执行，不冒充真人签署。候选检出固定为 `e4dc076d7a589f41b3d8cd61c246dabe67e9c39d`，远端 prep/m7-p4-semantic-matching；生产 main 仍为 `829ffbfc7f5c310917b2ff7c9627fe98b117824a`，没有把候选合入业务。
+原始执行日期：2026-10-12。由 Codex 根据 M10 陈梓弘授权执行，不冒充真人签署。候选检出固定为 `e4dc076d7a589f41b3d8cd61c246dabe67e9c39d`，远端 prep/m7-p4-semantic-matching。最终评估解释与 M1 范围决定更新于 2026-10-22；当前四组集成候选 `018ba69ea73987f2a6febc716b634416d4049727` 中正式决定仍为关键词基线、语义候选 NO_GO。下列历史评估数字不因文档更新而变成新的数据集或新一次模型推理。
 
 ## 输入与方法
 同一 m7-synthetic-p2-v1.1 数据，72 个商品、38 个请求（搜索 24、匹配 14），dev 26、test_candidate 12；m7-label-draft-v1/PENDING_HUMAN_REVIEW。标签逐条记录未归档 humanReviewedPairs=0、testSetSealed=false，不表示用户从未看过数据，也不捏造 reviewer/time。
