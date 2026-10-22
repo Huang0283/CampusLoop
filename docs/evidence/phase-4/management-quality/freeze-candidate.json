@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "campusloop-freeze-candidate-v1",
+  "date": "2026-10-22",
+  "integrationBranch": "phase4/integration",
+  "integrationCandidateCommit": "018ba69ea73987f2a6febc716b634416d4049727",
+  "mainCommitBeforePhase4Closeout": "2eb166897fa1953b4514eef72b6d06baa869cf34",
+  "m10EvidenceDirectory": "m10-2026-10-22",
+  "modelDecision": "KEEP_RULE_BASELINES_BOTH_LEARNING_CANDIDATES_NO_GO",
+  "openP1": [],
+  "gates": {
+    "phase3InputConfirmed": true,
+    "allFourGroupsIntegrated": true,
+    "backendGovernanceComplete": true,
+    "frontendPhase4ConsumersVerified": true,
+    "rpcBadResultDegradationPassed": true,
+    "independentQualityTechnicalChecksPassed": true,
+    "scopeDecisionRecordedForReview": true,
+    "fourthPresentationRecorded": false,
+    "stageMergedToMain": false,
+    "phaseTagCreated": false
+  },
+  "approval": {
+    "m1": "CANDIDATE_DECISION_IN_PR_REQUIRES_OWNER_REVIEW",
+    "m10": "AUTHORIZED_TECHNICAL_VERIFICATION_RECORDED_REQUIRES_OWNER_REVIEW",
+    "signedApproval": false
+  },
+  "decision": "BLOCKED_PENDING_PRESENTATION_MAIN_MERGE_AND_TAG",
+  "note": "This file is a readiness/gate record. It does not create a freeze tag or represent a human signature. Update actual merge commit and tag only after they exist."
+}

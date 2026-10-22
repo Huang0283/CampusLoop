@@ -1,0 +1,23 @@
+{
+  "policyVersion": "m8-price-readiness-v1",
+  "requiredDatasetVersion": "m8-price-l3-test-v1",
+  "requiredSchemaVersion": "m8-price-raw-v1",
+  "minimumL3Count": 200,
+  "minimumSliceCount": 30,
+  "requiredSourceId": "PDS-02",
+  "requiredApprovals": ["M5", "M6"],
+  "forbiddenFields": [
+    "name",
+    "email",
+    "studentId",
+    "exactLocation",
+    "chatText",
+    "reportEvidence",
+    "adminNote",
+    "deviceId"
+  ],
+  "candidateVersion": "m8-price-candidate-v1",
+  "featureVersion": "m8-price-features-v1",
+  "baselineVersion": "m8-price-rule-v1",
+  "fallbackVersion": "m8-price-phase4-router-v1"
+}

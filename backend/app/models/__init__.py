@@ -1,5 +1,6 @@
 """模型汇总：Alembic env 通过导入本模块发现全部表元数据（BP2-07）。"""
 
+from app.models.ai_runs import AiTaskRun, WorkerHeartbeat
 from app.models.chat import ChatMessage, ChatSession
 from app.models.matching import MatchingJob, MatchingNotification, MatchingResult
 from app.models.notification import Notification
@@ -13,6 +14,8 @@ from app.models.user import AuthAudit, AuthSessionFamily, RefreshSession, User
 from app.models.wanted import WantedPost
 
 __all__ = [
+    "AiTaskRun",
+    "WorkerHeartbeat",
     "MatchingJob",
     "MatchingResult",
     "MatchingNotification",

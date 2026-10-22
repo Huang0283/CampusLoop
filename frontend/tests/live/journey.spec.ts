@@ -1,4 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
+import { type Page } from '@playwright/test'
+import { test, expect } from './fixtures'
 import { randomUUID } from 'node:crypto'
 
 const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNkYPjPwMDAxMDAwMDAAAALHwEDmIWXfgAAAABJRU5ErkJggg==', 'base64')

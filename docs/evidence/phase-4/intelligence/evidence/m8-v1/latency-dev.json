@@ -1,0 +1,13 @@
+{
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.10.11"
+  },
+  "iterations": 200,
+  "note": "Candidate latency is not measurable because training is forbidden; M10 must repeat in the frozen environment.",
+  "p50Ms": 0.004,
+  "p95Ms": 0.007,
+  "p99Ms": 0.019,
+  "route": "NO_GO_TO_PHASE3_RULE_BASELINE",
+  "status": "DEV_DIAGNOSTIC_NOT_SLA_EVIDENCE"
+}

@@ -1,0 +1,13 @@
+﻿{
+    "junit":  "backend-junit.xml",
+    "failures":  0,
+    "sourceCommit":  "87750c161b59a8e496c7b6775cdfd353267017e6",
+    "skipped":  0,
+    "tests":  118,
+    "junitSha256":  "be2c00fcff58fd11a88cb82f9a890c5b20a606dc02a93415815534e1adc94b30",
+    "redisDatabase":  14,
+    "runtime":  "Python 3.12 / real PostgreSQL, Redis and MinIO",
+    "status":  "PASS",
+    "errors":  0,
+    "database":  "campusloop_audit_migrations_20261020"
+}

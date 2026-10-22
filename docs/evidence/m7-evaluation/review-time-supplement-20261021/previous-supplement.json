@@ -1,0 +1,13 @@
+{
+  "files": {
+    "FILES.sha256.json": "3c770f5728e90de7b2516993c2a0d1141aa663c1201377e8741597ee999bec82",
+    "M7_审核结果_通过_时间待补.xlsx": "b13199572a3293f5aec4e03a57f6ec76bf1c4b8a041bad5af0f88893a96b1cf5",
+    "M7_审核记录_通过_时间待补.jsonl": "242ed291bf809ee55873f03e7e1d61bd70b64cae90e282e63132de89a4ae498a",
+    "human-confirmation.md": "c98bfa60c57429f14709800047f401b2bac4b28b99a2d7dbecce2c4537d365d6",
+    "review-status.json": "ff12bdb793e8d7bbaf6165400ed996583e2ba91449a4f5e41846f2dc0aa27eca",
+    "source-provenance.json": "649221120b20917560e03217d422825babc35067d805b02c7468baccd29607c2",
+    "verification.json": "b369c5c19464e68a4f07a31df4074858b7230f6a16ea0a975746c762581d474a"
+  },
+  "originalEvidencePreserved": true,
+  "path": "m7-review-confirmation-20261021"
+}

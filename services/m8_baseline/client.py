@@ -7,6 +7,20 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, build_opener, ProxyHandler
 from urllib.parse import urlsplit
 from .engine import ServiceError
+from .response_validation import valid_response
+
+
+def _unique(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate response key")
+        result[key] = value
+    return result
+
+
+def _reject_constant(_value):
+    raise ValueError("non-finite response number")
 
 
 def fallback(task: str, reason: str) -> dict:
@@ -22,7 +36,9 @@ def fallback(task: str, reason: str) -> dict:
 
 def call(url: str, task: str, payload: dict, token: str, timeout: float = 0.5) -> dict:
     parsed = urlsplit(url)
-    if parsed.scheme != "http" or parsed.hostname != "127.0.0.1" or parsed.path not in {"", "/"} or parsed.query or parsed.fragment or parsed.username or len(token) < 32:
+    # phase-4（BP4-07，M9）：compose 内网服务名访问（如 http://baseline:8787）；
+    # 保留 http 明文、根路径、无查询/片段/凭据与强令牌约束（不降级）。
+    if parsed.scheme != "http" or parsed.path not in {"", "/"} or parsed.query or parsed.fragment or parsed.username or parsed.password or len(token) < 32:
         raise ServiceError(422, "VALIDATION_ERROR")
     route = {"price": "price-advice", "trust": "trust-summary", "risk": "risk-clues"}[task]
     body = json.dumps({"schemaVersion": "m8-baseline-rpc-v1", "payload": payload}, allow_nan=False).encode("utf-8")
@@ -33,8 +49,10 @@ def call(url: str, task: str, payload: dict, token: str, timeout: float = 0.5) -
             raw = response.read(1024 * 1024 + 1)
             if len(raw) > 1024 * 1024:
                 return fallback(task, "INVALID_SERVICE_RESPONSE")
-            result = json.loads(raw.decode("utf-8"))
-            if result.get("schemaVersion") != "m8-baseline-rpc-v1" or not isinstance(result.get("data"), dict):
+            result = json.loads(raw.decode("utf-8"), object_pairs_hook=_unique, parse_constant=_reject_constant)
+            if (not isinstance(result, dict) or set(result) != {"schemaVersion", "data"}
+                    or result.get("schemaVersion") != "m8-baseline-rpc-v1"
+                    or not valid_response(task, result.get("data"))):
                 return fallback(task, "INVALID_SERVICE_RESPONSE")
             return result["data"]
     except HTTPError as exc:

@@ -1,0 +1,41 @@
+{
+  "buildObserved": "READY; logicalDigest=d61fc5d5fad063b80780d7d6582eae0a6ab5ab7fb4aa9c9c9a6d77062ae99276",
+  "codeCommit": "217d0e4f12ed7f21d55e5c4cff86d08efe6f6e2b",
+  "status": "PASS",
+  "steps": [
+    {
+      "action": "update",
+      "command": [
+        "python",
+        "-m",
+        "services.m7_semantic",
+        "update",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--index",
+        "<private-index>",
+        "--products",
+        "<input>\\changes.jsonl"
+      ],
+      "exitCode": 0
+    },
+    {
+      "action": "query",
+      "command": [
+        "python",
+        "-m",
+        "services.m7_semantic",
+        "query",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--index",
+        "<private-index>",
+        "--products",
+        "<input>\\current-products.jsonl",
+        "--request",
+        "<input>\\request.json"
+      ],
+      "exitCode": 0
+    }
+  ]
+}

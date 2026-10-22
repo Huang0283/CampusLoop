@@ -1,0 +1,10 @@
+﻿{
+    "sourceCommit":  "87750c161b59a8e496c7b6775cdfd353267017e6",
+    "status":  "PASS",
+    "deterministicEvaluation":  true,
+    "metricsRecalculated":  true,
+    "assetsUnchanged":  true,
+    "semanticInferenceReproduced":  false,
+    "rawResults":  "Reproduce using python -m services.m7_baseline.verify --output-dir \u003cempty-directory\u003e",
+    "recordType":  "summary; raw per-query files remain in local .codex-tmp/closure-final-ai/m7-baseline"
+}
