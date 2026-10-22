@@ -25,7 +25,7 @@ CHECK_URL="postgresql+psycopg://campusloop:campusloop@db:5432/${CHECK_DB}"
 log() { printf '\n===== %s =====\n' "$*"; }
 fail() { printf '\n[FAIL] %s\n' "$*" >&2; exit 1; }
 
-docker compose ps "$APP_SERVICE" 2>/dev/null | grep -q running \
+docker compose ps "$APP_SERVICE" 2>/dev/null | grep -qE ' Up ' \
   || fail "api 容器未运行：先执行 docker compose up -d 并等 healthy"
 
 cleanup() {
