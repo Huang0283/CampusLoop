@@ -1,10 +1,10 @@
-# 管理质量Phase4交付索引
-MQ4-01 ai-go-no-go-decisions.md：逐项保留/实验/移除建议与数据/指标/独立结论，待M1正式批准。
-MQ4-02 integration-schedule.md：一周单向依赖、Owner、交付和复验时点。
-MQ4-06 feature-freeze-register.md：唯一代码、Phase5Owner、部分/实验/限制/P1P2P3；当前不是最终freeze。
-MQ4-03 independent-ai-evaluation.md + ai-evaluation/（PR95）：两个能力实际基线/候选重复推理与指标核对完成，正式NO_GO。
-MQ4-04 ai-degradation-test-report.md + rpc-fault-observations.json（PR95）：18观察13PASS/5FAIL，坏结果验收失败待上游修复。
-MQ4-05 mvp-regression-report.md（PR95）：37后端、关闭8、M2UI5+6通过；新增完整治理/智能集成仍阻塞。
-MQ4-07 fourth-presentation-package.md：脚本完成，真人汇报未发生。
-MQ4-08 release-candidate-baseline.md + handoff.md + freeze-candidate.json：固定回归/准入/接收清单候选完成，统一冻结hash尚不能产生。
-共同verification.md总结验收与Owner。M1/M10每人PR、同组Review和跨组确认仍须真实完成；不关闭#33，不合main。
+# 管理质量 Phase 4 交付索引
+
+- MQ4-01：`ai-go-no-go-decisions.md` — M7/M8 正式决定为规则/关键词基线保留，学习候选 NO_GO；真实评估数据交后续测试组。
+- MQ4-02：`integration-schedule.md` — 过程计划；原排期日期仅为计划，不作为现在已经开会或签署的证据。
+- MQ4-03/04/05：`independent-ai-evaluation.md`、`ai-degradation-test-report.md`、`mvp-regression-report.md` 与 `m10-verification.md`。最新 tip 的复测摘要及原始文件在 `m10-2026-10-22/`。
+- MQ4-06：`feature-freeze-register.md` — 可审核冻结范围，正式发布门禁仍未过。
+- MQ4-07：`fourth-presentation-package.md` — 汇报脚本；实际汇报纪要待 M1 完成后另行记录，脚本不算汇报。
+- MQ4-08：`release-candidate-baseline.md` 与 `handoff.md` — 候选起点和 Phase 5 接收清单；须待 main 合并 SHA/tag 生成后更新。
+- Release gate：`freeze-candidate.json` 当前 `BLOCKED_PENDING_PRESENTATION_MAIN_MERGE_AND_TAG`，并由 `check_freeze_gate.py` 强制检查。
+- 技术审计：`phase1-4-closure-audit.md`（源码审计提交 `87750c1`）及 `audit-2026-10-20/`；作为旧提交绑定证据保留，不改写成新提交测试。
