@@ -1,6 +1,6 @@
 # MQ4-08：发布候选基线与 Phase 5 起点
 
-当前候选集成提交：`phase4/integration` `018ba69ea73987f2a6febc716b634416d4049727`。`main` 当前提交：`2eb166897fa1953b4514eef72b6d06baa869cf34`，仍不含 Phase 4。不得把组分支 tip 写成已发布/正式冻结版本。
+阶段集成提交：`phase4/integration` `919c6277b2815f05fc821110b7f44844c7d997dd`。已通过 PR #118 合并至 `main`，merge commit：`7b13b67f6514d4b8e956322cd8cb879938da8c8d`。这是真实代码合并记录，但不是正式阶段 tag，也不等同于现场汇报及本人最终签署完成。
 
 ## 候选内容
 
@@ -9,12 +9,12 @@
 - M7 语义候选、M8 学习型价格回归均 NO_GO，不能作为产品默认结果或宣传能力。
 - 最新 `018ba69` 的 CI success；M10 新运行细节见 `m10-verification.md`。
 
-## 正式收口动作（尚未发生）
+## 正式收口动作状态
 
-1. PR review 确认此范围及 M10 验收记录。
-2. M1 创建从 `phase4/integration` 至 `main` 的唯一阶段收口 PR，并实际合并。
-3. 记录实际 main merge SHA，基于它创建合法 Phase 4 tag（例如仓库统一采用的 `phase4-freeze` 命名；先检查冲突，不覆盖已有 tag）。
-4. 真实第四次汇报完成后，将日期、参与者、演示提交、问题与负责人写入会议记录。
-5. 用合并 SHA/tag 更新 `freeze-candidate.json` 并重跑 freeze gate；依 issue 关闭条件处理 #29/#30/#31/#33。
+1. PR #118 已将四组集成合并到 `main`；M1/M10 收口文书来自 #117。
+2. main merge SHA 已登记为 `7b13b67f6514d4b8e956322cd8cb879938da8c8d`。
+3. Phase 4 tag 尚未创建；创建前检查同名 tag，绑定实际 main merge SHA，不覆盖已有 tag。
+4. 真实第四次汇报完成后，由 M1 记录日期、参与者、演示提交、问题与负责人；当前未有该会议记录。
+5. 本机/远端 main 已同步至合并 SHA；当前 freeze gate 仍应因汇报、tag、M1/M10 本人确认而 BLOCKED。汇报/签字补齐后再按 issue 条件处理 #29/#30/#31/#33。
 
-任何步骤未发生前，本文件均只是收口 PR 的候选基线。Phase 5 分支应从最终 main 冻结提交创建，不从该尚未合并的候选 tip 创建。
+Phase 5 分支起点须由 M1 在完成最终冻结批准及 tag 后确认；不要把模型 NO_GO 误读成能力通过。

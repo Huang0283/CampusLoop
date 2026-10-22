@@ -3,7 +3,10 @@
   "date": "2026-10-22",
   "integrationBranch": "phase4/integration",
   "integrationCandidateCommit": "018ba69ea73987f2a6febc716b634416d4049727",
-  "mainCommitBeforePhase4Closeout": "2eb166897fa1953b4514eef72b6d06baa869cf34",
+  "phase4MainMergeCommit": "7b13b67f6514d4b8e956322cd8cb879938da8c8d",
+  "mainBranchAtRecord": "7b13b67f6514d4b8e956322cd8cb879938da8c8d",
+  "phase4FreezeCommit": "7b13b67f6514d4b8e956322cd8cb879938da8c8d",
+  "phase4Tag": null,
   "m10EvidenceDirectory": "m10-2026-10-22",
   "modelDecision": "KEEP_RULE_BASELINES_BOTH_LEARNING_CANDIDATES_NO_GO",
   "openP1": [],
@@ -16,7 +19,7 @@
     "independentQualityTechnicalChecksPassed": true,
     "scopeDecisionRecordedForReview": true,
     "fourthPresentationRecorded": false,
-    "stageMergedToMain": false,
+    "stageMergedToMain": true,
     "phaseTagCreated": false
   },
   "approval": {
