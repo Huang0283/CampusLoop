@@ -20,7 +20,7 @@ TS="$(date +%Y%m%d-%H%M%S)"
 OUT="${1:-backups/campusloop-${TS}.dump}"
 mkdir -p "$(dirname "$OUT")"
 
-docker compose ps db 2>/dev/null | grep -q running \
+docker compose ps db 2>/dev/null | grep -qE ' Up ' \
   || { echo "[FAIL] db 容器未运行：先 docker compose up -d" >&2; exit 1; }
 
 echo ">>> pg_dump（自定义格式 -Fc）-> ${OUT}"
