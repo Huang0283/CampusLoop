@@ -64,6 +64,10 @@ def fetch_snapshot() -> dict:
     import psycopg
 
     url = os.environ.get("DATABASE_URL", DEFAULT_URL)
+    # 归一化：compose 注入的 DATABASE_URL 为 SQLAlchemy 风格 scheme
+    # （postgresql+psycopg://），psycopg.connect 需要标准 libpq scheme，
+    # 剥离驱动段后两种形态均可连接。
+    url = url.replace("postgresql+psycopg://", "postgresql://", 1)
     # 宿主机直连用 5432 端口的 psycopg URL；容器内 DATABASE_URL 同为 psycopg scheme。
     try:
         with psycopg.connect(url) as conn, conn.cursor() as cur:
@@ -117,7 +121,12 @@ def main() -> None:
     print(json.dumps(snapshot, ensure_ascii=False, indent=2))
 
     if not args.baseline:
-        print("[提示] 未提供 --baseline，仅输出快照。备份前请保存本输出作为基线。")
+        # 提示走 stderr：stdout 仅输出 JSON，保证 `> baseline.json` 重定向
+        # 得到可被 json.load 直接解析的纯 JSON。
+        print(
+            "[提示] 未提供 --baseline，仅输出快照。备份前请保存本输出作为基线。",
+            file=sys.stderr,
+        )
         return
 
     with open(args.baseline, encoding="utf-8") as fh:
