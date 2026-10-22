@@ -1,6 +1,6 @@
 # MQ4-06：第四阶段功能冻结登记（候选）
 
-候选登记日期：2026-10-22；统一集成代码候选：`phase4/integration` `018ba69ea73987f2a6febc716b634416d4049727`。本表是可审核的冻结范围候选，不声称第四阶段已发布到 `main`，也不代表正式 tag 已产生。完整门禁见 `freeze-candidate.json`。
+候选登记日期：2026-10-22；统一集成代码候选：`phase4/integration` `018ba69ea73987f2a6febc716b634416d4049727`。Phase 4 已于 2026-10-22 经 PR #118 合并到 `main`，合并提交 `7b13b67f6514d4b8e956322cd8cb879938da8c8d`。本表仍是范围候选，不代表正式 tag 已产生或实际汇报已完成。完整门禁见 `freeze-candidate.json`。
 
 ## 冻结范围
 
@@ -31,7 +31,7 @@
 
 - 四组汇总代码已经合入 `phase4/integration`；最新 tip `018ba69` 的 GitHub CI 成功。
 - 规则基线和安全降级技术复验通过；M7/M8 候选均明确 NO_GO。
-- 主分支仍为 `2eb166897fa1953b4514eef72b6d06baa869cf34`，没有包含 Phase 4；`phase4/integration` 尚未并入 `main`。
+- 主分支现为 `7b13b67f6514d4b8e956322cd8cb879938da8c8d`，包含 Phase 4 PR #118。
 - 真实第四次汇报记录缺失；本次 M10 工具执行不是本人现场签署。
-- 统一阶段 PR、main 冻结提交和 tag 尚未产生。
+- 统一阶段 PR 已合并；正式阶段 tag 尚未产生，最终人工确认和汇报纪要仍未补齐。
 - 因上述发布/汇报手续未完成，正式 release gate 仍 BLOCKED；不关闭 Phase 4 issues，不提前宣称正式发布完成。
