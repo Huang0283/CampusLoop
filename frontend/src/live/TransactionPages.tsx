@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Alert, Badge, Button, Card, Descriptions, Form, Input, Pagination, Popconfirm, Rate, Select, Space, Steps, Tabs, Tag, Timeline, Typography } from 'antd'
 import { AimOutlined, BellFilled, MessageFilled, MoneyCollectFilled } from '@ant-design/icons'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
@@ -40,6 +40,7 @@ export function OrderPage() {
   const events = useRemote(`events-${id}`, (signal) => api.data(api.listOrderEvents({ path: { orderId }, signal })), 5000)
   const mutation = useMutation()
   const [reason, setReason] = useState('')
+  const completionButtonRef = useRef<HTMLButtonElement>(null)
   const item = remote.value
   const confirmedComplete = item && (user.id === item.buyer.id ? item.buyerConfirmedComplete : item.sellerConfirmedComplete)
   const confirmedMeetup = item?.meetup && (user.id === item.buyer.id ? item.meetup.buyerConfirmed : item.meetup.sellerConfirmed)
@@ -53,7 +54,11 @@ export function OrderPage() {
       <div style={{ margin: '16px 0' }}><Space wrap>
         {mutable && <Link to={`/transactions/${item.id}/meetup`}>{item.meetup ? '修改见面约定' : '安排见面'}</Link>}
         {mutable && item.meetup && <Button disabled={confirmedMeetup || meetupNeedsReschedule} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.confirmMeetup({ path: { orderId }, body: { meetupId: item.meetup!.id, version: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}>确认当前版本</Button>}
-        {item.status === 'MEETUP_ARRANGED' && <Popconfirm title="确认已实际完成这次交易？" onConfirm={() => mutation.run(async () => { await api.confirmOrderComplete({ path: { orderId }, body: { meetupVersion: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}><Button type="primary" disabled={confirmedComplete} loading={mutation.busy}>我已完成交易</Button></Popconfirm>}
+        {item.status === 'MEETUP_ARRANGED' && <Popconfirm title="确认已实际完成这次交易？" onCancel={() => {
+          window.requestAnimationFrame(() => {
+            completionButtonRef.current?.focus({ preventScroll: true })
+          })
+        }} onConfirm={() => mutation.run(async () => { await api.confirmOrderComplete({ path: { orderId }, body: { meetupVersion: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}><Button ref={completionButtonRef} type="primary" disabled={confirmedComplete} loading={mutation.busy}>我已完成交易</Button></Popconfirm>}
         {item.status === 'COMPLETED' && <Link to={`/transactions/${item.id}/review`}>评价交易</Link>}
         <ReportButton targetType="ORDER" targetId={item.id} orderRole={user.id === item.seller.id ? 'seller' : 'buyer'} />
       </Space></div>
