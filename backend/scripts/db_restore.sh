@@ -40,12 +40,23 @@ ALEMBIC_VER="$(docker compose exec -T db psql -U campusloop -d campusloop \
 echo "alembic_version = ${ALEMBIC_VER}"
 [ -n "$ALEMBIC_VER" ] || { echo "[FAIL] 恢复后 alembic_version 为空" >&2; exit 1; }
 
-echo ">>> 4/4 行数快照（与备份前基线比对见下一步）"
-if python backend/scripts/verify_restore.py --baseline "$(ls -t backups/baseline-*.json 2>/dev/null | head -1)"; then
-  echo ">>> 行数与备份前基线一致 ✓"
+echo ">>> 4/4 行数快照核对（与备份前基线逐表比对）"
+BASELINE="$(ls -t backups/baseline-*.json 2>/dev/null | head -1 || true)"
+if [ -z "$BASELINE" ]; then
+  echo "[提示] 未找到 backups/baseline-*.json，跳过自动比对。" \
+       "完整验收需在备份前先生成基线（deployment-guide 2.4）" >&2
+elif python -c 'import psycopg' 2>/dev/null; then
+  # 宿主机 python 已具备 psycopg（全局或 venv）
+  python backend/scripts/verify_restore.py --baseline "$BASELINE" \
+    && echo ">>> 行数与备份前基线一致 ✓" \
+    || { echo ">>> 行数核对未通过，请检查上方明细" >&2; exit 1; }
 else
-  echo ">>> 行数核对未通过或未找到基线，请检查上方明细" >&2
-  exit 1
+  # 宿主机缺 psycopg（例如 Python 3.14 无 3.2.3 预编译包）：回退到 api 容器内核对
+  echo "[提示] 宿主机 python 缺 psycopg，改用 api 容器内核对"
+  docker compose cp "$BASELINE" api:/tmp/verify-baseline.json
+  docker compose exec -T api python scripts/verify_restore.py --baseline /tmp/verify-baseline.json \
+    && echo ">>> 行数与备份前基线一致 ✓" \
+    || { echo ">>> 行数核对未通过，请检查上方明细" >&2; exit 1; }
 fi
 
 echo ">>> 恢复完成：dump=${DUMP}，alembic_version=${ALEMBIC_VER}"
