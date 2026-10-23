@@ -8,7 +8,7 @@ import { ImageQueue } from './ImageQueue'
 import { useAttemptKey } from './idempotency'
 import { reportReasons } from './reportReasons'
 
-export function ReportButton({ targetType, targetId, orderRole }: { targetType: ReportTargetType; targetId: number; orderRole?: 'buyer' | 'seller' }) {
+export function ReportButton({ targetType, targetId, orderRole, label = '举报' }: { targetType: ReportTargetType; targetId: number; orderRole?: 'buyer' | 'seller'; label?: string }) {
   const [open, setOpen] = useState(false)
   const [uploadBlocked, setUploadBlocked] = useState(false)
   const [form] = Form.useForm()
@@ -16,7 +16,7 @@ export function ReportButton({ targetType, targetId, orderRole }: { targetType: 
   const attemptKey = useAttemptKey()
   const [messageApi, contextHolder] = message.useMessage()
   const options = reportReasons(targetType, orderRole)
-  return <>{contextHolder}<Button onClick={() => setOpen(true)}>举报</Button><Modal title="提交举报" open={open} onCancel={() => setOpen(false)} footer={null}>
+  return <>{contextHolder}<Button onClick={() => setOpen(true)}>{label}</Button><Modal title="提交举报" open={open} onCancel={() => setOpen(false)} footer={null}>
     {targetType === 'ORDER' && <Alert type="info" style={{ marginBottom: 16 }} title={orderRole === 'seller' ? '举报本订单中的买家行为' : '举报本订单中的交易问题'} description="请选择与事实相符的原因；恶意下单、爽约等请在交易违规的说明中描述。" />}
     <Failure error={mutation.error} /><Form form={form} layout="vertical" onFinish={(values: { reason: ReportReason; description?: string; evidence?: string[] }) => void mutation.run(async () => {
       const body = { targetType, targetId, ...values }

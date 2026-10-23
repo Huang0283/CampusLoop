@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, Card, Descriptions, Drawer, Form, Image, Input, Pagination, Select, Space, Tabs, Tag, Typography } from 'antd'
+import { Alert, Button, Descriptions, Drawer, Form, Image, Input, Pagination, Select, Space, Table, Tabs, Tag, Typography } from 'antd'
 import * as api from '../sdk'
 import type { AdminProduct, AdminReport, ReportStatus, UserProfile } from '../sdk'
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useAttemptKey } from './idempotency'
+import { Person } from './Presentation'
+import { productStatusLabels, displayDate } from './display'
 
 function RiskDetail({ user }: { user: UserProfile }) {
   const remote = useRemote(`admin-risk-${user.id}`, (signal) => api.data(api.getUserRiskClues({ path: { userId: user.id }, signal })))
@@ -64,7 +66,12 @@ function UsersPanel() {
     <Typography.Paragraph type="secondary">筛选只作用于当前页，查看其他用户请翻页。服务端全文筛选尚未提供。</Typography.Paragraph>
     <Resource {...remote}>
       {!visible.length && remote.value && <NoItems filtered={Boolean(query || status)} />}
-      {visible.map((user) => <Card key={user.id} style={{ marginBottom: 12 }}><Space wrap><strong>{user.nickname}</strong><span>#{user.id}</span><Tag>{user.status}</Tag><Tag>{user.role}</Tag><Button onClick={() => setSelected(user)}>详情与人工处理 #{user.id}</Button></Space></Card>)}
+      {visible.length > 0 && <Table rowKey="id" pagination={false} scroll={{ x: 800 }} dataSource={visible} columns={[
+        { title: '用户', key: 'user', render: (_, user) => <Person person={user} detail={user.email} /> },
+        { title: '编号', dataIndex: 'id' }, { title: '状态', key: 'status', render: (_, user) => <Tag color={user.status === 'ACTIVE' ? 'green' : 'red'}>{user.status === 'ACTIVE' ? '正常' : '已禁用'}</Tag> },
+        { title: '角色', key: 'role', render: (_, user) => user.role === 'ADMIN' ? '管理员' : '普通用户' },
+        { title: '操作', key: 'action', render: (_, user) => <Button onClick={() => setSelected(user)}>详情与人工处理 #{user.id}</Button> },
+      ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => { setSelected(undefined); setPage(next) }} />}
     </Resource>
     <Drawer title="用户详情与风险复核" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>
@@ -127,7 +134,13 @@ function ReportsPanel() {
     <Space wrap style={{ marginBottom: 16 }}><Select aria-label="举报状态筛选" placeholder="全部举报状态" allowClear value={status} onChange={(next) => { setSelected(undefined); setPage(1); setStatus(next) }} style={{ width: 200 }} options={(['PENDING', 'PROCESSING', 'RESOLVED', 'REJECTED'] as const).map((value) => ({ value, label: value }))} /><Button onClick={remote.reload}>刷新举报</Button></Space>
     {remote.error instanceof api.ApiError && [404, 501].includes(remote.error.status) ? <Alert type="warning" showIcon title="举报管理接口尚未接通" description="当前服务未提供举报队列，不能读取或处理举报。请等待后端治理接口交付后刷新。" action={<Button onClick={remote.reload}>重新检查接口</Button>} /> : <Resource {...remote}>
       {remote.value?.length === 0 && <NoItems filtered={Boolean(status)} />}
-      {remote.value?.map((report) => <Card key={report.id} style={{ marginBottom: 12 }}><Space wrap><strong>举报 #{report.id}</strong><Tag>{report.status}</Tag><span>{report.targetType} #{report.targetId}</span><Button onClick={() => setSelected(report)}>举报详情 #{report.id}</Button></Space></Card>)}
+      {Boolean(remote.value?.length) && <Table rowKey="id" pagination={false} scroll={{ x: 740 }} dataSource={remote.value} columns={[
+        { title: '举报编号', key: 'id', render: (_, report) => `举报 #${report.id}` },
+        { title: '举报对象', key: 'target', render: (_, report) => `${report.targetType} #${report.targetId}` },
+        { title: '处理状态', key: 'status', render: (_, report) => <Tag>{report.status}</Tag> },
+        { title: '提交时间', key: 'time', render: (_, report) => displayDate(report.createdAt) },
+        { title: '操作', key: 'action', render: (_, report) => <Button onClick={() => setSelected(report)}>举报详情 #{report.id}</Button> },
+      ]} />}
       {remote.value && <Space><Button disabled={page === 1} onClick={() => { setSelected(undefined); setPage(page - 1) }}>上一页</Button><span>第 {page} 页</span><Button disabled={remote.value.length < 20} onClick={() => { setSelected(undefined); setPage(page + 1) }}>下一页</Button></Space>}
     </Resource>}
     <Drawer title="举报详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ReportDetail key={selected.id} report={selected} refresh={remote.reload} />}</Drawer>
@@ -160,7 +173,7 @@ function ProductDetail({ productId, refresh }: { productId: number; refresh: () 
       refresh()
     })}>
       <Form.Item name="reason" label="商品处理原因" rules={[{ required: true, whitespace: true, max: 500 }]}><Input.TextArea maxLength={500} /></Form.Item>
-      <Button htmlType="submit" danger={!current?.moderationBlocked} loading={mutation.busy}>{current?.moderationBlocked ? '解除人工下架' : '人工下架商品'}</Button>
+      <Button htmlType="submit" aria-label={current?.moderationBlocked ? '解除人工下架' : '人工下架商品'} danger={!current?.moderationBlocked} loading={mutation.busy}>{current?.moderationBlocked ? '解除人工下架' : '人工下架商品'}</Button>
     </Form> : <Alert type="info" title="已预订、已售出或发布者自行下架的商品不能通过此入口更改交易状态。" />}
   </>}</Resource>
 }
@@ -180,7 +193,13 @@ function ProductsPanel() {
     </Space>
     {remote.error instanceof api.ApiError && [404, 501].includes(remote.error.status) ? <Alert type="warning" title="商品治理接口尚未接通" action={<Button onClick={remote.reload}>重新检查接口</Button>} /> : <Resource {...remote}>
       {remote.value?.items.length === 0 && <NoItems filtered={Boolean(query || status)} />}
-      {remote.value?.items.map(({ product, moderationBlocked }) => <Card key={product.id} style={{ marginBottom: 12 }}><Space wrap><strong>{product.title}</strong><Tag>{product.status}</Tag>{moderationBlocked && <Tag color="red">人工下架</Tag>}<Button onClick={() => setSelected(product.id)}>查看并处理商品 #{product.id}</Button></Space></Card>)}
+      {Boolean(remote.value?.items.length) && <Table rowKey={(item) => item.product.id} pagination={false} scroll={{ x: 800 }} dataSource={remote.value?.items} columns={[
+        { title: '商品', key: 'product', render: (_, { product }) => <Space>{product.images[0] && <Image src={product.images[0]} width={56} height={48} style={{ objectFit: 'cover' }} alt={product.title} />}<strong>{product.title}</strong></Space> },
+        { title: '卖家', key: 'seller', render: (_, { product }) => product.seller.nickname },
+        { title: '价格', key: 'price', render: (_, { product }) => `¥${product.price.toFixed(2)}` },
+        { title: '状态', key: 'status', render: (_, { product, moderationBlocked }) => <Space><Tag>{productStatusLabels[product.status]}</Tag>{moderationBlocked && <Tag color="red">人工下架</Tag>}</Space> },
+        { title: '操作', key: 'action', render: (_, { product }) => <Button onClick={() => setSelected(product.id)}>查看并处理商品 #{product.id}</Button> },
+      ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => { setPage(value); setSelected(undefined) }} />}
     </Resource>}
     <Drawer title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</Drawer>
@@ -188,9 +207,9 @@ function ProductsPanel() {
 }
 
 export function AdminPage() {
-  return <Page title="管理后台"><Tabs destroyOnHidden items={[
+  return <Page title="管理后台" subtitle="管理用户、处理举报与人工审核商品"><div className="admin-panel"><Tabs destroyOnHidden items={[
     { key: 'users', label: '用户与风险线索', children: <UsersPanel /> },
     { key: 'reports', label: '举报处理', children: <ReportsPanel /> },
     { key: 'products', label: '商品治理', children: <ProductsPanel /> },
-  ]} /></Page>
+  ]} /></div></Page>
 }

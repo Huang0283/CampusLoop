@@ -1,24 +1,29 @@
 /* eslint-disable react-refresh/only-export-components -- Shared live-page hooks and components. */
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Alert, Avatar, Badge, Button, Card, Dropdown, Empty, Layout, Menu, Result, Space, Typography } from 'antd'
-import { BellOutlined, FileSearchOutlined, HomeOutlined, MessageOutlined, ReadOutlined, SwapOutlined } from '@ant-design/icons'
+import { Alert, Avatar, Badge, Button, Card, Dropdown, Empty, Input, Layout, Menu, Result, Space } from 'antd'
+import { BellOutlined, DownOutlined, FileSearchOutlined, HomeOutlined, MessageOutlined, SearchOutlined, SwapOutlined } from '@ant-design/icons'
 import { Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ApiError, data, listNotifications, logout } from '../sdk'
 import { useSession } from './session'
 import type { Notification } from '../sdk'
 import { AsyncTaskState } from './AsyncTaskState'
 import { NOTIFICATIONS_CHANGED_EVENT } from './notifications'
+import { Brand } from './Presentation'
+import './original-interface.css'
 
 export function errorText(error: unknown) { return error instanceof Error ? error.message : '操作失败，请重试。' }
 
-export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promise<T>, interval = 0) {
+export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promise<T>, interval = 0, retainOnReload = false) {
   const loaderRef = useRef(loader)
+  const priorKey = useRef(key)
   useEffect(() => { loaderRef.current = loader }, [loader])
   const [state, setState] = useState<{ value?: T; error?: unknown; loading: boolean }>({ loading: true })
   const [revision, setRevision] = useState(0)
   const reload = useCallback(() => setRevision((value) => value + 1), [])
   useEffect(() => {
+    const sameKey = priorKey.current === key
+    priorKey.current = key
     const controller = new AbortController()
     let disposed = false
     let active = false
@@ -39,10 +44,12 @@ export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promi
         if (!disposed && !timedOut) setState((prior) => ({ ...prior, error, loading: false }))
       } finally { window.clearTimeout(deadline); active = false }
     }
-    const start = window.setTimeout(() => { setState({ loading: true }); void refresh() }, 0)
+    // Sidebar refreshes must not unmount an active conversation and lose drafts.
+    // A changed resource/identity key must still discard the previous data.
+    const start = window.setTimeout(() => { setState((prior) => retainOnReload && sameKey ? { ...prior, loading: true, error: undefined } : { loading: true }); void refresh() }, 0)
     const timer = interval ? window.setInterval(() => { void refresh() }, interval) : undefined
     return () => { disposed = true; controller.abort(); window.clearTimeout(deadline); window.clearTimeout(start); window.clearInterval(timer) }
-  }, [key, revision, interval])
+  }, [key, revision, interval, retainOnReload])
   return { ...state, reload }
 }
 
@@ -118,26 +125,33 @@ export function Shell() {
     ...(user?.role === 'ADMIN' ? [{ key: '/admin', label: '管理后台' }] : [{ key: '/profile', label: '个人中心' }, { key: '/my-products', label: '我的发布' }, { key: '/favorites', label: '我的收藏' }, { key: '/report', label: '我的举报' }]),
     { key: 'logout', label: '退出登录', danger: true },
   ]
-  return <Layout style={{ minHeight: '100vh' }}>
+  if (['/login', '/register'].includes(location.pathname)) return <Layout className="campus-app" style={{ minHeight: '100vh' }}><main id="main-content" className="campus-content"><Outlet /></main></Layout>
+  return <Layout className="campus-app" style={{ minHeight: '100vh' }}>
     <a className="skip-link" href="#main-content">跳到主要内容</a>
     <aside className="app-sidebar">
-      <div style={{ display: 'flex', gap: 8, padding: '20px 24px', alignItems: 'center' }}><ReadOutlined style={{ color: '#1677ff', fontSize: 26 }} /><Typography.Text strong style={{ fontSize: 18 }}>CampusLoop</Typography.Text></div>
+      <Link to="/market" className="sidebar-brand" aria-label="CampusLoop 首页"><Brand /></Link>
       <Menu mode="inline" selectedKeys={[selected]} items={nav} onClick={({ key }) => navigate(key)} />
     </aside>
     <nav className="app-mobile-nav" aria-label="移动导航"><div className="app-mobile-nav-list">
       {nav.map((item) => <button key={item.key} className={selected === item.key ? 'is-active' : ''} onClick={() => navigate(item.key)}>{item.icon}<span>{item.label}</span></button>)}
     </div></nav>
     <Layout className="live-layout">
-      <Layout.Header style={{ background: '#fff', padding: '0 24px', height: 64 }}>
-        <Typography.Text type="secondary">校园闲置交易</Typography.Text>
+      <header className="campus-header">
+        <Input.Search key={location.pathname + location.search} className="header-search" aria-label="全站搜索商品" placeholder="搜索校园好物" prefix={<SearchOutlined style={{ color: '#9aa0a8' }} />} size="large" allowClear defaultValue={location.pathname === '/market' ? new URLSearchParams(location.search).get('query') || '' : ''} onSearch={(value) => navigate(value.trim() ? `/market?query=${encodeURIComponent(value.trim())}` : '/market')} />
         {user?.role === 'USER' && <div className="app-notification-bell"><Badge count={unread}><Button aria-label="通知" type="text" icon={<BellOutlined />} onClick={() => navigate('/notifications')} /></Badge></div>}
         <div className="app-user-menu">
-          {user ? <Dropdown trigger={['click', 'hover']} menu={{ items: menu, onClick: ({ key }) => { if (key !== 'logout') navigate(key); else void mutation.run(async () => { await logout(); useSession.getState().clear(); navigate('/market') }) } }}>
-            <Button type="text" aria-label={`账号菜单：${user.nickname}`} className="app-user-menu-content"><Avatar src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar><span className="app-user-menu-label">{user.nickname}</span></Button>
+          {user ? <Dropdown trigger={['click', 'hover']} menu={{ items: menu, onClick: ({ key }) => { if (key !== 'logout') navigate(key); else void mutation.run(async () => {
+            await logout()
+            // Leave protected routes before clearing the identity, so Guard's
+            // login redirect cannot race the intended return to the market.
+            navigate('/market', { flushSync: true })
+            useSession.getState().clear()
+          }) } }}>
+            <Button type="text" aria-label={`账号菜单：${user.nickname}`} className="app-user-menu-content"><Avatar src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar><span className="app-user-menu-label">{user.nickname}</span><DownOutlined style={{ fontSize: 11 }} /></Button>
           </Dropdown> : <Space><Link to="/login">登录</Link><Link to="/register">注册</Link></Space>}
         </div>
-      </Layout.Header>
-      <Layout.Content style={{ padding: 24 }} id="main-content" ref={mainRef} tabIndex={-1} aria-label="主要内容">
+      </header>
+      <Layout.Content className="campus-content" id="main-content" ref={mainRef} tabIndex={-1} aria-label="主要内容">
         {offline && <Alert role="alert" type="warning" showIcon title="当前离线，请恢复网络后刷新。提交过的操作请先确认记录，避免重复。" style={{ marginBottom: 16 }} />}
         <Failure error={mutation.error} /><Failure error={notifications.error} retry={notifications.reload} /><Outlet />
       </Layout.Content>
@@ -145,8 +159,8 @@ export function Shell() {
   </Layout>
 }
 
-export function Page({ title, extra, children }: { title: string; extra?: ReactNode; children: ReactNode }) {
-  return <div style={{ maxWidth: 1160, margin: '0 auto' }}><Space style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}><Typography.Title level={3} style={{ margin: 0 }}>{title}</Typography.Title>{extra}</Space>{children}</div>
+export function Page({ title, extra, children, subtitle, className = '' }: { title: string; extra?: ReactNode; children: ReactNode; subtitle?: string; className?: string }) {
+  return <div className={`campus-page ${className}`}><div className="page-heading"><div><h1>{title}</h1>{subtitle && <p>{subtitle}</p>}</div>{extra}</div>{children}</div>
 }
 
 export function NoItems({ filtered = false }: { filtered?: boolean }) { return <Card><Empty description={filtered ? '没有符合筛选条件的结果，请调整条件。' : '暂无内容。'} /></Card> }

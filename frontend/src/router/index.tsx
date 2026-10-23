@@ -6,7 +6,8 @@ import { AdminPage } from '../live/AdminPages'
 import { RouteFailure } from '../live/ErrorBoundary'
 import { CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage } from '../live/MarketPages'
 import { ReportsPage } from '../live/ReportsPage'
-import { ChatPage, ChatListPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
+import { OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
+import { ChatPage, ChatListPage } from '../live/ChatPages'
 
 export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ errorElement: <RouteFailure />, children: [
   { path: '/', element: <Navigate to="/market" replace /> },
