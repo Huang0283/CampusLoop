@@ -98,6 +98,7 @@ export function Shell() {
   const location = useLocation()
   const navigate = useNavigate()
   const mainRef = useRef<HTMLElement>(null)
+  const accountMenuButtonRef = useRef<HTMLButtonElement>(null)
   const [offline, setOffline] = useState(!navigator.onLine)
   useEffect(() => {
     const changed = () => setOffline(!navigator.onLine)
@@ -140,14 +141,20 @@ export function Shell() {
         <Input.Search key={location.pathname + location.search} className="header-search" aria-label="全站搜索商品" placeholder="搜索校园好物" prefix={<SearchOutlined style={{ color: '#9aa0a8' }} />} size="large" allowClear defaultValue={location.pathname === '/market' ? new URLSearchParams(location.search).get('query') || '' : ''} onSearch={(value) => navigate(value.trim() ? `/market?query=${encodeURIComponent(value.trim())}` : '/market')} />
         {user?.role === 'USER' && <div className="app-notification-bell"><Badge count={unread}><Button aria-label="通知" type="text" icon={<BellOutlined />} onClick={() => navigate('/notifications')} /></Badge></div>}
         <div className="app-user-menu">
-          {user ? <Dropdown trigger={['click', 'hover']} menu={{ items: menu, onClick: ({ key }) => { if (key !== 'logout') navigate(key); else void mutation.run(async () => {
+          {user ? <Dropdown autoFocus trigger={['click', 'hover']} menu={{ items: menu, onKeyDown: (event) => {
+            if (event.key === 'Escape') {
+              window.requestAnimationFrame(() => {
+                accountMenuButtonRef.current?.focus({ preventScroll: true })
+              })
+            }
+          }, onClick: ({ key }) => { if (key !== 'logout') navigate(key); else void mutation.run(async () => {
             await logout()
             // Leave protected routes before clearing the identity, so Guard's
             // login redirect cannot race the intended return to the market.
             navigate('/market', { flushSync: true })
             useSession.getState().clear()
           }) } }}>
-            <Button type="text" aria-label={`账号菜单：${user.nickname}`} className="app-user-menu-content"><Avatar src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar><span className="app-user-menu-label">{user.nickname}</span><DownOutlined style={{ fontSize: 11 }} /></Button>
+            <Button ref={accountMenuButtonRef} type="text" aria-label={`账号菜单：${user.nickname}`} className="app-user-menu-content"><Avatar src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar><span className="app-user-menu-label">{user.nickname}</span><DownOutlined style={{ fontSize: 11 }} /></Button>
           </Dropdown> : <Space><Link to="/login">登录</Link><Link to="/register">注册</Link></Space>}
         </div>
       </header>
