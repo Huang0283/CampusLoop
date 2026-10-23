@@ -61,5 +61,6 @@ C:\Users\ASUS\AppData\Local\Temp\campusloop-aligned-before-20261023-163559
 具体范围见 browser-responsive-report.md、accessibility-review.md 和 shell-defects.md。
 这些分批结果不等同于最终候选的一次完整回归。
 
-仍需完成重复请求与控制台专项检查、最终发布环境确认，
+已完成六个页面的模拟会话请求与控制台采样，详见 request-console-review.md。
+仍需完成最终发布环境确认，
 以及正式分支对齐后的交叉评审和 M10 复验。

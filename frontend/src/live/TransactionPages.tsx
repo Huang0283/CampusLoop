@@ -4,7 +4,7 @@ import { AimOutlined, BellFilled, MessageFilled, MoneyCollectFilled } from '@ant
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { MeetupWriteRequest, Notification, OrderStatus, ReviewWriteRequest } from '../sdk'
-import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
+import { Failure, NoItems, Page, Resource, useMutation, useNotificationsResource, useRemote } from './common'
 import { ReportButton } from './ReportButton'
 import { useSession } from './session'
 import { useAttemptKey } from './idempotency'
@@ -100,8 +100,7 @@ export function ReviewPage() {
 }
 
 export function NotificationsPage() {
-  const user = useSession((state) => state.user)
-  const remote = useRemote(`notifications-${user?.id}`, (signal) => api.data(api.listNotifications({ signal })), 5000)
+  const remote = useNotificationsResource()
   const mutation = useMutation()
   const navigate = useNavigate()
   const notifications = uniqueNotifications(remote.value ?? [])
@@ -109,7 +108,7 @@ export function NotificationsPage() {
   const groupOf = (item: Notification) => item.type === 'MESSAGE' ? '消息' : item.type.startsWith('OFFER_') ? '报价' : item.type === 'MATCH_FOUND' ? '匹配' : '系统'
   const visible = notifications.filter((item) => group === '全部' || groupOf(item) === group)
   const config = { 消息: { icon: <MessageFilled />, color: '#2f6bff' }, 报价: { icon: <MoneyCollectFilled />, color: '#52c41a' }, 匹配: { icon: <AimOutlined />, color: '#fa8c16' }, 系统: { icon: <BellFilled />, color: '#722ed1' } }
-  return <Page title="通知" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged(); remote.reload() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><Tabs activeKey={group} onChange={setGroup} items={['全部', '消息', '报价', '匹配', '系统'].map((value) => ({ key: value, label: value }))} /><Resource {...remote}>
-    {visible.length ? visible.map((item) => <article key={item.id} className={`notification-row ${item.read ? '' : 'is-unread'}`}><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {item.title}</h2><p>{item.content}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged(); remote.reload() })}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={() => void mutation.run(async () => { if (!item.read) { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() } navigate(item.link!) })}>查看</Button>}</div></article>) : <NoItems />}
+  return <Page title="通知" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><Tabs activeKey={group} onChange={setGroup} items={['全部', '消息', '报价', '匹配', '系统'].map((value) => ({ key: value, label: value }))} /><Resource {...remote}>
+    {visible.length ? visible.map((item) => <article key={item.id} className={`notification-row ${item.read ? '' : 'is-unread'}`}><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {item.title}</h2><p>{item.content}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() })}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={() => void mutation.run(async () => { if (!item.read) { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() } navigate(item.link!) })}>查看</Button>}</div></article>) : <NoItems />}
   </Resource></div><MyReports /></Page>
 }

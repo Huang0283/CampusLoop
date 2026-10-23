@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components -- Shared live-page hooks and components. */
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Alert, Avatar, Badge, Button, Card, Dropdown, Empty, Input, Layout, Menu, Result, Space } from 'antd'
 import { BellOutlined, DownOutlined, FileSearchOutlined, HomeOutlined, MessageOutlined, SearchOutlined, SwapOutlined } from '@ant-design/icons'
@@ -51,6 +51,14 @@ export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promi
     return () => { disposed = true; controller.abort(); window.clearTimeout(deadline); window.clearTimeout(start); window.clearInterval(timer) }
   }, [key, revision, interval, retainOnReload])
   return { ...state, reload }
+}
+
+const NotificationsContext = createContext<ReturnType<typeof useRemote<Notification[]>> | null>(null)
+
+export function useNotificationsResource() {
+  const resource = useContext(NotificationsContext)
+  if (!resource) throw new Error('Notifications must be rendered inside Shell')
+  return resource
 }
 
 export function useMutation() {
@@ -160,7 +168,8 @@ export function Shell() {
       </header>
       <Layout.Content className="campus-content" id="main-content" ref={mainRef} tabIndex={-1} aria-label="主要内容">
         {offline && <Alert role="alert" type="warning" showIcon title="当前离线，请恢复网络后刷新。提交过的操作请先确认记录，避免重复。" style={{ marginBottom: 16 }} />}
-        <Failure error={mutation.error} /><Failure error={notifications.error} retry={notifications.reload} /><Outlet />
+        <Failure error={mutation.error} /><Failure error={notifications.error} retry={notifications.reload} />
+        <NotificationsContext.Provider value={notifications}><Outlet /></NotificationsContext.Provider>
       </Layout.Content>
     </Layout>
   </Layout>
