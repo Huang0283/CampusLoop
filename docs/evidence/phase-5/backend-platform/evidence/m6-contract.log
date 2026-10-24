@@ -1,0 +1,2 @@
+PASS operations=61 enum-contracts=9 schema-examples=16 host=8001
+Structural consumer checks only; live business APIs, missing headers and human signoff remain pending.

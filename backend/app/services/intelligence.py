@@ -7,10 +7,10 @@ from pathlib import Path
 
 from sqlalchemy import select
 
-from app.core.config import get_settings
 from app.core.errors import BusinessError
 from app.core.security import utcnow
 from app.models import Product, User, WantedPost
+from app.services.ai_adapters import rank_payload
 from app.services.business_serializers import products
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -174,26 +174,9 @@ def input_snapshot(db, query, wanted: WantedPost | None = None, filters=None):
 def rank_live(
     db, query, wanted=None, mode="keyword", filters=None, sort="relevance", lock_candidates=False
 ):
-    from services.m7_baseline.client import call_baseline
-    from services.m7_baseline.engine import ServiceError, rank
-
     entities, payload = input_snapshot(db, query, wanted, filters)
     payload["options"] = {"mode": "semantic" if mode != "keyword" else "keyword", "sort": sort}
-    settings = get_settings()
-    try:
-        if settings.baseline_services_enabled and len(settings.baseline_rpc_token) >= 32:
-            result = call_baseline(
-                settings.m7_service_url, payload, settings.baseline_rpc_token, timeout=1.5
-            )
-        else:
-            result = rank(
-                payload["products"], payload["request"], payload["dictionary"], **payload["options"]
-            )
-            result["metadata"].update(degraded=True, fallbackReason="SERVICE_DISABLED")
-    except ServiceError as exc:
-        raise BusinessError(
-            exc.status, exc.code, "Baseline input could not be processed."
-        ) from None
+    result = rank_payload(payload)
     # Re-read visibility after RPC, before public output; never return internal IDs blindly.
     ranked_ids = [int(item["productId"]) for item in result["items"]]
     fresh_query = select(Product)

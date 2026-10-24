@@ -12,6 +12,7 @@ from app.core.errors import BusinessError
 from app.core.security import utcnow
 from app.models import ChatSession, Order, Product, Report, Review, User, WantedPost
 from app.schemas.auth import StrictInput
+from app.services.ai_adapters import price_payload
 from app.services.auth import Actor, Db, administrator, audit
 from app.services.business import load
 from app.services.intelligence import CATEGORIES, CONDITIONS, rank_live
@@ -189,10 +190,6 @@ class PriceInput(StrictInput):
 
 @router.post("/price-advice", operation_id="getPriceAdvice")
 def price_advice(body: PriceInput, db: Db, actor: Actor):
-    from services.m8_baseline.client import call, fallback
-    from services.m8_baseline.engine import ServiceError
-
-    settings = get_settings()
     payload = {
         "category": CATEGORIES.get(body.category, body.category),
         "condition": CONDITIONS.get(body.condition, body.condition),
@@ -203,16 +200,7 @@ def price_advice(body: PriceInput, db: Db, actor: Actor):
         "accessoryState": "unknown",
         "defectTags": [],
     }
-    try:
-        result = (
-            call(
-                settings.m8_service_url, "price", payload, settings.baseline_rpc_token, timeout=1.5
-            )
-            if settings.baseline_services_enabled and len(settings.baseline_rpc_token) >= 32
-            else fallback("price", "SERVICE_DISABLED")
-        )
-    except ServiceError as exc:
-        raise BusinessError(exc.status, exc.code, "Price input could not be processed.") from None
+    result = price_payload(payload)
     interval = result["intervalFen"]
     return ok(
         {
