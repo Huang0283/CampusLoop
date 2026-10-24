@@ -55,8 +55,12 @@ def authenticate(
     db: Session, token: str, *, allow_logout_replay: bool = False
 ) -> tuple[User, AuthSessionFamily]:
     claims = decode_access(token)
-    # Shared by protected reads/writes and revocation: user -> family -> refresh.
-    user = db.scalar(select(User).where(User.id == int(claims["sub"])).with_for_update())
+    # Keep user -> family -> refresh ordering and same-user serialization.
+    # NO KEY UPDATE permits FK KEY SHARE checks for peer notifications; UPDATE
+    # would deadlock when both participants authenticate and notify each other.
+    user = db.scalar(
+        select(User).where(User.id == int(claims["sub"])).with_for_update(key_share=True)
+    )
     family = db.scalar(
         select(AuthSessionFamily).where(AuthSessionFamily.id == claims["sid"]).with_for_update()
     )
@@ -125,7 +129,10 @@ def browser_session(db: Session, request: Request, *, allow_revoked=False):
     )
     if not reference:
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session unavailable.")
-    user = db.scalar(select(User).where(User.id == reference.user_id).with_for_update())
+    # Match bearer authorization: serialize this user without blocking peer FKs.
+    user = db.scalar(
+        select(User).where(User.id == reference.user_id).with_for_update(key_share=True)
+    )
     family = db.scalar(
         select(AuthSessionFamily)
         .where(AuthSessionFamily.id == reference.id)

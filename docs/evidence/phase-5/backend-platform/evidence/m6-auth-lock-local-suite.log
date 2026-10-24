@@ -1,0 +1,50 @@
+...........................ssssssssssssss............ssssssssss......... [ 58%]
+...........x.......................sssssssssssssssss                     [100%]
+============================== warnings summary ===============================
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\starlette\testclient.py:40
+  C:\Users\12512\Desktop\����\CampusLoop-M6-P4\.venv\Lib\site-packages\starlette\testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_auth.py:47: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_auth.py:87: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_auth.py:111: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_auth.py:136: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_auth.py:161: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_auth.py:202: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [2] tests\test_auth_locking.py:103: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [2] tests\test_auth_locking.py:123: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_browser_sessions.py:36: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_browser_sessions.py:91: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_browser_sessions.py:114: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_browser_sessions.py:134: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_live_intelligence.py:44: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_live_intelligence.py:93: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_live_intelligence.py:117: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_matching_jobs.py:43: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_matching_jobs.py:125: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_matching_jobs.py:139: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_matching_jobs.py:190: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_matching_jobs.py:218: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_matching_jobs.py:253: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_matching_jobs.py:298: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_p5_integration.py:44: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_p5_integration.py:76: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_p5_integration.py:137: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_query_budget.py:15: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_realtime_media.py:31: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_realtime_media.py:88: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_seed_idempotency.py:17: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_seed_idempotency.py:26: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_seed_idempotency.py:41: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:84: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:125: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:236: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:295: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:357: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:388: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:422: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+SKIPPED [1] tests\test_transaction_api.py:482: ��Ҫ�ɴ�� PostgreSQL��CI �� services �ṩ��
+XFAIL tests/test_p5_api_examples.py::test_group_release_requires_m5_documented_routes - M5 integration missing from supplied P5 base; remove marker after upstream merge and rerun
+82 passed, 41 skipped, 1 xfailed, 1 warning in 22.70s

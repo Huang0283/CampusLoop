@@ -1,0 +1,12 @@
+{
+  "contractVersion": "0.5.0-rc.1",
+  "note": "Synthetic schema examples. Replace IDs and image URL with actual test-resource values; scheduleDate is generated two days ahead by the executable test.",
+  "requests": [
+    {"schema": "CreateChatSessionRequest", "model": "ChatCreate", "body": {"productId": 1}},
+    {"schema": "SendMessageRequest", "model": "MessageWrite", "body": {"clientMsgId": "734de278-f3bf-45b5-b26f-36c17187c975", "kind": "TEXT", "content": "P5 synthetic test message"}},
+    {"schema": "ReviewWriteRequest", "model": "ReviewWrite", "body": {"orderId": 1, "overall": 5, "descriptionAccuracy": 5, "communication": 4, "punctuality": 5, "comment": "P5 synthetic review"}},
+    {"schema": "PriceAdviceRequest", "model": "PriceInput", "body": {"category": "BOOKS", "condition": "GOOD", "originalPrice": 100}}
+  ],
+  "meetup": {"campusLocation": "Library", "timeSlotStart": "13:00:00", "timeSlotEnd": "14:00:00", "note": "P5 synthetic meetup"},
+  "priceResponse": {"lower": null, "upper": null, "currency": "CNY", "status": "UNAVAILABLE", "factors": [], "method": "unavailable", "sampleSize": 0, "degraded": true, "degradationReason": "SERVICE_DISABLED", "disclaimer": "Enter price manually; no guaranteed transaction price.", "resultVersion": "m8-unavailable-v1"}
+}
