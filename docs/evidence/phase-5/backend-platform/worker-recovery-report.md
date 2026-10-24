@@ -35,15 +35,15 @@
 
 | 文件 | 处置 | 提交号 |
 |---|---|---|
-| `backend/scripts/worker.py` | 新增 | 待回填 |
-| `backend/app/worker/__init__.py` | 新增 | 待回填 |
-| `backend/app/worker/runner.py` | 新增 | 待回填 |
-| `backend/app/worker/observer.py` | 新增 | 待回填 |
-| `backend/app/worker/health.py` | 新增 | 待回填 |
-| `backend/app/models/ai_runs.py` | 新增 | 待回填 |
-| `backend/app/models/__init__.py` | 更新 | 待回填 |
-| `backend/app/core/config.py` | 更新 | 待回填 |
-| `backend/app/services/matching_jobs.py` | 更新 | 待回填 |
+| `backend/scripts/worker.py` | 新增 | 4e86e47 |
+| `backend/app/worker/__init__.py` | 新增 | 24e0830 |
+| `backend/app/worker/runner.py` | 新增 | 24e0830 |
+| `backend/app/worker/observer.py` | 新增 | 24e0830 |
+| `backend/app/worker/health.py` | 新增 | 24e0830 |
+| `backend/app/models/ai_runs.py` | 新增 | a420fa9 |
+| `backend/app/models/__init__.py` | 更新 | a420fa9 |
+| `backend/app/core/config.py` | 更新 | e9f5227 |
+| `backend/app/services/matching_jobs.py` | 更新 | e647d5a |
 
 ## 四、恢复验证（2026-10-24 深夜）
 
