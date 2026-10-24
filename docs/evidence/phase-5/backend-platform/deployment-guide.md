@@ -115,10 +115,18 @@ python backend/scripts/verify_restore.py --baseline backups/baseline-<ts>.json  
 | 端口占用（8001/5432/9000/8002） | `.env` 设 `CAMPUSLOOP_API_PORT` / `CAMPUSLOOP_DB_PORT` / `CAMPUSLOOP_STORAGE_PORT` 改端口，或释放占用 |
 | api 反复重启、日志报迁移失败 | 见 `migration-release-report.md` 第六节"失败恢复步骤" |
 | worker unhealthy | `curl http://localhost:8002/healthz` 看 `checks`；DB/Redis 未就绪属等待期，超过 2 分钟再查 `docker compose logs worker` |
+| worker 反复 Restarting，日志连续 ImportError / AttributeError | BP4-08 worker 增量文件缺失或过期（api 不加载该链路，api healthy 不能排除此故障）；按 `worker-recovery-report.md` 第三节清单核对 9 处文件，补齐后 `docker compose up -d --build api worker`；复盘见 `worker-recovery-report.md` |
 
 ## 六、执行记录（2026-10-15 起）
 
 - 已在 M9 机器验证：BP4 阶段同拓扑 7 服务启动、健康检查、模型关闭实验
   （见 `docs/evidence/phase-4/backend-platform/verification.md`）；
 - 本阶段新增项（日志轮转核验、非作者完整走查）：待执行后填写结论与
-  执行环境（机器/提交号）——`verification.md` 第三节汇总登记。
+  执行环境（机器/提交号）——`verification.md` 第三节汇总登记；
+- 2026-10-24：P5 恢复演练中发现 worker 容器 Restarting 循环——工作区缺失
+  BP4-08「worker 运行时」增量 9 处（入口脚本、app/worker 四件套、ai_runs
+  模型与导出、Settings 字段、matching_jobs 观测开关），按 import 链逐层
+  暴露为 5 段报错；当晚逐处补齐（每处独立提交）并 `--build` 重建，全部
+  服务 Up、api/worker 均 healthy、worker 启动横幅 `bp4-worker-runtime-v1`
+  正常。完整复盘见 `worker-recovery-report.md`，教训已沉淀为 worker 验收
+  三要点（同报告第五节：启动横幅、healthy 状态、更新后须 --build 重建）。
