@@ -43,3 +43,49 @@
 - M10 在正式候选提交上复验；本地通过尚不等于缺陷正式关闭。
 
 本记录只对上述已执行项目给出结论，不代表完整无障碍验收完成。
+
+## 2026-10-24 表单名称与文字对比度检查
+
+代码基于 d887afb，补充评分名称、共享主题和自定义文字颜色修复。
+
+- 表单检查覆盖登录、注册、商品发布、求购发布、个人资料、见面、评价和价格建议。
+- 加入评分组件后，每个浏览器检查 37 项控件。
+- 四项星级评分原先缺少可读名称，已补充对应 aria-label。
+- 修复后 Edge、Chrome 的表单名称检查均通过，共检查 74 项。
+- axe-core 对 11 个页面执行 color-contrast 规则扫描。
+- 每个浏览器的已检测问题从 54 处降至 14 处，再降至 0。
+- 最终对比度检查共 2 项通过，耗时 19.9 秒。
+- lint、TypeScript 和生产构建通过。
+
+### 待人工确认
+
+最终扫描仍有 8 个页面、16 个定位属于 incomplete，
+这些项目不计为通过。
+
+| 页面 | 待核对内容 | 业务复核负责人 |
+| --- | --- | --- |
+| 注册 | 教学演示说明文字 | M2 |
+| 商品发布 | 上传文字、分类及成色选中项 | M3 |
+| 求购发布 | 成色选择区域 | M3 |
+| 商品详情 | 图片计数文字、卖家头像首字 | M3 |
+| 聊天 | 会话头像、未读数字、消息头像 | M4 |
+| 订单详情 | 买卖双方头像首字 | M4 |
+| 价格建议 | 分类及成色选中项 | M3 |
+| 管理后台 | 筛选控件、用户头像首字 | M4 |
+
+M2 汇总实际渲染背景、文字可读性及人工检查结果；
+图片背景和半透明覆盖层需单独确认。
+截止时间由 M1 协调确认，最终候选仍需 M10 复验。
+
+### 本轮证据
+
+- verification-output/form-labels.txt：最初常规输入检查。
+- verification-output/accessibility-scan.txt：修复前扫描。
+- verification-output/accessibility-scan-after.txt：评分名称通过，剩余 14 处颜色问题。
+- verification-output/accessibility-scan-final.txt：最终自动对比度检查及人工核对定位。
+- verification-output/accessibility-tool-versions.txt：检查工具版本。
+- verification-output/dependency-audit-current.txt：当前依赖审计。
+- verification-output/lint-current.txt：依赖修复后的 lint。
+
+自动检查覆盖指定表单名称及页面文字对比度，
+不等同于完整 WCAG 验收。

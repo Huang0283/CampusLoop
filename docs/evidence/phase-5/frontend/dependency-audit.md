@@ -46,3 +46,21 @@ package.json 中的 override 仅作用于
 同时执行 SDK 漂移检查。
 
 正式任务分支迁移、团队评审及 M10 最终候选复验仍待完成。
+
+## 2026-10-24 无障碍工具及检查依赖补充
+
+为无障碍回归新增开发依赖 @axe-core/playwright，
+直接版本固定为 4.14.0，其 axe-core 依赖为 4.14.0。
+
+本轮审计另发现 ESLint 工具链中的 zod 漏洞：
+eslint-plugin-react-hooks@7.1.1 及 zod-validation-error@4.0.2 使用该依赖。
+执行普通 npm audit fix，仅更新一个包，
+将 zod 从 4.6.5 更新为 4.6.7，未执行强制升级。
+随后 npm audit 报告 0 项漏洞，lint 通过。
+
+证据见 verification-output/accessibility-tool-versions.txt、
+verification-output/dependency-audit-current.txt 和
+verification-output/lint-current.txt。
+
+此前 js-yaml 局部 override 继续保留。
+审计结果反映本次执行状态，最终候选仍需复核。

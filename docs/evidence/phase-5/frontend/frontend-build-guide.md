@@ -64,3 +64,13 @@ C:\Users\ASUS\AppData\Local\Temp\campusloop-aligned-before-20261023-163559
 已完成六个页面的模拟会话请求与控制台采样，详见 request-console-review.md。
 仍需完成最终发布环境确认，
 以及正式分支对齐后的交叉评审和 M10 复验。
+
+## 2026-10-24 检查环境补充
+
+源码专用异步组件检查已在开发服务器 localhost:5173 上通过，
+证据见 verification-output/async-state-source.txt。
+该用例需要开发源码模块，应使用开发服务器执行。
+
+当前本机后端未允许 localhost:5174 的跨域会话恢复请求。
+切换前端端口时，应同步核对后端允许的 Origin。
+本次使用 localhost:5173，未放宽跨域策略。

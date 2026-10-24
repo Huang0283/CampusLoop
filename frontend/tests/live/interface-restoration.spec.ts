@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { test, expect, type Page } from '@playwright/test'
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
@@ -233,4 +234,131 @@ test('admin keeps management tabs and tables on desktop and mobile', async ({ pa
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
     if (process.env.CAMPUSLOOP_VISUAL_OUTPUT) await page.screenshot({ path: path.join(process.env.CAMPUSLOOP_VISUAL_OUTPUT, `${width}-admin.png`), fullPage: true })
   }
+})
+
+test('M2 form controls have accessible names', async ({ page }) => {
+  await setup(page)
+  await page.route('**/orders/1001', route => route.fulfill({
+    json: { data: { ...order, status: 'COMPLETED' } },
+  }))
+
+  const paths = [
+    '/login',
+    '/register',
+    '/publish',
+    '/wanted/publish',
+    '/profile',
+    '/transactions/1001/meetup',
+    '/transactions/1001/review',
+    '/publish/price-advice',
+  ]
+  const missing: Array<{
+    path: string
+    tag: string
+    id: string
+    role: string | null
+  }> = []
+  const counts: Array<{ path: string; checked: number }> = []
+
+  for (const path of paths) {
+    await page.goto(path)
+    await expect(page.locator('.ant-form').first()).toBeVisible()
+
+    const controls = page.locator(
+      '.ant-form input:not([type="hidden"]), .ant-form textarea, ' +
+      '.ant-form select, .ant-form [role="combobox"], ' +
+      '.ant-form [role="spinbutton"], .ant-form [role="radiogroup"], .ant-form .ant-rate',
+    )
+    let checked = 0
+    for (let index = 0; index < await controls.count(); index++) {
+      const control = controls.nth(index)
+      if (!await control.isVisible() || !await control.isEnabled()) continue
+
+      checked += 1
+      try {
+        await expect(control).toHaveAccessibleName(/\S/, { timeout: 300 })
+      } catch {
+        missing.push({
+          path,
+          ...await control.evaluate(element => ({
+            tag: element.tagName,
+            id: element.id,
+            role: element.getAttribute('role'),
+          })),
+        })
+      }
+    }
+    expect(checked, path + ' must contain visible form controls').toBeGreaterThan(0)
+    counts.push({ path, checked })
+  }
+
+  console.table(counts)
+  console.log('Missing accessible names:', JSON.stringify(missing, null, 2))
+  expect(missing).toEqual([])
+})
+
+test('M2 sampled text contrast', async ({ page }) => {
+  await setup(page)
+
+  const screens = [
+    ['/login', '登录'],
+    ['/register', '创建账号'],
+    ['/publish', '发布商品'],
+    ['/wanted/publish', '发布求购'],
+    ['/profile', '个人资料'],
+    ['/product/601', product.title],
+    ['/chat/801', peer.nickname],
+    ['/transactions/1001', '订单 #1001'],
+    ['/publish/price-advice', '价格建议'],
+    ['/notifications', '通知'],
+    ['/admin', '管理后台'],
+  ]
+  const violations: unknown[] = []
+  const manualReview: unknown[] = []
+
+  for (const [url, heading] of screens) {
+    if (url === '/admin') {
+      await page.route('**/auth/browser-session', route => route.fulfill({
+        json: { data: {
+          accessToken: 'fixture-not-real', expiresIn: 600,
+          user: { ...user, role: 'ADMIN' },
+        } },
+      }))
+      await page.route('**/admin/users?**', route => route.fulfill({
+        json: { data: { items: [user], pagination } },
+      }))
+    }
+
+    await page.goto(url)
+    await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible()
+    await expect(page.getByText('正在处理，请稍候。', { exact: true })).toHaveCount(0)
+    await expect(page.getByText('TEST_UNHANDLED_API', { exact: true })).toHaveCount(0)
+
+    const result = await new AxeBuilder({ page })
+      .withRules(['color-contrast'])
+      .analyze()
+
+    for (const violation of result.violations) {
+      for (const node of violation.nodes) {
+        violations.push({
+          page: url,
+          rule: violation.id,
+          target: node.target,
+          html: node.html,
+          details: node.failureSummary,
+        })
+      }
+    }
+    for (const item of result.incomplete) {
+      manualReview.push({
+        page: url,
+        rule: item.id,
+        targets: item.nodes.map(node => node.target),
+      })
+    }
+  }
+
+  console.log('Contrast violations:', JSON.stringify(violations, null, 2))
+  console.log('Contrast requires manual review:', JSON.stringify(manualReview, null, 2))
+  expect(violations).toEqual([])
 })
