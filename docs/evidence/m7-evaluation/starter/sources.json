@@ -1,0 +1,14 @@
+[
+  {
+    "evidence": "data/m7-phase2/raw/asset-manifest.json; original 72 synthetic products; reuse as the formal scenario corpus requires member confirmation",
+    "kind": "TEAM_SYNTHETIC_CATALOG",
+    "licenseStatus": "PENDING_FORMAL_EVALUATION_CONFIRMATION",
+    "sourceId": "phase2-synthetic-catalog"
+  },
+  {
+    "evidence": "",
+    "kind": "HUMAN_AUTHORED_SCENARIO",
+    "licenseStatus": "PENDING_MEMBER_INPUT",
+    "sourceId": "member-authored-scenarios"
+  }
+]

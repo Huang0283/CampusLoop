@@ -37,7 +37,18 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
         setError(''); return true
       }}
       onChange={({ fileList }) => update(fileList)}>
-      {current.length < 5 && <span>上传图片<br />JPG / PNG ≤5MiB</span>}
+      {current.length < 5 && (
+        <Button
+          type="text"
+          htmlType="button"
+          style={{ width: '100%', height: '100%' }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') event.stopPropagation()
+          }}
+        >
+          <span>上传图片<br />JPG / PNG ≤5MiB</span>
+        </Button>
+      )}
     </Upload>
     {current.some((file) => file.status === 'error') && <Button onClick={() => update(current.filter((file) => file.status !== 'error'))}>移除失败图片并重新上传</Button>}
   </>

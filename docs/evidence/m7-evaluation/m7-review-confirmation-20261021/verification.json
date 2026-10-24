@@ -1,0 +1,17 @@
+{
+  "actualReviewTimesInvented": 0,
+  "formalAcceptance": false,
+  "labelCounts": {
+    "0": 19744,
+    "1": 118,
+    "2": 757,
+    "U": 117
+  },
+  "labelsChanged": 0,
+  "originalFormulaAndValidationPreserved": true,
+  "reviewer": "KkkkRui",
+  "sourceProvenancePreserved": true,
+  "status": "PASS",
+  "unrelatedFactCellsPreserved": true,
+  "verifiedWorkbookPairs": 20736
+}

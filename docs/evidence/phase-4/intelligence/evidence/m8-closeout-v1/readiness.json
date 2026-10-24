@@ -1,0 +1,105 @@
+{
+  "candidateServingAllowed": false,
+  "candidateTrainingAllowed": false,
+  "checks": [
+    {
+      "id": "dataset-version",
+      "observed": "m8-price-eval-v1",
+      "passed": false,
+      "required": "m8-price-l3-test-v1"
+    },
+    {
+      "id": "manifest-schema-version",
+      "observed": "m8-price-raw-v1",
+      "passed": true,
+      "required": "m8-price-raw-v1"
+    },
+    {
+      "id": "manifest-input-hashes",
+      "observed": {
+        "price-samples.jsonl": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+        "source-register.json": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3"
+      },
+      "passed": true,
+      "required": "current sample and source-register SHA-256"
+    },
+    {
+      "id": "dataset-integrity",
+      "observed": {
+        "eligibleL3": 0,
+        "invalid": [],
+        "manifestEligibleL3": 0,
+        "manifestRecordCount": 12,
+        "recordCount": 12
+      },
+      "passed": true,
+      "required": "all records valid and manifest counts match"
+    },
+    {
+      "id": "dataset-frozen",
+      "observed": false,
+      "passed": false,
+      "required": true
+    },
+    {
+      "id": "eligible-l3-count",
+      "observed": 0,
+      "passed": false,
+      "required": 200
+    },
+    {
+      "id": "source-license",
+      "observed": "restricted",
+      "passed": false,
+      "required": "approved with evidence"
+    },
+    {
+      "id": "source-authorization",
+      "observed": null,
+      "passed": false,
+      "required": [
+        "M5",
+        "M6"
+      ]
+    },
+    {
+      "id": "sensitive-field-exclusion",
+      "observed": [],
+      "passed": true,
+      "required": []
+    },
+    {
+      "id": "minimum-category-slices",
+      "observed": {},
+      "passed": false,
+      "required": 30
+    }
+  ],
+  "counts": {
+    "byCategory": {},
+    "eligibleL3": 0,
+    "records": 12
+  },
+  "decision": "NO_GO",
+  "gateVersion": "m8-price-readiness-v1",
+  "inputHashes": {
+    "contracts/intelligence-phase2/model-gates.candidate.json": "a5ff97b6143da26100f410581eee6388f6752d7c193bb206bec32ee55828cfbc",
+    "contracts/m8-phase4/readiness-policy.json": "7df09831395df05a01c7b47e1334a831ad8efe8807e74b6644bbe4530dac0847",
+    "data/m8-phase2/derived/manifest.json": "197e3fddfb4373d325bf66fd5d7c7f6dc426510b6c6cfe18972763cf54251877",
+    "data/m8-phase2/raw/price-samples.jsonl": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+    "data/m8-phase2/raw/source-register.json": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3"
+  },
+  "reasonCodes": [
+    "dataset-version",
+    "dataset-frozen",
+    "eligible-l3-count",
+    "source-license",
+    "source-authorization",
+    "minimum-category-slices"
+  ],
+  "safety": {
+    "acceptedOfferUsedAsLabel": false,
+    "listingPriceUsedAsLabel": false,
+    "sensitiveFieldsFound": []
+  }
+}

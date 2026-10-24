@@ -1,0 +1,8 @@
+Observed initial real-model run failure (tool session 23690, exit code 1).
+The model had encoded and ranked requests; Windows memory evidence collection then failed.
+Traceback excerpt:
+  File "services/m7_semantic/evaluate.py", in peak_rss_mib
+    ctypes.windll.psapi.GetProcessMemoryInfo(...)
+ctypes.ArgumentError: argument 1: OverflowError: int too long to convert
+Repair: define GetProcessMemoryInfo.argtypes/restype using the Windows HANDLE and POINTER(Counters) types.
+Subsequent clean-checkout evaluation and full verification passed; this failed run is not acceptance evidence.

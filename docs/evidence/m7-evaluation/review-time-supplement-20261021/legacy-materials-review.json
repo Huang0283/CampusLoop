@@ -1,0 +1,132 @@
+{
+  "conclusion": "APPROVED_UNCHANGED",
+  "indexHashesDoNotProveHistoricalExistenceOrIndependentReview": true,
+  "originalOctober18ReviewPreserved": true,
+  "originalReviewCsvSha256": "b520a34ea8e423ce015d2915d2aeab3c5285806a0cb018c45578752aceda37e7",
+  "packageCount": 16,
+  "packages": [
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "0eea9fe9d9f9cf627acb036df174f0c8f4f69072e03b13d81e2a4a1f32376c0e",
+        "README.md": "7ef187c8474e468a48af72e24ff32610be5939b575ac8faad8ad75956b2f0f4c"
+      },
+      "package": "CampusLoop_M7_FinalReview_2026-10-19"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "df13d4820b29267d4625679d3ddd32a91d235e03315900ac9255434cece5ccda",
+        "README.md": "b202427d97e9e8db52793693d85cadc2144829c8dd33de401b85ac748a2bfddf",
+        "SOURCE-INFO.json": "4baed25c0ef93279bd6a9808a10fc7f3c76529b6bb29755ef7109b8b5d7046b7"
+      },
+      "package": "CampusLoop_M7_HumanReview_KkkkRui_2026-10-18"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "6ed2c093e71a7db337464123b58f7bd423e42192025c711f6a1fff7f05abfc75",
+        "README.md": "4966cfd51e77ee538939e9fb7bd96bb041d090f038114aae7c5b998031de6737"
+      },
+      "package": "CampusLoop_M7_M8_Phase2_AI2-09_10_v1.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "README.md": "a02dc7a21ade9c127bdae1fbd98b3e61282020032a093f68cd052f091ca83b71"
+      },
+      "package": "CampusLoop_M7_Phase1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "README.md": "bfb479e5271e9ee6c4ea754f5b3f642eb3d9cb3df378d6ac16e66d7a851ae4a2"
+      },
+      "package": "CampusLoop_M7_Phase1_v1.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "d1cce37b8d8471942596244788a7100b9256db6c4d091e13b74c0d08d70f1374",
+        "README.md": "9c3d5154fdb84469ca45d75e4fb8ef657d0df8f416cc66e747480f873d6fb296"
+      },
+      "package": "CampusLoop_M7_Phase2_AI2-01_03_v1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "8f4f31b856c3180a03e853a20c3a7618982424c733a4fcc1286c2852a3602c8d",
+        "README.md": "4ffe2112a0094ebc05abdc6d4c8698aba914b8a73a838fb80d87e8c9e483ec1b"
+      },
+      "package": "CampusLoop_M7_Phase2_AI2-01_05_v1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "d5979394aae0477e3c290fedcb54b88d2b0d4a91fc732cf5f5d2eea0449994c2",
+        "README.md": "66f0a5352132cc58fa846c7d681609625f6f6e07eca7c82304423350f384e9cc"
+      },
+      "package": "CampusLoop_M7_Phase2_AI2-01_05_v1.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "9657eae10802314179daa4da05d8dcf9c261e14dca7e00874896135ec4370103",
+        "README.md": "60a0100ac06d45b69262568834747a9f4c5d9da04ee48d3d74c865dd4e73e4c5"
+      },
+      "package": "CampusLoop_M7_Phase3_Baseline_v0.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "1eb1703d9153ac2abb7b28b3505476bf4f2d7cebb104c73cad1697d999df9797",
+        "README.md": "879f2eb16be4173b33a72c44ccea5119e154837a9845b1d855236edaea3b4950"
+      },
+      "package": "CampusLoop_M7_Phase4_AI4-01_03_设计准备_v0.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "bc1f5fe840da226b89a993a6188af5452aeb8346abebc945ded36b44aaaa0d06",
+        "README.md": "145422e41103decb0dbeaa29498a9be569edec535b4baca8870dd5a6a9c19aed"
+      },
+      "package": "CampusLoop_M7_Phase4_AI4-01_04_v0.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "ebfb39cbace7b7c95c92420fb618c4abfd696b6849b626459701b3939e84d1c0",
+        "README.md": "145422e41103decb0dbeaa29498a9be569edec535b4baca8870dd5a6a9c19aed"
+      },
+      "package": "CampusLoop_M7_Phase4_AI4-01_04_v0.1.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "3585b182801994eca3ad21c1e1f1dc3be16c09f7b81e2140ed0350dddc796b56",
+        "README.md": "c6b280960768c91628d471127e79d3b9e248e91a7696af6c2a8de95cd55c0868",
+        "SOURCE-INFO.json": "963faf92dd54b097ad369069b1a6ca38bed4dce8eb1dcd47ffa5f31cb42a0af7"
+      },
+      "package": "CampusLoop_M7_Phase5_AI5-01_03_v0.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "8a1c95ddd0a178ac55c9f300c252c4945229aa0232685beb3e7dcea04214b6bd",
+        "README.md": "e96b45bc9ef733af3a52e62532ec83c0db6109cfed5bb8c11e2e3ca11bc1f230",
+        "SOURCE-INFO.json": "f15ab660e576036f6c02327d85d70f5abebe582360298c415ca3a15f7a515d51"
+      },
+      "package": "CampusLoop_M7_Phase5_AI5-01_04_v0.2"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "c3e0a61ef08296b3bc07c18898022310ec352e6bc4f434a93904f499625884b7",
+        "README.md": "1650dc7e40010a6fac408603d7a4cd200ea959a5352752b3009cd075e6937966",
+        "SOURCE-INFO.json": "9556c7b3cdf31e2537b99c3cf185f3f912518eee4ba00c4199623b417b9b1856"
+      },
+      "package": "CampusLoop_Phase4_AI4-09_10_joint_v0.1"
+    },
+    {
+      "indexHashesRecordedNow": {
+        "FILES.sha256.json": "9726722bebe9ea73771162b613e1097ac3995c15cd71c10450eb6bffb8290115",
+        "README.md": "16998a0dd798bf7c0bcc28653b448d1508a1298ac4f29dd8829c3a11fb77c849",
+        "SOURCE-INFO.json": "52016324ea03cf96b4c244dccb237c2367ff95a74b1eb30231d12a20fb2d0511"
+      },
+      "package": "CampusLoop_Phase5_AI5-08_10_joint_v0.1"
+    }
+  ],
+  "precision": "BATCH_INTERVAL_NOT_PER_ITEM_TIMESTAMPS",
+  "recordType": "USER_DECLARED_ADDITIONAL_BATCH_REVIEW",
+  "recordedAtUtc": "2026-10-21T02:33:26.461197+00:00",
+  "reviewWindowEnd": "2026-10-20T23:40:00+08:00",
+  "reviewWindowStart": "2026-10-20T23:30:00+08:00",
+  "reviewer": "KkkkRui",
+  "scope": "M7 own review declaration only; no other member acceptance",
+  "uniqueLegacyLabelPairs": 228
+}

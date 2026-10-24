@@ -1,12 +1,17 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { Suspense } from 'react'
+import { AuthPage, ProfilePage, AdminPage, CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage, ReportsPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage, ChatPage, ChatListPage } from './lazyPages'
+import { createBrowserRouter, Link, Navigate, Outlet } from 'react-router-dom'
 import { Result } from 'antd'
 import { Guard, Shell } from '../live/common'
-import { AdminPage, AuthPage, ProfilePage } from '../live/AccountPages'
-import { CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage } from '../live/MarketPages'
-import { ReportsPage } from '../live/ReportsPage'
-import { ChatPage, ChatListPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
 
-export const router = createBrowserRouter([{ element: <Shell />, children: [
+
+import { RouteFailure } from '../live/ErrorBoundary'
+
+
+
+
+
+export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ element: <Suspense fallback={<div role="status" style={{ padding: 24 }}>正在加载页面…</div>}><Outlet /></Suspense>, errorElement: <RouteFailure />, children: [
   { path: '/', element: <Navigate to="/market" replace /> },
   { path: '/login', element: <AuthPage /> }, { path: '/register', element: <AuthPage registering /> },
   { path: '/profile', element: <Guard><ProfilePage /></Guard> },
@@ -33,5 +38,5 @@ export const router = createBrowserRouter([{ element: <Shell />, children: [
   { path: '/orders/:id/review', element: <Guard><ReviewPage /></Guard> },
   { path: '/profile/transactions', element: <Navigate to="/transactions" replace /> },
   { path: '/admin', element: <Guard admin><AdminPage /></Guard> },
-  { path: '*', element: <Result status="404" title="页面不存在" /> },
-] }])
+  { path: '*', element: <Result status="404" title="页面不存在" extra={<Link to="/market">返回首页</Link>} /> },
+] }] }])

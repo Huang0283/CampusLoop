@@ -101,5 +101,5 @@
 4. “我的商品”需要当前用户筛选，但 `GET /products` 没有 `owner=me` 或等价接口；Owner：M6；截止：BP2-03 对签前。
 5. 求购页面提供状态筛选，但 `GET /wanted` 没有 `status` 参数；Owner：M6；截止：BP2-03 对签前。
 6. 商品/求购详情的“联系”动作缺少创建或获取会话接口；Owner：M6；截止：BP2-03 对签前。
-7. 举报组件允许 6 张证据图，OpenAPI `maxItems` 为 5；Owner：M4/M6；截止：FE2-10 任务 PR 合并前。
+7. 已关闭：举报证据数量原先前端 6 张、OpenAPI `maxItems` 5 张；现 `ReportModal` 的 `MAX_EVIDENCE` 与 `maxCount` 均为 5，Phase 3 `ImageQueue` 与 `ReportWriteRequest.evidence.maxItems` 同为 5；Owner：M4；验证：`npm run test:m4`（2026-10-18）。
 8. 管理页面有商品管理，OpenAPI 没有管理员商品列表/处理接口；Owner：M6；截止：BP2-03 范围确认前。

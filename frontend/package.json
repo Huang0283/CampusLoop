@@ -10,6 +10,7 @@
     "sdk:generate": "openapi-ts -f openapi-ts.config.ts",
     "sdk:check": "npm run sdk:generate && tsc -b",
     "test:transaction": "node scripts/verify-transaction-prototype.mjs",
+    "test:m4": "node scripts/verify-m4-governance.mjs",
     "test:live": "playwright test",
     "preview": "vite preview"
   },
@@ -25,6 +26,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "@eslint/js": "^10.0.1",
     "@hey-api/openapi-ts": "^0.99.0",
     "@playwright/test": "1.64.0",
@@ -39,5 +41,10 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.69.0",
     "vite": "^8.3.0"
+  },
+  "overrides": {
+    "@hey-api/json-schema-ref-parser@1.4.4": {
+      "js-yaml": "4.3.2"
+    }
   }
 }

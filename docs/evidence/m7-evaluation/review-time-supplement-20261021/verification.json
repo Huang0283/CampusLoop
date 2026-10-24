@@ -1,0 +1,18 @@
+{
+  "estimateExplicitlyMarked": true,
+  "labelCounts": {
+    "0": 19744,
+    "1": 118,
+    "2": 757,
+    "U": 117
+  },
+  "labelsChanged": 0,
+  "legacyAdditionalPairs": 228,
+  "legacyPackages": 16,
+  "noModelEvaluationExecuted": true,
+  "originalFormulaValidationAndPanesPreserved": true,
+  "sourceFactsUnchanged": true,
+  "status": "PASS",
+  "verifiedActualReviewTimes": 0,
+  "verifiedPairs": 20736
+}

@@ -1,0 +1,39 @@
+{
+  "aiProposalLabelCounts": {
+    "0": 19744,
+    "1": 118,
+    "2": 757,
+    "U": 117
+  },
+  "completedIndependentHumanPairs": 0,
+  "createdAtUtc": "2026-10-20T16:50:32.739991+00:00",
+  "formalAcceptance": false,
+  "formalEligibleQueries": 0,
+  "newMemberTestExecuted": false,
+  "noGoRemains": true,
+  "note": "AI draft queries and rules are not independent human evidence. Original product pool still has limited coverage.",
+  "productCount": 72,
+  "proposedAiPairs": 20736,
+  "queryCounts": {
+    "matching": 144,
+    "search": 144
+  },
+  "sliceCountsByTask": {
+    "matching": {
+      "constraints": 36,
+      "keyword": 36,
+      "missing_or_no_answer": 36,
+      "purpose": 36
+    },
+    "search": {
+      "constraints": 36,
+      "keyword": 36,
+      "missing_or_no_answer": 36,
+      "purpose": 36
+    }
+  },
+  "sourceCommit": "aabc0c399f66e76caea4d0f3db514e031be2ff38",
+  "status": "AI_DRAFT_PENDING_HUMAN_REVIEW_AND_PROTOCOL_ACCEPTANCE",
+  "testSetSealed": false,
+  "uniqueIntentGroups": 84
+}

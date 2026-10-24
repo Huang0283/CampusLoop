@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-12",
+  "recordKind": "actual-tool-run-transcription; not signed acceptance",
+  "businessCommit": "829ffbfc7f5c310917b2ff7c9627fe98b117824a",
+  "image": "campusloop-phase3:local",
+  "environment": {
+    "python": "3.12.15",
+    "os": "Linux",
+    "database": "campusloop_phase3_verify",
+    "redisDatabase": 14,
+    "objectStorage": "real MinIO"
+  },
+  "results": {
+    "ruffFormat": "PASS: 71 files",
+    "ruffLint": "PASS",
+    "pytest": {
+      "passed": 37,
+      "skipped": 0,
+      "seconds": 47.2,
+      "warnings": 19
+    },
+    "modelDisabled": {
+      "passed": 8,
+      "seconds": 3.46
+    }
+  },
+  "freezeApproved": false
+}

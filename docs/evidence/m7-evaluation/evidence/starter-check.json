@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "scripts.m7_evaluation",
+    "check",
+    "--bundle",
+    "docs/evidence/m7-evaluation/starter"
+  ],
+  "exitCode": 2,
+  "elapsedSeconds": 1.1710000000020955
+}
