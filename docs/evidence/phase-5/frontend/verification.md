@@ -95,3 +95,28 @@ npm run test:live -- m2-async-state.spec.ts
 证据：
 verification-output/clean-check-e66980d.txt；
 verification-output/live-preview-e66980d.txt。
+
+## 2026-10-24 见面确认死锁证据
+
+本地候选 e66980d 的生产预览回归为 41 项通过、1 项失败。
+干净安装、SDK 内容无漂移、lint 和生产构建均通过，依赖审计为 0 漏洞。
+
+失败发生于真实双账号交易，订单编号 6004。
+2026-10-24 14:19:38 UTC（北京时间 22:19:38）的日志显示：
+
+- PostgreSQL 报告 deadlock detected。
+- 见面确认 POST /orders/{orderId}/meetup/confirm 返回 503，
+  requestId 为 96bb54c14e7f。
+- 随后另一条见面确认请求返回 200，
+  requestId 为 682da9c459cb。
+- 页面快照显示买家已确认、卖家未确认，订单仍为待约定。
+
+现有证据确认数据库死锁影响了见面确认。
+具体锁链和修复方案由 M6 核对，M4 配合验证交易及失败恢复；
+M2 汇总证据并在修复后复验。
+当前不能登记为整套回归通过。
+
+证据：
+verification-output/clean-check-e66980d.txt；
+verification-output/live-preview-e66980d.txt；
+verification-output/meetup-confirm-diagnostic.txt。
