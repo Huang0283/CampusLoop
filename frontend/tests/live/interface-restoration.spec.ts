@@ -349,6 +349,71 @@ test('M2 sampled text contrast', async ({ page }) => {
         })
       }
     }
+
+    const reviewDirectory = process.env.CAMPUSLOOP_A11Y_REVIEW_OUTPUT
+    if (reviewDirectory && result.incomplete.length) {
+      await mkdir(reviewDirectory, { recursive: true })
+      const filename = url.replace(/[^a-zA-Z0-9_-]/g, '_')
+      await page.screenshot({
+        path: path.join(reviewDirectory, filename + '.png'),
+        fullPage: true,
+      })
+
+      const details: unknown[] = []
+      for (const item of result.incomplete) {
+        for (const node of item.nodes) {
+          let rendered: unknown = null
+          const selector = node.target[0]
+          if (node.target.length === 1 && typeof selector === 'string') {
+            const locator = page.locator(selector)
+            if (await locator.count() === 1) {
+              rendered = await locator.evaluate(element => {
+                const style = getComputedStyle(element)
+                const backgrounds = []
+                let current: Element | null = element
+                while (current) {
+                  const parentStyle = getComputedStyle(current)
+                  backgrounds.push({
+                    tag: current.tagName,
+                    classes: [...current.classList],
+                    backgroundColor: parentStyle.backgroundColor,
+                    backgroundImage: parentStyle.backgroundImage,
+                    opacity: parentStyle.opacity,
+                  })
+                  current = current.parentElement
+                }
+                return {
+                  text: element.textContent?.trim(),
+                  color: style.color,
+                  fontSize: style.fontSize,
+                  fontWeight: style.fontWeight,
+                  backgrounds,
+                }
+              })
+            }
+          }
+          details.push({
+            rule: item.id,
+            target: node.target,
+            html: node.html,
+            checks: [...node.any, ...node.all, ...node.none].map(check => ({
+              id: check.id,
+              message: check.message,
+              data: check.data,
+            })),
+            rendered,
+          })
+        }
+      }
+
+      const { writeFile } = await import('node:fs/promises')
+      await writeFile(
+        path.join(reviewDirectory, filename + '.json'),
+        JSON.stringify({ page: url, details }, null, 2) + '\n',
+        'utf8',
+      )
+    }
+
     for (const item of result.incomplete) {
       manualReview.push({
         page: url,
@@ -361,4 +426,109 @@ test('M2 sampled text contrast', async ({ page }) => {
   console.log('Contrast violations:', JSON.stringify(violations, null, 2))
   console.log('Contrast requires manual review:', JSON.stringify(manualReview, null, 2))
   expect(violations).toEqual([])
+})
+
+test('M2 short text and image overlays', async ({ page }) => {
+  await setup(page)
+
+  const parse = (value: string) => {
+    const parts = value.match(/[\d.]+/g)?.map(Number)
+    if (!value.startsWith('rgb') || !parts || parts.length < 3) {
+      throw new Error('Unsupported computed color: ' + value)
+    }
+    return [parts[0], parts[1], parts[2], parts[3] ?? 1]
+  }
+  const over = (color: number[], background: number[]) =>
+    color.slice(0, 3).map((channel, index) =>
+      channel * color[3] + background[index] * (1 - color[3]),
+    )
+  const luminance = (rgb: number[]) => {
+    const linear = rgb.map(channel => {
+      const value = channel / 255
+      return value <= 0.04045
+        ? value / 12.92
+        : ((value + 0.055) / 1.055) ** 2.4
+    })
+    return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722
+  }
+  const measurements: Array<{ name: string; ratio: number }> = []
+  const check = async (
+    name: string,
+    textSelector: string,
+    backgroundSelector: string,
+    index = 0,
+  ) => {
+    const text = page.locator(textSelector).nth(index)
+    const background = page.locator(backgroundSelector).nth(index)
+    await expect(text).toBeVisible()
+
+    const foregroundColor = await text.evaluate(element =>
+      getComputedStyle(element).color,
+    )
+    const backgroundColor = await background.evaluate(element =>
+      getComputedStyle(element).backgroundColor,
+    )
+
+    // A white image is the worst case for white text on a black overlay.
+    const backdrop = over(parse(backgroundColor), [255, 255, 255])
+    const foreground = over(parse(foregroundColor), backdrop)
+    const [dark, light] = [
+      luminance(foreground), luminance(backdrop),
+    ].sort((a, b) => a - b)
+
+    const ratio = (light + 0.05) / (dark + 0.05)
+    measurements.push({ name, ratio: Number(ratio.toFixed(2)) })
+    expect.soft(ratio, name).toBeGreaterThanOrEqual(4.5)
+  }
+
+  await page.goto('/product/601')
+  await expect(page.getByRole('heading', { name: product.title, exact: true })).toBeVisible()
+  await check('卖家头像首字', '.person .ant-avatar-string', '.person .ant-avatar')
+
+  const gallery = page.locator('.gallery-count')
+  await expect(gallery).toHaveCSS('color', 'rgb(255, 255, 255)')
+  await expect(gallery).toHaveCSS('background-image', 'none')
+  const overlay = parse(await gallery.evaluate(element =>
+    getComputedStyle(element).backgroundColor,
+  ))
+  expect(overlay.slice(0, 3)).toEqual([0, 0, 0])
+  await check('图片计数：白色图片最不利背景', '.gallery-count', '.gallery-count')
+
+  await page.goto('/chat/801')
+  await expect(page.getByRole('heading', { name: peer.nickname, exact: true })).toBeVisible()
+  await check('会话头像首字', '.chat-session .ant-avatar-string', '.chat-session .ant-avatar')
+  await check('消息头像首字', '.message-row .ant-avatar-string', '.message-row .ant-avatar')
+  await expect(page.locator('.chat-session .ant-badge-count')).toHaveAttribute('title', '2')
+  await check(
+    '未读数字',
+    '.chat-session .ant-badge-count .current',
+    '.chat-session .ant-badge-count',
+  )
+
+  await page.goto('/transactions/1001')
+  await expect(page.getByRole('heading', { name: '订单 #1001', exact: true })).toBeVisible()
+  await expect(page.locator('.order-persons .ant-avatar-string')).toHaveCount(2)
+  for (let index = 0; index < 2; index++) {
+    await check(
+      '订单参与者头像 ' + (index + 1),
+      '.order-persons .ant-avatar-string',
+      '.order-persons .ant-avatar',
+      index,
+    )
+  }
+
+  await page.route('**/auth/browser-session', route => route.fulfill({
+    json: { data: {
+      accessToken: 'fixture-not-real', expiresIn: 600,
+      user: { ...user, role: 'ADMIN' },
+    } },
+  }))
+  await page.route('**/admin/users?**', route => route.fulfill({
+    json: { data: { items: [user], pagination } },
+  }))
+  await page.goto('/admin')
+  await expect(page.getByRole('heading', { name: '管理后台', exact: true })).toBeVisible()
+  await check('管理员列表头像首字', '.person .ant-avatar-string', '.person .ant-avatar')
+
+  console.table(measurements)
 })

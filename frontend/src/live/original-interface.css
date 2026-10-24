@@ -261,3 +261,19 @@
 .campus-app .ant-tag.ant-tag-green.ant-tag-filled {
   color: #237804;
 }
+
+/* Phase 5 short text and image overlays */
+.campus-app .person .ant-avatar,
+.campus-app .chat-session .ant-avatar,
+.campus-app .message-row .ant-avatar {
+  color: #2458cf;
+}
+
+.campus-app .ant-badge .ant-badge-count {
+  color: #fff;
+  background-color: #b42318;
+}
+
+.campus-app .gallery-count {
+  background: rgba(0, 0, 0, 0.75);
+}
