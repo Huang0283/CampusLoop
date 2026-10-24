@@ -54,7 +54,11 @@ else
   # 宿主机缺 psycopg（例如 Python 3.14 无 3.2.3 预编译包）：回退到 api 容器内核对
   echo "[提示] 宿主机 python 缺 psycopg，改用 api 容器内核对"
   docker compose cp "$BASELINE" api:/tmp/verify-baseline.json
-  docker compose exec -T api python scripts/verify_restore.py --baseline /tmp/verify-baseline.json \
+  # MSYS_NO_PATHCONV / MSYS2_ARG_CONV_EXCL：Git Bash (MSYS2) 会把独立参数
+  # "/tmp/..." 自动改写成 Windows %TEMP% 路径再传给 docker.exe，导致容器内
+  # 打开 C:/Users/.../verify-baseline.json 失败（Linux/Mac 设置无副作用）。
+  MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL='*' \
+    docker compose exec -T api python scripts/verify_restore.py --baseline /tmp/verify-baseline.json \
     && echo ">>> 行数与备份前基线一致 ✓" \
     || { echo ">>> 行数核对未通过，请检查上方明细" >&2; exit 1; }
 fi
