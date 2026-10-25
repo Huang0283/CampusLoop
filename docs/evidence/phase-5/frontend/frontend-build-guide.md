@@ -1,7 +1,7 @@
 # 前端构建与资源测量记录
 
 更新日期：2026-10-23
-工作分支：prep/m2-p5-main-alignment
+工作分支：task/m2-p5-frontend-release（PR #120）
 界面基线：1b3385a
 依赖修复：ad28a23
 页面按需加载：ae2edd0
@@ -26,13 +26,26 @@ Windows 上执行 npm ci 前，应先停止同一检出目录运行的 Vite 服�
 
 ## API 与 WebSocket
 
-当前 live 聊天的 useChat.ts 从 apiBaseUrl 派生 WebSocket 地址：
-将 http/https 转为 ws/wss，再追加 /ws。
-该链路没有读取 VITE_WS_URL，不能据此宣称支持独立 WebSocket 地址配置。
+`VITE_API_BASE_URL` 是包含协议的 API 基础地址；`VITE_WS_URL` 是可选的完整
+`ws://` 或 `wss://` 聊天端点，包含 `/ws` 或网关配置的路径。
+聊天实际通过 SDK 的 `webSocketUrl` 读取该配置。留空时，从 API 地址将
+http/https 转为 ws/wss，再追加 `/ws`，仍使用真实接口，不会启用 Mock。
+例如 API 为 `https://api.example.invalid`，未设置 WS 时连接
+`wss://api.example.invalid/ws`；设置 `VITE_WS_URL=wss://chat.example.invalid/socket`
+时则连接这个独立网关。最终部署网关仍须支持应用的 AUTH 帧和 Origin 校验。
 
-本地 API 为 http://localhost:8001，对应聊天连接 ws://localhost:8001/ws。
-独立 WebSocket 域名部署支持及最终发布地址，仍需与接口、部署负责人确认。
-前端构建变量不得存放密钥。
+两项都是 Vite 构建变量，修改生产地址后必须重新构建；不能只改 preview 进程环境。
+前端变量不得存放密钥。验证：`m2-websocket-config.spec.ts` 和聊天界面实际 socket URL 断言。
+
+日常网站从仓库根目录运行 `scripts/start-local.ps1`，固定前端
+`http://127.0.0.1:5174`、API `http://127.0.0.1:8001`，保留原有数据卷。
+本文较早的 5173 地址是历史验收环境，不作为新的日常启动配置。
+
+CI 的前端指向 `http://localhost:8000`。M2 契约测试按 fetch/xhr 请求类型和
+接口路径匹配，不再把 8001 写死；未预期接口会失败，不会泄漏到真实后端。
+`npm run test:live` 的全套检查使用开发服务器；其中 `m2-async-state.spec.ts`
+需要源码模块。生产预览执行 `npm run test:live -- --grep-invert "shared async component"`，
+并单独保留开发服务器下该源码组件的通过记录；不得跳过真实交易或其他失败项。
 
 ## 新版实际加载 JS 测量
 
