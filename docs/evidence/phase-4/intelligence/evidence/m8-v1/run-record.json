@@ -1,0 +1,24 @@
+{
+  "decision": "NO_GO",
+  "dependencies": "Python standard library only",
+  "deterministic": true,
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.10.11"
+  },
+  "outputHashes": {
+    "latency-dev.json": "7c8fd2d5002bbca89ec294234321e20fa9acb9faf3a33752f8147b4583680f7e",
+    "price-comparison.json": "cb7ae4e02ee6e190aae245ef778920a5655badb9a23f0d019bcc549e05c3962e",
+    "readiness.json": "52dae97de15a86a046b81e4daab812fe58fd7992d55096488ee833dcfb5164a9",
+    "tests.log": "4837397c2eff50c787b4e2d0bc4a7504db110639651300f3ac4721e92a9baad4",
+    "trust-risk-evaluation.json": "fd55a7e83f4a5541b02867ca9d81a94c195953a52f4f91b380b9a2161692694d"
+  },
+  "parameters": {
+    "candidateEnabled": true,
+    "candidateTimeoutMs": 300
+  },
+  "seed": null,
+  "sourceCommit": "da474d9a0ecc86fe4106575f8a11c41749596b3f",
+  "testsReturnCode": 0,
+  "verificationVersion": "m8-phase4-verification-v1"
+}

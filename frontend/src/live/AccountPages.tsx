@@ -1,10 +1,11 @@
-import { useRef } from 'react'
-import { Alert, Button, Card, Form, Input, Space, Typography } from 'antd'
+import { Alert, Avatar, Button, Form, Input, Rate, Space, Tag } from 'antd'
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { adminListUsers, adminUpdateUserStatus, data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
+import { data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
 import type { UpdateProfileRequest } from '../sdk'
 import { Failure, Page, Resource, useMutation, useRemote } from './common'
 import { useSession } from './session'
+import { Brand } from './Presentation'
 
 export function AuthPage({ registering = false }: { registering?: boolean }) {
   const mutation = useMutation()
@@ -17,28 +18,33 @@ export function AuthPage({ registering = false }: { registering?: boolean }) {
     const safe = typeof from === 'string' && from.startsWith('/') && !from.startsWith('//') && !from.includes('\\') && !from.startsWith('/login') && !from.startsWith('/register')
     navigate(safe ? from : result.user.role === 'ADMIN' ? '/admin' : '/market', { replace: true })
   })
-  return <Card style={{ maxWidth: 440, margin: '40px auto' }} title={registering ? '创建账号' : '登录 CampusLoop'}>
+  return <div className="auth-stage"><section className="auth-card"><Brand /><h1>{registering ? '创建账号' : '登录'}</h1>
     <Failure error={mutation.error} />
-    <Form layout="vertical" onFinish={onFinish}>
-      <Form.Item name="email" label="校园邮箱" rules={[{ required: true }, { type: 'email' }]}><Input autoComplete="username" /></Form.Item>
-      {registering && <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40 }]}><Input maxLength={40} /></Form.Item>}
-      <Form.Item name="password" label="密码" rules={[{ required: true, min: registering ? 8 : 1, max: 128 }]}><Input.Password autoComplete={registering ? 'new-password' : 'current-password'} /></Form.Item>
+    <Form layout="vertical" onFinish={onFinish} size="large" requiredMark={false}>
+      <Form.Item name="email" label="校园邮箱" rules={[{ required: true }, { type: 'email' }]}><Input prefix={<MailOutlined />} placeholder="请输入邮箱" autoComplete="username" /></Form.Item>
+      {registering && <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40 }]}><Input prefix={<UserOutlined />} placeholder="请输入昵称" maxLength={40} /></Form.Item>}
+      <Form.Item name="password" label="密码" rules={[{ required: true, min: registering ? 8 : 1, max: 128 }]}><Input.Password prefix={<LockOutlined />} placeholder={registering ? '请设置至少 8 位密码' : '请输入密码'} autoComplete={registering ? 'new-password' : 'current-password'} /></Form.Item>
       <Button type="primary" htmlType="submit" block loading={mutation.busy}>{registering ? '注册并登录' : '登录'}</Button>
     </Form>
-    <Space style={{ marginTop: 16 }}><Link to={registering ? '/login' : '/register'}>{registering ? '已有账号，去登录' : '注册账号'}</Link><Link to="/market">先逛逛</Link></Space>
-    {registering && <Alert style={{ marginTop: 16 }} type="info" title="当前为教学模拟邮箱域验证，不代表真实学籍认证。开发环境支持 example.com / example.invalid。" />}
-  </Card>
+    <div className="auth-links"><Space><Link to={registering ? '/login' : '/register'}>{registering ? '已有账号，去登录' : '还没有账号？去注册'}</Link><Link to="/market">先逛逛</Link></Space></div>
+    {registering && <Alert style={{ marginTop: 16 }} type="info" title="教学演示注册" description="请填写类似 name@example.invalid 或 name@example.com 的测试邮箱，并自行设置密码。无需真实邮箱，也不会发送验证码；这不代表真实学校身份认证。已有账号请直接登录。" />}
+  </section></div>
 }
 
 export function ProfilePage() {
   const user = useSession((state) => state.user)
   const remote = useRemote(`profile-${user?.id}`, (signal) => data(getCurrentUser({ signal })))
   const mutation = useMutation()
+  const profile = remote.value
   return <Page title="个人资料"><Resource {...remote}>
-    {remote.value && <Card key={remote.value.id}>
-      <Typography.Paragraph>{remote.value.email} · 已完成交易 {remote.value.transactionCount} 笔 · 评分 {remote.value.rating || '暂无评价'}</Typography.Paragraph>
+    {profile && <div className="profile-grid" key={profile.id}>
+      <section className="surface profile-summary" aria-label="个人资料概览"><Avatar size={120} src={profile.avatar}>{profile.nickname.slice(0, 1)}</Avatar><h2>{profile.nickname}</h2><p className="muted">{profile.email}</p><Tag color="blue">校园交易用户</Tag>
+        {([['学校', profile.school || '未填写'], ['学院', profile.college || '未填写'], ['专业', profile.major || '未填写'], ['交易次数', `${profile.transactionCount} 次`]]).map(([label, value]) => <div className="profile-info" key={label}><span className="muted">{label}</span><strong>{value}</strong></div>)}
+        <div className="profile-info"><span className="muted">评分</span>{profile.rating > 0 ? <Space><Rate disabled allowHalf value={profile.rating} style={{ fontSize: 14 }} /><strong>{profile.rating.toFixed(1)}</strong></Space> : <span>暂无评价</span>}</div>
+      </section>
+      <section className="surface profile-editor" aria-label="编辑资料"><h2>编辑资料</h2>
       <Failure error={mutation.error} />
-      <Form layout="vertical" initialValues={remote.value} onFinish={(values: UpdateProfileRequest) => void mutation.run(async () => {
+      <Form layout="vertical" size="large" initialValues={profile} onFinish={(values: UpdateProfileRequest) => void mutation.run(async () => {
         const next = await data(updateCurrentUser({ body: values })); useSession.getState().update(next); remote.reload()
       })}>
         <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40 }]}><Input /></Form.Item>
@@ -46,22 +52,7 @@ export function ProfilePage() {
         {(['school', 'college', 'major'] as const).map((field) => <Form.Item key={field} name={field} label={{ school: '学校', college: '学院', major: '专业' }[field]}><Input maxLength={80} /></Form.Item>)}
         <Button htmlType="submit" type="primary" loading={mutation.busy}>保存资料</Button>
       </Form>
-    </Card>}
+    </section></div>}
   </Resource></Page>
 }
 
-export function AdminPage() {
-  const remote = useRemote('admin-users', (signal) => data(adminListUsers({ signal })))
-  const mutation = useMutation()
-  const reason = useRef('')
-  return <Page title="用户管理"><Resource {...remote}><Failure error={mutation.error} />
-    <Alert type="info" title="账号状态操作会记录审计；禁用同时撤销已有会话。后台高级治理属于下一阶段。" style={{ marginBottom: 16 }} />
-    <Input placeholder="填写本次状态变更原因" maxLength={200} onChange={(event) => { reason.current = event.target.value }} style={{ marginBottom: 16 }} />
-    {remote.value?.items.map((user) => <Card key={user.id} style={{ marginBottom: 12 }}><Space wrap><strong>{user.nickname}</strong><span>{user.status}</span><span>{user.role}</span>
-      {user.role === 'USER' && <Button loading={mutation.busy} onClick={() => void mutation.run(async () => {
-        if (!reason.current.trim()) throw new Error('请填写变更原因。')
-        await adminUpdateUserStatus({ path: { userId: user.id }, body: { status: user.status === 'ACTIVE' ? 'DISABLED' : 'ACTIVE', reason: reason.current } }); remote.reload()
-      })}>{user.status === 'ACTIVE' ? '禁用' : '恢复'}</Button>}
-    </Space></Card>)}
-  </Resource></Page>
-}

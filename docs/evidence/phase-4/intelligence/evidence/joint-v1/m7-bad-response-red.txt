@@ -1,0 +1,674 @@
+python.exe : test_503_504_and_timeout_recover_with_explicit_reasons (test_response_http.ResponseRecoveryTests.test_503_
+504_and_timeout_recover_with_explicit_reasons) ... ok
+所在位置 行:5 字符: 1
++ & '../joint-clean-venv-20261008/Scripts/python.exe' -m unittest disco ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_503_504_an...reasons) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_error_statuses_never_fall_back_around_permission_or_state_rejection (test_response_http.ResponseRecoveryTests.test
+_error_statuses_never_fall_back_around_permission_or_state_rejection) ... ok
+test_invalid_reply_cannot_turn_stale_input_into_a_current_result (test_response_http.ResponseRecoveryTests.test_invalid
+_reply_cannot_turn_stale_input_into_a_current_result) ... FAIL
+test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_malfo
+rmed_json_and_envelopes_recover_to_the_filtered_baseline) ... 
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body="b'not json'") ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body='b\'{"x":NaN}\'') ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body='b\'{"data":{},"data":{}}\'') ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body='b\'"text"\'') ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body="b'null'") ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body="b'[]'") ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body='{}') ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body="{'schemaVersion': 'wrong', 'data': {'items': [{'prod
+uctId': '101', 'productVersion': 2, 'relevanceScore': 0.444444444444") ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body="{'schemaVersion': 'm7-baseline-rpc-v1'}") ... ERROR
+  test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.test_mal
+formed_json_and_envelopes_recover_to_the_filtered_baseline) (body="{'schemaVersion': 'm7-baseline-rpc-v1', 'data': None
+}") ... ERROR
+test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTests.
+test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) ... 
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=0) ... ERROR
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=1) ... ERROR
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=2) ... ERROR
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=3) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=4) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=5) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=6) ... ERROR
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=7) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=8) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=9) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=10) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=11) ... ERROR
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=12) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=13) ... FAIL
+  test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecoveryTest
+s.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=14) ... FAIL
+test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.test_u
+nknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) ... 
+  test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.test
+_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) (change='unknown') ... FAIL
+  test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.test
+_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) (change='duplicate') ... FAIL
+  test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.test
+_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) (change='stale') ... FAIL
+test_valid_keyword_semantic_disabled_browse_and_empty_results_are_preserved (test_response_http.ResponseRecoveryTests.t
+est_valid_keyword_semantic_disabled_browse_and_empty_results_are_preserved) ... ok
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body="b'not json'")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 31, in ca
+ll_baseline
+    result = json.loads(response.read(8 * 1024 * 1024), object_pairs_hook=unique_object, parse_constant=invalid_constan
+t)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py", line 35
+9, in loads
+    return cls(**kw).decode(s)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 338
+, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 356
+, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body='b\'{"x":NaN}\'')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 31, in ca
+ll_baseline
+    result = json.loads(response.read(8 * 1024 * 1024), object_pairs_hook=unique_object, parse_constant=invalid_constan
+t)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py", line 35
+9, in loads
+    return cls(**kw).decode(s)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 338
+, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 354
+, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\http_service.py", line 28,
+ in invalid_constant
+    raise ValueError("nonfinite JSON value")
+ValueError: nonfinite JSON value
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body='b\'{"data":{},"data":{}}\'')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 31, in ca
+ll_baseline
+    result = json.loads(response.read(8 * 1024 * 1024), object_pairs_hook=unique_object, parse_constant=invalid_constan
+t)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py", line 35
+9, in loads
+    return cls(**kw).decode(s)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 338
+, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 354
+, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\http_service.py", line 22,
+ in unique_object
+    raise ValueError("duplicate JSON key")
+ValueError: duplicate JSON key
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body='b\'"text"\'')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 32, in ca
+ll_baseline
+    if result.get("schemaVersion") != "m7-baseline-rpc-v1" or "data" not in result:
+       ^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body="b'null'")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 32, in ca
+ll_baseline
+    if result.get("schemaVersion") != "m7-baseline-rpc-v1" or "data" not in result:
+       ^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body="b'[]'")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 32, in ca
+ll_baseline
+    if result.get("schemaVersion") != "m7-baseline-rpc-v1" or "data" not in result:
+       ^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body='{}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 33, in ca
+ll_baseline
+    raise ServiceError(503, "INVALID_SERVICE_RESPONSE")
+services.m7_baseline.engine.ServiceError: INVALID_SERVICE_RESPONSE
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body="{'schemaVersion': 'wrong', 'data': {'items': [{
+'productId': '101', 'productVersion': 2, 'relevanceScore': 0.444444444444")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 33, in ca
+ll_baseline
+    raise ServiceError(503, "INVALID_SERVICE_RESPONSE")
+services.m7_baseline.engine.ServiceError: INVALID_SERVICE_RESPONSE
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body="{'schemaVersion': 'm7-baseline-rpc-v1'}")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 33, in ca
+ll_baseline
+    raise ServiceError(503, "INVALID_SERVICE_RESPONSE")
+services.m7_baseline.engine.ServiceError: INVALID_SERVICE_RESPONSE
+
+======================================================================
+ERROR: test_malformed_json_and_envelopes_recover_to_the_filtered_baseline (test_response_http.ResponseRecoveryTests.tes
+t_malformed_json_and_envelopes_recover_to_the_filtered_baseline) (body="{'schemaVersion': 'm7-baseline-rpc-v1', 'data':
+ None}")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 79, in test_malformed_json_and_envelopes_recover_to_the_filtered_baseline
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+                     ~~~~~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+ERROR: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecover
+yTests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+                     ~~~~~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+======================================================================
+ERROR: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecover
+yTests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+                     ~~~~~~^^^^^^^^^
+TypeError: list indices must be integers or slices, not str
+
+======================================================================
+ERROR: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecover
+yTests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+                     ~~~~~~^^^^^^^^^
+KeyError: 'items'
+
+======================================================================
+ERROR: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecover
+yTests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 69, in assert_recovered
+    self.assertTrue(result["metadata"]["degraded"])
+                    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'degraded'
+
+======================================================================
+ERROR: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecover
+yTests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 67, in assert_recovered
+    result = self.call()
+             ^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 64, in call
+    return call_baseline(self.url, self.payload, self.token, timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\client.py", line 31, in ca
+ll_baseline
+    result = json.loads(response.read(8 * 1024 * 1024), object_pairs_hook=unique_object, parse_constant=invalid_constan
+t)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py", line 35
+9, in loads
+    return cls(**kw).decode(s)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 338
+, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\decoder.py", line 354
+, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "<checkout>\services\m7_baseline\http_service.py", line 28,
+ in invalid_constant
+    raise ValueError("nonfinite JSON value")
+ValueError: nonfinite JSON value
+
+======================================================================
+FAIL: test_invalid_reply_cannot_turn_stale_input_into_a_current_result (test_response_http.ResponseRecoveryTests.test_i
+nvalid_reply_cannot_turn_stale_input_into_a_current_result)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 145, in test_invalid_reply_cannot_turn_stale_input_into_a_current_result
+    with self.assertRaises(ServiceError) as caught:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ServiceError not raised
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: Lists differ: [] != [{'productId': '101', 'productVersion': 2,[638 chars]'}]}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'productId': '101', 'productVersion': 2, 'relevanceScore': 0.4444444444444444, 'scoreType': 'keyword_v0', 'reasons': [
+'关键词规则评分'], 'explanationDetails': [{'code': 'TEXT_MATCH', 'kind': 'factor', 'field': 'text', 'observed': ['计算', '算器'], 
+'required': ['计算', '算器'], 'contribution': 0.4444444444444444, 'ruleVersion': 'keyword-v0'}, {'code': 'BUDGET_MATCH', 'k
+ind': 'constraint', 'field': 'priceFen', 'observed': 18000, 'required': {'min': 10000, 'max': 20000}, 'contribution': N
+one, 'ruleVersion': 'match-v0'}, {'code': 'CATEGORY_MATCH', 'kind': 'constraint', 'field': 'categoryId', 'observed': 'c
+alculator', 'required': 'calculator', 'contribution': None, 'ruleVersion': 'match-v0'}]}
+
+Diff is 1271 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: 'bad' != [{'productId': '101', 'productVersion': 2[639 chars]'}]}]
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: None != [{'productId': '101', 'productVersion': 2[639 chars]'}]}]
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 69, in assert_recovered
+    self.assertTrue(result["metadata"]["degraded"])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 69, in assert_recovered
+    self.assertTrue(result["metadata"]["degraded"])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 69, in assert_recovered
+    self.assertTrue(result["metadata"]["degraded"])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 69, in assert_recovered
+    self.assertTrue(result["metadata"]["degraded"])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: Lists differ: [{'pr[51 chars]re': True, 'scoreType': 'keyword_v0', 'reasons[564 chars]'}]}] != [{'pr[51
+ chars]re': 0.4444444444444444, 'scoreType': 'keyword[578 chars]'}]}]
+
+First differing element 0:
+{'pro[50 chars]re': True, 'scoreType': 'keyword_v0', 'reasons[563 chars]0'}]}
+{'pro[50 chars]re': 0.4444444444444444, 'scoreType': 'keyword[577 chars]0'}]}
+
+Diff is 1294 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: Lists differ: [{'pr[110 chars]s': [], 'explanationDetails': [{'code': 'TEXT_[510 chars]'}]}] != [{'pr[1
+10 chars]s': ['关键词规则评分'], 'explanationDetails': [{'code[519 chars]'}]}]
+
+First differing element 0:
+{'pro[109 chars]s': [], 'explanationDetails': [{'code': 'TEXT_[509 chars]0'}]}
+{'pro[109 chars]s': ['关键词规则评分'], 'explanationDetails': [{'code[518 chars]0'}]}
+
+Diff is 1312 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos (test_response_http.ResponseRecovery
+Tests.test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos) (case=14)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 101, in test_missing_or_invalid_data_fields_recover_instead_of_returning_broken_dtos
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: Lists differ: [{'pr[144 chars]ls': 'bad'}] != [{'pr[144 chars]ls': [{'code': 'TEXT_MATCH', 'kind': 'fac
+tor',[485 chars]'}]}]
+
+First differing element 0:
+{'pro[143 chars]ls': 'bad'}
+{'pro[143 chars]ls': [{'code': 'TEXT_MATCH', 'kind': 'factor',[484 chars]0'}]}
+
+Diff is 1299 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.
+test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) (change='unknown')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 114, in test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: Lists differ: [{'productId': '999999', 'productVersion': 2, 'relevanceS[626 chars]'}]}] != [{'productId
+': '101', 'productVersion': 2, 'relevanceScor[623 chars]'}]}]
+
+First differing element 0:
+{'productId': '999999', 'productVersion': 2, 'relevanceS[625 chars]0'}]}
+{'productId': '101', 'productVersion': 2, 'relevanceScor[622 chars]0'}]}
+
+Diff is 1342 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.
+test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) (change='duplicate')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 114, in test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: Lists differ: [{'pr[674 chars]0'}]}, {'productId': '101', 'productVersion': [640 chars]'}]}] != [{'pr[6
+74 chars]0'}]}]
+
+First list contains 1 additional elements.
+First extra element 1:
+{'productId': '101', 'productVersion': 2, 'relevanceScore': 0.4444444444444444, 'scoreType': 'keyword_v0', 'reasons': [
+'关键词规则评分'], 'explanationDetails': [{'code': 'TEXT_MATCH', 'kind': 'factor', 'field': 'text', 'observed': ['计算', '算器'], 
+'required': ['计算', '算器'], 'contribution': 0.4444444444444444, 'ruleVersion': 'keyword-v0'}, {'code': 'BUDGET_MATCH', 'k
+ind': 'constraint', 'field': 'priceFen', 'observed': 18000, 'required': {'min': 10000, 'max': 20000}, 'contribution': N
+one, 'ruleVersion': 'match-v0'}, {'code': 'CATEGORY_MATCH', 'kind': 'constraint', 'field': 'categoryId', 'observed': 'c
+alculator', 'required': 'calculator', 'contribution': None, 'ruleVersion': 'match-v0'}]}
+
+Diff is 2532 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool (test_response_http.ResponseRecoveryTests.
+test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool) (change='stale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 114, in test_unknown_duplicate_or_stale_products_do_not_escape_the_caller_pool
+    self.assert_recovered()
+  File "<checkout>\services\m7_baseline\tests\test_response_http.p
+y", line 68, in assert_recovered
+    self.assertEqual(result["items"], self.local()["items"])
+AssertionError: Lists differ: [{'pr[30 chars]on': 3, 'relevanceScore': 0.4444444444444444, [599 chars]'}]}] != [{'pr[30
+ chars]on': 2, 'relevanceScore': 0.4444444444444444, [599 chars]'}]}]
+
+First differing element 0:
+{'pro[29 chars]on': 3, 'relevanceScore': 0.4444444444444444, [598 chars]0'}]}
+{'pro[29 chars]on': 2, 'relevanceScore': 0.4444444444444444, [598 chars]0'}]}
+
+Diff is 1341 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.213s
+
+FAILED (failures=14, errors=15)

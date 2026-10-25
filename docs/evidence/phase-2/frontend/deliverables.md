@@ -31,14 +31,24 @@
 - FE2-08：`chat-prototype.md`；参与会话列表、聊天详情与实时 Mock 边界。
 - FE2-09：`offer-order-prototype.md`；报价发起身份、还价、过期、接受与重复订单防护。
 - FE2-10：`transaction-governance-prototype.md`；约定双确认/修改重置、评价、举报和通知。
-- FE2-11：已追加 M4 页面五态或具体不适用理由；不代替人工验收。
+- FE2-11：已追加 M4 页面五态或具体不适用理由；2026-10-18 改为表格并补 `/report` 行，不代替人工验收。
 - `frontend/scripts/verify-transaction-prototype.mjs`：直接运行真实 store 的 8 个 Mock 自动化场景。
 - 本轮提交与 PR 由集中收尾记录，不冒充 M4 原始个人提交或其他成员对签。
+
+## M4 2026-10-18 收尾补录
+
+- 分支：`task/m4-p4-governance-regression`，提交 `6c69925`（基线 `b281ba6`，已同步 main 的 Phase 3 修复）。
+- FE2-08/09/10：三份交付文档补充验收执行步骤、实际命令结果与未执行边界。
+- FE2-11（M4 范围）：`page-state-matrix.md` 的 M4 段改为表格，覆盖 `/chat`、`/chat/:id`、`/transactions`、`/transactions/:id`、`/transactions/:id/meetup`、`/transactions/:id/review`、`ReportModal`、`/notifications`、`/report`。
+- 动作守卫：`m4-action-guard-verification.md`，登记私有路由 `Guard` 覆盖、公开页面 `requireAuthAction` 入口、真实页面 `requireStudent` 行为及阶段差异。
+- 契约对齐：`page-api-map.md` 第 8 节第 7 条与 `contract-review.md` 的举报证据 6 张差异关闭，前端统一 5 张。
+- 自动化：新增 `frontend/scripts/verify-m4-governance.mjs`，通过 `npm run test:m4` 执行 15 项断言（约见北京时间 6 项、结束时间 1 项、举报原因 5 项、证据上限 1 项、路由与入口守卫 2 项）。
+- 本轮仍未执行浏览器双账号旅程与断线场景，`npm run test:live` 因本机容器运行时不可用未运行。
 
 ## 仍未计入完成
 
 - M4 的人工浏览器验收、另一成员 Review 与任务 PR 签收。
-- M4 在公开业务页面接入 `useRequireAuthAction` 后的端到端动作回跳验收。
+- M4 公开业务页面动作守卫的浏览器端到端回跳未验收：代码审计与路由断言已通过（见 `m4-action-guard-verification.md`），实际未登录点击与登录后来源恢复仍需浏览器执行。
 - M5/M6/M7/M8 契约对签、M10 可测试性验收、M1 范围复核。
 - 小组汇总 PR 合入 `phase2/integration`。
 

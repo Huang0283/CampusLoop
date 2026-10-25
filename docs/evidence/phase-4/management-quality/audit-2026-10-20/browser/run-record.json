@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "87750c161b59a8e496c7b6775cdfd353267017e6",
+  "workingTreeDirty": true,
+  "testedAtUtc": "2026-10-20T08:46:11.421Z",
+  "environment": {
+    "node": "v24.21.0",
+    "platform": "win32",
+    "uiUrl": "http://127.0.0.1:5175"
+  },
+  "command": [
+    "npm",
+    "run",
+    "test:live"
+  ],
+  "exitCode": 0,
+  "passed": 24,
+  "status": "PASS",
+  "log": "browser-tests.txt",
+  "sha256": "7590d02bd701b7b3618ed064823fe2b66547362ae4fbc64c1a0741d2d081369c"
+}

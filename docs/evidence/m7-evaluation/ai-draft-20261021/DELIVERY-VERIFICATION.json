@@ -1,0 +1,38 @@
+{
+  "actualAlgorithmEvaluationExecuted": false,
+  "aiProposalCount": 20736,
+  "completedHumanReviewPairs": 0,
+  "formalAcceptance": false,
+  "pairCountPerReviewer": 20736,
+  "requestCount": 288,
+  "requestSchemaValid": true,
+  "status": "PASS",
+  "tasks": {
+    "matching": 144,
+    "search": 144
+  },
+  "uniqueQueryText": true,
+  "workbookChecks": [
+    {
+      "blankHumanInputs": true,
+      "dataRows": 288,
+      "exportReadback": "PASS",
+      "file": "01_测试查询_AI构造草稿.xlsx",
+      "uniqueIds": true
+    },
+    {
+      "blankHumanInputs": true,
+      "dataRows": 20736,
+      "exportReadback": "PASS",
+      "file": "02_M7独立审核_待填写.xlsx",
+      "uniqueIds": true
+    },
+    {
+      "blankHumanInputs": true,
+      "dataRows": 20736,
+      "exportReadback": "PASS",
+      "file": "03_M8独立审核_待填写.xlsx",
+      "uniqueIds": true
+    }
+  ]
+}

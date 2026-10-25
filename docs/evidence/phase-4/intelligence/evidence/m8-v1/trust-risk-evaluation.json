@@ -1,0 +1,166 @@
+{
+  "checks": {
+    "invalidTrustEventsIgnored": true,
+    "newUsersRemainNeutral": true,
+    "noFraudProbabilityClaim": true,
+    "riskActionsManualOnly": true,
+    "riskNeverAutoEnforces": true
+  },
+  "evaluationVersion": "m8-trust-risk-phase4-eval-v1",
+  "mode": "RULE_ONLY_GOVERNANCE_VALIDATION",
+  "passed": true,
+  "publicDtoAssessment": "OUT_OF_SCOPE_M6_BOUNDARY; trusted-backend output only",
+  "riskModelExperiment": "NOT_RUN_NO_APPROVED_LABELS",
+  "riskResults": [
+    {
+      "caseId": "R-01-clear",
+      "output": {
+        "algorithmVersion": "m8-risk-clue-rule-v1",
+        "clues": [],
+        "disclaimer": "规则只生成风险线索，不代表违规结论，也不会自动处罚、封禁或修改业务对象。",
+        "enforcementExecuted": false,
+        "manualReviewRecommended": false,
+        "missingInputs": [],
+        "recommendedAction": "NONE",
+        "status": "NO_RULE_CLUES"
+      }
+    },
+    {
+      "caseId": "R-02-payment-threshold",
+      "output": {
+        "algorithmVersion": "m8-risk-clue-rule-v1",
+        "clues": [
+          {
+            "code": "REPEATED_PAYMENT_FAILURES",
+            "explanation": "failedPaymentCount24h=3 达到人工复核线 3",
+            "field": "failedPaymentCount24h",
+            "observed": 3,
+            "threshold": 3
+          }
+        ],
+        "disclaimer": "规则只生成风险线索，不代表违规结论，也不会自动处罚、封禁或修改业务对象。",
+        "enforcementExecuted": false,
+        "manualReviewRecommended": true,
+        "missingInputs": [],
+        "recommendedAction": "MANUAL_REVIEW",
+        "status": "CLUES_FOUND"
+      }
+    },
+    {
+      "caseId": "R-03-multiple-clues",
+      "output": {
+        "algorithmVersion": "m8-risk-clue-rule-v1",
+        "clues": [
+          {
+            "code": "REPEATED_PAYMENT_FAILURES",
+            "explanation": "failedPaymentCount24h=4 达到人工复核线 3",
+            "field": "failedPaymentCount24h",
+            "observed": 4,
+            "threshold": 3
+          },
+          {
+            "code": "BURST_LISTING_ACTIVITY",
+            "explanation": "listingCount1h=15 达到人工复核线 12",
+            "field": "listingCount1h",
+            "observed": 15,
+            "threshold": 12
+          },
+          {
+            "code": "COUNTERPARTY_BURST",
+            "explanation": "distinctCounterpartyCount24h=10 达到人工复核线 8",
+            "field": "distinctCounterpartyCount24h",
+            "observed": 10,
+            "threshold": 8
+          },
+          {
+            "code": "SHARED_DEVICE_CLUSTER",
+            "explanation": "sameDeviceAccountCount7d=5 达到人工复核线 4",
+            "field": "sameDeviceAccountCount7d",
+            "observed": 5,
+            "threshold": 4
+          },
+          {
+            "code": "RECENT_REPORT_CLUSTER",
+            "explanation": "reportCount7d=4 达到人工复核线 3",
+            "field": "reportCount7d",
+            "observed": 4,
+            "threshold": 3
+          }
+        ],
+        "disclaimer": "规则只生成风险线索，不代表违规结论，也不会自动处罚、封禁或修改业务对象。",
+        "enforcementExecuted": false,
+        "manualReviewRecommended": true,
+        "missingInputs": [],
+        "recommendedAction": "MANUAL_REVIEW",
+        "status": "CLUES_FOUND"
+      }
+    }
+  ],
+  "trustResults": [
+    {
+      "caseId": "T-01-new-user",
+      "output": {
+        "algorithmVersion": "m8-trust-rule-v1",
+        "factors": [
+          {
+            "code": "NO_VALID_COMPLETED_EVENTS",
+            "effect": "NEUTRAL_PRIOR"
+          }
+        ],
+        "ignoredEventCount": 0,
+        "score": 3.5,
+        "smoothing": {
+          "priorScore": 3.5,
+          "priorWeight": 5
+        },
+        "status": "NEW_USER_NEUTRAL",
+        "validEventCount": 0
+      }
+    },
+    {
+      "caseId": "T-02-smoothed",
+      "output": {
+        "algorithmVersion": "m8-trust-rule-v1",
+        "factors": [
+          {
+            "code": "VALID_COMPLETED_EVENTS",
+            "count": 2,
+            "effect": "AGGREGATED"
+          },
+          {
+            "code": "BAYESIAN_SMOOTHING",
+            "effect": "LIMIT_SMALL_SAMPLE_SWING"
+          }
+        ],
+        "ignoredEventCount": 0,
+        "score": 3.79,
+        "smoothing": {
+          "priorScore": 3.5,
+          "priorWeight": 5
+        },
+        "status": "AVAILABLE",
+        "validEventCount": 2
+      }
+    },
+    {
+      "caseId": "T-03-invalid-filter",
+      "output": {
+        "algorithmVersion": "m8-trust-rule-v1",
+        "factors": [
+          {
+            "code": "NO_VALID_COMPLETED_EVENTS",
+            "effect": "NEUTRAL_PRIOR"
+          }
+        ],
+        "ignoredEventCount": 3,
+        "score": 3.5,
+        "smoothing": {
+          "priorScore": 3.5,
+          "priorWeight": 5
+        },
+        "status": "NEW_USER_NEUTRAL",
+        "validEventCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+﻿{
+    "schemaVersion":  "campusloop-phase1-4-audit-v1",
+    "sourceCommit":  "87750c161b59a8e496c7b6775cdfd353267017e6",
+    "generatedAtUtc":  "2026-10-20T08:48:20.6935553Z",
+    "backendTests":  118,
+    "browserTests":  24,
+    "aiOffBrowserTests":  1,
+    "rpcChecks":  18,
+    "formalStageComplete":  false,
+    "modelGoDecision":  "NO_GO",
+    "files":  [
+                  {
+                      "sha256":  "357f54cca99395343e7347237911160c96e36c1ad3134ff54270a39bbe437dc9",
+                      "path":  "ai-off-browser.json"
+                  },
+                  {
+                      "sha256":  "be2c00fcff58fd11a88cb82f9a890c5b20a606dc02a93415815534e1adc94b30",
+                      "path":  "backend-junit.xml"
+                  },
+                  {
+                      "sha256":  "ebe915dceb8fa0f9a999228750f4e105a583b8e1fdec26ad094d2ce0fcf272e1",
+                      "path":  "backend-summary.json"
+                  },
+                  {
+                      "sha256":  "008f5c06984eba6c5e51cbf8553806e194c7db6489e87cb91ae604f3ccfe5f2e",
+                      "path":  "browser-startup-race-record.json"
+                  },
+                  {
+                      "sha256":  "178578e5accdf5a1f949fe155baa3fc2427182ae1509d2bbc3c7c6b2c0568df0",
+                      "path":  "browser-startup-race-tests.txt"
+                  },
+                  {
+                      "sha256":  "ea5b8a243acca3c9eb4c7e05fefb17973daea35e4d0eaadb542f3e036765a919",
+                      "path":  "freeze-gate.json"
+                  },
+                  {
+                      "sha256":  "20ad9ffc78f560aad14d78287ad600aa5c4344ca53444ca680d0f94a1908b693",
+                      "path":  "local-persistence.json"
+                  },
+                  {
+                      "sha256":  "d1140e9f786ea7113bde1caa502322121ee4d1dceb96f58afd2b4cd4ffe2d6cc",
+                      "path":  "rpc-faults.json"
+                  },
+                  {
+                      "sha256":  "7590d02bd701b7b3618ed064823fe2b66547362ae4fbc64c1a0741d2d081369c",
+                      "path":  "browser/browser-tests.txt"
+                  },
+                  {
+                      "sha256":  "d831fc9b81162f486c5d44b9072c368df35df60c8ce8eb6d82ae7e9416b86899",
+                      "path":  "browser/playwright-results.json"
+                  },
+                  {
+                      "sha256":  "1502b4f5c10ea535fded664f1b68f67f4d7ffb784db54aa3cf0dbf3ccc35f246",
+                      "path":  "browser/run-record.json"
+                  },
+                  {
+                      "sha256":  "78552b21203e9a4f0701262c2189857afcbb45b73c1c7100900606c5b4ceeabf",
+                      "path":  "frontend/frontend-build.txt"
+                  },
+                  {
+                      "sha256":  "0d4695f4da2780a75fa8d28ae5fabe88093b7de3774417c514e2ecd90774e01f",
+                      "path":  "frontend/frontend-lint.txt"
+                  },
+                  {
+                      "sha256":  "14d4609206967d2d0c77edc700b6c97c00307ef98284548c7510dd4e266028dc",
+                      "path":  "frontend/run-record.json"
+                  },
+                  {
+                      "sha256":  "242de3bf92a1c1f0542f639a791f9b07d3ee80e78d02624b5a319efbc7196682",
+                      "path":  "frontend/sdk-check.txt"
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "path":  "frontend/sdk-drift.txt"
+                  },
+                  {
+                      "sha256":  "8dcc0f8b13352d01579ae414c9e24a47fc609fb1aa9d36130a1d15299829904d",
+                      "path":  "frontend/transaction-prototype.txt"
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "path":  "intelligence/joint-deployment.stderr.txt"
+                  },
+                  {
+                      "sha256":  "eaf5f80a3d9bb78eaa33828c4737fec006e3647ee72fda604f72ba714bcf153d",
+                      "path":  "intelligence/joint-deployment.stdout.txt"
+                  },
+                  {
+                      "sha256":  "1544a65e65a699109238319131a3e9dc9d4eed37797e24f72de92e944fd494ab",
+                      "path":  "intelligence/m7-baseline-summary.json"
+                  },
+                  {
+                      "sha256":  "f9b08fc63713fe83285e18abf72f66e2b2e05298355be9e2db1c0505417a6446",
+                      "path":  "intelligence/m7-baseline-tests.txt"
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "path":  "intelligence/m7-baseline.stderr.txt"
+                  },
+                  {
+                      "sha256":  "238f77deacfbceef911acfd338f8ea2690fdd4cc0c9a0aa269ac6a6bc937b6b3",
+                      "path":  "intelligence/m7-baseline.stdout.txt"
+                  },
+                  {
+                      "sha256":  "40bfda1b6196d1ea0dcc28ea5593da93e7ec2095562825ff9deaf08a68cc40a9",
+                      "path":  "intelligence/m7-private-unit-tests.stderr.txt"
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "path":  "intelligence/m7-private-unit-tests.stdout.txt"
+                  },
+                  {
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "path":  "intelligence/m8-regression.stderr.txt"
+                  },
+                  {
+                      "sha256":  "258bdadb90ffb97e770c5db7e61c849c4dab5c66865ec57356ce86b914cc48b5",
+                      "path":  "intelligence/m8-regression.stdout.txt"
+                  },
+                  {
+                      "sha256":  "1f02c18091d3b40f9578912a8624b89b5c2cfec11789b49c34babdcccc531d48",
+                      "path":  "intelligence/run-record.json"
+                  },
+                  {
+                      "sha256":  "bbe23f0bba7244691f4cee1acbb9a040e97f4d8debfe44aed7adeff723bf0827",
+                      "path":  "intelligence/deployment/service-logs.txt"
+                  },
+                  {
+                      "sha256":  "411e5081204ecfa6eabd1691e383ed42adcd5f5a69ea1d8710b9465b603a0927",
+                      "path":  "intelligence/deployment/smoke.json"
+                  },
+                  {
+                      "sha256":  "5c0d7c5a9b0dabc45a26ca853899ea260c944ffd52a5f8da7fffabddbdd16cc3",
+                      "path":  "intelligence/m8/latency-dev.json"
+                  },
+                  {
+                      "sha256":  "7603cc7bcb1cc23712a62929b2b81c6c17551c58a00afdd747ef5e4df3a5fb5c",
+                      "path":  "intelligence/m8/phase2-tests.txt"
+                  },
+                  {
+                      "sha256":  "d211ddb61e781a25d5b359f82d7ef2132130e0ab3ba28afb302d5150ff99e7dd",
+                      "path":  "intelligence/m8/phase3-tests.txt"
+                  },
+                  {
+                      "sha256":  "3292f0df9bdd70fbae888015e67b857761d13dfd13f9671ec397aaf7ef1f7c55",
+                      "path":  "intelligence/m8/phase4-tests.txt"
+                  },
+                  {
+                      "sha256":  "f74131c5b0eb47544e463643885f5da56ae941c62b4befd9b8e494e5546b24ab",
+                      "path":  "intelligence/m8/price-comparison.json"
+                  },
+                  {
+                      "sha256":  "8a185c76cd800759fb8d52b267a4b6279410bc08818cbb7e615626a5064a1bec",
+                      "path":  "intelligence/m8/readiness.json"
+                  },
+                  {
+                      "sha256":  "52fda77ef8aa82e2ccf2deeebc7bc1a30c077975059b8232c7423c985176cc87",
+                      "path":  "intelligence/m8/run-record.json"
+                  },
+                  {
+                      "sha256":  "fd55a7e83f4a5541b02867ca9d81a94c195953a52f4f91b380b9a2161692694d",
+                      "path":  "intelligence/m8/trust-risk-evaluation.json"
+                  }
+              ]
+}

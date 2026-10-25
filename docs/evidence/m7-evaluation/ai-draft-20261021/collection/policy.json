@@ -1,0 +1,15 @@
+{
+  "approvals": {
+    "M1": null,
+    "M10": null
+  },
+  "catalogSourceId": "phase2-synthetic-catalog",
+  "criticalSlices": [],
+  "datasetVersion": "m7-ai-scenarios-draft-20261021-v1",
+  "evidenceScope": "AI_CONSTRUCTED_SCENARIOS_ONLY",
+  "exposureEvidence": "",
+  "goLivePolicySha256": "a5ff97b6143da26100f410581eee6388f6752d7c193bb206bec32ee55828cfbc",
+  "labelVersion": "PENDING_INDEPENDENT_REVIEW",
+  "schemaVersion": "m7-external-evaluation-v1",
+  "testExposure": "PENDING_MEMBER_DECLARATION"
+}

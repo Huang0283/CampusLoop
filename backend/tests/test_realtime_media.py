@@ -130,5 +130,13 @@ def test_private_chat_and_evidence_access_audited(client):
                 AuthAudit.event == "admin_report_evidence_read",
             )
         )
-        assert audit.context == {"reportId": report["id"], "imageIndex": 0}
+        assert audit.context["reportId"] == report["id"] and audit.context["imageIndex"] == 0
+        assert audit.context["reason"] == "report_evidence_review"
+        assert (
+            audit.context["before"]
+            == audit.context["after"]
+            == {"reportId": report["id"], "imageIndex": 0, "status": "PENDING"}
+        )
+        assert audit.created_at and audit.request_id
+        assert evidence not in str(audit.context)
         assert audit.target_id is None
