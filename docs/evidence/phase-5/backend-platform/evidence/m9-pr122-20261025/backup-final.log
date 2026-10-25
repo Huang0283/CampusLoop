@@ -1,0 +1,7 @@
+>>> pg_dump（自定义格式 -Fc）-> .codex-tmp/pr122.dump
+9e5386a17d6708beef51811211de9219bb342e5794767ad809f76f78364949fa *.codex-tmp/pr122.dump
+104K	.codex-tmp/pr122.dump
+>>> 备份完成：.codex-tmp/pr122.dump
+>>> 下一步（恢复演练）：
+    bash backend/scripts/db_restore.sh ".codex-tmp/pr122.dump"
+    python backend/scripts/verify_restore.py --baseline backups/baseline-*.json

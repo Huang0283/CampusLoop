@@ -1,0 +1,17 @@
+{"url": "http://localhost:8000/health", "concurrency": 10, "requests": 100}
+{
+  "total": 100,
+  "ok": 100,
+  "failed": 0,
+  "wallSeconds": 0.21,
+  "throughputPerSecond": 476.3,
+  "p50_ms": 16.3,
+  "p95_ms": 53.9,
+  "p99_ms": 74.5,
+  "max_ms": 74.6,
+  "statusCodes": {
+    "200": 100
+  },
+  "errorSamples": []
+}
+[OK] 全部 100 次请求成功，p95=53.9ms ≤ 2000.0ms。

@@ -1,0 +1,17 @@
+{"url": "http://localhost:8000/products", "concurrency": 10, "requests": 100}
+{
+  "total": 100,
+  "ok": 100,
+  "failed": 0,
+  "wallSeconds": 0.7,
+  "throughputPerSecond": 142.0,
+  "p50_ms": 62.7,
+  "p95_ms": 118.4,
+  "p99_ms": 133.1,
+  "max_ms": 133.2,
+  "statusCodes": {
+    "200": 100
+  },
+  "errorSamples": []
+}
+[OK] 全部 100 次请求成功，p95=118.4ms ≤ 2000.0ms。
