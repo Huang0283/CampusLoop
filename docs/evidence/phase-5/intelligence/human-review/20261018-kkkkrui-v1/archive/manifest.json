@@ -1,0 +1,16 @@
+{
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "files": {
+    "labels.reviewed.jsonl": "4cfc88dc0d032a38dd326ef81391ff20272431e47a303ff406bf484d94ce9b03",
+    "review-check.json": "abd4abf4f410625a5ca2d8d1022ba2f13006097c68272cab8908bfe84807408d",
+    "review-records.csv": "b520a34ea8e423ce015d2915d2aeab3c5285806a0cb018c45578752aceda37e7"
+  },
+  "humanReviewedPairs": 228,
+  "labelVersion": "m7-label-reviewed-20261018-v1",
+  "pairCount": 228,
+  "schemaVersion": "m7-review-archive-v1",
+  "sourceLabelSha256": "a3a103bf2858e740c0f997e6f321780332f43319cd4d738fd458aefd45fb83a8",
+  "sourceLabelVersion": "m7-label-draft-v1",
+  "status": "HUMAN_REVIEWED_UNSEALED",
+  "testSetSealed": false
+}

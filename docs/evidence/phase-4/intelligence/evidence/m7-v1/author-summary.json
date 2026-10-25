@@ -1,0 +1,29 @@
+{
+  "candidateFallbackCount": 0,
+  "codeCommit": "217d0e4f12ed7f21d55e5c4cff86d08efe6f6e2b",
+  "formalDecision": "NO_GO",
+  "protectedPhase2AssetsUnchanged": true,
+  "signatures": {
+    "M1": null,
+    "M10": null,
+    "M8": null
+  },
+  "status": "AUTHOR_TECHNICAL_PASS",
+  "tasks": {
+    "AI4-01": "TECHNICAL_IMPLEMENTATION_VERIFIED_REVIEW_PENDING",
+    "AI4-02": "TECHNICAL_IMPLEMENTATION_VERIFIED_REVIEW_PENDING",
+    "AI4-03": "TECHNICAL_IMPLEMENTATION_VERIFIED_REVIEW_PENDING",
+    "AI4-04": "DIAGNOSTIC_COMPARISON_COMPLETE_FROZEN_EVALUATION_BLOCKED"
+  },
+  "testCounts": {
+    "joint-tests": 21,
+    "m7-contract-tests": 53,
+    "m7-data-tests": 28,
+    "m8-contract-tests": 5,
+    "m8-data-tests": 9,
+    "phase3-m7": 31,
+    "phase3-m8": 16,
+    "phase4": 33
+  },
+  "totalTests": 196
+}
