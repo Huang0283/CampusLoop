@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, Card, Col, Form, Image, Input, InputNumber, Pagination, Row, Select, Space, Tag, Typography } from 'antd'
+import { Alert, Button, Card, Col, Form, Image, Input, InputNumber, message, Pagination, Row, Select, Space, Tag, Typography } from 'antd'
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { Product, ProductWriteRequest, WantedWriteRequest, PriceAdviceRequest } from '../sdk'
@@ -41,8 +41,12 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const navigate = useNavigate()
   const location = useLocation()
   const change = (field: string, value: string) => { const next = new URLSearchParams(params); if (value) next.set(field, value); else next.delete(field); if (field !== 'page') next.delete('page'); setParams(next) }
-  return <Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} extra={<Button type="primary" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
-    <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
+  const [messageApi, contextHolder] = message.useMessage()
+  useEffect(() => {
+    if (remote.error instanceof api.ApiError && remote.error.status === 0) void messageApi.error('网络异常，请检查网络后重试')
+  }, [remote.error, messageApi])
+  return <><Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} extra={<Button type="primary" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
+    <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear maxLength={200} />
       {mode === 'public' && <><Select aria-label="商品分类" placeholder="全部分类" allowClear style={{ width: 140 }} options={categories} value={params.get('category') || undefined} onChange={(value) => change('category', value || '')} />
         <Select aria-label="商品成色" placeholder="全部成色" allowClear style={{ width: 140 }} options={conditions} value={params.get('condition') || undefined} onChange={(value) => change('condition', value || '')} />
         <Select aria-label="商品排序" value={sort} options={[{ value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', value)} style={{ width: 160 }} /></>}
@@ -57,7 +61,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
       </Space> : mode === 'favorites' ? (product) => <Button onClick={() => void mutation.run(async () => { await api.removeFavorite({ path: { productId: product.id } }); remote.reload() })}>取消收藏</Button> : undefined} /> : <NoItems filtered={Boolean(query || params.get('category') || params.get('condition'))} />}
       {remote.value && <Pagination style={{ marginTop: 24 }} current={page} pageSize={12} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => change('page', String(value))} />}
     </Resource>
-  </Page>
+  </Page>{contextHolder}</>
 }
 
 export function ProductPage() {
@@ -137,7 +141,7 @@ export function WantedListPage() {
   const user = useSession((state) => state.user)
   const navigate = useNavigate()
   return <Page title="求购广场" extra={<Button type="primary" onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>}>
-    <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} style={{ maxWidth: 360, marginBottom: 20 }} />
+    <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} maxLength={200} style={{ maxWidth: 360, marginBottom: 20 }} />
     <Resource {...remote}>{remote.value?.items.length ? remote.value.items.map((item) => <Card key={item.id} style={{ marginBottom: 12 }}>
       <Typography.Title level={4}><Link to={`/wanted/${item.id}`}>{item.title}</Link></Typography.Title>
       <Space wrap><span>预算 ¥{item.budgetMin}–{item.budgetMax}</span><span>{item.owner.nickname}</span><span>{item.location}</span><Tag>{item.status}</Tag>
