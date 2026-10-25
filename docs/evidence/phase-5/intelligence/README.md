@@ -1,6 +1,6 @@
 ## 2026-10-25 当前技术验收更新
 
-本轮在提交 `567fd0514ab80fc369c82e7c55467aca93a583db` 的隔离工作树完成作者技术复现。M7 基线、M7 语义候选、M8 回归和联合部署均通过；M7 的基线/候选命令显式读取 `human-review/20261018-kkkkrui-v1/archive`，并记录四个审核文件哈希。M8 Phase 2/3/4 分别为 14/31/29 项测试，联合部署 12 个场景通过。
+本轮在提交 `a51ca8273b77a56351032565f8f78c6b500bfa9b` 的隔离工作树完成作者技术复现。M7 基线、M7 语义候选、M8 回归和联合部署均通过；M7 的基线/候选命令显式读取 `human-review/20261018-kkkkrui-v1/archive`，并记录四个审核文件哈希。M8 Phase 2/3/4 分别为 14/31/29 项测试，联合部署 12 个场景通过。
 
 这不是正式阶段签署。M7 候选仍为 `DIAGNOSTIC_ONLY / NO_GO`：38 个请求、test_candidate 12 个，审核标签为 `HUMAN_REVIEWED_UNSEALED`，测试集未封存，且未达到既定提升门槛。M8 候选仍为 `NO_GO`：12 条 L0 合成样本、0 条合格 L3 成交标签，MAE/MAPE/区间覆盖率均 `NOT_EVALUATED`。M8 三份个人交付见 [价格清单](price-release-manifest.md)、[价格复现](price-reproduction-guide.md)、[信誉与风险最终规则](trust-risk-final-spec.md)。M10/M1 独立复核、M8 组内互审和发布环境接收仍待完成，不能关闭 Issue。
 
