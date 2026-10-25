@@ -1,0 +1,1 @@
+{"identity": "9045a35bd7fbf2ca6050d860c286024710849d456c02230e3fdbe9695858d7e3", "logicalDigest": "d61fc5d5fad063b80780d7d6582eae0a6ab5ab7fb4aa9c9c9a6d77062ae99276", "status": "READY"}

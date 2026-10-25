@@ -3,6 +3,7 @@ import argparse
 import copy
 from datetime import datetime, timezone
 import hashlib
+from importlib.metadata import distributions
 import json
 import os
 from pathlib import Path
@@ -50,10 +51,39 @@ def real_update_check(model_dir):
         index.close()
 
 
+def review_hashes(archive):
+    if archive is None:
+        return {}
+    return {name: hashlib.sha256((archive / name).read_bytes()).hexdigest()
+            for name in ("manifest.json", "review-records.csv", "labels.reviewed.jsonl", "review-check.json")}
+
+
+def dependency_snapshot():
+    """Record installed distributions even in clean uv environments without pip."""
+    return "".join(name + "==" + version + "\n" for name, version in sorted(
+        (item.metadata["Name"], item.version) for item in distributions()))
+
+
+def build_steps(output, model_dir, review_archive=None):
+    steps = [("phase4-tests", ["-m", "unittest", "discover", "-s", "services/m7_semantic/tests", "-v"]),
+             ("phase2-phase3-regression", ["-m", "services.m7_baseline.verify", "--output-dir", str(output / "baseline-regression")]),
+             ("m8-regression", ["-m", "unittest", "discover", "-s", "services/m8_baseline/tests", "-v"]),
+             ("evaluation", ["-m", "services.m7_semantic.evaluate", "--model-dir", str(model_dir.resolve()), "--output-dir", str(output / "evaluation")]),
+             ("evaluation-repeat", ["-m", "services.m7_semantic.evaluate", "--model-dir", str(model_dir.resolve()), "--output-dir", str(output / "evaluation-repeat")])]
+    if review_archive is not None:
+        for name, command in steps:
+            if name in {"phase2-phase3-regression", "evaluation", "evaluation-repeat"}:
+                command.extend(["--review-archive", str(review_archive.resolve())])
+    for split in ("all", "dev", "test_candidate"):
+        steps.append(("recalculate-" + split, ["scripts/intelligence_phase2/metrics.py", "--input", str(output / "evaluation" / f"evaluation-input-{split}.json"), "--output", str(output / f"recalculated-{split}.json")]))
+    return steps
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--review-archive", type=Path)
     args = parser.parse_args()
     output = args.output_dir.resolve()
     if output.exists() and any(output.iterdir()):
@@ -67,13 +97,9 @@ def main():
                   tddException="User explicitly approved unittest alternative on 2026-10-11; installed tdd skill absent")
     environment = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1",
                        HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
-    steps = [("phase4-tests", ["-m", "unittest", "discover", "-s", "services/m7_semantic/tests", "-v"]),
-             ("phase2-phase3-regression", ["-m", "services.m7_baseline.verify", "--output-dir", str(output / "baseline-regression")]),
-             ("m8-regression", ["-m", "unittest", "discover", "-s", "services/m8_baseline/tests", "-v"]),
-             ("evaluation", ["-m", "services.m7_semantic.evaluate", "--model-dir", str(args.model_dir.resolve()), "--output-dir", str(output / "evaluation")]),
-             ("evaluation-repeat", ["-m", "services.m7_semantic.evaluate", "--model-dir", str(args.model_dir.resolve()), "--output-dir", str(output / "evaluation-repeat")])]
-    for split in ("all", "dev", "test_candidate"):
-        steps.append(("recalculate-" + split, ["scripts/intelligence_phase2/metrics.py", "--input", str(output / "evaluation" / f"evaluation-input-{split}.json"), "--output", str(output / f"recalculated-{split}.json")]))
+    before = review_hashes(args.review_archive)
+    record["reviewArchiveHashes"] = before
+    steps = build_steps(output, args.model_dir, args.review_archive)
     for name, arguments in steps:
         result = subprocess.run([sys.executable, *arguments], cwd=ROOT, env=environment, capture_output=True, encoding="utf-8", timeout=180)
         command = ["python", *[a.replace(str(args.model_dir.resolve()), "<pinned-local-model>").replace(str(output), "<evidence>") for a in arguments]]
@@ -92,10 +118,12 @@ def main():
         record["realModelIncrementalCheck"] = real_update_check(args.model_dir)
         if not record["deterministicOutputs"] or not record["metricsRecalculated"]:
             record["status"] = "FAIL"
+    record["reviewArchiveUnchanged"] = before == review_hashes(args.review_archive)
+    if not record["reviewArchiveUnchanged"]:
+        record["status"] = "FAIL"
     record["endedAtUtc"] = datetime.now(timezone.utc).isoformat()
     write(output / "run-record.json", record)
-    freeze = subprocess.run([sys.executable, "-m", "pip", "freeze"], capture_output=True, encoding="utf-8", check=True)
-    (output / "dependencies.freeze.txt").write_text(freeze.stdout, encoding="utf-8", newline="\n")
+    (output / "dependencies.freeze.txt").write_text(dependency_snapshot(), encoding="utf-8", newline="\n")
     print(json.dumps({k: record.get(k) for k in ("status", "codeCommit", "workingTreeDirty", "deterministicOutputs", "metricsRecalculated")}))
     return 0 if record["status"] == "PASS" else 2
 

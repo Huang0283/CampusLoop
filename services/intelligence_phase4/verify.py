@@ -12,10 +12,26 @@ import sys
 from services.m7_baseline.engine import ROOT
 
 
+def build_steps(output, commit, model_dir=None, review_archive=None):
+    steps = [("m7-baseline", ["-m", "services.m7_baseline.verify", "--output-dir", output / "m7-baseline"]),
+             ("m8-regression", ["-m", "services.m8_phase4.verify", "--output-dir", output / "m8", "--source-commit", commit]),
+             ("joint-deployment", ["-m", "services.intelligence_phase4.smoke", "--output-dir", output / "deployment"])]
+    if model_dir:
+        steps.append(("m7-model-reproduction", ["-m", "services.m7_semantic.verify", "--model-dir", model_dir.resolve(), "--output-dir", output / "m7-semantic"]))
+    else:
+        steps.append(("m7-private-unit-tests", ["-m", "unittest", "discover", "-s", "services/m7_semantic/tests", "-v"]))
+    for name, command in steps:
+        command[:] = map(str, command)
+        if review_archive is not None and name in {"m7-baseline", "m7-model-reproduction"}:
+            command.extend(["--review-archive", str(review_archive.resolve())])
+    return steps
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--model-dir", type=Path)
+    parser.add_argument("--review-archive", type=Path)
     args = parser.parse_args()
     output = args.output_dir.resolve()
     if output.exists() and any(output.iterdir()):
@@ -29,13 +45,7 @@ def main():
         acceptance="AUTHOR_TECHNICAL_CHECK_ONLY; M8_REVIEW_M10_M1_SIGNOFF_PENDING",
         formalStageComplete=False, deploymentEnabled=False, steps=[])
     environment = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1", HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
-    steps = [("m7-baseline", ["-m", "services.m7_baseline.verify", "--output-dir", output / "m7-baseline"]),
-             ("m8-regression", ["-m", "services.m8_phase4.verify", "--output-dir", output / "m8", "--source-commit", commit]),
-             ("joint-deployment", ["-m", "services.intelligence_phase4.smoke", "--output-dir", output / "deployment"])]
-    if args.model_dir:
-        steps.append(("m7-model-reproduction", ["-m", "services.m7_semantic.verify", "--model-dir", args.model_dir.resolve(), "--output-dir", output / "m7-semantic"]))
-    else:
-        steps.append(("m7-private-unit-tests", ["-m", "unittest", "discover", "-s", "services/m7_semantic/tests", "-v"]))
+    steps = build_steps(output, commit, args.model_dir, args.review_archive)
     for name, arguments in steps:
         command = [sys.executable, *map(str, arguments)]
         try:
