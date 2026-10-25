@@ -1,0 +1,11 @@
+{
+  "path": "C:\\Users\\Administrator\\Desktop\\CampusLoop\\output\\phase5-quality\\CampusLoop_Phase5_Candidate_50108a3_verified.zip",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "kind": "CANDIDATE_NOT_FINAL",
+  "files": 2478,
+  "bytes": 10640581,
+  "sha256": "251ae9128f47e6c5e17cb6e212b699fd0636ddfd87cbf0748b8f7338eae1e4ff",
+  "readback": "PASS",
+  "extractedFilesVerified": 2478,
+  "supplementalToolsAndEvidence": "Separate quality/ directory; receipt stored alongside ZIP and in M1 PR"
+}
