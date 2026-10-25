@@ -38,6 +38,13 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+    logging:
+      # BP5-09（M9）：统一日志轮转——单容器上限 30MB（10m × 3），防止
+      # 长跑后 json 日志写爆宿主磁盘；docker inspect 可核验生效值。
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
   redis:
@@ -51,6 +58,13 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+    logging:
+      # BP5-09（M9）：统一日志轮转——单容器上限 30MB（10m × 3），防止
+      # 长跑后 json 日志写爆宿主磁盘；docker inspect 可核验生效值。
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
   minio:
@@ -76,6 +90,13 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+    logging:
+      # BP5-09（M9）：统一日志轮转——单容器上限 30MB（10m × 3），防止
+      # 长跑后 json 日志写爆宿主磁盘；docker inspect 可核验生效值。
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
   # 一次性初始化：创建公共/私有双桶后退出（公共读策略只作用于 public 桶）
@@ -101,8 +122,9 @@ services:
   # ---------- M7/M8 建议服务容器（BP4-07，M9 维护） ----------
   # phase-3 环回内嵌 -> phase-4 独立容器（worker 跨进程调用所需）。
   # 仅监听 compose 内网（不发布宿主端口）；BASELINE_RPC_TOKEN(>=32) 必需。
-  # 实验开关：docker compose stop baseline 即关闭模型——API/worker 自动降级
-  # （SERVICE_DISABLED 有界重试），交易主链路不受影响（BP4-07 验收项）。
+  # 实验开关：docker compose stop baseline 即关闭模型——worker 任务就地
+  # 降级回退内嵌引擎（任务仍 DONE，matching_results.metadata 标记
+  # degraded=true，见 phase-4 verification.md 实测），交易主链路不受影响。
   baseline:
     build:
       context: .
@@ -142,6 +164,13 @@ services:
       timeout: 5s
       retries: 12
       start_period: 20s
+    logging:
+      # BP5-09（M9）：统一日志轮转——单容器上限 30MB（10m × 3），防止
+      # 长跑后 json 日志写爆宿主磁盘；docker inspect 可核验生效值。
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
   # ---------- AI 任务 Worker（BP4-07/08，M9 维护） ----------
@@ -186,6 +215,13 @@ services:
       timeout: 5s
       retries: 12
       start_period: 30s
+    logging:
+      # BP5-09（M9）：统一日志轮转——单容器上限 30MB（10m × 3），防止
+      # 长跑后 json 日志写爆宿主磁盘；docker inspect 可核验生效值。
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
   api:
@@ -237,6 +273,13 @@ services:
       timeout: 5s
       retries: 12
       start_period: 30s
+    logging:
+      # BP5-09（M9）：统一日志轮转——单容器上限 30MB（10m × 3），防止
+      # 长跑后 json 日志写爆宿主磁盘；docker inspect 可核验生效值。
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     restart: unless-stopped
 
 volumes:
