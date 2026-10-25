@@ -4,6 +4,7 @@ import time
 import unittest
 import json
 from pathlib import Path
+from unittest.mock import patch
 
 from services.m8_phase4.evaluate import evaluate_price, evaluate_trust_risk
 from services.m8_phase4.metrics import regression_metrics
@@ -50,13 +51,19 @@ class MetricsTests(unittest.TestCase):
 
     def test_metrics_use_l3_truth(self):
         result = regression_metrics([
-            {"labelLevel": "L3_COMPLETED", "transactionPriceFen": 100, "recommendedFen": 90, "lowerFen": 80, "upperFen": 110},
+            {"labelLevel": "L3_COMPLETED_TRANSACTION", "transactionPriceFen": 100, "recommendedFen": 90, "lowerFen": 80, "upperFen": 110},
             {"labelLevel": "L0_SYNTHETIC", "transactionPriceFen": 1, "recommendedFen": 1000, "lowerFen": 1, "upperFen": 1000},
         ])
         self.assertEqual(1, result["eligibleL3Count"])
         self.assertEqual(10, result["maeFen"])
         self.assertEqual(0.1, result["mape"])
         self.assertEqual(1.0, result["intervalCoverage"])
+
+    def test_invalid_price_intervals_are_not_scored(self):
+        row = {"labelLevel": "L3_COMPLETED_TRANSACTION", "transactionPriceFen": 100, "recommendedFen": 90, "lowerFen": 80, "upperFen": 110}
+        for change in ({"lowerFen": True}, {"upperFen": False}, {"lowerFen": 120}, {"recommendedFen": -1}, {"lowerFen": -1}):
+            with self.subTest(change=change):
+                self.assertEqual(regression_metrics([{**row, **change}])["status"], "NOT_EVALUATED")
 
 
 class RouterTests(unittest.TestCase):
@@ -129,6 +136,16 @@ class RouterTests(unittest.TestCase):
 
 
 class EvaluationTests(unittest.TestCase):
+    def test_untrained_candidate_never_copies_baseline_accuracy(self):
+        from services.m8_phase4 import evaluate as module
+        row = module._records()[0]
+        row = {**row, "labelLevel": "L3_COMPLETED_TRANSACTION", "transactionPriceFen": 550000}
+        with patch.object(module, "inspect", return_value={"decision": "NO_GO", "checks": [{"observed": "test-only"}]}), patch.object(module, "_records", return_value=[row]):
+            result = module.evaluate_price()
+        self.assertEqual(result["comparison"]["baselineMetrics"]["status"], "EVALUATED")
+        self.assertEqual(result["comparison"]["candidateMetrics"]["status"], "NOT_EVALUATED")
+        self.assertIsNone(result["comparison"]["candidateMetrics"]["maeFen"])
+
     def test_price_evaluation_is_honest_and_deterministic(self):
         first, second = evaluate_price(), evaluate_price()
         self.assertEqual(first, second)

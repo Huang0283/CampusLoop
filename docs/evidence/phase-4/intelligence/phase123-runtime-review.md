@@ -24,7 +24,7 @@
 - [真实浏览器记录](evidence/phase123-ops-v2/browser/run-record.json) 和 [日志](evidence/phase123-ops-v2/browser/browser-tests.txt)。
 - [首次环境失败记录](evidence/phase123-ops-v1/run-record.json)：只读源码挂载使 Ruff 无法写缓存，首个检查退出。将 `RUFF_CACHE_DIR` 指向容器 `/tmp/ruff-ops` 后完成 v2 全部检查。保留失败记录，不把环境失败误报为业务回归，也不覆盖原日志。
 
-日志记录的是测试环境，不包含真实用户数据。检查使用新的 `campusloop-ops-*` 容器、专用 `campusloop_ops` 数据库和 Redis DB15；没有回滚或清空原演示数据库。
+历史日志记录的是当时的测试环境：`campusloop-ops-*` 容器、`campusloop_ops` 数据库和 Redis DB15。2026-10-20 发现该库后来已被用于日常注册和演示，不能再视为可回滚的测试库；原始记录保留，但旧启动方式不再用于新验收。当前日常数据迁入固定 `campusloop-local-db`，新验收只能使用独立的 `campusloop_test` 或 `campusloop_audit_*` 数据库及 Redis DB14/15，脚本在执行前拒绝其他库名。
 
 ## 复验入口和运行地址
 

@@ -18,7 +18,16 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api.routes import auth, intelligence, market, media, realtime, system, transactions
+from app.api.routes import (
+    auth,
+    governance,
+    intelligence,
+    market,
+    media,
+    realtime,
+    system,
+    transactions,
+)
 from app.core.config import get_settings
 from app.core.envelope import (
     error_payload,
@@ -115,6 +124,7 @@ def create_app() -> FastAPI:
     app.include_router(market.router)
     app.include_router(transactions.router)
     app.include_router(realtime.router)
+    app.include_router(governance.router)
     app.include_router(intelligence.router)
     app.include_router(media.router)
 

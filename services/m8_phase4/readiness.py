@@ -6,6 +6,7 @@ import json
 from collections import Counter
 from pathlib import Path
 from typing import Any
+from scripts.m8_phase2.pipeline import DataError, validate_row, validate_sources
 
 ROOT = Path(__file__).resolve().parents[2]
 POLICY = ROOT / "contracts/m8-phase4/readiness-policy.json"
@@ -40,7 +41,17 @@ def inspect(
     records = _jsonl(Path(samples_path))
     gates = _json(Path(model_gates_path))
     price_gate = next(item for item in gates["capabilities"] if item["capability"] == "price-model")
-    l3 = [item for item in records if item.get("labelLevel") == "L3_COMPLETED"]
+    invalid_records = []
+    l3 = []
+    try:
+        sources = validate_sources(source_register)
+        seen = set()
+        for row in records:
+            validate_row(row, sources, seen)
+            if row["labelLevel"] == "L3_COMPLETED_TRANSACTION" and row["sourceId"] == policy["requiredSourceId"]:
+                l3.append(row)
+    except (DataError, AttributeError, TypeError) as exc:
+        invalid_records.append(type(exc).__name__)
     source = next((item for item in source_register["sources"] if item["sourceId"] == policy["requiredSourceId"]), None)
     forbidden = sorted({field for row in records for field in policy["forbiddenFields"] if field in row})
     category_counts = Counter(item.get("category") for item in l3)
@@ -50,6 +61,27 @@ def inspect(
             "passed": manifest.get("datasetVersion") == policy["requiredDatasetVersion"],
             "observed": manifest.get("datasetVersion"),
             "required": policy["requiredDatasetVersion"],
+        },
+        {
+            "id": "manifest-schema-version",
+            "passed": manifest.get("schemaVersion") == policy["requiredSchemaVersion"],
+            "observed": manifest.get("schemaVersion"),
+            "required": policy["requiredSchemaVersion"],
+        },
+        {
+            "id": "manifest-input-hashes",
+            "passed": manifest.get("inputs", {}).get(Path(samples_path).name) == _sha256(Path(samples_path))
+                and manifest.get("inputs", {}).get(Path(sources_path).name) == _sha256(Path(sources_path)),
+            "observed": manifest.get("inputs", {}),
+            "required": "current sample and source-register SHA-256",
+        },
+        {
+            "id": "dataset-integrity",
+            "passed": not invalid_records and manifest.get("recordCount") == len(records)
+                and manifest.get("eligibleL3Count") == len(l3),
+            "observed": {"invalid": invalid_records, "recordCount": len(records), "manifestRecordCount": manifest.get("recordCount"),
+                         "eligibleL3": len(l3), "manifestEligibleL3": manifest.get("eligibleL3Count")},
+            "required": "all records valid and manifest counts match",
         },
         {
             "id": "dataset-frozen",
@@ -101,12 +133,8 @@ def inspect(
             "eligibleL3": len(l3),
             "byCategory": dict(sorted(category_counts.items())),
         },
-        "inputHashes": {
-            str(Path(manifest_path).relative_to(ROOT)).replace("\\", "/"): _sha256(Path(manifest_path)),
-            str(Path(sources_path).relative_to(ROOT)).replace("\\", "/"): _sha256(Path(sources_path)),
-            str(Path(samples_path).relative_to(ROOT)).replace("\\", "/"): _sha256(Path(samples_path)),
-            str(Path(model_gates_path).relative_to(ROOT)).replace("\\", "/"): _sha256(Path(model_gates_path)),
-        },
+        "inputHashes": {str(path.relative_to(ROOT)).replace("\\", "/") if path.is_relative_to(ROOT) else path.name: _sha256(path)
+                         for path in (Path(policy_path), Path(manifest_path), Path(sources_path), Path(samples_path), Path(model_gates_path))},
         "safety": {
             "listingPriceUsedAsLabel": False,
             "acceptedOfferUsedAsLabel": False,

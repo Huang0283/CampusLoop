@@ -1,5 +1,11 @@
 # AI5-08 联合复现环境与资产清理
 
+## 2026-10-25 当前复现补充
+
+本轮使用 Python 3.12.14 / Windows AMD64 的两个隔离环境：基线环境按 `scripts/m7_phase2/requirements.txt` 安装，候选环境按 `services/m7_semantic/requirements.windows-cpu.lock.txt` 安装；两者 `pip check` 通过。候选模型继续使用缓存目录中的已核验固定 revision，不把缓存当作本次重新下载。基线完整复现、M7 真实模型复现、M8 14/31/29 项回归和 12 场景联合部署均通过。新建环境没有预装 pip，因此复现记录使用 `importlib.metadata` 生成等价的安装分布快照，不改变运行依赖。
+
+Windows 本机对新 Python 可执行文件的回环访问最初被防火墙拦截；仅在验收期间为该 Python 3.12 路径增加了 127.0.0.1 入站临时规则，重跑成功后已删除规则。M8 仍为 `NO_GO`，M7 仍为 `DIAGNOSTIC_ONLY / NO_GO`；正式发布环境、M10/M1 签署和 M8 互审未完成。
+
 2026-10-17；整理人 M7；本次真实代码提交 `45acf879bf41c18baae4f89584c9e1732f848c97`。技术环境核对通过，发布环境接收待 M9，组内互审待 M8。不是 Phase 5 冻结清单。
 
 ## 两个环境分别锁定

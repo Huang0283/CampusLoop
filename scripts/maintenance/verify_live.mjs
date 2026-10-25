@@ -10,21 +10,27 @@ if (!repo || !output || !commit || !process.env.CAMPUSLOOP_UI_URL) {
 }
 mkdirSync(output, { recursive: false })
 const win = process.platform === 'win32'
+const sourceStatus = spawnSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: repo, encoding: 'utf8' })
+if (sourceStatus.status !== 0) throw new Error('Cannot identify source checkout status')
+const reportPath = path.join(path.resolve(output), 'playwright-results.json')
 const result = spawnSync(win ? 'cmd.exe' : 'npm',
-  win ? ['/d', '/s', '/c', 'npm', 'run', 'test:live'] : ['run', 'test:live'],
-  { cwd: path.join(repo, 'frontend'), encoding: 'utf8', timeout: 600000, env: process.env })
+  win ? ['/d', '/s', '/c', 'npm', 'run', 'test:live', '--', '--reporter=list,json'] : ['run', 'test:live', '--', '--reporter=list,json'],
+  { cwd: path.join(repo, 'frontend'), encoding: 'utf8', timeout: 600000,
+    env: { ...process.env, PLAYWRIGHT_JSON_OUTPUT_FILE: reportPath } })
 const log = `${result.stdout ?? ''}${result.stderr ?? ''}${result.error ? String(result.error) : ''}`
 writeFileSync(path.join(output, 'browser-tests.txt'), log)
-const passed = Number(log.match(/(\d+) passed/)?.[1] ?? 0)
-const incomplete = /\d+ (?:failed|skipped|flaky|did not run)/.test(log)
+let report
+try { report = JSON.parse(readFileSync(reportPath, 'utf8')) } catch { /* A missing/invalid report fails the gate. */ }
+const passed = report?.stats?.expected ?? 0
+const incomplete = !report || report.stats.unexpected > 0 || report.stats.skipped > 0 || report.stats.flaky > 0 || report.errors.length > 0
 const record = {
-  sourceCommit: commit, testedAtUtc: new Date().toISOString(),
+  sourceCommit: commit, workingTreeDirty: Boolean(sourceStatus.stdout.trim()), testedAtUtc: new Date().toISOString(),
   environment: { node: process.version, platform: process.platform, uiUrl: process.env.CAMPUSLOOP_UI_URL },
   command: ['npm', 'run', 'test:live'], exitCode: result.status, passed,
-  status: result.status === 0 && passed === 5 && !incomplete ? 'PASS' : 'FAIL',
+  status: result.status === 0 && passed > 0 && !incomplete ? 'PASS' : 'FAIL',
   log: 'browser-tests.txt',
   sha256: createHash('sha256').update(readFileSync(path.join(output, 'browser-tests.txt'))).digest('hex'),
 }
 writeFileSync(path.join(output, 'run-record.json'), JSON.stringify(record, null, 2) + '\n')
-console.log(`Real browser journeys: ${record.status} (${passed}/5 passed)`)
+console.log(`Browser suite (real journeys and contract/fault fixtures): ${record.status} (${passed} passed)`)
 process.exitCode = record.status === 'PASS' ? 0 : 1

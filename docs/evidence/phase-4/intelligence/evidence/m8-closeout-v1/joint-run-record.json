@@ -1,0 +1,74 @@
+{
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY; M8_REVIEW_M10_M1_SIGNOFF_PENDING",
+  "deploymentEnabled": false,
+  "endedAt": "2026-10-18T12:27:31.099009+00:00",
+  "environment": {
+    "machine": "AMD64",
+    "os": "Windows-10-10.0.26200-SP0",
+    "python": "3.10.11"
+  },
+  "formalStageComplete": false,
+  "semanticInferenceReproduced": false,
+  "sourceCommit": "f1b9b7519b51d896c09d36e391632d9460da1940",
+  "startedAt": "2026-10-18T12:26:33.224941+00:00",
+  "status": "PASS",
+  "steps": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m7_baseline.verify",
+        "--output-dir",
+        "<output>\\m7-baseline"
+      ],
+      "exitCode": 0,
+      "name": "m7-baseline",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "ca9a79fc50053b934b0f993d5783a44df6cf437df5bb12cfcd4590f6daad9fd0"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m8_phase4.verify",
+        "--output-dir",
+        "<output>\\m8",
+        "--source-commit",
+        "f1b9b7519b51d896c09d36e391632d9460da1940"
+      ],
+      "exitCode": 0,
+      "name": "m8-regression",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "5824ae5fe0a51bf69bb9f03b2ef5c6e796b703bd7928e7589f664938d05f62ba"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.intelligence_phase4.smoke",
+        "--output-dir",
+        "<output>\\deployment"
+      ],
+      "exitCode": 0,
+      "name": "joint-deployment",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "eaf5f80a3d9bb78eaa33828c4737fec006e3647ee72fda604f72ba714bcf153d"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "services/m7_semantic/tests",
+        "-v"
+      ],
+      "exitCode": 0,
+      "name": "m7-private-unit-tests",
+      "stderrSha256": "7f6fe47b9c1fc3366573352642a7db0a797a64055b44ae686115db4483cec869",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "workingTreeDirty": false
+}
