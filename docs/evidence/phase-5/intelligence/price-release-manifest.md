@@ -12,8 +12,8 @@
 
 ## 版本与安全约束
 
-规则的输入、输出和候选门禁必须与 `contracts/m8-phase4/readiness-policy.json`、`services/m8_phase4/router.py`、`services/m8_phase4/response_validation.py` 保持一致。不得把挂牌价或议价价当作成交标签；不得把建议区间解释成成交保证；不得在公开结果中泄露用户身份、聊天内容、精确位置或管理备注。任何真实候选训练都必须先满足 PDS-02 授权、M5/M6 审批、至少 200 条 L3 完成交易和每个切片至少 30 条的门禁。
+规则的输入、输出和候选门禁必须与 `contracts/m8-phase4/readiness-policy.json`、`services/m8_phase4/router.py`、`services/m8_phase4/response_validation.py` 保持一致。不得把挂牌价或议价价当作成交标签；不得把建议区间解释成成交保证；不得在公开结果中泄露用户身份、聊天内容、精确位置或管理备注。任何真实候选训练都必须先满足 PDS-02 授权、M5/M6 独立审批、至少 200 条 L3 完成交易和六个规定类别每类至少 30 条的门禁。授权、脱敏、退款/争议排除与快照生成见 [M8 真实成交数据三项补强](m8-real-data-remediation.md)。
 
 ## 当前结论
 
-2026-10-25 的真实代码检查在 Python 3.12.14 / Windows AMD64 完成。M8 Phase 2、Phase 3、Phase 4 分别通过 14、31、29 项测试，重复输出一致，价格回退一致率为 1.0。现有数据只有 12 条 L0 合成记录、0 条合格 L3，因此 MAE、MAPE、区间覆盖率和候选训练均为 `NOT_EVALUATED`，发布结论为 `NO_GO`。在补齐并封存合规 L3 数据前，必须继续使用 `m8-price-rule-v1`。
+2026-10-25 的原发布核对在 Python 3.12.14 / Windows AMD64 完成，M8 Phase 2、Phase 3、Phase 4 当时分别通过 14、31、29 项测试。真实数据门禁补强后又在 Python 3.10.11 / Windows 完成 14、31、36 项测试，重复输出一致，价格回退一致率为 1.0。现有数据只有 12 条 L0 合成记录、0 条合格 L3，因此 MAE、MAPE、区间覆盖率和候选训练均为 `NOT_EVALUATED`，发布结论为 `NO_GO`。在补齐并封存合规 L3 数据前，必须继续使用 `m8-price-rule-v1`。

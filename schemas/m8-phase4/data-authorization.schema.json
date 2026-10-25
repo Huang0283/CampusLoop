@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campusloop.local/schemas/m8-phase4/data-authorization.schema.json",
+  "title": "M8 completed-order data authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "authorizationVersion", "sourceId", "purpose", "status",
+    "dataMinimizationConfirmed", "retentionDays", "approvedFields", "approvals", "note"
+  ],
+  "properties": {
+    "authorizationVersion": {"const": "m8-transaction-authorization-v1"},
+    "sourceId": {"const": "PDS-02"},
+    "purpose": {"const": "price_candidate_training_and_evaluation"},
+    "status": {"enum": ["PENDING", "APPROVED", "REVOKED"]},
+    "dataMinimizationConfirmed": {"type": "boolean"},
+    "retentionDays": {"type": ["integer", "null"], "minimum": 1, "maximum": 365},
+    "approvedFields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "approvals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["M5", "M6"],
+      "properties": {
+        "M5": {"$ref": "#/$defs/approval"},
+        "M6": {"$ref": "#/$defs/approval"}
+      }
+    },
+    "note": {"type": "string"}
+  },
+  "$defs": {
+    "approval": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["approver", "approvedAt", "evidence"],
+          "properties": {
+            "approver": {"type": "string", "minLength": 1},
+            "approvedAt": {"type": "string", "format": "date-time"},
+            "evidence": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    }
+  }
+}

@@ -98,7 +98,9 @@ def verify(output_dir: Path, source_commit: str) -> dict:
     source_paths = sorted({
         path for directory in ("services/m8_baseline", "services/m8_phase4", "scripts/m8_phase2")
         for path in (ROOT / directory).rglob("*.py")
-    } | set((ROOT / "contracts/m8-phase4").glob("*.json")))
+    } | set((ROOT / "contracts/m8-phase4").glob("*.json"))
+      | set((ROOT / "schemas/m8-phase4").glob("*.json"))
+      | {ROOT / "data/m8-phase4/authorization-status.json"})
     run_record = {
         "verificationVersion": "m8-phase4-verification-v2",
         "sourceCommit": source_commit,

@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 from scripts.m8_phase2.pipeline import DataError, validate_row, validate_sources
+from .transaction_dataset import authorization_check
 
 ROOT = Path(__file__).resolve().parents[2]
 POLICY = ROOT / "contracts/m8-phase4/readiness-policy.json"
@@ -14,6 +15,7 @@ MANIFEST = ROOT / "data/m8-phase2/derived/manifest.json"
 SOURCES = ROOT / "data/m8-phase2/raw/source-register.json"
 SAMPLES = ROOT / "data/m8-phase2/raw/price-samples.jsonl"
 MODEL_GATES = ROOT / "contracts/intelligence-phase2/model-gates.candidate.json"
+AUTHORIZATION = ROOT / "data/m8-phase4/authorization-status.json"
 
 
 def _json(path: Path) -> Any:
@@ -34,12 +36,15 @@ def inspect(
     sources_path: Path = SOURCES,
     samples_path: Path = SAMPLES,
     model_gates_path: Path = MODEL_GATES,
+    authorization_path: Path = AUTHORIZATION,
 ) -> dict:
     policy = _json(Path(policy_path))
     manifest = _json(Path(manifest_path))
     source_register = _json(Path(sources_path))
     records = _jsonl(Path(samples_path))
     gates = _json(Path(model_gates_path))
+    authorization = _json(Path(authorization_path))
+    authorization_result = authorization_check(authorization, policy)
     price_gate = next(item for item in gates["capabilities"] if item["capability"] == "price-model")
     invalid_records = []
     l3 = []
@@ -108,6 +113,16 @@ def inspect(
             "required": policy["requiredApprovals"],
         },
         {
+            "id": "formal-authorization-artifact",
+            "passed": authorization_result["passed"],
+            "observed": authorization_result["reasonCodes"],
+            "required": {
+                "version": policy["requiredAuthorizationVersion"],
+                "purpose": policy["requiredAuthorizationPurpose"],
+                "approvals": policy["requiredApprovals"],
+            },
+        },
+        {
             "id": "sensitive-field-exclusion",
             "passed": not forbidden,
             "observed": forbidden,
@@ -115,9 +130,10 @@ def inspect(
         },
         {
             "id": "minimum-category-slices",
-            "passed": bool(category_counts) and all(count >= policy["minimumSliceCount"] for count in category_counts.values()),
+            "passed": all(category_counts.get(category, 0) >= policy["minimumSliceCount"]
+                          for category in policy["requiredCategorySlices"]),
             "observed": dict(sorted(category_counts.items())),
-            "required": policy["minimumSliceCount"],
+            "required": {category: policy["minimumSliceCount"] for category in policy["requiredCategorySlices"]},
         },
     ]
     failed = [item["id"] for item in checks if not item["passed"]]
@@ -134,7 +150,8 @@ def inspect(
             "byCategory": dict(sorted(category_counts.items())),
         },
         "inputHashes": {str(path.relative_to(ROOT)).replace("\\", "/") if path.is_relative_to(ROOT) else path.name: _sha256(path)
-                         for path in (Path(policy_path), Path(manifest_path), Path(sources_path), Path(samples_path), Path(model_gates_path))},
+                         for path in (Path(policy_path), Path(manifest_path), Path(sources_path), Path(samples_path),
+                                      Path(model_gates_path), Path(authorization_path))},
         "safety": {
             "listingPriceUsedAsLabel": False,
             "acceptedOfferUsedAsLabel": False,
