@@ -1,0 +1,19 @@
+{
+  "label": "backend-regression",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "exec",
+    "campusloop-mq5-audit-api-1",
+    "python",
+    "-m",
+    "pytest",
+    "--junitxml=/tmp/mq5-backend.xml"
+  ],
+  "startedAt": "2026-10-25T04:58:42.524986+00:00",
+  "endedAt": "2026-10-25T04:58:44.873794+00:00",
+  "elapsedSeconds": 2.349,
+  "exitCode": 2,
+  "output": "backend-regression.txt",
+  "sha256": "98719c3939b44f3e783ea29052e9c027e78aacc993b278747079ebf6f872a4f7"
+}

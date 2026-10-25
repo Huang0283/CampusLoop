@@ -1,0 +1,14 @@
+{
+  "label": "recovery-tool-final",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "python",
+    "../mq-p5-m10/scripts/quality_phase5/recovery_drill.py"
+  ],
+  "startedAt": "2026-10-25T05:26:16.273068+00:00",
+  "endedAt": "2026-10-25T05:26:22.525145+00:00",
+  "elapsedSeconds": 6.252,
+  "exitCode": 0,
+  "output": "recovery-tool-final.txt",
+  "sha256": "e9d52c838e5dd2a0d46bc55b944b0e2408cac8360e905ee6b0b442001e1b657c"
+}
