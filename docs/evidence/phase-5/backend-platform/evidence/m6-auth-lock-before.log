@@ -1,0 +1,155 @@
+FF..                                                                     [100%]
+================================== FAILURES ===================================
+___ test_authenticated_peers_can_notify_each_other_without_deadlock[bearer] ___
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\psycopg\cursor.py:97: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.DeadlockDetected: deadlock detected
+E   DETAIL:  Process 34204 waits for ShareLock on transaction 750; blocked by process 39880.
+E   Process 39880 waits for ShareLock on transaction 749; blocked by process 34204.
+E   HINT:  See server log for query details.
+E   CONTEXT:  while locking tuple (0,2) in relation "users"
+E   SQL statement "SELECT 1 FROM ONLY "m6_auth_lock_8fb0fba5bf644b3d8a00ace3e3c5f6bf"."users" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x"
+
+The above exception was the direct cause of the following exception:
+tests\test_auth_locking.py:113: in test_authenticated_peers_can_notify_each_other_without_deadlock
+    list(executor.map(send, range(2)))
+D:\python\Lib\concurrent\futures\_base.py:619: in result_iterator
+    yield _result_or_cancel(fs.pop())
+D:\python\Lib\concurrent\futures\_base.py:317: in _result_or_cancel
+    return fut.result(timeout)
+D:\python\Lib\concurrent\futures\_base.py:456: in result
+    return self.__get_result()
+D:\python\Lib\concurrent\futures\_base.py:401: in __get_result
+    raise self._exception
+D:\python\Lib\concurrent\futures\thread.py:59: in run
+    result = self.fn(*self.args, **self.kwargs)
+tests\test_auth_locking.py:110: in send
+    db.flush()
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\session.py:4352: in flush
+    self._flush(objects)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\session.py:4487: in _flush
+    with util.safe_reraise():
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\session.py:4448: in _flush
+    flush_context.execute()
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1418: in execute
+    return meth(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\sql\elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1846: in _execute_context
+    return self._exec_single_context(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\psycopg\cursor.py:97: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.OperationalError: (psycopg.errors.DeadlockDetected) deadlock detected
+E   DETAIL:  Process 34204 waits for ShareLock on transaction 750; blocked by process 39880.
+E   Process 39880 waits for ShareLock on transaction 749; blocked by process 34204.
+E   HINT:  See server log for query details.
+E   CONTEXT:  while locking tuple (0,2) in relation "users"
+E   SQL statement "SELECT 1 FROM ONLY "m6_auth_lock_8fb0fba5bf644b3d8a00ace3e3c5f6bf"."users" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x"
+E   [SQL: INSERT INTO m6_auth_lock_8fb0fba5bf644b3d8a00ace3e3c5f6bf.notifications (user_id, type, payload, read_at) VALUES (%(user_id)s::BIGINT, %(type)s::VARCHAR, %(payload)s::JSONB, %(read_at)s::TIMESTAMP WITH TIME ZONE) RETURNING m6_auth_lock_8fb0fba5bf644b3d8a00ace3e3c5f6bf.notifications.id, m6_auth_lock_8fb0fba5bf644b3d8a00ace3e3c5f6bf.notifications.created_at]
+E   [parameters: {'user_id': 2, 'type': 'ORDER_STATUS_CHANGED', 'payload': Jsonb({'title': 'Confirmed', 'content': ' ... (58 chars)), 'read_at': None}]
+E   (Background on this error at: https://sqlalche.me/e/20/e3q8)
+__ test_authenticated_peers_can_notify_each_other_without_deadlock[browser] ___
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\psycopg\cursor.py:97: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.DeadlockDetected: deadlock detected
+E   DETAIL:  Process 39880 waits for ShareLock on transaction 754; blocked by process 34204.
+E   Process 34204 waits for ShareLock on transaction 755; blocked by process 39880.
+E   HINT:  See server log for query details.
+E   CONTEXT:  while locking tuple (0,2) in relation "users"
+E   SQL statement "SELECT 1 FROM ONLY "m6_auth_lock_6e07db6c54b94c97a448db16faced542"."users" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x"
+
+The above exception was the direct cause of the following exception:
+tests\test_auth_locking.py:113: in test_authenticated_peers_can_notify_each_other_without_deadlock
+    list(executor.map(send, range(2)))
+D:\python\Lib\concurrent\futures\_base.py:619: in result_iterator
+    yield _result_or_cancel(fs.pop())
+D:\python\Lib\concurrent\futures\_base.py:317: in _result_or_cancel
+    return fut.result(timeout)
+D:\python\Lib\concurrent\futures\_base.py:456: in result
+    return self.__get_result()
+D:\python\Lib\concurrent\futures\_base.py:401: in __get_result
+    raise self._exception
+D:\python\Lib\concurrent\futures\thread.py:59: in run
+    result = self.fn(*self.args, **self.kwargs)
+tests\test_auth_locking.py:110: in send
+    db.flush()
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\session.py:4352: in flush
+    self._flush(objects)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\session.py:4487: in _flush
+    with util.safe_reraise():
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\session.py:4448: in _flush
+    flush_context.execute()
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1233: in _emit_insert_statements
+    result = connection.execute(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1418: in execute
+    return meth(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\sql\elements.py:515: in _execute_on_connection
+    return connection._execute_clauseelement(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1640: in _execute_clauseelement
+    ret = self._execute_context(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1846: in _execute_context
+    return self._exec_single_context(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1986: in _exec_single_context
+    self._handle_dbapi_exception(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:2355: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\base.py:1967: in _exec_single_context
+    self.dialect.do_execute(
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\sqlalchemy\engine\default.py:941: in do_execute
+    cursor.execute(statement, parameters)
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\psycopg\cursor.py:97: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.OperationalError: (psycopg.errors.DeadlockDetected) deadlock detected
+E   DETAIL:  Process 39880 waits for ShareLock on transaction 754; blocked by process 34204.
+E   Process 34204 waits for ShareLock on transaction 755; blocked by process 39880.
+E   HINT:  See server log for query details.
+E   CONTEXT:  while locking tuple (0,2) in relation "users"
+E   SQL statement "SELECT 1 FROM ONLY "m6_auth_lock_6e07db6c54b94c97a448db16faced542"."users" x WHERE "id" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x"
+E   [SQL: INSERT INTO m6_auth_lock_6e07db6c54b94c97a448db16faced542.notifications (user_id, type, payload, read_at) VALUES (%(user_id)s::BIGINT, %(type)s::VARCHAR, %(payload)s::JSONB, %(read_at)s::TIMESTAMP WITH TIME ZONE) RETURNING m6_auth_lock_6e07db6c54b94c97a448db16faced542.notifications.id, m6_auth_lock_6e07db6c54b94c97a448db16faced542.notifications.created_at]
+E   [parameters: {'user_id': 2, 'type': 'ORDER_STATUS_CHANGED', 'payload': Jsonb({'title': 'Confirmed', 'content': ' ... (58 chars)), 'read_at': None}]
+E   (Background on this error at: https://sqlalche.me/e/20/e3q8)
+============================== warnings summary ===============================
+..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\starlette\testclient.py:40
+  C:\Users\12512\Desktop\����\CampusLoop-M6-P4\.venv\Lib\site-packages\starlette\testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_auth_locking.py::test_authenticated_peers_can_notify_each_other_without_deadlock[bearer]
+FAILED tests/test_auth_locking.py::test_authenticated_peers_can_notify_each_other_without_deadlock[browser]
