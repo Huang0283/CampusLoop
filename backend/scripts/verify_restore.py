@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -50,6 +51,7 @@ TABLES: list[str] = [
     "matching_jobs",
     "matching_results",
     "matching_notifications",
+    "matching_revision",
     "ai_task_runs",
     "worker_heartbeats",
     # 运行时
@@ -57,6 +59,12 @@ TABLES: list[str] = [
 ]
 
 DEFAULT_URL = "postgresql+psycopg://campusloop:campusloop@localhost:5432/campusloop"
+
+
+def digest(value) -> str:
+    return hashlib.sha256(
+        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
 
 
 def fetch_snapshot() -> dict:
@@ -71,10 +79,12 @@ def fetch_snapshot() -> dict:
     # 宿主机直连用 5432 端口的 psycopg URL；容器内 DATABASE_URL 同为 psycopg scheme。
     try:
         with psycopg.connect(url) as conn, conn.cursor() as cur:
+            cur.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY")
             cur.execute("SELECT version_num FROM alembic_version;")
             row = cur.fetchone()
             version = row[0] if row else None
             tables: dict[str, int | None] = {}
+            content_hashes = {}
             for table in TABLES:
                 cur.execute(
                     "SELECT count(*) FROM information_schema.tables "
@@ -82,19 +92,46 @@ def fetch_snapshot() -> dict:
                     (table,),
                 )
                 if cur.fetchone()[0] == 0:
-                    tables[table] = None  # 表不存在（迁移未含或被删除）
-                    continue
+                    raise ValueError(f"Required recovery table missing: {table}")
                 cur.execute(f'SELECT count(*) FROM "{table}";')  # noqa: S608（表名白名单）
                 tables[table] = int(cur.fetchone()[0])
+                cur.execute(f'SELECT row_to_json(t)::text FROM "{table}" AS t;')
+                # Hash each complete row, then sort hashes: identity and state changes
+                # are detected without saving private row contents in the evidence.
+                content_hashes[table] = digest(sorted(digest(json.loads(row[0])) for row in cur))
+            cur.execute(
+                "SELECT c.relname, x.conname, pg_get_constraintdef(x.oid) "
+                "FROM pg_constraint x JOIN pg_class c ON c.oid=x.conrelid "
+                "JOIN pg_namespace n ON n.oid=c.relnamespace "
+                "WHERE n.nspname='public' ORDER BY c.relname,x.conname"
+            )
+            constraints = cur.fetchall()
+            cur.execute(
+                "SELECT tablename,indexname,indexdef FROM pg_indexes "
+                "WHERE schemaname='public' ORDER BY tablename,indexname"
+            )
+            schema_hash = digest({"constraints": constraints, "indexes": cur.fetchall()})
     except Exception as exc:  # noqa: BLE001（命令行工具需打印可读错误）
         print(f"[FAIL] 数据库连接失败：{exc}", file=sys.stderr)
         raise SystemExit(2) from exc
-    return {"alembic_version": version, "tables": tables}
+    return {
+        "formatVersion": 2,
+        "alembic_version": version,
+        "tables": tables,
+        "contentHashes": content_hashes,
+        "schemaSha256": schema_hash,
+    }
 
 
 def compare(snapshot: dict, baseline: dict) -> list[str]:
     """逐表比对，返回差异描述列表（空列表 = 一致）。"""
     diffs: list[str] = []
+    if baseline.get("formatVersion") != 2 or snapshot.get("formatVersion") != 2:
+        diffs.append("Recovery baseline must be regenerated with snapshot formatVersion=2.")
+    if not baseline.get("schemaSha256") or baseline.get("schemaSha256") != snapshot.get(
+        "schemaSha256"
+    ):
+        diffs.append("Constraint/index definitions differ or are missing.")
     if snapshot.get("alembic_version") != baseline.get("alembic_version"):
         diffs.append(
             f"alembic_version: 备份前={baseline.get('alembic_version')} "
@@ -103,9 +140,14 @@ def compare(snapshot: dict, baseline: dict) -> list[str]:
     base_tables: dict = baseline.get("tables", {})
     for table in TABLES:
         before = base_tables.get(table)
-        after = snapshot["tables"].get(table)
+        after = snapshot.get("tables", {}).get(table)
+        if before is None or after is None:
+            diffs.append(f"Required table absent from recovery/baseline: {table}")
         if before != after:
             diffs.append(f"{table}: 备份前={before} 恢复后={after}")
+        expected_hash = baseline.get("contentHashes", {}).get(table)
+        if not expected_hash or expected_hash != snapshot.get("contentHashes", {}).get(table):
+            diffs.append(f"{table}: complete-row content hash differs or is missing.")
     return diffs
 
 
@@ -138,7 +180,7 @@ def main() -> None:
         for line in diffs:
             print(f"  - {line}", file=sys.stderr)
         raise SystemExit(1)
-    print(f"[OK] 恢复后 {len(TABLES)} 张表行数与 alembic_version 均与备份前基线一致。")
+    print(f"[OK] {len(TABLES)} tables: counts, content, constraints/indexes and migration match.")
 
 
 if __name__ == "__main__":

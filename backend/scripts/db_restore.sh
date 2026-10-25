@@ -16,12 +16,16 @@ cd "$REPO_ROOT"
 
 DUMP="${1:?用法: db_restore.sh <dump 文件>}"
 [ -f "$DUMP" ] || { echo "[FAIL] 备份文件不存在: ${DUMP}" >&2; exit 1; }
+if [ -f "$DUMP.sha256" ]; then
+  sha256sum -c "$DUMP.sha256" \
+    || { echo "[FAIL] Backup checksum mismatch; database was not changed." >&2; exit 1; }
+fi
 
 docker compose ps db 2>/dev/null | grep -qE ' Up ' \
   || { echo "[FAIL] db 容器未运行：先 docker compose up -d" >&2; exit 1; }
 
 echo ">>> 0/4 备份完整性自检（pg_restore --list 前 5 行）"
-docker compose exec -T db pg_restore --list < "$DUMP" | head -5 \
+docker compose exec -T db pg_restore --list < "$DUMP" | sed -n '1,5p' \
   || { echo "[FAIL] 备份文件损坏或不完整，停止恢复" >&2; exit 1; }
 
 echo ">>> 1/4 断开现有连接，DROP / CREATE campusloop"
