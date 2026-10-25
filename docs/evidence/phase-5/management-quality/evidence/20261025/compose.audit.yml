@@ -1,0 +1,30 @@
+services:
+  db:
+    ports: !reset []
+  redis:
+    ports: !reset []
+  minio:
+    image: campusloop-local-minio:dev
+    ports: !override
+      - "127.0.0.1:19025:9000"
+  minio-init:
+    image: campusloop-local-minio:dev
+  api:
+    image: campusloop-mq5-api:50108a3
+    ports: !override
+      - "127.0.0.1:8025:8000"
+    environment:
+      APP_ENV: test
+      REDIS_URL: redis://redis:6379/15
+      S3_PUBLIC_BASE_URL: http://127.0.0.1:19025/campusloop-public
+  worker:
+    image: campusloop-mq5-api:50108a3
+    ports: !override
+      - "127.0.0.1:8026:8000"
+    environment:
+      APP_ENV: test
+      REDIS_URL: redis://redis:6379/15
+  baseline:
+    image: campusloop-mq5-api:50108a3
+    environment:
+      APP_ENV: test

@@ -1,0 +1,22 @@
+{
+  "label": "m7-unit",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "exec",
+    "campusloop-mq5-audit-api-1",
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "../services/m7_baseline/tests",
+    "-v"
+  ],
+  "startedAt": "2026-10-25T05:02:42.868069+00:00",
+  "endedAt": "2026-10-25T05:02:43.101486+00:00",
+  "elapsedSeconds": 0.233,
+  "exitCode": 1,
+  "output": "m7-unit.txt",
+  "sha256": "dd61d9a513d2329fd0078dbde112a50a73128d5c0a03bf200997f69b3c60bb53"
+}
