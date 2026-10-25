@@ -181,3 +181,90 @@ def test_disconnected_reader_recovers_multiple_pages_without_duplicate_messages(
             )
             == 5
         )
+
+
+def test_real_websocket_reconnect_overlaps_durable_history_without_duplicate_writes(client):
+    seller, buyer = account(client), account(client)
+    _, sid, _ = pending_order(client, seller, buyer)
+
+    def connect(socket):
+        socket.send_json({"type": "AUTH", "accessToken": seller["accessToken"]})
+        assert socket.receive_json()["type"] == "AUTH_OK"
+
+    def send(text):
+        body = {"clientMsgId": str(uuid.uuid4()), "kind": "TEXT", "content": text}
+        response = client.post(f"/chat/sessions/{sid}/messages", headers=headers(buyer), json=body)
+        assert response.status_code == 201, response.text
+        replay = client.post(f"/chat/sessions/{sid}/messages", headers=headers(buyer), json=body)
+        assert replay.json() == response.json()
+        return response.json()["data"]["id"]
+
+    with client.websocket_connect("/ws") as socket:
+        connect(socket)
+    offline = [send(f"disconnected {n}") for n in range(3)]
+    with client.websocket_connect("/ws") as socket:
+        connect(socket)
+        online = send("after reconnect")
+        live = socket.receive_json()
+        assert live["type"] == "MESSAGE_CREATED"
+        assert live["payload"]["message"]["id"] == online
+        cursor, recovered = 0, []
+        while True:
+            response = client.get(
+                f"/chat/sessions/{sid}/messages",
+                headers=headers(seller),
+                params={"afterId": cursor, "limit": 2},
+            )
+            assert response.status_code == 200, response.text
+            batch = response.json()["data"]
+            if not batch:
+                break
+            recovered.extend(message["id"] for message in batch)
+            cursor = batch[-1]["id"]
+        assert recovered == [*offline, online]
+        # Consumers deduplicate the intentionally overlapping HTTP/live results by ID.
+        assert sorted(set([*recovered, live["payload"]["message"]["id"]])) == recovered
+    with SessionLocal() as db:
+        assert (
+            db.scalar(
+                select(func.count()).select_from(ChatMessage).where(ChatMessage.session_id == sid)
+            )
+            == 4
+        )
+
+
+def test_intelligent_timeout_and_invalid_price_do_not_change_trade_facts(client, monkeypatch):
+    from services.m7_baseline import client as m7_client
+    from services.m8_baseline import client as m8_client
+
+    seller, buyer = account(client), account(client)
+    item, _, order = pending_order(client, seller, buyer)
+    events = client.get(f'/orders/{order["id"]}/events', headers=headers(buyer)).json()
+
+    def timeout(*args, **kwargs):
+        raise TimeoutError("injected audit provider timeout")
+
+    monkeypatch.setenv("BASELINE_SERVICES_ENABLED", "true")
+    monkeypatch.setenv("BASELINE_RPC_TOKEN", "audit-rpc-only-" + "x" * 40)
+    get_settings.cache_clear()
+    monkeypatch.setattr(m7_client, "call_baseline", timeout)
+    monkeypatch.setattr(m8_client, "call", lambda *args, **kwargs: {"intervalFen": {}})
+    search = client.get("/search", params={"query": "book"})
+    assert search.status_code == 200, search.text
+    assert search.json()["data"]["degraded"]
+    price = client.post(
+        "/price-advice",
+        headers=headers(buyer),
+        json={"category": "BOOKS", "condition": "GOOD", "originalPrice": 100},
+    )
+    assert price.status_code == 200, price.text
+    result = price.json()["data"]
+    assert result["status"] == "UNAVAILABLE"
+    assert result["lower"] is None and result["upper"] is None
+    assert result["degradationReason"] == "INVALID_SERVICE_RESPONSE"
+    assert client.get(f'/orders/{order["id"]}/events', headers=headers(buyer)).json() == events
+    with SessionLocal() as db:
+        entity = db.get(Order, order["id"])
+        assert entity.status == "PENDING_CONFIRM"
+        assert not entity.buyer_confirmed_complete and not entity.seller_confirmed_complete
+        assert db.get(Product, item["id"]).status == "RESERVED"

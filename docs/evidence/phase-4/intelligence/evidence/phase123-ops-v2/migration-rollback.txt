@@ -1,0 +1,10 @@
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 0008 -> 0007, HttpOnly browser credentials; existing JSON-refresh families remain unchanged.
+INFO  [alembic.runtime.migration] Running downgrade 0007 -> 0006, Authoritative catalog/authorization revision for conditional result writes.
+INFO  [alembic.runtime.migration] Running downgrade 0006 -> 0005, Transactional matching outbox/current result and durable notification dedup.
+INFO  [alembic.runtime.migration] Running downgrade 0005 -> 0004, Repair sequences for existing Phase 2 explicit-ID seeds (no row changes).
+INFO  [alembic.runtime.migration] Running downgrade 0004 -> 0003, Persist bounded admin operation context without copying private evidence.
+INFO  [alembic.runtime.migration] Running downgrade 0003 -> 0002, BP3-04 through BP3-11: durable writes, idempotency and transaction invariants.
+INFO  [alembic.runtime.migration] Running downgrade 0002 -> 0001, BP3-01/02: refresh families, private profile and transactional audit.
+INFO  [alembic.runtime.migration] Running downgrade 0001 -> , initial schema: all Phase 2 tables (BP2-07)

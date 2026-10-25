@@ -1,0 +1,19 @@
+{
+  "baseCommit": "9ceddb1cc2d90f9f587b88017e92b043630e0f1d",
+  "branch": "task/m6-p4-ai-orchestration",
+  "normalization": "UTF-8 text bytes with CRLF normalized to LF before SHA256",
+  "files": {
+    "backend/app/api/routes/intelligence.py": "33a00e18217f2883d8ef6255335858595aeaf4fe556f7569fdc318fb558c8e7a",
+    "backend/app/services/ai_adapters.py": "d26be5243b6621001503d3116ae9153313caabff3279201f82ea40e0a305af7e",
+    "backend/app/services/intelligence.py": "be40054ee0b99e2ec5e060651891e8c6f0a5da569053dec23a5dccc8263120ee",
+    "backend/app/services/matching_jobs.py": "feda66c33e5e6897645e6863f568aaad9edbd371341e665a977cac9b622796f4",
+    "backend/tests/test_ai_orchestration.py": "7bd1afdb12016a00f0441e7d872954459a58badc7833f4cf2b1bf5202754ccaa",
+    "backend/tests/test_live_intelligence.py": "7af2988405f92f2e36e9f721b8d24a0aebcc0570ea689a148cad03ec4d14899c",
+    "backend/tests/test_matching_jobs.py": "f01078bc0eaca7699fbdff87b51b4033ab0ead38ca5f7732b04720680a9c3356",
+    "frontend/src/sdk/generated/index.ts": "0f1455b1dfb5239d439bf65f6d4637ba1cf2b72430513d1d5ce71ea4850987e3",
+    "frontend/src/sdk/generated/sdk.gen.ts": "bfab5adef40db5eafe1407707c881e3b6d43bdcf8a8c0e67624402c87f6f9d01",
+    "frontend/src/sdk/generated/types.gen.ts": "778ebb3c8da3042aa87a0ee51ecc9d1a0f9068fc51592ab3bc5cac85ef651e12",
+    "openapi/campusloop.v1.yaml": "1f66c24de6eb12bfd583012f9604c56c2b15b9dd596ed59b38f5290211d521ce",
+    "scripts/m6_phase4/test_governance_contract.py": "0b72540e12aa04f3d1c4f5713e7ddc53c08677c1c64598fecf849ef34afa9c6b"
+  }
+}

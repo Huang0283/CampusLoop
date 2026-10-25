@@ -10,3 +10,8 @@ export function validateMeetupStart(day?: string, start?: string) {
     throw new Error('见面开始时间必须晚于当前时间（北京时间），请重新选择。')
   }
 }
+
+export function validateMeetupEnd(start?: string, end?: string) {
+  if (!start || !end) return
+  if (start >= end) throw new Error('结束时间必须晚于开始时间。')
+}

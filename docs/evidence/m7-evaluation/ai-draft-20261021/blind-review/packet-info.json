@@ -1,0 +1,10 @@
+{
+  "completedHumanReviews": 0,
+  "inputHashes": {
+    "dictionary.json": "34bbf2de46ab7ac72d472a0452e6bb4b6ab288a370ace7e06bb736bf9967691b",
+    "products.jsonl": "fde278938afb5933eb3292cfb93d728c8577cab7ec0f47f29b6f10ec4b2a844e",
+    "requests.jsonl": "16e2bb80c91d45409ea2719a93b44a6ee1e7ba37479c14f89067a84cadb23de3"
+  },
+  "pairCountPerReviewer": 20736,
+  "querySource": "AI_CONSTRUCTED_NOT_INDEPENDENT_HUMAN"
+}

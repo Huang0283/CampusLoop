@@ -1,0 +1,14 @@
+[
+  {
+    "evidence": "Codex generated scenario drafts at 2026-10-20T16:50:32.739991+00:00; not member independent authorship",
+    "kind": "AI_ASSISTED_DRAFT",
+    "licenseStatus": "PENDING_PROTOCOL_ACCEPTANCE",
+    "sourceId": "codex-ai-scenarios-20261021"
+  },
+  {
+    "evidence": "Original repository data/m7-phase2/derived/products.jsonl; fictional catalog, not real traffic",
+    "kind": "TEAM_SYNTHETIC_CATALOG",
+    "licenseStatus": "PENDING_FORMAL_EVALUATION_CONFIRMATION",
+    "sourceId": "phase2-synthetic-catalog"
+  }
+]

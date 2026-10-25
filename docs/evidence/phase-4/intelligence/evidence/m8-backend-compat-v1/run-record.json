@@ -1,0 +1,21 @@
+{
+  "sourceCommit": "dd45e484ec043af88f65c69cc672678e9143c3a4",
+  "testedAtUtc": "2026-10-14T14:42:16.735059+00:00",
+  "environment": {
+    "python": "3.12.15",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41"
+  },
+  "command": [
+    "-m",
+    "pytest",
+    "tests/test_live_intelligence.py",
+    "-ra",
+    "-o",
+    "cache_dir=/tmp/campusloop-m8-compat-pytest"
+  ],
+  "returnCode": 0,
+  "passed": 2,
+  "status": "PASS",
+  "log": "backend-intelligence-tests.txt",
+  "sha256": "30d6d25ac290e18b520a6cb5bcafef1287579f65f06f0d6ec9983c4592ea3f48"
+}

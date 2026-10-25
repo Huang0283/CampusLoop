@@ -1,0 +1,23 @@
+﻿{
+    "mediaVolume":  "campusloop-local-media",
+    "sourceCommit":  "87750c161b59a8e496c7b6775cdfd353267017e6",
+    "website":  "http://127.0.0.1:5174/market",
+    "dailyProject":  "campusloop-local",
+    "originalMediaFilesVerified":  104,
+    "after":  {
+                  "users":  90,
+                  "products":  36,
+                  "orders":  19
+              },
+    "before":  {
+                   "users":  90,
+                   "products":  36,
+                   "orders":  19
+               },
+    "originalAccountsVerified":  89,
+    "database":  "campusloop",
+    "status":  "PASS",
+    "accountPasswordHashesUnchanged":  true,
+    "databaseVolume":  "campusloop-local-db",
+    "testedAtUtc":  "2026-10-20T08:38:33.5662856Z"
+}

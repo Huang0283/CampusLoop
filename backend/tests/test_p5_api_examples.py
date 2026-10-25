@@ -96,17 +96,11 @@ def test_m6_documented_operations_exist_in_current_runtime():
     for path, entry in SPEC["paths"].items():
         for method in ("get", "post", "patch", "put", "delete"):
             if method in entry:
-                if path in ("/admin/reports", "/admin/reports/{reportId}/resolve"):
-                    continue  # Explicit upstream gap tested separately, not an M6 route.
                 assert path in runtime and method in runtime[path], (method, path)
                 if path not in ("/health", "/ready"):
                     assert entry[method]["operationId"] == runtime[path][method]["operationId"]
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="M5 integration missing from supplied P5 base; remove marker after upstream merge and rerun",
-)
 def test_group_release_requires_m5_documented_routes():
     runtime = app.openapi()["paths"]
     assert "/admin/reports" in runtime and "/admin/reports/{reportId}/resolve" in runtime

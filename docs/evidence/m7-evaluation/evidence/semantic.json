@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m7_semantic/tests",
+    "-v"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 9.14100000000326
+}
