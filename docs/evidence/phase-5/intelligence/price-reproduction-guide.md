@@ -6,10 +6,11 @@
 
 ```powershell
 python scripts/m8_phase2/pipeline.py verify
+python -m services.m8_phase4.transaction_dataset inspect-authorization
 python -m services.m8_phase4.verify --source-commit (git rev-parse HEAD) --output-dir C:/audit/m8-phase5
 ```
 
-第一条命令校验 `data/m8-phase2/raw/price-samples.jsonl`、`source-register.json`、schema、时间顺序、来源许可和派生清单。第二条命令执行 Phase 2/3/4 回归，生成 `readiness.json`、`price-comparison.json`、`trust-risk-evaluation.json` 和开发延迟诊断。命令不会训练候选，也不会修改数据库。
+第一条命令校验现有 L0 数据和派生清单；第二条命令检查独立授权记录，当前应以退出码 2 和 `NO_GO` 结束；第三条命令执行 Phase 2/3/4 回归并生成验证证据。命令不会训练候选，也不会修改数据库。真实导出与快照步骤见 [M8 真实成交数据三项补强](m8-real-data-remediation.md)。
 
 ## 结果解释
 

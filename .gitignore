@@ -147,6 +147,10 @@ vite.config.ts.timestamp-*
 test-results/
 tmp/
 
+# Authorized M8 raw exports and local snapshots must never be committed.
+data/m8-phase4/private/
+output/m8-phase4-private/
+
 # ---- Python backend (M9) ----
 __pycache__/
 *.py[cod]
