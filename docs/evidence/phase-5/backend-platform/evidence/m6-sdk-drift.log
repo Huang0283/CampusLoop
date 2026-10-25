@@ -1,6 +1,38 @@
-2026-10-23
-Two consecutive SDK generations: byte-identical (previous run).
-Final npm run sdk:check: exit 0.
-Final git diff --exit-code -- src/sdk/generated/: exit 0, no diff.
-Comparison is working tree versus staged candidate, not a remote PR.
-CI must repeat from the actual submitted commit.
+git.exe : warning: in the working copy of 'frontend/src/sdk/generated/client.gen.ts', LF will be replaced by CRLF the n
+ext time Git touches it
+At C:\Users\Administrator\Desktop\CampusLoop\.codex-tmp\m6-p5-repair\.codex-tmp\verify-frontend.ps1:18 char:3
++   & git diff --exit-code -- src/sdk/generated/ *> (Join-Path $evidenc ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'frontend/src/sdk/generated/client/client.gen.ts', LF will be replaced by CRLF the next
+ time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/client/index.ts', LF will be replaced by CRLF the next time
+ Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/client/types.gen.ts', LF will be replaced by CRLF the next 
+time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/client/utils.gen.ts', LF will be replaced by CRLF the next 
+time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/auth.gen.ts', LF will be replaced by CRLF the next tim
+e Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/bodySerializer.gen.ts', LF will be replaced by CRLF th
+e next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/params.gen.ts', LF will be replaced by CRLF the next t
+ime Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/pathSerializer.gen.ts', LF will be replaced by CRLF th
+e next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/queryKeySerializer.gen.ts', LF will be replaced by CRL
+F the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/serverSentEvents.gen.ts', LF will be replaced by CRLF 
+the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/types.gen.ts', LF will be replaced by CRLF the next ti
+me Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/utils.gen.ts', LF will be replaced by CRLF the next ti
+me Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/index.ts', LF will be replaced by CRLF the next time Git to
+uches it
+warning: in the working copy of 'frontend/src/sdk/generated/sdk.gen.ts', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'frontend/src/sdk/generated/types.gen.ts', LF will be replaced by CRLF the next time Gi
+t touches it

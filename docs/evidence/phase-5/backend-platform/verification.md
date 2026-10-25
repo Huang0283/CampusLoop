@@ -1,51 +1,60 @@
-# M6 验证记录与复现方法
+# M6 第五阶段独立复验记录
 
-2026-10-23；Windows PowerShell；本地 Python 3.13.7；仓库 CI 指定 Python 3.12、Node 22。本地复用 P4 虚拟环境中的同版后端依赖，但运行源码和目录均为 CampusLoop-M6-P5-Git；前端从 P5 锁文件安装。
-基线 2eb166897fa1953b4514eef72b6d06baa869cf34；内容指纹见 evidence/m6-source-sha256.json。检查摘要保留真实绝对路径以便审计，未声称干净 CI 已复验。
+2026-10-25，M10。原 PR #121 已合并，组分支输入 `9bf23ff57d86b6c8b7c69a686a679f298e52c791`；接入已验收 main `1b3385ac0df557ddf34d7d9d52d608a9c26e7df7`。修复分支 `fix/m6-p5-acceptance`，最终源码以修复 PR HEAD 为准，内容指纹见 `evidence/m6-acceptance-source-sha256.json`。
 
-## 实际结果
+## 结果
 
-| 检查 | 结果 | evidence/ 下原始证据 |
-| --- | --- | --- |
-| Ruff lint / format | 通过，78 个后端文件格式检查通过 | m6-ruff.log、m6-format.log |
-| 后端 pytest | 82 passed / 37 skipped / 1 xfailed；1 个第三方警告 | m6-backend.log、m6-backend-tests.xml |
-| 结构契约 | 61 operations、9 enums、16 examples 通过 | m6-contract.log |
-| M7 / M8 | 31 / 17 个基线测试通过 | m6-m7.log、m6-m8.log |
-| SDK 生成/编译 | 通过，两次生成字节一致 | m6-sdk.log、m6-sdk-regenerate.log、m6-sdk-drift.log |
-| 前端 lint / build | 通过，有大于 500KB 分块警告 | m6-frontend-lint.log、m6-frontend-build.log |
-| 前端交易 Mock | 8 个场景通过 | m6-frontend-mock.log |
-| 严格完整验收 | 未通过，38 项 skip/xfail，integrationAccepted=false | m6-check-summary.json |
+- 严格命令 `python scripts/m6_phase5/verify.py --require-integration` 返回 0：Ruff lint、format、完整后端、结构契约、M7/M8 基线全部通过。
+- 后端：**168 passed，0 failed，0 skipped，0 xfailed**，99.96 秒。JUnit 与日志分别为 `evidence/m6-backend-tests.xml`、`evidence/m6-backend.log`。
+- 38 条第三方弃用警告，来自 Starlette/AnyIO、Botocore 的接口/日期调用；未屏蔽，也不是业务断言失败。
+- 结构契约：67 operations、9 enums、16 schema examples；`evidence/m6-contract.log`。
+- M7 基线 38、M8 基线 31 项通过；`evidence/m6-m7.log`、`evidence/m6-m8.log`。这不等于正式模型质量或全部智能组阶段验收。
+- 前端：干净 `npm ci`，lint/build、sdk:check 均通过，SDK 再生成与暂存源码快照无漂移。构建仍有大于 500KB 分块提示。提交后再次执行 SDK diff。
+- 本次没有修改 M9 部署、备份、性能或迁移实现；审计空库按当前迁移执行到 0010，只证明当前源码可迁移及业务回归，不替代 M9 全部运维验收。
 
-37 个数据库相关用例跳过；1 个严格 xfail 是本基线未集成 M5 管理员路由。pytest 返回 0 不能代表验收完成。npm 安装报告继承锁文件中 7 项 high 漏洞，尚未升级或宣称解决，由前端依赖 Owner/M1 评估。
+## 隔离环境
 
-## 普通复现
+- 检出：原项目内 `.codex-tmp/m6-p5-repair`，不切换日常 main。
+- Docker 独立网络 `campusloop-m6-p5-audit`，三个专用容器：`campusloop-m6-p5-audit-db`、`campusloop-m6-p5-audit-redis`、`campusloop-m6-p5-audit-minio`，未映射宿主端口。
+- PostgreSQL 16.15，镜像 `pgvector/pgvector:0.8.6-pg16`，数据库 `campusloop_m6_p5_audit`；Redis 7.4、DB15；专用 MinIO 公共/私有桶。
+- 执行器复用已安装后端依赖的 `campusloop-local-api:dev`，Python 3.12.15；通过 bind mount **运行本修复检出的源码**。不是重新构建的最终发布镜像，镜像构建和最终部署留给 M9。
+- 合成账号/图片/消息只进入审计容器；没有运行日常库清空、重建、种子覆盖或删除媒体卷。
 
-安装 Python 3.12 和 Node 22，在仓库根 PowerShell 执行：
+## 可复现步骤
 
-    python -m venv .venv
-    .\.venv\Scripts\python.exe -m pip install -r backend/requirements.txt
-    .\.venv\Scripts\python.exe scripts/m6_phase5/verify.py
-    Push-Location frontend
-    npm ci
-    npm run sdk:check
-    git diff --exit-code -- src/sdk/generated/
-    npm run lint
-    npm run build
-    npm run test:transaction
-    Pop-Location
+使用已安装后端 requirements 的 Python 3.12，按 `.github/workflows/ci.yml` 规格准备**专用可清理** PostgreSQL/Redis/MinIO。连接值按自己的审计环境替换，不可指向日常库：
 
-脚本会覆盖对应 evidence 日志；新执行后需同步报告，不能把旧“通过”结论配上新失败日志。逐条 skip 原因见 JUnit。
+```powershell
+$env:APP_ENV='test'
+$env:DATABASE_URL='postgresql+psycopg://campusloop:audit-only@127.0.0.1:25432/campusloop_m6_p5_audit'
+$env:REDIS_URL='redis://127.0.0.1:26379/15'
+$env:MINIO_ENDPOINT='127.0.0.1:29000'
+$env:MINIO_ACCESS_KEY='minioadmin'
+$env:MINIO_SECRET_KEY='minioadmin'
+$env:AUTH_SIGNING_KEY='m6-audit-only-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+$env:BASELINE_SERVICES_ENABLED='false'
+# 为专用 MinIO 创建 campusloop-public 和 campusloop-private 两个桶。
+Push-Location backend
+python -m alembic upgrade head
+Pop-Location
+python scripts/m6_phase5/verify.py --require-integration
+Push-Location frontend
+npm ci
+npm run sdk:check
+git diff --exit-code -- src/sdk/generated/
+npm run lint
+npm run build
+Pop-Location
+```
 
-## 严格集成复验
+25432/26379/29000 是复现配置示例端口，不是本次已启动的服务地址；本次容器内部连接无需宿主端口。合成测试密钥不可用于日常或生产。服务准备采用专用环境，不改日常启动脚本。
 
-1. M9 提供专用可清理测试数据库；不能指向真实业务库。沿用 .github/workflows/ci.yml 的 pgvector/Postgres、Redis DB 15、对象存储配置，设置 DATABASE_URL、REDIS_URL、AUTH_SIGNING_KEY 等测试变量，不提交真实配置。
-2. M5 合入治理路由后，由 M6 确认并移除 test_group_release_requires_m5_documented_routes 的 xfail 标记。
-3. 在 backend 中用后端环境 Python 执行 python -m alembic upgrade head；迁移回滚/恢复由 M9 负责。本次未修改这些文件。
-4. 在仓库根执行：
+脚本退出 0 表示检查无失败/跳过，1 表示检查失败，2 表示严格模式仍有 skip/xfail。不要只看普通 pytest 退出码。重新执行会覆盖日志，需同步本记录；耗时随合成数据量变化。
 
-    .\.venv\Scripts\python.exe scripts/m6_phase5/verify.py --require-integration
+## 修复依据与限制
 
-退出 0 表示脚本检查无失败/跳过；失败返回 1；仍有 skip/xfail 返回 2。还需 M10 在最终同一提交执行真实浏览器回归和非作者验收。
-5. 执行 SDK 生成与 diff，提交新证据，记录实际 commit、环境、接收人和结论。
+旧组分支在专用服务就绪后无断言失败，但保留 1 个缺治理路由 xfail，且缺 main 的已验收内容。接回 main 后该标记变成严格 XPASS；确认路由存在后移除标记和路由跳过，再全量严格复验。新增真实 WebSocket 断开/重连补拉以及智能异常下交易事实不变测试，结果已计入 168 项。
 
-既有 CI 普通 pytest 允许 xfail，绿灯不能替代严格门禁；M9 如需将严格脚本加入发布 workflow，由 M9 在其拥有文件中实施。
+2026-10-23/24 的死锁 before/after 日志、旧本地环境摘要、包扫描及 source-sha256 是历史记录；最新通用测试日志和摘要已更新到本次结果。旧无数据库“37/41 skipped”不再用作本次结论。
+
+M6 个人技术范围可交付评审。最终消费者、公网/多机故障、真实模型评估、发布镜像、备份恢复/性能、阶段统一标签及人工签收仍需在统一 P5 集成提交完成，不能以本报告关闭整个后端 Issue。

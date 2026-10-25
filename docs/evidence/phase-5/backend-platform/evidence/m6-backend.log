@@ -1,49 +1,22 @@
-...........................ssssssssss............ssssssssss............. [ 60%]
-.......x.......................sssssssssssssssss                         [100%]
-============================== warnings summary ===============================
-..\..\CampusLoop-M6-P4\.venv\Lib\site-packages\starlette\testclient.py:40
-  C:\Users\12512\Desktop\软工\CampusLoop-M6-P4\.venv\Lib\site-packages\starlette\testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+........................................................................ [ 42%]
+........................................................................ [ 85%]
+........................                                                 [100%]
+=============================== warnings summary ===============================
+../../usr/local/lib/python3.12/site-packages/starlette/testclient.py:40
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
     _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
 
+tests/test_governance_api.py: 3 warnings
+tests/test_live_intelligence.py: 2 warnings
+tests/test_matching_jobs.py: 4 warnings
+tests/test_p5_integration.py: 5 warnings
+tests/test_product_governance.py: 6 warnings
+tests/test_query_budget.py: 1 warning
+tests/test_realtime_media.py: 7 warnings
+tests/test_transaction_api.py: 9 warnings
+  /usr/local/lib/python3.12/site-packages/botocore/auth.py:424: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    datetime_now = datetime.datetime.utcnow()
+
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-- generated xml file: C:\Users\12512\Desktop\软工\CampusLoop-M6-P5-Git\docs\evidence\phase-5\backend-platform\evidence\m6-backend-tests.xml -
-=========================== short test summary info ===========================
-SKIPPED [1] tests\test_auth.py:47: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_auth.py:87: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_auth.py:111: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_auth.py:136: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_auth.py:161: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_auth.py:202: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_browser_sessions.py:36: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_browser_sessions.py:91: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_browser_sessions.py:114: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_browser_sessions.py:134: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_live_intelligence.py:44: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_live_intelligence.py:93: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_live_intelligence.py:117: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_matching_jobs.py:43: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_matching_jobs.py:125: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_matching_jobs.py:139: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_matching_jobs.py:190: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_matching_jobs.py:218: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_matching_jobs.py:253: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_matching_jobs.py:298: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_p5_integration.py:44: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_p5_integration.py:76: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_p5_integration.py:137: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_query_budget.py:15: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_realtime_media.py:31: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_realtime_media.py:88: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_seed_idempotency.py:17: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_seed_idempotency.py:26: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_seed_idempotency.py:41: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:84: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:125: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:236: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:295: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:357: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:388: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:422: 需要可达的 PostgreSQL（CI 由 services 提供）
-SKIPPED [1] tests\test_transaction_api.py:482: 需要可达的 PostgreSQL（CI 由 services 提供）
-XFAIL tests/test_p5_api_examples.py::test_group_release_requires_m5_documented_routes - M5 integration missing from supplied P5 base; remove marker after upstream merge and rerun
-82 passed, 37 skipped, 1 xfailed, 1 warning in 22.64s
+- generated xml file: /audit/docs/evidence/phase-5/backend-platform/evidence/m6-backend-tests.xml -
+168 passed, 38 warnings in 99.96s (0:01:39)
