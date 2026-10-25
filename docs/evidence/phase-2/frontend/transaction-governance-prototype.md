@@ -37,3 +37,12 @@
 - `npm run lint`、`npm run build` 已通过；构建仍有现存大包警告，不等同构建失败。
 - 待人工检查文件上传、页面切换、举报入口、双身份完整旅程，并记录实际截图/日志。不得代填成员签名。
 - Phase 3 替换约定/订单/评价/举报/通知 SDK 写入；Phase 4 检查 WS 推送、重复事件、治理审计与恢复。
+
+## 2026-10-18 收尾验收补录
+
+- 分支 `task/m4-p4-governance-regression`（`6c69925`），已接收 main 上 PR #103 的举报流程修复。
+- 执行：`npm run lint`、`npm run build`、`npm run test:transaction`、`npm run test:m4`；全部通过。
+- 证据上限契约对齐：`ReportModal` 的 `MAX_EVIDENCE = 5`、`maxCount={MAX_EVIDENCE}`、Phase 3 `ImageQueue` 的 `maxCount={5}` 与 OpenAPI `ReportWriteRequest.evidence.maxItems: 5` 完全一致；`page-api-map.md` 第 8 节与 `contract-review.md` 的“6 张”差异已关闭。
+- 举报原因：订单举报按当前订单买卖身份过滤，买家可选商品虚假/描述不符，卖家只见垃圾信息、骚扰、交易违规；用户与聊天消息仅行为类原因。由 `test:m4` 的 5 项断言覆盖。
+- 我的举报：`/report` 由 `Guard` 保护，账户菜单、提交成功提示和 `/notifications` 底部均提供入口，只读取 `GET /reports/mine`。
+- 2026-10-19 浏览器补验：`journey.spec.ts:14` 通过，覆盖卖家举报后经提示和账户菜单进入我的举报、刷新后记录保留、买家看不到卖家举报正文、通知页底部展示本人举报；`m2-phase4.spec.ts` 覆盖举报私密证据仅在管理员上下文读取。

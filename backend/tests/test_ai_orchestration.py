@@ -152,6 +152,50 @@ def test_malformed_price_never_reaches_business_projection(monkeypatch, bad):
     assert price_payload(price_input())["degradationReason"] == "INVALID_SERVICE_RESPONSE"
 
 
+@pytest.mark.parametrize(
+    ("field", "bad"),
+    [
+        ("sampleSize", -1),
+        ("sampleSize", True),
+        ("sampleSize", float("nan")),
+        ("disclaimer", {"private": "provider detail"}),
+        ("algorithmVersion", 123),
+        ("degradationReason", None),
+        ("degraded", False),
+    ],
+)
+def test_price_response_metadata_must_match_business_contract(monkeypatch, field, bad):
+    from services.m8_baseline import client
+    from services.m8_baseline.engine import price_advice
+
+    response = price_advice(price_input())
+    response[field] = bad
+    monkeypatch.setattr(client, "call", lambda *a, **k: response)
+    result = price_payload(price_input())
+    assert result["status"] == "UNAVAILABLE"
+    assert result["degradationReason"] == "INVALID_SERVICE_RESPONSE"
+
+
+@pytest.mark.parametrize("version", ["unapproved-price-model", None, 123])
+def test_unavailable_price_rejects_unknown_algorithm(monkeypatch, version):
+    from services.m8_baseline import client
+
+    response = client.fallback("price", "SERVICE_UNAVAILABLE")
+    response["algorithmVersion"] = version
+    monkeypatch.setattr(client, "call", lambda *a, **k: response)
+    assert price_payload(price_input())["degradationReason"] == "INVALID_SERVICE_RESPONSE"
+
+
+def test_price_rejects_interval_that_would_overflow_business_projection(monkeypatch):
+    from services.m8_baseline import client
+    from services.m8_baseline.engine import price_advice
+
+    response = price_advice(price_input())
+    response["intervalFen"]["upper"] = 10**400
+    monkeypatch.setattr(client, "call", lambda *a, **k: response)
+    assert price_payload(price_input())["degradationReason"] == "INVALID_SERVICE_RESPONSE"
+
+
 def test_disabled_service_still_rejects_bad_business_input(payload, monkeypatch):
     monkeypatch.setenv("BASELINE_SERVICES_ENABLED", "false")
     get_settings.cache_clear()

@@ -1,0 +1,23 @@
+{
+  "codeCommit": "217d0e4f12ed7f21d55e5c4cff86d08efe6f6e2b",
+  "configurations": [
+    "core.autocrlf=false",
+    "core.autocrlf=true"
+  ],
+  "deterministicFiles": {
+    "evaluation-input-all.json": "dd44b204c0258f4660102dd32e5e0782e75c5f8a9d8f5747f8c24fb121a419ad",
+    "evaluation-input-dev.json": "94034bb3e9065c2a3853250e88d12849908718466b96c10bbf1815e20ca5eb25",
+    "evaluation-input-test_candidate.json": "60f8ba8f7c68e02d798bc6cf231b3294968a3639fccda8e2346f40695b72f817",
+    "failure-analysis.json": "6db29a4d8371dfea32cf83ee6795f8d81afe184a5f051df3a9c84f31b85f5fda",
+    "metrics-all.json": "59bca897734633ddb006f1692029a751795bf0840fd5cb7e02f7059f8543332a",
+    "metrics-dev.json": "0920a6b3b0b5917f8a7e1ab57504c631c43ff07d325a1db1398791e0e2d76638",
+    "metrics-test_candidate.json": "2aa19e263ac126e2b1f847e447df449b5c203a0723721f0c549c80e247f0650e",
+    "per-query.json": "c2f4f9044fe8cb2e83d1c0627bf7da2815287a512b5efd577aa5b2f9acfc3973"
+  },
+  "newlinePinnedPaths": [
+    "services/m7_semantic/**",
+    "docs/evidence/phase-4/intelligence/**"
+  ],
+  "scope": "Windows same CPU/model/runtime; not Linux/macOS validation",
+  "status": "PASS"
+}

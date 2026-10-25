@@ -1,0 +1,491 @@
+{
+  "indexMiB": 0.67578125,
+  "measurement": "single process; warmed encoder; one request pass; includes validation and ranking; no concurrency/SLA claim",
+  "modelArtifactMiB": 91.93921184539795,
+  "modelLoadAndTwoCorpusEncodingsMs": 7995.807300001616,
+  "peakProcessWorkingSetMiB": 415.1640625,
+  "rows": [
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.317199992830865,
+      "requestId": "bicycle-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.85019999789074,
+      "requestId": "bicycle-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.285099995788187,
+      "requestId": "bicycle-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.81409999949392,
+      "requestId": "bicycle-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.2868999949423596,
+      "requestId": "bicycle-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 33.8499000063166,
+      "requestId": "bicycle-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.414699993096292,
+      "requestId": "calculator-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.714700006181374,
+      "requestId": "calculator-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.258000007714145,
+      "requestId": "calculator-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.40910000063013,
+      "requestId": "calculator-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.254399994853884,
+      "requestId": "calculator-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.29960000317078,
+      "requestId": "calculator-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.2447999945143238,
+      "requestId": "calculus-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 33.69720000773668,
+      "requestId": "calculus-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.4006999883567914,
+      "requestId": "calculus-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.81499999866355,
+      "requestId": "calculus-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.3046999995131046,
+      "requestId": "calculus-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 33.50589999172371,
+      "requestId": "calculus-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.2449999960372224,
+      "requestId": "camera-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 33.86359999421984,
+      "requestId": "camera-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.250100005767308,
+      "requestId": "camera-matching-no-answer",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 5.3084999963175505,
+      "requestId": "camera-matching-no-answer",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 1.9582000095397234,
+      "requestId": "camera-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.34560000419151,
+      "requestId": "camera-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.3385999957099557,
+      "requestId": "camera-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 33.7054999981774,
+      "requestId": "camera-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.4264000094262883,
+      "requestId": "fan-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 33.830999993369915,
+      "requestId": "fan-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.3224000033224,
+      "requestId": "fan-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.71689999382943,
+      "requestId": "fan-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.3114999930839986,
+      "requestId": "fan-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.54440001223702,
+      "requestId": "fan-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.2049000108381733,
+      "requestId": "guitar-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.19170000415761,
+      "requestId": "guitar-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.4547999928472564,
+      "requestId": "guitar-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.433900007163174,
+      "requestId": "guitar-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.28610000340268,
+      "requestId": "guitar-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.648200002266094,
+      "requestId": "guitar-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.4311000015586615,
+      "requestId": "headphones-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.199599998421036,
+      "requestId": "headphones-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.2868000087328255,
+      "requestId": "headphones-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 30.469799996353686,
+      "requestId": "headphones-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.2535999887622893,
+      "requestId": "headphones-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.517499988898635,
+      "requestId": "headphones-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.2333999950205907,
+      "requestId": "keyboard-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 31.735799988382496,
+      "requestId": "keyboard-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.554599996074103,
+      "requestId": "keyboard-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 31.959800006006844,
+      "requestId": "keyboard-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.6599999982863665,
+      "requestId": "keyboard-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.21189999789931,
+      "requestId": "keyboard-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.3122999991755933,
+      "requestId": "lamp-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.17690000019502,
+      "requestId": "lamp-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.4846999876899645,
+      "requestId": "lamp-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 31.280000010156073,
+      "requestId": "lamp-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.52609999733977,
+      "requestId": "lamp-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 37.5561000109883,
+      "requestId": "lamp-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.319599996553734,
+      "requestId": "monitor-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.951600005617365,
+      "requestId": "monitor-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.5215000059688464,
+      "requestId": "monitor-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.976200003759004,
+      "requestId": "monitor-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.348499998333864,
+      "requestId": "monitor-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.82670000044163,
+      "requestId": "monitor-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.3922999971546233,
+      "requestId": "tablet-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 32.155200009583496,
+      "requestId": "tablet-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.340799997909926,
+      "requestId": "tablet-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 35.53290000127163,
+      "requestId": "tablet-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.415900002233684,
+      "requestId": "tablet-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.901500010164455,
+      "requestId": "tablet-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.556200008257292,
+      "requestId": "tennis-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 30.871099996147677,
+      "requestId": "tennis-matching",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.1246999967843294,
+      "requestId": "tennis-matching-expired",
+      "task": "matching"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 1.8433000077493489,
+      "requestId": "tennis-matching-expired",
+      "task": "matching"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.1638000034727156,
+      "requestId": "tennis-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 34.0684999973746,
+      "requestId": "tennis-search-exact",
+      "task": "search"
+    },
+    {
+      "algorithm": "baseline",
+      "elapsedMs": 2.3122999991755933,
+      "requestId": "tennis-search-natural",
+      "task": "search"
+    },
+    {
+      "algorithm": "candidate",
+      "elapsedMs": 31.983200009563006,
+      "requestId": "tennis-search-natural",
+      "task": "search"
+    }
+  ],
+  "summary": {
+    "matching": {
+      "baseline": {
+        "count": 14,
+        "p95Ms": 2.556200008257292,
+        "p99Ms": 2.556200008257292
+      },
+      "candidate": {
+        "count": 14,
+        "p95Ms": 34.85019999789074,
+        "p99Ms": 34.85019999789074
+      }
+    },
+    "search": {
+      "baseline": {
+        "count": 24,
+        "p95Ms": 2.554599996074103,
+        "p99Ms": 2.6599999982863665
+      },
+      "candidate": {
+        "count": 24,
+        "p95Ms": 35.53290000127163,
+        "p99Ms": 37.5561000109883
+      }
+    }
+  }
+}

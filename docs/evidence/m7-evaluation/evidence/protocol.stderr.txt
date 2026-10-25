@@ -1,0 +1,31 @@
+test_adjudication_time_cannot_predate_peer_review (test_protocol.ProtocolTests.test_adjudication_time_cannot_predate_peer_review) ... ok
+test_blind_packets_have_no_generated_labels_or_signatures (test_protocol.ProtocolTests.test_blind_packets_have_no_generated_labels_or_signatures) ... ok
+test_declared_or_replaced_file_names_cannot_escape_snapshot (test_protocol.ProtocolTests.test_declared_or_replaced_file_names_cannot_escape_snapshot) ... ok
+test_disagreement_requires_explicit_adjudication (test_protocol.ProtocolTests.test_disagreement_requires_explicit_adjudication) ... ok
+test_empty_collection_template_does_not_count_as_completed_data (test_protocol.ProtocolTests.test_empty_collection_template_does_not_count_as_completed_data) ... ok
+test_fixed_policy_thresholds_cannot_be_overridden (test_protocol.ProtocolTests.test_fixed_policy_thresholds_cannot_be_overridden) ... ok
+test_future_dated_human_evidence_is_not_accepted (test_protocol.ProtocolTests.test_future_dated_human_evidence_is_not_accepted) ... ok
+test_independent_reviewers_cannot_be_the_same_person (test_protocol.ProtocolTests.test_independent_reviewers_cannot_be_the_same_person) ... ok
+test_merging_preserves_peer_evidence_and_leaves_disagreements_unresolved (test_protocol.ProtocolTests.test_merging_preserves_peer_evidence_and_leaves_disagreements_unresolved) ... ok
+test_missing_and_duplicate_run_requests_rejected (test_protocol.ProtocolTests.test_missing_and_duplicate_run_requests_rejected) ... ok
+test_missing_or_duplicate_qrels_rejected_before_scoring (test_protocol.ProtocolTests.test_missing_or_duplicate_qrels_rejected_before_scoring) ... ok
+test_model_is_never_loaded_from_unsealed_or_tampered_data (test_protocol.ProtocolTests.test_model_is_never_loaded_from_unsealed_or_tampered_data) ... ok
+test_paraphrase_group_may_not_cross_dev_and_test (test_protocol.ProtocolTests.test_paraphrase_group_may_not_cross_dev_and_test) ... ok
+test_policy_receipts_and_fixed_hash_required (test_protocol.ProtocolTests.test_policy_receipts_and_fixed_hash_required) ... ok
+test_positive_label_cannot_override_visibility_constraints (test_protocol.ProtocolTests.test_positive_label_cannot_override_visibility_constraints) ... ok
+test_precision_has_fixed_denominator_and_unjudged_rankings_fail (test_protocol.ProtocolTests.test_precision_has_fixed_denominator_and_unjudged_rankings_fail) ... ok
+test_query_author_source_and_split_coverage_are_required (test_protocol.ProtocolTests.test_query_author_source_and_split_coverage_are_required) ... ok
+test_repeated_query_cannot_pad_minimum_counts (test_protocol.ProtocolTests.test_repeated_query_cannot_pad_minimum_counts) ... ok
+test_review_dates_require_real_precision_and_source_evidence (test_protocol.ProtocolTests.test_review_dates_require_real_precision_and_source_evidence) ... ok
+test_runtime_changes_rejected_before_replay (test_protocol.ProtocolTests.test_runtime_changes_rejected_before_replay) ... ok
+test_successful_replay_never_signs_member_acceptance (test_protocol.ProtocolTests.test_successful_replay_never_signs_member_acceptance) ... ok
+test_tampered_frozen_payload_rejected (test_protocol.ProtocolTests.test_tampered_frozen_payload_rejected) ... ok
+test_unknown_labels_exclude_whole_query_and_no_answer_stays_separate (test_protocol.ProtocolTests.test_unknown_labels_exclude_whole_query_and_no_answer_stays_separate) ... ok
+test_unlicensed_sources_and_ai_drafts_not_eligible (test_protocol.ProtocolTests.test_unlicensed_sources_and_ai_drafts_not_eligible) ... ok
+test_untouched_data_with_sufficient_reviews_can_be_frozen (test_protocol.ProtocolTests.test_untouched_data_with_sufficient_reviews_can_be_frozen) ... ok
+test_versions_catalog_provenance_and_unseen_declaration_required (test_protocol.ProtocolTests.test_versions_catalog_provenance_and_unseen_declaration_required) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 8.299s
+
+OK

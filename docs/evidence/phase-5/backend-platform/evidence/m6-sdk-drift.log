@@ -1,6 +1,1 @@
-2026-10-23
-Two consecutive SDK generations: byte-identical (previous run).
-Final npm run sdk:check: exit 0.
-Final git diff --exit-code -- src/sdk/generated/: exit 0, no diff.
-Comparison is working tree versus staged candidate, not a remote PR.
-CI must repeat from the actual submitted commit.
+

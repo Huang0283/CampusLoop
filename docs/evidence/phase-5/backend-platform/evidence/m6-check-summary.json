@@ -1,56 +1,56 @@
 {
-  "python": "3.13.7",
+  "python": "3.12.15",
   "checks": [
     {
       "check": "ruff",
       "command": [
-        "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P4\\.venv\\Scripts\\python.exe",
+        "/usr/local/bin/python",
         "-m",
         "ruff",
         "check",
         "."
       ],
-      "cwd": "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P5-Git\\backend",
+      "cwd": "/audit/backend",
       "exitCode": 0
     },
     {
       "check": "format",
       "command": [
-        "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P4\\.venv\\Scripts\\python.exe",
+        "/usr/local/bin/python",
         "-m",
         "ruff",
         "format",
         "--check",
         "."
       ],
-      "cwd": "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P5-Git\\backend",
+      "cwd": "/audit/backend",
       "exitCode": 0
     },
     {
       "check": "backend",
       "command": [
-        "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P4\\.venv\\Scripts\\python.exe",
+        "/usr/local/bin/python",
         "-m",
         "pytest",
         "-ra",
-        "--junitxml=C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P5-Git\\docs\\evidence\\phase-5\\backend-platform\\evidence\\m6-backend-tests.xml"
+        "--junitxml=/audit/docs/evidence/phase-5/backend-platform/evidence/m6-backend-tests.xml"
       ],
-      "cwd": "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P5-Git\\backend",
+      "cwd": "/audit/backend",
       "exitCode": 0
     },
     {
       "check": "contract",
       "command": [
-        "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P4\\.venv\\Scripts\\python.exe",
+        "/usr/local/bin/python",
         "scripts/m6_phase2/check_contract.py"
       ],
-      "cwd": "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P5-Git",
+      "cwd": "/audit",
       "exitCode": 0
     },
     {
       "check": "m7",
       "command": [
-        "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P4\\.venv\\Scripts\\python.exe",
+        "/usr/local/bin/python",
         "-m",
         "unittest",
         "discover",
@@ -58,13 +58,13 @@
         "services/m7_baseline/tests",
         "-v"
       ],
-      "cwd": "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P5-Git",
+      "cwd": "/audit",
       "exitCode": 0
     },
     {
       "check": "m8",
       "command": [
-        "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P4\\.venv\\Scripts\\python.exe",
+        "/usr/local/bin/python",
         "-m",
         "unittest",
         "discover",
@@ -72,11 +72,11 @@
         "services/m8_baseline/tests",
         "-v"
       ],
-      "cwd": "C:\\Users\\12512\\Desktop\\\u8f6f\u5de5\\CampusLoop-M6-P5-Git",
+      "cwd": "/audit",
       "exitCode": 0
     }
   ],
-  "pytestSkippedIncludingXfail": 38,
-  "integrationAccepted": false,
+  "pytestSkippedIncludingXfail": 0,
+  "integrationAccepted": true,
   "note": "Unit/schema success does not replace DB tests or independent reviewer signoff."
 }

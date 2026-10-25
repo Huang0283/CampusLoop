@@ -27,3 +27,13 @@
 
 - `npm run test:transaction` 直接加载实际 TypeScript store，覆盖交易参与关系；它不覆盖浏览器消息渲染、断线动画或真实 WebSocket。
 - 人工浏览器场景、另一成员 Review、M10 签收仍待记录，不据此关闭 Issue #18。
+
+## 2026-10-18 收尾验收补录
+
+- 分支 `task/m4-p4-governance-regression`（`6c69925`，已同步 main 的 Phase 3 修复）。
+- 执行：`npm run lint`、`npm run build`、`npm run test:transaction`、`npm run test:m4`；全部通过（交易 Mock 8 项、M4 治理 15 项）。
+- 守卫：`/chat`、`/chat/:id` 均由 `Guard` 保护，见 `m4-action-guard-verification.md`。
+- 五态：见 `page-state-matrix.md` 的 M4 表格；加载/失败列在 Phase 3 真实接口中补齐，不在本文件冒充已实现。
+- 2026-10-19 浏览器补验：`journey.spec.ts:14` 通过，覆盖双账号实时收发、失败消息重试、断线重连、补拉后同一消息只显示一次、私聊图片与跨账号隔离。
+- 仍有边界：断线场景为浏览器离线模拟，不等于多设备弱网；服务端消息顺序与分页并发仍需 M10 独立复验。
+- 交付文档不再缺少验收步骤与结果记录，但浏览器验收与外部签收保持未完成状态。

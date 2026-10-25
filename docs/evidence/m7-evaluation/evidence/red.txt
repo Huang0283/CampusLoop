@@ -1,0 +1,30 @@
+﻿python.exe : test_protocol (unittest.loader._FailedTest.test_protocol) ... ERROR
+所在位置 行:2 字符: 146
++ ... TECODE='1'; & '../phase5-fresh-baseline/Scripts/python.exe' -m unitte ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_protocol (...ocol) ... ERROR:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+======================================================================
+ERROR: test_protocol (unittest.loader._FailedTest.test_protocol)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_protocol
+Traceback (most recent call last):
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\loader.py", line 
+396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\KkkkRui\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\loader.py", line 
+339, in _get_module_from_name
+    __import__(name)
+  File "D:\Dates\Codex\2026-09-23\new-chat\work\CampusLoop-m7-evaluation\scripts\m7_evaluation\tests\test_protocol.py",
+ line 9, in <module>
+    from scripts.m7_evaluation.protocol import (
+ModuleNotFoundError: No module named 'scripts.m7_evaluation.protocol'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

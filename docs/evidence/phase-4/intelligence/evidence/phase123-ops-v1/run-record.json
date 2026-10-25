@@ -1,0 +1,29 @@
+{
+  "sourceCommit": "829ffbfc7f5c310917b2ff7c9627fe98b117824a",
+  "testedAtUtc": "2026-10-14T14:25:43.443754+00:00",
+  "environment": {
+    "python": "3.12.15",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41"
+  },
+  "isolation": "fresh dedicated PostgreSQL + Redis15 + MinIO; existing demos untouched",
+  "checks": [
+    {
+      "name": "backend-format",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 2,
+      "status": "FAIL",
+      "log": "backend-format.txt",
+      "sha256": "836e124dc9007fca7c473e50ebb094e39f234596e4a1f31d34736f620c9bbfc2"
+    }
+  ],
+  "runtimeSmoke": [],
+  "status": "FAIL"
+}

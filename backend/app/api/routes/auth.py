@@ -43,6 +43,7 @@ from app.services.auth import (
     refresh_window,
     revoke_family,
 )
+from app.services.governance import read_audit
 from app.services.serializers import private_user, private_users, public_user
 
 router = APIRouter(tags=["Auth"])
@@ -242,7 +243,15 @@ def admin_users(
             },
         }
     )
-    audit(db, "admin_users_read", actor.id)
+    read_audit(
+        db,
+        "admin_users_read",
+        actor.id,
+        reason="account_administration",
+        snapshot={str(user.id): {"status": user.status, "role": user.role} for user in users},
+        page=page,
+        pageSize=pageSize,
+    )
     db.commit()
     return result
 
@@ -259,6 +268,7 @@ def admin_status(userId: int, body: UserStatusUpdate, db: Db, actor: Actor):
         raise BusinessError(404, "NOT_FOUND", "User not found.")
     if user.role == "ADMIN":
         raise BusinessError(403, "FORBIDDEN", "Administrator accounts cannot be changed here.")
+    before = {"status": user.status}
     if user.status != body.status:
         user.status = body.status
         if body.status == "DISABLED":
@@ -274,7 +284,16 @@ def admin_status(userId: int, body: UserStatusUpdate, db: Db, actor: Actor):
             "admin_user_" + body.status.lower(),
             actor.id,
             user.id,
-            context={"reason": body.reason},
+            context={"reason": body.reason, "before": before, "after": {"status": user.status}},
+        )
+    else:
+        read_audit(
+            db,
+            "admin_user_status_unchanged",
+            actor.id,
+            target_id=user.id,
+            reason=body.reason,
+            snapshot=before,
         )
     db.flush()
     result = ok(private_user(db, user))

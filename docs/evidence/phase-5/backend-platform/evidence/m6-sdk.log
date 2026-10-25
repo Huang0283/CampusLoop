@@ -10,4 +10,4 @@
 
 [90m[Job 1] [39m[90m~[39m [36mGenerating...[39m
 [90m[Job 1] [39m[36m  [1] [39m../openapi/campusloop.v1.yaml
-[90m[Job 1] [39m[32m✓[39m [96m./src\sdk\generated[39m [90m· 4 files · 144ms[39m
+[90m[Job 1] [39m[32m✓[39m [96m./src\sdk\generated[39m [90m· 4 files · 189ms[39m

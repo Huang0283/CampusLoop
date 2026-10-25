@@ -144,22 +144,32 @@ def valid_price(result):
         not isinstance(f, dict) or not isinstance(f.get("explanation"), str) for f in factors
     ):
         return False
-    if type(result.get("degraded", False)) is not bool:
+    # Only the frozen rule service is admitted. Every current M8 price response
+    # is degraded; an unavailable/low-confidence result must not claim otherwise.
+    if result.get("degraded") is not True:
+        return False
+    if (
+        not isinstance(result.get("degradationReason"), str)
+        or not result["degradationReason"].strip()
+    ):
         return False
     if type(result.get("sampleSize", 0)) is not int or result.get("sampleSize", 0) < 0:
         return False
-    if any(
-        key in result and not isinstance(result[key], str)
-        for key in ("algorithmVersion", "degradationReason", "disclaimer")
-    ):
+    if "disclaimer" in result and not isinstance(result["disclaimer"], str):
+        return False
+    version = result.get("algorithmVersion")
+    if "algorithmVersion" in result and version != "m8-price-rule-v1":
         return False
     lower, upper = interval.get("lower"), interval.get("upper")
-    if result.get("status") in ("UNAVAILABLE", "INSUFFICIENT_DATA"):
+    if result.get("status") == "UNAVAILABLE":
+        return lower is None and upper is None
+    if version != "m8-price-rule-v1":
+        return False
+    if result.get("status") == "INSUFFICIENT_DATA":
         return lower is None and upper is None
     return (
         result.get("status") == "LOW_CONFIDENCE"
-        and result.get("algorithmVersion") == "m8-price-rule-v1"
         and type(lower) is int
         and type(upper) is int
-        and 0 <= lower <= upper
+        and 0 <= lower <= upper <= 9_999_999_999
     )
