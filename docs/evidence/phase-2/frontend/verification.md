@@ -67,3 +67,12 @@ npm run build
 - 文档检查：每个 M2 页面均填写加载、空、成功、失败、无权限状态或当前阶段不适用理由；同步 Mock 页面未冒充真实接口状态。
 - 自动命令：`npm run lint`、`npm run build`、`npm run sdk:check`、`git diff --check`。
 - 边界：本记录只关闭 M2 的 FE2-11 页面范围，不代替 M3/M4 页面登记、跨组契约签字或 M10/M1 阶段验收。
+
+## M4 收尾验收补录（2026-10-18）
+
+- 分支：`task/m4-p4-governance-regression`，提交 `6c69925`（基线 `b281ba6`，已同步 main 的 Phase 3 修复）。
+- 覆盖：FE2-08 ~ FE2-10 三份个人交付文档补齐验收执行记录；M4 页面五态矩阵改为表格并补 `/report`；动作守卫验收单列 `m4-action-guard-verification.md`；举报证据 6 张差异关闭为 5 张。
+- 命令：`npm run lint`、`npm run build`、`npm run test:m4`、`npm run test:transaction`。
+- 结果：lint 退出码 0；build 成功（首次冷构建 17.52 秒，保留既有体积警告）；M4 治理断言 15 项通过；交易 Mock 状态层 8 项通过。
+- 浏览器（2026-10-19）：Docker Compose 的 API `8001`、PostgreSQL、Redis、MinIO 与 Vite `5173` 上执行 `npm run test:live`，按 spec 分批共 23 项通过，其中 `journey.spec.ts` 6 项（双账号交易、断线重连、约见时间、举报原因、我的举报、游客恢复）。注册限流为每 IP 10 次/小时，分批前清空 Redis `auth:*`，未修改鉴权策略。
+- 边界：本记录是 M4 作者执行结果，不代替 M10/M1 签收；成员 Review 仍待完成。

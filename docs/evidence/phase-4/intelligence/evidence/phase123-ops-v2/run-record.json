@@ -1,0 +1,232 @@
+{
+  "sourceCommit": "829ffbfc7f5c310917b2ff7c9627fe98b117824a",
+  "testedAtUtc": "2026-10-14T14:29:03.255537+00:00",
+  "environment": {
+    "python": "3.12.15",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41"
+  },
+  "isolation": "fresh dedicated PostgreSQL + Redis15 + MinIO; existing demos untouched",
+  "checks": [
+    {
+      "name": "backend-format",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "backend-format.txt",
+      "sha256": "ea2969fd741733e33c490fb6696583f5d6e29e16cae5e536952236a31cf615b1"
+    },
+    {
+      "name": "backend-lint",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "backend-lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "migration-upgrade",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "migration-upgrade.txt",
+      "sha256": "1ef7925cae0fb703d50b7620bfd0bddfb861104b69e6555d05689c3c69ead263"
+    },
+    {
+      "name": "migration-rollback",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "alembic",
+        "downgrade",
+        "base"
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "migration-rollback.txt",
+      "sha256": "1c6a9de55222636a1627f492703d54f708b579a05e8f4ae5c4ef626ce47e6bd5"
+    },
+    {
+      "name": "migration-reupgrade",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "migration-reupgrade.txt",
+      "sha256": "1ef7925cae0fb703d50b7620bfd0bddfb861104b69e6555d05689c3c69ead263"
+    },
+    {
+      "name": "seed-idempotency",
+      "command": [
+        "/usr/local/bin/python",
+        "scripts/seed.py",
+        "--check"
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "seed-idempotency.txt",
+      "sha256": "caf6b9e1b9a9617589f2c8e7c7cc09b5d58d15bc9f55f802909ba468593cf367"
+    },
+    {
+      "name": "backend-tests",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "pytest",
+        "-ra",
+        "-o",
+        "cache_dir=/tmp/campusloop-ops-pytest"
+      ],
+      "cwd": "/srv/campusloop/backend",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "backend-tests.txt",
+      "sha256": "cdc062b2eb0d81c8eaed845ba4d4860bd3dedd11b32a2776b2b7dac1fbe6417f"
+    },
+    {
+      "name": "m7-phase2",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m7_phase2",
+        "-v"
+      ],
+      "cwd": "/srv/campusloop",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "m7-phase2.txt",
+      "sha256": "2b769176e4792381bdacd8d3218ef0290f05ea40ea735565bb2154161b2c8b26"
+    },
+    {
+      "name": "m8-phase2",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m8_phase2",
+        "-v"
+      ],
+      "cwd": "/srv/campusloop",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "m8-phase2.txt",
+      "sha256": "d69137d14e1c6f9f52942cdd4aab15ced9a98cfa71afe7fcafbe513c96e27604"
+    },
+    {
+      "name": "ai-phase2-joint",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/intelligence_phase2",
+        "-v"
+      ],
+      "cwd": "/srv/campusloop",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "ai-phase2-joint.txt",
+      "sha256": "7c53d7ed9863973ebfa2f38a838a563e5b5fbd911ce7c97b0455c07a8c5582d7"
+    },
+    {
+      "name": "m7-phase3",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "services/m7_baseline/tests",
+        "-v"
+      ],
+      "cwd": "/srv/campusloop",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "m7-phase3.txt",
+      "sha256": "2ed31bc37de50c158c2b3e6e8b26455a6fc86662becf513175bb47473e1c0a00"
+    },
+    {
+      "name": "m8-phase3",
+      "command": [
+        "/usr/local/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "services/m8_baseline/tests",
+        "-v"
+      ],
+      "cwd": "/srv/campusloop",
+      "returnCode": 0,
+      "status": "PASS",
+      "log": "m8-phase3.txt",
+      "sha256": "201a080a7daf3032e1471594e6557043cb6fef31ea25e9808d76a21a42d48eae"
+    }
+  ],
+  "runtimeSmoke": [
+    {
+      "path": "/health",
+      "status": 200
+    },
+    {
+      "path": "/ready",
+      "status": 200
+    },
+    {
+      "path": "/products",
+      "status": 200
+    },
+    {
+      "path": "/wanted",
+      "status": 200
+    },
+    {
+      "path": "/search?query=book",
+      "status": 200
+    },
+    {
+      "path": "/docs",
+      "status": 200
+    },
+    {
+      "path": "/openapi.json",
+      "status": 200
+    }
+  ],
+  "status": "PASS"
+}

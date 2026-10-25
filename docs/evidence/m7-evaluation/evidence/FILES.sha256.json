@@ -1,0 +1,23 @@
+{
+  "baseline.json": "300fdb6e4034167127e889d57bdfefa6d20a442a828f015c5d6705230d50f003",
+  "baseline.stderr.txt": "afe16667bed748eaf3621700230818ebc460ebac851f305df1a2bfc09d0f6cb6",
+  "baseline.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "model-wiring-smoke.json": "5643c4d5857aba1a49b6fd445e9b6ad090834397d5e195af0585c1568aeb26ea",
+  "protocol.json": "b0c7c8c76aca7e79ef8826e585da39635f55e66f3ab4c6aabc4d3c2ec9f5df54",
+  "protocol.stderr.txt": "fde5c519423e455e6bd4e817552619faaac67a604195a6865960f2209b598eb6",
+  "protocol.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "red-future-receipts.txt": "90935f364533d2dafebd952495fada537d8987b1c65cf82172bae64f207e63f6",
+  "red.txt": "2a5bec1563dccc369a1507de5fcc645c08a97509c2e8bd1cab47240a30994747",
+  "semantic.json": "94ee5cbb6ac23034e0547bc0e0f95b83f9c655a5a7742be822b6060c934bc6b4",
+  "semantic.stderr.txt": "57c17ff1494a42fcc9c666b2580484dcd8c32f0a3a635de93fec053aff88da5e",
+  "semantic.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "starter-check.json": "e0d9394043d99664cf8615332be3dde67ac918c1afaf8d6e5cd2430711fd3997",
+  "starter-check.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "starter-check.stdout.txt": "6b97d6ae180e88ed1e3633ed2c97e7a79ee43e52068e63dba5ea8194414a6638",
+  "starter-run.json": "f7906027b1535e500d025efa0abde36f5cc1aa63fa3176d2414d1e3fb4a39de9",
+  "starter-run.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "starter-run.stdout.txt": "62bd4cec94b0f9f08f4efe10d2135d256f9aed91d07ef8af60fbac955ce65cad",
+  "starter-seal.json": "f19ab6f839c21f89129344e46e29ba4c620381fa30ae0543efe01ca7cf057234",
+  "starter-seal.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "starter-seal.stdout.txt": "bb98d72c8a460d1a52aaedc9bb18256bd4a6ca2c293642687962a759c486b5f6"
+}

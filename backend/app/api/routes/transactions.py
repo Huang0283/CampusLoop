@@ -107,6 +107,10 @@ def list_messages(
     beforeId: int | None = None,
     limit: PageSize = 30,
 ):
+    if (afterId is not None and afterId < 0) or (beforeId is not None and beforeId < 1):
+        raise BusinessError(422, "VALIDATION_ERROR", "Invalid cursor.")
+    if afterId is not None and beforeId is not None:
+        raise BusinessError(422, "VALIDATION_ERROR", "Use only one history cursor.")
     chat(db, sessionId, actor)
     stmt = select(ChatMessage).where(ChatMessage.session_id == sessionId)
     if afterId is not None:

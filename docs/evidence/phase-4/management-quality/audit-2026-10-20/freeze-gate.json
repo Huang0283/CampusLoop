@@ -1,0 +1,13 @@
+﻿{
+  "decision": "BLOCKED",
+  "blockers": [
+    "phase3InputConfirmed",
+    "allFourGroupsIntegrated",
+    "independentQualitySigned",
+    "scopeSignedByM1",
+    "fourthPresentationRecorded",
+    "stageMergedToMain",
+    "unique-freeze-commit-and-tag-pending"
+  ],
+  "signedApproval": false
+}

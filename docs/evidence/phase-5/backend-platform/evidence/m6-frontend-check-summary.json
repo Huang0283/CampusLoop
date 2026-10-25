@@ -1,0 +1,44 @@
+[
+  {
+    "check": "frontend-lint",
+    "exitCode": 0,
+    "command": [
+      "npm.cmd",
+      "run",
+      "lint"
+    ]
+  },
+  {
+    "check": "frontend-build",
+    "exitCode": 0,
+    "command": [
+      "npm.cmd",
+      "run",
+      "build"
+    ]
+  },
+  {
+    "check": "sdk",
+    "exitCode": 0,
+    "command": [
+      "npm.cmd",
+      "run",
+      "sdk:check"
+    ]
+  },
+  {
+    "check": "sdk-drift",
+    "exitCode": 0,
+    "command": [
+      "git",
+      "-c",
+      "core.safecrlf=false",
+      "-c",
+      "core.autocrlf=true",
+      "diff",
+      "--exit-code",
+      "--",
+      "src/sdk/generated/"
+    ]
+  }
+]

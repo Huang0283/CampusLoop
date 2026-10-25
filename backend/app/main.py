@@ -18,7 +18,16 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api.routes import auth, intelligence, market, media, realtime, system, transactions
+from app.api.routes import (
+    auth,
+    governance,
+    intelligence,
+    market,
+    media,
+    realtime,
+    system,
+    transactions,
+)
 from app.core.config import get_settings
 from app.core.envelope import (
     error_payload,
@@ -41,7 +50,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI(
         title=settings.app_name,
-        version="0.3.0",
+        version="0.5.0-rc.1",
         # /docs 仅本地调试用；生产由 APP_ENV 控制
         docs_url="/docs" if settings.app_env != "prod" else None,
         lifespan=lifespan,
@@ -115,6 +124,7 @@ def create_app() -> FastAPI:
     app.include_router(market.router)
     app.include_router(transactions.router)
     app.include_router(realtime.router)
+    app.include_router(governance.router)
     app.include_router(intelligence.router)
     app.include_router(media.router)
 

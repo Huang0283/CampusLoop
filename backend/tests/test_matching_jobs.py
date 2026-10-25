@@ -7,7 +7,7 @@ from app.core.config import get_settings
 from app.core.security import utcnow
 from app.db.session import SessionLocal
 from app.models import MatchingJob, MatchingNotification, MatchingResult, Notification, Product
-from app.services.matching_jobs import enqueue, run_one
+from app.services.matching_jobs import business_event_key, enqueue, run_one
 from tests.conftest import requires_postgres
 from tests.test_auth import account, headers
 from tests.test_transaction_api import key_headers, product
@@ -248,3 +248,88 @@ def test_unexpected_failure_has_bounded_retry_and_no_partial_notification(client
             job.available_at = utcnow()
             db.commit()
     assert run_one() is False
+
+
+def test_persisted_product_event_replay_does_not_duplicate_job(client):
+    from app.models import WantedPost
+
+    buyer, seller = account(client), account(client)
+    wanted = client.post(
+        "/wanted",
+        headers=key_headers(buyer),
+        json={
+            "title": "book",
+            "budgetMin": 0,
+            "budgetMax": 100,
+            "condition": "ANY",
+            "location": "ANY",
+            "expireAt": (utcnow() + timedelta(days=1)).isoformat(),
+        },
+    ).json()["data"]
+    item = product(client, seller)
+    with SessionLocal() as db:
+        entity = db.get(Product, item["id"])
+        key = business_event_key(entity)
+        before = db.scalar(
+            select(func.count())
+            .select_from(MatchingJob)
+            .where(MatchingJob.event_key == key, MatchingJob.wanted_id == wanted["id"])
+        )
+        assert before == 1
+        enqueue(db, key, [wanted["id"], wanted["id"]])
+        db.commit()
+    with SessionLocal() as db:
+        assert (
+            db.scalar(
+                select(func.count())
+                .select_from(MatchingJob)
+                .where(MatchingJob.event_key == key, MatchingJob.wanted_id == wanted["id"])
+            )
+            == 1
+        )
+        # Refreshing the wanted creates a different business version and event.
+        entity = db.get(WantedPost, wanted["id"])
+        old_key = business_event_key(entity)
+        entity.title = "updated book"
+        db.commit()
+        assert business_event_key(entity) != old_key
+
+
+def test_old_queued_event_recomputes_current_facts_and_closed_api_rejects(client):
+    buyer, seller = account(client), account(client)
+    item = product(client, seller)
+    wanted = client.post(
+        "/wanted",
+        headers=key_headers(buyer),
+        json={
+            "title": "book",
+            "budgetMin": 0,
+            "budgetMax": 100,
+            "condition": "ANY",
+            "location": "ANY",
+            "expireAt": (utcnow() + timedelta(days=1)).isoformat(),
+        },
+    ).json()["data"]
+    wid = wanted["id"]
+    drain()
+    # A delayed event must not restore the previously eligible product.
+    assert (
+        client.patch(
+            f'/products/{item["id"]}/status', headers=headers(seller), json={"status": "HIDDEN"}
+        ).status_code
+        == 200
+    )
+    with SessionLocal() as db:
+        enqueue(db, "delayed-old-product-event", [wid])
+        db.commit()
+    drain()
+    with SessionLocal() as db:
+        stored = db.get(MatchingResult, wid)
+        assert str(item["id"]) not in [entry["productId"] for entry in stored.facts["items"]]
+        assert "inputRevision" in stored.facts and "wantedVersion" in stored.facts
+    assert client.delete(f"/wanted/{wid}", headers=headers(buyer)).status_code == 204
+    assert client.get(f"/wanted/{wid}/matches", headers=headers(buyer)).status_code == 409
+    assert client.get(f"/wanted/{wid}/matches", headers=headers(seller)).status_code == 403
+    drain()
+    with SessionLocal() as db:
+        assert db.get(MatchingResult, wid) is None

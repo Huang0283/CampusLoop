@@ -1,0 +1,249 @@
+{
+  "owner": "M5",
+  "codeCommit": "c4687d5a44eb18d5a96af4bec03b85ec933da0be",
+  "baseCommit": "cdf814364eec988e0d197c0a0098a92eb5db4d6e",
+  "startedAt": "2026-10-15T00:30:30.651815+08:00",
+  "tests": 47,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "durationSeconds": 42.862,
+  "source": "pytest JUnit XML; host and local paths removed",
+  "cases": [
+    {
+      "id": "tests.test_auth.test_registration_profile_privacy_and_validation",
+      "seconds": 0.208,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_auth.test_login_logout_families_and_refresh_replay",
+      "seconds": 0.402,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_auth.test_concurrent_refresh_single_success_then_family_revocation",
+      "seconds": 0.127,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_auth.test_expired_access_refresh_and_disabled_account",
+      "seconds": 0.225,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_auth.test_admin_disable_revoke_and_audit",
+      "seconds": 0.182,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_auth.test_origin_content_type_json_and_missing_key",
+      "seconds": 0.017,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_browser_sessions.test_cookie_restore_csrf_and_absolute_lifetime",
+      "seconds": 0.126,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_browser_sessions.test_concurrent_reload_keeps_both_tabs_valid_and_logout_revokes",
+      "seconds": 0.125,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_browser_sessions.test_disable_and_renewal_rate_bound",
+      "seconds": 0.085,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_browser_sessions.test_production_cookie_is_secure_host_only",
+      "seconds": 0.042,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_trust_visibility_neutral_permissions_and_disabled_target",
+      "seconds": 1.008,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_completed_review_changes_trust_but_unfinished_trade_does_not",
+      "seconds": 1.253,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_report_queue_private_evidence_and_sensitive_read_audits",
+      "seconds": 1.057,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_resolution_idempotency_and_explicit_override_reject_stale_input",
+      "seconds": 0.57,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_competing_administrators_only_one_normal_decision_commits",
+      "seconds": 1.577,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_duplicate_concurrent_request_and_stale_same_status_override",
+      "seconds": 1.078,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_audit_failure_rolls_back_decision_and_idempotency_together",
+      "seconds": 1.925,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_risk_manual_only_and_model_off_still_allows_moderation",
+      "seconds": 2.626,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_api.test_real_http_timeout_degrades_without_changing_business_facts",
+      "seconds": 4.748,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_governance_projection.test_projection_removes_internal_fields_including_nested_explanations",
+      "seconds": 0.001,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_health.test_health_envelope_shape",
+      "seconds": 0.151,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_health.test_health_reports_degraded_when_dependencies_down",
+      "seconds": 0.075,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_health.test_health_ok_when_dependencies_up",
+      "seconds": 0.117,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_health.test_ready_returns_503_when_degraded",
+      "seconds": 0.098,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_health.test_request_id_roundtrip",
+      "seconds": 0.429,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_input_logging_contract.test_nullable_original_price_does_not_relax_required_price",
+      "seconds": 0.001,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_input_logging_contract.test_private_log_fields_and_exception_parameters_are_not_emitted",
+      "seconds": 0.001,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_input_logging_contract.test_invalid_request_id_is_sanitized_in_headers_and_error_body",
+      "seconds": 0.228,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_live_intelligence.test_live_search_matches_price_and_service_degradation",
+      "seconds": 1.712,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_live_intelligence.test_trust_and_risk_use_current_facts_no_enforcement",
+      "seconds": 1.387,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_matching_jobs.test_matching_outbox_result_notification_dedup_and_close",
+      "seconds": 13.953,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_matching_jobs.test_business_rollback_rolls_back_outbox",
+      "seconds": 0.181,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_matching_jobs.test_stale_revision_retries_without_publishing_and_recovers",
+      "seconds": 0.748,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_matching_jobs.test_claim_lock_is_skipped_by_another_worker",
+      "seconds": 0.245,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_matching_jobs.test_unexpected_failure_has_bounded_retry_and_no_partial_notification",
+      "seconds": 0.336,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_query_budget.test_batch_serializers_query_count_does_not_grow_with_page_size",
+      "seconds": 0.319,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_realtime_media.test_websocket_auth_and_private_send",
+      "seconds": 0.863,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_realtime_media.test_private_chat_and_evidence_access_audited",
+      "seconds": 0.505,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_seed_idempotency.TestSeedIdempotency.test_duplicate_upsert_reports_zero_insertions",
+      "seconds": 0.144,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_seed_idempotency.TestSeedIdempotency.test_seed_twice_produces_identical_counts",
+      "seconds": 0.284,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_seed_idempotency.TestSeedIdempotency.test_seed_rows_are_labeled_demo",
+      "seconds": 0.077,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_transaction_api.test_two_account_durable_journey_and_permissions",
+      "seconds": 0.535,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_transaction_api.test_meetup_revision_clears_confirmations_and_cancel_eligibility",
+      "seconds": 0.365,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_transaction_api.test_concurrent_accept_creates_one_order",
+      "seconds": 0.24,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_transaction_api.test_accept_failure_rolls_back_product_offer_order_event",
+      "seconds": 0.279,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_transaction_api.test_report_private_upload_favorites_and_wanted",
+      "seconds": 0.448,
+      "result": "passed"
+    },
+    {
+      "id": "tests.test_transaction_api.test_redis_failure_blocks_new_auth_not_existing_business",
+      "seconds": 1.686,
+      "result": "passed"
+    }
+  ]
+}

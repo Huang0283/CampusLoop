@@ -1,0 +1,26 @@
+name: M7 evaluation protocol
+permissions:
+  contents: read
+on:
+  pull_request:
+    paths:
+      - 'scripts/m7_evaluation/**'
+      - '.github/workflows/m7-evaluation-protocol.yml'
+  push:
+    branches: ['prep/m7-evaluation-evidence']
+jobs:
+  protocol:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r scripts/m7_phase2/requirements.txt
+      - run: python -m unittest discover -s scripts/m7_evaluation/tests -v
+        env:
+          PYTHONUTF8: '1'
+          PYTHONDONTWRITEBYTECODE: '1'

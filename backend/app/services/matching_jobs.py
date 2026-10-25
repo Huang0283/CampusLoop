@@ -4,10 +4,13 @@ Workers hold a row lock until commit instead of a separate leased state. A proce
 crash rolls back and releases the claim; SKIP LOCKED allows multiple workers.
 """
 
+import hashlib
+import json
 import logging
 import threading
 from collections.abc import Callable
-from datetime import timedelta
+from datetime import datetime, timedelta
+from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import event, inspect, select, text
@@ -28,11 +31,60 @@ from app.models import (
     WantedPost,
 )
 
+MAX_ATTEMPTS = 5
+BUSINESS_FIELDS = {
+    Product: (
+        "title",
+        "description",
+        "category",
+        "condition",
+        "price",
+        "original_price",
+        "campus_location",
+        "status",
+        "deleted_at",
+        "attributes",
+        "owner_id",
+    ),
+    WantedPost: (
+        "title",
+        "description",
+        "category",
+        "budget_min",
+        "budget_max",
+        "requirements",
+        "status",
+        "expires_at",
+        "owner_id",
+    ),
+    User: ("status", "role"),
+}
+
+
+def business_event_key(entity):
+    """Stable identity of a persisted business version, independent of delivery."""
+    facts = {name: getattr(entity, name) for name in BUSINESS_FIELDS[type(entity)]}
+    facts["updated_at"] = entity.updated_at or entity.created_at
+    for name, value in facts.items():
+        if name in ("price", "original_price", "budget_min", "budget_max") and value is not None:
+            facts[name] = format(Decimal(str(value)), ".2f")
+        elif isinstance(value, datetime):
+            facts[name] = value.isoformat()
+    digest = hashlib.sha256(json.dumps(facts, sort_keys=True, default=str).encode()).hexdigest()
+    return f"{entity.__tablename__}:{entity.id}:{digest}"
+
+
+def schedule_retry(job, reason):
+    """All retry paths, including catalog churn, share one terminal bound."""
+    job.last_error = reason[:64]
+    job.status = "FAILED" if job.attempts >= MAX_ATTEMPTS else "PENDING"
+    job.available_at = utcnow() + timedelta(seconds=min(60, 2**job.attempts))
+
 
 def enqueue(db, event_key, wanted_ids):
     rows = [
         {"event_key": event_key, "wanted_id": identity, "status": "PENDING", "attempts": 0}
-        for identity in wanted_ids
+        for identity in sorted(set(wanted_ids))
     ]
     if rows:
         db.execute(
@@ -46,12 +98,11 @@ def enqueue(db, event_key, wanted_ids):
 def remember_changes(db, *_):
     changed = db.info.setdefault("matching_changes", set())
     for entity in list(db.new) + list(db.dirty):
-        if isinstance(entity, User) and not any(
-            inspect(entity).attrs[field].history.has_changes() for field in ("status", "role")
-        ):
+        fields = BUSINESS_FIELDS.get(type(entity))
+        if fields is None:
             continue
-        if isinstance(entity, Product | WantedPost | User) and (
-            entity in db.new or db.is_modified(entity, include_collections=False)
+        if entity in db.new or any(
+            inspect(entity).attrs[field].history.has_changes() for field in fields
         ):
             changed.add(entity)
 
@@ -61,9 +112,7 @@ def persist_outbox(db, *_):
     changed = db.info.pop("matching_changes", set())
     if not changed:
         return
-    revision = db.scalar(
-        text("UPDATE matching_revision SET value=value+1 WHERE id=1 RETURNING value")
-    )
+    db.scalar(text("UPDATE matching_revision SET value=value+1 WHERE id=1 RETURNING value"))
     targets = list(
         db.scalars(
             select(WantedPost.id).where(
@@ -72,8 +121,7 @@ def persist_outbox(db, *_):
         )
     )
     for entity in changed:
-        stamp = (entity.updated_at or entity.created_at).isoformat()
-        key = f"{entity.__tablename__}:{entity.id}:{stamp}:{revision}"
+        key = business_event_key(entity)
         enqueue(db, key, [entity.id] if isinstance(entity, WantedPost) else targets)
 
 
@@ -125,9 +173,7 @@ def run_one():
             )
             if retry is not None and retry.status == "PENDING":
                 retry.attempts += 1
-                retry.last_error = "WORKER_FAILURE"
-                retry.status = "FAILED" if retry.attempts >= 5 else "PENDING"
-                retry.available_at = utcnow() + timedelta(seconds=min(60, 2**retry.attempts))
+                schedule_retry(retry, "WORKER_FAILURE")
                 db.commit()
                 _emit_run(_run_event(retry, started))
             else:
@@ -193,27 +239,28 @@ def process_claim(db, job):
         select(WantedPost).where(WantedPost.id == job.wanted_id).with_for_update(key_share=True)
     )
     if (
-        wanted.status != "OPEN"
+        wanted is None
+        or owner is None
+        or wanted.status != "OPEN"
         or wanted.expires_at is None
         or wanted.expires_at <= utcnow()
         or owner.status != "ACTIVE"
     ):
         job.status = "SKIPPED"
-        db.execute(MatchingResult.__table__.delete().where(MatchingResult.wanted_id == wanted.id))
+        db.execute(
+            MatchingResult.__table__.delete().where(MatchingResult.wanted_id == job.wanted_id)
+        )
         db.commit()
         return True
     try:
         result, public, version = rank_live(db, wanted.title, wanted=wanted, lock_candidates=True)
     except BusinessError as exc:
-        job.last_error = exc.code[:64]
-        job.status = "FAILED" if job.attempts >= 5 else "PENDING"
-        job.available_at = utcnow() + timedelta(seconds=min(60, 2**job.attempts))
+        schedule_retry(job, exc.code)
         db.commit()
         return True
     final_revision = db.scalar(text("SELECT value FROM matching_revision WHERE id=1 FOR UPDATE"))
     if final_revision != input_revision:
-        job.available_at = utcnow() + timedelta(seconds=1)
-        job.last_error = "STALE_INPUT"
+        schedule_retry(job, "STALE_INPUT")
         db.commit()
         return True
     facts = {
@@ -221,6 +268,10 @@ def process_claim(db, job):
         "metadata": result["metadata"],
         "expiresAt": wanted.expires_at.isoformat(),
         "policyVersion": "first-pair-v1",
+        "inputRevision": input_revision,
+        "wantedVersion": max(
+            1, int((wanted.updated_at or wanted.created_at).timestamp() * 1000000)
+        ),
     }
     db.execute(
         insert(MatchingResult)

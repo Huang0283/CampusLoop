@@ -29,8 +29,13 @@ def invalid_constant(value):
 
 
 def create_server(address, store, token):
-    if address[0] != "127.0.0.1" or not isinstance(token, str) or len(token) < 32:
-        raise ValueError("loopback address and >=32-character service token required")
+    # phase-3：进程内嵌、仅环回；phase-4（BP4-07，M9）：独立容器承载，绑定
+    # 0.0.0.0/:: 供 compose 内网调用且不发布宿主端口。强令牌（>=32 字符）
+    # 在两种形态下都无条件必需；绑定地址白名单之外仍一律拒绝。
+    if not isinstance(token, str) or len(token) < 32:
+        raise ValueError(">=32-character service token required")
+    if address[0] not in ("127.0.0.1", "localhost", "::1", "0.0.0.0", "::"):
+        raise ValueError("bind address must be loopback or 0.0.0.0/:: (container network)")
     class Handler(BaseHTTPRequestHandler):
         def setup(self):
             super().setup()
