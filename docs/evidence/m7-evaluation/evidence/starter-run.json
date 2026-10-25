@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "scripts.m7_evaluation",
+    "run",
+    "--snapshot",
+    "docs/evidence/m7-evaluation/starter",
+    "--model-dir",
+    "../models/bge-small-zh-v1.5-7999e1d",
+    "--output",
+    "../m7-evaluation-evidence/SHOULD_NOT_RUN"
+  ],
+  "exitCode": 2,
+  "elapsedSeconds": 0.75
+}

@@ -1,0 +1,58 @@
+{
+  "AI4_09": "TECHNICAL_PASS_M6_M9_RELEASE_ACCEPTANCE_PENDING",
+  "AI4_10": "EVIDENCE_READY_ORIGINAL_M10_M1_CONFIRMATION_PENDING",
+  "M1FreezeApproved": false,
+  "codeCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "codeCommitRole": "historical_joint_ci_evidence",
+  "historicalIntegrationBaseline": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "m8VerifiedCodeCommit": "f1b9b7519b51d896c09d36e391632d9460da1940",
+  "groupBranchTipAtReview": "fd5cc86e0d6cdabe94a18d5af7af228127939f5c",
+  "confirmations": {
+    "M1": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M10": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M6": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M8": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "AUTHOR_CHECK_COMPLETE_CROSS_REVIEW_PENDING",
+      "authorCheck": {
+        "date": "2026-10-18",
+        "reviewer": "M8",
+        "evidenceCommit": "49028468f44fbd458fb8740bffd0b7ce4fb7ca14",
+        "status": "ACCEPTED_WITH_NO_GO"
+      },
+      "crossReview": {
+        "expectedReviewer": "M7",
+        "reviewer": null,
+        "status": "PENDING"
+      }
+    },
+    "M9": {
+      "date": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    }
+  },
+  "currentM10IndependentSignoff": false,
+  "humanDecisionOwnerChoice": "User explicitly chose original responsible members to confirm on 2026-10-17",
+  "originalM10HistoricalDiagnostic": true,
+  "recordedOn": "2026-10-17",
+  "technicalRecommendation": "KEEP_PHASE3_BASELINES; BOTH_CANDIDATES_NO_GO"
+}

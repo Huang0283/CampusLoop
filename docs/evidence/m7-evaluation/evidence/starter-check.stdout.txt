@@ -1,0 +1,30 @@
+{
+  "status": "NOT_READY",
+  "readyToSeal": false,
+  "formalAcceptance": false,
+  "requestCounts": {
+    "search": 0,
+    "matching": 0
+  },
+  "errors": [
+    "datasetVersion and labelVersion must be assigned before sealing",
+    "members must declare unseen test inputs with evidence before first replay",
+    "M1 independent protocol approval receipt pending",
+    "M10 independent protocol approval receipt pending",
+    "criticalSlices must be a nonempty unique list agreed before replay",
+    "source must have approved provenance; AI drafts are not independent human input",
+    "source must have approved provenance; AI drafts are not independent human input",
+    "independent authored queries and reviewed complete corpus annotations are required",
+    "search: independently reviewed test requests 0 < 100",
+    "matching: independently reviewed test requests 0 < 100"
+  ],
+  "warnings": [
+    "strict P@5 data ceiling below 0.70 or undefined; preserve no-answer/negative cases, never pad positives"
+  ],
+  "searchPrecisionAt5UpperBound": null,
+  "productCount": 72,
+  "annotationPairCount": 0,
+  "testRequestCount": 0,
+  "devRequestCount": 0,
+  "approvalVerification": "declared receipts only; M10 must verify member identity and source evidence"
+}

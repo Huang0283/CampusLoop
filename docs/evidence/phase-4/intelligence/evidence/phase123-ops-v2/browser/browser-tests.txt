@@ -1,0 +1,16 @@
+
+> frontend@0.0.0 test:live
+> playwright test
+
+
+Running 5 tests using 1 worker
+
+  ✓  1 tests\live\journey.spec.ts:14:1 › real two-account browser transaction; no database editing (17.0s)
+  ✓  2 tests\live\journey.spec.ts:101:1 › wanted constraints and price baseline are real services (1.6s)
+  ✓  3 tests\live\journey.spec.ts:120:1 › guest browse, failure recovery, secure reload restoration, logout and fixed navigation (4.4s)
+  ✓  4 tests\live\journey.spec.ts:166:1 › mobile navigation and empty-state filter recovery (801ms)
+  ✓  5 tests\live\journey.spec.ts:179:1 › another tab changing account cannot retry an old request as the new user (2.4s)
+
+  5 passed (26.7s)
+(node:67512) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

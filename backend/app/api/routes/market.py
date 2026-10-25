@@ -161,6 +161,9 @@ def update_product(productId: int, body: ProductWrite, db: Db, actor: Actor):
     db.execute(delete(ProductImage).where(ProductImage.product_id == item.id))
     for position, key in enumerate(keys):
         db.add(ProductImage(product_id=item.id, object_key=key, sort_order=position))
+    # Image-only edits touch child rows; explicitly advance the reviewed-content
+    # version so an administrator cannot restore newly replaced, unreviewed images.
+    item.updated_at = utcnow()
     db.flush()
     result = ok(dto.product(db, item))
     db.commit()
@@ -172,6 +175,10 @@ def product_status(productId: int, body: ProductStatusWrite, db: Db, actor: Acto
     item = editable_product(db, productId, actor)
     if body.status not in ("ON_SALE", "HIDDEN"):
         raise BusinessError(409, "PRODUCT_STATE_CONFLICT", "Trade states are controlled by orders.")
+    if item.moderation_blocked and body.status == "ON_SALE":
+        raise BusinessError(
+            409, "PRODUCT_MODERATION_HOLD", "该商品已被管理员下架，请等待人工复核，不能自行上架。"
+        )
     item.status = body.status
     db.flush()
     result = ok(dto.product(db, item))

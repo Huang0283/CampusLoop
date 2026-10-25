@@ -1,0 +1,38 @@
+{
+  "contractVersion": "m8-price-phase4-router-v1",
+  "visibility": "trusted-backend-only",
+  "operation": "price-advice",
+  "candidate": {
+    "modelVersion": "m8-price-candidate-v1",
+    "featureVersion": "m8-price-features-v1",
+    "timeoutMs": 300,
+    "acceptedConfidence": ["MEDIUM", "HIGH"],
+    "requiredOutputFields": [
+      "status",
+      "modelVersion",
+      "featureVersion",
+      "confidence",
+      "recommendedFen",
+      "intervalFen",
+      "factors"
+    ]
+  },
+  "baseline": {
+    "algorithmVersion": "m8-price-rule-v1",
+    "selectedEngine": "PHASE3_RULE_BASELINE"
+  },
+  "fallbackReasons": [
+    "CANDIDATE_DISABLED",
+    "DATA_OR_APPROVAL_GATE_NO_GO",
+    "CANDIDATE_MODEL_MISSING",
+    "CANDIDATE_TIMEOUT",
+    "CANDIDATE_ERROR",
+    "CANDIDATE_NO_RESULT",
+    "CANDIDATE_LOW_CONFIDENCE",
+    "CANDIDATE_VERSION_MISMATCH",
+    "CANDIDATE_INVALID_RESULT"
+  ],
+  "rollback": "Set candidate_enabled=false; the router returns the unchanged Phase 3 rule output.",
+  "businessWritesAllowed": false,
+  "riskEnforcementAllowed": false
+}

@@ -1,0 +1,13 @@
+
+> frontend@0.0.0 sdk:check
+> npm run sdk:generate && tsc -b
+
+
+> frontend@0.0.0 sdk:generate
+> openapi-ts -f openapi-ts.config.ts
+
+[90m@hey-api/openapi-ts v0.99.0[39m
+
+[90m[Job 1] [39m[90m~[39m [36mGenerating...[39m
+[90m[Job 1] [39m[36m  [1] [39m../openapi/campusloop.v1.yaml
+[90m[Job 1] [39m[32m✓[39m [96m./src\sdk\generated[39m [90m· 4 files · 170ms[39m

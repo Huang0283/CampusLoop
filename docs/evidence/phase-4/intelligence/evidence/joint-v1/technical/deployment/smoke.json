@@ -1,0 +1,85 @@
+{
+  "acceptance": "AUTHOR_LOCAL_DEPLOYMENT_CHECK; NOT RELEASE_ENVIRONMENT OR HUMAN SIGNATURE",
+  "cases": [
+    {
+      "algorithm": "m7-keyword-v0",
+      "name": "m7-real-rpc-normal",
+      "status": "PASS"
+    },
+    {
+      "httpStatus": 401,
+      "name": "m7-unauthenticated-rejected",
+      "status": "PASS"
+    },
+    {
+      "metadata": {
+        "algorithmVersion": "m7-keyword-v0",
+        "asOf": "2026-10-17T13:16:06Z",
+        "degraded": true,
+        "dictionaryHash": "dictionary_691b1012a0cf1ff0dc8551c7477eea68855da8a00ccc6989f11c31b3c19f6338",
+        "dictionaryVersion": "m7-fixture-dictionary-v1",
+        "fallbackReason": "MODEL_DISABLED",
+        "mode": "keyword",
+        "modelVersion": null,
+        "quarantinedProductCount": 0,
+        "schemaVersion": "m7-baseline-result-v1",
+        "sort": "relevance",
+        "tokenizerVersion": "m7-tokenizer-v0"
+      },
+      "name": "m7-candidate-disabled-keeps-baseline",
+      "status": "PASS"
+    },
+    {
+      "name": "m7-explicit-sqlite-restart-preserves-page",
+      "snapshotVersion": "6041689617304784b81be99282336007",
+      "status": "PASS"
+    },
+    {
+      "fallbackReason": "SERVICE_TIMEOUT",
+      "name": "m7-service-stopped-recovers-baseline",
+      "status": "PASS"
+    },
+    {
+      "algorithm": "m8-price-rule-v1",
+      "name": "m8-real-rpc-price",
+      "status": "PASS"
+    },
+    {
+      "algorithm": "m8-trust-rule-v1",
+      "name": "m8-real-rpc-trust",
+      "status": "PASS"
+    },
+    {
+      "algorithm": "m8-risk-clue-rule-v1",
+      "name": "m8-real-rpc-risk",
+      "status": "PASS"
+    },
+    {
+      "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+      "name": "m8-no-go-and-switch-off-identical-baseline",
+      "status": "PASS"
+    },
+    {
+      "fallback": "MANUAL_PRICE_ENTRY",
+      "name": "m8-service-stopped-price",
+      "status": "PASS"
+    },
+    {
+      "fallback": "FACT_COUNT_OR_UNAVAILABLE",
+      "name": "m8-service-stopped-trust",
+      "status": "PASS"
+    },
+    {
+      "fallback": "STORE_REPORT_FOR_MANUAL_QUEUE",
+      "name": "m8-service-stopped-risk",
+      "status": "PASS"
+    }
+  ],
+  "credential": "ephemeral random environment token; not archived",
+  "executedAt": "2026-10-17T13:16:11.378702+00:00",
+  "logsRedacted": true,
+  "notes": "Persistent-page restart applies to standalone M7 --database, not backend/scripts/serve.py temporary snapshot lifetime.",
+  "runtime": "two real loopback CLI processes; explicit temporary SQLite path; no database/business API mock",
+  "sourceCommit": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "status": "PASS"
+}

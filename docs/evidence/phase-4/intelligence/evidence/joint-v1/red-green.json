@@ -1,0 +1,26 @@
+{
+  "exception": "Existing unittest workflow explicitly allowed by user 2026-10-11; tdd skill remains unavailable.",
+  "green": {
+    "exitCode": 0,
+    "log": "m7-bad-response-green.txt",
+    "tests": 7
+  },
+  "logging": "PowerShell text normalized to UTF-8/LF and workspace paths anonymized; source raw logs retained outside repo.",
+  "publicBoundary": "real loopback HTTP; call_baseline; original production client before fix",
+  "red": {
+    "errors": 15,
+    "exitCode": 1,
+    "failures": 14,
+    "log": "m7-bad-response-red.txt",
+    "tests": 7
+  },
+  "regression": {
+    "exitCode": 0,
+    "log": "m7-client-regression.txt",
+    "tests": 38
+  },
+  "sourceAfter": "c775ccc5729bd73c438ec7bd95a1cc0f25dba7ec",
+  "sourceBefore": "6df25176866a6b1df2c1da5dcd28229b965f73ff",
+  "testFile": "services/m7_baseline/tests/test_response_http.py",
+  "testFileSha256": "b4915312acbacc60e89b32c63f77dbd344eecf1013d79f220a0f6d1571581d94"
+}

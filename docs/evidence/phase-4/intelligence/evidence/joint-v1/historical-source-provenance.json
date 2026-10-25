@@ -1,0 +1,17 @@
+{
+  "purpose": "prior independent evidence, not latest code acceptance",
+  "sources": [
+    {
+      "file": "m10-historical-independent-check.json",
+      "gitBlobSha256": "5560d0070760a1653f1c58c26d57b82a349f7ee81ff36b78d53466b826d6bd77",
+      "sourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+      "sourcePath": "docs/evidence/phase-4/management-quality/ai-evaluation/independent-check.json"
+    },
+    {
+      "file": "m10-historical-independent-evaluation.md",
+      "gitBlobSha256": "1531d7cfdd75236f6a7a5996ea9156fe4abd63d03b83b43aedb06db0c4b5e228",
+      "sourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+      "sourcePath": "docs/evidence/phase-4/management-quality/independent-ai-evaluation.md"
+    }
+  ]
+}
