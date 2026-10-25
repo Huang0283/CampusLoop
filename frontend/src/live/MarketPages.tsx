@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Alert, Avatar, Breadcrumb, Button, Card, Col, Form, Input, InputNumber, Pagination, Row, Select, Space, Tag, Typography } from 'antd'
+import { Alert, Avatar, Breadcrumb, Button, Card, Col, Form, Input, InputNumber, message, Pagination, Row, Select, Space, Tag, Typography } from 'antd'
 import { HeartFilled, HeartOutlined, MessageFilled, EnvironmentOutlined, ClockCircleOutlined, FileTextOutlined, InboxOutlined, RobotOutlined } from '@ant-design/icons'
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
@@ -71,12 +71,16 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const change = (field: string, value: string) => { const next = new URLSearchParams(params); if (value) next.set(field, value); else next.delete(field); if (field !== 'page') next.delete('page'); setParams(next) }
   const searchResult = remote.value && 'mode' in remote.value ? remote.value as api.SearchResult : undefined
   const canRecoverSearch = mode === 'public' && query.trim() && searchMode !== 'keyword' && remote.error instanceof api.ApiError && (remote.error.status === 0 || remote.error.status >= 500)
-  return <Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} subtitle={mode === 'public' ? '让闲置流转，让校园生活更轻松' : mode === 'mine' ? '管理你发布的商品与在售状态' : '收藏喜欢的校园好物'} extra={<Button type="primary" size="large" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
+  const [messageApi, contextHolder] = message.useMessage()
+  useEffect(() => {
+    if (remote.error instanceof api.ApiError && remote.error.status === 0) void messageApi.error('网络异常，请检查网络后重试')
+  }, [remote.error, messageApi])
+  return <><Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} subtitle={mode === 'public' ? '让闲置流转，让校园生活更轻松' : mode === 'mine' ? '管理你发布的商品与在售状态' : '收藏喜欢的校园好物'} extra={<Button type="primary" size="large" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
     <div className="surface catalog-filters">
     {mode === 'public' && <Space wrap aria-label="商品分类快捷筛选" style={{ marginBottom: 20 }}>
       {[{ value: '', label: '全部' }, ...categories].map((entry) => <Button key={entry.value} shape="round" type={(category || '') === entry.value ? 'primary' : 'default'} aria-pressed={(category || '') === entry.value} onClick={() => change('category', entry.value)}>{entry.label}</Button>)}
     </Space>}
-    <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
+    <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear maxLength={200} />
       {mode === 'public' && <><Select aria-label="搜索模式" value={searchMode} options={searchModeOptions} onChange={(value) => change('searchMode', value)} style={{ width: 120 }} />
         <Select aria-label="商品分类" placeholder="全部分类" allowClear style={{ width: 140 }} options={categories} value={params.get('category') || undefined} onChange={(value) => change('category', value || '')} />
         <Select aria-label="商品成色" placeholder="全部成色" allowClear style={{ width: 140 }} options={conditions} value={params.get('condition') || undefined} onChange={(value) => change('condition', value || '')} />
@@ -100,7 +104,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
       </Space> : mode === 'favorites' ? (product) => <Button onClick={() => void mutation.run(async () => { await api.removeFavorite({ path: { productId: product.id } }); remote.reload() })}>取消收藏</Button> : undefined} /> : <NoItems filtered={Boolean(query || params.get('category') || params.get('condition'))} />}
       {remote.value && <Pagination style={{ marginTop: 24 }} current={page} pageSize={12} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => change('page', String(value))} />}
     </Resource>
-  </Page>
+  </Page>{contextHolder}</>
 }
 
 export function ProductPage() {
@@ -196,7 +200,7 @@ export function WantedListPage() {
   const user = useSession((state) => state.user)
   const navigate = useNavigate()
   return <Page title="求购广场" subtitle="看看同学们正在寻找什么" extra={<Button type="primary" size="large" onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>}>
-    <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} style={{ maxWidth: 360, marginBottom: 20 }} />
+    <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} maxLength={200} style={{ maxWidth: 360, marginBottom: 20 }} />
     <Resource {...remote}>{remote.value?.items.length ? <div className="wanted-grid">{remote.value.items.map((item) => <Card className="wanted-card" key={item.id}>
       <h2><Link to={`/wanted/${item.id}`}>{item.title}</Link> <Tag color={item.status === 'OPEN' ? 'blue' : undefined}>{wantedStatusLabels[item.status]}</Tag></h2>
       <div className="wanted-description">{item.description || '发布者暂未填写补充说明。'}</div>

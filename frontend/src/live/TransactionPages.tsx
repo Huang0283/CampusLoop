@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Alert, Badge, Button, Card, Descriptions, Form, Input, Pagination, Popconfirm, Rate, Select, Space, Steps, Tabs, Tag, Timeline, Typography } from 'antd'
 import { AimOutlined, BellFilled, MessageFilled, MoneyCollectFilled } from '@ant-design/icons'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { MeetupWriteRequest, Notification, OrderStatus, ReviewWriteRequest } from '../sdk'
-import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
+import { Failure, NoItems, Page, Resource, useMutation, useNotificationsResource, useRemote } from './common'
 import { ReportButton } from './ReportButton'
 import { useSession } from './session'
 import { useAttemptKey } from './idempotency'
@@ -40,6 +40,7 @@ export function OrderPage() {
   const events = useRemote(`events-${id}`, (signal) => api.data(api.listOrderEvents({ path: { orderId }, signal })), 5000)
   const mutation = useMutation()
   const [reason, setReason] = useState('')
+  const completionButtonRef = useRef<HTMLButtonElement>(null)
   const item = remote.value
   const confirmedComplete = item && (user.id === item.buyer.id ? item.buyerConfirmedComplete : item.sellerConfirmedComplete)
   const confirmedMeetup = item?.meetup && (user.id === item.buyer.id ? item.meetup.buyerConfirmed : item.meetup.sellerConfirmed)
@@ -53,7 +54,11 @@ export function OrderPage() {
       <div style={{ margin: '16px 0' }}><Space wrap>
         {mutable && <Link to={`/transactions/${item.id}/meetup`}>{item.meetup ? '修改见面约定' : '安排见面'}</Link>}
         {mutable && item.meetup && <Button disabled={confirmedMeetup || meetupNeedsReschedule} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.confirmMeetup({ path: { orderId }, body: { meetupId: item.meetup!.id, version: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}>确认当前版本</Button>}
-        {item.status === 'MEETUP_ARRANGED' && <Popconfirm title="确认已实际完成这次交易？" onConfirm={() => mutation.run(async () => { await api.confirmOrderComplete({ path: { orderId }, body: { meetupVersion: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}><Button type="primary" disabled={confirmedComplete} loading={mutation.busy}>我已完成交易</Button></Popconfirm>}
+        {item.status === 'MEETUP_ARRANGED' && <Popconfirm title="确认已实际完成这次交易？" onCancel={() => {
+          window.requestAnimationFrame(() => {
+            completionButtonRef.current?.focus({ preventScroll: true })
+          })
+        }} onConfirm={() => mutation.run(async () => { await api.confirmOrderComplete({ path: { orderId }, body: { meetupVersion: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}><Button ref={completionButtonRef} type="primary" disabled={confirmedComplete} loading={mutation.busy}>我已完成交易</Button></Popconfirm>}
         {item.status === 'COMPLETED' && <Link to={`/transactions/${item.id}/review`}>评价交易</Link>}
         <ReportButton targetType="ORDER" targetId={item.id} orderRole={user.id === item.seller.id ? 'seller' : 'buyer'} />
       </Space></div>
@@ -89,14 +94,13 @@ export function ReviewPage() {
   const [done, setDone] = useState(false)
   const attemptKey = useAttemptKey()
   return <Page title="评价交易" subtitle="分享真实的交易体验" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card className="review-card">{remote.value && <ProductSummary product={remote.value.product} />}<Failure error={mutation.error} />{done ? <Alert type="success" title="评价已保存。" /> : remote.value?.status !== 'COMPLETED' ? <Alert type="warning" title="双方完成交易后才可评价。" /> : <Form layout="vertical" onFinish={(values: Omit<ReviewWriteRequest, 'orderId'>) => void mutation.run(async () => { await api.createReview({ body: { ...values, orderId: Number(id) }, headers: api.idempotencyHeaders(attemptKey(values)) }); setDone(true) })}>
-    {[['overall', '总体评价'], ['descriptionAccuracy', '描述准确度'], ['communication', '沟通体验'], ['punctuality', '守时情况']].map(([name, label]) => <Form.Item key={name} name={name} label={label} rules={[{ required: true, type: 'number', min: 1, max: 5 }]}><Rate /></Form.Item>)}
+    {[['overall', '总体评价'], ['descriptionAccuracy', '描述准确度'], ['communication', '沟通体验'], ['punctuality', '守时情况']].map(([name, label]) => <Form.Item key={name} name={name} label={label} rules={[{ required: true, type: 'number', min: 1, max: 5 }]}><Rate aria-label={label} /></Form.Item>)}
     <Form.Item name="comment" label="评价内容"><Input.TextArea maxLength={1000} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy}>提交评价</Button>
   </Form>}</Card></Resource></Page>
 }
 
 export function NotificationsPage() {
-  const user = useSession((state) => state.user)
-  const remote = useRemote(`notifications-${user?.id}`, (signal) => api.data(api.listNotifications({ signal })), 5000)
+  const remote = useNotificationsResource()
   const mutation = useMutation()
   const navigate = useNavigate()
   const notifications = uniqueNotifications(remote.value ?? [])
@@ -104,7 +108,7 @@ export function NotificationsPage() {
   const groupOf = (item: Notification) => item.type === 'MESSAGE' ? '消息' : item.type.startsWith('OFFER_') ? '报价' : item.type === 'MATCH_FOUND' ? '匹配' : '系统'
   const visible = notifications.filter((item) => group === '全部' || groupOf(item) === group)
   const config = { 消息: { icon: <MessageFilled />, color: '#2f6bff' }, 报价: { icon: <MoneyCollectFilled />, color: '#52c41a' }, 匹配: { icon: <AimOutlined />, color: '#fa8c16' }, 系统: { icon: <BellFilled />, color: '#722ed1' } }
-  return <Page title="通知" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged(); remote.reload() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><Tabs activeKey={group} onChange={setGroup} items={['全部', '消息', '报价', '匹配', '系统'].map((value) => ({ key: value, label: value }))} /><Resource {...remote}>
-    {visible.length ? visible.map((item) => <article key={item.id} className={`notification-row ${item.read ? '' : 'is-unread'}`}><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {item.title}</h2><p>{item.content}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged(); remote.reload() })}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={() => void mutation.run(async () => { if (!item.read) { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() } navigate(item.link!) })}>查看</Button>}</div></article>) : <NoItems />}
+  return <Page title="通知" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><Tabs activeKey={group} onChange={setGroup} items={['全部', '消息', '报价', '匹配', '系统'].map((value) => ({ key: value, label: value }))} /><Resource {...remote}>
+    {visible.length ? visible.map((item) => <article key={item.id} className={`notification-row ${item.read ? '' : 'is-unread'}`}><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {item.title}</h2><p>{item.content}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() })}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={() => void mutation.run(async () => { if (!item.read) { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() } navigate(item.link!) })}>查看</Button>}</div></article>) : <NoItems />}
   </Resource></div><MyReports /></Page>
 }

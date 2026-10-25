@@ -1,8 +1,10 @@
 import { client } from './generated/client.gen'
 import type { BrowserAuthResult } from './generated/types.gen'
 import { restoreBrowserSession } from './generated/sdk.gen'
+import { resolveWebSocketUrl } from './urls'
 
 export const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001').replace(/\/$/, '')
+export const webSocketUrl = resolveWebSocketUrl(apiBaseUrl, import.meta.env.VITE_WS_URL)
 let tokens: Pick<BrowserAuthResult, 'accessToken' | 'expiresIn'> | null = null
 let refreshFlight: { generation: number; promise: Promise<void> } | null = null
 let generation = 0

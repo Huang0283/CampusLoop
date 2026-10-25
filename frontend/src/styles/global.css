@@ -167,7 +167,7 @@ a:hover {
   }
 
   .app-mobile-nav-list button.is-active {
-    color: #1677ff;
+    color: var(--color-primary);
   }
 
   .app-mobile-nav-list button:focus-visible {

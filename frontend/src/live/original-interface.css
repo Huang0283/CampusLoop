@@ -64,6 +64,9 @@
 .catalog-filters { padding: 20px 24px; margin-bottom: 24px; }
 .catalog-filters .ant-space { row-gap: 12px !important; }
 .catalog-card .ant-card-cover { position: relative; }
+.catalog-card .ant-card-body { min-width: 0; overflow-wrap: anywhere; }
+.catalog-seller > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.catalog-seller .ant-avatar { flex-shrink: 0; }
 .catalog-seller { padding-top: 12px; border-top: 1px solid #f0f2f5; margin-top: 12px; display: flex; align-items: center; gap: 8px; color: #646a73; font-size: 13px; }
 .form-surface { max-width: 840px; margin: auto; }
 .form-surface .ant-card-body { padding: 32px 40px; }
@@ -74,7 +77,8 @@
 .form-actions { border-top: 1px solid #eef0f3; margin-top: 24px; padding-top: 24px; display: flex; justify-content: flex-end; gap: 16px; align-items: center; flex-wrap: wrap; }
 .wanted-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 24px; }
 .wanted-card { height: 100%; }
-.wanted-card h2 { margin: 0 0 10px; font-size: 18px; }
+.wanted-card h2 { margin: 0 0 10px; font-size: 18px; overflow-wrap: anywhere; }
+.wanted-footer > span { min-width: 0; overflow-wrap: anywhere; }
 .wanted-card .wanted-description { color: #646a73; min-height: 44px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .wanted-facts { display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; }
 .wanted-footer { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13px; color: #646a73; border-top: 1px solid #eef0f3; padding-top: 16px; }
@@ -242,4 +246,38 @@
   .admin-panel { padding: 12px; }
   .match-results .catalog-card { display: block; }
   .match-results .ant-card-cover { width: auto; margin: 0; }
+}
+
+/* Phase 5 readable text colors */
+.campus-app .ant-menu-item-selected {
+  color: #2458cf;
+}
+
+.campus-app .original-price,
+.campus-app .chat-session-copy p,
+.campus-app .chat-session-meta,
+.campus-app .chat-time,
+.campus-app .chat-online,
+.campus-app .chat-offer-status {
+  color: #59636f;
+}
+
+.campus-app .ant-tag.ant-tag-green.ant-tag-filled {
+  color: #237804;
+}
+
+/* Phase 5 short text and image overlays */
+.campus-app .person .ant-avatar,
+.campus-app .chat-session .ant-avatar,
+.campus-app .message-row .ant-avatar {
+  color: #2458cf;
+}
+
+.campus-app .ant-badge .ant-badge-count {
+  color: #fff;
+  background-color: #b42318;
+}
+
+.campus-app .gallery-count {
+  background: rgba(0, 0, 0, 0.75);
 }
