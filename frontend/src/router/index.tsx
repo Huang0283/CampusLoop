@@ -1,15 +1,17 @@
-import { createBrowserRouter, Link, Navigate } from 'react-router-dom'
+import { Suspense } from 'react'
+import { AuthPage, ProfilePage, AdminPage, CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage, ReportsPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage, ChatPage, ChatListPage } from './lazyPages'
+import { createBrowserRouter, Link, Navigate, Outlet } from 'react-router-dom'
 import { Result } from 'antd'
 import { Guard, Shell } from '../live/common'
-import { AuthPage, ProfilePage } from '../live/AccountPages'
-import { AdminPage } from '../live/AdminPages'
-import { RouteFailure } from '../live/ErrorBoundary'
-import { CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage } from '../live/MarketPages'
-import { ReportsPage } from '../live/ReportsPage'
-import { OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
-import { ChatPage, ChatListPage } from '../live/ChatPages'
 
-export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ errorElement: <RouteFailure />, children: [
+
+import { RouteFailure } from '../live/ErrorBoundary'
+
+
+
+
+
+export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ element: <Suspense fallback={<div role="status" style={{ padding: 24 }}>正在加载页面…</div>}><Outlet /></Suspense>, errorElement: <RouteFailure />, children: [
   { path: '/', element: <Navigate to="/market" replace /> },
   { path: '/login', element: <AuthPage /> }, { path: '/register', element: <AuthPage registering /> },
   { path: '/profile', element: <Guard><ProfilePage /></Guard> },

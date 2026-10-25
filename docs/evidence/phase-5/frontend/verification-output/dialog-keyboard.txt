@@ -1,0 +1,13 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts m2-dialog-keyboard.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [edge] › tests\live\m2-dialog-keyboard.spec.ts:65:1 › transaction confirmation supports keyboard cancellation and Escape without writes (contract fixture) (1.5s)
+  ✓  2 [edge] › tests\live\m2-dialog-keyboard.spec.ts:97:1 › admin drawer keeps keyboard focus inside and Escape returns to its opener without writes (contract fixture) (1.6s)
+  ✓  3 [chrome] › tests\live\m2-dialog-keyboard.spec.ts:65:1 › transaction confirmation supports keyboard cancellation and Escape without writes (contract fixture) (1.4s)
+  ✓  4 [chrome] › tests\live\m2-dialog-keyboard.spec.ts:97:1 › admin drawer keeps keyboard focus inside and Escape returns to its opener without writes (contract fixture) (836ms)
+
+  4 passed (8.9s)
