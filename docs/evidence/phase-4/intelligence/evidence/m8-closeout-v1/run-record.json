@@ -1,0 +1,111 @@
+{
+  "decision": "NO_GO",
+  "dependencies": "Python standard library only",
+  "deterministic": true,
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.10.11"
+  },
+  "outputHashes": {
+    "latency-dev.json": "bbf6f1fbc422bad96ebd349b4f057ddf1cfdff85b4f7350793b8df55da25aecb",
+    "phase2-tests.txt": "ef1aaa6137a93cb60ae19877cdd095bea432b3918e396eabf28d5874bbc2315c",
+    "phase3-tests.txt": "4b8f1c9be2f9ef63d239de8548c9fed8ab98f566c9cf2c93ef4223306b5e89b8",
+    "phase4-tests.txt": "7b8672b13beed5250fef602b818cef5f944a542315ac36bf6ab99ff1b7675ca8",
+    "price-comparison.json": "f74131c5b0eb47544e463643885f5da56ae941c62b4befd9b8e494e5546b24ab",
+    "readiness.json": "e0a20aee02e398361e539bd938c0e6f9579e790b24dde2076b058af225511a9b",
+    "trust-risk-evaluation.json": "fd55a7e83f4a5541b02867ca9d81a94c195953a52f4f91b380b9a2161692694d"
+  },
+  "parameters": {
+    "candidateEnabled": true,
+    "candidateTimeoutMs": 300
+  },
+  "seed": null,
+  "sourceCommit": "f1b9b7519b51d896c09d36e391632d9460da1940",
+  "sourceHashes": {
+    "contracts/m8-phase4/readiness-policy.json": "7df09831395df05a01c7b47e1334a831ad8efe8807e74b6644bbe4530dac0847",
+    "contracts/m8-phase4/service-contract.json": "f6adc9f7d0b3c495c6aaac50562211611bb38a30ddbd6d2acd07a509cdf15084",
+    "scripts/m8_phase2/contract_check.py": "8de0ccb77f40a8ca8d3afa44e89caa3c8233f1afc3c8f29bb3a0a23fdcbc0c35",
+    "scripts/m8_phase2/pipeline.py": "84573a594494094f850ee59f836755e0c8cb2804d8e0fa9343e6a4942ecd5392",
+    "scripts/m8_phase2/test_contracts.py": "ebffac651cdeda9b1ff50840a6dfe02a47cf09f9a10a988704086156adfc790f",
+    "scripts/m8_phase2/test_pipeline.py": "7b367957cc1dbce050d3ff450cc875eec2fa084628a74162c0cd1033506f5db0",
+    "services/m8_baseline/__init__.py": "b4fa52f42718a8e6655e270a1058d19ac91f53532b314960bc9b8cc63f0fee17",
+    "services/m8_baseline/__main__.py": "183efc71f1af6a1721b61545d66915761e1a73c7b30e39a0d69b3328a822074a",
+    "services/m8_baseline/client.py": "4c37dd3948003f5692da1121f516660f41f71630b38219c5a03624089a262337",
+    "services/m8_baseline/engine.py": "fb89993594f7d3a926951e63a550d436031ba7b6901941bab634073dcb5828ca",
+    "services/m8_baseline/evaluate.py": "2d825d86146f9d61c99e7150ad55de28fc6e61240c37da78d47857add1eb8661",
+    "services/m8_baseline/http_service.py": "83d7fffcd6e08a53f94797abd4600fda94e6fd99a6f5ec758f32b7b3a344dae5",
+    "services/m8_baseline/response_validation.py": "6f44e697314fb6413fc09f05f2fcbfdd25098555bb0c3ff91ce8715e4d222bd6",
+    "services/m8_baseline/tests/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "services/m8_baseline/tests/test_client.py": "a669fdbbcf550310ef7554ccce61f1ede42e98f537cf130b5b15d92a10b17972",
+    "services/m8_baseline/tests/test_client_http.py": "de80c2d79fa70d157f4d7484fd722cf840f9f153da035802179c8500b34ce1ef",
+    "services/m8_baseline/tests/test_engine.py": "2520bf4968ae513478a08bf67262e974f23e05f7d47daadb145a27600e432306",
+    "services/m8_baseline/tests/test_evaluation.py": "f35920304281bbde7cc10a32544a38be695cec005aeb40e2ef39db82e8212020",
+    "services/m8_baseline/tests/test_http.py": "356423c121f1c5a652bf1e2ace56e42372ebc19bcf9249681715abddafb3d8c5",
+    "services/m8_baseline/verify.py": "8fd67b80e0a0e19f63c46a2fe996238c13093312e2c529d71880257e0a9845d3",
+    "services/m8_phase4/__init__.py": "20c2591fe0c0913a7dff26a2022742e9bec63bb3c477c67d1b05691fa654858a",
+    "services/m8_phase4/evaluate.py": "4cf4a7694db069531907b7059e536f4ecfae5c5b95f40f6ab69b59c5630121ae",
+    "services/m8_phase4/metrics.py": "290662f87ab6e57f9abd33395fb069b3e78006be016a5cb0ab14d5c4db309407",
+    "services/m8_phase4/readiness.py": "b282edb19813cda61ea11d8841f7d840835c3e6f75cee1bc65808c889718ca23",
+    "services/m8_phase4/router.py": "c5ac154e669b5b4a256da6d698df52354cc7713f64f8e180d0d48e16748a978c",
+    "services/m8_phase4/tests/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "services/m8_phase4/tests/test_phase4.py": "0c225e0042c4417a513782675c27d6ba6a85218a912b7745090f36f76ffe8091",
+    "services/m8_phase4/tests/test_readiness.py": "1d7cac9a74dcc3e7b993722e826570f5d97db03f1e4897a3e6405b1154a97874",
+    "services/m8_phase4/tests/test_verify.py": "a22578495a5142886a644b0a5f169d5101d35f911ed836cb7920ee77f0e08803",
+    "services/m8_phase4/verify.py": "f0e17a79e7847d41bc7bc0641aade8e4f0ebf9920cca6f1efb0d53971d4a0dee"
+  },
+  "suites": {
+    "phase2": {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/m8_phase2",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "log": "phase2-tests.txt",
+      "logHash": "ef1aaa6137a93cb60ae19877cdd095bea432b3918e396eabf28d5874bbc2315c",
+      "returnCode": 0,
+      "status": "PASS",
+      "testCount": 14
+    },
+    "phase3": {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "services/m8_baseline/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "log": "phase3-tests.txt",
+      "logHash": "4b8f1c9be2f9ef63d239de8548c9fed8ab98f566c9cf2c93ef4223306b5e89b8",
+      "returnCode": 0,
+      "status": "PASS",
+      "testCount": 31
+    },
+    "phase4": {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "services/m8_phase4/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "log": "phase4-tests.txt",
+      "logHash": "7b8672b13beed5250fef602b818cef5f944a542315ac36bf6ab99ff1b7675ca8",
+      "returnCode": 0,
+      "status": "PASS",
+      "testCount": 29
+    }
+  },
+  "testsReturnCode": 0,
+  "verificationVersion": "m8-phase4-verification-v2"
+}

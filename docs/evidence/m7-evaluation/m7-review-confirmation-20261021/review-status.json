@@ -1,0 +1,29 @@
+{
+  "M8IndependentReview": "PENDING_UNCHANGED",
+  "actualReviewDate": null,
+  "actualReviewTime": null,
+  "confirmationTimeIsNotReviewTime": true,
+  "confirmedAtUtc": "2026-10-20T17:22:02.660925+00:00",
+  "declaredHumanReviewedPairs": 20736,
+  "formalAcceptance": false,
+  "labelCounts": {
+    "0": 19744,
+    "1": 118,
+    "2": 757,
+    "U": 117
+  },
+  "modifiedLabels": 0,
+  "noGoRemains": true,
+  "reviewConclusion": "APPROVED_UNCHANGED",
+  "reviewer": "KkkkRui",
+  "sourceQueryAuthorship": "Codex (AI); preserved independently from human review authorship",
+  "sourceQueryDatasetVersion": "m7-ai-scenarios-draft-20261021-v1",
+  "status": "M7_LABELS_APPROVED_REVIEW_TIME_UNRECORDED",
+  "structuredArchiveAccepted": false,
+  "taskCounts": {
+    "matching": 10368,
+    "search": 10368
+  },
+  "testSetSealed": false,
+  "timestampCompletePairs": 0
+}

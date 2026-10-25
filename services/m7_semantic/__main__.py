@@ -5,7 +5,7 @@ from pathlib import Path
 from services.m7_baseline.engine import ROOT
 from .hybrid import rank
 from .index import VectorIndex
-from .model import Encoder, document_text
+from .model import CandidateUnavailable, Encoder, document_text
 
 
 def rows(path):
@@ -25,7 +25,18 @@ def main():
     dictionary = json.loads(args.dictionary.read_text(encoding="utf-8"))
     products = sorted(rows(args.products), key=lambda p: int(p["productId"]))
     encoder = Encoder(args.model_dir, dictionary)
-    index = VectorIndex(args.index, identity=encoder.identity)
+    if args.action == "query" and args.request is None:
+        parser.error("query requires --request")
+    request = json.loads(args.request.read_text(encoding="utf-8")) if args.action == "query" else None
+    try:
+        index = VectorIndex(args.index, identity=encoder.identity)
+    except CandidateUnavailable as exc:
+        if args.action != "query":
+            raise
+        result = rank(products, request, dictionary, sort=args.sort)
+        result["metadata"].update(degraded=True, fallbackReason=str(exc))
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True, allow_nan=False))
+        return
     try:
         if args.action in {"build", "update"}:
             vectors = encoder.encode([document_text(p, dictionary) for p in products])
@@ -35,9 +46,6 @@ def main():
             else:
                 result = {"updates": index.upsert(products, vectors), "logicalDigest": index.logical_digest()}
         else:
-            if args.request is None:
-                parser.error("query requires --request")
-            request = json.loads(args.request.read_text(encoding="utf-8"))
             result = rank(products, request, dictionary, encoder=encoder, index=index, experimental=True, sort=args.sort)
         print(json.dumps(result, ensure_ascii=False, sort_keys=True, allow_nan=False))
     finally:

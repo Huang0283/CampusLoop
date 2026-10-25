@@ -1,0 +1,73 @@
+{
+  "sourceCommit": "87750c161b59a8e496c7b6775cdfd353267017e6",
+  "testedAtUtc": "2026-10-20T08:37:06.583Z",
+  "environment": {
+    "node": "v24.21.0",
+    "platform": "win32"
+  },
+  "checks": [
+    {
+      "name": "transaction-prototype",
+      "command": [
+        "npm",
+        "run",
+        "test:transaction"
+      ],
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "transaction-prototype.txt",
+      "sha256": "8dcc0f8b13352d01579ae414c9e24a47fc609fb1aa9d36130a1d15299829904d"
+    },
+    {
+      "name": "frontend-lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "frontend-lint.txt",
+      "sha256": "0d4695f4da2780a75fa8d28ae5fabe88093b7de3774417c514e2ecd90774e01f"
+    },
+    {
+      "name": "frontend-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "frontend-build.txt",
+      "sha256": "78552b21203e9a4f0701262c2189857afcbb45b73c1c7100900606c5b4ceeabf"
+    },
+    {
+      "name": "sdk-check",
+      "command": [
+        "npm",
+        "run",
+        "sdk:check"
+      ],
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "sdk-check.txt",
+      "sha256": "242de3bf92a1c1f0542f639a791f9b07d3ee80e78d02624b5a319efbc7196682"
+    },
+    {
+      "name": "sdk-drift",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "src/sdk/generated/"
+      ],
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "sdk-drift.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "status": "PASS"
+}

@@ -8,7 +8,7 @@ def regression_metrics(rows: list[dict]) -> dict:
     """Compute only from eligible L3 rows; never substitute listing/offer prices."""
     eligible = [
         row for row in rows
-        if row.get("labelLevel") == "L3_COMPLETED"
+        if row.get("labelLevel") == "L3_COMPLETED_TRANSACTION"
         and isinstance(row.get("transactionPriceFen"), int)
         and not isinstance(row.get("transactionPriceFen"), bool)
         and row["transactionPriceFen"] > 0
@@ -16,6 +16,11 @@ def regression_metrics(rows: list[dict]) -> dict:
         and not isinstance(row.get("recommendedFen"), bool)
         and isinstance(row.get("lowerFen"), int)
         and isinstance(row.get("upperFen"), int)
+        and not isinstance(row.get("lowerFen"), bool)
+        and not isinstance(row.get("upperFen"), bool)
+        and 0 < row["lowerFen"] <= row["upperFen"]
+        and row["recommendedFen"] >= 0
+        and row["lowerFen"] <= row["recommendedFen"] <= row["upperFen"]
     ]
     if not eligible:
         return {
@@ -26,7 +31,7 @@ def regression_metrics(rows: list[dict]) -> dict:
             "mape": None,
             "intervalCoverage": None,
             "normalizedWidth": None,
-            "reason": "No eligible L3 completed-transaction labels; listing and accepted-offer prices are not truth.",
+            "reason": "No eligible L3_COMPLETED_TRANSACTION rows with valid predictions; listing and accepted-offer prices are not truth.",
         }
     truths = [row["transactionPriceFen"] for row in eligible]
     absolute = [abs(row["recommendedFen"] - row["transactionPriceFen"]) for row in eligible]

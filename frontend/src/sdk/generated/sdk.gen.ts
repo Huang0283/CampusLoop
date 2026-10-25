@@ -2,7 +2,7 @@
 
 import { type Client, type ClientMeta, formDataBodySerializer, type Options as Options2, type RequestResult, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, AdminUpdateUserStatusData, AdminUpdateUserStatusErrors, AdminUpdateUserStatusResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateChatSessionData, CreateChatSessionErrors, CreateChatSessionResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetChatMessageImageData, GetChatMessageImageErrors, GetChatMessageImageResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetHealthData, GetHealthResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetReadinessData, GetReadinessErrors, GetReadinessResponses, GetReportEvidenceData, GetReportEvidenceErrors, GetReportEvidenceResponses, GetUserRiskCluesData, GetUserRiskCluesErrors, GetUserRiskCluesResponses, GetUserTrustData, GetUserTrustErrors, GetUserTrustResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyProductsData, ListMyProductsErrors, ListMyProductsResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListSessionOffersData, ListSessionOffersErrors, ListSessionOffersResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, RestoreBrowserSessionData, RestoreBrowserSessionErrors, RestoreBrowserSessionResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
+import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminGetProductData, AdminGetProductErrors, AdminGetProductResponses, AdminGetUserTrustData, AdminGetUserTrustErrors, AdminGetUserTrustResponses, AdminListProductsData, AdminListProductsErrors, AdminListProductsResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, AdminModerateProductData, AdminModerateProductErrors, AdminModerateProductResponses, AdminUpdateUserStatusData, AdminUpdateUserStatusErrors, AdminUpdateUserStatusResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateChatSessionData, CreateChatSessionErrors, CreateChatSessionResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetChatMessageImageData, GetChatMessageImageErrors, GetChatMessageImageResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetHealthData, GetHealthResponses, GetMyTrustData, GetMyTrustErrors, GetMyTrustResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetReadinessData, GetReadinessErrors, GetReadinessResponses, GetReportEvidenceData, GetReportEvidenceErrors, GetReportEvidenceResponses, GetUserRiskCluesData, GetUserRiskCluesErrors, GetUserRiskCluesResponses, GetUserTrustData, GetUserTrustErrors, GetUserTrustResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyProductsData, ListMyProductsErrors, ListMyProductsResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListSessionOffersData, ListSessionOffersErrors, ListSessionOffersResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, OverrideReportData, OverrideReportErrors, OverrideReportResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, RestoreBrowserSessionData, RestoreBrowserSessionErrors, RestoreBrowserSessionResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -295,6 +295,26 @@ export const updateWanted = <ThrowOnError extends boolean = false>(options: Opti
     }
 });
 
+/**
+ * Read own trust details; authenticated owner only
+ */
+export const getMyTrust = <ThrowOnError extends boolean = false>(options?: Options<GetMyTrustData, ThrowOnError>): RequestResult<GetMyTrustResponses, GetMyTrustErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<GetMyTrustResponses, GetMyTrustErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/users/me/trust',
+    ...options
+});
+
+/**
+ * Audited administrator trust read
+ */
+export const adminGetUserTrust = <ThrowOnError extends boolean = false>(options: Options<AdminGetUserTrustData, ThrowOnError>): RequestResult<AdminGetUserTrustResponses, AdminGetUserTrustErrors, ThrowOnError, 'data'> => (options.client ?? client).get<AdminGetUserTrustResponses, AdminGetUserTrustErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/users/{userId}/trust',
+    ...options
+});
+
 export const getUserTrust = <ThrowOnError extends boolean = false>(options: Options<GetUserTrustData, ThrowOnError>): RequestResult<GetUserTrustResponses, GetUserTrustErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetUserTrustResponses, GetUserTrustErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
     url: '/users/{userId}/trust',
@@ -540,6 +560,40 @@ export const markAllNotificationsRead = <ThrowOnError extends boolean = false>(o
     ...options
 });
 
+/**
+ * Administrator-only listing queue, including hidden goods. Reads are audited; deleted goods are excluded.
+ */
+export const adminListProducts = <ThrowOnError extends boolean = false>(options?: Options<AdminListProductsData, ThrowOnError>): RequestResult<AdminListProductsResponses, AdminListProductsErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<AdminListProductsResponses, AdminListProductsErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/products',
+    ...options
+});
+
+/**
+ * Administrator-only product detail, including hidden goods. Reads are audited.
+ */
+export const adminGetProduct = <ThrowOnError extends boolean = false>(options: Options<AdminGetProductData, ThrowOnError>): RequestResult<AdminGetProductResponses, AdminGetProductErrors, ThrowOnError, 'data'> => (options.client ?? client).get<AdminGetProductResponses, AdminGetProductErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/products/{productId}',
+    ...options
+});
+
+/**
+ * Human hide/restore with mandatory reason, optimistic updatedAt and idempotency. Cannot change reserved/sold/deleted goods or republish owner-hidden goods. Owners cannot bypass a moderation hold.
+ */
+export const adminModerateProduct = <ThrowOnError extends boolean = false>(options: Options<AdminModerateProductData, ThrowOnError>): RequestResult<AdminModerateProductResponses, AdminModerateProductErrors, ThrowOnError, 'data'> => (options.client ?? client).post<AdminModerateProductResponses, AdminModerateProductErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/products/{productId}/moderation',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
 export const adminListUsers = <ThrowOnError extends boolean = false>(options?: Options<AdminListUsersData, ThrowOnError>): RequestResult<AdminListUsersResponses, AdminListUsersErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<AdminListUsersResponses, AdminListUsersErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -583,10 +637,27 @@ export const adminListReports = <ThrowOnError extends boolean = false>(options?:
     ...options
 });
 
+/**
+ * ADMIN only. REPORT_ALREADY_HANDLED and IDEMPOTENCY_CONFLICT return 409; the same successful key replays without a second decision.
+ */
 export const resolveReport = <ThrowOnError extends boolean = false>(options: Options<ResolveReportData, ThrowOnError>): RequestResult<ResolveReportResponses, ResolveReportErrors, ThrowOnError, 'data'> => (options.client ?? client).post<ResolveReportResponses, ResolveReportErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/admin/reports/{reportId}/resolve',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Explicit audited human override. Stale expectedStatus/expectedHandledAt returns REPORT_STALE (409); conflicting key reuse returns IDEMPOTENCY_CONFLICT (409). No automatic penalty.
+ */
+export const overrideReport = <ThrowOnError extends boolean = false>(options: Options<OverrideReportData, ThrowOnError>): RequestResult<OverrideReportResponses, OverrideReportErrors, ThrowOnError, 'data'> => (options.client ?? client).post<OverrideReportResponses, OverrideReportErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/reports/{reportId}/override',
     ...options,
     headers: {
         'Content-Type': 'application/json',
