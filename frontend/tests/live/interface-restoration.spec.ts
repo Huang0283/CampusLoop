@@ -124,6 +124,7 @@ test('chat matches the original proportions and compact offer/composer while kee
   await setup(page)
   await page.setViewportSize({ width: 1720, height: 960 })
   await page.routeWebSocket('**/ws', (socket) => {
+    if (process.env.CAMPUSLOOP_EXPECT_WS_URL) expect(socket.url()).toBe(process.env.CAMPUSLOOP_EXPECT_WS_URL)
     socket.onMessage(() => socket.send(JSON.stringify({ type: 'AUTH_OK', payload: {} })))
   })
   await page.route('**/chat/sessions/801/messages?**', (route) => route.fulfill({ json: { data: [

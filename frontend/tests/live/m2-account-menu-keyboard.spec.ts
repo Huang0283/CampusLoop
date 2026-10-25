@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { routeApiFixture } from '../api-fixture'
 
 for (const key of ['Enter', 'Space']) {
   test(`account menu supports Tab, ${key}, arrows, Escape and navigation (session fixture)`, async ({ page }) => {
@@ -11,8 +12,8 @@ for (const key of ['Enter', 'Space']) {
     const pageErrors: string[] = []
     page.on('pageerror', error => pageErrors.push(error.name))
 
-    await page.route(
-      url => url.origin === 'http://localhost:8001',
+    await routeApiFixture(
+      page,
       route => {
         const request = route.request()
         const path = new URL(request.url()).pathname

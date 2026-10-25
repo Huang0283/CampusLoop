@@ -59,7 +59,7 @@ export function useChat(sessionId: number) {
     const connect = () => {
       if (disposed || !api.accessToken() || !navigator.onLine || socket?.readyState === WebSocket.OPEN || socket?.readyState === WebSocket.CONNECTING) return
       setConnection('connecting')
-      socket = new WebSocket(api.apiBaseUrl.replace(/^http/, 'ws') + '/ws')
+      socket = new WebSocket(api.webSocketUrl)
       socket.onopen = () => socket?.send(JSON.stringify({ type: 'AUTH', accessToken: api.accessToken() }))
       socket.onmessage = (event) => {
         try {

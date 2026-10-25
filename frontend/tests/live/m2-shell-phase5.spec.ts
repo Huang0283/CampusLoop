@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
+import { routeApiFixture } from '../api-fixture'
 
 const user = {
   id: 901, nickname: 'Shell fixture', role: 'USER', status: 'ACTIVE',
@@ -14,7 +15,7 @@ async function installSessionFixture(page: Page, unavailable = false) {
   }
   page.on('pageerror', error => state.pageErrors.push(error.name))
 
-  await page.route(url => url.origin === 'http://localhost:8001', route => {
+  await routeApiFixture(page, route => {
     const request = route.request()
     const path = new URL(request.url()).pathname
     const method = request.method()

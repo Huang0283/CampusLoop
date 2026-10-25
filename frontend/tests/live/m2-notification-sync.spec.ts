@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { routeApiFixture } from '../api-fixture'
 
 test('notifications share one poller and synchronize read actions with the header (contract fixture)', async ({ page }) => {
   const user = {
@@ -20,17 +21,12 @@ test('notifications share one poller and synchronize read actions with the heade
     if (message.type() === 'error') errors.push(message.text())
   })
 
-  await page.route('**/*', async route => {
+  await routeApiFixture(page, async route => {
     const request = route.request()
-    if (!['fetch', 'xhr'].includes(request.resourceType())) return route.continue()
 
     const url = new URL(request.url())
     const method = request.method()
     const key = `${method} ${url.pathname}`
-    if (url.origin !== 'http://localhost:8001') {
-      unexpected.push(key)
-      return route.abort()
-    }
     if (method === 'OPTIONS') return route.fulfill({ status: 204 })
 
     let data: unknown

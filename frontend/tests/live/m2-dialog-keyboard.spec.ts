@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
+import { routeApiFixture } from '../api-fixture'
 
 async function setup(page: Page, role: 'USER' | 'ADMIN') {
   const unexpected: string[] = []
@@ -33,7 +34,7 @@ async function setup(page: Page, role: 'USER' | 'ADMIN') {
   }
 
   page.on('pageerror', error => errors.push(error.name))
-  await page.route(url => url.origin === 'http://localhost:8001', route => {
+  await routeApiFixture(page, route => {
     const request = route.request()
     const path = new URL(request.url()).pathname
     const method = request.method()
