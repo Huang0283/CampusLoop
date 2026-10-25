@@ -68,3 +68,6 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 
 # Bash line continuations must survive Windows checkouts.
 backend/scripts/*.sh text eol=lf
+
+# Preserve raw PR122 acceptance logs and their hashes across platforms.
+/docs/evidence/phase-5/backend-platform/evidence/m9-pr122-20261025/** -text -whitespace

@@ -1,0 +1,12 @@
+total 28448
+-rw-r-----    1 0        0          9089285 Oct 25 04:11 7afbf0a7cfb1f05ed578e2b73274c557682cef87608e3a6bd49b478f30b8940a-json.log
+-rw-r-----    1 0        0         10000152 Oct 25 04:11 7afbf0a7cfb1f05ed578e2b73274c557682cef87608e3a6bd49b478f30b8940a-json.log.1
+-rw-r-----    1 0        0         10000155 Oct 25 04:11 7afbf0a7cfb1f05ed578e2b73274c557682cef87608e3a6bd49b478f30b8940a-json.log.2
+drwx------    2 0        0             4096 Oct 25 04:11 checkpoints
+-rw-------    1 0        0             3625 Oct 25 04:11 config.v2.json
+-rw-------    1 0        0             1512 Oct 25 04:11 hostconfig.json
+-rw-r--r--    1 0        0               13 Oct 25 04:11 hostname
+-rw-r--r--    1 0        0              148 Oct 25 04:11 hosts
+drwx--x---    2 0        0             4096 Oct 25 04:11 mounts
+-rw-r--r--    1 0        0              222 Oct 25 04:11 resolv.conf
+-rw-r--r--    1 0        0               71 Oct 25 04:11 resolv.conf.hash
