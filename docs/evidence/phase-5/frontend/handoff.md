@@ -110,3 +110,14 @@ M4 配合交易流程验证，M2 汇总证据并在修复后复验。
 
 日志：verification-output/meetup-confirm-diagnostic.txt。
 正式基线同步、交叉评审和 M10 最终验收仍待完成。
+
+## M4 交接补充（2026-10-26）
+
+分支 `task/m4-p5-transaction-fixes`，基线 `8e42674`，改动尚未提交，等待 M4 统一发 PR。
+
+- 已交付：[transaction-regression.md](m4/transaction-regression.md)、[permission-final-audit.md](m4/permission-final-audit.md)、[demo-recovery.md](m4/demo-recovery.md)，以及本目录 `browser-responsive-report.md`、`verification.md`、`deliverables.md` 的 M4 追加段。
+- 代码：举报闭环（处理时间/说明、`REPORT_RESULT` 通知、分页、自举报拦截、求购举报入口）、通知页分类与整行点击。
+- 验证：后端 21 个测试函数、`test:m4` 19 项、`test:transaction` 8 项、浏览器 23 项通过；lint 与 build 通过。
+- 待对签：`governance.py`、`transactions.py`、`Report` 模型与迁移 `0011` 需 M5/M6；WS 派生规则需 M9；M2 准备分支中交易/治理改动归属需 M2 确认。
+- 死锁：顺序双账号流程通过，并发死锁未复现，缺陷仍未关闭；M6 修复锁链后由 M4 复验。
+- 下一动作：M2/M3 交叉评审；M10 在最终候选复验；M2 汇总小组 PR。

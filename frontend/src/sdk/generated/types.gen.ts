@@ -410,6 +410,14 @@ export type Report = {
     description: string;
     status: ReportStatus;
     createdAt: string;
+    /**
+     * Set when an administrator resolves or rejects the report
+     */
+    handledAt: string | null;
+    /**
+     * Human decision visible to the reporter; internal audit records stay private
+     */
+    resolutionNote: string | null;
 };
 
 export type ReportResolutionRequest = {
@@ -2332,13 +2340,16 @@ export type CreateReportResponse = CreateReportResponses[keyof CreateReportRespo
 export type ListMyReportsData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
     url: '/reports/mine';
 };
 
 export type ListMyReportsResponses = {
     /**
-     * Reports created by the current user; no internal moderation notes.
+     * Reports created by the current user, newest first; no evidence keys or internal audit fields.
      */
     200: ReportListResponse;
 };

@@ -27,14 +27,16 @@ function requireStudent(navigate: ReturnType<typeof useNavigate>, from: string) 
 }
 
 export function ProductCards({ products, from, actions }: { products: Product[]; from?: string; actions?: (product: Product) => React.ReactNode }) {
+  const navigate = useNavigate()
+  const openProduct = (product: Product) => navigate(`/product/${product.id}`, { state: { from } })
   return <Row gutter={[24, 24]}>{products.map((product) => <Col key={product.id} xs={24} sm={12} md={8} lg={6}>
     <Card className="catalog-card" hoverable style={{ height: '100%', borderRadius: 12, overflow: 'hidden' }} styles={{ body: { padding: 16 } }} cover={<Link to={`/product/${product.id}`} state={{ from }}>{product.images[0] ? <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: 180, objectFit: 'cover', display: 'block' }} /> : <div style={{ height: 180, display: 'grid', placeItems: 'center', background: '#f5f5f5', color: '#595959' }}>暂无商品图片</div>}</Link>}>
-      <Link to={`/product/${product.id}`} state={{ from }} style={{ display: 'block', color: 'inherit', fontSize: 15, fontWeight: 600 }}>{product.title}</Link>
-      <Typography.Title level={4} style={{ color: '#1677ff', margin: '8px 0' }}>¥{product.price.toFixed(2)}</Typography.Title>
+      <Link to={`/product/${product.id}`} state={{ from }} className="catalog-title" onKeyDown={(event) => { if (event.key === ' ') { event.preventDefault(); openProduct(product) } }} style={{ display: 'block', color: 'inherit', fontSize: 15, fontWeight: 600 }}>{product.title}</Link>
+      <Typography.Title level={4} className="catalog-price">¥{product.price.toFixed(2)}</Typography.Title>
       <Space wrap><Tag color={product.status === 'ON_SALE' ? 'green' : undefined}>{stateLabel[product.status]}</Tag><span>{conditions.find((entry) => entry.value === product.condition)?.label || product.condition}</span></Space>
       <Typography.Paragraph type="secondary" style={{ margin: '8px 0 0' }}>{product.campusLocation || '地点未填写'}</Typography.Paragraph>
       <div className="catalog-seller"><Avatar size={24} src={product.seller.avatar}>{product.seller.nickname.slice(0, 1)}</Avatar><span>{product.seller.nickname}</span></div>
-      <div style={{ marginTop: 12 }}>{actions?.(product)}</div>
+      <div className="catalog-actions" style={{ marginTop: 12 }}>{actions?.(product)}</div>
     </Card>
   </Col>)}</Row>
 }
@@ -142,7 +144,7 @@ export function ProductPage() {
           navigate(`/chat/${session.id}`)
         })}>联系卖家</Button>
         <div className="seller-secondary-actions">{user?.id === item.seller.id && <Link to={`/product/${item.id}/edit`}>编辑商品</Link>}
-        {user?.role === 'USER' && <><ReportButton label="举报商品" targetType="PRODUCT" targetId={item.id} /><ReportButton label="举报卖家" targetType="USER" targetId={item.seller.id} /></>}</div>
+        {user?.role === 'USER' && user.id !== item.seller.id && <><ReportButton label="举报商品" targetType="PRODUCT" targetId={item.id} /><ReportButton label="举报卖家" targetType="USER" targetId={item.seller.id} /></>}</div>
       </>} />}
   </Resource></div>
 }
@@ -202,7 +204,7 @@ export function WantedListPage() {
   return <Page title="求购广场" subtitle="看看同学们正在寻找什么" extra={<Button type="primary" size="large" onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>}>
     <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} maxLength={200} style={{ maxWidth: 360, marginBottom: 20 }} />
     <Resource {...remote}>{remote.value?.items.length ? <div className="wanted-grid">{remote.value.items.map((item) => <Card className="wanted-card" key={item.id}>
-      <h2><Link to={`/wanted/${item.id}`}>{item.title}</Link> <Tag color={item.status === 'OPEN' ? 'blue' : undefined}>{wantedStatusLabels[item.status]}</Tag></h2>
+      <h2><Link to={`/wanted/${item.id}`} className="wanted-title" onKeyDown={(event) => { if (event.key === ' ') { event.preventDefault(); navigate(`/wanted/${item.id}`) } }}>{item.title}</Link> <Tag color={item.status === 'OPEN' ? 'blue' : undefined}>{wantedStatusLabels[item.status]}</Tag></h2>
       <div className="wanted-description">{item.description || '发布者暂未填写补充说明。'}</div>
       <div className="wanted-facts"><span>预算 <strong className="price" style={{ fontSize: 18 }}>¥{item.budgetMin}–{item.budgetMax}</strong></span><span>最低成色：{conditionLabels[item.condition] || item.condition}</span></div>
       <div className="wanted-footer"><Avatar size={28} src={item.owner.avatar}>{item.owner.nickname.slice(0, 1)}</Avatar><span>{item.owner.nickname}</span><span><EnvironmentOutlined /> {item.location === 'ANY' ? '不限地点' : item.location}</span><span><ClockCircleOutlined /> {displayDate(item.createdAt)}</span>
@@ -225,10 +227,10 @@ export function WantedDetailPage() {
     <h2 style={{ marginTop: 28 }}><FileTextOutlined /> 需求描述</h2><Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>{item.description || '暂无补充说明。'}</Typography.Paragraph>
     <h2 style={{ marginTop: 28 }}>需求条件</h2><div className="fact-grid"><div className="fact-tile"><span className="muted">预算范围</span><strong>¥{item.budgetMin}–{item.budgetMax}</strong></div><div className="fact-tile"><span className="muted">最低成色</span><strong>{conditionLabels[item.condition] || item.condition}</strong></div><div className="fact-tile"><span className="muted">交易地点</span><strong>{item.location === 'ANY' ? '不限地点' : item.location}</strong></div></div>
     </section><aside className="surface"><Person person={item.owner} /><div className="form-actions">{user?.id === item.owner.id ? <><Link to={`/wanted/${item.id}/matches`}>规则匹配结果</Link><Link to={`/wanted/${item.id}/edit`}>编辑求购</Link>
-      <Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => { await api.closeWanted({ path: { wantedId: item.id } }); remote.reload() })}>关闭求购</Button></> : <Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => {
+      <Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => { await api.closeWanted({ path: { wantedId: item.id } }); remote.reload() })}>关闭求购</Button></> : <><Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => {
         if (!requireStudent(navigate, `/wanted/${item.id}`)) return
         const session = await api.data(api.createChatSession({ body: { wantedId: item.id }, headers: api.idempotencyHeaders(crypto.randomUUID()) })); navigate(`/chat/${session.id}`)
-    })}>联系发布者</Button>}</div></aside></div>}</Resource></Page>
+    })}>联系发布者</Button>{user?.role === 'USER' && user.id !== item.owner.id && <ReportButton label="举报发布者" targetType="USER" targetId={item.owner.id} />}</>}</div></aside></div>}</Resource></Page>
 }
 
 export function WantedFormPage() {
