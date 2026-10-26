@@ -14,7 +14,7 @@
     "dockerEngine": "29.8.2",
     "postgres": "pgvector/pgvector:0.8.6-pg16 (PostgreSQL 16.15)",
     "redis": "redis:7.4-alpine (Redis 7.4.11, DB15)",
-    "minio": "repository Dockerfile.minio fixed source tag",
+    "minio": "MinIO DEVELOPMENT.2025-10-15T17-29-55Z built from repository Dockerfile.minio",
     "python": "3.12.10",
     "pytest": "8.3.4",
     "ruff": "0.8.4",
