@@ -439,10 +439,13 @@ def test_report_private_upload_favorites_and_wanted(client):
     assert report.status_code == 201, report.text
     assert "evidence" not in report.json()["data"]
     assert client.get("/reports/mine", headers=headers(seller)).json()["data"] == []
+    # Use a third party: the seller is rejected by the self-report guard before
+    # evidence ownership is checked. This case must exercise private evidence.
+    third_party = account(client)
     assert (
         client.post(
             "/reports",
-            headers=key_headers(seller),
+            headers=key_headers(third_party),
             json={
                 "targetType": "PRODUCT",
                 "targetId": item["id"],
@@ -452,6 +455,7 @@ def test_report_private_upload_favorites_and_wanted(client):
         ).status_code
         == 403
     )
+    assert client.get("/reports/mine", headers=headers(third_party)).json()["data"] == []
     assert (
         client.post(
             "/uploads/images",
