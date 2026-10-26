@@ -67,3 +67,38 @@ Edge 执行时应用实现对应 ae2edd0；当时工作区中的浏览器配置�
 - 最终页面/API 矩阵、用户手册和交付清单同步。
 
 本记录不作为阶段 5 全部完成、P0/P1 缺陷为零或关闭 Issue #34 的依据。
+
+## M4 追加：交易与治理页面真实 API 冒烟（2026-10-26）
+
+工作分支：`task/m4-p5-transaction-fixes`，基线 `8e42674`。
+环境：Playwright Chromium、`http://localhost:5173`，真实 API `http://localhost:8001`，数据库迁移 `0011`，演示账号 `chen.demo@example.com`。
+
+页面与结果（390×844）：
+
+| 页面 | 结果 | 说明 |
+| --- | --- | --- |
+| `/notifications` | 通过 | 5 个分类标签、默认“全部”、通知行完整、无水平溢出 |
+| `/report` | 通过 | 顶部说明、空态、刷新与分页入口可见 |
+| `/transactions` | 通过 | 空态与筛选入口可见，无水平溢出 |
+| `/transactions/:id`、`/meetup`、`/review` | 通过 | 由 `interface-restoration.spec.ts` 的 390 宽路由检查覆盖 |
+| `/chat`、`/chat/:id` | 通过 | 由既有移动聊天截图与 `journey.spec.ts` 移动用例覆盖 |
+| 通知行整行点击 | 通过 | 点击进入会话；按钮点击不触发行跳转 |
+| 键盘 | 通过 | 标签方向键切换、`:focus-visible` 2px 描边 |
+
+截图（真实 API，演示数据）：
+
+| 页面 | 截图 |
+| --- | --- |
+| 移动通知 | [notifications-mobile.png](screenshots/m4/notifications-mobile.png) |
+| 移动我的举报 | [report-mobile.png](screenshots/m4/report-mobile.png) |
+| 移动交易列表 | [transactions-mobile.png](screenshots/m4/transactions-mobile.png) |
+
+自动检查：`interface-restoration.spec.ts` 10 项通过，覆盖 1440×1080 与 390×844 的路由渲染、水平溢出和运行时错误；`journey.spec.ts` 6 项通过，含移动导航与空态筛选恢复。
+
+失败与修复：本轮未发现新的页面遮挡或按钮不可达。通知页由 antd Tabs 改为 `role="tablist"` 按钮组后，键盘与焦点检查通过；分类切换不再产生文本光标。价格基线用例曾因 `baseline` 容器未启动失败，启动后通过，与页面布局无关。
+
+未覆盖：Edge 实机上的 M4 单页截图（全局 23 路由已由 M2 的 Edge 批次覆盖）；390×667 与 390×568 下交易页未单独截图。
+
+原始日志：`verification-output/m4-playwright-transaction.txt`（journey 6 项）、`verification-output/m4-playwright-governance.txt`（治理与通知 7 项）。
+
+本段为 M4 自报证据，不代替 M10 在最终候选提交上的复验。

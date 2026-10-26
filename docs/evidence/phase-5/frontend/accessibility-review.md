@@ -133,3 +133,36 @@ axe 仍可能将单字、重叠控件或图片背景标为 incomplete，
 
 本结论仅覆盖列出的场景，不等同于完整 WCAG 验收。
 M3、M4 交叉评审及 M10 最终候选复验继续待完成。
+
+## M4 页面无障碍抽查（2026-10-26）
+
+分支 `task/m4-p5-transaction-fixes`，Chromium，`http://localhost:5173`。
+
+| 场景 | 结果 | 证据 |
+| --- | --- | --- |
+| 通知分类 tablist：左右方向键循环、`aria-selected`、`:focus-visible` 2px 描边 | 通过 | 浏览器脚本检查；`notification-sync` 用例 |
+| 通知整行：`role=listitem`、`tabIndex=0`、Enter/Space 进入、按钮不触发行跳转 | 通过 | `m2-notification-sync.spec.ts` 1 项 |
+| 通知分类与行文本：无输入光标、`user-select: none`、`caret-color: transparent` | 通过 | 浏览器计算样式检查 |
+| 我的举报：刷新、上一页/下一页、商品/订单目标链接可键盘聚焦 | 通过 | `m4-playwright-interface.txt` 10 项 |
+| 交易确认框 Esc/取消与焦点返回 | 通过（M2 已记录） | `dialog-keyboard.txt` |
+| 管理后台用户抽屉 Tab 循环与 Esc 返回 | 通过（M2 已记录） | `dialog-keyboard.txt` |
+| 管理后台“举报处理”抽屉 Tab 循环与 Esc 返回 | 通过 | `m4-admin-drawer-tab-cycle.txt` 1 项 |
+| 管理后台“商品治理”抽屉 Tab 循环与 Esc 返回 | 通过 | `m4-admin-drawer-tab-cycle.txt` 1 项 |
+
+两个治理抽屉的复核于 2026-10-26 补做，Chromium，`http://127.0.0.1:5186`，契约夹具不连后端。
+Tab 与 Shift+Tab 各按 12 次，焦点始终留在抽屉内；
+Esc 关闭后焦点分别回到“举报详情 #9001”与“查看并处理商品 #601”；
+两项均无业务写请求、无意外接口请求、无页面异常。
+举报抽屉内的结论下拉与说明输入框、商品抽屉内的处理原因输入框都参与循环，
+与 M2 用户抽屉共用同一 `keepDrawerFocus` 与 `useDrawerFocusReturn` 实现。
+
+同日同一端口改指独立审计后端（API 8018，独立库 `campusloop_m4_p5_audit`、Redis DB15、独立 MinIO）
+复跑了界面恢复专项 10 项，含“我的举报”的刷新、翻页与目标链接键盘聚焦。
+抽屉用例仍为契约夹具结论，两者不互相替代。
+
+仍待补：
+
+- 聊天头像、订单买卖双方头像首字、管理后台筛选控件的对比度逐项测量；当前只有 axe 扫描通过，未逐项记录背景与文字比值。
+- Edge 实机上的 M4 键盘抽查。
+
+以上为 M4 补充记录，不改变 M2 的汇总结论，也不代替 M10 复验。

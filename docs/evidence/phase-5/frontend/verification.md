@@ -122,3 +122,13 @@ M2 汇总证据并在修复后复验。
 verification-output/clean-check-e66980d.txt；
 verification-output/live-preview-e66980d.txt；
 verification-output/meetup-confirm-diagnostic.txt。
+
+## M4 追加（2026-10-26）
+
+分支 `task/m4-p5-transaction-fixes`，基线 `8e42674`；API 8001（迁移 `0011`）、PostgreSQL、Redis、MinIO、baseline、worker，Vite 5173，Playwright Chromium。
+
+- FE5-06：`test:m4` 19 项、`test:transaction` 8 项、`journey` 6 项、`m2-phase4` 6 项、`m2-notification-sync` 1 项、`interface-restoration` 10 项通过；lint 与 build 通过。
+- FE5-07：角色/禁止状态/私聊与证据隐私复核通过，详见 [权限终审](m4/permission-final-audit.md)。
+- 举报闭环：`/reports/mine` 增加处理时间与说明、分页；处理完成创建 `REPORT_RESULT` 通知；禁止自举报；求购页新增举报发布者。真实浏览器提交、处理、刷新、通知四步通过。
+- 见面确认死锁：本次顺序双账号流程（保存约定、双方确认、完成）通过，未复现 6004 的并发死锁；**未关闭**，仍需 M6 用并发请求复现与验证锁顺序，M4 在修复后复验。
+- 本段不代替 M10 在同一提交上的复验，也不作为 Issue #34 关闭依据。

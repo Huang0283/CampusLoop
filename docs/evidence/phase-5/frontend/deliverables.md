@@ -52,6 +52,10 @@ M2 当前尚未收到以下最终交付与成员验收结论，
 - M3：market-regression.md、ai-ui-final-audit.md。
 - M4：transaction-regression.md、permission-final-audit.md、demo-recovery.md。
 
+2026-10-26 更新：M4 三份文档已形成，登记见下方“M4 交付登记”。
+M3 两份文档已随 PR #123 入库（提交 `8c305b2`），文件本身不再缺少，
+缺的是 M2 的接收结论，因此上两行不再表示“文档未交付”。
+
 涉及 M3/M4 页面及共享样式的准备修复，
 应由对应 Owner 在正式任务 PR 中确认。
 
@@ -61,3 +65,16 @@ M2 当前尚未收到以下最终交付与成员验收结论，
 正式基线同步、准备提交迁移、任务 PR 和小组汇总 PR 仍待完成。
 具体阻塞、Owner 和下一动作见 handoff.md。
 最终接收人为 M1/M10 和课程提交人，接收结论尚未给出。
+
+## M4 交付登记（2026-10-26）
+
+分支 `task/m4-p5-transaction-fixes`（基线 `8e42674`），改动尚未提交，等待 M4 统一发 PR。
+
+| 任务 | 文件 | 状态 | 接收动作 |
+| --- | --- | --- | --- |
+| FE5-06 | [transaction-regression.md](m4/transaction-regression.md)；举报闭环代码、通知页交互、`test:m4` | 作者执行完成 | M2/M3 交叉评审；M5/M6 对签治理接口；M10 复验 |
+| FE5-07 | [permission-final-audit.md](m4/permission-final-audit.md)、[demo-recovery.md](m4/demo-recovery.md) | 作者执行完成 | M2/M3 评审；M10 复验失败恢复步骤 |
+| FE5-08 | [browser-responsive-report.md](browser-responsive-report.md) 的 M4 追加段、`screenshots/m4/` | 移动与桌面检查完成 | M2 汇总；M10 在最终候选复验 |
+| FE5-10 | 本文件、[verification.md](verification.md) 的 M4 追加段 | 已登记 | M2 汇总；M10 核对发布构建与验证提交一致 |
+
+后端改动涉及 `governance.py`、`transactions.py`、`Report` 模型与迁移 `0011`，需 M5/M6 确认并由 M1 在阶段汇总时核对迁移。M4 的三份文档已形成，M2 可在 PR 合并后更新“待接收”状态。

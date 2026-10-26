@@ -1,0 +1,11 @@
+﻿
+Running 6 tests using 1 worker
+
+  ok 1 tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing (32.0s)
+  ok 2 tests\live\journey.spec.ts:139:1 › wanted constraints and price baseline are real services (4.5s)
+  ok 3 tests\live\journey.spec.ts:158:1 › product original-price validation blocks invalid requests and recovers after price changes (4.6s)
+  ok 4 tests\live\journey.spec.ts:194:1 › guest browse, failure recovery, secure reload restoration, logout and fixed navigation (8.1s)
+  ok 5 tests\live\journey.spec.ts:241:1 › mobile navigation and empty-state filter recovery (1.7s)
+  ok 6 tests\live\journey.spec.ts:254:1 › another tab changing account cannot retry an old request as the new user (5.9s)
+
+  6 passed (1.0m)

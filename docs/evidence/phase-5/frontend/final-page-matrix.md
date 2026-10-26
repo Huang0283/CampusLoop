@@ -52,9 +52,9 @@ USER 页面不因管理员已登录而自动开放。
 | 订单详情 /transactions/:id | USER，订单参与者 | GET /orders/{id}、/orders/{id}/events；POST /orders/{id}/meetup/confirm、confirm-complete、cancel | 按订单状态显示操作；完成确认、取消、时间线；双账号旅程及确认框键盘回归已执行 |
 | 安排见面 /transactions/:id/meetup | USER，订单参与者 | GET /orders/{id}；POST /orders/{id}/meetup | 北京时间、未来时间及结束时间校验；修改产生新版本，双方需重新确认 |
 | 评价交易 /transactions/:id/review | USER，订单参与者 | GET /orders/{id}；POST /reviews | 双方完成后才开放评价；评分、文字和提交状态 |
-| 通知 /notifications | USER | GET /notifications；POST /notifications/{id}/read、/notifications/read-all；GET /reports/mine | 分类及已读操作；与外壳共享一次轮询，单条和全部已读同步计数已有双浏览器回归 |
-| 我的举报 /report | USER | GET /reports/mine | 举报记录、状态和处理信息；本页不是通用举报创建表单 |
-| 各业务页面举报弹窗 | USER 业务场景，具体权限由 API 校验 | POST /reports；POST /uploads/images | 原因随举报对象变化、说明、私有证据；队列处理与证据读取有契约回归 |
+| 通知 /notifications | USER | GET /notifications；POST /notifications/{id}/read、/notifications/read-all；GET /reports/mine | 分类 tab 支持方向键切换；整行点击进入内容，右侧“标为已读/查看”为辅助；与外壳共享一次轮询，单条和全部已读同步计数已有双浏览器回归 |
+| 我的举报 /report | USER | GET /reports/mine（page、pageSize） | 举报记录、状态、提交时间、处理时间与处理说明；上一页/下一页与刷新；商品/订单目标可回详情；本页不是通用举报创建表单 |
+| 各业务页面举报弹窗 | USER 业务场景，具体权限由 API 校验 | POST /reports；POST /uploads/images | 原因随举报对象与订单身份变化、说明、最多 5 张私有证据；禁止举报自己；求购详情可举报发布者；处理完成后举报人收到 `REPORT_RESULT` 通知 |
 | 管理后台 /admin 用户页签 | ADMIN | GET /admin/users、/admin/users/{id}/risk-clues；PATCH /admin/users/{id}/status | 分页、人工读取风险、禁用或恢复；真实分页和会话撤销、用户抽屉键盘回归已执行 |
 | 管理后台 /admin 举报页签 | ADMIN | GET /admin/reports、/admin/reports/{id}/evidence/{index}；POST /admin/reports/{id}/resolve | 主动读取私有证据、处理或驳回及说明；契约回归已执行，不能据此替代真实治理验收 |
 | 管理后台 /admin 商品页签 | ADMIN | GET /admin/products、/admin/products/{id}；POST /admin/products/{id}/moderation | 搜索、状态筛选、人工下架与解除；真实隐藏和恢复回归已执行 |
@@ -90,3 +90,17 @@ M4 接收聊天、交易、通知、举报和治理部分。
 M2 维护公共外壳、构建及本矩阵，M6 确认 SDK 和接口契约。
 最终字段、权限、异常状态和发布限制仍需对应负责人交叉核对，
 由 M10 对统一候选复验、M1 确认收口。
+
+## M4 核对结论（2026-10-26）
+
+分支 `task/m4-p5-transaction-fixes`，基线 `8e42674`。
+
+- 聊天 `/chat`、`/chat/:id`：会话列表、历史分页、发送/重试、报价入口、断线提示与 HTTP 补拉路径一致。
+- 交易 `/transactions`、`/transactions/:id`、`/meetup`、`/review`：路径与按钮名称一致；写动作受订单状态与参与关系限制；“我已完成交易”仅在见面确认后出现；评价仅完成订单开放。
+- 通知 `/notifications`：分类为“全部/消息/报价/匹配/系统”，默认“全部”；分类为 `role=tab` 按钮组，方向键切换，无文本输入光标；整行点击进入内容，右侧按钮不触发行跳转。
+- 我的举报 `/report`：字段增加 `handledAt`、`resolutionNote`；分页 20 条/页；刷新按钮；商品与订单目标可点击回详情，用户与聊天消息保持文本。
+- 举报弹窗：商品/订单/聊天/用户入口与原因过滤一致；证据上限 5 张；卖家自己的商品不显示举报入口；求购详情新增“举报发布者”；后端拒绝自举报。
+- 管理员举报页签：列表分页、状态筛选、处理说明、私密证据读取与审计一致；处理完成后举报人收到 `REPORT_RESULT`。
+- 未关闭：见面确认并发死锁仍未复现与修复，见 `verification.md`；历史举报无处理说明属于数据差异，不回填内部审计。
+
+以上为 M4 字段与路径核对，最终发布限制和异常口径仍由 M10/M1 确认。

@@ -1,0 +1,9 @@
+﻿PASS guest, admin and nonparticipant cannot accept or create offers
+PASS seller-initiated quote preserves buyer/seller, validates amount and session
+PASS counteroffer reverses proposer permissions and cannot be self-accepted
+PASS expiry and duplicate orders block acceptance without changing state
+PASS meetup version resets confirmations; completion requires two parties
+PASS reviews require completion, correct actors, valid stars and uniqueness
+PASS nonparticipants cannot cancel, confirm or edit another order
+PASS notification reads are scoped to the signed-in recipient
+8 transaction prototype scenarios passed (Mock only).
