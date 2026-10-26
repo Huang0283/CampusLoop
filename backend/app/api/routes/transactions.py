@@ -607,12 +607,16 @@ def report_dto(entity):
         "description": entity.description or "",
         "status": entity.status,
         "createdAt": dto.iso(entity.created_at),
+        "handledAt": dto.iso(entity.handled_at) if entity.handled_at else None,
+        "resolutionNote": entity.resolution_note,
     }
 
 
 @router.post("/reports", status_code=201, operation_id="createReport")
 def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key = None):
     def action():
+        if body.targetType == "USER" and body.targetId == actor.id:
+            raise BusinessError(400, "SELF_REPORT_FORBIDDEN", "You cannot report yourself.")
         model = {"USER": User, "PRODUCT": Product, "ORDER": Order, "CHAT_MESSAGE": ChatMessage}[
             body.targetType
         ]
@@ -652,7 +656,7 @@ def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key 
 
 
 @router.get("/reports/mine", operation_id="listMyReports")
-def my_reports(db: Db, actor: Actor):
+def my_reports(db: Db, actor: Actor, page: Page = 1, pageSize: PageSize = 20):
     return ok(
         [
             report_dto(entity)
@@ -660,7 +664,8 @@ def my_reports(db: Db, actor: Actor):
                 select(Report)
                 .where(Report.reporter_id == actor.id)
                 .order_by(Report.id.desc())
-                .limit(100)
+                .offset((page - 1) * pageSize)
+                .limit(pageSize)
             )
         ]
     )

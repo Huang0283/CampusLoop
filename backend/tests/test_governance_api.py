@@ -376,6 +376,75 @@ def test_audit_failure_rolls_back_decision_and_idempotency_together(client):
     assert not audit_rows(admin, "admin_report_resolve")
 
 
+def test_reporter_sees_resolution_note_and_receives_result_notification(client):
+    reporter, target = account(client), account(client)
+    admin = administrator_account(client)
+    report = report_user(client, reporter, target)
+    note = "confirmed after manual review"
+    resolved = client.post(
+        f"/admin/reports/{report['id']}/resolve",
+        headers=key_headers(admin),
+        json={"resolution": "RESOLVED", "note": note},
+    )
+    assert resolved.status_code == 200, resolved.text
+
+    mine = client.get("/reports/mine", headers=headers(reporter)).json()["data"]
+    entry = next(item for item in mine if item["id"] == report["id"])
+    assert entry["status"] == "RESOLVED"
+    assert entry["handledAt"] == resolved.json()["data"]["handledAt"]
+    assert entry["resolutionNote"] == note
+    assert "handledBy" not in entry and "evidence" not in entry
+
+    notifications = client.get("/notifications", headers=headers(reporter)).json()["data"]
+    result = next(item for item in notifications if item["type"] == "REPORT_RESULT")
+    assert result["title"] == "举报已处理"
+    assert note in result["content"]
+
+    target_notifications = client.get("/notifications", headers=headers(target)).json()["data"]
+    assert all(item["type"] != "REPORT_RESULT" for item in target_notifications)
+
+
+def test_self_report_is_rejected_before_any_write(client):
+    reporter = account(client)
+    response = client.post(
+        "/reports",
+        headers=key_headers(reporter),
+        json={
+            "targetType": "USER",
+            "targetId": reporter["user"]["id"],
+            "reason": "SPAM",
+            "description": "",
+            "evidence": [],
+        },
+    )
+    assert response.status_code == 400, response.text
+    assert response.json()["code"] == "SELF_REPORT_FORBIDDEN"
+    assert client.get("/reports/mine", headers=headers(reporter)).json()["data"] == []
+
+
+def test_my_reports_pagination_is_bounded_and_newest_first(client):
+    reporter = account(client)
+    targets = [account(client) for _ in range(3)]
+    ids = [report_user(client, reporter, target)["id"] for target in targets]
+
+    first = client.get(
+        "/reports/mine", headers=headers(reporter), params={"page": 1, "pageSize": 2}
+    )
+    assert first.status_code == 200, first.text
+    assert [item["id"] for item in first.json()["data"]] == [ids[2], ids[1]]
+
+    second = client.get(
+        "/reports/mine", headers=headers(reporter), params={"page": 2, "pageSize": 2}
+    )
+    assert [item["id"] for item in second.json()["data"]] == [ids[0]]
+
+    for invalid in ({"page": 0}, {"pageSize": 101}, {"pageSize": 0}):
+        assert (
+            client.get("/reports/mine", headers=headers(reporter), params=invalid).status_code
+            == 422
+        )
+
+
 def test_risk_manual_only_and_model_off_still_allows_moderation(client, monkeypatch):
     reporter, target = account(client), account(client)
     admin = administrator_account(client)
