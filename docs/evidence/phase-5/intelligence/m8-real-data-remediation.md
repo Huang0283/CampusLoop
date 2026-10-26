@@ -4,9 +4,23 @@
 
 ## 1. 授权与脱敏
 
-`data/m8-phase4/authorization-status.json` 是当前授权状态的唯一登记文件，格式由 `schemas/m8-phase4/data-authorization.schema.json` 固定，现状保持 `PENDING`。M5 必须确认数据使用目的、保留周期和允许字段，M6 必须确认订单字段来源与导出边界；两人的审批都要包含审批人、带时区时间和证据路径。M8 不代签，也不把口头确认写成批准。
+`data/m8-phase4/authorization-status.json` 是当前授权状态的唯一登记文件，格式由 `schemas/m8-phase4/data-authorization.schema.json` 固定，现状保持 `PENDING`。M5 必须确认数据使用目的、保留周期和允许字段，M6 必须确认订单字段来源与导出边界；两人分别用自己的 OpenSSH Ed25519 私钥签署授权范围、角色、时间和 GitHub 审批证据。代码会使用 `data/m8-phase4/authorization-signers` 中登记的公钥验证签名；只填写姓名、时间和链接不再能通过。首次登记公钥须由成员本人提交，经 M1/M10 核验成员身份并 Review 后合入。私钥只能保存在成员本机安全位置，绝不提交。M8 不代签，也不把口头确认写成批准。
 
 `schemas/m8-phase4/authorized-order-export.schema.json` 只允许价格评估所需字段。姓名、邮箱、学号、电话、买卖双方 ID、精确位置、聊天、举报证据、管理备注和设备 ID 均不允许进入导出。生成器遇到未知字段会整体失败，不会静默删除后继续训练。原始导出必须位于仓库外；输出样本只保留 HMAC-SHA256 伪名，密钥从 `M8_PSEUDONYMIZATION_KEY` 注入且不得提交。
+
+授权记录先由 M5/M6 在 GitHub 记录实际审批，再分别运行下列命令签自己的部分。信任库中的角色公钥必须先完成 Review 登记；审批证据链接用于审计，签名证明对应私钥持有人确认了授权范围。
+
+```powershell
+ssh-keygen -t ed25519 -C campusloop-M5-data-approval -f "$env:USERPROFILE/.ssh/campusloop-m8-approval"
+# Submit the .pub file for reviewed registration. Keep the private key local.
+$approvalEvidence = 'https://github.com/Huang0283/CampusLoop/issues/129'
+python -m services.m8_phase4.transaction_dataset sign-approval `
+  --owner M5 `
+  --key "$env:USERPROFILE/.ssh/campusloop-m8-approval" `
+  --evidence $approvalEvidence
+```
+
+M6 用自己的密钥和实际审批记录执行同一命令，将 `M5` 换成 `M6`。不要填写示例占位符或伪造评论链接。两份签名都齐备后，`inspect-authorization` 才会通过授权这一项；其他数据量和评估门禁仍须独立通过。
 
 ## 2. 有效成交、退款和争议口径
 
@@ -31,11 +45,11 @@ $env:M8_PSEUDONYMIZATION_KEY = '<从安全渠道取得，不写入仓库>'
 python -m services.m8_phase4.transaction_dataset build `
   --input C:/secure-campusloop-export/completed-orders.jsonl `
   --authorization data/m8-phase4/authorization-status.json `
-  --output-dir output/m8-phase4-private/snapshot-v1
+  --output-dir C:/secure-campusloop-private/snapshot-v1
 Remove-Item Env:M8_PSEUDONYMIZATION_KEY
 ```
 
-真实原始导出、密钥和本地快照不得提交。只在团队批准的证据位置保存不含身份信息的清单/哈希。门禁通过后，M8 才能训练并按既定 MAE、MAPE、区间覆盖率和类别/时间切片与规则基线比较；M10 独立复算，M1 决定是否上线，未签署前继续使用 `m8-price-rule-v1`。
+真实原始导出、密钥和本地快照不得提交；代码会拒绝仓库内的输入和输出路径。生成器在快照目录同时写入价格样本、授权来源登记和哈希清单。可用 `python -m services.m8_phase4.verify --source-commit (git rev-parse HEAD) --output-dir C:/audit/m8-phase5 --dataset-dir C:/secure-campusloop-private/snapshot-v1` 让 readiness 实际读取该快照并核验其文件、授权和策略哈希。只在团队批准的证据位置保存不含身份信息的清单/哈希。门禁通过后，M8 才能训练并按既定 MAE、MAPE、区间覆盖率和类别/时间切片与规则基线比较；M10 独立复算，M1 决定是否上线，未签署前继续使用 `m8-price-rule-v1`。
 
 ## 当前结论
 

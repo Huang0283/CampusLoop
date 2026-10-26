@@ -12,6 +12,8 @@ python -m services.m8_phase4.verify --source-commit (git rev-parse HEAD) --outpu
 
 第一条命令校验现有 L0 数据和派生清单；第二条命令检查独立授权记录，当前应以退出码 2 和 `NO_GO` 结束；第三条命令执行 Phase 2/3/4 回归并生成验证证据。命令不会训练候选，也不会修改数据库。真实导出与快照步骤见 [M8 真实成交数据三项补强](m8-real-data-remediation.md)。
 
+获得真实审批并在仓库外生成私有快照后，将第三条命令增加 `--dataset-dir C:/secure-campusloop-private/snapshot-v1`。此时 readiness 会读取指定快照并重新核验样本、来源登记、策略与授权 SHA；快照仍需经过冻结、训练与模型评估门禁，授权通过不等于候选可上线。
+
 ## 结果解释
 
 `readiness.json` 是唯一的候选门禁来源；不能用测试通过替代门禁通过。`price-comparison.json` 必须同时保存规则版本、候选版本、数据集版本、样本数、基线指标、候选指标、回退一致率和 `decision`。只有存在合规 L3 成交价时，才允许计算 MAE、MAPE、区间覆盖率和时间切片；挂牌价、accepted offer 和 L0 合成价只能用于结构检查。

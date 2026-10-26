@@ -38,11 +38,12 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["approver", "approvedAt", "evidence"],
+          "required": ["approver", "approvedAt", "evidence", "signature"],
           "properties": {
-            "approver": {"type": "string", "minLength": 1},
+            "approver": {"enum": ["M5", "M6"]},
             "approvedAt": {"type": "string", "format": "date-time"},
-            "evidence": {"type": "string", "minLength": 1}
+            "evidence": {"type": "string", "format": "uri", "pattern": "^https://github\\.com/Huang0283/CampusLoop/(issues|pull)/[0-9]+"},
+            "signature": {"type": "string", "contentEncoding": "base64", "minLength": 1}
           }
         }
       ]
