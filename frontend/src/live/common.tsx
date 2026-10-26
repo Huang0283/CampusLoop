@@ -93,6 +93,47 @@ export function Resource({ loading, error, value, reload, children }: {
   return <><Failure error={error} retry={reload} />{children}</>
 }
 
+export type TabListItem = { readonly key: string; readonly label: string }
+
+/** 自带方向键循环、aria-selected 与 roving tabIndex 的标签栏，供通知与交易中心共用。 */
+export function TabList({ items, value, onChange, ariaLabel, className = 'segmented-tabs', tabClassName = 'segmented-tab' }: {
+  items: readonly TabListItem[]
+  value: string
+  onChange: (key: string) => void
+  ariaLabel: string
+  className?: string
+  tabClassName?: string
+}) {
+  const tabs = useRef<(HTMLButtonElement | null)[]>([])
+  const move = (index: number) => {
+    if (!items.length) return
+    const next = (index + items.length) % items.length
+    onChange(items[next].key)
+    tabs.current[next]?.focus()
+  }
+  return <div className={className} role="tablist" aria-label={ariaLabel}>
+    {items.map((item, index) => {
+      const selected = item.key === value
+      return <button
+        key={item.key}
+        type="button"
+        role="tab"
+        ref={(element) => { tabs.current[index] = element }}
+        aria-selected={selected}
+        tabIndex={selected ? 0 : -1}
+        className={`${tabClassName}${selected ? ' is-active' : ''}`}
+        onClick={() => onChange(item.key)}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); move(index + 1) }
+          else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); move(index - 1) }
+          else if (event.key === 'Home') { event.preventDefault(); move(0) }
+          else if (event.key === 'End') { event.preventDefault(); move(items.length - 1) }
+        }}
+      >{item.label}</button>
+    })}
+  </div>
+}
+
 export function Guard({ admin = false, children }: { admin?: boolean; children: ReactNode }) {
   const user = useSession((state) => state.user)
   const location = useLocation()
