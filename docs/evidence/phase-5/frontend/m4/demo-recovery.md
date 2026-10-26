@@ -103,22 +103,18 @@
 
 ## 11. 测试数据清理
 
-浏览器核验可能产生举报、通知和测试账号。清理顺序：
+浏览器写入验收只允许在独立审计数据库、独立媒体存储和 Redis DB14/15 执行，不能在日常账号库上注册测试账号或批量清理数据。记录所用审计数据库、容器名、测试账号和提交号，保留本轮举报、通知和管理员审计，供 M10 复验；下一轮使用独立审计库或由环境负责人按审计环境方案重建。
 
-```sql
-DELETE FROM notifications WHERE user_id = <uid> AND type = 'REPORT_RESULT';
-DELETE FROM reports WHERE id = <report_id>;
-```
-
-保留管理员审计记录，不删除 `auth_audit`。测试账号如无外键引用可删除，否则保留并改名。
+不要在日常库执行删除举报、通知、账号或 `auth_audit` 的 SQL，也不要运行 `docker compose down -v` 删除日常数据卷。
 
 ## 12. 环境恢复
 
-- 前端未启动：`cd frontend && npm run dev -- --port 5173`。
-- API 未启动：`docker compose up -d api db redis minio baseline worker`。
-- 价格建议不可用：确认 `baseline` 容器 healthy，而不是改前端阈值。
-- 注册返回 429：每 IP 10 次/小时，测试前清空 Redis `auth:*` 或等待窗口结束；不要修改鉴权配置。
-- API 代码与数据库版本不一致：`docker compose build api && docker compose up -d api`，容器启动时会执行 `alembic upgrade head`。
+- 日常网站统一在仓库根目录运行 `powershell -ExecutionPolicy Bypass -File .\scripts\start-local.ps1`；网站为 `http://127.0.0.1:5174`，API 为 `http://127.0.0.1:8001`。不另开默认 Compose 项目或切换到 5173。
+- 检查日常环境运行状态：`powershell -ExecutionPolicy Bypass -File .\scripts\start-local.ps1 -Action Status`。该脚本核对日常数据库及固定数据卷，失败时不自动选择其他库。
+- API 代码与运行版本不一致：在确认当前检出分支后运行 `powershell -ExecutionPolicy Bypass -File .\scripts\start-local.ps1 -Rebuild`，保留原有账号、媒体和数据库卷。不要靠清库恢复登录。
+- 价格建议不可用：检查统一启动环境中的基线服务与 API 就绪日志，不修改前端阈值或改用 Mock 数据。
+- 注册返回 429：日常环境等待限流窗口结束；不得清空日常 Redis。只有独立审计环境满足 `APP_ENV=test/ci` 且 Redis DB14/15 时，才允许由该环境执行 `python backend/scripts/reset_test_limiter.py`，该脚本会拒绝其他环境。
+- 独立审计前端可使用专用端口，但必须显式设置与之配对的 `VITE_API_BASE_URL` 和 `VITE_WS_URL`，并登记独立数据库/对象存储；不得连接上述日常 API 跑写入测试。
 
 ## 边界
 

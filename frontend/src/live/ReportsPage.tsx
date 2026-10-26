@@ -23,7 +23,7 @@ export function MyReports() {
   const reports = useRemote(`my-reports-${user?.id}-${page}`, (signal) => api.data(api.listMyReports({ query: { page, pageSize: PAGE_SIZE }, signal })), 5000)
   const items = reports.value ?? []
   return <Card title="我的举报" style={{ marginTop: 16 }} extra={<Button size="small" onClick={reports.reload}>刷新</Button>}><Resource {...reports}>
-    {items.length ? <>
+    {items.length ?
       <List dataSource={items} renderItem={(item) => {
         const target = `${targetLabels[item.targetType]} #${item.targetId}`
         const path = targetPath(item)
@@ -37,13 +37,12 @@ export function MyReports() {
               {item.resolutionNote && <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>处理说明：{item.resolutionNote}</Typography.Paragraph>}
             </>} />
         </List.Item>
-      }} />
-      <div className="report-pager">
+      }} /> : <NoItems />}
+    {(items.length > 0 || page > 1) && <div className="report-pager">
         <Button disabled={page === 1} onClick={() => setPage(page - 1)}>上一页</Button>
         <span className="report-pager-label">第 {page} 页</span>
         <Button disabled={items.length < PAGE_SIZE} onClick={() => setPage(page + 1)}>下一页</Button>
-      </div>
-    </> : <NoItems />}
+      </div>}
   </Resource></Card>
 }
 
