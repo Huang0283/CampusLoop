@@ -625,8 +625,15 @@ def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key 
             require_participant(target, actor)
         elif body.targetType == "CHAT_MESSAGE":
             chat(db, target.session_id, actor)
-        elif body.targetType == "PRODUCT" and (target.deleted_at or target.status == "HIDDEN"):
-            raise BusinessError(404, "NOT_FOUND", "Product not found.")
+        elif body.targetType == "PRODUCT":
+            if target.owner_id == actor.id:
+                raise BusinessError(
+                    400,
+                    "SELF_REPORT_FORBIDDEN",
+                    "You cannot report your own product.",
+                )
+            if target.deleted_at or target.status == "HIDDEN":
+                raise BusinessError(404, "NOT_FOUND", "Product not found.")
         if db.scalar(
             select(Report).where(
                 Report.reporter_id == actor.id,

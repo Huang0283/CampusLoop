@@ -16,7 +16,7 @@ from app.models import AuthAudit, IdempotencyRecord, Report, User
 from tests.conftest import requires_postgres
 from tests.test_auth import account, headers
 from tests.test_live_intelligence import settings  # noqa: F401 -- autouse real RPC servers
-from tests.test_transaction_api import image_url, key_headers, pending_order
+from tests.test_transaction_api import image_url, key_headers, pending_order, product
 
 pytestmark = [pytest.mark.integration, requires_postgres]
 
@@ -406,7 +406,7 @@ def test_reporter_sees_resolution_note_and_receives_result_notification(client):
 
 def test_self_report_is_rejected_before_any_write(client):
     reporter = account(client)
-    response = client.post(
+    user_response = client.post(
         "/reports",
         headers=key_headers(reporter),
         json={
@@ -417,8 +417,23 @@ def test_self_report_is_rejected_before_any_write(client):
             "evidence": [],
         },
     )
-    assert response.status_code == 400, response.text
-    assert response.json()["code"] == "SELF_REPORT_FORBIDDEN"
+    assert user_response.status_code == 400, user_response.text
+    assert user_response.json()["code"] == "SELF_REPORT_FORBIDDEN"
+
+    own_product = product(client, reporter)
+    product_response = client.post(
+        "/reports",
+        headers=key_headers(reporter),
+        json={
+            "targetType": "PRODUCT",
+            "targetId": own_product["id"],
+            "reason": "SPAM",
+            "description": "",
+            "evidence": [],
+        },
+    )
+    assert product_response.status_code == 400, product_response.text
+    assert product_response.json()["code"] == "SELF_REPORT_FORBIDDEN"
     assert client.get("/reports/mine", headers=headers(reporter)).json()["data"] == []
 
 
