@@ -1,34 +1,26 @@
-# 项目管理与质量文档
+# 项目管理与协作入口
 
-本目录承载 Issue 1 中 M1、M10 和小组共同交付物。当前文件均为第一阶段候选版，正式需求基线计划在第二次汇报前锁定。
+## 当前执行文档
 
-## 当前协作规划
+- [九人协作总任务书](./nine-member-collaboration-plan.md)：九个独立岗位的任务、文件边界与验收，成员自行认领。
+- [每次升级后的完整工作流](../workflows/version-acceptance.md)：M10 版本通知、T01–T15 功能范围、U01–U08 真人任务、反馈/复测/材料同步。
+- [GitHub 协作 Issue 源文](../issues/nine-member-collaboration.md)：与远端 #129 同步，包含四条组分支和九条岗位分支。
+- 单组任务与 Git 操作：[文书](../collaboration/teams/reporting/TASKS.md)、[测试](../collaboration/teams/testing/TASKS.md)、[用户体验](../collaboration/teams/user-experience/TASKS.md)、[演示](../collaboration/teams/presentation/TASKS.md)。各目录 WORKFLOW.md 提供准确分支名、每日拉取/push/PR/Review 和注意事项。
 
-- [九人协作与最终交付规划](./nine-member-collaboration-plan.md)：九名组员的测试、文书、手册、页面证据、演示和提交任务；M10 技术改动后的同步闭环。
+## 文档清理记录（2026-10-27）
 
-## M1 项目管理
+检查当前管理/协作/工作流文件、仓库内引用、阶段要求及课程交付边界后：
 
-- [项目范围与优先级](./m1/project-scope.md)
-- [需求候选清单与追踪表](./m1/requirements-traceability.md)
-- [团队职责与替补关系](./m1/team-responsibilities.md)
-- [五周单周阶段计划与五次汇报检查点](./m1/ten-week-plan.md)
-- [会议、决策和变更模板](./m1/governance-templates.md)
-- [第一次汇报提纲与分工](./m1/first-presentation-outline.md)
-- [风险登记表](./m1/risk-register.md)
-- [集成与汇总检查表](./m1/integration-checklist.md)
+- 删除 closeout-task-packages.md、eight-member-self-selected-deliverables.md 及对应两份 DOCX：旧八人、四组各两人的安排已被九人 2/3/2/2 岗位覆盖，端口/演示时长/截止说明也存在旧口径。
+- 删除 team-daily-git-workflow.md：旧五天节奏、泛化阶段分支示例与当前具体分支规则重叠，改用 version-acceptance.md 及各组 WORKFLOW.md。
+- 删除旧 CampusLoop_Nine_Member_Collaboration_Plan.pdf：v1.2 导出与本轮 v1.3 源文不一致，不再同时提供两套可执行指令；当前以 Markdown 为准，需要打印时从当前源文重新导出并标版本。
+- 删除 frontend/docs/api-contract.md：旧手写认证响应与现有浏览器会话契约不一致，HTTP 契约只保留 openapi/campusloop.v1.yaml 为准。同步更新根目录、前端、后端 README 和 SDK 说明的当前运行入口，移除“仅原型/仅骨架”的过期介绍。
+- 删除 tools/create_closeout_task_documents.py 和 tools/build_collaboration_plan_pdf.py：仅用于上述旧版产物，包含写死的八人安排或 v1.2 日期，避免重新生成失效说明。
+- 保留 m1/、m10/ 的原阶段管理任务、docs/issues/ 五周阶段 Issue、docs/evidence/ 的验收记录、docs/reports/ 历史汇报、课程/Proposal 原始交付和引用材料，它们承担不同证据用途，不因名称相似删除。
+- 历史证据中“八人任务包”等文字是当时状态，保留原记录字节，不回写历史结论；后续执行使用上方当前文档。
+- docs/superpowers/ 的三份小型设计/修复记录仍被阶段交付引用或包含未执行事项，保留追溯；它们不是现行团队操作指南。
+- 本地未提交 SDK/报告/PDF/验收输出不纳入本轮清理或提交。旧内容可从 Git 历史找回，不另堆备份副本。
 
-## M10 质量管理
+## 原阶段记录
 
-- [文档质量检查表](./m10/document-quality-checklist.md)
-- [测试策略候选版](./m10/test-strategy.md)
-- [核心验收场景](./m10/acceptance-scenarios.md)
-- [缺陷等级与任务状态](./m10/defect-and-workflow.md)
-- [汇报与演示检查表](./m10/presentation-checklist.md)
-- [第一阶段文档复核记录](./m10/review-log.md)
-
-## 状态说明
-
-- `候选`：已形成可评审文档，尚未完成全员确认。
-- `已评审`：指定评审人已留下结论，遗留问题有负责人和期限。
-- `已冻结`：M1 批准为当前基线，后续变更必须登记。
-- `已完成`：实现、测试、文档和证据同时满足验收条件。
+m1/ 是原项目范围、需求追踪、团队职责、阶段安排、决策、风险和集成检查；m10/ 是测试策略、核心场景、缺陷等级、质量与汇报检查。每份的日期/候选状态属于该记录，不等于当前项目最新完成结论。当前状态应以对应阶段最新验收证据与 GitHub Issue 为准。
