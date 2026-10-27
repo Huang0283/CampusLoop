@@ -1,0 +1,709 @@
+test_bad_timestamp_rejected (test_pipeline.DatasetTests.test_bad_timestamp_rejected) ... ERROR
+test_budget_edges (test_pipeline.DatasetTests.test_budget_edges) ... ok
+test_build_hashes_and_tamper_detection (test_pipeline.DatasetTests.test_build_hashes_and_tamper_detection) ... ERROR
+test_decimal_exact_and_zero (test_pipeline.DatasetTests.test_decimal_exact_and_zero) ... ok
+test_deleted_reserved_and_hidden (test_pipeline.DatasetTests.test_deleted_reserved_and_hidden) ... ok
+test_duplicate_entity_version_rejected (test_pipeline.DatasetTests.test_duplicate_entity_version_rejected) ... ERROR
+test_duplicate_record_rejected (test_pipeline.DatasetTests.test_duplicate_record_rejected) ... ERROR
+test_expiry_equality (test_pipeline.DatasetTests.test_expiry_equality) ... ok
+test_failure_precedes_unknown (test_pipeline.DatasetTests.test_failure_precedes_unknown) ... ok
+test_free_is_not_missing (test_pipeline.DatasetTests.test_free_is_not_missing) ... ok
+test_invalid_matching_context_rejected (test_pipeline.DatasetTests.test_invalid_matching_context_rejected) ... ERROR
+test_json_writers_pin_utf8_lf (test_pipeline.DatasetTests.test_json_writers_pin_utf8_lf) ... ERROR
+test_latest_snapshot_and_audit (test_pipeline.DatasetTests.test_latest_snapshot_and_audit) ... ok
+test_missing_pair_rejected (test_pipeline.DatasetTests.test_missing_pair_rejected) ... ERROR
+test_missing_required_field (test_pipeline.DatasetTests.test_missing_required_field) ... ERROR
+test_near_duplicate_overlap_merges_before_split (test_pipeline.DatasetTests.test_near_duplicate_overlap_merges_before_split) ... ok
+test_nfkc_and_model_normalization (test_pipeline.DatasetTests.test_nfkc_and_model_normalization) ... ok
+test_permissions_and_self (test_pipeline.DatasetTests.test_permissions_and_self) ... ok
+test_place_and_model_mismatch (test_pipeline.DatasetTests.test_place_and_model_mismatch) ... ok
+test_raw_tamper_detection (test_pipeline.DatasetTests.test_raw_tamper_detection) ... ERROR
+test_rebuild_identical_under_lf_and_crlf_platform_defaults (test_pipeline.DatasetTests.test_rebuild_identical_under_lf_and_crlf_platform_defaults) ... ERROR
+test_reversed_budget_rejected (test_pipeline.DatasetTests.test_reversed_budget_rejected) ... ERROR
+test_split_is_order_independent (test_pipeline.DatasetTests.test_split_is_order_independent) ... ok
+test_template_overlap_merges_before_split (test_pipeline.DatasetTests.test_template_overlap_merges_before_split) ... ok
+test_unknown_conditions_and_models (test_pipeline.DatasetTests.test_unknown_conditions_and_models) ... ok
+test_unknown_dictionary_category (test_pipeline.DatasetTests.test_unknown_dictionary_category) ... ERROR
+test_unknown_field_rejected (test_pipeline.DatasetTests.test_unknown_field_rejected) ... ERROR
+test_unknown_status_rejected (test_pipeline.DatasetTests.test_unknown_status_rejected) ... ERROR
+
+======================================================================
+ERROR: test_bad_timestamp_rejected (test_pipeline.DatasetTests.test_bad_timestamp_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp8n5pfpdm\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp8n5pfpdm'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 101, in test_bad_timestamp_rejected
+    self.bad_raw('products.jsonl',lambda rows:rows[0]['sourceProduct'].update(updatedAt='2026-09-21T12:00:00'),'missing timezone')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp8n5pfpdm'
+
+======================================================================
+ERROR: test_build_hashes_and_tamper_detection (test_pipeline.DatasetTests.test_build_hashes_and_tamper_detection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 184, in test_build_hashes_and_tamper_detection
+    summary=p.build(p.RAW,out)
+            ^^^^^^^^^^^^^^^^^^
+  File "<repo>\scripts\m7_phase2\pipeline.py", line 292, in build
+    output.mkdir(parents=True,exist_ok=True)
+  File "<python>\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpckwkf8p_\\bundle'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpckwkf8p_'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 182, in test_build_hashes_and_tamper_detection
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpckwkf8p_'
+
+======================================================================
+ERROR: test_duplicate_entity_version_rejected (test_pipeline.DatasetTests.test_duplicate_entity_version_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp4lhzsybm\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp4lhzsybm'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 86, in test_duplicate_entity_version_rejected
+    self.bad_raw('products.jsonl',mutate,'duplicate product/version')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp4lhzsybm'
+
+======================================================================
+ERROR: test_duplicate_record_rejected (test_pipeline.DatasetTests.test_duplicate_record_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpenwqtxg5\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpenwqtxg5'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 81, in test_duplicate_record_rejected
+    self.bad_raw('products.jsonl',lambda rows:rows.append(deepcopy(rows[0])),'duplicate raw record')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpenwqtxg5'
+
+======================================================================
+ERROR: test_invalid_matching_context_rejected (test_pipeline.DatasetTests.test_invalid_matching_context_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmps2hm4dbl\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmps2hm4dbl'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 109, in test_invalid_matching_context_rejected
+    self.bad_raw('requests.jsonl',mutate,'authorized owner context')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmps2hm4dbl'
+
+======================================================================
+ERROR: test_json_writers_pin_utf8_lf (test_pipeline.DatasetTests.test_json_writers_pin_utf8_lf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 31, in test_json_writers_pin_utf8_lf
+    p.write_json(root/'value.json',{'text':'中文\n第二行'})
+  File "<repo>\scripts\m7_phase2\pipeline.py", line 54, in write_json
+    path.write_text(json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2)+'\n', encoding='utf-8', newline='\n')
+  File "<python>\Lib\pathlib.py", line 1047, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 20, in platform_open
+    return original(path,mode,buffering,encoding,errors,newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpvcxo7q6l\\value.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpvcxo7q6l'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 27, in test_json_writers_pin_utf8_lf
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpvcxo7q6l'
+
+======================================================================
+ERROR: test_missing_pair_rejected (test_pipeline.DatasetTests.test_missing_pair_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 113, in test_missing_pair_rejected
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp_fw9vymv\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp_fw9vymv'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 112, in test_missing_pair_rejected
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp_fw9vymv'
+
+======================================================================
+ERROR: test_missing_required_field (test_pipeline.DatasetTests.test_missing_required_field)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp66caj1ef\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp66caj1ef'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 89, in test_missing_required_field
+    self.bad_raw('products.jsonl',lambda rows:rows[0]['sourceProduct'].pop('price'),'required property')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp66caj1ef'
+
+======================================================================
+ERROR: test_raw_tamper_detection (test_pipeline.DatasetTests.test_raw_tamper_detection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 194, in test_raw_tamper_detection
+    out=Path(tmp)/'bundle';raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpqq7q75q2\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpqq7q75q2'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 193, in test_raw_tamper_detection
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpqq7q75q2'
+
+======================================================================
+ERROR: test_rebuild_identical_under_lf_and_crlf_platform_defaults (test_pipeline.DatasetTests.test_rebuild_identical_under_lf_and_crlf_platform_defaults)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 43, in test_rebuild_identical_under_lf_and_crlf_platform_defaults
+    with simulated_default_newline('\n'):p.build(p.RAW,root/'lf')
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>\scripts\m7_phase2\pipeline.py", line 292, in build
+    output.mkdir(parents=True,exist_ok=True)
+  File "<python>\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp7dq2akex\\lf'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp7dq2akex'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 41, in test_rebuild_identical_under_lf_and_crlf_platform_defaults
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp7dq2akex'
+
+======================================================================
+ERROR: test_reversed_budget_rejected (test_pipeline.DatasetTests.test_reversed_budget_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp4c1xpy9g\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp4c1xpy9g'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 104, in test_reversed_budget_rejected
+    self.bad_raw('requests.jsonl',lambda rows:rows[0]['filters'].update(minPriceYuan='300.00',maxPriceYuan='200.00'),'reversed budget')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp4c1xpy9g'
+
+======================================================================
+ERROR: test_unknown_dictionary_category (test_pipeline.DatasetTests.test_unknown_dictionary_category)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp58hyblyp\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp58hyblyp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 98, in test_unknown_dictionary_category
+    self.bad_raw('requests.jsonl',lambda rows:rows[0]['filters'].update(categoryId='made-up'),'unknown filter category')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp58hyblyp'
+
+======================================================================
+ERROR: test_unknown_field_rejected (test_pipeline.DatasetTests.test_unknown_field_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpesoie16p\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpesoie16p'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 92, in test_unknown_field_rejected
+    self.bad_raw('products.jsonl',lambda rows:rows[0].update(secretEmail='not-allowed'),'Additional properties')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmpesoie16p'
+
+======================================================================
+ERROR: test_unknown_status_rejected (test_pipeline.DatasetTests.test_unknown_status_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 66, in bad_raw
+    raw=Path(tmp)/'raw';shutil.copytree(p.RAW,raw)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 600, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 498, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp1q5hud7_\\raw'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<python>\Lib\shutil.py", line 637, in _rmtree_unsafe
+    os.rmdir(path)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp1q5hud7_'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 95, in test_unknown_status_rejected
+    self.bad_raw('products.jsonl',lambda rows:rows[0]['sourceProduct'].update(status='AVAILABLE'),'not one of')
+  File "<repo>\scripts\m7_phase2\test_pipeline.py", line 65, in bad_raw
+    with tempfile.TemporaryDirectory() as tmp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\tempfile.py", line 950, in __exit__
+    self.cleanup()
+  File "<python>\Lib\tempfile.py", line 954, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "<python>\Lib\tempfile.py", line 934, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+  File "<python>\Lib\shutil.py", line 781, in rmtree
+    return _rmtree_unsafe(path, onexc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\shutil.py", line 639, in _rmtree_unsafe
+    onexc(os.rmdir, path, err)
+  File "<python>\Lib\tempfile.py", line 906, in onexc
+    _resetperms(path)
+  File "<python>\Lib\tempfile.py", line 286, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+  File "<python>\Lib\tempfile.py", line 277, in _dont_follow_symlinks
+    func(path, *args)
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\KkkkRui\\AppData\\Local\\Packages\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\AC\\Temp\\tmp1q5hud7_'
+
+----------------------------------------------------------------------
+Ran 28 tests in 1.337s
+
+FAILED (errors=14)

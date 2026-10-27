@@ -1,0 +1,27 @@
+{
+  "auditorNormalizedSha256": "9d9d1d3e404cd06723d644ebb9997408d00d60f84b3c5f43294af7de3cd9411b",
+  "auditorSourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+  "checks": {
+    "all": {
+      "repeatedMetricsIdentical": true,
+      "requests": 38,
+      "tolerance": 1e-12
+    },
+    "dev": {
+      "repeatedMetricsIdentical": true,
+      "requests": 26,
+      "tolerance": 1e-12
+    },
+    "test_candidate": {
+      "repeatedMetricsIdentical": true,
+      "requests": 12,
+      "tolerance": 1e-12
+    }
+  },
+  "declaredExecutor": "M7_AUTHOR_TECHNICAL_RECALCULATION",
+  "formalAcceptance": false,
+  "interpretation": "independent formula implementation; execution identity and final acceptance require original responsible reviewer",
+  "signature": null,
+  "sourceCommit": "45acf879bf41c18baae4f89584c9e1732f848c97",
+  "status": "PASS"
+}

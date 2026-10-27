@@ -1,0 +1,62 @@
+{
+  "observedOn": "2026-10-17",
+  "purpose": "Immutable source copies, not new approvals or new executions",
+  "sources": [
+    {
+      "modified": false,
+      "sha256": "4c3cbd6d66905e15ffc4b5d854f1164b32565c1e18b0ab5c81c8a6fd763d6309",
+      "snapshot": "source-snapshots/m1-freeze-candidate.json",
+      "sourceCommit": "ae79224f418aafaaa9620a17a5dd8e64a9fef689",
+      "sourcePath": "docs/evidence/phase-4/management-quality/freeze-candidate.json"
+    },
+    {
+      "modified": false,
+      "sha256": "d9b157174bd53681e1fe58ed72928276cdc0732424fd3e0179a7bdd8abcbded2",
+      "snapshot": "source-snapshots/m1-ai-go-no-go-decisions.md",
+      "sourceCommit": "ae79224f418aafaaa9620a17a5dd8e64a9fef689",
+      "sourcePath": "docs/evidence/phase-4/management-quality/ai-go-no-go-decisions.md"
+    },
+    {
+      "modified": false,
+      "sha256": "5560d0070760a1653f1c58c26d57b82a349f7ee81ff36b78d53466b826d6bd77",
+      "snapshot": "source-snapshots/m10-independent-check.json",
+      "sourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+      "sourcePath": "docs/evidence/phase-4/management-quality/ai-evaluation/independent-check.json"
+    },
+    {
+      "modified": false,
+      "sha256": "1531d7cfdd75236f6a7a5996ea9156fe4abd63d03b83b43aedb06db0c4b5e228",
+      "snapshot": "source-snapshots/m10-independent-ai-evaluation.md",
+      "sourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+      "sourcePath": "docs/evidence/phase-4/management-quality/independent-ai-evaluation.md"
+    },
+    {
+      "modified": false,
+      "sha256": "e977a810934bef488d4b4ff191b0bc3cf93e4dd192ea9726d5a27488c932c533",
+      "snapshot": "source-snapshots/m10-verification.md",
+      "sourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+      "sourcePath": "docs/evidence/phase-4/management-quality/m10-verification.md"
+    },
+    {
+      "modified": false,
+      "sha256": "68865c918d7671d78e125826000ff4a40cec4303031b0674b104ad2547f2acde",
+      "snapshot": "source-snapshots/m7-model-config.candidate.json",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "sourcePath": "docs/evidence/phase-4/intelligence/model-config.candidate.json"
+    },
+    {
+      "modified": false,
+      "sha256": "1b3a462fde197de958e5ab27124bd36dd13bee5cc1f8133f51c41622a75f4133",
+      "snapshot": "source-snapshots/m7-source-provenance.json",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "sourcePath": "docs/evidence/phase-4/intelligence/source-provenance.json"
+    },
+    {
+      "modified": false,
+      "sha256": "e5b3b77cf5ee56048cd3e589e5e775c477b271fb7718a38486afc5a49e4f350e",
+      "snapshot": "source-snapshots/m7-metric-ceiling-check.json",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "sourcePath": "docs/evidence/phase-4/intelligence/metric-ceiling-check.json"
+    }
+  ]
+}
