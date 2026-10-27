@@ -65,3 +65,9 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/m7-evaluation/** -text
 /docs/evidence/m7-evaluation/evidence/*.txt -whitespace
 /.github/workflows/m7-evaluation-protocol.yml text eol=lf
+
+# Bash line continuations must survive Windows checkouts.
+backend/scripts/*.sh text eol=lf
+
+# Preserve raw PR122 acceptance logs and their hashes across platforms.
+/docs/evidence/phase-5/backend-platform/evidence/m9-pr122-20261025/** -text -whitespace

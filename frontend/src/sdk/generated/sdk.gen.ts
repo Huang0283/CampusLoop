@@ -380,6 +380,9 @@ export const createChatSession = <ThrowOnError extends boolean = false>(options:
     }
 });
 
+/**
+ * Use afterId for durable recovery in ascending ID order, or beforeId for older history; never supply both. Continue recovery until an empty page.
+ */
 export const listMessages = <ThrowOnError extends boolean = false>(options: Options<ListMessagesData, ThrowOnError>): RequestResult<ListMessagesResponses, ListMessagesErrors, ThrowOnError, 'data'> => (options.client ?? client).get<ListMessagesResponses, ListMessagesErrors, ThrowOnError, 'data'>({
     responseStyle: 'data',
     security: [{ scheme: 'bearer', type: 'http' }],

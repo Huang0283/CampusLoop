@@ -1,0 +1,15 @@
+{
+  "status": "LOCAL_TECHNICAL_PASS",
+  "codeCommit": "22d6d8fc87a6bb107b59df5db226a4ee91285234",
+  "tests": 173,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "phase5Closed": false,
+  "mainMerged": false,
+  "releaseApproved": false,
+  "operations": "operations-summary.json",
+  "junit": "pr122-fresh-image-tests.xml",
+  "runtimeContentVerifiedInImage": "image-source-hashes.json",
+  "metadataAfterAudit": "Documentation and raw evidence attributes only; .gitattributes hash in the original source manifest refers to pre-packaging commit."
+}
