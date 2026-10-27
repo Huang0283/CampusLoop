@@ -1,0 +1,65 @@
+{
+  "endedAt": "2026-10-17T12:07:06.588146+00:00",
+  "environmentChange": {
+    "TEMP": "<writable-workspace-temp>",
+    "TMP": "<writable-workspace-temp>",
+    "TMPDIR": "<writable-workspace-temp>"
+  },
+  "installation": "Reused original baseline isolated environment; not fresh install",
+  "retryReason": "Sandbox networking is now enabled. Retry original full baseline and service commands; keep writable workspace TEMP and preserve v1/v2 failures; production sources unchanged.",
+  "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+  "startedAt": "2026-10-17T12:06:06.738261+00:00",
+  "status": "PASS",
+  "steps": [
+    {
+      "command": [
+        "<workspace-work>\\joint-clean-venv-20261008\\Scripts\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "verify"
+      ],
+      "durationSeconds": 1.156,
+      "exitCode": 0,
+      "name": "data-verify"
+    },
+    {
+      "command": [
+        "<workspace-work>\\joint-clean-venv-20261008\\Scripts\\python.exe",
+        "scripts/m7_phase2/pipeline.py",
+        "verify",
+        "--bundle-dir",
+        "<workspace-work>\\phase5-validation-v1\\rebuilt"
+      ],
+      "durationSeconds": 2.062,
+      "exitCode": 0,
+      "name": "data-rebuild-verify"
+    },
+    {
+      "command": [
+        "<workspace-work>\\joint-clean-venv-20261008\\Scripts\\python.exe",
+        "-m",
+        "services.m7_baseline.verify",
+        "--output-dir",
+        "<workspace-work>\\phase5-validation-v3\\baseline-verify"
+      ],
+      "durationSeconds": 52.094,
+      "exitCode": 0,
+      "name": "baseline-full-verify"
+    },
+    {
+      "command": [
+        "<workspace-work>\\joint-clean-venv-20261008\\Scripts\\python.exe",
+        "<workspace-work>\\CampusLoop-phase5\\docs\\evidence\\phase-5\\intelligence\\evidence\\author-reproduction-v3\\service-smoke-driver.py",
+        "--checkout",
+        "<workspace-work>\\p5-baseline-clean",
+        "--python",
+        "<workspace-work>\\joint-clean-venv-20261008\\Scripts\\python.exe",
+        "--output",
+        "<workspace-work>\\phase5-validation-v3\\service-process-smoke.json"
+      ],
+      "durationSeconds": 4.406,
+      "exitCode": 0,
+      "name": "service-process-smoke"
+    }
+  ],
+  "workingTreeDirty": false
+}

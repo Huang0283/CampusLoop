@@ -1,0 +1,53 @@
+{
+  "AI5_04": "DELIVERED; FINAL_STAGE_ACCEPTANCE_PENDING",
+  "acceptance": "NOT_FINAL_STAGE_ACCEPTANCE",
+  "archiveSourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+  "baselineFullVerifyStatus": "PASS: v3 after network permissions restored; prior failures retained",
+  "baselineLabelSource": "PENDING_HUMAN_REVIEW",
+  "baselineSourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+  "candidateDecision": "NO_GO",
+  "candidateFullVerifyStatus": "PASS",
+  "candidateLabelSource": "PENDING_HUMAN_REVIEW",
+  "candidateModelDownloadedThisRun": false,
+  "candidateRealInferenceThisRun": true,
+  "candidateSourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+  "checks": {
+    "baselineLabelsUnchanged": true,
+    "baselineRecalculated": true,
+    "baselineRepeatedMetrics": true,
+    "baselineRepeatedRankings": true,
+    "candidateLabelsUnchanged": true,
+    "candidateNoGoRetained": true,
+    "candidateRecalculated": true,
+    "candidateRepeatedMetrics": true,
+    "candidateRepeatedRankings": true,
+    "cleanCheckoutsAfter": true,
+    "dataInventoryMatches": true,
+    "originalDataUnchanged": true,
+    "realEncodingRepeated": true,
+    "releaseGitBlobsMatch": true,
+    "reviewStillNotArchivable": true,
+    "sourceSnapshotHashesMatch": true
+  },
+  "cleanGitCheckoutsBefore": true,
+  "dataRebuildStatus": "PASS after writable TEMP/TMP/TMPDIR",
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "environment": "Windows AMD64 / Python 3.12.14; existing isolated venvs; existing hash-pinned model",
+  "formalPageServiceVersionCheck": false,
+  "freshDependencyInstallation": false,
+  "historicalFailuresPreserved": true,
+  "latestRecords": [
+    "author-reproduction-v3/run-record.json",
+    "limitations-v1/run-record.json"
+  ],
+  "phase2Status": "PASS",
+  "rawAttempts": [
+    "author-reproduction-v1/run-record.json",
+    "author-reproduction-v2/run-record.json"
+  ],
+  "requestCount": 38,
+  "schemaVersion": "m7-p5-author-check-summary-v1",
+  "serviceSmokeStatus": "PASS: v3 six real process/RPC cases; prior failures retained",
+  "status": "AUTHOR_TECHNICAL_PASS_FINAL_ACCEPTANCE_PENDING",
+  "testSetSealed": false
+}
