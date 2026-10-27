@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "source": "Extracted candidate ZIP; clean package image built after fresh pip download through proxy",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "campusloop-mq5-audit_default",
+    "--env-file",
+    "C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\mq-p5-candidate\\.codex-tmp\\test.env",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\mq-p5-package-extracted\\source,target=/workspace,readonly",
+    "-w",
+    "/workspace/backend",
+    "campusloop-mq5-package:50108a3",
+    "python",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "elapsedSeconds": 57.915,
+  "exitCode": 0
+}

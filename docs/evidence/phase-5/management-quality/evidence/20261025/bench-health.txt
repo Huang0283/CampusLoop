@@ -1,0 +1,17 @@
+{"url": "http://127.0.0.1:8025/health", "concurrency": 10, "requests": 100}
+{
+  "total": 100,
+  "ok": 100,
+  "failed": 0,
+  "wallSeconds": 0.38,
+  "throughputPerSecond": 264.4,
+  "p50_ms": 20.1,
+  "p95_ms": 177.0,
+  "p99_ms": 190.1,
+  "max_ms": 190.2,
+  "statusCodes": {
+    "200": 100
+  },
+  "errorSamples": []
+}
+[OK] 全部 100 次请求成功，p95=177.0ms ≤ 2000.0ms。
