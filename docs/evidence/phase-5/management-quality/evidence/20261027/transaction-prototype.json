@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "npm.cmd",
+    "run",
+    "test:transaction"
+  ],
+  "cwd": "frontend",
+  "startedAt": "2026-10-27T02:00:13.977790+00:00",
+  "endedAt": "2026-10-27T02:00:15.282593+00:00",
+  "exitCode": 0,
+  "output": "transaction-prototype.txt",
+  "sha256": "7612aef0285df92981b3c92f9b985f80894b6d76c457c7b0b37ff165a84a6e65"
+}

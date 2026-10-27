@@ -1,3 +1,5 @@
+> 2026-10-27 当前状态：[统一候选复核](integration-review-20261027.md)。旧日期内容为历史记录；M2/M4/M5 的 PR 与个人材料已进入各组分支，当前技术测试与正式发布门禁请以本轮复核及 release-status.json 为准。
+
 # MQ5-09 发布记录（候选，非正式发布）
 
 日期 2026-10-25。main 基线 1b3385a；phase5/integration 和 phase5/release-candidate 从此创建。审计业务源码 `audit/phase5-candidate-20261025@50108a3a50ca18e0da3f4db709da3f8bea2ee24c`，来源后端 ccba7ba、前端 444f8be、智能 89aca5b。审计分支已推送，不等于组汇总或 main 已合并。

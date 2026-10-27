@@ -1,11 +1,11 @@
 {
   "kind": "CANDIDATE_NOT_FINAL",
-  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
   "finalReleaseCommit": null,
-  "checkedAt": "2026-10-25",
+  "checkedAt": "2026-10-27",
   "gates": {
     "group_prs_merged": false,
-    "integration_ci_passed": true,
+    "integration_ci_passed": false,
     "same_source_tested": false,
     "no_open_p0_p1": false,
     "clean_install_passed": true,
@@ -20,19 +20,18 @@
     "immutable_tag_verified": false
   },
   "technicalResults": {
-    "backendPassed": 173,
-    "browserPassed": 49,
-    "m7Passed": 38,
-    "m8Passed": 31,
-    "rpcFaultsPassed": 18,
-    "restoredTables": 26
+    "backendPassed": 180,
+    "browserPassed": 57,
+    "m7BaselinePassed": 38,
+    "m7SemanticPassed": 39,
+    "m8Phase4Passed": 42,
+    "qualityToolsPassed": 9
   },
   "limits": [
-    "No final release SHA/tag or user signoff",
-    "Only database restored; no MinIO bytes",
-    "Automatic technical rehearsals are not the final human classroom rehearsal",
-    "M7/M8 learned candidates NO_GO",
-    "Missing course video/materials, upstream group delivery and license review"
+    "Learning candidates remain NO_GO; M8 data authorization PENDING",
+    "Course materials, human rehearsals/video, license decisions and signoffs pending",
+    "Final package reproduction pending; restore covers database only",
+    "Browser suite includes both real API journeys and contract fixtures"
   ],
   "evidence": [
     {
@@ -53,11 +52,11 @@
     },
     {
       "path": "docs/evidence/phase-5/management-quality/clean-install-report.md",
-      "sha256": "89e30893ab766786283cfeb1b8560f699bb4b49657102fd71aa03b41223f43dd"
+      "sha256": "e5f40b848c8a0a0dde12080fa28ed6c72ac5407445b82c73edc96f332d14a4a8"
     },
     {
       "path": "docs/evidence/phase-5/management-quality/final-regression-report.md",
-      "sha256": "cca1cf92e97e5ded57a03be67343da7dc0289dee80a32aca0e5ff95cbeff2723"
+      "sha256": "2189819f4dd0e84bf01748be813ded48978112312e393104a20555a8f5b775cc"
     },
     {
       "path": "docs/evidence/phase-5/management-quality/non-functional-test-report.md",
@@ -342,11 +341,34 @@
     {
       "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/sdk-check.txt",
       "sha256": "7b76ee84765460b3168ace1270f64da799b5ea9229f9c7f212dceb640fa9aa3d"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/integration-review-20261027.md",
+      "sha256": "d2d7503c557feaae982bbcfc6de9cf9418c584f04a32d0996635ab3bbbd40f80"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261027/FILES.sha256.json",
+      "sha256": "390a19009ddf8b955fa38a1e9c1abd581c12153131580a7b88c40cec76adac10"
     }
   ],
   "gateReasons": {
-    "same_source_tested": "Audit SHA passed; no final release SHA exists yet.",
+    "same_source_tested": "Local candidate tests recorded; final release SHA/tag and remote CI pending.",
     "no_open_p0_p1": "No unresolved P0/P1 observed in executed tests; final global quality signoff not supplied.",
-    "two_rehearsals_recorded": "Two automatic technical runs recorded; full human classroom rehearsal not yet recorded."
+    "two_rehearsals_recorded": "Two automatic technical runs recorded; full human classroom rehearsal not yet recorded.",
+    "integration_ci_passed": "Current candidate CI has not completed; prior audit CI does not prove this SHA.",
+    "recovery_passed": "Current 0011 audit database restored and compared; PostgreSQL only, no MinIO object bytes.",
+    "group_prs_merged": "Member PRs merged into group branches; formal group-to-stage PRs pending."
+  },
+  "historicalTechnicalResults": {
+    "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+    "checkedAt": "2026-10-25",
+    "technicalResults": {
+      "backendPassed": 173,
+      "browserPassed": 49,
+      "m7Passed": 38,
+      "m8Passed": 31,
+      "rpcFaultsPassed": 18,
+      "restoredTables": 26
+    }
   }
 }

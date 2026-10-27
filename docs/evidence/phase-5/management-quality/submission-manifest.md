@@ -1,3 +1,5 @@
+> 2026-10-27 当前状态：[统一候选复核](integration-review-20261027.md)。旧日期内容为历史记录；M2/M4/M5 的 PR 与个人材料已进入各组分支，当前技术测试与正式发布门禁请以本轮复核及 release-status.json 为准。
+
 # MQ5-06 候选提交清单
 
 源码 `50108a3a50ca18e0da3f4db709da3f8bea2ee24c`，质量材料来自 M1/M10 本轮个人 PR。包标记 CANDIDATE_NOT_FINAL；`source/` 为固定 Git 提交字节，`quality/` 为另行标明的质量补充，不把未合并文档说成该源码已有文件。包名、SHA、文件数见 `package-receipt.json`。

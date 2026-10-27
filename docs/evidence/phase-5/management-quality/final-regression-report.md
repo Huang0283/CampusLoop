@@ -1,3 +1,5 @@
+> 2026-10-27 当前状态：[统一候选复核](integration-review-20261027.md)。旧日期内容为历史记录；M2/M4/M5 的 PR 与个人材料已进入各组分支，当前技术测试与正式发布门禁请以本轮复核及 release-status.json 为准。
+
 # MQ5-04 最终候选功能回归
 
 日期 2026-10-25；执行人用户委托 Codex。测试源码固定 `50108a3a50ca18e0da3f4db709da3f8bea2ee24c`，审计 UI 5195 → API 8025 → 独立 PostgreSQL/Redis DB15/MinIO。批准界面、真实 SDK/会话均保留；写入不进入日常数据库。

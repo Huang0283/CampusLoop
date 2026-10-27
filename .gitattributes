@@ -71,3 +71,9 @@ backend/scripts/*.sh text eol=lf
 
 # Preserve raw PR122 acceptance logs and their hashes across platforms.
 /docs/evidence/phase-5/backend-platform/evidence/m9-pr122-20261025/** -text -whitespace
+
+# Archived AI and current quality evidence is hashed as exact bytes.
+/docs/evidence/phase-5/intelligence/** -text
+/docs/evidence/phase-5/intelligence/evidence/joint-v1/ci-backend-job.txt -whitespace
+/docs/evidence/phase-5/intelligence/human-review/**/review-records.csv whitespace=cr-at-eol
+/docs/evidence/phase-5/management-quality/evidence/20261027/** -text -whitespace

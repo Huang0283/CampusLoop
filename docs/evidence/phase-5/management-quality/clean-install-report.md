@@ -1,3 +1,5 @@
+> 2026-10-27 当前状态：[统一候选复核](integration-review-20261027.md)。旧日期内容为历史记录；M2/M4/M5 的 PR 与个人材料已进入各组分支，当前技术测试与正式发布门禁请以本轮复核及 release-status.json 为准。
+
 # MQ5-03 干净安装与部署报告
 
 2026-10-25，由用户委托 Codex 执行。源码 `50108a3a50ca18e0da3f4db709da3f8bea2ee24c`，Windows 11 AMD64、Node v24.21.0；后端镜像 Python 3.12，宿主辅助脚本 Python 3.14.7。环境完整回执在 `evidence/20261025/environment.json`。

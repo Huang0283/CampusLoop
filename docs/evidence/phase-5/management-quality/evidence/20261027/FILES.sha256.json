@@ -1,0 +1,179 @@
+{
+  "files": [
+    {
+      "path": "backend-full.json",
+      "bytes": 1153,
+      "sha256": "7e93a0813a8098b576e9bb64b840d6c3784fe230977ea6009e28a0e9a4e0d4a1"
+    },
+    {
+      "path": "backend-full.txt",
+      "bytes": 1585,
+      "sha256": "0754345695db6073d1eb084d80765a78e04ca69c34f73c5c9c768439624ec333"
+    },
+    {
+      "path": "backend-junit.xml",
+      "bytes": 23657,
+      "sha256": "3d6916764ce480107663bedeb6a52d6d58a367eb98730121fb1d65e61ac398a7"
+    },
+    {
+      "path": "browser-full.json",
+      "bytes": 418,
+      "sha256": "4e1ef2ed855682e011045fc3f3b4533a5017bd982847eae0e771975e18cf3b19"
+    },
+    {
+      "path": "browser-full.txt",
+      "bytes": 11391,
+      "sha256": "3864b9cdb38442bc13259e5ec224ed5504237e997b73501c4391255c00b9f532"
+    },
+    {
+      "path": "clean-deploy.json",
+      "bytes": 730,
+      "sha256": "da8de1f2579b0cab52e6f5e5decd92f0f597a908968ffa503a4718907225fa02"
+    },
+    {
+      "path": "clean-deploy.txt",
+      "bytes": 4212,
+      "sha256": "9d8a31adcb5c8bd32d827b652cc117776b851ce1e21a1d7fc17c424dd770625e"
+    },
+    {
+      "path": "compose.audit.yml",
+      "bytes": 774,
+      "sha256": "fc1d6c308349d50b9df86e2e5a48a3df76855a171006032df852b33a356ca11b"
+    },
+    {
+      "path": "frontend-build.json",
+      "bytes": 414,
+      "sha256": "a954d1d2d0557092e9c6975b24a6beb36f7549070316e8a98510087280bd47ce"
+    },
+    {
+      "path": "frontend-build.txt",
+      "bytes": 2124,
+      "sha256": "6b8c0e8c549c9cdfa3b9e05965131b8b300dfbf0cee8f5d59028b262f0f36963"
+    },
+    {
+      "path": "frontend-lint.json",
+      "bytes": 412,
+      "sha256": "fbb96a4709f3e5854d3fbf2c35055f9953ca0f9a72a7d6c90aff3be88ae3c636"
+    },
+    {
+      "path": "frontend-lint.txt",
+      "bytes": 39,
+      "sha256": "98cdc628d09a5242698fda93e945f0e0efa0645207f11c522f5bffab308bd486"
+    },
+    {
+      "path": "initial-loading-name-failure-browser-full.json",
+      "bytes": 393,
+      "sha256": "6e0e2784bd7dc372d34e223ee803c2d83e7653391e92bb1c9f0d1c8f4c82b4bb"
+    },
+    {
+      "path": "initial-loading-name-failure-browser-full.txt",
+      "bytes": 12750,
+      "sha256": "6a0c1d6ebed58ee2216f6ec41d566e254b05f4f51c83f7267e6208f8c9e3d281"
+    },
+    {
+      "path": "initial-origin-failure-backend-full.json",
+      "bytes": 1128,
+      "sha256": "1fbcbd552f3ffa8e2b91ccb0d2578b2409207734acc412cc1fde9c3b8715b684"
+    },
+    {
+      "path": "initial-origin-failure-backend-full.txt",
+      "bytes": 6853,
+      "sha256": "a7d6404a6fd4d3cb0da945997a6991f982fb94b701641d237dba33f139518436"
+    },
+    {
+      "path": "initial-origin-failure-backend-junit.xml",
+      "bytes": 29301,
+      "sha256": "9067fe320efc6d1269eea24d371f3db51020d5b5db11c0d486a4c3918ae98f2f"
+    },
+    {
+      "path": "m4-governance.json",
+      "bytes": 415,
+      "sha256": "a0bfb5c08edc071fbe75cd445de4642b91adb7556734c4f1bc152a855ee5da10"
+    },
+    {
+      "path": "m4-governance.txt",
+      "bytes": 1252,
+      "sha256": "b602c9eaf9b401ab99542161fefc938ef89a51d5a209015870ebc5b09ffbdfcb"
+    },
+    {
+      "path": "m7-baseline.json",
+      "bytes": 768,
+      "sha256": "8b85337d4fd7ef44fc28d69e575f0192c98a543883fbf7a172f7e10c71442163"
+    },
+    {
+      "path": "m7-baseline.txt",
+      "bytes": 6596,
+      "sha256": "e43849d9d912d5fdec143eb3206229073432c52b32bfefaddac5479a2b995900"
+    },
+    {
+      "path": "m7-semantic.json",
+      "bytes": 768,
+      "sha256": "30d3b53da5b61c2573530c3db86d155c32e1fa62ca81e2c69a242fe6824b9342"
+    },
+    {
+      "path": "m7-semantic.txt",
+      "bytes": 5621,
+      "sha256": "2a0f1462e82bdd104139a06b788cb40092f509b2f8bd097cf2a055055df5121e"
+    },
+    {
+      "path": "m8-phase4.json",
+      "bytes": 564,
+      "sha256": "8466289f25e80bc5bc7c74af96ecc367e7b6ca6403c7990042e032dbee197145"
+    },
+    {
+      "path": "m8-phase4.txt",
+      "bytes": 6118,
+      "sha256": "ab2f9ce30c4ae69939472feb56aafcbffb051e968bec1efd347d5ea7f8bc3ea3"
+    },
+    {
+      "path": "notification-name-fix.json",
+      "bytes": 514,
+      "sha256": "92056fcf9314edd964cd6ac5b8ba598aa2bf502cee08d7646f0139fb85fa7807"
+    },
+    {
+      "path": "notification-name-fix.txt",
+      "bytes": 382,
+      "sha256": "4a0d39ea1e5abc87daed2d465d80b0a9cce7837ecfbfa5226d3d68f5ac5e5935"
+    },
+    {
+      "path": "recovery-current.json",
+      "bytes": 526,
+      "sha256": "83d22c85e898e08ee7e2fdd0f01d0e79c41a17de8ee32e0ad71d57d653adc780"
+    },
+    {
+      "path": "recovery-current.txt",
+      "bytes": 1068,
+      "sha256": "e9567b7f0b8d40f0d9562dafd59973a34ab5cab4276c73054db90c26eedbd64c"
+    },
+    {
+      "path": "sdk-drift.json",
+      "bytes": 452,
+      "sha256": "bcffab5cebe700ff50748f5765a57e0424468d7cdf70b213921abeee1ca9944f"
+    },
+    {
+      "path": "sdk-drift.txt",
+      "bytes": 2230,
+      "sha256": "c76c1b6b594475fec9ed417c3c34981ae2e74cfec3b36e6aa37350fcbac3ab94"
+    },
+    {
+      "path": "sdk.json",
+      "bytes": 407,
+      "sha256": "d5b393fcbbfb090aa2c5da2e187cd283e8db5a999371240f4be121151eb72c39"
+    },
+    {
+      "path": "sdk.txt",
+      "bytes": 393,
+      "sha256": "b314157e13ba7c7df7c2e4aa63da743cf9f7e17937237da2b4dec757cb8830a3"
+    },
+    {
+      "path": "transaction-prototype.json",
+      "bytes": 432,
+      "sha256": "d2e8ec881e884d4c31024ae5b818a423e5ad8a5c14bce04042c8ca89a7002d13"
+    },
+    {
+      "path": "transaction-prototype.txt",
+      "bytes": 727,
+      "sha256": "7612aef0285df92981b3c92f9b985f80894b6d76c457c7b0b37ff165a84a6e65"
+    }
+  ]
+}

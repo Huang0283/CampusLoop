@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "C:\\Python314\\python.exe",
+    "C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\phase5-final-integration\\.codex-tmp\\recovery_current.py"
+  ],
+  "cwd": ".",
+  "startedAt": "2026-10-27T02:11:55.424583+00:00",
+  "endedAt": "2026-10-27T02:11:59.106977+00:00",
+  "exitCode": 0,
+  "output": "recovery-current.txt",
+  "sha256": "e9567b7f0b8d40f0d9562dafd59973a34ab5cab4276c73054db90c26eedbd64c"
+}
