@@ -72,10 +72,12 @@ def idempotent(
     return result
 
 
-def notify(db: Session, recipient: int, kind: str, link: str, title: str) -> None:
+def notify(
+    db: Session, recipient: int, kind: str, link: str, title: str, content: str = ""
+) -> None:
     db.add(
         Notification(
-            user_id=recipient, type=kind, payload={"title": title, "content": "", "link": link}
+            user_id=recipient, type=kind, payload={"title": title, "content": content, "link": link}
         )
     )
 

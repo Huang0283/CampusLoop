@@ -12,6 +12,10 @@ test('shared async component exposes all seven states/actions; outer boundary hi
     const create = react.createElement as (...args: unknown[]) => unknown
     const createRoot = dom.createRoot as (container: Element) => { render: (element: unknown) => void }
     const container = document.createElement('section'); container.id = 'component-contract-test'; document.body.append(container)
+    // This component-only harness is mounted outside the application root. Keep it
+    // above the real market layout so long product lists and fixed menus cannot
+    // intercept its buttons. Normal Playwright actionability checks still apply.
+    container.style.cssText = 'position:fixed;inset:0;z-index:2147483647;overflow:auto;background:white;'
     const root = createRoot(container)
     const retry = () => container.setAttribute('data-retried', 'true')
     const phases = ['queued', 'running', 'completed', 'failed', 'timeout', 'expired']

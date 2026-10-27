@@ -1,0 +1,369 @@
+{
+  "page": "/transactions/1001",
+  "details": [
+    {
+      "rule": "color-contrast",
+      "target": [
+        "div:nth-child(1) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      "html": "<span class=\"ant-avatar-string\" style=\"transform: scale(1);\">验</span>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element content is too short to determine if it is actual text content",
+          "data": {
+            "fgColor": "#2f6bff",
+            "bgColor": "#dbe7ff",
+            "contrastRatio": 3.61,
+            "fontSize": "13.5pt (18px)",
+            "fontWeight": "normal",
+            "messageKey": "shortTextContent",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "验",
+        "color": "rgb(47, 107, 255)",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar-string"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar",
+              "ant-avatar-circle",
+              "css-var-_r_0_",
+              "ant-avatar-css-var",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgb(219, 231, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "person"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "order-persons"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-card-body"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-card",
+              "ant-card-bordered",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "detail-sections"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "detail-columns"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "campus-page"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "color-contrast",
+      "target": [
+        "div:nth-child(2) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      "html": "<span class=\"ant-avatar-string\" style=\"transform: scale(1);\">王</span>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element content is too short to determine if it is actual text content",
+          "data": {
+            "fgColor": "#2f6bff",
+            "bgColor": "#dbe7ff",
+            "contrastRatio": 3.61,
+            "fontSize": "13.5pt (18px)",
+            "fontWeight": "normal",
+            "messageKey": "shortTextContent",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "王",
+        "color": "rgb(47, 107, 255)",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar-string"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar",
+              "ant-avatar-circle",
+              "css-var-_r_0_",
+              "ant-avatar-css-var",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgb(219, 231, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "person"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "order-persons"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-card-body"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-card",
+              "ant-card-bordered",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "detail-sections"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "detail-columns"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "campus-page"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    }
+  ]
+}

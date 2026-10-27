@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { KeyboardEvent } from 'react'
 import { Alert, Button, Descriptions, Drawer, Form, Image, Input, Pagination, Select, Space, Table, Tabs, Tag, Typography } from 'antd'
 import * as api from '../sdk'
 import type { AdminProduct, AdminReport, ReportStatus, UserProfile } from '../sdk'
@@ -6,6 +7,64 @@ import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './comm
 import { useAttemptKey } from './idempotency'
 import { Person } from './Presentation'
 import { productStatusLabels, displayDate } from './display'
+
+function useDrawerFocusReturn(open: boolean) {
+  const triggerRef = useRef<HTMLElement>(null)
+  const previousOpen = useRef(open)
+  const capture = (element: HTMLElement) => {
+    triggerRef.current = element
+  }
+
+  useEffect(() => {
+    const closing = previousOpen.current && !open
+    previousOpen.current = open
+    if (!closing) return
+
+    const frame = window.requestAnimationFrame(() => {
+      const trigger = triggerRef.current
+      if (trigger?.isConnected && !trigger.matches(':disabled')) {
+        trigger.focus({ preventScroll: true })
+      }
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [open])
+
+  return { capture }
+}
+
+function keepDrawerFocus(event: KeyboardEvent<HTMLElement>) {
+  if (event.key !== 'Tab' || event.defaultPrevented
+    || event.altKey || event.ctrlKey || event.metaKey) return
+
+  const panel = event.currentTarget
+  const active = panel.ownerDocument.activeElement
+  // A nested portal, such as image preview, manages its own focus.
+  if (!active || !panel.contains(active)) return
+
+  const selector = [
+    'button', 'a[href]', 'input', 'select', 'textarea',
+    '[tabindex]', '[contenteditable="true"]', 'summary',
+  ].join(',')
+  const elements = [...panel.querySelectorAll<HTMLElement>(selector)]
+    .filter(element =>
+      element.tabIndex >= 0
+      && !element.matches(':disabled')
+      && element.getClientRects().length > 0
+      && !element.closest('[inert], [aria-hidden="true"]'),
+    )
+  const first = elements[0]
+  const last = elements[elements.length - 1]
+
+  if (!first) {
+    event.preventDefault()
+    panel.focus({ preventScroll: true })
+    return
+  }
+  if (event.shiftKey ? active === first : active === last) {
+    event.preventDefault()
+    ;(event.shiftKey ? last : first).focus({ preventScroll: true })
+  }
+}
 
 function RiskDetail({ user }: { user: UserProfile }) {
   const remote = useRemote(`admin-risk-${user.id}`, (signal) => api.data(api.getUserRiskClues({ path: { userId: user.id }, signal })))
@@ -54,6 +113,7 @@ function UsersPanel() {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<string>()
   const [selected, setSelected] = useState<UserProfile>()
+  const drawerFocus = useDrawerFocusReturn(Boolean(selected))
   const remote = useRemote(`admin-users-${page}`, (signal) => api.data(api.adminListUsers({ signal, query: { page, pageSize: 20 } })))
   const visible = remote.value?.items.filter((user) => (!status || user.status === status) && `${user.id} ${user.nickname} ${user.email}`.toLowerCase().includes(query.toLowerCase())) || []
   return <>
@@ -70,11 +130,11 @@ function UsersPanel() {
         { title: '用户', key: 'user', render: (_, user) => <Person person={user} detail={user.email} /> },
         { title: '编号', dataIndex: 'id' }, { title: '状态', key: 'status', render: (_, user) => <Tag color={user.status === 'ACTIVE' ? 'green' : 'red'}>{user.status === 'ACTIVE' ? '正常' : '已禁用'}</Tag> },
         { title: '角色', key: 'role', render: (_, user) => user.role === 'ADMIN' ? '管理员' : '普通用户' },
-        { title: '操作', key: 'action', render: (_, user) => <Button onClick={() => setSelected(user)}>详情与人工处理 #{user.id}</Button> },
+        { title: '操作', key: 'action', render: (_, user) => <Button onClick={(event) => { drawerFocus.capture(event.currentTarget); setSelected(user) }}>详情与人工处理 #{user.id}</Button> },
       ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => { setSelected(undefined); setPage(next) }} />}
     </Resource>
-    <Drawer title="用户详情与风险复核" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>
+    <Drawer onKeyDown={keepDrawerFocus} title="用户详情与风险复核" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>
       {selected && <UserDetail key={selected.id} user={selected} refresh={remote.reload} />}
     </Drawer>
   </>
@@ -129,6 +189,7 @@ function ReportsPanel() {
   const [page, setPage] = useState(1)
   const [status, setStatus] = useState<ReportStatus>()
   const [selected, setSelected] = useState<AdminReport>()
+  const drawerFocus = useDrawerFocusReturn(Boolean(selected))
   const remote = useRemote(`admin-reports-${page}-${status}`, (signal) => api.data(api.adminListReports({ signal, query: { page, pageSize: 20, status } })))
   return <>
     <Space wrap style={{ marginBottom: 16 }}><Select aria-label="举报状态筛选" placeholder="全部举报状态" allowClear value={status} onChange={(next) => { setSelected(undefined); setPage(1); setStatus(next) }} style={{ width: 200 }} options={(['PENDING', 'PROCESSING', 'RESOLVED', 'REJECTED'] as const).map((value) => ({ value, label: value }))} /><Button onClick={remote.reload}>刷新举报</Button></Space>
@@ -139,11 +200,11 @@ function ReportsPanel() {
         { title: '举报对象', key: 'target', render: (_, report) => `${report.targetType} #${report.targetId}` },
         { title: '处理状态', key: 'status', render: (_, report) => <Tag>{report.status}</Tag> },
         { title: '提交时间', key: 'time', render: (_, report) => displayDate(report.createdAt) },
-        { title: '操作', key: 'action', render: (_, report) => <Button onClick={() => setSelected(report)}>举报详情 #{report.id}</Button> },
+        { title: '操作', key: 'action', render: (_, report) => <Button onClick={(event) => { drawerFocus.capture(event.currentTarget); setSelected(report) }}>举报详情 #{report.id}</Button> },
       ]} />}
       {remote.value && <Space><Button disabled={page === 1} onClick={() => { setSelected(undefined); setPage(page - 1) }}>上一页</Button><span>第 {page} 页</span><Button disabled={remote.value.length < 20} onClick={() => { setSelected(undefined); setPage(page + 1) }}>下一页</Button></Space>}
     </Resource>}
-    <Drawer title="举报详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ReportDetail key={selected.id} report={selected} refresh={remote.reload} />}</Drawer>
+    <Drawer onKeyDown={keepDrawerFocus} title="举报详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ReportDetail key={selected.id} report={selected} refresh={remote.reload} />}</Drawer>
   </>
 }
 
@@ -183,6 +244,7 @@ function ProductsPanel() {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<api.ProductStatus>()
   const [selected, setSelected] = useState<number>()
+  const drawerFocus = useDrawerFocusReturn(Boolean(selected))
   const remote = useRemote(`admin-products-${page}-${query}-${status}`, (signal) => api.data(api.adminListProducts({ signal, query: { query, status, page, pageSize: 20 } })))
   return <>
     <Alert type="info" showIcon title="管理员人工处理商品，读取和处理均记录审计；不会自动处罚账号，也不会改变已预订或已售出的商品。" />
@@ -198,11 +260,11 @@ function ProductsPanel() {
         { title: '卖家', key: 'seller', render: (_, { product }) => product.seller.nickname },
         { title: '价格', key: 'price', render: (_, { product }) => `¥${product.price.toFixed(2)}` },
         { title: '状态', key: 'status', render: (_, { product, moderationBlocked }) => <Space><Tag>{productStatusLabels[product.status]}</Tag>{moderationBlocked && <Tag color="red">人工下架</Tag>}</Space> },
-        { title: '操作', key: 'action', render: (_, { product }) => <Button onClick={() => setSelected(product.id)}>查看并处理商品 #{product.id}</Button> },
+        { title: '操作', key: 'action', render: (_, { product }) => <Button onClick={(event) => { drawerFocus.capture(event.currentTarget); setSelected(product.id) }}>查看并处理商品 #{product.id}</Button> },
       ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => { setPage(value); setSelected(undefined) }} />}
     </Resource>}
-    <Drawer title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</Drawer>
+    <Drawer onKeyDown={keepDrawerFocus} title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</Drawer>
   </>
 }
 

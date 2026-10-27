@@ -1,0 +1,26 @@
+
+  api-1  | {"timestamp": "2026-10-24T13:34:55.136372+00:00", "level": "INFO", "logger": "http", "requestId": "273745d1a84e", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  db-1   | 2026-10-24 14:17:43.741 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.103 s, sync=0.005 s, total=0.130 s; sync files=2, longest=0.004 s, average=0.003 s; distance=5 kB, estimate=32 kB; lsn=0/1CB5BB8, redo lsn=0/1CB5B80
+> db-1   | 2026-10-24 14:19:38.222 UTC [5991] ERROR:  deadlock detected
+  api-1  | {"timestamp": "2026-10-24T13:35:05.196204+00:00", "level": "INFO", "logger": "http", "requestId": "d068c9b8095d", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  api-1  | {"timestamp": "2026-10-24T13:35:15.266752+00:00", "level": "INFO", "logger": "http", "requestId": "d6d2d4b08b6e", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  api-1  | {"timestamp": "2026-10-24T13:35:25.330467+00:00", "level": "INFO", "logger": "http", "requestId": "669eaa2768ab", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  api-1  | {"timestamp": "2026-10-24T13:35:35.400395+00:00", "level": "INFO", "logger": "http", "requestId": "4e5527fc84f1", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  api-1  | {"timestamp": "2026-10-24T14:01:56.007919+00:00", "level": "INFO", "logger": "http", "requestId": "532918f66434", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  api-1  | {"timestamp": "2026-10-24T14:02:06.066155+00:00", "level": "INFO", "logger": "http", "requestId": "a4ada477398c", "message": "request_finished method=GET route=/ready status=200 duration_ms=4"}
+> api-1  | {"timestamp": "2026-10-24T14:02:16.128678+00:00", "level": "INFO", "logger": "http", "requestId": "60048e589c2a", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  api-1  | {"timestamp": "2026-10-24T14:02:26.208977+00:00", "level": "INFO", "logger": "http", "requestId": "5a210f3a0c54", "message": "request_finished method=GET route=/ready status=200 duration_ms=4"}
+  api-1  | {"timestamp": "2026-10-24T14:02:36.270014+00:00", "level": "INFO", "logger": "http", "requestId": "52c45577319f", "message": "request_finished method=GET route=/ready status=200 duration_ms=4"}
+  api-1  | {"timestamp": "2026-10-24T14:02:46.324043+00:00", "level": "INFO", "logger": "http", "requestId": "2cfb94cfa57f", "message": "request_finished method=GET route=/ready status=200 duration_ms=3"}
+  api-1  | {"timestamp": "2026-10-24T14:02:56.412022+00:00", "level": "INFO", "logger": "http", "requestId": "8a48c2db7d14", "message": "request_finished method=GET route=/ready status=200 duration_ms=5"}
+  api-1  | {"timestamp": "2026-10-24T14:19:37.209677+00:00", "level": "INFO", "logger": "http", "requestId": "97a6e40cb75e", "message": "request_finished method=OPTIONS route=unmatched status=200 duration_ms=0"}
+  api-1  | {"timestamp": "2026-10-24T14:19:37.212139+00:00", "level": "INFO", "logger": "http", "requestId": "fd44225a0c72", "message": "request_finished method=OPTIONS route=unmatched status=200 duration_ms=0"}
+> api-1  | {"timestamp": "2026-10-24T14:19:38.226645+00:00", "level": "INFO", "logger": "http", "requestId": "96bb54c14e7f", "message": "request_finished method=POST route=/orders/{orderId}/meetup/confirm status=503 duration_ms=1063"}
+  api-1  | {"timestamp": "2026-10-24T14:19:38.238969+00:00", "level": "INFO", "logger": "http", "requestId": "05642d473474", "message": "request_finished method=GET route=/orders/{orderId} status=200 duration_ms=1028"}
+  api-1  | {"timestamp": "2026-10-24T14:19:38.244970+00:00", "level": "INFO", "logger": "http", "requestId": "5b06dd97a380", "message": "request_finished method=GET route=/orders/{orderId}/events status=200 duration_ms=1028"}
+  api-1  | {"timestamp": "2026-10-24T14:19:38.545253+00:00", "level": "INFO", "logger": "http", "requestId": "18eb4f145505", "message": "request_finished method=OPTIONS route=unmatched status=200 duration_ms=0"}
+> api-1  | {"timestamp": "2026-10-24T14:19:38.573857+00:00", "level": "INFO", "logger": "http", "requestId": "682da9c459cb", "message": "request_finished method=POST route=/orders/{orderId}/meetup/confirm status=200 duration_ms=26"}
+  api-1  | {"timestamp": "2026-10-24T14:19:38.589523+00:00", "level": "INFO", "logger": "http", "requestId": "72bd930a5c1f", "message": "request_finished method=GET route=/orders/{orderId}/events status=200 duration_ms=7"}
+  api-1  | {"timestamp": "2026-10-24T14:19:38.600515+00:00", "level": "INFO", "logger": "http", "requestId": "645dae0ca46c", "message": "request_finished method=GET route=/orders/{orderId} status=200 duration_ms=19"}
+  api-1  | {"timestamp": "2026-10-24T14:19:41.652139+00:00", "level": "INFO", "logger": "http", "requestId": "a2fc0efbc305", "message": "request_finished method=GET route=/notifications status=200 duration_ms=5"}
+  api-1  | {"timestamp": "2026-10-24T14:19:42.021858+00:00", "level": "INFO", "logger": "http", "requestId": "26096baf7c83", "message": "request_finished method=GET route=/notifications status=200 duration_ms=4"}

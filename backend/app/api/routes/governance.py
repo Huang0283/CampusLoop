@@ -16,7 +16,7 @@ from app.models import Product, Report
 from app.schemas.auth import StrictInput
 from app.services import business_serializers as dto
 from app.services.auth import Actor, Db, administrator, audit
-from app.services.business import load
+from app.services.business import load, notify
 from app.services.governance import (
     admin_idempotent,
     admin_report,
@@ -287,7 +287,16 @@ def decide(db, actor, report_id, body, key, *, override=False):
         entity.status = body.resolution
         entity.handled_by = actor.id
         entity.handled_at = utcnow()
+        entity.resolution_note = body.note
         db.flush()
+        notify(
+            db,
+            entity.reporter_id,
+            "REPORT_RESULT",
+            "/report",
+            "举报已处理" if body.resolution == "RESOLVED" else "举报已驳回",
+            f"处理说明：{body.note}",
+        )
         audit(
             db,
             "admin_report_override" if override else "admin_report_resolve",
