@@ -1,46 +1,42 @@
 # CampusLoop Frontend
 
-CampusLoop 前端使用 React、TypeScript、Vite、Ant Design、React Router 和 Zustand。当前仓库包含第一阶段静态/Mock 原型；真实 HTTP、WebSocket 和持久化能力按后续阶段验收。
+React、TypeScript、Vite、Ant Design、React Router 和 Zustand。当前生产路由由 `src/router/index.tsx` 指向 `src/live/`，通过 `src/sdk/` 调用真实 API；`src/pages/` 的早期原型用于界面对照，不应恢复为生产 Mock 数据源。
 
-## 本地运行
+## 日常运行
 
-```bash
-npm install
-npm run dev
+在仓库根目录执行：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 ```
 
-开发地址默认为 `http://localhost:5173`。常用验收入口：
+首次运行需先在本目录执行 `npm ci`。日常页面为 http://127.0.0.1:5174/market ，API 为 http://127.0.0.1:8001 。完整依赖、数据保护和停止命令见[统一启动说明](../docs/development/local-startup.md)。当前检出分支决定预览内容，不代表已合入 main。
 
-- `/market`：市场与商品入口
-- `/wanted`：求购与匹配入口
-- `/chat`：聊天列表
-- `/transactions`：订单与交易
-- `/notifications`：通知中心
-- `/admin`：管理员页面，需管理员演示身份
+## 单独开发前端
 
-## 检查命令
+仅在已经确认 API/数据环境、且未同时运行日常前端时，在本目录执行：
 
-```bash
+```powershell
+npm ci
+$env:VITE_API_BASE_URL = 'http://127.0.0.1:8001'
+npm run dev -- --host 127.0.0.1 --port 5174 --strictPort
+```
+
+此命令只启动前端。写入测试须另用专用审计环境；不要将日常账号库当作验收库。使用 `/chat`、`/transactions`、`/notifications`、`/report` 需登录，`/admin` 需管理员权限；游客可浏览 `/market`、`/product/:id`、`/wanted` 及公开求购详情。
+
+## 契约与检查
+
+- 唯一 HTTP 契约：[openapi/campusloop.v1.yaml](../openapi/campusloop.v1.yaml)。旧手写 API 概要已移除。
+- 生成配置：`openapi-ts.config.ts`；稳定消费入口：`src/sdk/index.ts`；`src/sdk/generated/` 禁止手工修改。
+- 浏览器会话与实际 WebSocket 行为以 SDK/live 实现为准，不再按 Phase 1/2 的 Mock 开关说明配置当前生产路由。
+- 阶段契约和交接要求：[SDK 阶段闭环](../docs/api/openapi-sdk-stage-closure.md)。
+
+在本目录执行：
+
+```powershell
 npm run lint
 npm run build
 npm run sdk:check
 ```
 
-## OpenAPI SDK
-
-- 契约源：`../openapi/campusloop.v1.yaml`
-- 生成配置：`openapi-ts.config.ts`
-- 稳定入口：`src/sdk/index.ts`
-- 生成目录：`src/sdk/generated/`，禁止手工修改
-- HTTP 地址：`VITE_API_BASE_URL=http://localhost:8001`
-- WebSocket 地址：Phase 1/2 保持 `VITE_WS_URL` 为空并使用显式 Mock；Phase 3 联调时设置为 `ws://localhost:8001/ws`
-- Docker 对外映射为 `8001:8000`；容器内部仍使用 8000，避免占用其他项目的宿主机 8000 端口。
-
-契约变更后先运行 `npm run sdk:generate`，再运行 `npm run sdk:check`、`npm run lint` 和 `npm run build`。Phase 2 的 SDK 只代表契约可消费，不代表后端已经实现或页面已经完成真实联调。
-
-## 原型边界
-
-- 未配置真实服务时，聊天与交易使用明确标识的 Mock 数据和状态层。
-- Mock 只能证明页面、状态和交互设计，不代表真实接口或数据库已完成。
-- 用户、商品、交易和聊天消息举报共用 `ReportModal`，从对应上下文进入，不使用独立 `/report` 页面。
-- 第一阶段交付与验收记录位于 `../docs/frontend/`。
+`sdk:check` 会重新生成 SDK 并检查类型；应在干净检出中执行，再核对 `git diff -- src/sdk/generated`，发现漂移按契约流程处理。真实页面测试命令为 `npm run test:live`；运行前核对 Playwright 配置的 API、数据库与端口，只使用专用审计环境。测试范围和所需证据见[验收工作流](../docs/workflows/version-acceptance.md)。

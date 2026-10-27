@@ -1,14 +1,20 @@
 # OpenAPI SDK 阶段闭环与总闭环
 
-## 固定入口与端口
+## 当前运行入口与历史阶段边界
+
+日常网站统一由 `scripts/start-local.ps1` 启动：前端 http://127.0.0.1:5174 ，API http://127.0.0.1:8001 。完整说明见[本机启动](../development/local-startup.md)。生产路由使用真实 SDK/会话层，不依据早期原型开关退回 Mock。
+
+下列 Phase 1–5 描述各周的交付要求，不是当前完成状态。Phase 1/2 的 Mock 与空 WebSocket 配置仅属于早期原型，不用于当前 live 页面。
+
+## 契约与传输入口
 
 - OpenAPI 契约源：`openapi/campusloop.v1.yaml`。
 - 前端 SDK 稳定入口：`frontend/src/sdk/index.ts`。
 - 自动生成目录：`frontend/src/sdk/generated/`，任何成员不得手工修改。
-- 前端开发地址：`http://localhost:5173`。
+- 当前日常前端地址：`http://127.0.0.1:5174`；单独 Vite 的默认端口不是统一启动入口。
 - 后端本地 HTTP 地址：`http://localhost:8001`，由 `VITE_API_BASE_URL` 覆盖；Compose 容器内部仍监听 8000。
-- 后端 WebSocket 地址：`ws://localhost:8001/ws`，仅在 Phase 3 真实服务可用后写入 `VITE_WS_URL`。
-- Phase 1/2 的 `VITE_WS_URL` 必须留空，使页面继续使用明确标识的 Mock 传输；这不是联调成功证据。
+- 后端 WebSocket 路径：`/ws`；当前 live 聊天按实际 API 基址和 SDK 会话建立连接，配置以当前实现与版本通知为准。
+- 历史 Phase 1/2 原型采用明确标识的 Mock 传输，只能证明交互设计，不能作为真实联调证据。
 
 ## Phase 1：范围与原型输入
 

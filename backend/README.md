@@ -1,62 +1,48 @@
-# CampusLoop Backend（BP2-06 运行时基线）
+# CampusLoop Backend
 
-FastAPI + SQLAlchemy 2.0 + Alembic + PostgreSQL 16(pgvector) + Redis + MinIO。
-Phase 2 交付范围：**可启动的骨架与统一环境**，不含业务接口实现（Phase 3）。
+FastAPI、SQLAlchemy、Alembic、PostgreSQL/pgvector、Redis 与 MinIO。当前包含认证、市场、聊天交易、治理和智能业务编排；具体范围以[阶段任务](../docs/issues/README.md)、契约和实际验收证据为准。
 
-## 本地启动（不用 Docker）
+## 日常启动
 
-```bash
-cd backend
-python3.12 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+在仓库根目录执行：
 
-# 需要本地 PostgreSQL(含 pgvector) 与 Redis；或在仓库根目录起 docker compose up -d db redis minio
-cp ../.env.example ../.env       # 按需修改连接串
-
-alembic upgrade head             # 建表
-python scripts/seed.py           # 种子（幂等，可重复执行）
-python scripts/seed.py --check   # 幂等性自检（CI 同款）
-uvicorn app.main:app --reload --port 8001    # http://localhost:8001/docs
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 ```
 
-## 健康检查
+该入口统一管理依赖、API、Worker 与前端，保留日常数据库及媒体卷。依赖、镜像更新、停止/状态和数据保护见[本机启动说明](../docs/development/local-startup.md)，不要另建临时环境冒充日常网站。
 
-```bash
-curl http://localhost:8001/health
-# {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
-# 依赖不可用时：status=degraded 并标明哪个依赖 unavailable（仍返回 200，契约语义）
-curl http://localhost:8001/ready   # degraded 时返回 503，供探针使用
+- API 文档：http://127.0.0.1:8001/docs
+- 健康检查：`GET /health`；依赖降级时响应包含依赖状态。
+- 就绪检查：`GET /ready`；未就绪时返回 503。
+- 唯一 HTTP 契约：[openapi/campusloop.v1.yaml](../openapi/campusloop.v1.yaml)。宿主机 API 8001，容器内部 8000。
+
+## 开发检查与专用验收环境
+
+在 `backend` 目录、Python 3.12 虚拟环境中安装 `requirements.txt`，执行：
+
+```powershell
+python -m pip install -r requirements.txt
+python -m ruff format --check .
+python -m ruff check .
+python -m pytest -m 'not integration'
 ```
 
-## 测试
+集成测试与迁移/种子验收必须先提供独立审计数据库、测试媒体卷及 Redis DB14/15，并确认环境变量指向这些资源，再执行：
 
-```bash
-pytest                              # 单元测试（无需数据库）
-pytest -m integration               # 集成测试（需要 PostgreSQL，CI 中自动执行）
-ruff format . && ruff check .       # 提交前自查（CI 同款门禁）
+```powershell
+python -m alembic upgrade head
+python scripts/seed.py --check
+python -m pytest -m integration
 ```
 
-## 迁移规约（M9 维护，全组必须遵守）
+没有可达测试数据库时部分集成测试会跳过；skip 不能报告为已通过。空库迁移、回滚、并发和恢复等写入检查只允许在专用环境执行，不操作日常数据库或媒体卷。环境配置与命令按本轮版本通知登记，不把 `.env`、密码或数据库转储提交 Git。
 
-1. 改模型后：`alembic revision --autogenerate -m "..."`，**人工检查生成脚本**后再提交；
-2. 每个迁移必须有可用的 `downgrade`；CI 会执行 `downgrade base -> upgrade head` 验证；
-3. 手写迁移（如 pgvector、触发器）放 `alembic/versions/`，命名 `NNNN_描述.py`；
-4. 禁止手改生产/集成数据库结构，禁止跳过迁移直接 `CREATE TABLE`。
+## 迁移与目录
 
-## 目录导览
+- `app/api/routes/`：HTTP 与 WebSocket 路由；`app/services/`：业务服务。
+- `app/models/`、`app/db/`：模型、引擎与会话。
+- `alembic/versions/`：数据库迁移；`scripts/seed.py`：幂等种子。
+- `tests/`：单元与 integration 测试。
 
-```text
-backend/
-├── app/
-│   ├── main.py              # 应用工厂 + 中间件
-│   ├── core/config.py       # 环境变量（对齐 ../.env.example）
-│   ├── core/logging.py      # JSON 日志 + requestId
-│   ├── core/envelope.py     # 契约响应信封/错误结构
-│   ├── api/routes/system.py # /health /ready（契约 BP2-06）
-│   ├── db/                  # 引擎、会话、声明基类
-│   └── models/              # 全部表模型（BP2-07，按领域分文件）
-├── alembic/versions/0001_initial_schema.py   # 首版迁移
-├── scripts/seed.py          # 幂等种子数据（BP2-08）
-├── tests/                   # pytest（单元 + integration 标记）
-└── requirements.txt         # 锁定版本
-```
+模型/迁移由对应文件负责人维护，其他任务先提交字段与查询需求。迁移必须人工检查 upgrade/downgrade，在审计环境验证；禁止跳过迁移直接修改日常库结构。OpenAPI/SDK 的唯一 Owner 和交接要求见[阶段规范](../docs/issues/README.md)。
