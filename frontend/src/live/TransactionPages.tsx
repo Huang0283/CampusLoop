@@ -151,7 +151,7 @@ export function NotificationsPage() {
     if (item.read) return
     void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() })
   }
-  return <Page title="通知" extra={<Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><NotificationTabs value={group} onChange={setGroup} /><Resource {...remote}>
+  return <Page title="通知" extra={<Button aria-label="全部已读" loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><NotificationTabs value={group} onChange={setGroup} /><Resource {...remote}>
     {visible.length ? <div className="notification-rows" role="list">{visible.map((item) => <article
       key={item.id}
       role="listitem"
