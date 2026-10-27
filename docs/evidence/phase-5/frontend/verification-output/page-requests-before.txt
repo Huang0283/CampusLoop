@@ -1,0 +1,71 @@
+Contract fixtures; fresh context per page; no real API writes.
+Request times are seconds since navigation; polling is included.
+
+PAGE /market ROLE USER
+Heading: 校园市场
+┌─────────┬───────────────────────────────────────────────────────┬───────┬─────────┐
+│ (index) │ request                                               │ count │ seconds │
+├─────────┼───────────────────────────────────────────────────────┼───────┼─────────┤
+│ 0       │ 'POST /auth/browser-session'                          │ 1     │ '0.088' │
+│ 1       │ 'GET /notifications'                                  │ 1     │ '0.17'  │
+│ 2       │ 'GET /products?query=&page=1&pageSize=12&sort=newest' │ 1     │ '0.448' │
+└─────────┴───────────────────────────────────────────────────────┴───────┴─────────┘
+Console/page diagnostics: []
+Unexpected API requests: []
+
+PAGE /login ROLE USER
+Heading: 登录
+┌─────────┬──────────────────────────────┬───────┬─────────┐
+│ (index) │ request                      │ count │ seconds │
+├─────────┼──────────────────────────────┼───────┼─────────┤
+│ 0       │ 'POST /auth/browser-session' │ 1     │ '0.073' │
+│ 1       │ 'GET /notifications'         │ 1     │ '0.098' │
+└─────────┴──────────────────────────────┴───────┴─────────┘
+Console/page diagnostics: []
+Unexpected API requests: []
+
+PAGE /publish ROLE USER
+Heading: 发布商品
+┌─────────┬──────────────────────────────┬───────┬─────────┐
+│ (index) │ request                      │ count │ seconds │
+├─────────┼──────────────────────────────┼───────┼─────────┤
+│ 0       │ 'POST /auth/browser-session' │ 1     │ '0.073' │
+│ 1       │ 'GET /notifications'         │ 1     │ '0.157' │
+└─────────┴──────────────────────────────┴───────┴─────────┘
+Console/page diagnostics: []
+Unexpected API requests: []
+
+PAGE /transactions ROLE USER
+Heading: 交易中心
+┌─────────┬──────────────────────────────────┬───────┬─────────┐
+│ (index) │ request                          │ count │ seconds │
+├─────────┼──────────────────────────────────┼───────┼─────────┤
+│ 0       │ 'POST /auth/browser-session'     │ 1     │ '0.069' │
+│ 1       │ 'GET /notifications'             │ 1     │ '0.148' │
+│ 2       │ 'GET /orders?page=1&pageSize=12' │ 1     │ '0.449' │
+└─────────┴──────────────────────────────────┴───────┴─────────┘
+Console/page diagnostics: []
+Unexpected API requests: []
+
+PAGE /notifications ROLE USER
+Heading: 通知
+┌─────────┬──────────────────────────────┬───────┬─────────────────────────────┐
+│ (index) │ request                      │ count │ seconds                     │
+├─────────┼──────────────────────────────┼───────┼─────────────────────────────┤
+│ 0       │ 'POST /auth/browser-session' │ 1     │ '0.072'                     │
+│ 1       │ 'GET /notifications'         │ 4     │ '0.151, 0.438, 5.15, 5.438' │
+│ 2       │ 'GET /reports/mine'          │ 2     │ '0.437, 5.438'              │
+└─────────┴──────────────────────────────┴───────┴─────────────────────────────┘
+Console/page diagnostics: []
+Unexpected API requests: []
+
+PAGE /admin ROLE ADMIN
+Heading: 管理后台
+┌─────────┬───────────────────────────────────────┬───────┬─────────┐
+│ (index) │ request                               │ count │ seconds │
+├─────────┼───────────────────────────────────────┼───────┼─────────┤
+│ 0       │ 'POST /auth/browser-session'          │ 1     │ '0.076' │
+│ 1       │ 'GET /admin/users?page=1&pageSize=20' │ 1     │ '0.452' │
+└─────────┴───────────────────────────────────────┴───────┴─────────┘
+Console/page diagnostics: []
+Unexpected API requests: []

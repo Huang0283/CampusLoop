@@ -1,0 +1,8 @@
+test_arbitrary_casts_and_predicates_are_preserved (test_recovery_constraints.ConstraintNormalizationTests.test_arbitrary_casts_and_predicates_are_preserved) ... ok
+test_different_allowed_values_are_not_hidden (test_recovery_constraints.ConstraintNormalizationTests.test_different_allowed_values_are_not_hidden) ... ok
+test_dump_array_cast_is_equivalent (test_recovery_constraints.ConstraintNormalizationTests.test_dump_array_cast_is_equivalent) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

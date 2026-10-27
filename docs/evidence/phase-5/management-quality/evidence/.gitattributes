@@ -1,0 +1,2 @@
+# Raw command output is hashed. Preserve its original bytes and whitespace.
+* -text -whitespace

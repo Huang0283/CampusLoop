@@ -332,7 +332,13 @@ export type Meetup = {
     version: number;
     campusLocation: string;
     scheduledDate: string;
+    /**
+     * Campus local time without UTC offset; HH:MM or HH:MM:SS
+     */
     timeSlotStart: string;
+    /**
+     * Later than start on the same campus-local date
+     */
     timeSlotEnd: string;
     note?: string;
     buyerConfirmed: boolean;
@@ -343,7 +349,13 @@ export type Meetup = {
 export type MeetupWriteRequest = {
     campusLocation: string;
     scheduledDate: string;
+    /**
+     * Campus local time without UTC offset
+     */
     timeSlotStart: string;
+    /**
+     * Later than start on the same campus-local date
+     */
     timeSlotEnd: string;
     note?: string;
 };
@@ -410,6 +422,14 @@ export type Report = {
     description: string;
     status: ReportStatus;
     createdAt: string;
+    /**
+     * Set when an administrator resolves or rejects the report
+     */
+    handledAt: string | null;
+    /**
+     * Human decision visible to the reporter; internal audit records stay private
+     */
+    resolutionNote: string | null;
 };
 
 export type ReportResolutionRequest = {
@@ -625,7 +645,7 @@ export type Page = number;
 export type PageSize = number;
 
 /**
- * Client-generated UUID. Replays return the original successful result.
+ * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
  */
 export type IdempotencyKey = string;
 
@@ -1023,7 +1043,7 @@ export type CreateProductData = {
     body: ProductWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1344,7 +1364,7 @@ export type CreateWantedData = {
     body: WantedWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1741,7 +1761,7 @@ export type CreateChatSessionData = {
     body: CreateChatSessionRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1883,7 +1903,7 @@ export type AcceptOfferData = {
     body?: never;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1955,7 +1975,7 @@ export type CounterOfferData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2102,7 +2122,7 @@ export type SaveMeetupData = {
     body: MeetupWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2146,7 +2166,7 @@ export type ConfirmMeetupData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2185,7 +2205,7 @@ export type ConfirmOrderCompleteData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2255,7 +2275,7 @@ export type CreateReviewData = {
     body: ReviewWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2294,7 +2314,7 @@ export type CreateReportData = {
     body: ReportWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2332,13 +2352,16 @@ export type CreateReportResponse = CreateReportResponses[keyof CreateReportRespo
 export type ListMyReportsData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
     url: '/reports/mine';
 };
 
 export type ListMyReportsResponses = {
     /**
-     * Reports created by the current user; no internal moderation notes.
+     * Reports created by the current user, newest first; no evidence keys or internal audit fields.
      */
     200: ReportListResponse;
 };
@@ -2484,7 +2507,7 @@ export type AdminModerateProductData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2630,7 +2653,7 @@ export type CreateOfferData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };

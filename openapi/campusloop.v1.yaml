@@ -1,10 +1,11 @@
 openapi: 3.1.0
 info:
   title: CampusLoop API
-  version: 0.2.0-contract
+  version: 0.5.0-rc.1
   description: |
-    Phase 2 contract baseline for the CampusLoop MVP. It is a consumer contract,
-    not proof that the FastAPI implementation or persistence exists.
+    Phase 5 M6 release-candidate contract aligned with the accepted Phase 4 main.
+    Candidate version is fixed; final team release approval remains pending.
+    See docs/evidence/phase-5/backend-platform/final-api-documentation.md.
 
     Lifecycle: Phase 2 freezes this contract and generates the SDK; Phase 3
     implements and integrates the MVP operations; Phase 4 implements AI and
@@ -721,6 +722,7 @@ paths:
     get:
       tags: [Chat]
       operationId: listMessages
+      description: Use afterId for durable recovery in ascending ID order, or beforeId for older history; never supply both. Continue recovery until an empty page.
       x-campusloop-phase: BP2-03/FE3-07/FE3-08
       parameters:
         - { name: afterId, in: query, schema: { type: integer, format: int64, minimum: 0 } }
@@ -1042,9 +1044,12 @@ paths:
       tags: [Governance]
       operationId: listMyReports
       x-campusloop-phase: BP2-03/FE3-10
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
       responses:
         '200':
-          description: Reports created by the current user; no internal moderation notes.
+          description: Reports created by the current user, newest first; no evidence keys or internal audit fields.
           content:
             application/json:
               schema: { $ref: '#/components/schemas/ReportListResponse' }
@@ -1345,8 +1350,8 @@ components:
       name: Idempotency-Key
       in: header
       required: true
-      description: Client-generated UUID. Replays return the original successful result.
-      schema: { type: string, format: uuid }
+      description: Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
+      schema: { type: string, minLength: 1, maxLength: 64, pattern: '\S' }
     UserId: { name: userId, in: path, required: true, schema: { type: integer, format: int64, minimum: 1, maximum: 9007199254740991 } }
     ProductId: { name: productId, in: path, required: true, schema: { type: integer, format: int64 } }
     WantedId: { name: wantedId, in: path, required: true, schema: { type: integer, format: int64 } }
@@ -1731,8 +1736,8 @@ components:
         version: { type: integer, minimum: 1 }
         campusLocation: { type: string }
         scheduledDate: { type: string, format: date }
-        timeSlotStart: { type: string, format: time }
-        timeSlotEnd: { type: string, format: time }
+        timeSlotStart: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Campus local time without UTC offset; HH:MM or HH:MM:SS }
+        timeSlotEnd: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Later than start on the same campus-local date }
         note: { type: string }
         buyerConfirmed: { type: boolean }
         sellerConfirmed: { type: boolean }
@@ -1743,8 +1748,8 @@ components:
       properties:
         campusLocation: { type: string, minLength: 1, maxLength: 100 }
         scheduledDate: { type: string, format: date }
-        timeSlotStart: { type: string, format: time }
-        timeSlotEnd: { type: string, format: time }
+        timeSlotStart: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Campus local time without UTC offset }
+        timeSlotEnd: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Later than start on the same campus-local date }
         note: { type: string, maxLength: 500 }
     Order:
       type: object
@@ -1806,7 +1811,7 @@ components:
         evidence: { type: array, maxItems: 5, items: { type: string, format: uri } }
     Report:
       type: object
-      required: [id, targetType, targetId, reason, description, status, createdAt]
+      required: [id, targetType, targetId, reason, description, status, createdAt, handledAt, resolutionNote]
       properties:
         id: { type: integer, format: int64 }
         targetType: { $ref: '#/components/schemas/ReportTargetType' }
@@ -1815,6 +1820,8 @@ components:
         description: { type: string, maxLength: 1000 }
         status: { $ref: '#/components/schemas/ReportStatus' }
         createdAt: { type: string, format: date-time }
+        handledAt: { type: [string, 'null'], format: date-time, description: Set when an administrator resolves or rejects the report }
+        resolutionNote: { type: [string, 'null'], maxLength: 1000, description: Human decision visible to the reporter; internal audit records stay private }
     ReportResolutionRequest:
       type: object
       additionalProperties: false

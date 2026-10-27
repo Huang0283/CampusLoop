@@ -1,0 +1,16 @@
+{
+  "label": "sdk",
+  "command": [
+    "cmd",
+    "/c",
+    "npm",
+    "run",
+    "sdk:check"
+  ],
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "startedAt": "2026-10-25T04:58:45.262326+00:00",
+  "elapsedSeconds": 4.275,
+  "exitCode": 0,
+  "output": "sdk.txt",
+  "sha256": "bdd90a3125ed0a3514560409ee0f733e3d02fafa173bb78645e3e70283d35ea4"
+}

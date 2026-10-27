@@ -1,0 +1,17 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts --project=edge interface-restoration.spec.ts product-governance.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [edge] › tests\live\interface-restoration.spec.ts:48:1 › product gallery switches one main photo and keeps the seller/location/description layout (3.7s)
+  ✓  2 [edge] › tests\live\interface-restoration.spec.ts:83:1 › chat restores the session pane, message bubbles and real send/session switching (2.5s)
+  ✓  3 [edge] › tests\live\interface-restoration.spec.ts:122:1 › chat matches the original proportions and compact offer/composer while keeping emoji and quote actions (3.0s)
+  ✓  4 [edge] › tests\live\interface-restoration.spec.ts:165:1 › profile restores summary beside editable data; wanted and transactions retain rich cards (2.2s)
+  ✓  5 [edge] › tests\live\interface-restoration.spec.ts:179:1 › restored views fit mobile, preserve guest action protection and never fall back to mock products (1.7s)
+  ✓  6 [edge] › tests\live\interface-restoration.spec.ts:193:1 › all student routes render on desktop and mobile without overflow or runtime errors (30.0s)
+  ✓  7 [edge] › tests\live\interface-restoration.spec.ts:221:1 › admin keeps management tabs and tables on desktop and mobile (2.0s)
+  ✓  8 [edge] › tests\live\product-governance.spec.ts:4:1 › real admin product hide and restore preserve owner access and public visibility (10.1s)
+
+  8 passed (57.0s)

@@ -44,7 +44,7 @@ def idempotent(
     student(actor)
     if key is None:
         raise BusinessError(422, "VALIDATION_ERROR", "Idempotency-Key is required.")
-    if not 1 <= len(key) <= 64:
+    if not key.strip() or not 1 <= len(key) <= 64:
         raise BusinessError(422, "VALIDATION_ERROR", "Invalid Idempotency-Key.")
     fingerprint = hashlib.sha256(
         json.dumps(body, sort_keys=True, separators=(",", ":"), default=str).encode()
@@ -72,10 +72,12 @@ def idempotent(
     return result
 
 
-def notify(db: Session, recipient: int, kind: str, link: str, title: str) -> None:
+def notify(
+    db: Session, recipient: int, kind: str, link: str, title: str, content: str = ""
+) -> None:
     db.add(
         Notification(
-            user_id=recipient, type=kind, payload={"title": title, "content": "", "link": link}
+            user_id=recipient, type=kind, payload={"title": title, "content": content, "link": link}
         )
     )
 

@@ -42,6 +42,8 @@ class Report(TimestampMixin, Base):
         BigInteger, ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )
     handled_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # 对举报人可见的处理说明；null 表示尚未处理或来自早期版本的数据
+    resolution_note: Mapped[str | None] = mapped_column(String(1000), nullable=True)
 
     __table_args__ = (
         CheckConstraint(

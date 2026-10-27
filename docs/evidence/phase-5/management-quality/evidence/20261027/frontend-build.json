@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "npm.cmd",
+    "run",
+    "build"
+  ],
+  "cwd": "frontend",
+  "startedAt": "2026-10-27T02:00:04.087457+00:00",
+  "endedAt": "2026-10-27T02:00:13.287482+00:00",
+  "exitCode": 0,
+  "output": "frontend-build.txt",
+  "sha256": "6b8c0e8c549c9cdfa3b9e05965131b8b300dfbf0cee8f5d59028b262f0f36963"
+}

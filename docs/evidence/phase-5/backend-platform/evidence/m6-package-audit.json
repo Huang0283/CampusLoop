@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-23",
+  "scope": "Only staged M6 candidate changed files; not repository history",
+  "inputFilesScanned": 40,
+  "forbiddenArtifactPaths": [],
+  "patternsChecked": [
+    "private_key",
+    "github_token",
+    "aws_access_id",
+    "jwt"
+  ],
+  "patternMatches": [],
+  "limitations": "Finite pattern scan; cannot certify absence of all secrets. Synthetic test keys are intentional. Raw logs retained.",
+  "databaseDumpsIncluded": false,
+  "remoteSubmissionPerformed": false,
+  "integrationAccepted": false
+}

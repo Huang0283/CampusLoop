@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites>
+  <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="38" time="20.594" timestamp="2026-10-27T03:52:00.310804+08:00">
+    <testcase classname="tests.test_auth" name="test_registration_profile_privacy_and_validation" time="0.295" />
+    <testcase classname="tests.test_auth" name="test_login_logout_families_and_refresh_replay" time="0.388" />
+    <testcase classname="tests.test_auth" name="test_concurrent_refresh_single_success_then_family_revocation" time="0.132" />
+    <testcase classname="tests.test_auth" name="test_expired_access_refresh_and_disabled_account" time="0.238" />
+    <testcase classname="tests.test_auth" name="test_admin_disable_revoke_and_audit" time="0.245" />
+    <testcase classname="tests.test_auth" name="test_origin_content_type_json_and_missing_key" time="0.026" />
+    <testcase classname="tests.test_auth_locking" name="test_authenticated_peers_can_notify_each_other_without_deadlock[bearer]" time="0.061" />
+    <testcase classname="tests.test_auth_locking" name="test_authenticated_peers_can_notify_each_other_without_deadlock[browser]" time="0.047" />
+    <testcase classname="tests.test_auth_locking" name="test_authorization_still_serializes_same_actor[bearer]" time="0.252" />
+    <testcase classname="tests.test_auth_locking" name="test_authorization_still_serializes_same_actor[browser]" time="0.250" />
+    <testcase classname="tests.test_browser_sessions" name="test_cookie_restore_csrf_and_absolute_lifetime" time="0.138" />
+    <testcase classname="tests.test_browser_sessions" name="test_concurrent_reload_keeps_both_tabs_valid_and_logout_revokes" time="0.187" />
+    <testcase classname="tests.test_browser_sessions" name="test_disable_and_renewal_rate_bound" time="0.106" />
+    <testcase classname="tests.test_browser_sessions" name="test_production_cookie_is_secure_host_only" time="0.060" />
+    <testcase classname="tests.test_governance_api" name="test_report_description_matches_database_limit" time="1.163" />
+    <testcase classname="tests.test_governance_api" name="test_trust_visibility_neutral_permissions_and_disabled_target" time="1.551" />
+    <testcase classname="tests.test_governance_api" name="test_completed_review_changes_trust_but_unfinished_trade_does_not" time="1.489" />
+    <testcase classname="tests.test_governance_api" name="test_report_queue_private_evidence_and_sensitive_read_audits" time="1.062" />
+    <testcase classname="tests.test_governance_api" name="test_resolution_idempotency_and_explicit_override_reject_stale_input" time="1.043" />
+    <testcase classname="tests.test_governance_api" name="test_competing_administrators_only_one_normal_decision_commits" time="1.053" />
+    <testcase classname="tests.test_governance_api" name="test_duplicate_concurrent_request_and_stale_same_status_override" time="1.052" />
+    <testcase classname="tests.test_governance_api" name="test_audit_failure_rolls_back_decision_and_idempotency_together" time="1.044" />
+    <testcase classname="tests.test_governance_api" name="test_risk_manual_only_and_model_off_still_allows_moderation" time="0.820" />
+    <testcase classname="tests.test_governance_api" name="test_real_http_timeout_degrades_without_changing_business_facts" time="4.631" />
+    <testcase classname="tests.test_governance_projection" name="test_projection_removes_internal_fields_including_nested_explanations" time="0.001" />
+    <testcase classname="tests.test_realtime_media" name="test_websocket_auth_and_private_send" time="0.976" />
+    <testcase classname="tests.test_realtime_media" name="test_private_chat_and_evidence_access_audited" time="0.619" />
+    <testcase classname="tests.test_input_logging_contract" name="test_nullable_original_price_does_not_relax_required_price" time="0.001" />
+    <testcase classname="tests.test_input_logging_contract" name="test_private_log_fields_and_exception_parameters_are_not_emitted" time="0.001" />
+    <testcase classname="tests.test_input_logging_contract" name="test_product_original_price_accepts_unknown_equal_or_higher[None]" time="0.001" />
+    <testcase classname="tests.test_input_logging_contract" name="test_product_original_price_accepts_unknown_equal_or_higher[2]" time="0.001" />
+    <testcase classname="tests.test_input_logging_contract" name="test_product_original_price_accepts_unknown_equal_or_higher[2.5]" time="0.001" />
+    <testcase classname="tests.test_input_logging_contract" name="test_product_original_price_below_sale_is_a_field_validation_error" time="0.001" />
+    <testcase classname="tests.test_input_logging_contract" name="test_invalid_request_id_is_sanitized_in_headers_and_error_body" time="0.007" />
+    <testcase classname="tests.test_m5_phase5_security" name="test_login_failures_are_rate_limited_without_disclosing_account_state" time="0.803" />
+    <testcase classname="tests.test_m5_phase5_security" name="test_registration_ip_rate_limit_rejects_excess_attempts" time="0.216" />
+    <testcase classname="tests.test_m5_phase5_security" name="test_admin_moderation_requires_role_and_authenticated_evidence_context" time="0.356" />
+    <testcase classname="tests.test_m5_phase5_security" name="test_http_access_log_omits_authentication_payload" time="0.139" />
+  </testsuite>
+</testsuites>

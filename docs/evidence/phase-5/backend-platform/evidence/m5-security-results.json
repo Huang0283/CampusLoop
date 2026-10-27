@@ -1,0 +1,255 @@
+{
+  "owner": "M5 Hu Ke Ming",
+  "issue": 35,
+  "tasks": [
+    "BP5-01",
+    "BP5-02"
+  ],
+  "branch": "task/m5-p5-security",
+  "targetBranch": "phase5/backend-release",
+  "baseCommit": "ccba7ba39b85de72be7138f9bc0b6eabb50dd030",
+  "implementationCommit": "59108202148004fb501910e17c8936b38be77b49",
+  "environment": {
+    "host": "Windows with Docker Desktop",
+    "dockerEngine": "29.8.2",
+    "postgres": "pgvector/pgvector:0.8.6-pg16 (PostgreSQL 16.15)",
+    "redis": "redis:7.4-alpine (Redis 7.4.11, DB15)",
+    "minio": "MinIO DEVELOPMENT.2025-10-15T17-29-55Z built from repository Dockerfile.minio",
+    "python": "3.12.10",
+    "pytest": "8.3.4",
+    "ruff": "0.8.4",
+    "databaseMigrationHead": "0010"
+  },
+  "commands": [
+    "alembic upgrade head (UTF-8 Config read on Windows)",
+    "python -m pytest backend/tests -q --junitxml=.codex-tmp/m5-p5-backend-full-postcommit.xml",
+    "python -m ruff format --check backend",
+    "python -m ruff check backend",
+    "git diff --check"
+  ],
+  "results": {
+    "backendTests": 177,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "m5FocusedTests": 38,
+    "m5FocusedPassed": 38,
+    "warnings": "Third-party deprecation warnings only; no test failures",
+    "fullBackendSuite": {
+      "tests": 177,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "durationSeconds": 53.456,
+      "executedAt": "2026-10-27T03:45:53.779976+08:00"
+    },
+    "m5FocusedCases": [
+      {
+        "class": "tests.test_auth",
+        "name": "test_registration_profile_privacy_and_validation",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth",
+        "name": "test_login_logout_families_and_refresh_replay",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth",
+        "name": "test_concurrent_refresh_single_success_then_family_revocation",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth",
+        "name": "test_expired_access_refresh_and_disabled_account",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth",
+        "name": "test_admin_disable_revoke_and_audit",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth",
+        "name": "test_origin_content_type_json_and_missing_key",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth_locking",
+        "name": "test_authenticated_peers_can_notify_each_other_without_deadlock[bearer]",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth_locking",
+        "name": "test_authenticated_peers_can_notify_each_other_without_deadlock[browser]",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth_locking",
+        "name": "test_authorization_still_serializes_same_actor[bearer]",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_auth_locking",
+        "name": "test_authorization_still_serializes_same_actor[browser]",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_browser_sessions",
+        "name": "test_cookie_restore_csrf_and_absolute_lifetime",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_browser_sessions",
+        "name": "test_concurrent_reload_keeps_both_tabs_valid_and_logout_revokes",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_browser_sessions",
+        "name": "test_disable_and_renewal_rate_bound",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_browser_sessions",
+        "name": "test_production_cookie_is_secure_host_only",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_report_description_matches_database_limit",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_trust_visibility_neutral_permissions_and_disabled_target",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_completed_review_changes_trust_but_unfinished_trade_does_not",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_report_queue_private_evidence_and_sensitive_read_audits",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_resolution_idempotency_and_explicit_override_reject_stale_input",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_competing_administrators_only_one_normal_decision_commits",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_duplicate_concurrent_request_and_stale_same_status_override",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_audit_failure_rolls_back_decision_and_idempotency_together",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_risk_manual_only_and_model_off_still_allows_moderation",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_api",
+        "name": "test_real_http_timeout_degrades_without_changing_business_facts",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_governance_projection",
+        "name": "test_projection_removes_internal_fields_including_nested_explanations",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_realtime_media",
+        "name": "test_websocket_auth_and_private_send",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_realtime_media",
+        "name": "test_private_chat_and_evidence_access_audited",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_input_logging_contract",
+        "name": "test_nullable_original_price_does_not_relax_required_price",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_input_logging_contract",
+        "name": "test_private_log_fields_and_exception_parameters_are_not_emitted",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_input_logging_contract",
+        "name": "test_product_original_price_accepts_unknown_equal_or_higher[None]",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_input_logging_contract",
+        "name": "test_product_original_price_accepts_unknown_equal_or_higher[2]",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_input_logging_contract",
+        "name": "test_product_original_price_accepts_unknown_equal_or_higher[2.5]",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_input_logging_contract",
+        "name": "test_product_original_price_below_sale_is_a_field_validation_error",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_input_logging_contract",
+        "name": "test_invalid_request_id_is_sanitized_in_headers_and_error_body",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_m5_phase5_security",
+        "name": "test_login_failures_are_rate_limited_without_disclosing_account_state",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_m5_phase5_security",
+        "name": "test_registration_ip_rate_limit_rejects_excess_attempts",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_m5_phase5_security",
+        "name": "test_admin_moderation_requires_role_and_authenticated_evidence_context",
+        "result": "passed"
+      },
+      {
+        "class": "tests.test_m5_phase5_security",
+        "name": "test_http_access_log_omits_authentication_payload",
+        "result": "passed"
+      }
+    ]
+  },
+  "securityScan": {
+    "scope": "M5 source and test diff",
+    "highConfidenceCredentialPatterns": 0,
+    "databaseDumpsCommitted": false,
+    "realUserDataCommitted": false,
+    "realCredentialsCommitted": false,
+    "testCredentialsInSource": "Synthetic fixture values only; not usable outside tests.",
+    "limitations": "Pattern scan is not a proof over repository history; M10/M1 still perform independent release-package review."
+  },
+  "acceptance": {
+    "m5SelfCheck": "PASS",
+    "crossReview": "PENDING",
+    "m10IndependentAcceptance": "PENDING",
+    "m1ReleaseScopeAcceptance": "PENDING",
+    "phase5Overall": "PENDING"
+  }
+}

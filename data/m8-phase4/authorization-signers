@@ -1,0 +1,5 @@
+# OpenSSH allowed_signers trust roots for M8 data approvals.
+# Register a member's public key through a reviewed repository change before approval.
+# M5 and M6 must send their public keys from their verified CampusLoop accounts.
+# M1/M10 review the key ownership and policy scope before merging the registration.
+# Format: M5 ssh-ed25519 AAAA... or M6 ssh-ed25519 AAAA...
