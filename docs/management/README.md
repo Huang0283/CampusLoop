@@ -2,7 +2,7 @@
 
 ## 当前执行文档
 
-- [九人协作总任务书](./nine-member-collaboration-plan.md)：九个独立岗位的任务、文件边界与验收，成员自行认领。
+- [九人协作总任务书](./nine-member-collaboration-plan.md)：v1.4：九岗位具体任务、样例个数、逐项个人交付文件、交接步骤与验收，成员自行认领。
 - [每次升级后的完整工作流](../workflows/version-acceptance.md)：M10 版本通知、T01–T15 功能范围、U01–U08 真人任务、反馈/复测/材料同步。
 - [GitHub 协作 Issue 源文](../issues/nine-member-collaboration.md)：与远端 #129 同步，包含四条组分支和九条岗位分支。
 - 单组任务与 Git 操作：[文书](../collaboration/teams/reporting/TASKS.md)、[测试](../collaboration/teams/testing/TASKS.md)、[用户体验](../collaboration/teams/user-experience/TASKS.md)、[演示](../collaboration/teams/presentation/TASKS.md)。各目录 WORKFLOW.md 提供准确分支名、每日拉取/push/PR/Review 和注意事项。

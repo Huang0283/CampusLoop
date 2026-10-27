@@ -2,10 +2,9 @@
 
 长期组分支：`team/presentation`。本组任务见 [TASKS.md](./TASKS.md)。完整交接见 [每轮升级验收工作流](../../../workflows/version-acceptance.md)。四组和岗位分支由 M10 建立，组员自行认领后直接使用，不再新建同名分支。
 
-## 1. 先认领一个岗位，确认文件边界
+## 1. 先认领岗位，按个人交付物逐项提交
 
-- **D1 PPT、课程要求与证据来源**：分支 `work/presentation/slides-evidence`，仅本人使用；编辑范围：docs/submission/presentation/ 下 CampusLoop_Final_Presentation.pptx/PDF、slides-source/、slide-evidence-index.md、submission-checklist.md；本人 changes/<变更ID>/presentation-impact.md。
-- **D2 讲稿、双账号演示与视频**：分支 `work/presentation/demo-video`，仅本人使用；编辑范围：docs/submission/presentation/ 下 presentation-script.md、demo-runbook.md、rehearsal-log.md、media-manifest.md；demo-notes/ 与视频课程提交位置；本人 changes/<变更ID>/demo-impact.md。
+本组每个岗位的输入、任务编号、最低数量、准确文件名、交给谁和验收办法，统一写在 [TASKS.md](./TASKS.md)，以其中“个人交付物”为准，不再用一行编辑范围代替任务。认领：D1、D2。
 
 在 #129 登记姓名、M 编号、岗位、分支、独占文件、组内复核人、本周交付和预计回报日期。复核人必须是另一位组员；本人是唯一执行人时不得伪称独立 Review。建议人数不是强制分组，若要换岗位先在 Issue 明确文件/提交/接收人，不能两个人直接在同一岗位分支工作。
 
@@ -42,9 +41,11 @@ git branch --show-current
 
 每条命令确认成功再执行下一条。有未提交工作先处理；pull 提示分叉、权限/网络失败或 merge 冲突时先停下来查原因，不能继续 push，更不能用 force 推掉对方。分支同步不会替你切换正在运行的软件：测试必须另按 M10 通知检出指定软件完整 SHA/使用指定部署，记录真实运行 UI/API/Worker 版本；不能把材料分支的 main 基线当新候选。
 
-## 4. 每天怎么做、保存哪些结果
+## 4. 每天怎么做、怎样交接
 
-读本轮变更和冻结状态 → 冻结前只更新草稿/来源和演示影响 → D1 核对 PPT/数字/课程清单，D2 核对讲稿/脚本/彩排与媒体 → 冻结、测试和用户任务通过后录最终版 → 交叉 Review → 记录实际时长/软件 SHA/素材哈希/问题。D1 唯一编辑 PPT，D2 唯一维护讲稿/视频日志，大视频按课程位置交付。
+先打开 TASKS.md 本人岗位，核对上次 delivery-checklist.md；接收本轮变更 ID/软件 SHA后只更新受影响任务。个人日志和证据写在本人目录，根目录汇总只由任务书指定的人编辑。
+
+对接不是一句“交给下一组”：按 TASKS.md 的“对接流程”发交付人/接收人、版本、文件链接、数量、第一步操作、预期、缺口和反馈日期；接收人试一次再回“已接收/部分可做/缺什么”。测试每天汇报给 T2→M10，用户 U1→U2→M10，文书 R2→R1，演示 D1→D2。修复必须原执行人复测，不代签。
 
 ## 5. 只提交自己相关文件，再 push 岗位分支
 
