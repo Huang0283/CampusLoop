@@ -50,8 +50,9 @@ export function ProductCards({ products, from, actions }: { products: Product[];
 }
 
 // Real counts only: total on-sale listings and per-category totals from the list endpoint.
-function useMarketStats() {
-  return useRemote('market-stats', async (signal) => {
+function useMarketStats(enabled: boolean) {
+  return useRemote(`market-stats-${enabled}`,  async (signal) => {
+    if (!enabled) return { total: 0, byCategory: {} as Record<string, number> }
     const count = (category?: string) => api.data(api.listProducts({ signal, query: { page: 1, pageSize: 1, category } })).then((result) => result.pagination.total)
     const [total, ...perCategory] = await Promise.all([count(), ...categories.map((entry) => count(entry.value))])
     return { total, byCategory: Object.fromEntries(categories.map((entry, index) => [entry.value, perCategory[index]])) as Record<string, number> }
@@ -101,7 +102,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
     }
   }
   const remote = useRemote(`catalog-${mode}-${params.toString()}`, loadCatalog)
-  const stats = useMarketStats()
+  const stats = useMarketStats(mode === 'public')
   const mutation = useMutation()
   const navigate = useNavigate()
   const location = useLocation()

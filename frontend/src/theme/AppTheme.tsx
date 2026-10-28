@@ -14,8 +14,8 @@ const shared = {
 }
 // antd needs concrete colours; these mirror the CSS tokens in aurora.css.
 const tokens = {
-  light: { ...shared, colorPrimary: '#5B6BFF', colorLink: '#4351E8', colorSuccess: '#0E9F6E', colorError: '#E5484D', colorWarning: '#E8930C', colorText: '#0B0F1C', colorTextSecondary: '#4A5068', colorBorder: '#0B0F1C1F', colorBorderSecondary: '#0B0F1C12', colorBgContainer: '#FFFFFF', colorBgElevated: '#FFFFFF', colorFillTertiary: '#0B0F1C0A' },
-  dark: { ...shared, colorPrimary: '#7C8BFF', colorLink: '#AEB7FF', colorSuccess: '#4ADEAA', colorError: '#FF7A7F', colorWarning: '#F5A524', colorText: '#F2F3F7', colorTextSecondary: '#C4C7D2', colorBorder: '#FFFFFF26', colorBorderSecondary: '#FFFFFF1C', colorBgContainer: '#30343F', colorBgElevated: '#383C48', colorFillTertiary: '#FFFFFF12' },
+  light: { ...shared, colorPrimary: '#4351E8', colorLink: '#4351E8', colorSuccess: '#0E9F6E', colorError: '#E5484D', colorWarning: '#E8930C', colorText: '#0B0F1C', colorTextSecondary: '#4A5068', colorTextTertiary: '#4A5068', colorTextDescription: '#4A5068', colorTextPlaceholder: '#4A5068', colorBorder: '#0B0F1C1F', colorBorderSecondary: '#0B0F1C12', colorBgContainer: '#FFFFFF', colorBgElevated: '#FFFFFF', colorFillTertiary: '#0B0F1C0A' },
+  dark: { ...shared, colorPrimary: '#7C8BFF', colorLink: '#AEB7FF', colorSuccess: '#4ADEAA', colorError: '#FF7A7F', colorWarning: '#F5A524', colorText: '#F2F3F7', colorTextSecondary: '#C4C7D2', colorTextTertiary: '#C4C7D2', colorTextDescription: '#C4C7D2', colorTextPlaceholder: '#C4C7D2', colorBorder: '#FFFFFF26', colorBorderSecondary: '#FFFFFF1C', colorBgContainer: '#30343F', colorBgElevated: '#383C48', colorFillTertiary: '#FFFFFF12' },
 }
 
 export function AppTheme({ children }: { children: ReactNode }) {

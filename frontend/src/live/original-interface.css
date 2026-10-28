@@ -356,6 +356,22 @@
 [data-theme="light"] .message-bubble { background: #FFFFFF; border-color: #0B0F1C10; box-shadow: 0 6px 16px -14px #3B44A080; }
 [data-theme="light"] .chat-composer { background: #FFFFFF; box-shadow: 0 10px 26px -22px #3B44A0A0; }
 
+/* Keep long user content inside Aurora cards. */
+.wanted-card h2 { overflow-wrap: anywhere; }
+.wanted-card h2 > a { min-width: 0; }
+.wanted-footer > span { min-width: 0; overflow-wrap: anywhere; }
+.product-body { min-width: 0; overflow-wrap: anywhere; }
+.catalog-seller > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.catalog-seller .ant-avatar { flex-shrink: 0; }
+
+/* Darker gradient stops preserve the artwork while making small white text readable. */
+.person .ant-avatar,
+.chat-session .ant-avatar, .message-row .ant-avatar,
+.chat-conversation-header .ant-avatar { background: linear-gradient(135deg, #09675D, #1F62BA); }
+.message-row.is-mine .ant-avatar { background: linear-gradient(135deg, #6E3BBE, #AD326F); }
+.chat-session-meta .ant-badge-count { background: linear-gradient(135deg, #B43A22, #B8275A); }
+.gallery-count { background: rgba(11, 15, 28, .78); }
+
 /* Phase 5 keyboard, full-card navigation and interaction feedback. */
 .campus-app { caret-color: transparent; }
 .campus-app input,
@@ -456,3 +472,10 @@
   .catalog-card:hover .ant-card-cover img { transform: none; }
   .campus-app .ant-btn:not(:disabled):active { transform: none; }
 }
+
+/* Phase 5 readable supporting text on translucent Aurora surfaces. */
+.campus-app .ant-breadcrumb a, .campus-app .ant-breadcrumb-link,
+.chat-session-meta, .chat-time, .original-price { color: var(--muted); }
+.notification-tab:hover, .notification-tab.is-active,
+.segmented-tab:hover, .segmented-tab.is-active { color: var(--link); }
+[data-theme="light"] .ant-tag.ant-tag-green.ant-tag-filled { color: #237804; }

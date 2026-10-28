@@ -321,8 +321,8 @@ test('M2 sampled text contrast', async ({ page }) => {
   await setup(page)
 
   const screens = [
-    ['/login', '登录'],
-    ['/register', '创建账号'],
+    ['/login', '欢迎回来'],
+    ['/register', '加入 CampusLoop'],
     ['/publish', '发布商品'],
     ['/wanted/publish', '发布求购'],
     ['/profile', '个人资料'],
@@ -485,18 +485,27 @@ test('M2 short text and image overlays', async ({ page }) => {
     const foregroundColor = await text.evaluate(element =>
       getComputedStyle(element).color,
     )
-    const backgroundColor = await background.evaluate(element =>
-      getComputedStyle(element).backgroundColor,
-    )
+    const backgroundColors = await background.evaluate(element => {
+      const style = getComputedStyle(element)
+      if (style.backgroundImage === 'none') return [style.backgroundColor]
+      // Aurora uses gradients. Check every stop and interpolated sample,
+      // rather than treating a transparent background-color as white.
+      const stops = style.backgroundImage.match(/rgba?\([^)]+\)/g)
+      if (!stops || stops.length < 2) throw new Error('Unsupported gradient: ' + style.backgroundImage)
+      const channels = stops.map(stop => stop.match(/[\d.]+/g)!.map(Number))
+      return channels.slice(1).flatMap((end, index) => Array.from({ length: 101 }, (_, step) => {
+        const start = channels[index]
+        return `rgba(${[0, 1, 2, 3].map(channel => (start[channel] ?? 1) + ((end[channel] ?? 1) - (start[channel] ?? 1)) * step / 100).join(',')})`
+      }))
+    })
 
     // A white image is the worst case for white text on a black overlay.
-    const backdrop = over(parse(backgroundColor), [255, 255, 255])
-    const foreground = over(parse(foregroundColor), backdrop)
-    const [dark, light] = [
-      luminance(foreground), luminance(backdrop),
-    ].sort((a, b) => a - b)
-
-    const ratio = (light + 0.05) / (dark + 0.05)
+    const ratio = Math.min(...backgroundColors.map(backgroundColor => {
+      const backdrop = over(parse(backgroundColor), [255, 255, 255])
+      const foreground = over(parse(foregroundColor), backdrop)
+      const [dark, light] = [luminance(foreground), luminance(backdrop)].sort((a, b) => a - b)
+      return (light + 0.05) / (dark + 0.05)
+    }))
     measurements.push({ name, ratio: Number(ratio.toFixed(2)) })
     expect.soft(ratio, name).toBeGreaterThanOrEqual(4.5)
   }
@@ -511,7 +520,7 @@ test('M2 short text and image overlays', async ({ page }) => {
   const overlay = parse(await gallery.evaluate(element =>
     getComputedStyle(element).backgroundColor,
   ))
-  expect(overlay.slice(0, 3)).toEqual([0, 0, 0])
+  expect(overlay[3]).toBeGreaterThan(0)
   await check('图片计数：白色图片最不利背景', '.gallery-count', '.gallery-count')
 
   await page.goto('/chat/801')
