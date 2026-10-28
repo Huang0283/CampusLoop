@@ -1,0 +1,109 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts --project=edge interface-restoration.spec.ts --grep M2 sampled text contrast
+
+
+Running 1 test using 1 worker
+
+Contrast violations: []
+Contrast requires manual review: [
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-alert-description"
+      ]
+    ]
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-btn-text.ant-btn-variant-text.ant-btn-lg > span"
+      ],
+      [
+        "div[title=\"鍥句功鏁欐潗\"]"
+      ],
+      [
+        "div[title=\"鍏垚鏂癨"]"
+      ]
+    ]
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-select-content"
+      ]
+    ]
+  },
+  {
+    "page": "/product/601",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".gallery-count"
+      ],
+      [
+        ".person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/chat/801",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".chat-session > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      [
+        ".ant-scroll-number-only-unit"
+      ],
+      [
+        ".message-row > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div:nth-child(1) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      [
+        "div:nth-child(2) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div[title=\"鍥句功鏁欐潗\"]"
+      ],
+      [
+        "div[title=\"鍏垚鏂癨"]"
+      ]
+    ]
+  },
+  {
+    "page": "/admin",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "#_r_a_"
+      ],
+      [
+        ".person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  }
+]
+  鉁? 1 [edge] 鈥?tests\live\interface-restoration.spec.ts:300:1 鈥?M2 sampled text contrast (10.8s)
+
+  1 passed (11.9s)

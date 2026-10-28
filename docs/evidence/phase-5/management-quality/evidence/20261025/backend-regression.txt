@@ -1,0 +1,21 @@
+
+==================================== ERRORS ====================================
+________________ ERROR collecting tests/test_p5_api_examples.py ________________
+tests/test_p5_api_examples.py:20: in <module>
+    SPEC = yaml.safe_load((ROOT / "openapi/campusloop.v1.yaml").read_text(encoding="utf-8"))
+/usr/local/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+/usr/local/lib/python3.12/pathlib.py:1013: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+E   FileNotFoundError: [Errno 2] No such file or directory: '/srv/campusloop/openapi/campusloop.v1.yaml'
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/site-packages/starlette/testclient.py:40
+  /usr/local/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+------------------- generated xml file: /tmp/mq5-backend.xml -------------------
+=========================== short test summary info ============================
+ERROR tests/test_p5_api_examples.py - FileNotFoundError: [Errno 2] No such fi...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 warning, 1 error in 0.44s

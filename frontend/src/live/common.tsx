@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components -- Shared live-page hooks and components. */
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Alert, Avatar, Badge, Button, Card, Dropdown, Empty, Input, Menu, Result } from 'antd'
 import { BellOutlined, DownOutlined, FileSearchOutlined, MessageOutlined, SafetyCertificateOutlined, SearchOutlined, ShopOutlined, SwapOutlined } from '@ant-design/icons'
@@ -54,6 +54,14 @@ export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promi
   return { ...state, reload }
 }
 
+const NotificationsContext = createContext<ReturnType<typeof useRemote<Notification[]>> | null>(null)
+
+export function useNotificationsResource() {
+  const resource = useContext(NotificationsContext)
+  if (!resource) throw new Error('Notifications must be rendered inside Shell')
+  return resource
+}
+
 export function useMutation() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<unknown>()
@@ -86,6 +94,47 @@ export function Resource({ loading, error, value, reload, children }: {
   return <><Failure error={error} retry={reload} />{children}</>
 }
 
+export type TabListItem = { readonly key: string; readonly label: string }
+
+/** 自带方向键循环、aria-selected 与 roving tabIndex 的标签栏，供通知与交易中心共用。 */
+export function TabList({ items, value, onChange, ariaLabel, className = 'segmented-tabs', tabClassName = 'segmented-tab' }: {
+  items: readonly TabListItem[]
+  value: string
+  onChange: (key: string) => void
+  ariaLabel: string
+  className?: string
+  tabClassName?: string
+}) {
+  const tabs = useRef<(HTMLButtonElement | null)[]>([])
+  const move = (index: number) => {
+    if (!items.length) return
+    const next = (index + items.length) % items.length
+    onChange(items[next].key)
+    tabs.current[next]?.focus()
+  }
+  return <div className={className} role="tablist" aria-label={ariaLabel}>
+    {items.map((item, index) => {
+      const selected = item.key === value
+      return <button
+        key={item.key}
+        type="button"
+        role="tab"
+        ref={(element) => { tabs.current[index] = element }}
+        aria-selected={selected}
+        tabIndex={selected ? 0 : -1}
+        className={`${tabClassName}${selected ? ' is-active' : ''}`}
+        onClick={() => onChange(item.key)}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); move(index + 1) }
+          else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); move(index - 1) }
+          else if (event.key === 'Home') { event.preventDefault(); move(0) }
+          else if (event.key === 'End') { event.preventDefault(); move(items.length - 1) }
+        }}
+      >{item.label}</button>
+    })}
+  </div>
+}
+
 export function Guard({ admin = false, children }: { admin?: boolean; children: ReactNode }) {
   const user = useSession((state) => state.user)
   const location = useLocation()
@@ -99,6 +148,7 @@ export function Shell() {
   const location = useLocation()
   const navigate = useNavigate()
   const mainRef = useRef<HTMLElement>(null)
+  const accountMenuButtonRef = useRef<HTMLButtonElement>(null)
   const [offline, setOffline] = useState(!navigator.onLine)
   useEffect(() => {
     const changed = () => setOffline(!navigator.onLine)
@@ -139,14 +189,14 @@ export function Shell() {
         {user?.role === 'USER' && <div className="app-notification-bell"><Badge count={unread} size="small" offset={[-6, 6]}><Button aria-label="通知" type="text" className="cl-icon-btn" icon={<BellOutlined />} onClick={() => navigate('/notifications')} /></Badge></div>}
         <ThemeToggle />
         <div className="app-user-menu">
-          {user ? <Dropdown trigger={['click', 'hover']} placement="bottomRight" menu={{ items: menu, onClick: ({ key }) => { if (key !== 'logout') navigate(key); else void mutation.run(async () => {
+          {user ? <Dropdown autoFocus trigger={['click', 'hover']} placement="bottomRight" menu={{ items: menu, onKeyDown: (event) => { if (event.key === 'Escape') window.requestAnimationFrame(() => accountMenuButtonRef.current?.focus({ preventScroll: true })) }, onClick: ({ key }) => { if (key !== 'logout') navigate(key); else void mutation.run(async () => {
             await logout()
             // Leave protected routes before clearing the identity, so Guard's
             // login redirect cannot race the intended return to the market.
             navigate('/market', { flushSync: true })
             useSession.getState().clear()
           }) } }}>
-            <Button type="text" aria-label={`账号菜单：${user.nickname}`} className="app-user-menu-content"><Avatar size={34} src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar><span className="app-user-menu-label">{user.nickname}</span><DownOutlined style={{ fontSize: 11 }} /></Button>
+            <Button ref={accountMenuButtonRef} type="text" aria-label={`账号菜单：${user.nickname}`} className="app-user-menu-content"><Avatar size={34} src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar><span className="app-user-menu-label">{user.nickname}</span><DownOutlined style={{ fontSize: 11 }} /></Button>
           </Dropdown> : <div className="app-guest-links"><Link to="/login" state={{ from: location.pathname + location.search }}>登录</Link><Link className="is-primary" to="/register">注册</Link></div>}
         </div>
       </div>
@@ -157,7 +207,7 @@ export function Shell() {
     <div className="live-layout">
       <main className="campus-content" id="main-content" ref={mainRef} tabIndex={-1} aria-label="主要内容">
         {offline && <Alert role="alert" type="warning" showIcon title="当前离线，请恢复网络后刷新。提交过的操作请先确认记录，避免重复。" style={{ marginBottom: 16 }} />}
-        <Failure error={mutation.error} /><Failure error={notifications.error} retry={notifications.reload} /><Outlet />
+        <Failure error={mutation.error} /><Failure error={notifications.error} retry={notifications.reload} /><NotificationsContext.Provider value={notifications}><Outlet /></NotificationsContext.Provider>
       </main>
     </div>
   </div>

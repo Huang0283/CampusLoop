@@ -1,0 +1,485 @@
+{
+  "page": "/admin",
+  "details": [
+    {
+      "rule": "color-contrast",
+      "target": [
+        "#_r_a_"
+      ],
+      "html": "<input id=\"_r_a_\" aria-label=\"筛选本页账号状态\" readonly=\"\" autocomplete=\"new-password\" class=\"ant-select-input\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\" aria-autocomplete=\"list\" type=\"text\" value=\"\">",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element has no value; test color contrast with a value entered",
+          "data": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "emptyValue",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "",
+        "color": "rgba(0, 0, 0, 0.88)",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "INPUT",
+            "classes": [
+              "ant-select-input"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-select-content"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-select",
+              "ant-select-outlined",
+              "css-var-_r_0_",
+              "ant-select-css-var",
+              "css-dev-only-do-not-override-19u5a7b",
+              "ant-select-single",
+              "ant-select-show-arrow"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-space-item"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-space",
+              "css-dev-only-do-not-override-19u5a7b",
+              "ant-space-horizontal",
+              "ant-space-align-center",
+              "ant-space-gap-row-small",
+              "ant-space-gap-col-small",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs-content",
+              "ant-tabs-content-active"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs-body",
+              "ant-tabs-body-top"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs-body-holder"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs",
+              "ant-tabs-top",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_",
+              "ant-tabs-css-var"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "admin-panel"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "campus-page"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "color-contrast",
+      "target": [
+        ".person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      "html": "<span class=\"ant-avatar-string\" style=\"transform: scale(1);\">验</span>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element content is too short to determine if it is actual text content",
+          "data": {
+            "fgColor": "#2f6bff",
+            "bgColor": "#dbe7ff",
+            "contrastRatio": 3.61,
+            "fontSize": "13.5pt (18px)",
+            "fontWeight": "normal",
+            "messageKey": "shortTextContent",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "验",
+        "color": "rgb(47, 107, 255)",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar-string"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar",
+              "ant-avatar-circle",
+              "css-var-_r_0_",
+              "ant-avatar-css-var",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgb(219, 231, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "person"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "TD",
+            "classes": [
+              "ant-table-cell"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "TR",
+            "classes": [
+              "ant-table-row",
+              "ant-table-row-level-0"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "TBODY",
+            "classes": [
+              "ant-table-tbody"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "TABLE",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-table-content"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-table-container"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-table",
+              "css-var-_r_0_",
+              "ant-table-css-var",
+              "css-dev-only-do-not-override-19u5a7b",
+              "ant-table-fix-start-shadow",
+              "ant-table-fix-end-shadow",
+              "ant-table-scroll-horizontal"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-spin-container"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-spin",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "css-var-_r_0_",
+              "ant-table-css-var",
+              "ant-table-wrapper",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs-content",
+              "ant-tabs-content-active"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs-body",
+              "ant-tabs-body-top"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs-body-holder"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-tabs",
+              "ant-tabs-top",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_",
+              "ant-tabs-css-var"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "admin-panel"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "campus-page"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    }
+  ]
+}

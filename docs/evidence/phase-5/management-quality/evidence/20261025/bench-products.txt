@@ -1,0 +1,17 @@
+{"url": "http://127.0.0.1:8025/products?page=1&pageSize=12", "concurrency": 10, "requests": 100}
+{
+  "total": 100,
+  "ok": 100,
+  "failed": 0,
+  "wallSeconds": 0.71,
+  "throughputPerSecond": 140.7,
+  "p50_ms": 59.1,
+  "p95_ms": 164.9,
+  "p99_ms": 186.0,
+  "max_ms": 186.2,
+  "statusCodes": {
+    "200": 100
+  },
+  "errorSamples": []
+}
+[OK] 全部 100 次请求成功，p95=164.9ms ≤ 2000.0ms。

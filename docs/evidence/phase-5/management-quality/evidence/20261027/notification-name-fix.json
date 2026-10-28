@@ -1,0 +1,18 @@
+{
+  "sourceCommit": "f5e7576f250ae2874d6e7537c2d0b27cfc4a601f",
+  "trackedChanges": [
+    "frontend/src/live/TransactionPages.tsx"
+  ],
+  "command": [
+    "npx.cmd",
+    "playwright",
+    "test",
+    "m2-notification-sync.spec.ts"
+  ],
+  "cwd": "frontend",
+  "startedAt": "2026-10-27T01:52:26.906096+00:00",
+  "endedAt": "2026-10-27T01:52:36.700614+00:00",
+  "exitCode": 0,
+  "output": "notification-name-fix.txt",
+  "sha256": "4a0d39ea1e5abc87daed2d465d80b0a9cce7837ecfbfa5226d3d68f5ac5e5935"
+}

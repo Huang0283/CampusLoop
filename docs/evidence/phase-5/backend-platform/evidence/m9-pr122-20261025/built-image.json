@@ -1,0 +1,12 @@
+{
+  "id": "sha256:7eae64ce03579c10a1a35ff447c05f62061aaa57c2eb66c083103e041d6efb8b",
+  "repoTags": [
+    "campusloop-pr122-api:audit"
+  ],
+  "repoDigests": [
+    "campusloop-pr122-api@sha256:7eae64ce03579c10a1a35ff447c05f62061aaa57c2eb66c083103e041d6efb8b"
+  ],
+  "sourceCommit": "22d6d8fc87a6bb107b59df5db226a4ee91285234",
+  "buildArgs": "HTTP_PROXY and HTTPS_PROXY=http://host.docker.internal:7890; this-machine network override only",
+  "backendSourceBoundIntoRuntime": false
+}

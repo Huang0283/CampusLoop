@@ -1,0 +1,10 @@
+
+> frontend@0.0.0 test:live
+> playwright test m2-async-state.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✓  1 tests\live\m2-async-state.spec.ts:3:1 › shared async component exposes all seven states/actions; outer boundary hides private errors (3.7s)
+
+  1 passed (4.3s)

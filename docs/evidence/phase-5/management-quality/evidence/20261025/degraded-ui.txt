@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "site": "http://127.0.0.1:5195",
+  "baselineStopped": true,
+  "keywordRecovery": true,
+  "priceStatus": "UNAVAILABLE",
+  "noInventedPrice": true,
+  "elapsedSeconds": 10.64,
+  "pageErrors": []
+}
