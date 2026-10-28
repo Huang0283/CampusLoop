@@ -65,3 +65,15 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/m7-evaluation/** -text
 /docs/evidence/m7-evaluation/evidence/*.txt -whitespace
 /.github/workflows/m7-evaluation-protocol.yml text eol=lf
+
+# Bash line continuations must survive Windows checkouts.
+backend/scripts/*.sh text eol=lf
+
+# Preserve raw PR122 acceptance logs and their hashes across platforms.
+/docs/evidence/phase-5/backend-platform/evidence/m9-pr122-20261025/** -text -whitespace
+
+# Archived AI and current quality evidence is hashed as exact bytes.
+/docs/evidence/phase-5/intelligence/** -text
+/docs/evidence/phase-5/intelligence/evidence/joint-v1/ci-backend-job.txt -whitespace
+/docs/evidence/phase-5/intelligence/human-review/**/review-records.csv whitespace=cr-at-eol
+/docs/evidence/phase-5/management-quality/evidence/20261027/** -text -whitespace

@@ -1,0 +1,261 @@
+test_closed_service_returns_filtered_local_baseline_with_degradation_reason (test_client.FallbackTests.test_closed_service_returns_filtered_local_baseline_with_degradation_reason) ... ok
+test_connection_closed_mid_request_also_returns_local_fallback (test_client.FallbackTests.test_connection_closed_mid_request_also_returns_local_fallback) ... ok
+Exception in thread Thread-1 (drop):
+Traceback (most recent call last):
+test_blank_browse_has_null_score_but_punctuation_is_not_browse (test_engine.RankingTests.test_blank_browse_has_null_score_but_punctuation_is_not_browse) ...   File "<python>\Lib\threading.py", line 1075, in _bootstrap_inner
+ok
+test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility (test_engine.RankingTests.test_hard_filters_precede_search_scores_and_do_not_expand_public_visibility) ... ok
+test_invalid_dictionary_rank_types_are_dependency_failure (test_engine.RankingTests.test_invalid_dictionary_rank_types_are_dependency_failure) ... ok
+test_keyword_title_weight_matches_published_hand_example (test_engine.RankingTests.test_keyword_title_weight_matches_published_hand_example) ... ok
+test_matching_cannot_be_read_by_another_wanted_owner (test_engine.RankingTests.test_matching_cannot_be_read_by_another_wanted_owner) ... ok
+test_matching_keeps_eligible_zero_text_score_and_explains_budget (test_engine.RankingTests.test_matching_keeps_eligible_zero_text_score_and_explains_budget) ... ok
+test_matching_without_text_returns_null_score_not_perfect_score (test_engine.RankingTests.test_matching_without_text_returns_null_score_not_perfect_score) ... ok
+test_missing_category_display_name_does_not_turn_raw_id_into_search_text (test_engine.RankingTests.test_missing_category_display_name_does_not_turn_raw_id_into_search_text) ...     self.run()
+  File "<python>\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "<repo>\services\m7_baseline\tests\test_client.py", line 35, in drop
+    connection, _ = listener.accept()
+                    ^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\socket.py", line 295, in accept
+ok
+test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort (test_engine.RankingTests.test_relevance_ties_use_publication_time_then_numeric_id_and_price_sort) ... ok
+test_unavailable_semantic_candidate_returns_versioned_explicit_rule_fallback (test_engine.RankingTests.test_unavailable_semantic_candidate_returns_versioned_explicit_rule_fallback) ... ok
+test_unknown_request_fields_are_rejected_instead_of_silently_ignored (test_engine.RankingTests.test_unknown_request_fields_are_rejected_instead_of_silently_ignored) ... ok
+test_fixed_evaluation_covers_38_queries_and_preserves_diagnostic_label_status (test_evaluation.EvaluationTests.test_fixed_evaluation_covers_38_queries_and_preserves_diagnostic_label_status) ...     fd, addr = self._accept()
+               ^^^^^^^^^^^^^^
+OSError: [WinError 10038] 在一个非套接字上尝试了一个操作。
+ok
+test_duplicate_json_keys_cannot_hide_an_invalid_schema_version (test_http.RpcTests.test_duplicate_json_keys_cannot_hide_an_invalid_schema_version) ... ERROR
+test_paged_rpc_uses_persisted_snapshot_and_rejects_changed_query (test_http.RpcTests.test_paged_rpc_uses_persisted_snapshot_and_rejects_changed_query) ... ERROR
+test_real_versioned_rpc_requires_service_auth_and_returns_computed_rank (test_http.RpcTests.test_real_versioned_rpc_requires_service_auth_and_returns_computed_rank) ... ERROR
+test_snapshot_token_type_is_a_schema_error (test_http.RpcTests.test_snapshot_token_type_is_a_schema_error) ... ERROR
+test_blank_sheet_reports_missing_fields_and_creates_no_archive (test_review_archive.ReviewArchiveTests.test_blank_sheet_reports_missing_fields_and_creates_no_archive) ... ok
+test_default_evaluation_exposes_pending_provenance (test_review_archive.ReviewArchiveTests.test_default_evaluation_exposes_pending_provenance) ... ok
+test_draft_version_and_nonempty_output_are_rejected (test_review_archive.ReviewArchiveTests.test_draft_version_and_nonempty_output_are_rejected) ... ok
+test_duplicate_and_missing_ids_fail (test_review_archive.ReviewArchiveTests.test_duplicate_and_missing_ids_fail) ... ok
+test_label_differences_are_reported_and_not_silently_promoted (test_review_archive.ReviewArchiveTests.test_label_differences_are_reported_and_not_silently_promoted) ... ok
+test_tampered_archive_fails_even_when_file_hash_is_rewritten (test_review_archive.ReviewArchiveTests.test_tampered_archive_fails_even_when_file_hash_is_rewritten) ... ok
+test_timezone_and_dispute_resolution_are_required (test_review_archive.ReviewArchiveTests.test_timezone_and_dispute_resolution_are_required) ... ok
+test_valid_archive_updates_evaluation_without_claiming_sealed_approval (test_review_archive.ReviewArchiveTests.test_valid_archive_updates_evaluation_without_claiming_sealed_approval) ... ok
+test_bad_product_is_quarantined_without_turning_page_into_empty_success (test_store.PersistenceTests.test_bad_product_is_quarantined_without_turning_page_into_empty_success) ... ok
+test_historical_task_is_marked_superseded_after_new_wanted_version (test_store.PersistenceTests.test_historical_task_is_marked_superseded_after_new_wanted_version) ... ok
+test_late_old_wanted_version_cannot_replace_current_result (test_store.PersistenceTests.test_late_old_wanted_version_cannot_replace_current_result) ... ok
+test_snapshot_survives_reopen_and_scans_past_revoked_product_without_duplicates (test_store.PersistenceTests.test_snapshot_survives_reopen_and_scans_past_revoked_product_without_duplicates) ... ok
+test_task_redelivery_reopens_one_result_and_conflicting_event_is_rejected (test_store.PersistenceTests.test_task_redelivery_reopens_one_result_and_conflicting_event_is_rejected) ... ok
+
+======================================================================
+ERROR: test_duplicate_json_keys_cannot_hide_an_invalid_schema_version (test_http.RpcTests.test_duplicate_json_keys_cannot_hide_an_invalid_schema_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<python>\Lib\urllib\request.py", line 1344, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "<python>\Lib\http\client.py", line 1386, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "<python>\Lib\http\client.py", line 1432, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1381, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1141, in _send_output
+    self.send(msg)
+  File "<python>\Lib\http\client.py", line 1085, in send
+    self.connect()
+  File "<python>\Lib\http\client.py", line 1051, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\socket.py", line 865, in create_connection
+    raise exceptions[0]
+  File "<python>\Lib\socket.py", line 850, in create_connection
+    sock.connect(sa)
+PermissionError: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 58, in test_duplicate_json_keys_cannot_hide_an_invalid_schema_version
+    status, error = self.post(self.payload, self.token, raw=raw)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 41, in post
+    response = urlopen(Request(self.url + path, data=body, headers=headers), timeout=3)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1373, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1347, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。>
+
+======================================================================
+ERROR: test_paged_rpc_uses_persisted_snapshot_and_rejects_changed_query (test_http.RpcTests.test_paged_rpc_uses_persisted_snapshot_and_rejects_changed_query)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<python>\Lib\urllib\request.py", line 1344, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "<python>\Lib\http\client.py", line 1386, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "<python>\Lib\http\client.py", line 1432, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1381, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1141, in _send_output
+    self.send(msg)
+  File "<python>\Lib\http\client.py", line 1085, in send
+    self.connect()
+  File "<python>\Lib\http\client.py", line 1051, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\socket.py", line 865, in create_connection
+    raise exceptions[0]
+  File "<python>\Lib\socket.py", line 850, in create_connection
+    sock.connect(sa)
+PermissionError: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 63, in test_paged_rpc_uses_persisted_snapshot_and_rejects_changed_query
+    status, first = self.post(self.payload, self.token, path="/v1/page")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 41, in post
+    response = urlopen(Request(self.url + path, data=body, headers=headers), timeout=3)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1373, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1347, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。>
+
+======================================================================
+ERROR: test_real_versioned_rpc_requires_service_auth_and_returns_computed_rank (test_http.RpcTests.test_real_versioned_rpc_requires_service_auth_and_returns_computed_rank)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<python>\Lib\urllib\request.py", line 1344, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "<python>\Lib\http\client.py", line 1386, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "<python>\Lib\http\client.py", line 1432, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1381, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1141, in _send_output
+    self.send(msg)
+  File "<python>\Lib\http\client.py", line 1085, in send
+    self.connect()
+  File "<python>\Lib\http\client.py", line 1051, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\socket.py", line 865, in create_connection
+    raise exceptions[0]
+  File "<python>\Lib\socket.py", line 850, in create_connection
+    sock.connect(sa)
+PermissionError: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 48, in test_real_versioned_rpc_requires_service_auth_and_returns_computed_rank
+    status, error = self.post(self.payload)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 41, in post
+    response = urlopen(Request(self.url + path, data=body, headers=headers), timeout=3)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1373, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1347, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。>
+
+======================================================================
+ERROR: test_snapshot_token_type_is_a_schema_error (test_http.RpcTests.test_snapshot_token_type_is_a_schema_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<python>\Lib\urllib\request.py", line 1344, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "<python>\Lib\http\client.py", line 1386, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "<python>\Lib\http\client.py", line 1432, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1381, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "<python>\Lib\http\client.py", line 1141, in _send_output
+    self.send(msg)
+  File "<python>\Lib\http\client.py", line 1085, in send
+    self.connect()
+  File "<python>\Lib\http\client.py", line 1051, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\socket.py", line 865, in create_connection
+    raise exceptions[0]
+  File "<python>\Lib\socket.py", line 850, in create_connection
+    sock.connect(sa)
+PermissionError: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 72, in test_snapshot_token_type_is_a_schema_error
+    status, error = self.post(self.payload, self.token, path="/v1/page")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>\services\m7_baseline\tests\test_http.py", line 41, in post
+    response = urlopen(Request(self.url + path, data=body, headers=headers), timeout=3)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1373, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<python>\Lib\urllib\request.py", line 1347, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。>
+
+----------------------------------------------------------------------
+Ran 31 tests in 6.910s
+
+FAILED (errors=4)

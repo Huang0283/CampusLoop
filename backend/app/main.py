@@ -50,7 +50,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI(
         title=settings.app_name,
-        version="0.3.0",
+        version="0.5.0-rc.1",
         # /docs 仅本地调试用；生产由 APP_ENV 控制
         docs_url="/docs" if settings.app_env != "prod" else None,
         lifespan=lifespan,

@@ -1,0 +1,16 @@
+{
+  "label": "rpc-faults",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "python",
+    "scripts/quality_phase4/probe_rpc_degradation.py",
+    "--output",
+    ".codex-tmp/runs/rpc-fault-observations.json"
+  ],
+  "startedAt": "2026-10-25T05:02:43.478941+00:00",
+  "endedAt": "2026-10-25T05:02:51.873579+00:00",
+  "elapsedSeconds": 8.395,
+  "exitCode": 0,
+  "output": "rpc-faults.txt",
+  "sha256": "4ab8e74f4065d2a43b7c69a025d631b95f95047815eb91a4fad4752762ab4d83"
+}

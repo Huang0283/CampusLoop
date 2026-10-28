@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { test, expect, type Page } from '@playwright/test'
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
@@ -123,6 +124,7 @@ test('chat matches the original proportions and compact offer/composer while kee
   await setup(page)
   await page.setViewportSize({ width: 1720, height: 960 })
   await page.routeWebSocket('**/ws', (socket) => {
+    if (process.env.CAMPUSLOOP_EXPECT_WS_URL) expect(socket.url()).toBe(process.env.CAMPUSLOOP_EXPECT_WS_URL)
     socket.onMessage(() => socket.send(JSON.stringify({ type: 'AUTH_OK', payload: {} })))
   })
   await page.route('**/chat/sessions/801/messages?**', (route) => route.fulfill({ json: { data: [
@@ -252,4 +254,315 @@ test('admin keeps management tabs and tables on desktop and mobile', async ({ pa
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
     if (process.env.CAMPUSLOOP_VISUAL_OUTPUT) await page.screenshot({ path: path.join(process.env.CAMPUSLOOP_VISUAL_OUTPUT, `${width}-admin.png`), fullPage: true })
   }
+})
+
+test('M2 form controls have accessible names', async ({ page }) => {
+  await setup(page)
+  await page.route('**/orders/1001', route => route.fulfill({
+    json: { data: { ...order, status: 'COMPLETED' } },
+  }))
+
+  const paths = [
+    '/login',
+    '/register',
+    '/publish',
+    '/wanted/publish',
+    '/profile',
+    '/transactions/1001/meetup',
+    '/transactions/1001/review',
+    '/publish/price-advice',
+  ]
+  const missing: Array<{
+    path: string
+    tag: string
+    id: string
+    role: string | null
+  }> = []
+  const counts: Array<{ path: string; checked: number }> = []
+
+  for (const path of paths) {
+    await page.goto(path)
+    await expect(page.locator('.ant-form').first()).toBeVisible()
+
+    const controls = page.locator(
+      '.ant-form input:not([type="hidden"]), .ant-form textarea, ' +
+      '.ant-form select, .ant-form [role="combobox"], ' +
+      '.ant-form [role="spinbutton"], .ant-form [role="radiogroup"], .ant-form .ant-rate',
+    )
+    // Aurora animates the card into view; wait for its controls before auditing.
+    await expect(controls.first()).toBeVisible()
+    let checked = 0
+    for (let index = 0; index < await controls.count(); index++) {
+      const control = controls.nth(index)
+      if (!await control.isVisible() || !await control.isEnabled()) continue
+
+      checked += 1
+      try {
+        await expect(control).toHaveAccessibleName(/\S/, { timeout: 300 })
+      } catch {
+        missing.push({
+          path,
+          ...await control.evaluate(element => ({
+            tag: element.tagName,
+            id: element.id,
+            role: element.getAttribute('role'),
+          })),
+        })
+      }
+    }
+    expect(checked, path + ' must contain visible form controls').toBeGreaterThan(0)
+    counts.push({ path, checked })
+  }
+
+  console.table(counts)
+  console.log('Missing accessible names:', JSON.stringify(missing, null, 2))
+  expect(missing).toEqual([])
+})
+
+test('M2 sampled text contrast', async ({ page }) => {
+  await setup(page)
+
+  const screens = [
+    ['/login', '欢迎回来'],
+    ['/register', '加入 CampusLoop'],
+    ['/publish', '发布商品'],
+    ['/wanted/publish', '发布求购'],
+    ['/profile', '个人资料'],
+    ['/product/601', product.title],
+    ['/chat/801', peer.nickname],
+    ['/transactions/1001', '订单 #1001'],
+    ['/publish/price-advice', '价格建议'],
+    ['/notifications', '通知'],
+    ['/admin', '管理后台'],
+  ]
+  const violations: unknown[] = []
+  const manualReview: unknown[] = []
+
+  for (const [url, heading] of screens) {
+    if (url === '/admin') {
+      await page.route('**/auth/browser-session', route => route.fulfill({
+        json: { data: {
+          accessToken: 'fixture-not-real', expiresIn: 600,
+          user: { ...user, role: 'ADMIN' },
+        } },
+      }))
+      await page.route('**/admin/users?**', route => route.fulfill({
+        json: { data: { items: [user], pagination } },
+      }))
+    }
+
+    await page.goto(url)
+    await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible()
+    // Visibility occurs partway through GSAP's fade. Audit the final rendered
+    // colors, rather than a transient blend while the whole card is translucent.
+    if (url === '/login' || url === '/register') await expect(page.locator('.auth .card')).toHaveCSS('opacity', '1')
+    await expect(page.getByText('正在处理，请稍候。', { exact: true })).toHaveCount(0)
+    await expect(page.getByText('TEST_UNHANDLED_API', { exact: true })).toHaveCount(0)
+
+    const result = await new AxeBuilder({ page })
+      .withRules(['color-contrast'])
+      .analyze()
+
+    for (const violation of result.violations) {
+      for (const node of violation.nodes) {
+        violations.push({
+          page: url,
+          rule: violation.id,
+          target: node.target,
+          html: node.html,
+          details: node.failureSummary,
+        })
+      }
+    }
+
+    const reviewDirectory = process.env.CAMPUSLOOP_A11Y_REVIEW_OUTPUT
+    if (reviewDirectory && result.incomplete.length) {
+      await mkdir(reviewDirectory, { recursive: true })
+      const filename = url.replace(/[^a-zA-Z0-9_-]/g, '_')
+      await page.screenshot({
+        path: path.join(reviewDirectory, filename + '.png'),
+        fullPage: true,
+      })
+
+      const details: unknown[] = []
+      for (const item of result.incomplete) {
+        for (const node of item.nodes) {
+          let rendered: unknown = null
+          const selector = node.target[0]
+          if (node.target.length === 1 && typeof selector === 'string') {
+            const locator = page.locator(selector)
+            if (await locator.count() === 1) {
+              rendered = await locator.evaluate(element => {
+                const style = getComputedStyle(element)
+                const backgrounds = []
+                let current: Element | null = element
+                while (current) {
+                  const parentStyle = getComputedStyle(current)
+                  backgrounds.push({
+                    tag: current.tagName,
+                    classes: [...current.classList],
+                    backgroundColor: parentStyle.backgroundColor,
+                    backgroundImage: parentStyle.backgroundImage,
+                    opacity: parentStyle.opacity,
+                  })
+                  current = current.parentElement
+                }
+                return {
+                  text: element.textContent?.trim(),
+                  color: style.color,
+                  fontSize: style.fontSize,
+                  fontWeight: style.fontWeight,
+                  backgrounds,
+                }
+              })
+            }
+          }
+          details.push({
+            rule: item.id,
+            target: node.target,
+            html: node.html,
+            checks: [...node.any, ...node.all, ...node.none].map(check => ({
+              id: check.id,
+              message: check.message,
+              data: check.data,
+            })),
+            rendered,
+          })
+        }
+      }
+
+      const { writeFile } = await import('node:fs/promises')
+      await writeFile(
+        path.join(reviewDirectory, filename + '.json'),
+        JSON.stringify({ page: url, details }, null, 2) + '\n',
+        'utf8',
+      )
+    }
+
+    for (const item of result.incomplete) {
+      manualReview.push({
+        page: url,
+        rule: item.id,
+        targets: item.nodes.map(node => node.target),
+      })
+    }
+  }
+
+  console.log('Contrast violations:', JSON.stringify(violations, null, 2))
+  console.log('Contrast requires manual review:', JSON.stringify(manualReview, null, 2))
+  expect(violations).toEqual([])
+})
+
+test('M2 short text and image overlays', async ({ page }) => {
+  await setup(page)
+
+  const parse = (value: string) => {
+    const parts = value.match(/[\d.]+/g)?.map(Number)
+    if (!value.startsWith('rgb') || !parts || parts.length < 3) {
+      throw new Error('Unsupported computed color: ' + value)
+    }
+    return [parts[0], parts[1], parts[2], parts[3] ?? 1]
+  }
+  const over = (color: number[], background: number[]) =>
+    color.slice(0, 3).map((channel, index) =>
+      channel * color[3] + background[index] * (1 - color[3]),
+    )
+  const luminance = (rgb: number[]) => {
+    const linear = rgb.map(channel => {
+      const value = channel / 255
+      return value <= 0.04045
+        ? value / 12.92
+        : ((value + 0.055) / 1.055) ** 2.4
+    })
+    return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722
+  }
+  const measurements: Array<{ name: string; ratio: number }> = []
+  const check = async (
+    name: string,
+    textSelector: string,
+    backgroundSelector: string,
+    index = 0,
+  ) => {
+    const text = page.locator(textSelector).nth(index)
+    const background = page.locator(backgroundSelector).nth(index)
+    await expect(text).toBeVisible()
+
+    const foregroundColor = await text.evaluate(element =>
+      getComputedStyle(element).color,
+    )
+    const backgroundColors = await background.evaluate(element => {
+      const style = getComputedStyle(element)
+      if (style.backgroundImage === 'none') return [style.backgroundColor]
+      // Aurora uses gradients. Check every stop and interpolated sample,
+      // rather than treating a transparent background-color as white.
+      const stops = style.backgroundImage.match(/rgba?\([^)]+\)/g)
+      if (!stops || stops.length < 2) throw new Error('Unsupported gradient: ' + style.backgroundImage)
+      const channels = stops.map(stop => stop.match(/[\d.]+/g)!.map(Number))
+      return channels.slice(1).flatMap((end, index) => Array.from({ length: 101 }, (_, step) => {
+        const start = channels[index]
+        return `rgba(${[0, 1, 2, 3].map(channel => (start[channel] ?? 1) + ((end[channel] ?? 1) - (start[channel] ?? 1)) * step / 100).join(',')})`
+      }))
+    })
+
+    // A white image is the worst case for white text on a black overlay.
+    const ratio = Math.min(...backgroundColors.map(backgroundColor => {
+      const backdrop = over(parse(backgroundColor), [255, 255, 255])
+      const foreground = over(parse(foregroundColor), backdrop)
+      const [dark, light] = [luminance(foreground), luminance(backdrop)].sort((a, b) => a - b)
+      return (light + 0.05) / (dark + 0.05)
+    }))
+    measurements.push({ name, ratio: Number(ratio.toFixed(2)) })
+    expect.soft(ratio, name).toBeGreaterThanOrEqual(4.5)
+  }
+
+  await page.goto('/product/601')
+  await expect(page.getByRole('heading', { name: product.title, exact: true })).toBeVisible()
+  await check('卖家头像首字', '.person .ant-avatar-string', '.person .ant-avatar')
+
+  const gallery = page.locator('.gallery-count')
+  await expect(gallery).toHaveCSS('color', 'rgb(255, 255, 255)')
+  await expect(gallery).toHaveCSS('background-image', 'none')
+  const overlay = parse(await gallery.evaluate(element =>
+    getComputedStyle(element).backgroundColor,
+  ))
+  expect(overlay[3]).toBeGreaterThan(0)
+  await check('图片计数：白色图片最不利背景', '.gallery-count', '.gallery-count')
+
+  await page.goto('/chat/801')
+  await expect(page.getByRole('heading', { name: peer.nickname, exact: true })).toBeVisible()
+  await check('会话头像首字', '.chat-session .ant-avatar-string', '.chat-session .ant-avatar')
+  await check('消息头像首字', '.message-row .ant-avatar-string', '.message-row .ant-avatar')
+  await expect(page.locator('.chat-session .ant-badge-count')).toHaveAttribute('title', '2')
+  await check(
+    '未读数字',
+    '.chat-session .ant-badge-count .current',
+    '.chat-session .ant-badge-count',
+  )
+
+  await page.goto('/transactions/1001')
+  await expect(page.getByRole('heading', { name: '订单 #1001', exact: true })).toBeVisible()
+  await expect(page.locator('.order-persons .ant-avatar-string')).toHaveCount(2)
+  for (let index = 0; index < 2; index++) {
+    await check(
+      '订单参与者头像 ' + (index + 1),
+      '.order-persons .ant-avatar-string',
+      '.order-persons .ant-avatar',
+      index,
+    )
+  }
+
+  await page.route('**/auth/browser-session', route => route.fulfill({
+    json: { data: {
+      accessToken: 'fixture-not-real', expiresIn: 600,
+      user: { ...user, role: 'ADMIN' },
+    } },
+  }))
+  await page.route('**/admin/users?**', route => route.fulfill({
+    json: { data: { items: [user], pagination } },
+  }))
+  await page.goto('/admin')
+  await expect(page.getByRole('heading', { name: '管理后台', exact: true })).toBeVisible()
+  await check('管理员列表头像首字', '.person .ant-avatar-string', '.person .ant-avatar')
+
+  console.table(measurements)
 })

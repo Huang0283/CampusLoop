@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "npm.cmd",
+    "run",
+    "sdk:check"
+  ],
+  "cwd": "frontend",
+  "startedAt": "2026-10-27T01:59:42.985779+00:00",
+  "endedAt": "2026-10-27T01:59:53.722770+00:00",
+  "exitCode": 0,
+  "output": "sdk.txt",
+  "sha256": "b314157e13ba7c7df7c2e4aa63da743cf9f7e17937237da2b4dec757cb8830a3"
+}

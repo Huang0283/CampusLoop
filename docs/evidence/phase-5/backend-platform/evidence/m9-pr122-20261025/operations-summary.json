@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "scope": "LOCAL_ISOLATED_OPERATIONAL_AUDIT_NOT_RELEASE_SIGNOFF",
+  "sourceCommit": "22d6d8fc87a6bb107b59df5db226a4ee91285234",
+  "workingTreeDirty": true,
+  "databaseName": "campusloop (dedicated Compose project campusloop-pr122-audit)",
+  "redisDatabase": 15,
+  "snapshotTables": 26,
+  "restoreSeconds": 5.266,
+  "contentAndConstraintHashesMatch": true,
+  "corruptArchiveRejectedBeforeWrites": true,
+  "queuedJobCompletedAfterWorkerReturn": 10,
+  "durableSuccessfulRunCount": 1,
+  "workerStartedAtBefore": "2026-10-25T04:15:31.691152+00:00",
+  "workerStartedAtAfter": "2026-10-25T04:15:34.205540+00:00",
+  "loggingConfigurationVerified": true,
+  "physicalLogRotationExercised": true,
+  "freshImagesBuilt": true,
+  "baseImage": "campusloop-pr122-api:audit",
+  "sourceMode": "fresh backend image; no source bind mount; infrastructure images reused"
+}

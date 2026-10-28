@@ -1,0 +1,173 @@
+
+Running 49 tests using 1 worker
+
+(node:39896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests\live\interface-restoration.spec.ts:49:1 › product gallery switches one main photo and keeps the seller/location/description layout (3.6s)
+  ✓   2 tests\live\interface-restoration.spec.ts:84:1 › chat restores the session pane, message bubbles and real send/session switching (2.1s)
+  ✓   3 tests\live\interface-restoration.spec.ts:123:1 › chat matches the original proportions and compact offer/composer while keeping emoji and quote actions (2.0s)
+  ✓   4 tests\live\interface-restoration.spec.ts:166:1 › profile restores summary beside editable data; wanted and transactions retain rich cards (2.0s)
+  ✓   5 tests\live\interface-restoration.spec.ts:180:1 › restored views fit mobile, preserve guest action protection and never fall back to mock products (1.4s)
+  ✓   6 tests\live\interface-restoration.spec.ts:194:1 › all student routes render on desktop and mobile without overflow or runtime errors (27.7s)
+  ✓   7 tests\live\interface-restoration.spec.ts:222:1 › admin keeps management tabs and tables on desktop and mobile (2.0s)
+┌─────────┬─────────────────────────────┬─────────┐
+│ (index) │ path                        │ checked │
+├─────────┼─────────────────────────────┼─────────┤
+│ 0       │ '/login'                    │ 2       │
+│ 1       │ '/register'                 │ 3       │
+│ 2       │ '/publish'                  │ 7       │
+│ 3       │ '/wanted/publish'           │ 7       │
+│ 4       │ '/profile'                  │ 5       │
+│ 5       │ '/transactions/1001/meetup' │ 5       │
+│ 6       │ '/transactions/1001/review' │ 5       │
+│ 7       │ '/publish/price-advice'     │ 3       │
+└─────────┴─────────────────────────────┴─────────┘
+Missing accessible names: []
+  ✓   8 tests\live\interface-restoration.spec.ts:239:1 › M2 form controls have accessible names (6.7s)
+Contrast violations: []
+Contrast requires manual review: [
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-alert-description"
+      ]
+    ]
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-btn-text.ant-btn-variant-text.ant-btn-lg > span"
+      ],
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-select-content"
+      ]
+    ]
+  },
+  {
+    "page": "/product/601",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".gallery-count"
+      ]
+    ]
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/admin",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "#_r_a_"
+      ]
+    ]
+  }
+]
+  ✓   9 tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast (8.9s)
+┌─────────┬────────────────────────────────┬───────┐
+│ (index) │ name                           │ ratio │
+├─────────┼────────────────────────────────┼───────┤
+│ 0       │ '卖家头像首字'                 │ 5.01  │
+│ 1       │ '图片计数：白色图片最不利背景' │ 10.41 │
+│ 2       │ '会话头像首字'                 │ 4.97  │
+│ 3       │ '消息头像首字'                 │ 4.97  │
+│ 4       │ '未读数字'                     │ 6.57  │
+│ 5       │ '订单参与者头像 1'             │ 5.01  │
+│ 6       │ '订单参与者头像 2'             │ 5.01  │
+│ 7       │ '管理员列表头像首字'           │ 5.01  │
+└─────────┴────────────────────────────────┴───────┘
+  ✓  10 tests\live\interface-restoration.spec.ts:431:1 › M2 short text and image overlays (2.7s)
+  ✘  11 tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing (12.4s)
+(node:20520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  12 tests\live\journey.spec.ts:139:1 › wanted constraints and price baseline are real services (3.4s)
+  ✓  13 tests\live\journey.spec.ts:158:1 › product original-price validation blocks invalid requests and recovers after price changes (3.2s)
+  ✓  14 tests\live\journey.spec.ts:194:1 › guest browse, failure recovery, secure reload restoration, logout and fixed navigation (5.3s)
+  ✓  15 tests\live\journey.spec.ts:241:1 › mobile navigation and empty-state filter recovery (1.6s)
+  ✓  16 tests\live\journey.spec.ts:254:1 › another tab changing account cannot retry an old request as the new user (4.8s)
+  ✓  17 tests\live\m2-account-menu-keyboard.spec.ts:5:3 › account menu supports Tab, Enter, arrows, Escape and navigation (session fixture) (1.6s)
+  ✓  18 tests\live\m2-account-menu-keyboard.spec.ts:5:3 › account menu supports Tab, Space, arrows, Escape and navigation (session fixture) (1.6s)
+  ✓  19 tests\live\m2-async-state.spec.ts:3:1 › shared async component exposes all seven states/actions; outer boundary hides private errors (1.3s)
+  ✓  20 tests\live\m2-dialog-keyboard.spec.ts:66:1 › transaction confirmation supports keyboard cancellation and Escape without writes (contract fixture) (1.6s)
+  ✓  21 tests\live\m2-dialog-keyboard.spec.ts:98:1 › admin drawer keeps keyboard focus inside and Escape returns to its opener without writes (contract fixture) (1.5s)
+  ✓  22 tests\live\m2-notification-sync.spec.ts:4:1 › notifications share one poller and synchronize read actions with the header (contract fixture) (6.6s)
+  ✓  23 tests\live\m2-phase4.spec.ts:4:1 › report contract consumes private blobs and reuses an uncertain resolution key (contract fixtures) (2.5s)
+  ✓  24 tests\live\m2-phase4.spec.ts:46:1 › ordinary user cannot reach admin; keyboard menu, offline banner and navigation focus (2.7s)
+  ✓  25 tests\live\m2-phase4.spec.ts:73:1 › route render exception has a safe fallback and a working home link (injected fault) (1.3s)
+  ✓  26 tests\live\m2-phase4.spec.ts:83:1 › admin users/risk and missing upstream governance are explicit (contract fixtures) (2.8s)
+  ✓  27 tests\live\m2-phase4.spec.ts:109:1 › timeout does not leave permanent spinner; manual refresh recovers (injected fault) (11.5s)
+  ✓  28 tests\live\m2-phase4.spec.ts:118:1 › real admin pagination, risk audit request and status processing revoke another session (5.7s)
+  ✓  29 tests\live\m2-shell-phase5.spec.ts:52:1 › guest login returns to the protected deep link and preserves its query (session fixture) (2.3s)
+  ✓  30 tests\live\m2-shell-phase5.spec.ts:75:1 › session restoration failure can retry at the original deep link (session fixture) (798ms)
+  ✓  31 tests\live\m2-upload-keyboard.spec.ts:5:3 › image upload supports Tab and Enter without submitting the form (session fixture) (1.2s)
+  ✓  32 tests\live\m2-upload-keyboard.spec.ts:5:3 › image upload supports Tab and Space without submitting the form (session fixture) (1.3s)
+  ✓  33 tests\live\m2-websocket-config.spec.ts:4:1 › WebSocket deployment URLs support a separate gateway and secure API fallback (1ms)
+  ✓  34 tests\live\m3-phase4.spec.ts:24:1 › 503 search fallback preserves filters and exposes actual mode, reason and version (1.2s)
+  ✓  35 tests\live\m3-phase4.spec.ts:44:1 › failed intelligent search offers keyword recovery; permission errors do not (2.8s)
+  ✓  36 tests\live\m3-phase4.spec.ts:62:1 › search timeout has a keyword escape and keyword failure stops after one fallback (12.8s)
+  ✓  37 tests\live\m3-phase4.spec.ts:80:1 › matching renders constraints/version and updates expiry while page remains open (1.7s)
+  ✓  38 tests\live\m3-phase4.spec.ts:93:1 › invalid matching expiry is explicitly unknown and refresh can recover (1.5s)
+  ✓  39 tests\live\m3-phase4.spec.ts:105:1 › matching owner permission rejection does not expose results (1.4s)
+  ✓  40 tests\live\m3-phase4.spec.ts:112:1 › price advice distinguishes model and low confidence, and clears stale success on failure (1.6s)
+  ✓  41 tests\live\m3-phase4.spec.ts:132:1 › sample shortage, unavailable and degraded price results remain explicit (1.9s)
+  ✓  42 tests\live\m3-phase4.spec.ts:156:1 › editing price inputs invalidates the old range and empty disclaimers have a safe fallback (1.5s)
+  ✓  43 tests\live\m3-phase4.spec.ts:169:1 › guest can search but price advice and matching remain protected (2.5s)
+  ✓  44 tests\live\m3-phase5.spec.ts:18:3 › long market and wanted content wraps without clipping at 375px (2.9s)
+  ✓  45 tests\live\m3-phase5.spec.ts:18:3 › long market and wanted content wraps without clipping at 1440px (3.3s)
+  ✓  46 tests\live\m3-phase5.spec.ts:33:1 › search length and failed network retry preserve the draft (2.4s)
+  ✓  47 tests\live\m3-phase5.spec.ts:52:1 › pagination and reload retain all search filters (3.3s)
+  ✓  48 tests\live\m3-phase5.spec.ts:68:1 › failed image upload can recover and a slow failed save keeps the complete draft (2.5s)
+  ✓  49 tests\live\product-governance.spec.ts:4:1 › real admin product hide and restore preserve owner access and public visibility (10.3s)
+
+
+  1) tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing ───
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+    Call Log:
+    - Timeout 10000ms exceeded while waiting on the predicate
+
+      31 |   await seller.getByRole('button', { name: '保存商品' }).click()
+      32 |   await expect(seller).toHaveURL(/\/product\/\d+$/)
+    > 33 |   await expect.poll(() => seller.locator('.ant-image img').first().evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
+         |                                                                                                                                       ^
+      34 |   const productPath = new URL(seller.url()).pathname
+      35 |   await register(buyer, 'Buyer')
+      36 |   await buyer.getByRole('searchbox', { name: '搜索商品', exact: true }).fill(title)
+        at C:\Users\Administrator\Desktop\CampusLoop\.codex-tmp\m2-pr120\frontend\tests\live\journey.spec.ts:33:135
+
+    Error Context: test-results\journey-real-two-account-b-1b471-saction-no-database-editing\error-context.md
+
+  1 failed
+    tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing ────
+  48 passed (3.2m)

@@ -1,0 +1,87 @@
+.codex-tmp/pr122.dump: OK
+>>> 0/4 备份完整性自检（pg_restore --list 前 5 行）
+;
+; Archive created at 2026-10-25 04:15:15 UTC
+;     dbname: campusloop
+;     TOC Entries: 266
+;     Compression: gzip
+>>> 1/4 断开现有连接，DROP / CREATE campusloop
+ pg_terminate_backend 
+----------------------
+ t
+(1 row)
+
+DROP DATABASE
+CREATE DATABASE
+>>> 2/4 pg_restore 全量恢复（--no-owner）
+>>> 3/4 校验迁移版本（应等于发布头，如 0009）
+alembic_version = 0010
+>>> 4/4 行数快照核对（与备份前基线逐表比对）
+[提示] 宿主机 python 缺 psycopg，改用 api 容器内核对
+{
+  "formatVersion": 2,
+  "alembic_version": "0010",
+  "tables": {
+    "users": 4,
+    "auth_session_families": 1,
+    "auth_audits": 1,
+    "refresh_sessions": 1,
+    "products": 6,
+    "product_images": 2,
+    "wanted_posts": 2,
+    "favorites": 2,
+    "uploaded_objects": 2,
+    "offers": 1,
+    "orders": 2,
+    "order_events": 5,
+    "meetups": 1,
+    "reviews": 1,
+    "notifications": 4,
+    "reports": 1,
+    "chat_sessions": 1,
+    "chat_messages": 3,
+    "chat_read_cursors": 0,
+    "matching_jobs": 5,
+    "matching_results": 2,
+    "matching_notifications": 1,
+    "matching_revision": 1,
+    "ai_task_runs": 5,
+    "worker_heartbeats": 2,
+    "idempotency_records": 0
+  },
+  "contentHashes": {
+    "users": "f58ed0610c49ec8ac2a23fe1c7d6ed898ee60f4528e7c14572229584b675b602",
+    "auth_session_families": "28e320cb1c027175c1f23bc9d2d9c0c5e7a30c091ca1a6bfa2172440215f028e",
+    "auth_audits": "bcf0bba40e591bbf9547e1bba4e386a98351d16026c00a5329c4fc7ec049c0b6",
+    "refresh_sessions": "dc4c3385eeab945eb3d8f2d750d1e08177487f485417f2ee8a304acceaf31542",
+    "products": "66f64d69ad9f4196387648a4c0470967e47adbc318c6b6971939273d197cb12f",
+    "product_images": "9dbb75d2caca87d02de247f79c289ca20acb493f720999324596ffd4184fbaac",
+    "wanted_posts": "7fdcd5fc276e1478f383f9a786666ca987cad9e725ddec1698bb13f2eea61e36",
+    "favorites": "b5e0efa35e14fede7e26d87acdebc85d26355460158b3680ff66cdaa966e4294",
+    "uploaded_objects": "ae592e863030d40138102b8d2eb88751b45402d54b9a0f6e53fd4f215471fc88",
+    "offers": "1236d37b7faced0306912988d291e54a2130c4dd72d4bcdcd8710b61c86294e4",
+    "orders": "8da5778909829724b81e9b456b59991cd733336d733073a2ca342cd103426dae",
+    "order_events": "f6bb54494a6bf9b6e28ff9fb4e10dd6104f249ad6fdcfda5ca9447dac767e20f",
+    "meetups": "0cffa9dbf3b6c9ead5396b7b8d13c3fd0e376e8d1d65dac75ca2b7781b7d3d18",
+    "reviews": "8344755c4e35bcb670206a6ffe514d45ef3d396c82249360bdbd1c63c33a3931",
+    "notifications": "310b3a985f1bbbce4afae1fb5f47c5d20e5d9be20e9946829281aa9dec015a3e",
+    "reports": "23bf54aa0f460f3f611914804976358fed01962ff6f150505ca11d09dc3ee072",
+    "chat_sessions": "3e23af537df12560101dd5a0d282d7392c6687441818adbb66fe3f0a13a6d314",
+    "chat_messages": "2f0c8734abd41051bcb28b2efd137b01dfcf9d1627ee34c578e911d7164ede5b",
+    "chat_read_cursors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "matching_jobs": "87a0e14a099682af62d1897f409872e429eb4fa38130a34d115350141df03a65",
+    "matching_results": "21d3ba3efe1ce5a28f1f12b4061c1681d293e4350a571c3f9364f69f1969f793",
+    "matching_notifications": "f22eea036ba8f86f83682fb2e6922163114e665cff09ccd710a400582600dc0f",
+    "matching_revision": "8b49c77d9804f8e9953929e66f54353f960498bf70d6f07ee1606698c4b59e1c",
+    "ai_task_runs": "3d8b7ec711c7b11ae5fe6879a98c0aa003e40ae4348b8a13627d73f8850ea385",
+    "worker_heartbeats": "4584fd4ac901ec1da6ba813f6051311d3a22dee9d15671e5c387f4ac6f4e5154",
+    "idempotency_records": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "schemaSha256": "f1b4185ddd9d9ed8d9eb62f64d04278901259770485b17dfe53723fb41664886"
+}
+[OK] 26 tables: counts, content, constraints/indexes and migration match.
+>>> 行数与备份前基线一致 ✓
+>>> 恢复完成：dump=.codex-tmp/pr122.dump，alembic_version=0010
+>>> 建议执行 docker compose restart api worker 使应用侧连接池干净重建。
+ campusloop-pr122-audit-api-1 Copying backups/baseline-pr122.json to campusloop-pr122-audit-api-1:/tmp/verify-baseline.json
+ campusloop-pr122-audit-api-1 Copied backups/baseline-pr122.json to campusloop-pr122-audit-api-1:/tmp/verify-baseline.json

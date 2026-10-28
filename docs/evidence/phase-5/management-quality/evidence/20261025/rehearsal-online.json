@@ -1,0 +1,18 @@
+{
+  "label": "rehearsal-online",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "node",
+    "node_modules/@playwright/test/cli.js",
+    "test",
+    "journey.spec.ts",
+    "--grep",
+    "real two-account"
+  ],
+  "startedAt": "2026-10-25T05:06:53.239312+00:00",
+  "endedAt": "2026-10-25T05:07:09.852053+00:00",
+  "elapsedSeconds": 16.613,
+  "exitCode": 1,
+  "output": "rehearsal-online.txt",
+  "sha256": "9f65eaa65e5eefecde2765b8f975618129440a79905027a2dff3638becbafca6"
+}

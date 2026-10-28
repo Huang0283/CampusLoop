@@ -1,0 +1,1 @@
+{"result": "fail", "error": "[WinError 5] 拒绝访问。: 'C:\\\\Users\\\\KkkkRui\\\\AppData\\\\Local\\\\Packages\\\\sandbox.{f53b7559-53ee-4358-ac68-33c3cae24ebf}\\\\AC\\\\Temp\\\\tmpd6ohrqg1'"}

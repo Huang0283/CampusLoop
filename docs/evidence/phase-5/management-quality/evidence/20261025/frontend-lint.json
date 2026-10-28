@@ -1,0 +1,16 @@
+{
+  "label": "frontend-lint",
+  "command": [
+    "cmd",
+    "/c",
+    "npm",
+    "run",
+    "lint"
+  ],
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "startedAt": "2026-10-25T04:58:49.622522+00:00",
+  "elapsedSeconds": 5.369,
+  "exitCode": 0,
+  "output": "frontend-lint.txt",
+  "sha256": "0d4695f4da2780a75fa8d28ae5fabe88093b7de3774417c514e2ecd90774e01f"
+}

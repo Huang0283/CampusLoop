@@ -1,0 +1,14 @@
+{
+  "label": "recovery-audit",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "python",
+    ".codex-tmp/recovery_audit.py"
+  ],
+  "startedAt": "2026-10-25T05:06:48.821997+00:00",
+  "endedAt": "2026-10-25T05:06:52.858740+00:00",
+  "elapsedSeconds": 4.037,
+  "exitCode": 1,
+  "output": "recovery-audit.txt",
+  "sha256": "e7441ab03c490e99f590bcb31f06bdb17663afa0b704550e307dc17661c0f310"
+}

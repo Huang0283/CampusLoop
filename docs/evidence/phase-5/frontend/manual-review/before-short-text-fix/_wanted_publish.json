@@ -1,0 +1,217 @@
+{
+  "page": "/wanted/publish",
+  "details": [
+    {
+      "rule": "color-contrast",
+      "target": [
+        ".ant-select-content"
+      ],
+      "html": "<div class=\"ant-select-content ant-select-content-has-value\" title=\"不限成色\">不限成色<input id=\"condition\" aria-required=\"true\" readonly=\"\" autocomplete=\"new-password\" class=\"ant-select-input\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\" aria-autocomplete=\"list\" type=\"text\" value=\"\"></div>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element's background color could not be determined because it is overlapped by another element",
+          "data": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "bgOverlap",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "不限成色",
+        "color": "rgba(0, 0, 0, 0.88)",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-select-content",
+              "ant-select-content-has-value"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-select",
+              "ant-select-lg",
+              "ant-select-outlined",
+              "ant-select-in-form-item",
+              "css-var-_r_0_",
+              "ant-select-css-var",
+              "css-dev-only-do-not-override-19u5a7b",
+              "ant-select-single",
+              "ant-select-show-arrow"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-form-item-control-input-content"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-form-item-control-input"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-col",
+              "ant-form-item-control",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-row",
+              "ant-form-item-row",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-form-item",
+              "css-var-_r_0_",
+              "ant-form-css-var",
+              "css-dev-only-do-not-override-19u5a7b",
+              "ant-form-item-vertical"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "FORM",
+            "classes": [
+              "ant-form",
+              "ant-form-vertical",
+              "ant-form-large",
+              "css-var-_r_0_",
+              "ant-form-css-var",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-card-body"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-card",
+              "ant-card-bordered",
+              "form-surface",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "campus-page"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    }
+  ]
+}
