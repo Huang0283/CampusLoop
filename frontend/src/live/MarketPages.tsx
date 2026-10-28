@@ -40,7 +40,7 @@ export function ProductCards({ products, from, actions }: { products: Product[];
       </Link>
       <div className="product-body">
         <h3><Link className="catalog-title" onKeyDown={(event) => { if (event.key === ' ') { event.preventDefault(); navigate(`/product/${product.id}`, { state: { from } }) } }} to={`/product/${product.id}`} state={{ from }} style={{ color: 'inherit' }}>{product.title}</Link></h3>
-        <div className="row"><span className="cl-price"><small>¥</small>{product.price.toFixed(2)}</span><span className={`cl-chip${product.status === 'ON_SALE' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{stateLabel[product.status]}</span></div>
+        <div className="row"><span className="cl-price catalog-price"><small>¥</small>{product.price.toFixed(2)}</span><span className={`cl-chip${product.status === 'ON_SALE' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{stateLabel[product.status]}</span></div>
         <span className="loc"><EnvironmentOutlined />{product.campusLocation || '地点未填写'}</span>
         <div className="catalog-seller"><Avatar size={22} src={product.seller.avatar}>{product.seller.nickname.slice(0, 1)}</Avatar><span>{product.seller.nickname}</span></div>
       </div>

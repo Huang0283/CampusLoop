@@ -289,6 +289,8 @@ test('M2 form controls have accessible names', async ({ page }) => {
       '.ant-form select, .ant-form [role="combobox"], ' +
       '.ant-form [role="spinbutton"], .ant-form [role="radiogroup"], .ant-form .ant-rate',
     )
+    // Aurora animates the card into view; wait for its controls before auditing.
+    await expect(controls.first()).toBeVisible()
     let checked = 0
     for (let index = 0; index < await controls.count(); index++) {
       const control = controls.nth(index)
