@@ -67,7 +67,7 @@ test('ordinary user cannot reach admin; keyboard menu, offline banner and naviga
   await page.goto('/missing-phase4-page')
   await expect(page.getByText('页面不存在', { exact: true })).toBeVisible()
   await page.getByRole('link', { name: '返回首页', exact: true }).click()
-  await expect(page.getByRole('heading', { name: '校园市场' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /每一件闲置/ })).toBeVisible()
 })
 
 test('route render exception has a safe fallback and a working home link (injected fault)', async ({ page }) => {
@@ -77,7 +77,7 @@ test('route render exception has a safe fallback and a working home link (inject
   await expect(page.getByRole('menuitem', { name: '求购' })).toBeVisible()
   await page.unroute('**/products?**')
   await page.getByRole('link', { name: '返回首页', exact: true }).click()
-  await expect(page.getByRole('heading', { name: '校园市场' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /每一件闲置/ })).toBeVisible()
 })
 
 test('admin users/risk and missing upstream governance are explicit (contract fixtures)', async ({ page }) => {
@@ -147,7 +147,7 @@ test('real admin pagination, risk audit request and status processing revoke ano
   await expect(admin.getByRole('button', { name: /恢复账号/ })).toBeEnabled()
   await student.goto('/profile')
   await expect(student).toHaveURL(/\/login$/)
-  await expect(student.getByRole('heading', { name: '登录', exact: true })).toBeVisible()
+  await expect(student.getByRole('heading', { name: '欢迎回来', exact: true })).toBeVisible()
   await expect(student.getByRole('heading', { name: '个人资料', exact: true })).toHaveCount(0)
   await admin.getByRole('button', { name: /恢复账号/ }).click()
   await expect(admin.getByRole('button', { name: /禁用账号并撤销会话/ })).toBeEnabled()

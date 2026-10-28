@@ -2,7 +2,7 @@ import { test, expect } from './fixtures'
 
 test('shared async component exposes all seven states/actions; outer boundary hides private errors', async ({ page }) => {
   await page.goto('/market')
-  await expect(page.getByRole('heading', { name: '校园市场' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /每一件闲置/ })).toBeVisible()
   await page.evaluate(async () => {
     const load = new Function('path', 'return import(path)') as (path: string) => Promise<Record<string, unknown>>
     const react = (await load('/node_modules/.vite/deps/react.js')).default as Record<string, unknown>
