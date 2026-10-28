@@ -353,6 +353,9 @@ test('M2 sampled text contrast', async ({ page }) => {
 
     await page.goto(url)
     await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible()
+    // Visibility occurs partway through GSAP's fade. Audit the final rendered
+    // colors, rather than a transient blend while the whole card is translucent.
+    if (url === '/login' || url === '/register') await expect(page.locator('.auth .card')).toHaveCSS('opacity', '1')
     await expect(page.getByText('正在处理，请稍候。', { exact: true })).toHaveCount(0)
     await expect(page.getByText('TEST_UNHANDLED_API', { exact: true })).toHaveCount(0)
 
