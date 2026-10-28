@@ -110,7 +110,7 @@ test('real two-account browser transaction; no database editing', async ({ brows
   await buyer.getByRole('button', { name: '确认当前版本', exact: true }).click()
   for (const page of [seller, buyer]) {
     await page.getByRole('button', { name: '我已完成交易', exact: true }).click()
-    await page.getByRole('button', { name: 'OK', exact: true }).click()
+    await page.getByRole('button', { name: /^确\s*定$/ }).click()
   }
   await expect(buyer.getByText('已完成', { exact: true }).first()).toBeVisible()
   await buyer.getByRole('link', { name: '评价交易', exact: true }).click()
