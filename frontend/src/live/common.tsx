@@ -116,10 +116,10 @@ export function Shell() {
   }, [reloadNotifications])
   const unread = notifications.value?.filter((item) => !item.read).length ?? 0
   const nav = [
-    { key: '/market', icon: <ShopOutlined />, label: '市场' },
-    { key: '/wanted', icon: <FileSearchOutlined />, label: '求购' },
-    ...(user?.role === 'USER' ? [{ key: '/chat', icon: <MessageOutlined />, label: '聊天' }, { key: '/transactions', icon: <SwapOutlined />, label: '交易' }] : []),
-    ...(user?.role === 'ADMIN' ? [{ key: '/admin', icon: <SafetyCertificateOutlined />, label: '管理后台' }] : []),
+    { key: '/market', icon: <ShopOutlined aria-hidden />, label: '市场' },
+    { key: '/wanted', icon: <FileSearchOutlined aria-hidden />, label: '求购' },
+    ...(user?.role === 'USER' ? [{ key: '/chat', icon: <MessageOutlined aria-hidden />, label: '聊天' }, { key: '/transactions', icon: <SwapOutlined aria-hidden />, label: '交易' }] : []),
+    ...(user?.role === 'ADMIN' ? [{ key: '/admin', icon: <SafetyCertificateOutlined aria-hidden />, label: '管理后台' }] : []),
   ]
   const selected = location.pathname.startsWith('/admin') ? '/admin' : location.pathname.startsWith('/chat') ? '/chat' : location.pathname.startsWith('/transactions') ? '/transactions' : location.pathname.startsWith('/wanted') ? '/wanted' : location.pathname.startsWith('/market') || location.pathname.startsWith('/product') ? '/market' : ''
   const menu = [

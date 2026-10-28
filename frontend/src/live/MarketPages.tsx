@@ -31,7 +31,7 @@ export function ProductCards({ products, from, actions }: { products: Product[];
   return <div className="product-grid">{products.map((product) => {
     const meta = categoryOf(product.category)
     return <article key={product.id} className="product-card" style={{ ['--ic' as string]: meta.color }}>
-      <Link to={`/product/${product.id}`} state={{ from }} aria-label={product.title}>
+      <Link to={`/product/${product.id}`} state={{ from }} aria-hidden="true" tabIndex={-1}>
         <div className="product-photo">
           {product.images[0] ? <img src={product.images[0]} alt={product.title} loading="lazy" /> : <Glyph name={meta.glyph} />}
           <span className="condition">{conditionLabels[product.condition] || product.condition}</span>
@@ -107,7 +107,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const change = (field: string, value: string) => { const next = new URLSearchParams(params); if (value) next.set(field, value); else next.delete(field); if (field !== 'page') next.delete('page'); setParams(next) }
   const searchResult = remote.value && 'mode' in remote.value ? remote.value as api.SearchResult : undefined
   const canRecoverSearch = mode === 'public' && query.trim() && searchMode !== 'keyword' && remote.error instanceof api.ApiError && (remote.error.status === 0 || remote.error.status >= 500)
-  const publish = <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined />} onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>
+  const publish = <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>
   const results = <>
     <Failure error={mutation.error} />
     {canRecoverSearch && <Button style={{ marginBottom: 16 }} onClick={() => change('searchMode', 'keyword')}>改用关键词搜索</Button>}
@@ -162,7 +162,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
         <div><h4>成色</h4><div className="pill-group" role="group" aria-label="商品成色">
           {[{ value: '', label: '不限' }, ...conditions].map((entry) => <button key={entry.value} type="button" aria-pressed={(condition || '') === entry.value} onClick={() => change('condition', entry.value)}>{entry.label}</button>)}
         </div></div>
-        <Button onClick={remote.reload} icon={<ReloadOutlined />}>刷新</Button>
+        <Button onClick={remote.reload} icon={<ReloadOutlined aria-hidden />}>刷新</Button>
       </aside>
       <div style={{ minWidth: 0 }}>
         <div className="grid-head">
@@ -273,7 +273,7 @@ export function WantedListPage() {
   const scale = Math.max(1, ...(remote.value?.items.map((item) => item.budgetMax) ?? [1]))
   return <Page title="求购广场" subtitle="看看同学们正在找什么，手里有闲置就去帮一把。" extra={<Space wrap>
     <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} allowClear style={{ width: 280 }} />
-    <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined />} onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>
+    <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>
   </Space>}>
     <Resource {...remote}>{remote.value?.items.length ? <div className="wanted-grid">{remote.value.items.map((item) => <Card className={`wanted-card${item.status === 'OPEN' ? '' : ' is-closed'}`} key={item.id}>
       <h2 style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}><Link to={`/wanted/${item.id}`}>{item.title}</Link><span className={`cl-chip${item.status === 'OPEN' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{wantedStatusLabels[item.status]}</span></h2>
