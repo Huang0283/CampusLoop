@@ -8,9 +8,10 @@ import { CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetail
 import { ReportsPage } from '../live/ReportsPage'
 import { OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage } from '../live/TransactionPages'
 import { ChatPage, ChatListPage } from '../live/ChatPages'
+import { LandingPage } from '../landing/LandingPage'
 
 export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ errorElement: <RouteFailure />, children: [
-  { path: '/', element: <Navigate to="/market" replace /> },
+  { path: '/', element: <LandingPage /> },
   { path: '/login', element: <AuthPage /> }, { path: '/register', element: <AuthPage registering /> },
   { path: '/profile', element: <Guard><ProfilePage /></Guard> },
   { path: '/market', element: <CatalogPage /> }, { path: '/product/:id', element: <ProductPage /> },

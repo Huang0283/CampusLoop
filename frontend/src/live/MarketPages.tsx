@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Alert, Avatar, Breadcrumb, Button, Card, Col, Form, Input, InputNumber, Pagination, Row, Select, Space, Tag, Typography } from 'antd'
-import { HeartFilled, HeartOutlined, MessageFilled, EnvironmentOutlined, ClockCircleOutlined, FileTextOutlined, InboxOutlined, RobotOutlined } from '@ant-design/icons'
+import { Alert, Avatar, Breadcrumb, Button, Card, Col, Form, Input, InputNumber, Pagination, Row, Segmented, Select, Space, Tag, Typography } from 'antd'
+import { HeartFilled, HeartOutlined, MessageFilled, EnvironmentOutlined, ClockCircleOutlined, FileTextOutlined, InboxOutlined, PlusOutlined, ReloadOutlined, RobotOutlined } from '@ant-design/icons'
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { Product, ProductWriteRequest, WantedWriteRequest, PriceAdviceRequest } from '../sdk'
@@ -11,6 +11,7 @@ import { ImageQueue } from './ImageQueue'
 import { useAttemptKey } from './idempotency'
 import { ProductDetail, Person } from './Presentation'
 import { categoryLabels, conditionLabels, wantedStatusLabels, displayDate } from './display'
+import { Glyph, Logo, PriceTag, categoryOf, type GlyphName } from '../theme/brand'
 
 const categories = [{ value: 'BOOKS', label: '图书教材' }, { value: 'DIGITAL', label: '数码电子' }, { value: 'DAILY', label: '生活用品' }, { value: 'SPORTS', label: '运动户外' }, { value: 'clothing', label: '服饰鞋包' }, { value: 'other', label: '其他' }]
 const conditions = [{ value: 'NEW', label: '全新' }, { value: 'LIKE_NEW', label: '九成新' }, { value: 'GOOD', label: '八成新' }, { value: 'FAIR', label: '七成新' }]
@@ -27,16 +28,50 @@ function requireStudent(navigate: ReturnType<typeof useNavigate>, from: string) 
 }
 
 export function ProductCards({ products, from, actions }: { products: Product[]; from?: string; actions?: (product: Product) => React.ReactNode }) {
-  return <Row gutter={[24, 24]}>{products.map((product) => <Col key={product.id} xs={24} sm={12} md={8} lg={6}>
-    <Card className="catalog-card" hoverable style={{ height: '100%', borderRadius: 12, overflow: 'hidden' }} styles={{ body: { padding: 16 } }} cover={<Link to={`/product/${product.id}`} state={{ from }}>{product.images[0] ? <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: 180, objectFit: 'cover', display: 'block' }} /> : <div style={{ height: 180, display: 'grid', placeItems: 'center', background: '#f5f5f5', color: '#595959' }}>暂无商品图片</div>}</Link>}>
-      <Link to={`/product/${product.id}`} state={{ from }} style={{ display: 'block', color: 'inherit', fontSize: 15, fontWeight: 600 }}>{product.title}</Link>
-      <Typography.Title level={4} style={{ color: '#1677ff', margin: '8px 0' }}>¥{product.price.toFixed(2)}</Typography.Title>
-      <Space wrap><Tag color={product.status === 'ON_SALE' ? 'green' : undefined}>{stateLabel[product.status]}</Tag><span>{conditions.find((entry) => entry.value === product.condition)?.label || product.condition}</span></Space>
-      <Typography.Paragraph type="secondary" style={{ margin: '8px 0 0' }}>{product.campusLocation || '地点未填写'}</Typography.Paragraph>
-      <div className="catalog-seller"><Avatar size={24} src={product.seller.avatar}>{product.seller.nickname.slice(0, 1)}</Avatar><span>{product.seller.nickname}</span></div>
-      <div style={{ marginTop: 12 }}>{actions?.(product)}</div>
-    </Card>
-  </Col>)}</Row>
+  return <div className="product-grid">{products.map((product) => {
+    const meta = categoryOf(product.category)
+    return <article key={product.id} className="product-card" style={{ ['--ic' as string]: meta.color }}>
+      <Link to={`/product/${product.id}`} state={{ from }} aria-hidden="true" tabIndex={-1}>
+        <div className="product-photo">
+          {product.images[0] ? <img src={product.images[0]} alt={product.title} loading="lazy" /> : <Glyph name={meta.glyph} />}
+          <span className="condition">{conditionLabels[product.condition] || product.condition}</span>
+        </div>
+      </Link>
+      <div className="product-body">
+        <h3><Link to={`/product/${product.id}`} state={{ from }} style={{ color: 'inherit' }}>{product.title}</Link></h3>
+        <div className="row"><span className="cl-price"><small>¥</small>{product.price.toFixed(2)}</span><span className={`cl-chip${product.status === 'ON_SALE' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{stateLabel[product.status]}</span></div>
+        <span className="loc"><EnvironmentOutlined />{product.campusLocation || '地点未填写'}</span>
+        <div className="catalog-seller"><Avatar size={22} src={product.seller.avatar}>{product.seller.nickname.slice(0, 1)}</Avatar><span>{product.seller.nickname}</span></div>
+      </div>
+      {actions && <div className="product-actions">{actions(product)}</div>}
+    </article>
+  })}</div>
+}
+
+// Real counts only: total on-sale listings and per-category totals from the list endpoint.
+function useMarketStats() {
+  return useRemote('market-stats', async (signal) => {
+    const count = (category?: string) => api.data(api.listProducts({ signal, query: { page: 1, pageSize: 1, category } })).then((result) => result.pagination.total)
+    const [total, ...perCategory] = await Promise.all([count(), ...categories.map((entry) => count(entry.value))])
+    return { total, byCategory: Object.fromEntries(categories.map((entry, index) => [entry.value, perCategory[index]])) as Record<string, number> }
+  })
+}
+
+const SKY_RINGS: Array<[number, number, GlyphName[]]> = [[75, 60, ['book', 'headphones', 'mug']], [125, -90, ['laptop', 'bike', 'sneaker', 'gift', 'calc']], [170, 130, ['camera', 'umbrella', 'ball', 'backpack', 'phone', 'racket']]]
+const GLYPH_CATEGORY: Partial<Record<GlyphName, string>> = { book: 'BOOKS', calc: 'BOOKS', pencil: 'BOOKS', laptop: 'DIGITAL', headphones: 'DIGITAL', camera: 'DIGITAL', phone: 'DIGITAL', mug: 'DAILY', bulb: 'DAILY', umbrella: 'DAILY', bike: 'SPORTS', ball: 'SPORTS', racket: 'SPORTS', sneaker: 'clothing', backpack: 'clothing', shirt: 'clothing', gift: 'other' }
+
+function MarketSky() {
+  return <div className="market-sky" aria-hidden="true">
+    {[150, 250, 340].map((size) => <i key={size} className="ring" style={{ width: size, height: size }} />)}
+    <div className="core"><Logo size={76} /></div>
+    {SKY_RINGS.flatMap(([radius, seconds, glyphs]) => glyphs.map((glyph, index) => {
+      const angle = index / glyphs.length * 360 + radius
+      const duration = `${Math.abs(seconds)}s`
+      return <div key={glyph} className="spin" style={{ ['--d' as string]: duration, animationDirection: seconds < 0 ? 'reverse' : 'normal', transform: `rotate(${angle}deg)` }}>
+        <PriceTag glyph={glyph} color={categoryOf(GLYPH_CATEGORY[glyph]).color} style={{ left: radius, ['--d' as string]: duration, animationDirection: seconds < 0 ? 'normal' : 'reverse', transform: `rotate(${-angle}deg)` }} />
+      </div>
+    }))}
+  </div>
 }
 
 export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'favorites' }) {
@@ -65,42 +100,81 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
     }
   }
   const remote = useRemote(`catalog-${mode}-${params.toString()}`, loadCatalog)
+  const stats = useMarketStats()
   const mutation = useMutation()
   const navigate = useNavigate()
   const location = useLocation()
   const change = (field: string, value: string) => { const next = new URLSearchParams(params); if (value) next.set(field, value); else next.delete(field); if (field !== 'page') next.delete('page'); setParams(next) }
   const searchResult = remote.value && 'mode' in remote.value ? remote.value as api.SearchResult : undefined
   const canRecoverSearch = mode === 'public' && query.trim() && searchMode !== 'keyword' && remote.error instanceof api.ApiError && (remote.error.status === 0 || remote.error.status >= 500)
-  return <Page title={mode === 'mine' ? '我的发布' : mode === 'favorites' ? '我的收藏' : '校园市场'} subtitle={mode === 'public' ? '让闲置流转，让校园生活更轻松' : mode === 'mine' ? '管理你发布的商品与在售状态' : '收藏喜欢的校园好物'} extra={<Button type="primary" size="large" onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>}>
-    <div className="surface catalog-filters">
-    {mode === 'public' && <Space wrap aria-label="商品分类快捷筛选" style={{ marginBottom: 20 }}>
-      {[{ value: '', label: '全部' }, ...categories].map((entry) => <Button key={entry.value} shape="round" type={(category || '') === entry.value ? 'primary' : 'default'} aria-pressed={(category || '') === entry.value} onClick={() => change('category', entry.value)}>{entry.label}</Button>)}
-    </Space>}
-    <Space wrap style={{ marginBottom: 20 }}><Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
-      {mode === 'public' && <><Select aria-label="搜索模式" value={searchMode} options={searchModeOptions} onChange={(value) => change('searchMode', value)} style={{ width: 120 }} />
-        <Select aria-label="商品分类" placeholder="全部分类" allowClear style={{ width: 140 }} options={categories} value={params.get('category') || undefined} onChange={(value) => change('category', value || '')} />
-        <Select aria-label="商品成色" placeholder="全部成色" allowClear style={{ width: 140 }} options={conditions} value={params.get('condition') || undefined} onChange={(value) => change('condition', value || '')} />
-        <Select aria-label="商品排序" value={sort} options={[{ value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', value)} style={{ width: 160 }} /></>}
-      <Button onClick={remote.reload}>刷新</Button>
-    </Space>
-    </div>
+  const publish = <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>
+  const results = <>
     <Failure error={mutation.error} />
     {canRecoverSearch && <Button style={{ marginBottom: 16 }} onClick={() => change('searchMode', 'keyword')}>改用关键词搜索</Button>}
     <Resource {...remote}>
       {searchResult?.degraded && <Alert type="warning" title="搜索正在使用关键词降级结果" description={searchResult.degradationReason || '智能检索不可用，当前展示关键词结果。'} style={{ marginBottom: 16 }} />}
-      {searchResult && <div style={{ marginBottom: 16 }}>
-        <Typography.Text type="secondary">当前使用：{searchModeLabel[searchResult.mode]}</Typography.Text>
+      {searchResult && <div className="search-note">
+        <div>当前使用：{searchModeLabel[searchResult.mode]}</div>
         <div>结果版本：{searchResult.resultVersion || '后端未提供'}</div>
-        <Typography.Paragraph type="secondary">检索说明：{searchExplanation[searchResult.mode]}</Typography.Paragraph>
+        <div>检索说明：{searchExplanation[searchResult.mode]}</div>
       </div>}
       {remote.value?.items.length ? <ProductCards products={remote.value.items} from={location.pathname + location.search} actions={mode === 'mine' ? (product) => <Space wrap>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => navigate(`/product/${product.id}/edit`)}>编辑</Button>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.updateProductStatus({ path: { productId: product.id }, body: { status: product.status === 'ON_SALE' ? 'HIDDEN' : 'ON_SALE' } }); remote.reload() })}>{product.status === 'ON_SALE' ? '下架' : '上架'}</Button>
         <Button danger disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => void mutation.run(async () => { await api.deleteProduct({ path: { productId: product.id } }); remote.reload() })}>删除</Button>
       </Space> : mode === 'favorites' ? (product) => <Button onClick={() => void mutation.run(async () => { await api.removeFavorite({ path: { productId: product.id } }); remote.reload() })}>取消收藏</Button> : undefined} /> : <NoItems filtered={Boolean(query || params.get('category') || params.get('condition'))} />}
-      {remote.value && <Pagination style={{ marginTop: 24 }} current={page} pageSize={12} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => change('page', String(value))} />}
+      {remote.value && <Pagination className="cl-pagination" current={page} pageSize={12} total={remote.value.pagination.total} showSizeChanger={false} hideOnSinglePage={false} onChange={(value) => change('page', String(value))} />}
     </Resource>
+  </>
+
+  if (mode !== 'public') return <Page title={mode === 'mine' ? '我的发布' : '我的收藏'} subtitle={mode === 'mine' ? '管理你发布的商品与在售状态' : '收藏喜欢的校园好物'} extra={publish}>
+    {mode === 'mine' && <div style={{ marginBottom: 20, maxWidth: 360 }}><Input.Search aria-label="搜索商品" placeholder="搜索我的商品" defaultValue={query} onSearch={(value) => change('query', value)} allowClear /></div>}
+    {results}
   </Page>
+
+  const total = remote.value?.pagination.total
+  return <div className="campus-page">
+    <section className="market-hero">
+      <div>
+        <h1>每一件闲置，<br />一目了然。</h1>
+        <p>图书教材、数码电子、生活用品……按分类、成色和价格挑，不用登录也能逛。</p>
+        <div className="market-stats">
+          {stats.value && <div><span>在售商品</span><strong>{stats.value.total}</strong></div>}
+          <div><span>商品分类</span><strong>{categories.length}</strong></div>
+          <div><span>成色分档</span><strong>{conditions.length}</strong></div>
+        </div>
+      </div>
+      <MarketSky />
+    </section>
+    <div className="market-body">
+      <aside className="market-filters cl-card" aria-label="筛选">
+        <Input.Search aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
+        <div><h4>搜索方式</h4><Segmented aria-label="搜索模式" block value={searchMode} options={searchModeOptions} onChange={(value) => change('searchMode', String(value))} /></div>
+        <div><h4>分类</h4><div className="cat-list" role="group" aria-label="商品分类">
+          {[{ value: '', label: '全部' }, ...categories].map((entry) => {
+            const meta = entry.value ? categoryOf(entry.value) : { color: 'var(--g1)', glyph: 'backpack' as GlyphName }
+            const count = entry.value ? stats.value?.byCategory[entry.value] : stats.value?.total
+            return <button key={entry.value} type="button" aria-pressed={(category || '') === entry.value} style={{ ['--ic' as string]: meta.color }} onClick={() => change('category', entry.value)}>
+              <span className="cat-icon"><Glyph name={meta.glyph} /></span>{entry.label}{count !== undefined && <em>{count}</em>}
+            </button>
+          })}
+        </div></div>
+        <div><h4>成色</h4><div className="pill-group" role="group" aria-label="商品成色">
+          {[{ value: '', label: '不限' }, ...conditions].map((entry) => <button key={entry.value} type="button" aria-pressed={(condition || '') === entry.value} onClick={() => change('condition', entry.value)}>{entry.label}</button>)}
+        </div></div>
+        <Button onClick={remote.reload} icon={<ReloadOutlined aria-hidden />}>刷新</Button>
+      </aside>
+      <div style={{ minWidth: 0 }}>
+        <div className="grid-head">
+          <h2>{query ? `“${query}” 的结果` : category ? categories.find((entry) => entry.value === category)?.label : '全部商品'}</h2>
+          {total !== undefined && <span className="count">{total} 件</span>}
+          <Segmented aria-label="商品排序" value={sort} options={[{ value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', String(value))} />
+          {publish}
+        </div>
+        {results}
+      </div>
+    </div>
+  </div>
 }
 
 export function ProductPage() {
@@ -195,16 +269,23 @@ export function WantedListPage() {
   const remote = useRemote(`wanted-${params.toString()}`, (signal) => api.data(api.listWanted({ query: { query, page, pageSize: 12 }, signal })))
   const user = useSession((state) => state.user)
   const navigate = useNavigate()
-  return <Page title="求购广场" subtitle="看看同学们正在寻找什么" extra={<Button type="primary" size="large" onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>}>
-    <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} style={{ maxWidth: 360, marginBottom: 20 }} />
-    <Resource {...remote}>{remote.value?.items.length ? <div className="wanted-grid">{remote.value.items.map((item) => <Card className="wanted-card" key={item.id}>
-      <h2><Link to={`/wanted/${item.id}`}>{item.title}</Link> <Tag color={item.status === 'OPEN' ? 'blue' : undefined}>{wantedStatusLabels[item.status]}</Tag></h2>
+  // The budget bar is scaled to the largest budget on the current page.
+  const scale = Math.max(1, ...(remote.value?.items.map((item) => item.budgetMax) ?? [1]))
+  return <Page title="求购广场" subtitle="看看同学们正在找什么，手里有闲置就去帮一把。" extra={<Space wrap>
+    <Input.Search aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} allowClear style={{ width: 280 }} />
+    <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>
+  </Space>}>
+    <Resource {...remote}>{remote.value?.items.length ? <div className="wanted-grid">{remote.value.items.map((item) => <Card className={`wanted-card${item.status === 'OPEN' ? '' : ' is-closed'}`} key={item.id}>
+      <h2 style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}><Link to={`/wanted/${item.id}`}>{item.title}</Link><span className={`cl-chip${item.status === 'OPEN' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{wantedStatusLabels[item.status]}</span></h2>
       <div className="wanted-description">{item.description || '发布者暂未填写补充说明。'}</div>
-      <div className="wanted-facts"><span>预算 <strong className="price" style={{ fontSize: 18 }}>¥{item.budgetMin}–{item.budgetMax}</strong></span><span>最低成色：{conditionLabels[item.condition] || item.condition}</span></div>
-      <div className="wanted-footer"><Avatar size={28} src={item.owner.avatar}>{item.owner.nickname.slice(0, 1)}</Avatar><span>{item.owner.nickname}</span><span><EnvironmentOutlined /> {item.location === 'ANY' ? '不限地点' : item.location}</span><span><ClockCircleOutlined /> {displayDate(item.createdAt)}</span>
-        {user?.id === item.owner.id && <Link to={`/wanted/${item.id}/matches`}>查看匹配</Link>}</div>
+      <div className="wanted-budget"><div className="top"><span className="muted">预算</span><span className="cl-price"><small>¥</small>{item.budgetMin}–{item.budgetMax}</span></div>
+        <div className="bar" aria-hidden="true"><span style={{ left: `${item.budgetMin / scale * 100}%`, right: `${100 - item.budgetMax / scale * 100}%` }} /></div></div>
+      <div className="wanted-footer"><span className="cl-chip" style={{ ['--c' as string]: 'var(--cat-other)' }}>最低成色：{conditionLabels[item.condition] || item.condition}</span>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Avatar size={22} src={item.owner.avatar}>{item.owner.nickname.slice(0, 1)}</Avatar>{item.owner.nickname}</span>
+        <span><EnvironmentOutlined /> {item.location === 'ANY' ? '不限地点' : item.location}</span><span><ClockCircleOutlined /> {displayDate(item.createdAt)}</span>
+        {user?.id === item.owner.id ? <Link className="go" to={`/wanted/${item.id}/matches`}>查看匹配</Link> : <Link className="go" to={`/wanted/${item.id}`}>查看详情 →</Link>}</div>
     </Card>)}</div> : <NoItems filtered={Boolean(query)} />}
-      {remote.value && <Pagination current={page} pageSize={12} total={remote.value.pagination.total} onChange={(next) => setParams({ query, page: String(next) })} showSizeChanger={false} />}
+      {remote.value && <Pagination className="cl-pagination" current={page} pageSize={12} total={remote.value.pagination.total} onChange={(next) => setParams({ query, page: String(next) })} showSizeChanger={false} />}
     </Resource>
   </Page>
 }

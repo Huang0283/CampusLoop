@@ -195,12 +195,12 @@ test('all student routes render on desktop and mobile without overflow or runtim
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   const screens = [
-    ['/market', '校园市场'], ['/product/601', product.title], ['/my-products', '我的发布'], ['/favorites', '我的收藏'],
+    ['/', 'CampusLoop'], ['/market', '每一件闲置， 一目了然。'], ['/product/601', product.title], ['/my-products', '我的发布'], ['/favorites', '我的收藏'],
     ['/publish', '发布商品'], ['/product/601/edit', '编辑商品'], ['/wanted', '求购广场'], ['/wanted/701', '求购详情'],
     ['/wanted/publish', '发布求购'], ['/wanted/701/edit', '编辑求购'], ['/wanted/701/matches', '规则匹配结果'],
     ['/publish/price-advice', '价格建议'], ['/chat', '聊天'], ['/chat/801', '王同学'], ['/transactions', '交易中心'],
     ['/transactions/1001', '订单 #1001'], ['/transactions/1001/meetup', '安排见面'], ['/transactions/1001/review', '评价交易'],
-    ['/notifications', '通知'], ['/report', '我的举报记录'], ['/profile', '个人资料'], ['/login', '登录'], ['/register', '创建账号'],
+    ['/notifications', '通知'], ['/report', '我的举报记录'], ['/profile', '个人资料'], ['/login', '欢迎回来'], ['/register', '加入 CampusLoop'],
   ]
   const folder = process.env.CAMPUSLOOP_VISUAL_OUTPUT
   if (folder) await mkdir(folder, { recursive: true })
@@ -216,6 +216,25 @@ test('all student routes render on desktop and mobile without overflow or runtim
     }
   }
   expect(errors).toEqual([])
+})
+
+test('landing page sends guests to the real market and sign-in routes', async ({ page }) => {
+  await setup(page, true)
+  await page.goto('/')
+  await expect(page.getByRole('heading', { name: 'CampusLoop', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: '登录', exact: true })).toBeVisible()
+  await page.getByRole('link', { name: '打开市场', exact: true }).click()
+  await expect(page).toHaveURL(/\/market$/)
+  await expect(page.getByRole('link', { name: product.title }).first()).toBeVisible()
+  await page.goto('/')
+  // The category tags keep orbiting, so check where they lead instead of chasing one with the pointer.
+  await expect(page.getByRole('link', { name: '逛逛数码电子' }).first()).toHaveAttribute('href', '/market?category=DIGITAL')
+  await page.getByRole('link', { name: '登录 / 注册', exact: true }).first().click()
+  await expect(page).toHaveURL(/\/login$/)
+  await expect(page.getByRole('heading', { name: '欢迎回来', exact: true })).toBeVisible()
+  await page.getByRole('link', { name: '还没有账号？去注册', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '加入 CampusLoop', exact: true })).toBeVisible()
+  await expect(page.getByText(/教学演示注册/)).toBeVisible()
 })
 
 test('admin keeps management tabs and tables on desktop and mobile', async ({ page }) => {

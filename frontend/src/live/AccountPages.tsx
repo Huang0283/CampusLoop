@@ -1,11 +1,11 @@
-import { Alert, Avatar, Button, Form, Input, Rate, Space, Tag } from 'antd'
+import { Avatar, Button, Form, Input, Rate, Space, Tag } from 'antd'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
 import type { UpdateProfileRequest } from '../sdk'
 import { Failure, Page, Resource, useMutation, useRemote } from './common'
 import { useSession } from './session'
-import { Brand } from './Presentation'
+import { AuthScene } from '../landing/AuthScene'
 
 export function AuthPage({ registering = false }: { registering?: boolean }) {
   const mutation = useMutation()
@@ -18,17 +18,17 @@ export function AuthPage({ registering = false }: { registering?: boolean }) {
     const safe = typeof from === 'string' && from.startsWith('/') && !from.startsWith('//') && !from.includes('\\') && !from.startsWith('/login') && !from.startsWith('/register')
     navigate(safe ? from : result.user.role === 'ADMIN' ? '/admin' : '/market', { replace: true })
   })
-  return <div className="auth-stage"><section className="auth-card"><Brand /><h1>{registering ? '创建账号' : '登录'}</h1>
+  return <AuthScene registering={registering}>
     <Failure error={mutation.error} />
     <Form layout="vertical" onFinish={onFinish} size="large" requiredMark={false}>
-      <Form.Item name="email" label="校园邮箱" rules={[{ required: true }, { type: 'email' }]}><Input prefix={<MailOutlined />} placeholder="请输入邮箱" autoComplete="username" /></Form.Item>
+      <Form.Item name="email" label="校园邮箱" rules={[{ required: true }, { type: 'email' }]}><Input prefix={<MailOutlined />} placeholder="请输入邮箱" autoComplete="username" autoFocus /></Form.Item>
       {registering && <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40 }]}><Input prefix={<UserOutlined />} placeholder="请输入昵称" maxLength={40} /></Form.Item>}
       <Form.Item name="password" label="密码" rules={[{ required: true, min: registering ? 8 : 1, max: 128 }]}><Input.Password prefix={<LockOutlined />} placeholder={registering ? '请设置至少 8 位密码' : '请输入密码'} autoComplete={registering ? 'new-password' : 'current-password'} /></Form.Item>
-      <Button type="primary" htmlType="submit" block loading={mutation.busy}>{registering ? '注册并登录' : '登录'}</Button>
+      {registering && <p className="note">教学演示注册：请填写类似 name@example.invalid 或 name@example.com 的测试邮箱，并自行设置密码。无需真实邮箱，也不会发送验证码；这不代表真实学校身份认证。已有账号请直接登录。</p>}
+      <Button type="primary" htmlType="submit" block loading={mutation.busy} className="submit">{registering ? '注册并登录' : '登录'}</Button>
     </Form>
-    <div className="auth-links"><Space><Link to={registering ? '/login' : '/register'}>{registering ? '已有账号，去登录' : '还没有账号？去注册'}</Link><Link to="/market">先逛逛</Link></Space></div>
-    {registering && <Alert style={{ marginTop: 16 }} type="info" title="教学演示注册" description="请填写类似 name@example.invalid 或 name@example.com 的测试邮箱，并自行设置密码。无需真实邮箱，也不会发送验证码；这不代表真实学校身份认证。已有账号请直接登录。" />}
-  </section></div>
+    <div className="alt"><Link to={registering ? '/login' : '/register'} state={location.state}>{registering ? '已有账号，去登录' : '还没有账号？去注册'}</Link><Link to="/market">先逛逛 →</Link></div>
+  </AuthScene>
 }
 
 export function ProfilePage() {

@@ -1,0 +1,83 @@
+/* CampusLoop aurora design tokens (approved prototype: tmp/ui-ref/b-proto.html + app-proto.html). */
+:root, [data-theme="light"] {
+  --bg: #F3F5FB; --ink: #0B0F1C; --muted: #4A5068; --faint: #7A8099;
+  --hair: #0B0F1C14; --dot: #0B0F1C16;
+  --glass: #FFFFFFB0; --glass-line: #FFFFFFC8;
+  --card: #FFFFFF; --card-line: #0B0F1C12; --card-shadow: 0 1px 2px #0B0F1C0D, 0 20px 44px -30px #3B44A080; --well: #F1F3F9;
+  --tile: #FFFFFF; --input: #FFFFFFD9; --input-line: #0B0F1C1A; --placeholder: #8087A0;
+  --btn: #0B0F1C; --btn-ink: #FFFFFF; --btn2: #0B0F1C0D;
+  --link: #4351E8; --focus: #6C7BFF; --ring: #6C7BFF2E;
+  --blob1: #8C9BFF; --blob2: #6EE7D2; --blob3: #FFB7A1; --blob-o: .5;
+  --ok: #0E9F6E; --warm: #E2603F; --danger: #E5484D;
+  --g1: #5B6BFF; --g2: #2BBFA4; --g3: #FF7A59;
+  /* Logo */
+  --r1a: #5B6BFF; --r1b: #1FB89F; --r2a: #1FB89F; --r2b: #F2704F;
+  --tile-a: #FFFFFF; --tile-b: #EDEFFC; --edge-o: .55; --sheen-o: .9;
+  --logo-shadow: drop-shadow(0 6px 14px rgb(91 107 255 / .22)) drop-shadow(0 1px 2px rgb(11 15 28 / .12));
+  /* Category colours (display.ts categories) */
+  --cat-BOOKS: #5B6BFF; --cat-DIGITAL: #2F86F6; --cat-DAILY: #E8930C; --cat-SPORTS: #0E9F8C; --cat-clothing: #E0569E; --cat-other: #8B5CF6;
+  --font-display: "Unbounded", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-num: "Segoe UI Variable Display", "Segoe UI", -apple-system, "SF Pro Display", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+/* Dark is neutral graphite + aurora; the user rejected an all-navy dark. */
+[data-theme="dark"] {
+  --bg: #20232C; --ink: #F2F3F7; --muted: #C4C7D2; --faint: #9599A8;
+  --hair: #FFFFFF1C; --dot: #FFFFFF12;
+  --glass: #30343FD9; --glass-line: #FFFFFF1F;
+  --card: #30343F; --card-line: #FFFFFF1F; --card-shadow: inset 0 1px 0 #FFFFFF14, 0 24px 48px -26px #000000B0, 0 2px 6px -2px #00000080; --well: #272A34;
+  --tile: #3B404D; --input: #FFFFFF14; --input-line: #FFFFFF26; --placeholder: #8D92A3;
+  --btn: #F2F3F7; --btn-ink: #17191F; --btn2: #FFFFFF1A;
+  --link: #AEB7FF; --focus: #AEB7FF; --ring: #AEB7FF2E;
+  --blob1: #6B5BFF; --blob2: #1FB89F; --blob3: #F2508C; --blob-o: .42;
+  --ok: #4ADEAA; --warm: #FF9A7E; --danger: #FF7A7F;
+  --g1: #8F9BFF; --g2: #4FE3C8; --g3: #FFA48E;
+  --r1a: #9AA6FF; --r1b: #5BE6CF; --r2a: #5BE6CF; --r2b: #FFAE96;
+  --tile-a: #30343F; --tile-b: #17191F; --edge-o: .7; --sheen-o: .14;
+  --logo-shadow: drop-shadow(0 8px 18px rgb(0 0 0 / .45)) drop-shadow(0 0 14px rgb(124 140 255 / .18));
+  color-scheme: dark;
+}
+
+html, body { background: var(--bg); color: var(--ink); }
+body { margin: 0; font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+::selection { background: color-mix(in oklab, var(--g1) 30%, transparent); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .45s; }
+
+/* Quiet aurora backdrop for app pages: fixed blobs + dot grid (the landing page uses WebGL). */
+.app-sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.app-sky i { position: absolute; border-radius: 50%; filter: blur(90px); }
+.app-sky .b1 { width: 46vw; height: 46vw; left: -12vw; top: -14vw; background: var(--blob1); opacity: calc(var(--blob-o) * .8); }
+.app-sky .b2 { width: 40vw; height: 40vw; right: -10vw; top: 18vh; background: var(--blob2); opacity: calc(var(--blob-o) * .6); }
+.app-sky .b3 { width: 36vw; height: 36vw; left: 30vw; bottom: -18vw; background: var(--blob3); opacity: calc(var(--blob-o) * .55); }
+.app-sky::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(var(--dot) 1px, transparent 1px); background-size: 22px 22px; mask: linear-gradient(#000, transparent 70%); }
+
+/* Logo / glyphs */
+svg.cl-logo { overflow: visible; filter: var(--logo-shadow); flex: none; }
+svg.cl-glyph { display: block; }
+
+/* Shared building blocks */
+.cl-card { background: var(--card); border: 1px solid var(--card-line); border-radius: 22px; box-shadow: var(--card-shadow); }
+.cl-display { font-family: var(--font-num); font-weight: 700; letter-spacing: -0.01em; }
+.cl-price { font-family: var(--font-num); font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; color: var(--ink); }
+.cl-price small { font-size: .62em; margin-right: 2px; }
+.cl-chip { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--c, var(--muted)); background: color-mix(in oklab, var(--c, var(--muted)) 14%, transparent); white-space: nowrap; }
+.cl-chip.is-ok { --c: var(--ok); }
+.cl-btn-grad.ant-btn, .cl-btn-grad.ant-btn:not(:disabled):hover { color: #fff; border: 0; background: linear-gradient(120deg, var(--g1), color-mix(in oklab, var(--g1) 50%, var(--g2)), var(--g2)); box-shadow: 0 12px 26px -12px var(--g1); }
+.cl-btn-grad.ant-btn:not(:disabled):hover { filter: brightness(1.06); transform: translateY(-1px); }
+.cl-btn-pill.ant-btn { border-radius: 999px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+
+/* Second-hand price tag (PriceTag) */
+.cl-tag { --sz: 44px; position: relative; display: block; width: var(--sz); height: calc(var(--sz) * 1.2); color: var(--ic); --fo: .2; filter: drop-shadow(0 8px 10px color-mix(in oklab, var(--ic) 28%, #0B0F1C40)); }
+.cl-tag > svg { position: absolute; }
+.cl-tag .cl-tag-shape { inset: 0; width: 100%; height: 100%; }
+.cl-tag .cl-tag-shape .body { fill: #fff; stroke: color-mix(in oklab, var(--ic) 30%, #fff); }
+.cl-tag .cl-tag-shape .str { fill: none; stroke: color-mix(in oklab, var(--ic) 70%, #0B0F1C); stroke-width: 1.2; stroke-linecap: round; opacity: .55; }
+.cl-tag .cl-tag-glyph { left: 22%; top: 40%; width: 56%; height: 46%; }
+[data-theme="dark"] .cl-tag { color: color-mix(in oklab, var(--ic) 55%, #fff); filter: drop-shadow(0 8px 14px #0008); }
+[data-theme="dark"] .cl-tag .cl-tag-shape .body { fill: color-mix(in oklab, var(--ic) 34%, #2A2D36); stroke: color-mix(in oklab, var(--ic) 65%, #ffffff40); }
+[data-theme="dark"] .cl-tag .cl-tag-shape .str { stroke: color-mix(in oklab, var(--ic) 60%, #fff); }
+.campus-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); white-space: nowrap; }
+.campus-brand strong { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
