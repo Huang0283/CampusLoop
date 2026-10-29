@@ -1552,7 +1552,7 @@ components:
       required: [title, category, condition, price, campusLocation, images]
       properties:
         title: { type: string, minLength: 1, maxLength: 100 }
-        category: { type: string, enum: [BOOKS, DIGITAL, DAILY, SPORTS, clothing, other] }
+        category: { type: string, enum: [BOOKS, STATIONERY, DIGITAL, DAILY, FURNITURE, BEDDING, TRANSPORT, SPORTS, clothing, other] }
         condition: { type: string, enum: [NEW, LIKE_NEW, GOOD, FAIR] }
         description: { type: string, maxLength: 3000 }
         originalPrice:

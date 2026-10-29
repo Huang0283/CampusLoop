@@ -143,7 +143,7 @@ export type AdminProductListResponse = ApiEnvelope & {
 
 export type ProductWriteRequest = {
     title: string;
-    category: 'BOOKS' | 'DIGITAL' | 'DAILY' | 'SPORTS' | 'clothing' | 'other';
+    category: 'BOOKS' | 'STATIONERY' | 'DIGITAL' | 'DAILY' | 'FURNITURE' | 'BEDDING' | 'TRANSPORT' | 'SPORTS' | 'clothing' | 'other';
     condition: 'NEW' | 'LIKE_NEW' | 'GOOD' | 'FAIR';
     description?: string;
     /**

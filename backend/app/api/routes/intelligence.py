@@ -16,7 +16,7 @@ from app.services.ai_adapters import price_payload
 from app.services.auth import Actor, Db, administrator
 from app.services.business import load
 from app.services.governance import read_audit, trust_view
-from app.services.intelligence import CATEGORIES, CONDITIONS, rank_live
+from app.services.intelligence import CATEGORIES, CONDITIONS, PRICE_CATEGORIES, rank_live
 
 router = APIRouter(tags=["Intelligence"])
 
@@ -209,8 +209,9 @@ class PriceInput(StrictInput):
 
 @router.post("/price-advice", operation_id="getPriceAdvice")
 def price_advice(body: PriceInput, db: Db, actor: Actor):
+    category = CATEGORIES.get(body.category, body.category)
     payload = {
-        "category": CATEGORIES.get(body.category, body.category),
+        "category": PRICE_CATEGORIES.get(category, category),
         "condition": CONDITIONS.get(body.condition, body.condition),
         "originalPriceFen": round(body.originalPrice * 100)
         if body.originalPrice is not None

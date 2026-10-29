@@ -2,14 +2,18 @@
 import type { CSSProperties } from 'react'
 import { spriteMarkup, tagMarkup } from './spriteMarkup'
 
-export type GlyphName = 'book' | 'calc' | 'pencil' | 'laptop' | 'headphones' | 'phone' | 'camera' | 'mug' | 'bulb' | 'umbrella' | 'bike' | 'ball' | 'racket' | 'sneaker' | 'backpack' | 'shirt' | 'gift'
+export type GlyphName = 'book' | 'calc' | 'pencil' | 'laptop' | 'headphones' | 'phone' | 'camera' | 'mug' | 'bulb' | 'umbrella' | 'bike' | 'bed' | 'ball' | 'racket' | 'sneaker' | 'backpack' | 'shirt' | 'gift'
 
 /** Category colour + representative glyph. Keys match the backend category values in display.ts. */
 export const categoryMeta: Record<string, { color: string; glyph: GlyphName }> = {
   BOOKS: { color: 'var(--cat-BOOKS)', glyph: 'book' },
   DIGITAL: { color: 'var(--cat-DIGITAL)', glyph: 'laptop' },
+  STATIONERY: { color: 'var(--cat-STATIONERY)', glyph: 'pencil' },
   DAILY: { color: 'var(--cat-DAILY)', glyph: 'mug' },
-  SPORTS: { color: 'var(--cat-SPORTS)', glyph: 'bike' },
+  FURNITURE: { color: 'var(--cat-FURNITURE)', glyph: 'bulb' },
+  BEDDING: { color: 'var(--cat-BEDDING)', glyph: 'bed' },
+  TRANSPORT: { color: 'var(--cat-TRANSPORT)', glyph: 'bike' },
+  SPORTS: { color: 'var(--cat-SPORTS)', glyph: 'ball' },
   clothing: { color: 'var(--cat-clothing)', glyph: 'sneaker' },
   other: { color: 'var(--cat-other)', glyph: 'gift' },
 }

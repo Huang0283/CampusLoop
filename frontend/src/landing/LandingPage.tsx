@@ -71,9 +71,9 @@ const CHAPTERS: Array<{ key: Key; label: string; tab: string; title: string; tex
 
 // [glyph, category, ring]
 const BAZAAR: Array<[GlyphName, string, 0 | 1 | 2]> = [
-  ['book', 'BOOKS', 0], ['laptop', 'DIGITAL', 0], ['bike', 'SPORTS', 0], ['sneaker', 'clothing', 0],
+  ['book', 'BOOKS', 0], ['laptop', 'DIGITAL', 0], ['bike', 'TRANSPORT', 0], ['sneaker', 'clothing', 0],
   ['calc', 'BOOKS', 1], ['headphones', 'DIGITAL', 1], ['mug', 'DAILY', 1], ['ball', 'SPORTS', 1], ['backpack', 'clothing', 1], ['gift', 'other', 1],
-  ['pencil', 'BOOKS', 2], ['phone', 'DIGITAL', 2], ['camera', 'DIGITAL', 2], ['bulb', 'DAILY', 2], ['umbrella', 'DAILY', 2], ['racket', 'SPORTS', 2], ['shirt', 'clothing', 2],
+  ['pencil', 'STATIONERY', 2], ['phone', 'DIGITAL', 2], ['camera', 'DIGITAL', 2], ['bulb', 'FURNITURE', 2], ['bed', 'BEDDING', 2], ['umbrella', 'DAILY', 2], ['racket', 'SPORTS', 2], ['shirt', 'clothing', 2],
 ]
 const BAZAAR_RINGS = [{ r: 0.2, speed: 0.16, sz: 52 }, { r: 0.33, speed: -0.1, sz: 46 }, { r: 0.46, speed: 0.07, sz: 40 }]
 

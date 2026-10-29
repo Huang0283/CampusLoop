@@ -32,7 +32,7 @@ export function LandingHeader({ auth }: { auth?: 'login' | 'register' }) {
 
 // [glyph, category, ring 0 = inner / 1 = outer]
 const ORBS: Array<[GlyphName, string, 0 | 1]> = [['book', 'BOOKS', 0], ['headphones', 'DIGITAL', 0], ['sneaker', 'clothing', 0], ['mug', 'DAILY', 0],
-  ['laptop', 'DIGITAL', 1], ['bike', 'SPORTS', 1], ['backpack', 'clothing', 1], ['umbrella', 'DAILY', 1], ['gift', 'other', 1]]
+  ['laptop', 'DIGITAL', 1], ['bike', 'TRANSPORT', 1], ['backpack', 'clothing', 1], ['umbrella', 'DAILY', 1], ['gift', 'other', 1]]
 const ORB_RINGS = [{ rx: 0.86, ry: 0.52, speed: 0.032, sz: 58 }, { rx: 1.22, ry: 0.74, speed: -0.02, sz: 50 }]
 const SPARKS = ['#8F9BFF', '#4FE3C8', '#FFA48E', '#E0569E']
 
