@@ -10,7 +10,18 @@ from app.schemas.auth import StrictInput
 
 class ProductWrite(StrictInput):
     title: str = Field(min_length=1, max_length=100)
-    category: Literal["BOOKS", "DIGITAL", "DAILY", "SPORTS", "clothing", "other"]
+    category: Literal[
+        "BOOKS",
+        "STATIONERY",
+        "DIGITAL",
+        "DAILY",
+        "FURNITURE",
+        "BEDDING",
+        "TRANSPORT",
+        "SPORTS",
+        "clothing",
+        "other",
+    ]
     condition: Literal["NEW", "LIKE_NEW", "GOOD", "FAIR"]
     price: Decimal = Field(ge=0, max_digits=10, decimal_places=2)
     originalPrice: Decimal | None = Field(default=None, ge=0, max_digits=10, decimal_places=2)

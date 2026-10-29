@@ -19,6 +19,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import io
 import sys
 from datetime import UTC, datetime, timedelta
@@ -28,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from botocore.exceptions import ClientError
 from PIL import Image
-from sqlalchemy import func, select
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from app.core.config import get_settings
@@ -68,8 +69,18 @@ from app.models.enums import (
     WantedStatus,
 )
 from app.services.storage import storage_client
+from scripts.showcase_catalog import image_id as showcase_image_id
+from scripts.showcase_catalog import load_catalog
 
 NOW = datetime(2026, 9, 22, 12, 0, 0, tzinfo=UTC)
+
+# 展示商品：数据在 seed_assets/showcase.json，图片在 seed_assets/products/。
+# Sellers use 901..999, products 1501..2000; real inserts start above the seed IDs.
+# Validate every photo before touching the database, never silently substitute one.
+_SHOWCASE_DATA = load_catalog(Path(__file__).resolve().parents[1] / "seed_assets")
+SHOWCASE_SELLERS = _SHOWCASE_DATA["sellers"]
+SHOWCASE = _SHOWCASE_DATA["products"]
+RETIRED_SEED_PRODUCTS = (2001, 2002, 2004)
 
 
 def hash_password(password: str, salt: str) -> str:
@@ -150,36 +161,6 @@ def seed_users() -> list[dict]:
 def seed_products() -> list[dict]:
     return [
         dict(
-            id=2001,
-            owner_id=1001,
-            title="高等数学教材（第八版）上下册",
-            description="九成新，无笔记，含习题解答",
-            category="BOOKS",
-            condition="LIKE_NEW",
-            price=45,
-            original_price=89,
-            campus_location="东区宿舍 3 栋",
-            status=ProductStatus.ON_SALE.value,
-            attributes={"edition": 8},
-            view_count=128,
-            favorite_count=6,
-        ),
-        dict(
-            id=2002,
-            owner_id=1001,
-            title="罗技 K380 蓝牙键盘（薄荷色）",
-            description="自用一年，电池仓有轻微划痕，功能正常",
-            category="DIGITAL",
-            condition="GOOD",
-            price=99,
-            original_price=199,
-            campus_location="东区宿舍 3 栋",
-            status=ProductStatus.ON_SALE.value,
-            attributes={"color": "mint"},
-            view_count=356,
-            favorite_count=21,
-        ),
-        dict(
             id=2003,
             owner_id=1003,
             title="捷安特 ATX660 山地车 26 寸",
@@ -193,21 +174,6 @@ def seed_products() -> list[dict]:
             attributes={"size": 26},
             view_count=542,
             favorite_count=33,
-        ),
-        dict(
-            id=2004,
-            owner_id=1003,
-            title="小米台灯 Pro",
-            description="宿舍神器，色温亮度无级调节，带原装电源",
-            category="DAILY",
-            condition="LIKE_NEW",
-            price=79,
-            original_price=169,
-            campus_location="西区宿舍 9 栋",
-            status=ProductStatus.ON_SALE.value,
-            attributes={},
-            view_count=97,
-            favorite_count=8,
         ),
         dict(
             id=2005,
@@ -454,7 +420,7 @@ def seed_reports_and_notifications() -> tuple[list[dict], list[dict]]:
             id=12001,
             user_id=1002,
             type=NotificationType.MATCH_FOUND.value,
-            payload={"wantedId": 3001, "productId": 2002, "score": 0.87},
+            payload={"wantedId": 3001, "productId": 1512, "score": 0.87},
             read_at=None,
             created_at=NOW - timedelta(hours=6),
         ),
@@ -510,15 +476,15 @@ def run_seed(session, *, verbose: bool = True) -> dict[str, int]:
         (
             ProductImage,
             [
-                dict(id=2101, product_id=2001, object_key="seed/product-2001-1.jpg", sort_order=0),
-                dict(id=2102, product_id=2003, object_key="seed/product-2003-1.jpg", sort_order=0),
+                dict(id=image_id, product_id=product_id, object_key=key, sort_order=order)
+                for image_id, product_id, _, key, order in SEED_IMAGES
+                if product_id >= 2001
             ],
         ),
         (
             Favorite,
             [
                 dict(id=2201, user_id=1002, product_id=2003),
-                dict(id=2202, user_id=1002, product_id=2002),
             ],
         ),
         (WantedPost, seed_wanted()),
@@ -535,6 +501,7 @@ def run_seed(session, *, verbose: bool = True) -> dict[str, int]:
 
     for model, rows in plan:
         inserted[model.__tablename__] = upsert(session, model, rows)
+    sync_showcase(session)
     align_sequences(session.connection(), [model.__tablename__ for model in SEED_TABLES])
 
     if verbose:
@@ -580,30 +547,136 @@ def main() -> int:
     return 0
 
 
+SEED_ASSETS = Path(__file__).resolve().parents[1] / "seed_assets" / "products"
+# (image id, product id, owner id, object key, sort order). Keys with a file in seed_assets use it;
+# the two original rows keep their small placeholder.
+SEED_IMAGES = [
+    (2102, 2003, 1003, "seed/product-2003-1.jpg", 0),
+    *[
+        (showcase_image_id(item["id"], order), item["id"], item["owner"], f"seed/{name}", order)
+        for item in SHOWCASE
+        for order, name in enumerate(item["images"])
+    ],
+]
+
+
+def refresh(session, model, rows: list[dict], columns: list[str]) -> None:
+    """Insert rows by id, or overwrite the listed columns when the row already exists."""
+    statement = pg_insert(model).values(rows)
+    session.execute(
+        statement.on_conflict_do_update(
+            index_elements=["id"], set_={column: statement.excluded[column] for column in columns}
+        )
+    )
+
+
+def sync_showcase(session) -> None:
+    """Showcase sellers, products and images follow showcase.json, also on existing databases.
+
+    Only the content fields are refreshed; views, favorites and sale status stay as they are.
+    """
+    refresh(
+        session,
+        User,
+        [
+            dict(
+                id=seller["id"],
+                email=f"showcase.{seller['id']}@example.com",
+                password_hash=hash_password("Demo@12345", f"showcase-salt-{seller['id']}"),
+                nickname=seller["nickname"],
+                role=Role.USER.value,
+                status=UserStatus.ACTIVE.value,
+                campus_email_verified=True,
+                bio=seller["bio"],
+                rating_avg=seller["rating"],
+                transaction_count=seller["trades"],
+            )
+            for seller in SHOWCASE_SELLERS
+        ],
+        ["nickname", "bio"],
+    )
+    refresh(
+        session,
+        Product,
+        [
+            dict(
+                id=item["id"],
+                owner_id=item["owner"],
+                title=item["title"],
+                description=item["description"],
+                category=item["category"],
+                condition=item["condition"],
+                price=item["price"],
+                original_price=item.get("originalPrice"),
+                campus_location=item["location"],
+                status=ProductStatus.ON_SALE.value,
+                attributes={},
+                view_count=item.get("views", 0),
+                favorite_count=item.get("favorites", 0),
+            )
+            for item in SHOWCASE
+        ],
+        [
+            "owner_id",
+            "title",
+            "description",
+            "category",
+            "condition",
+            "price",
+            "original_price",
+            "campus_location",
+        ],
+    )
+    images = [
+        dict(id=image_id, product_id=product_id, object_key=key, sort_order=order)
+        for image_id, product_id, _, key, order in SEED_IMAGES
+        if product_id < 2001
+    ]
+    session.execute(
+        delete(ProductImage).where(
+            ProductImage.product_id.in_([item["id"] for item in SHOWCASE]),
+            ProductImage.id.not_in([image["id"] for image in images]),
+        )
+    )
+    refresh(session, ProductImage, images, ["object_key"])
+    # Early demo rows without real photos; older databases still have them, so retire them softly.
+    session.execute(
+        update(Product)
+        .where(Product.id.in_(RETIRED_SEED_PRODUCTS), Product.deleted_at.is_(None))
+        .values(deleted_at=NOW)
+    )
+
+
 def seed_images(session):
-    """Real small demo placeholders, not photos or claimed user uploads."""
+    """Upload seed product images to the public bucket and register them as the owner's uploads."""
     client = storage_client()
     bucket = get_settings().minio_public_bucket
-    image = io.BytesIO()
-    Image.new("RGB", (64, 64), "#c8d6e5").save(image, format="JPEG")
-    content = image.getvalue()
-    for key, owner in (("seed/product-2001-1.jpg", 1001), ("seed/product-2003-1.jpg", 1003)):
+    placeholder = io.BytesIO()
+    Image.new("RGB", (64, 64), "#c8d6e5").save(placeholder, format="JPEG")
+    for _, _, owner, key, _ in SEED_IMAGES:
+        asset = SEED_ASSETS / key.removeprefix("seed/")
+        content = asset.read_bytes() if asset.exists() else placeholder.getvalue()
         try:
-            client.head_object(Bucket=bucket, Key=key)
+            stored = client.head_object(Bucket=bucket, Key=key)["ETag"].strip('"')
         except ClientError as exc:
             if exc.response["Error"]["Code"] not in ("404", "NoSuchKey", "NotFound"):
                 raise
+            stored = None
+        # Single-part uploads use the MD5 as ETag, so an edited asset gets uploaded again.
+        if stored != hashlib.md5(content).hexdigest():
             client.put_object(Bucket=bucket, Key=key, Body=content, ContentType="image/jpeg")
+        statement = pg_insert(UploadedObject).values(
+            owner_id=owner,
+            object_key=key,
+            purpose="product",
+            content_type="image/jpeg",
+            size=len(content),
+        )
         session.execute(
-            pg_insert(UploadedObject)
-            .values(
-                owner_id=owner,
-                object_key=key,
-                purpose="product",
-                content_type="image/jpeg",
-                size=len(content),
+            statement.on_conflict_do_update(
+                index_elements=["object_key"],
+                set_={"owner_id": statement.excluded.owner_id, "size": statement.excluded.size},
             )
-            .on_conflict_do_nothing(index_elements=["object_key"])
         )
 
 

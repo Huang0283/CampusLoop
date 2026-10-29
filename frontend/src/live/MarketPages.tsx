@@ -13,7 +13,7 @@ import { ProductDetail, Person } from './Presentation'
 import { categoryLabels, conditionLabels, wantedStatusLabels, displayDate } from './display'
 import { Glyph, Logo, PriceTag, categoryOf, type GlyphName } from '../theme/brand'
 
-const categories = [{ value: 'BOOKS', label: '图书教材' }, { value: 'DIGITAL', label: '数码电子' }, { value: 'DAILY', label: '生活用品' }, { value: 'SPORTS', label: '运动户外' }, { value: 'clothing', label: '服饰鞋包' }, { value: 'other', label: '其他' }]
+const categories = Object.entries(categoryLabels).map(([value, label]) => ({ value, label }))
 const conditions = [{ value: 'NEW', label: '全新' }, { value: 'LIKE_NEW', label: '九成新' }, { value: 'GOOD', label: '八成新' }, { value: 'FAIR', label: '七成新' }]
 const searchModeOptions: Array<{ value: 'keyword' | 'hybrid' | 'semantic'; label: string }> = [{ value: 'keyword', label: '关键词' }, { value: 'hybrid', label: '混合' }, { value: 'semantic', label: '语义' }]
 const searchModeLabel: Record<'keyword' | 'hybrid' | 'semantic', string> = { keyword: '关键词检索', hybrid: '混合检索', semantic: '语义检索' }
@@ -60,7 +60,7 @@ function useMarketStats(enabled: boolean) {
 }
 
 const SKY_RINGS: Array<[number, number, GlyphName[]]> = [[75, 60, ['book', 'headphones', 'mug']], [125, -90, ['laptop', 'bike', 'sneaker', 'gift', 'calc']], [170, 130, ['camera', 'umbrella', 'ball', 'backpack', 'phone', 'racket']]]
-const GLYPH_CATEGORY: Partial<Record<GlyphName, string>> = { book: 'BOOKS', calc: 'BOOKS', pencil: 'BOOKS', laptop: 'DIGITAL', headphones: 'DIGITAL', camera: 'DIGITAL', phone: 'DIGITAL', mug: 'DAILY', bulb: 'DAILY', umbrella: 'DAILY', bike: 'SPORTS', ball: 'SPORTS', racket: 'SPORTS', sneaker: 'clothing', backpack: 'clothing', shirt: 'clothing', gift: 'other' }
+const GLYPH_CATEGORY: Partial<Record<GlyphName, string>> = { book: 'BOOKS', calc: 'BOOKS', pencil: 'STATIONERY', laptop: 'DIGITAL', headphones: 'DIGITAL', camera: 'DIGITAL', phone: 'DIGITAL', mug: 'DAILY', bulb: 'FURNITURE', bed: 'BEDDING', umbrella: 'DAILY', bike: 'TRANSPORT', ball: 'SPORTS', racket: 'SPORTS', sneaker: 'clothing', backpack: 'clothing', shirt: 'clothing', gift: 'other' }
 
 function MarketSky() {
   return <div className="market-sky" aria-hidden="true">

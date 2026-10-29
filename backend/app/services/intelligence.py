@@ -39,11 +39,29 @@ CATEGORIES = {
     "DIGITAL": "digital",
     "SPORTS": "sports",
     "DAILY": "household",
+    "STATIONERY": "stationery",
+    "FURNITURE": "furniture",
+    "BEDDING": "bedding",
+    "TRANSPORT": "transport",
     "数码": "digital",
     "书籍": "books",
     "生活用品": "household",
     "宿舍": "household",
     "运动": "sports",
+    "文具": "stationery",
+    "家具": "furniture",
+    "家电": "furniture",
+    "床品": "bedding",
+    "代步": "transport",
+    "电动车": "transport",
+}
+# The frozen M8 price engine only knows its original six categories; newer ones borrow the
+# closest prior instead of being rejected.
+PRICE_CATEGORIES = {
+    "stationery": "books",
+    "furniture": "household",
+    "bedding": "household",
+    "transport": "other",
 }
 
 

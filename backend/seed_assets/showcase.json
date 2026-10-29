@@ -1,0 +1,4472 @@
+{
+  "sellers": [
+    {
+      "id": 901,
+      "nickname": "周一不想早八",
+      "bio": "软工大二，书和外设都在出",
+      "rating": 4.8,
+      "trades": 9
+    },
+    {
+      "id": 902,
+      "nickname": "Momo在图书馆",
+      "bio": "考研人，二手书循环中",
+      "rating": 4.9,
+      "trades": 15
+    },
+    {
+      "id": 903,
+      "nickname": "陈屿",
+      "bio": "数学系大三，课本笔记齐全",
+      "rating": 5.0,
+      "trades": 22
+    },
+    {
+      "id": 904,
+      "nickname": "Leo Zhang",
+      "bio": "交换回来，清点一下数码",
+      "rating": 4.7,
+      "trades": 6
+    },
+    {
+      "id": 905,
+      "nickname": "一只考研狗",
+      "bio": "上岸了，资料全出",
+      "rating": 4.9,
+      "trades": 31
+    },
+    {
+      "id": 906,
+      "nickname": "许知夏",
+      "bio": "喜欢拍照，偶尔出点闲置",
+      "rating": 4.6,
+      "trades": 4
+    },
+    {
+      "id": 907,
+      "nickname": "电子垃圾回收站",
+      "bio": "数码自用出，描述如实",
+      "rating": 4.8,
+      "trades": 47
+    },
+    {
+      "id": 908,
+      "nickname": "Yuki",
+      "bio": "毕业季清仓，能便宜就便宜",
+      "rating": 4.9,
+      "trades": 12
+    },
+    {
+      "id": 909,
+      "nickname": "晚风与麦当劳",
+      "bio": "大四，实习搬出学校",
+      "rating": 4.5,
+      "trades": 3
+    },
+    {
+      "id": 910,
+      "nickname": "数媒老学长",
+      "bio": "研二，设备升级换代",
+      "rating": 4.8,
+      "trades": 18
+    },
+    {
+      "id": 911,
+      "nickname": "Kevin_07",
+      "bio": "经管大三，周末都在学校",
+      "rating": 4.7,
+      "trades": 8
+    },
+    {
+      "id": 912,
+      "nickname": "一颗柠檬糖",
+      "bio": "宿舍断舍离进行中",
+      "rating": 5.0,
+      "trades": 2
+    },
+    {
+      "id": 913,
+      "nickname": "骑车去上课",
+      "bio": "大四准备毕业，车和杂物陆续出",
+      "rating": 4.9,
+      "trades": 11
+    },
+    {
+      "id": 914,
+      "nickname": "小鹿乱撞Lu",
+      "bio": "设计学院大二，喜欢骑车绕校园",
+      "rating": 4.8,
+      "trades": 4
+    },
+    {
+      "id": 915,
+      "nickname": "阿杰同学",
+      "bio": "机械学院大三，自己会修车，车况如实说",
+      "rating": 4.9,
+      "trades": 15
+    },
+    {
+      "id": 916,
+      "nickname": "晚风不晚",
+      "bio": "研一，宿舍东西清一清",
+      "rating": 4.7,
+      "trades": 3
+    },
+    {
+      "id": 917,
+      "nickname": "Ethan林",
+      "bio": "计科大四，实习搬出宿舍，闲置低价出",
+      "rating": 4.8,
+      "trades": 9
+    },
+    {
+      "id": 918,
+      "nickname": "橘子汽水",
+      "bio": "外院大三，出国交换前清闲置",
+      "rating": 5.0,
+      "trades": 5
+    }
+  ],
+  "products": [
+    {
+      "id": 1501,
+      "owner": 902,
+      "category": "BOOKS",
+      "condition": "LIKE_NEW",
+      "title": "高等数学（同济第八版）上册",
+      "price": 22,
+      "originalPrice": 52.8,
+      "location": "宿舍 H301（可送到楼下）",
+      "description": "大一上学期高数课用的，同济第八版上册，正版教材，书脊和封底的条形码都在。\n\n成色：只做了前三章的课后习题，而且都写在草稿本上，书里没有任何笔迹，也没有划线和折页。封面右下角有一道小折痕，是放书包里压到的，不仔细看看不出来。\n\n为什么出：下学期转专业了，新专业不考高数（上），留着占地方。\n\n适合：刚入学的新生、需要补修的同学，或者想对照第八版例题复习的。\n\n价格比较实在，不太议价，可以当面翻看再决定。",
+      "images": [
+        "book-gaoshu-8-up.jpg"
+      ],
+      "views": 86,
+      "favorites": 5
+    },
+    {
+      "id": 1502,
+      "owner": 903,
+      "category": "BOOKS",
+      "condition": "GOOD",
+      "title": "高等数学（同济第八版）下册 带期末笔记",
+      "price": 15,
+      "originalPrice": 46.5,
+      "location": "B 座教学楼一楼大厅",
+      "description": "同济第八版高数下册，带我自己整理的期末笔记。\n\n书里的情况先说清楚：重积分、曲线曲面积分和级数这几章，我用铅笔在旁边写了完整的解题步骤，有些例题还补了另一种做法；每章最后我用荧光笔标了老师期末前划的重点。字写得还算工整，不影响阅读。如果你介意书里有字就别拍了。\n\n外观：封面边角有轻微磨损，内页干净无破损，不缺页。\n\n附带：书里夹了一张我整理的公式汇总（A4 正反面），一起送。\n\n我自己期末是 90 分以上，觉得笔记挺有用的，便宜给需要的人。",
+      "images": [
+        "book-gaoshu-8-down.jpg"
+      ],
+      "views": 142,
+      "favorites": 11
+    },
+    {
+      "id": 1503,
+      "owner": 905,
+      "category": "BOOKS",
+      "condition": "FAIR",
+      "title": "高数习题全解指导 上册（同济八版配套）",
+      "price": 8,
+      "location": "二食堂门口",
+      "description": "高数习题全解指导（上册），同济八版配套，答案和步骤都很详细。\n\n说实话这本被我用得挺旧的：书脊有一段开胶，但没有掉页；前面几章我用铅笔在题号旁打了勾和叉，方便自己回头再做错题。封面有些卷边。\n\n为什么便宜：品相确实一般，所以只标 8 块，主要是内容完整，刷题够用。\n\n适合想刷课后题、对答案的同学，用来对照步骤很方便。买回去如果发现缺页，可以直接退给我。",
+      "images": [
+        "book-gaoshu-8-solutions-up.jpg"
+      ],
+      "views": 53,
+      "favorites": 2
+    },
+    {
+      "id": 1504,
+      "owner": 911,
+      "category": "BOOKS",
+      "condition": "LIKE_NEW",
+      "title": "高数习题全解指导 下册（同济八版配套）",
+      "price": 20,
+      "originalPrice": 39.8,
+      "location": "A 座教学楼 305 教室",
+      "description": "高数习题全解指导（下册），同济八版配套。\n\n买的时候想着下学期跟着刷题，结果只翻到第九章开头就没再用了，后面整本基本是新的。没有写名字，没有划线，也没有折角，书页很平整。\n\n和上册是配套的，如果你也想要上册可以问问其他卖家，我这里只有下册。\n\n外观九成新，封面有一点点灰，擦一下就干净了。校内当面交易，见面看书满意再付款。",
+      "images": [
+        "book-gaoshu-8-solutions-down.jpg"
+      ],
+      "views": 37,
+      "favorites": 3
+    },
+    {
+      "id": 1505,
+      "owner": 903,
+      "category": "BOOKS",
+      "condition": "GOOD",
+      "title": "工程数学 线性代数（同济第七版）",
+      "price": 12,
+      "originalPrice": 32,
+      "location": "C 座教学楼三楼自习室",
+      "description": "工程数学·线性代数（同济第七版），线代课指定教材。\n\n使用情况：第二章矩阵和第三章初等变换这两章，我用荧光笔标了重点定义和定理，例题旁边写了一些自己的理解，字不多；后面向量组、特征值那几章基本没写字。\n\n外观：封面有一道浅浅的压痕，四角略有磨损，内页干净，不缺页不脱胶。\n\n期末考了 89 分，感觉这本书讲得挺清楚的，配合课后题够用了。想要的可以先私聊，我拍几张内页给你看笔记多不多。",
+      "images": [
+        "book-linear-algebra-7.jpg"
+      ],
+      "views": 64,
+      "favorites": 6
+    },
+    {
+      "id": 1506,
+      "owner": 904,
+      "category": "BOOKS",
+      "condition": "LIKE_NEW",
+      "title": "机器学习（周志华 西瓜书）",
+      "price": 45,
+      "originalPrice": 108,
+      "location": "宿舍 F512",
+      "description": "周志华《机器学习》，也就是大家说的西瓜书，清华大学出版社正版。\n\n毕设做的是分类相关的方向，买来主要看了前六章（模型评估、线性模型、决策树、神经网络、SVM、贝叶斯），书页干净，没有写字，没有折角。照片里桌上那些草稿纸不送哈。\n\n外观：封面有一点轻微的使用痕迹，书脊完好，整体接近九成新。\n\n为什么出：毕设做完了，之后工作方向不太用得上，放着可惜。\n\n原价 108，现在 45。想入门机器学习、准备考研复试或者做课设的同学都挺合适。见面可以先翻书检查再付款。",
+      "images": [
+        "book-ml-zhou-1.jpg",
+        "book-ml-zhou-2.jpg"
+      ],
+      "views": 211,
+      "favorites": 19
+    },
+    {
+      "id": 1507,
+      "owner": 909,
+      "category": "BOOKS",
+      "condition": "FAIR",
+      "title": "日本蜡烛图技术",
+      "price": 10,
+      "originalPrice": 59,
+      "location": "一食堂二楼靠窗",
+      "description": "《日本蜡烛图技术》，讲 K 线形态的经典入门书。\n\n当时选修了一门金融相关的通识课，老师推荐的，我就买来看了一遍。书的品相要说清楚：书角有磨损，书页侧边有点泛黄，封面有使用痕迹；内容完整，没有缺页，也没怎么写字。\n\n适合对股票、技术分析感兴趣，想入门了解 K 线的同学。不是投资建议哈，就是本挺有意思的书。\n\n价格很低了，就当给它找个下家。",
+      "images": [
+        "book-candlestick-1.jpg",
+        "book-candlestick-2.jpg"
+      ],
+      "views": 29,
+      "favorites": 1
+    },
+    {
+      "id": 1508,
+      "owner": 905,
+      "category": "BOOKS",
+      "condition": "GOOD",
+      "title": "大学生数学竞赛教程（第2版）",
+      "price": 18,
+      "originalPrice": 49.8,
+      "location": "数学楼 D 座 108",
+      "description": "大学生数学竞赛教程（第 2 版），备战数学竞赛时用的。\n\n使用情况：前几章做过的题，我用铅笔在题号旁打了勾，没有写解题过程，可以用橡皮擦掉。后半本基本没动。\n\n瑕疵：封底有一小块水渍，当时杯子倒了沾到的，已经干透，不影响阅读，内页没有起皱。\n\n我自己当年拿了省二，这本书的题型覆盖挺全的，配合历年真题用效果不错。准备参加数竞的学弟学妹优先，可以顺便跟你聊聊备赛经验。",
+      "images": [
+        "book-math-contest-1.jpg",
+        "book-math-contest-2.jpg"
+      ],
+      "views": 48,
+      "favorites": 4
+    },
+    {
+      "id": 1509,
+      "owner": 911,
+      "category": "BOOKS",
+      "condition": "LIKE_NEW",
+      "title": "Python 编程从入门到精通",
+      "price": 20,
+      "originalPrice": 69.8,
+      "location": "A 座教学楼一楼咖啡角",
+      "description": "《Python 编程从入门到精通》，选修课指定参考书。\n\n使用情况：跟着书敲完了前五章的代码（基础语法、列表、函数那些），后面的内容基本没翻过，书很新。书里没有写字，只在几页贴了便利贴，已经撕掉了。\n\n附送：书里夹着两张金属书签，一起送你。\n\n适合零基础入门 Python 的同学，例子比较简单，跟着敲能很快上手。课程结束了用不上，便宜出。",
+      "images": [
+        "book-python-1.jpg",
+        "book-python-2.jpg"
+      ],
+      "views": 73,
+      "favorites": 7
+    },
+    {
+      "id": 1510,
+      "owner": 901,
+      "category": "BOOKS",
+      "condition": "NEW",
+      "title": "C 语言从入门到精通（全新版）送期中真题",
+      "price": 25,
+      "originalPrice": 69.8,
+      "location": "宿舍 H301",
+      "description": "《C 语言从入门到精通（全新版）》，实拍，全新。\n\nC 语言开课前买的，结果第一节课老师就发了讲义和课件，这本书就一直放在书架上，没有翻过，拍照时才拆开。书页平整，没有任何笔迹。\n\n附赠：我自己整理的往年 C 语言期中考试题打印版（大概 6 页，带部分答案），对期中复习挺有帮助的，一起送。\n\n原价 69.8，现在 25，书 + 资料打包。可以当面看。",
+      "images": [
+        "book-c-lang-1.jpg",
+        "book-c-lang-2.jpg"
+      ],
+      "views": 58,
+      "favorites": 5
+    },
+    {
+      "id": 1511,
+      "owner": 908,
+      "category": "BOOKS",
+      "condition": "GOOD",
+      "title": "解析几何（第五版）+ 学习辅导书 两本套装",
+      "price": 30,
+      "location": "南门小广场",
+      "description": "解析几何（第五版）+ 配套学习辅导书，两本一起出。\n\n主书：有少量铅笔笔记，主要在前三章，写的是一些题目的提示；封面边角略有磨损。\n辅导书：基本没动过，只翻过几次，里面干净。\n\n毕业清书，书太多不想搬回家，所以两本打包出，分开不卖。数学系、需要学解析几何的同学拿走正好一整套。\n\n图片是同款示意图，实物有正常使用痕迹，介意的可以先私聊让我拍实物。",
+      "images": [
+        "book-analytic-geometry-set.jpg",
+        "book-analytic-geometry-main.jpg",
+        "book-analytic-geometry-guide.jpg"
+      ],
+      "views": 41,
+      "favorites": 3
+    },
+    {
+      "id": 1512,
+      "owner": 901,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "狼途 LT84 机械键盘 白色背光（送拔轴器 + 数据线）",
+      "price": 75,
+      "originalPrice": 159,
+      "location": "宿舍 E 栋 207",
+      "description": "狼途 LT84 机械键盘，白色冰蓝背光款，热插拔版本。\n\n使用时间：买来用了大概两个月，之后换了无线键盘，这把就一直放在盒子里。\n成色：键帽没有打油，外壳没有划痕，背光全亮，所有按键都正常，没有连击和失灵。旋钮和小屏都正常。\n\n配件（都是原装）：\n- 拔轴拔键二合一工具 ×1\n- 抗干扰数据线 ×1\n都一起送，盒子也在。\n\n热插拔的好处是以后想换轴不用焊，适合刚入坑机械键盘的同学。当面交易可以带电脑，现场插上逐个试键。",
+      "images": [
+        "kb-lt84-1.jpg",
+        "kb-lt84-gifts.jpg"
+      ],
+      "views": 167,
+      "favorites": 14
+    },
+    {
+      "id": 1513,
+      "owner": 912,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "前行者 V7 静音键盘 冰蓝背光",
+      "price": 35,
+      "originalPrice": 79,
+      "location": "图书馆负一楼自习区",
+      "description": "前行者 V7 静音键盘，冰蓝背光，薄膜结构。\n\n为什么买：宿舍有人睡得早，机械键盘太吵，就买了这把静音的。敲起来声音确实很小，晚上打字也不会吵到室友。\n\n使用情况：用了一年多，空格键和 WASD 边缘有一点点打油，其他键帽正常；背光全亮，所有键都好用，防水也是真的，之前洒过一次水没坏。\n\n缺点也说一下：薄膜键盘手感偏软，喜欢段落感的可能不习惯。\n\n只有键盘本体，没有盒子。",
+      "images": [
+        "kb-v7-1.jpg"
+      ],
+      "views": 32,
+      "favorites": 2
+    },
+    {
+      "id": 1514,
+      "owner": 904,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "联想拯救者 Y7000 游戏本 2020 款",
+      "price": 2200,
+      "originalPrice": 5999,
+      "location": "研究生 1 号楼大厅",
+      "description": "联想拯救者 Y7000（2020 款），i5 + GTX 1650，自用机。\n\n配置：内存我自己加到了 16G，另外加了一块 1T 固态，系统盘和数据盘分开，开机很快。平时用来写代码、跑一些小模型，偶尔打打 LOL、原神中低画质都能流畅。\n\n外观：A 面基本没划痕，D 面（底部）有几道细划痕，是放桌上磨的；键盘没有打油，屏幕没有坏点和亮点。\n电池：日常办公大概能用两个多小时，玩游戏建议插电。\n\n配件：原装电源适配器。包装盒搬宿舍的时候扔了。\n\n没有拆修过，系统可以帮你重装干净再交易。见面可以现场跑一下性能测试。",
+      "images": [
+        "laptop-y7000-back.jpg",
+        "laptop-y7000-front.jpg"
+      ],
+      "views": 305,
+      "favorites": 23
+    },
+    {
+      "id": 1515,
+      "owner": 910,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "联想拯救者 Y7000P 电竞本",
+      "price": 5200,
+      "originalPrice": 8999,
+      "location": "艺术楼 302 剪辑室",
+      "description": "联想拯救者 Y7000P 电竞本。\n\n主要用来剪视频和跑渲染，研二换了台式工作站，这台就闲置了。\n\n情况说明：\n- 外观九成新，没有磕碰，屏幕无坏点\n- 没拆过机，散热正常，满载温度在正常范围\n- 保修大概还剩半年，可以查序列号\n- 键盘背光正常，没有打油\n\n附送：一个笔记本散热支架，可以把机身垫高，打游戏或剪片子时温度更低。\n\n图片是同款示意图，实物比较新，可以私聊要实拍。价格可以小刀，诚心要的聊。",
+      "images": [
+        "laptop-y7000p-back.jpg",
+        "laptop-y7000p-open.jpg"
+      ],
+      "views": 188,
+      "favorites": 12
+    },
+    {
+      "id": 1516,
+      "owner": 906,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "大疆 Osmo Action 4 运动相机",
+      "price": 1150,
+      "originalPrice": 1598,
+      "location": "体育馆东门",
+      "description": "大疆 Osmo Action 4 运动相机，自用二手。\n\n使用情况：暑假骑行和爬山带出去拍过几次，总共用了不到十次。机身外观没有明显划痕，镜头保护镜完好。\n\n配件说清楚（不是全套哈）：\n- 在：原装电池 ×1、快拆转接件、Type-C 充电线\n- 不在：背包夹和防滑垫片，户外用的时候弄丢了\n介意配件不全的慎拍，价格已经考虑进去了。\n\n画质很好，防抖也稳，4K 视频拍出来很清楚。当面交易可以开机试拍几段，确认没问题再付款。",
+      "images": [
+        "cam-action4-1.jpg",
+        "cam-action4-2.jpg",
+        "cam-action4-3.jpg"
+      ],
+      "views": 242,
+      "favorites": 17
+    },
+    {
+      "id": 1517,
+      "owner": 910,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "ROG 枪神 10 16 英寸游戏本",
+      "price": 14800,
+      "originalPrice": 19499,
+      "location": "计算机学院楼 B 区 4 楼",
+      "description": "ROG 枪神 10，16 英寸游戏本，高配版本。\n\n来历：参与实验室的一个项目时配的，项目结束后我自己买断了。后来发现日常写代码、上网课根本用不上这么高的配置，太浪费了，就出掉换台轻薄本。\n\n情况：\n- 到手不到三个月，使用时间很短\n- 屏幕无亮点、无坏点，刷新率正常\n- 键盘 RGB 灯效全部正常\n- 没有拆修过\n\n配件：只有整机和原装电源。原来送的背包我自己在用，不一起出。\n\n价格是参考了二手行情定的，诚心要的可以聊。见面可以现场跑分、玩游戏测试。",
+      "images": [
+        "laptop-rog-strix-1.jpg",
+        "laptop-rog-strix-2.jpg"
+      ],
+      "views": 412,
+      "favorites": 31
+    },
+    {
+      "id": 1518,
+      "owner": 912,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "15.6 寸轻薄笔记本 银色 带原包装盒",
+      "price": 900,
+      "originalPrice": 1999,
+      "location": "宿舍 G 栋 615",
+      "description": "15.6 寸轻薄笔记本，银色，带原包装盒。\n\n当时图便宜买的办公本，配置不高但日常够用：写论文、做 PPT、上网课、追剧都没问题，打大型游戏就别想了。\n\n成色：屏幕和键盘都很干净，基本没有使用痕迹，外壳没有划痕。原包装盒一直留着，一起给你。\n系统：Windows 10，已经恢复出厂，开机就是新的系统。\n\n适合只需要一台电脑写作业、查资料的同学，或者放宿舍当备用电脑也行。\n\n图片都是实拍，所见即所得。",
+      "images": [
+        "laptop-silver-1.jpg",
+        "laptop-silver-2.jpg",
+        "laptop-silver-3.jpg"
+      ],
+      "views": 96,
+      "favorites": 8
+    },
+    {
+      "id": 1519,
+      "owner": 908,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "MacBook Air 2020 13 英寸 Intel i5 / 8G / 512G",
+      "price": 2600,
+      "originalPrice": 7999,
+      "location": "外语楼一楼大厅",
+      "description": "MacBook Air 2020 款，13 英寸，Intel i5 / 8G 内存 / 512G 固态。\n\n大一买的，主要用来写作业、上网课和看剧，后来换了 M 芯片的新电脑，这台就闲置了。\n\n情况：\n- 电池健康 80% 多，日常用半天没问题\n- 屏幕没有坏点，那个卡通图是壁纸，不是贴纸哈\n- 外壳有正常使用痕迹，没有磕碰凹陷\n- 键盘、触控板、指纹解锁都正常\n- 没有拆修过，ID 已经退出\n\n配件：原装充电器。\n\n512G 存储比较大，装软件放资料都够用。第四张图是关于本机的配置截图。",
+      "images": [
+        "laptop-mba-2020-1.jpg",
+        "laptop-mba-2020-2.jpg",
+        "laptop-mba-2020-3.jpg",
+        "laptop-mba-2020-about.jpg"
+      ],
+      "views": 276,
+      "favorites": 25
+    },
+    {
+      "id": 1520,
+      "owner": 906,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "iPhone 15 Pro 128G 原色钛金属",
+      "price": 4300,
+      "originalPrice": 7999,
+      "location": "二食堂三楼",
+      "description": "iPhone 15 Pro 128G，原色钛金属。\n\n一直戴壳贴膜用的，所以边框和背板都没有磕碰划痕，屏幕也没有划痕。\n\n情况：\n- 电池健康 89%\n- 面容 ID 正常，原彩、真深度都在\n- 无拆无修，功能全部正常\n- Apple ID 已退，插卡就能用\n\n为什么出：换了安卓手机，这台就闲置了。\n\n配件：只有裸机和一根原装数据线，没有盒子和充电头。可以当面验机，确认没问题再付款。",
+      "images": [
+        "phone-ip15pro-1.jpg",
+        "phone-ip15pro-2.jpg",
+        "phone-ip15pro-3.jpg",
+        "phone-ip15pro-4.jpg"
+      ],
+      "views": 389,
+      "favorites": 28
+    },
+    {
+      "id": 1521,
+      "owner": 907,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "OPPO Reno6 8+128G 夏日晴海",
+      "price": 460,
+      "originalPrice": 2799,
+      "location": "宿舍 D 栋 109",
+      "description": "OPPO Reno6 8+128G，夏日晴海配色。\n\n当备用机用了一年左右，后壳是磨砂渐变的，不同角度颜色会变，挺好看的，也不太沾指纹。\n\n情况：\n- 镜头玻璃有一道很细的划痕，拍照不受影响\n- 屏幕正常，没有烧屏\n- 电池大概九成，正常用一天没问题\n- 天玑 900，日常刷视频、玩王者都流畅\n\n配件：只有手机，原装 65W 快充头不在了，用普通 Type-C 线也能充，就是慢一点。\n\n价格很低，适合当备用机。",
+      "images": [
+        "phone-reno6-1.jpg",
+        "phone-reno6-2.jpg",
+        "phone-reno6-3.jpg",
+        "phone-reno6-4.jpg"
+      ],
+      "views": 121,
+      "favorites": 9
+    },
+    {
+      "id": 1522,
+      "owner": 909,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "小电驴 Cute 款电动车（送头盔和雨衣）",
+      "price": 1100,
+      "originalPrice": 2299,
+      "location": "南区车棚",
+      "description": "小电驴，Cute 款，奶白色，今年春天买的。\n\n骑了一个学期，平时就是上课、去吃饭用，没有出过远门。\n\n情况：\n- 满电大概能跑四十公里左右\n- 刹车、灯光、喇叭都正常\n- 座椅侧面有一个小划痕，后面的靠背是我自己后装的\n- 车况挺好，没有摔过\n\n赠品：充电器、头盔、雨衣，全部一起送。\n\n为什么出：要去实习了，车带不走。可以约时间当面试骑，满意再交易，过户手续当面办。",
+      "images": [
+        "ebike-cute-1.jpg",
+        "ebike-cute-2.jpg"
+      ],
+      "views": 158,
+      "favorites": 13
+    },
+    {
+      "id": 1523,
+      "owner": 902,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "vivo Pad5 Pro 12+256G 带保护壳",
+      "price": 2600,
+      "originalPrice": 3299,
+      "location": "法学院楼二楼",
+      "description": "vivo Pad5 Pro，12+256G，带保护壳。\n\n买来主要记笔记和看文献，屏幕大，分屏一边看 PDF 一边记笔记很方便。\n\n情况：\n- 电池健康显示 100%，还在保修期内\n- 屏幕贴了钢化膜，没有划痕\n- 背面一直套着保护壳，没有磕碰\n- 功能全部正常，没有拆修\n\n配件：保护壳、原装盒子都在。\n\n第二、三张是关于本机和电池健康的截图。想要的可以当面验机，确认没问题再付款。",
+      "images": [
+        "tablet-vivo-pad5pro-1.jpg",
+        "tablet-vivo-pad5pro-2.jpg",
+        "tablet-vivo-pad5pro-3.jpg"
+      ],
+      "views": 134,
+      "favorites": 10
+    },
+    {
+      "id": 1524,
+      "owner": 911,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "联想小新 Pad 2024 8+128G",
+      "price": 620,
+      "originalPrice": 1199,
+      "location": "经管楼 204",
+      "description": "联想小新 Pad 2024，8+128G。\n\n骁龙 685 那款，配置不算高：看网课、追剧、刷视频都够用，玩大型游戏会卡，这个要说清楚。\n\n外观：\n- 屏幕完好，没有划痕\n- 侧边有一处很浅的磨痕，看第三张图\n- 背面的标签是出厂自带的\n\n存储还剩 70 多 G，已经恢复出厂设置。\n\n适合想要一台平板看网课、看书的同学，价格比较实惠。没有盒子，只有平板本体。",
+      "images": [
+        "tablet-xiaoxin-pad-1.jpg",
+        "tablet-xiaoxin-pad-2.jpg",
+        "tablet-xiaoxin-pad-3.jpg",
+        "tablet-xiaoxin-pad-4.jpg"
+      ],
+      "views": 77,
+      "favorites": 5
+    },
+    {
+      "id": 1525,
+      "owner": 907,
+      "category": "DIGITAL",
+      "condition": "FAIR",
+      "title": "vivo 原装 120W 闪充头 + 1.5 米 6A 数据线",
+      "price": 45,
+      "originalPrice": 149,
+      "location": "校园超市门口",
+      "description": "vivo 原装 120W 闪充充电头 + 1.5 米 6A 数据线，一套出。\n\n换手机剩下来的原装配件，型号在第一张图里能看到。\n\n成色：外壳有正常使用痕迹，边上有点发黄，第四张图拍得比较清楚；插脚没有氧化。数据线没有破皮，接口都好。\n\n功能：完全正常，支持 vivo / iQOO 120W 机型满速快充，其他手机也能用 PD 快充，只是速度没那么快。\n\n二手配件，介意使用痕迹的别拍。头和线一起出，不单卖。",
+      "images": [
+        "charger-vivo120-1.jpg",
+        "charger-vivo120-2.jpg",
+        "charger-vivo120-3.jpg",
+        "charger-vivo120-4.jpg",
+        "charger-vivo120-5.jpg"
+      ],
+      "views": 44,
+      "favorites": 2
+    },
+    {
+      "id": 1526,
+      "owner": 909,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "五层翻门收纳柜 60cm 宽 带轮子",
+      "price": 65,
+      "originalPrice": 159,
+      "location": "西区宿舍 6 栋楼下",
+      "description": "五层翻门收纳柜，60 cm 宽、26 cm 深、120 cm 高。\n\n上面三层是透明翻门，下面两层是实板门，磁吸关门不会自己弹开；底部有万向轮，推着走很方便。\n\n用途：我主要放零食和杂物，衣服、书、玩具也都能放，空间挺大的。\n\n成色：表面干净，没有明显划痕；有一层的门轴有点紧，开关多几次就好了。\n\n说明：可以拆开平放，零件和卡扣都齐，自己搬回去不难。\n\n要搬走了带不走，便宜出。体积比较大，只能当面交易。",
+      "images": [
+        "cabinet-5tier-1.jpg",
+        "cabinet-5tier-3.jpg",
+        "cabinet-5tier-2.jpg"
+      ],
+      "views": 63,
+      "favorites": 6
+    },
+    {
+      "id": 1527,
+      "owner": 911,
+      "category": "SPORTS",
+      "condition": "LIKE_NEW",
+      "title": "李宁雷霆小钢炮羽毛球拍 一对（黑 + 白）",
+      "price": 120,
+      "originalPrice": 398,
+      "location": "体育馆羽毛球场门口",
+      "description": "李宁雷霆小钢炮羽毛球拍，一对，黑色 + 白色。\n\n当时和舍友逛实体店一时兴起买的，结果只下去打过两次就没再碰了。\n\n参数：5U，大概 80 克左右，已经拉好 24 磅线，买回来就能直接打。\n成色：拍框没有掉漆，线床完整没有断线，手胶还是原装的。\n\n赠品：送半桶羽毛球。\n\n一对一起出最划算，单支也可以卖，单支 70。适合新手和日常娱乐。",
+      "images": [
+        "sport-badminton-lining-pair.jpg"
+      ],
+      "views": 88,
+      "favorites": 7
+    },
+    {
+      "id": 1528,
+      "owner": 903,
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "title": "WITESS 全碳素羽毛球拍 白色单支",
+      "price": 30,
+      "originalPrice": 89,
+      "location": "东区操场看台",
+      "description": "WITESS 全碳素羽毛球拍，白色，单支。\n\n体育课用了一学期，4U 重量偏轻，挥起来不累，适合新手。\n\n成色：拍框边上有两处小掉漆（看图），线床完整，从来没断过线；手胶是刚换的新的。\n没有内伤、没有断碳，正常打球完全没问题。\n\n只有球拍，没有拍套。价格很便宜了，适合体育课或者偶尔打打球的同学。",
+      "images": [
+        "sport-badminton-witess.jpg"
+      ],
+      "views": 35,
+      "favorites": 2
+    },
+    {
+      "id": 1529,
+      "owner": 912,
+      "category": "SPORTS",
+      "condition": "LIKE_NEW",
+      "title": "入门羽毛球拍对拍 带拍套和一筒球",
+      "price": 25,
+      "location": "北门门卫室旁",
+      "description": "入门款羽毛球拍对拍，带拍套和一筒球。\n\n买来想和室友晚上一起打，结果只打过一次，之后就一直放在拍套里。\n\n成色：拍子几乎全新，线床完整，手柄缠带也很新。\n附送：一个透明拍套和一筒羽毛球（里面大概还有十个球）。\n\n适合想偶尔打打球、不想买太贵球拍的同学。拍子是入门款，不是专业拍哈。",
+      "images": [
+        "sport-badminton-starter-pair.jpg"
+      ],
+      "views": 27,
+      "favorites": 1
+    },
+    {
+      "id": 1530,
+      "owner": 908,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "iPhone 17 Pro 手机壳 4 个打包（含 1 个磁吸）",
+      "price": 28,
+      "location": "A 栋女生宿舍门口",
+      "description": "iPhone 17 Pro 手机壳，4 个打包出，其中 1 个是磁吸款。\n\n换手机之前囤的壳，四个都戴过一阵子：\n- 透明小熊款：边上有点发黄\n- 透明卡通款：比较新\n- 粉色小狗磁吸款：吸充电器很稳\n- 粉色卡通款：有轻微使用痕迹\n\n都没有破损，孔位精准。只打包出，不单卖，四个一共 28。\n\n二手手机壳默认有使用痕迹，介意的别拍。",
+      "images": [
+        "case-17pro-set.jpg"
+      ],
+      "views": 52,
+      "favorites": 4
+    },
+    {
+      "id": 1531,
+      "owner": 902,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "iPhone 15 Pro Max 手机壳 4 个",
+      "price": 25,
+      "location": "二食堂一楼",
+      "description": "iPhone 15 Pro Max 手机壳，4 个一起出。\n\n手机已经卖掉了，壳留着也没用，就一起出了。\n\n情况：\n- 白色那个有一点使用痕迹，边缘有点脏，可以洗\n- 其他三个都挺新，没怎么戴过\n- 都没有破损、没有变形\n\n四个一起 25，不单卖。适合同款手机、想换换风格的同学。",
+      "images": [
+        "case-15promax-set.jpg"
+      ],
+      "views": 31,
+      "favorites": 2
+    },
+    {
+      "id": 1532,
+      "owner": 912,
+      "category": "DAILY",
+      "condition": "GOOD",
+      "title": "大号三格亚克力收纳柜 透明 27×13×36cm",
+      "price": 15,
+      "originalPrice": 39,
+      "location": "宿舍 G 栋 615",
+      "images": [
+        "shelf-acrylic-3tier.jpg"
+      ],
+      "views": 41,
+      "favorites": 3,
+      "description": "大号三格亚克力收纳柜，透明色，尺寸 27×13×36 cm。\n\n隔板可以拆，空间比看起来大：我放的是杯子和小手办，放化妆品、香水、茶具、积木也都合适。前面是翻门，能防灰。\n\n成色：轻微使用痕迹，亚克力表面有几道很细的划痕，侧光才看得到；已经组装好了，拿回去直接用。\n\n为什么出：换了更大的柜子，这个放不下了。\n\n图片是同款效果图，实物是透明的，摆件不送哈。东西比较轻，当面交易。"
+    },
+    {
+      "id": 1533,
+      "owner": 906,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "楠竹藤编双门鞋柜 茶色",
+      "price": 80,
+      "originalPrice": 199,
+      "location": "东门报刊亭旁",
+      "images": [
+        "shoe-cabinet-rattan-1.jpg"
+      ],
+      "views": 57,
+      "favorites": 6,
+      "description": "楠竹 + 密度板的双门鞋柜，茶色，门是塑藤编织的，透气不闷鞋。\n\n尺寸：宽 60 cm、深 33 cm，五层的高度大概 68 cm，能放十几双鞋，顶面还可以放钥匙、绿植之类的小东西。\n\n成色：用了一年多，柜体结实没有晃动；藤编门没有破洞，顶面有几处轻微划痕。\n\n为什么出：毕业搬家，柜子不好带走。\n\n需要自己搬，可以拆开平放，螺丝和说明都还在。当面交易，看好再付款。"
+    },
+    {
+      "id": 1534,
+      "owner": 905,
+      "category": "FURNITURE",
+      "condition": "LIKE_NEW",
+      "title": "人体工学网布椅 白框黑网 带头枕",
+      "price": 75,
+      "originalPrice": 199,
+      "location": "研究生 2 号楼大厅",
+      "images": [
+        "chair-mesh-1.jpg"
+      ],
+      "views": 96,
+      "favorites": 9,
+      "description": "人体工学电脑椅，白框黑网，带可调头枕，弓形椅脚不带轮子。\n\n考研那半年每天坐十几个小时，靠背的腰部支撑确实比宿舍那种硬板凳舒服很多，久坐后背也不会闷出汗。\n\n情况：\n- 坐垫海绵没有塌陷\n- 网布没有破洞、没有勾丝\n- 扶手可以向上翻，不用的时候能推进桌子底下\n- 弓形钢脚很稳，坐着不会晃\n\n上岸了用不上，便宜出。图片是同款效果图，实物白框有一点点发黄，介意的可以私聊要实拍。"
+    },
+    {
+      "id": 1535,
+      "owner": 904,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "26 寸折叠山地车 黑色 六刀一体轮 双碟刹",
+      "price": 260,
+      "originalPrice": 599,
+      "location": "北门自行车棚",
+      "images": [
+        "bike-folding-1.jpg"
+      ],
+      "views": 133,
+      "favorites": 12,
+      "description": "26 寸折叠山地自行车，黑色，六刀一体轮，前后双碟刹，带前后减震和 21 速变速。\n\n平时上课、去超市买东西骑的，车架可以对折，放后备箱或者宿舍角落都不占地方。\n\n车况：\n- 刹车灵敏，变速换挡顺畅\n- 轮胎花纹还很深，没有补过胎\n- 车架有一些使用划痕，不影响骑行\n- 前面挂了一个车头包，一起送\n\n身高 165–185 cm 的都能骑。毕业了带不走，可以约时间当面试骑。"
+    },
+    {
+      "id": 1536,
+      "owner": 901,
+      "category": "TRANSPORT",
+      "condition": "FAIR",
+      "title": "26 寸折叠山地车 白色 蓝边一体轮",
+      "price": 200,
+      "originalPrice": 599,
+      "location": "西区宿舍 6 栋楼下",
+      "images": [
+        "bike-folding-2.jpg"
+      ],
+      "views": 74,
+      "favorites": 4,
+      "description": "26 寸白色折叠山地车，蓝边六刀一体轮，双碟刹、前后减震。\n\n骑了两年多，车况说实话一般，所以价格比较低：\n- 白色车架有不少磨痕和小掉漆\n- 车座表面有一点开裂，可以自己换个座套\n- 刹车和变速都正常，链条上个月刚上过油\n- 前后轮胎有正常磨损\n\n就是代步车，上课、去食堂足够了。车头包和一把 U 型锁一起送，锁的钥匙有两把。"
+    },
+    {
+      "id": 1537,
+      "owner": 909,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "实木松木单人小床 带护栏 1.6 米",
+      "price": 88,
+      "originalPrice": 680,
+      "location": "南区宿舍 3 栋楼下",
+      "images": [
+        "bed-pine-1.jpg",
+        "bed-pine-2.jpg",
+        "bed-pine-3.jpg",
+        "bed-pine-4.jpg",
+        "bed-pine-5.jpg"
+      ],
+      "views": 359,
+      "favorites": 9,
+      "description": "二手实木小床，松木原木，没有上漆，放了这么久也没有任何异味。\n\n尺寸：长 1.6 米、宽 50 厘米、高 50 厘米。挨着床头柜摆可以和 1.8 米的大床拼在一起用，单独放当小床或者靠墙当长条榻也行。\n\n实际情况：\n- 床板是一整排厚实木条，人躺上去、坐在边上都很稳，不会吱呀响\n- 两侧和床头都有护栏，护栏是圆角，不会磕到\n- 有正常使用痕迹：木头表面有几处小划痕和颜色深浅不一，属于原木自然变化\n- 床腿上贴了几张小贴纸，没撕，介意的话自己撕掉擦一下就行\n- 螺丝都在，结构没有松动，没有修过\n\n之前买来 680，用得不多所以便宜出。体积比较大，需要自己来搬，拆开后两个人很好拿。细节想看哪里可以再拍给你。"
+    },
+    {
+      "id": 1538,
+      "owner": 903,
+      "category": "BEDDING",
+      "condition": "FAIR",
+      "title": "1.2×1.9 米单人床架 带床头 白色",
+      "price": 20,
+      "originalPrice": null,
+      "location": "北区研究生宿舍楼下",
+      "images": [
+        "bed-frame-white-1.jpg",
+        "bed-frame-white-2.jpg",
+        "bed-frame-white-3.jpg",
+        "bed-frame-white-4.jpg"
+      ],
+      "views": 14,
+      "favorites": 2,
+      "description": "出一张单人床，宽 1.2 米、长 1.9 米，高 45 厘米，带一个软包床头。\n\n标价就是卖价，基本等于白送，主要是腾地方。\n\n说一下真实情况，成色是明显使用痕迹：\n- 白色床架本身很稳，睡着不晃，四条腿都在\n- 上面那层黄色花布垫子是旧的，边角有开线、局部有污渍，介意的话可以不要，只拿床架\n- 床头的软包布面有点旧，图四能看到\n- 床腿下面套了布，防止刮地板，可以一起带走\n\n适合刚搬出来住、需要一张便宜床先应付的同学。二手物品不退不换，东西比较大，需要自己来搬。"
+    },
+    {
+      "id": 1539,
+      "owner": 912,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "宿舍床帘 米白色 五面全包 带支架",
+      "price": 45,
+      "originalPrice": null,
+      "location": "东区宿舍 2 栋楼下",
+      "images": [
+        "bed-curtain-1.jpg"
+      ],
+      "views": 75,
+      "favorites": 8,
+      "description": "低价出宿舍床帘，米白色，五面全包，连支架一起出。\n\n遮光效果挺好，拉上之后白天睡午觉也不刺眼，隐私性很强，室友开灯也基本不影响。顶部同样是米白色，看起来干净简洁，配什么床品都不突兀。\n\n成色几乎全新：\n- 只挂了一个学期，保存得很好，没有明显使用痕迹\n- 已经洗过晾干收好，没有异味\n- 前面一层是透气纱网，热的时候可以只放纱网\n- 支架杆子齐全，安装不需要打孔\n\n尺寸是标准宿舍单人床，上下铺都能用。价格可以小刀，喜欢直接拍，细节随时问。"
+    },
+    {
+      "id": 1540,
+      "owner": 906,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "龟背叶印花床帘 两片加顶 200×120cm",
+      "price": 30,
+      "originalPrice": null,
+      "location": "西区宿舍 4 栋楼下",
+      "images": [
+        "bed-curtain-monstera-1.jpg",
+        "bed-curtain-monstera-2.jpg",
+        "bed-curtain-monstera-3.jpg",
+        "bed-curtain-monstera-4.jpg",
+        "bed-curtain-monstera-5.jpg"
+      ],
+      "views": 41,
+      "favorites": 3,
+      "description": "闲置床帘一套：两片侧帘 + 一片顶，浅灰蓝底色配深蓝龟背叶印花，挂起来很清爽，宿舍、卧室都能用。\n\n规格（看吊牌）：\n- 单片尺寸 长 200 × 高 120 cm，标准 1.2 米宿舍床刚好\n- 面料 100% 聚酯纤维，摸起来有点厚度，遮光效果不错，隐私也够用\n- 边缘是花边锁边，没有脱线\n\n安装方式：挂环款，布上有金属气眼，配套的棉绳和白色塑料挂钩都在，穿上绳子绑在床架上、挂钩挂好就能用。注意没有杆子，需要杆子的话自己另配。\n\n成色：用过一段时间，但保存得挺好，图一是实拍挂起来的样子，图二是当时买的款式图供参考颜色。白色挂钩可能少了一两个，整体不影响用，介意的话建议别拍。\n\n二手闲置，不退不换，想看哪里细节可以再拍给你。"
+    },
+    {
+      "id": 1541,
+      "owner": 902,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "宿舍床帘 纯色加厚 带顶带支架 1.2 米床",
+      "price": 40,
+      "originalPrice": 115.6,
+      "location": "图书馆东门",
+      "images": [
+        "bed-curtain-green-1.jpg"
+      ],
+      "views": 11,
+      "favorites": 1,
+      "description": "宿舍床帘，纯色款，适用 1.2 米床，带顶，配套支架全在，装上就能直接用。\n\n买来 115 多，九月份刚买的，只装过一次就换了别的，基本没用过：\n- 加厚布料，三层梭织，遮光还行，白天拉上光线会暗很多\n- 前面那层是半透明纱帘，可以单独放下来透气\n- 隐私性可以，上下铺都能装\n- 没有污渍、没有勾丝，拆下来叠好收着的\n\n图是购买时的商品图，实物颜色是比较柔和的浅色，偏米色调，拍照的话会显得有一点点发绿。支架、顶布和两片侧帘一起出，不单卖。\n\n价格已经很低了，喜欢直接拍，有问题随时问。"
+    },
+    {
+      "id": 1542,
+      "owner": 908,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "晚花图案遮光床帘 两片围三面 送带顶蚊帐",
+      "price": 23,
+      "originalPrice": 46.8,
+      "location": "南区食堂门口",
+      "images": [
+        "bed-curtain-flower-1.jpg",
+        "bed-curtain-flower-2.jpg",
+        "bed-curtain-flower-3.jpg"
+      ],
+      "views": 101,
+      "favorites": 3,
+      "description": "两片装宿舍床帘，高 1.2 米，围三面，米白底配藏青色大花（晚花图案），挂起来很有氛围感。另外送一顶带顶的白色蚊帐，夏天两样一起挂刚好。\n\n床帘情况：\n- 适用 1.2 米宽的床，上铺下铺都能用\n- 三层加厚面料，背面是银灰色遮光层（图二），白天拉上基本透不进光\n- 面料透气，不会特别闷热\n- 当时买来 46.8，用了一个学期左右\n\n使用痕迹：正面花色还很鲜艳，没有褪色；背面遮光层有一些折痕，边缘花边完好，没有破洞。蚊帐是白色网纱，有点皱，洗一下挂起来就平了（图三）。\n\n整体是轻微使用痕迹，不介意的同学可以拍，二手物品拍下不退不换。价格可以聊，细节想看哪里随时说。"
+    },
+    {
+      "id": 1543,
+      "owner": 911,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "艳阳天 兔子小花遮光床帘 全套带支架 上铺",
+      "price": 59,
+      "originalPrice": null,
+      "location": "北区宿舍 1 栋楼下",
+      "images": [
+        "bed-curtain-bunnyflower-1.jpg",
+        "bed-curtain-bunnyflower-2.jpg",
+        "bed-curtain-bunnyflower-3.jpg"
+      ],
+      "views": 54,
+      "favorites": 4,
+      "description": "几乎全新的宿舍遮光床帘，艳阳天（YANYANGTIAN）的兔子小花款，奶油底色配蓝粉小花和简笔兔子，挂起来很温馨。\n\n全套出：床帘布 + 整套支架，配件一个不少，按说明装上就能用，不需要打孔。\n\n尺寸 140 × 190 × 90 cm，适合上铺使用（适用床型标的是 1 米）。门帘两侧还带一层白色纱网，可以只放纱网透气，也算是一体式蚊帐。\n\n成色说明：\n- 用了不到一个月，因为换住的地方用不上了\n- 遮光效果真的很好，图三是白天拉上床帘后里面的样子，只开小灯的亮度\n- 布料干净，没有发黄、没有破洞、没有勾丝\n\n图一是商品图，图二图三是实拍。可以小刀，诚心出。"
+    },
+    {
+      "id": 1544,
+      "owner": 905,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "兔子图案床帘蚊帐一体式 0.9-1 米单人床",
+      "price": 14.1,
+      "originalPrice": null,
+      "location": "东区宿舍 5 栋楼下",
+      "images": [
+        "bed-curtain-rabbit-1.jpg",
+        "bed-curtain-rabbit-2.jpg",
+        "bed-curtain-rabbit-3.jpg"
+      ],
+      "views": 53,
+      "favorites": 1,
+      "description": "出一套兔子图案的宿舍床帘蚊帐一体式，白底黑线条小兔子 + 胡萝卜 + 爱心，适合 0.9–1 米的单人床。\n\n包含：床帘 + 蚊帐 + 顶布，三样都在。\n- 遮光、防蚊效果都不错，也能挡灰，隐私性很强\n- 单门设计，围三面用，靠墙那面不用挂\n- 安装很简单，直接挂上去就能用，不用打孔\n- 注意没有支架，需要自己准备杆子\n\n成色：只用了一个多月，没有明显瑕疵，也没有异味，配件齐全。图二图三是挂在床上从里面往上拍的，能看到顶布和蚊帐纱的状态。出之前会洗干净再交给你。\n\n价格很低了，喜欢直接拍。"
+    },
+    {
+      "id": 1545,
+      "owner": 910,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "星星镂空渐变遮光床帘 宽 1 米高 1.2 米",
+      "price": 15,
+      "originalPrice": null,
+      "location": "西区宿舍 2 栋楼下",
+      "images": [
+        "bed-curtain-star-1.jpg",
+        "bed-curtain-star-2.jpg",
+        "bed-curtain-star-3.jpg",
+        "bed-curtain-star-4.jpg"
+      ],
+      "views": 50,
+      "favorites": 1,
+      "description": "床帘，蓝色到米黄的渐变色，上面有小星星镂空，外面罩一层带蕾丝边的白纱，挂起来光透过星星会有一点点小光点，很好看。\n\n尺寸看好再拍：一片是 宽 1 米 × 高 1.2 米。两扇拼起来刚好可以当宿舍床帘用。\n\n价格：一片 15，两片一起 25（按两片要的话拍下后改价）。\n\n情况说明：\n- 很新，没有污渍也没有破损，蕾丝边完好\n- 背面是银色遮光涂层（图三左边那片翻过来的样子），遮光还可以\n- 图四是拉尺量的长度，可以对照一下自己的床\n- 原本是用魔术贴固定的，魔术贴已经拆掉了，需要自己买一条魔术贴粘上，不贵\n\n挂在宿舍的样子见图一，几片颜色不同，这次出的是蓝色渐变那款。"
+    },
+    {
+      "id": 1546,
+      "owner": 912,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "柠檬黄小雏菊床帘蚊帐一体 带支架 三开门",
+      "price": 52,
+      "originalPrice": null,
+      "location": "南区宿舍 7 栋楼下",
+      "images": [
+        "bed-curtain-daisy-1.jpg"
+      ],
+      "views": 11,
+      "favorites": 0,
+      "description": "柠檬黄小雏菊床帘蚊帐一体款，花似锦系列。黄色格子包边 + 满版白色小雏菊，顶部和门帘边上有白色蕾丝花边，挂上去整个床位都很亮、很有少女心。\n\n配置：\n- 床帘 + 蚊帐一体，带整套支架\n- 三开门设计，正面和侧面都能开，进出、透气都方便\n- 不拉床帘的时候只放蚊帐纱，通风还防蚊\n- 遮光效果不错，拉上之后白天也能睡午觉\n- 顶比较高，里面空间大，坐起来不压抑\n\n成色：几乎全新，挂的时间不长，布面干净没有发黄，拉链顺滑，支架和配件都齐全，到手按原样装上就能直接用。\n\n图片是挂在上铺的实拍，支架立起来的高度可以参考一下。"
+    },
+    {
+      "id": 1547,
+      "owner": 907,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "小女孩图案加厚遮光床帘 两条 1.2 米床",
+      "price": 20,
+      "originalPrice": null,
+      "location": "东区宿舍 3 栋楼下",
+      "images": [
+        "bed-curtain-girl-1.jpg",
+        "bed-curtain-girl-2.jpg"
+      ],
+      "views": 157,
+      "favorites": 4,
+      "description": "出闲置的宿舍床帘两条，米色底小女孩图案，印着 Lovable、HELLO、WOW 这些小字，底边是波浪花边，ins 风挂上去很可爱。\n\n- 适合 1.2 米的床，两条一起出\n- 加厚款，布料厚实，遮光效果很好\n- 当时一条就二十多，现在两条一起 20\n- 买来基本没怎么用过，没有明显使用痕迹，也没有异味\n\n图一是挂在上铺的实拍，外面那层白色纱帐不在这次出的范围里；图二是图案细节，可以看清楚印花和花边。\n\n适合宿舍上铺、下铺用，价格可以聊，喜欢直接拍。"
+    },
+    {
+      "id": 1548,
+      "owner": 904,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "宿舍遮光床帘一对 灰色+黑色 送置物架",
+      "price": 39,
+      "originalPrice": 60,
+      "location": "北区宿舍 4 栋楼下",
+      "images": [
+        "bed-curtain-greyblack-1.jpg",
+        "bed-curtain-greyblack-2.jpg",
+        "bed-curtain-greyblack-3.jpg"
+      ],
+      "views": 71,
+      "favorites": 1,
+      "description": "宿舍床帘一对，一片浅灰色、一片黑色，挂在上铺用的，遮光效果很好，拉上之后里面基本是暗的。\n\n- 布料厚实，黑色那片是缎面质感，垂感好\n- 挂钩、挂绳等配件齐全，按图里这样用绳子穿挂钩挂在床架上就能用\n- 图片就是实物，颜色和质感和你收到的一样\n\n成色：正常使用痕迹，有一些折痕，没有破损、没有开线。当时买来 60。\n\n爽快的同学送一个黑色铁网置物架（图三，挂在床边放手机、纸巾很方便），再送一条桌帘，桌帘需要的话到时候一起给你。\n\n售出不退不换，有兴趣可以聊聊。"
+    },
+    {
+      "id": 1549,
+      "owner": 901,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "史努比加厚强遮光床帘 两片+顶 2×1.2 米",
+      "price": 28.6,
+      "originalPrice": null,
+      "location": "西区宿舍 1 栋楼下",
+      "images": [
+        "bed-curtain-snoopy-1.jpg"
+      ],
+      "views": 110,
+      "favorites": 4,
+      "description": "95 新史努比宿舍床帘，黑白线条的卡通人物满版印花，配浅灰色顶布，波浪花边，挂起来很有辨识度。\n\n规格：两片侧帘 + 一片顶，尺寸 2 米 × 1.2 米，上铺下铺都适合。\n\n- 超级加厚款，遮光效果很棒，白天拉上也能好好睡\n- 保存得很好，成色不错，没有勾丝、没有污渍\n- 赠送挂钩和绳子，到手就能挂，不用另外买配件\n\n图片是同款商品图，方便看整体挂起来的效果；实物花色一样，只是用过一段时间。\n\n价格可以聊，喜欢直接拍。"
+    },
+    {
+      "id": 1550,
+      "owner": 903,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "灰色大豆纤维被 200×230cm 约 5.5 斤 秋冬",
+      "price": 15,
+      "originalPrice": null,
+      "location": "东区宿舍 1 栋楼下",
+      "images": [
+        "quilt-soy-grey-1.jpg",
+        "quilt-soy-grey-2.jpg",
+        "quilt-soy-grey-3.jpg",
+        "quilt-soy-grey-4.jpg",
+        "quilt-soy-grey-5.jpg"
+      ],
+      "views": 47,
+      "favorites": 2,
+      "description": "出一床灰色大豆被，宿舍换季闲置出来的。\n\n规格：\n- 尺寸 200 × 230 cm，双人床、1.5/1.8 米床都能盖，单人床盖会比较宽松\n- 重量约 5.5 斤，适合秋冬用，冬天盖着很暖和；开空调的话四季都能用\n- 面料是水洗棉质感，摸起来软，可以直接水洗\n- 中间有圆形绗缝固定点，里面的填充不容易跑位、结块\n\n成色：几乎全新，没怎么盖过，没有污渍、没有破洞，被角的洗标吊牌都还在（图三图四能看到）。照片里的褶皱是叠放压出来的，晒一晒就蓬松了。\n\n图一到图四是实拍，图五是同款商品图，颜色可以参考实拍。被子体积比较大，需要当面交易自己拿走。\n\n低价出，不议价，喜欢直接拍，细节可以问我。"
+    },
+    {
+      "id": 1551,
+      "owner": 906,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "南极人豆豆被 150×110cm 轻薄保暖小被子",
+      "price": 19.9,
+      "originalPrice": 71,
+      "location": "南区宿舍 5 栋楼下",
+      "images": [
+        "quilt-doudou-1.jpg",
+        "quilt-doudou-2.jpg"
+      ],
+      "views": 61,
+      "favorites": 2,
+      "description": "南极人豆豆被，几乎全新，买来没怎么用，保存得很新。\n\n- 尺寸 150 × 110 cm，比较小巧，午睡盖、宿舍椅子上搭腿、上课带去自习室都合适\n- 一面是浅蓝色卡通小恐龙印花，另一面是软软的豆豆绒（图二），摸起来很舒服\n- 边上一圈白色小球花边，很可爱\n- 填充是化纤，很轻但是挺厚，空气感足，盖着不闷\n\n当时买来 71，基本就是新的，没有起球、没有污渍，也没有异味。现在用不上了，闲置转出。\n\n喜欢直接拍，想看其他细节可以问我，售出不退不换。"
+    },
+    {
+      "id": 1552,
+      "owner": 907,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "条纹丝棉被芯 1.5×2 米 约 4 斤",
+      "price": 19.9,
+      "originalPrice": null,
+      "location": "北区宿舍 2 栋楼下",
+      "images": [
+        "quilt-stripe-1.jpg",
+        "quilt-stripe-2.jpg",
+        "quilt-stripe-3.jpg",
+        "quilt-stripe-4.jpg"
+      ],
+      "views": 1076,
+      "favorites": 38,
+      "description": "二手闲置丝棉被芯一床，蓝、灰、米白相间的宽条纹，菱形绗缝，填充分布均匀，没有结块。\n\n- 尺寸约 150 × 200 cm，1.2–1.5 米的床都合适，宿舍单人床盖绰绰有余\n- 重量 4 斤左右，春秋直接盖，冬天套个被套再压一层毯子就够暖\n- 被芯本身蓬松度还可以，没有破洞、没有跑棉\n\n实话实说：有轻微使用痕迹，表面有几处淡黄色的印子（图三图四能看出来），属于放久了的微脏，不影响使用。建议到手后套上被套，或者自己再洗晒一下。\n\n价格就是一床 19.9，按现状出，介意有印子的同学就别拍啦。"
+    },
+    {
+      "id": 1553,
+      "owner": 909,
+      "category": "BEDDING",
+      "condition": "FAIR",
+      "title": "闲置被子 1.5/1.9 米 可铺可盖 20 一床",
+      "price": 20,
+      "originalPrice": null,
+      "location": "西区宿舍 3 栋楼下",
+      "images": [
+        "quilt-assorted-1.jpg",
+        "quilt-assorted-2.jpg",
+        "quilt-assorted-3.jpg"
+      ],
+      "views": 88,
+      "favorites": 1,
+      "description": "宿舍清出来的几床闲置被子，尺寸都在 1.5 × 1.9 米左右，可以铺在床垫上当褥子，也可以直接盖。\n\n价格：20 一床，按床卖，想多要几床可以一起拿。\n\n有哪些（见图二图三，从上到下）：\n- 白底蓝粉格子、带绿叶图案的那床，最厚实，适合冬天\n- 米白色卡通印花一床、灰白条纹一床，偏薄，春秋用\n- 深棕色、浅咖色和深灰格子的几床，适合铺在下面当垫被\n\n成色说明：都是用过的旧被子，有正常使用痕迹，个别边角有点发黄、开线，没有破洞也没有异味。介意的话建议买回去套上被套，或者晒一晒再用。\n\n体积比较大，需要自己来拿。二手物品，不退不换。"
+    },
+    {
+      "id": 1554,
+      "owner": 902,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "艾草凉感夏凉被 200×230cm 花卉图案",
+      "price": 35,
+      "originalPrice": null,
+      "location": "南区宿舍 2 栋楼下",
+      "images": [
+        "quilt-summer-cool-1.jpg",
+        "quilt-summer-cool-2.jpg"
+      ],
+      "views": 93,
+      "favorites": 2,
+      "description": "夏凉被一床，尺寸 200 × 230 cm，适合双人床，宿舍单人床盖起来也很宽松。\n\n- 一面是浅紫色纯色凉感面料，另一面是紫粉色玫瑰花卉印花，两面都好看\n- 接触凉感面料（COOL 系列），摸上去冰冰凉凉，夏天开风扇盖刚刚好\n- 填充里加了艾草元素，吊牌上写着驱蚊防螨、祛湿，面料是 A 类标准\n- 面料柔软，边缘包边整齐\n\n成色：这是样品，严格说不算几乎全新，但没有任何瑕疵，吊牌也都还在（图二）。只有被子这一件，没有包装袋等配件。\n\n一口价，不议价，喜欢直接拍，介意样品的谨慎拍。"
+    },
+    {
+      "id": 1555,
+      "owner": 905,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "四季通用纤维被 150×200cm 轻薄好收纳",
+      "price": 24.22,
+      "originalPrice": 35.88,
+      "location": "北区宿舍 5 栋楼下",
+      "images": [
+        "quilt-fibre-white-1.jpg"
+      ],
+      "views": 46,
+      "favorites": 1,
+      "description": "个人闲置，四季通用纤维被，尺寸 150 × 200 cm。\n\n去年九月买的，原价三十多（35.88），买来几乎没怎么用过，成色很不错，按购入价打了不到七折出。\n\n- 奶白色水洗棉面料，摸起来软软的，不扎人\n- 单人床、双人床都能用，宿舍 1.2 米的床盖正好\n- 春、秋、冬都合适：春秋单独盖，冬天叠在厚被子上面加一层\n- 轻薄好收纳，叠起来不占地方，放衣柜上层就行\n\n图片是同款的商品图，实物就是这个颜色和款式。没有污渍、没有异味。\n\n价格可以聊，喜欢直接拍，想看实物细节可以问我要图。"
+    },
+    {
+      "id": 1556,
+      "owner": 908,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "萝卜兔双面加绒冬被 雪花绒+羊羔绒 加厚",
+      "price": 55,
+      "originalPrice": 85,
+      "location": "东区宿舍 4 栋楼下",
+      "images": [
+        "quilt-fleece-rabbit-1.jpg",
+        "quilt-fleece-rabbit-2.jpg",
+        "quilt-fleece-rabbit-3.jpg"
+      ],
+      "views": 1117,
+      "favorites": 94,
+      "description": "双面加绒加厚冬被，蓝色萝卜兔款，一面雪花绒、一面羊羔绒，冬天宿舍没暖气的同学可以冲。\n\n- A 面雪花绒：浅蓝底，印着小兔子、小花和 CUTE RABBIT 字样，细腻顺滑，摸着软糯\n- B 面羊羔绒：灰色毛茸茸的，很亲肤，可以直接裸睡\n- 整张羽丝棉填充，蓬松饱满，不容易结块，盖着不压身\n- 标称 10 斤加厚款，锁温好、升温快，躺进去很快就暖，不用捂半天被窝\n- 宿舍单人床、1.5 米的床都能用，也可以铺在下面当褥子\n\n成色：几乎全新，之前多买了一床，只拆开看过一次就收起来了，没有盖过。图片是同款商品图（图二图三是两面绒的细节），实物就是这个蓝色萝卜兔花色。\n\n过冬刚需，看好再拍，售出不退不换。"
+    },
+    {
+      "id": 1557,
+      "owner": 910,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "无印良品 无染 A 类棉被 白色 轻盈蓬松",
+      "price": 68.31,
+      "originalPrice": 195.18,
+      "location": "北区宿舍 3 栋楼下",
+      "images": [
+        "quilt-muji-1.jpg",
+        "quilt-muji-2.jpg"
+      ],
+      "views": 85,
+      "favorites": 6,
+      "description": "无印良品（MUJI）无染系列 A 类棉被，奶白色泡泡纱面料，没有染色，吊牌上写着无甲醛、无荧光、无漂白。\n\n- 轻盈蓬松，盖着不压身，保暖性也不错\n- 填充做了固定，不结团、不跑棉，洗过也不会一坨一坨的\n- 偏薄款，适合夏天开空调盖，或者当午休被放在宿舍\n\n去年六月买的，原价一百九十多，买来几乎没怎么用，成色很不错，没有污渍也没有异味。被子实在太多了，闲置出给需要的同学。\n\n图片是同款商品图，实物颜色就是这种奶白色。价格可以聊，喜欢直接拍，想看实拍细节可以问我。"
+    },
+    {
+      "id": 1558,
+      "owner": 911,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "火烈鸟法莱绒加厚冬被 150×200cm 5 斤",
+      "price": 29.9,
+      "originalPrice": 53.41,
+      "location": "西区宿舍 5 栋楼下",
+      "images": [
+        "quilt-flamingo-1.jpg"
+      ],
+      "views": 168,
+      "favorites": 11,
+      "description": "二手加厚冬被，尺寸 150 × 200 cm，重 5 斤左右。\n\n- 法莱绒面料，双面都是绒，摸起来软和，冬天盖着很保暖\n- 深藏青色底，粉色火烈鸟 + 绿色棕榈叶图案，耐脏又好看\n- 宿舍单人床正好，1.5 米的床也能盖\n\n成色：用过一个冬天，干干净净的，没有脏污、没有起球，绒毛也还很顺。当时买 53，现在不到六折出。\n\n图片是同款图，花色和实物一样。冬被体积比较大，当面交易，拿的时候可以带个大袋子。"
+    },
+    {
+      "id": 1559,
+      "owner": 904,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "薄荷绿空调被 单人 几乎全新",
+      "price": 25,
+      "originalPrice": null,
+      "location": "东区宿舍 6 栋楼下",
+      "images": [
+        "quilt-aircon-1.jpg"
+      ],
+      "views": 84,
+      "favorites": 3,
+      "description": "空调被一床，薄荷绿底配米白色欧式花纹，中间是一个黄灰色的圆形花窗图案，挺有设计感的。\n\n- 薄款空调被，夏天开空调或者风扇的时候盖刚刚好，春秋也能当薄被\n- 单人尺寸，宿舍床盖着正合适\n- 面料滑滑的，有一点自然褶皱，摊开晾一下就平了\n\n成色：几乎全新，没有用过，保存得很好，就是原来的包装袋和吊牌已经没有了，介意的同学可以先问。\n\n喜欢可以直接聊，当面交易。"
+    },
+    {
+      "id": 1560,
+      "owner": 912,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "牛油果水洗双面夏凉被 单人 196×137",
+      "price": 13,
+      "originalPrice": null,
+      "location": "南区宿舍 6 栋楼下",
+      "images": [
+        "quilt-avocado-1.jpg",
+        "quilt-avocado-2.jpg"
+      ],
+      "views": 79,
+      "favorites": 1,
+      "description": "闲置牛油果主题水洗夏凉被，单人被，尺寸约 196 × 137 cm。\n\n- 双面花色：一面是牛油果 + 龟背叶 + Avocado 字样（图一），另一面是柠檬 + 热带叶子 + LEMONS 字样（图二），换着用不腻\n- 水洗面料，柔软亲肤，夏天盖着很舒服，不闷\n- 横向细绗缝，薄薄一层，叠起来很小，宿舍柜子随便塞\n\n成色：保存得很好，几乎全新，花色清新没有褪色，实物就是图里这样。\n\n个人闲置，售出不退，喜欢可以私聊。"
+    },
+    {
+      "id": 1561,
+      "owner": 906,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "全棉时代 纯棉被 蓝色小碎花",
+      "price": 20,
+      "originalPrice": null,
+      "location": "图书馆北门",
+      "images": [
+        "quilt-cotton-blue-1.jpg"
+      ],
+      "views": 23,
+      "favorites": 3,
+      "description": "全棉时代（Purcotton）的纯棉被，浅蓝色小碎花，配一个浅蓝纯色的反面，清新干净，放在宿舍很好看。\n\n- 纯棉面料，透气亲肤，夏天不容易闷汗\n- 碎花图案里还藏着几只小狗，细看挺可爱\n- 宿舍单人床、1.5 米的床都能用\n\n成色：用过一段时间，洗得很干净，没有破洞和污渍，面料还是软软的。\n\n图片是同款花色的商品图。闲置出，感兴趣的话点“我想要”和我聊。"
+    },
+    {
+      "id": 1562,
+      "owner": 908,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "小蜜蜂黄白条纹夏凉被 1.5×2 米 纯棉",
+      "price": 22,
+      "originalPrice": 39,
+      "location": "北区宿舍 6 栋楼下",
+      "images": [
+        "quilt-bee-1.jpg"
+      ],
+      "views": 247,
+      "favorites": 1,
+      "description": "爱小蜜蜂图案夏凉被，黄白宽条纹配灰色边，上面是一只只小蜜蜂和 tykebee 字样，配色很亮眼。\n\n- 尺寸 1.5 × 2 米，单人床、双人床都能用\n- 纯棉面料，可以直接水洗，反面是浅灰蓝色\n- 2 斤以内的薄款，夏天盖着凉快舒服，春秋也能当薄被\n\n成色：七成新左右，有轻微使用痕迹，颜色还很鲜，没有破损。当时买 39，现在 22 出。\n\n图片是同款图。喜欢的同学赶紧下手，价格可以聊。"
+    },
+    {
+      "id": 1563,
+      "owner": 909,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "橙子花豆豆被 2×2.3 米 大尺寸 3 斤",
+      "price": 29,
+      "originalPrice": null,
+      "location": "东区宿舍 2 栋楼下",
+      "images": [
+        "quilt-orange-1.jpg",
+        "quilt-orange-2.jpg",
+        "quilt-orange-3.jpg",
+        "quilt-orange-4.jpg"
+      ],
+      "views": 681,
+      "favorites": 12,
+      "description": "几乎全新的豆豆被，2 米 × 2.3 米大尺寸，3 斤左右。\n\n- 正面是米白底的橙子 + 小白花 + 灰绿叶子图案，很清新（图一、图三）\n- 反面是西瓜红色的豆豆绒（图二、图四），手感软糯，一摸就不想松手\n- 薄厚适中，夏天开空调盖很舒服，春秋也能用\n- 尺寸比较大，适合大床；宿舍床盖的话可以对折，或者垂下来当床裙\n\n换季收起来的，保存得很好，没有起球、没有污渍，直接就能用。\n\n喜欢直接拍，细节可以私聊。"
+    },
+    {
+      "id": 1564,
+      "owner": 903,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "棉花被芯 + 棉絮褥子 2×1.5 米 约 5 斤",
+      "price": 20,
+      "originalPrice": 65,
+      "location": "西区宿舍 4 栋楼下",
+      "images": [
+        "quilt-cotton-core-1.jpg"
+      ],
+      "views": 292,
+      "favorites": 29,
+      "description": "9.9 成新，一床棉花被芯 + 一床棉絮褥子，一起出。\n\n- 尺寸都是 2 × 1.5 米，买的时候标的五斤（我自己没称，大差不差）\n- 白色棉布面，红灰线网格绗缝，老式棉花被那种，蓬松柔软\n- 秋冬盖着很暖和，褥子铺在硬板床上睡着软很多\n- 单人床、双人床都能用\n\n成色：没用过，表面干净，没有污渍。只有被芯和棉絮，没有被套，颜色以图为准。当时买 65，现在 20 两床一起拿走。\n\n东西比较占地方，当面交易。价格好说，喜欢直接拍，细节随时问我。"
+    },
+    {
+      "id": 1565,
+      "owner": 902,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "绿色格子薄被 约 1.2×1.8 米",
+      "price": 10,
+      "originalPrice": null,
+      "location": "南区宿舍 1 栋楼下",
+      "images": [
+        "quilt-green-plaid-1.jpg"
+      ],
+      "views": 70,
+      "favorites": 2,
+      "description": "绿色格子被子，灰绿色底配白色格纹，边上有一圈浅绿色滚边，看着很清爽。\n\n- 尺寸大概 1.2 × 1.8 米，宿舍单人床刚好\n- 面料柔软，有一点斜纹肌理，夏天盖透气不闷\n- 薄款，叠起来不占地方\n\n成色：保存很好，没用过，吊牌还在（图右边那条白色的就是），成色特别好。\n\n10 块钱随便带走，价格可聊，喜欢私聊。"
+    },
+    {
+      "id": 1566,
+      "owner": 907,
+      "category": "BEDDING",
+      "condition": "FAIR",
+      "title": "老式棉花被胎 1.5×2 米 厚实",
+      "price": 20,
+      "originalPrice": null,
+      "location": "东区宿舍 7 栋楼下",
+      "images": [
+        "quilt-cotton-batting-1.jpg"
+      ],
+      "views": 1825,
+      "favorites": 100,
+      "description": "二手老式棉花被胎（棉絮），米白色，红线网格固定，非常厚实。\n\n- 尺寸 1.5 × 2 米，宿舍 1.2 米的床铺在床垫下面刚好，四周可以往下掖\n- 厚度足，冬天当褥子垫在下面隔凉效果很好，也可以套被套直接盖\n- 刚在太阳底下暴晒过，蓬松了不少\n\n成色：用过几年，有正常使用痕迹，棉花有一点压实，边上有些发黄，但没有破洞、没有异味。标价是一床的价格。\n\n比较占地方，当面交易，价格好商量。"
+    },
+    {
+      "id": 1567,
+      "owner": 904,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "名创优品乳胶床垫 PRO3.0 150×200 厚约 6cm",
+      "price": 40,
+      "originalPrice": null,
+      "location": "北区宿舍 1 栋楼下",
+      "images": [
+        "mattress-miniso-1.jpg"
+      ],
+      "views": 14,
+      "favorites": 0,
+      "description": "名创优品（MINISO）乳胶床垫 PRO3.0 升级款，150 × 200 cm，厚约 6 cm。\n\n- 结构：A 类针织棉面料 + 透气纤维层 + 约 2 mm 乳胶片 + 高密度记忆绵，底下是防滑透气层\n- 软硬适中，护脊不塌陷，睡着很舒服\n- 可以折叠，搬运、收纳都方便，放假带回家或者搬宿舍都好拿\n- 宿舍铺在硬板床上会软很多，1.5 米的床刚好\n\n成色：原价两百多，暑假打地铺用了半个月，八成新，没有污渍、没有塌陷。\n\n图片是同款商品图。体积比较大，当面交易，二手物品售出不退不换。"
+    },
+    {
+      "id": 1568,
+      "owner": 912,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "宿舍床垫 90×190 超厚 6.5cm 胡萝卜兔子款",
+      "price": 23,
+      "originalPrice": 38.81,
+      "location": "南区宿舍 3 栋楼下",
+      "images": [
+        "mattress-dorm-carrot-1.jpg"
+      ],
+      "views": 175,
+      "favorites": 13,
+      "description": "出闲置宿舍床垫，90 × 190 cm，超厚 6.5 cm，宿舍单人床标准尺寸。\n\n- 奶黄色底配胡萝卜和小兔子图案，菱形绗缝，很可爱\n- 软软的，睡着很舒服，铺在硬床板上就不硌了\n- 底面防滑，透气不闷，不会塌陷\n- 可以卷起来收纳，放假卷好塞柜子里不占地\n\n成色：开学时买的，原价三十多，没怎么用，成色很不错，没有污渍。\n\n图片是购买时的商品图，我的是黄色胡萝卜兔子这款。价格可聊，喜欢直接拍，二手物品售出不退不换。"
+    },
+    {
+      "id": 1569,
+      "owner": 901,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "宿舍床垫 90×200 灰色 可卷起收纳",
+      "price": 30,
+      "originalPrice": null,
+      "location": "西区宿舍 6 栋楼下",
+      "images": [
+        "mattress-grey-1.jpg",
+        "mattress-grey-2.jpg"
+      ],
+      "views": 242,
+      "favorites": 6,
+      "description": "宿舍床垫一张，90 × 200 cm，适合 1 米以内的宿舍床。\n\n- 一面是浅灰色绗缝面，另一面是米白色，中间夹着一层软绒，厚度适中\n- 卷起来就是图里这么一卷，搬宿舍、放假收纳都方便\n- 铺在木板床上能隔开床板缝隙，睡着舒服很多\n\n成色：二手，用过一段时间，边缘包边完好，没有破洞，有轻微使用痕迹。毕业清东西，扔了可惜，看得上的同学直接拍。\n\n感兴趣的话点“我想要”和我聊。"
+    },
+    {
+      "id": 1570,
+      "owner": 906,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "加厚可折叠床垫 1.5×2.0 米 灰白棋盘格",
+      "price": 52,
+      "originalPrice": 99,
+      "location": "东区宿舍 8 栋楼下",
+      "images": [
+        "mattress-checker-1.jpg",
+        "mattress-checker-2.jpg",
+        "mattress-checker-3.jpg",
+        "mattress-checker-4.jpg"
+      ],
+      "views": 197,
+      "favorites": 6,
+      "description": "出一张加厚可折叠床垫，1.5 × 2.0 米，厚度 3 cm 左右。\n\n- 正面是灰白棋盘格，印着小熊、蘑菇和 Nice / Lucky 字样，绗缝很密，看着就很软（图一）\n- 五层夹棉：磨毛面料 + 羽丝棉 + 硬质棉 + 羽丝棉 + 防滑底层，躺着不会直接感觉到床板\n- 背面是灰色防滑底（图四），铺在床上不容易跑\n- 四周是黑白条纹包边，做工挺扎实（图三）\n- 可以折叠，叠起来就是图二这么一摞，放假收进柜子很方便\n\n成色：只用过 4 天，之后一直放在衣柜最上层，保存很好，九新左右，没有污渍。当时买 99。\n\n1.5 米的床刚好，宿舍单人床可以对折成双层铺，睡着更软。二手物品售出不退不换。"
+    },
+    {
+      "id": 1571,
+      "owner": 910,
+      "category": "BEDDING",
+      "condition": "FAIR",
+      "title": "林氏 1.8 米弹簧床垫 厚 11-15cm 七成新",
+      "price": 60,
+      "originalPrice": 3500,
+      "location": "北区研究生宿舍楼下",
+      "images": [
+        "mattress-linshi-1.jpg"
+      ],
+      "views": 81,
+      "favorites": 2,
+      "description": "七成新林氏床垫，1.8 米床用，厚度 11–15 cm，买回来几千块，低价转。\n\n- 米白色提花面料，波浪绗缝，表面平整没有凹陷\n- 弹簧支撑，软硬适中，躺上去回弹还不错，翻身没有异响\n- 侧面的商标标签还在\n\n成色：用了几年，七成新，正常使用痕迹，面料有一点点泛黄，没有破损、没有污渍。\n\n注意：只出床垫，图里的床架和床头柜不在出售范围内。毕业要搬走，床垫太大带不走，所以很便宜。体积大，需要自己找人来搬，当面交易。\n\n有需要的私聊。"
+    },
+    {
+      "id": 1572,
+      "owner": 907,
+      "category": "BEDDING",
+      "condition": "FAIR",
+      "title": "二手泡沫弹簧床垫 1.2×2 米 粉色",
+      "price": 30,
+      "originalPrice": null,
+      "location": "西区宿舍 2 栋楼下",
+      "images": [
+        "mattress-spring-pink-1.jpg",
+        "mattress-spring-pink-2.jpg"
+      ],
+      "views": 37,
+      "favorites": 1,
+      "description": "二手床垫，泡沫 + 弹簧结构，粉色竖条纹面料。\n\n- 尺寸 1.2 × 2 米，标价是一张的价格，粉色的一共有 3 张\n- 另外还有一张 1.8 × 2 米的米白色提花床垫（图里后面那张），需要的话也可以一起聊\n- 弹簧还有支撑力，铺在宿舍硬板床上或者临时休息用都可以\n\n成色：明显使用痕迹，面料有些褪色、有点灰，说实话要买的话建议套个床笠再用；没有塌陷、没有弹簧冒出来。\n\n体积大，需要自己来搬，当面交易。需要的私聊。"
+    },
+    {
+      "id": 1573,
+      "owner": 911,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "0.9×2 米棕榈折叠床垫 只用过一次",
+      "price": 100,
+      "originalPrice": null,
+      "location": "北区宿舍 7 栋楼下",
+      "images": [
+        "mattress-coir-fold-1.jpg",
+        "mattress-coir-fold-2.jpg"
+      ],
+      "views": 141,
+      "favorites": 4,
+      "description": "0.9 × 2 米三折叠床垫，宿舍单人床尺寸。\n\n- 棕榈材质，偏硬一点，护腰，睡着不会陷下去\n- 白色立体波浪绗缝面 + 深灰色包边，看着很干净\n- 厚度 5 cm 以内，三折叠起来就是图里这么一块，靠墙立着不占地方，放假收纳也方便\n\n朋友送的，只用过一次，几乎全新，没有任何污渍和压痕。实在没地方放，转给需要的同学。\n\n注意：只出床垫，图里的椅子和风扇不包含。二手商品不退不换，需要的话先私信我，谢谢。"
+    },
+    {
+      "id": 1574,
+      "owner": 905,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "森惠高密度海绵床垫 1×1.9 米 厚 10cm",
+      "price": 79.9,
+      "originalPrice": null,
+      "location": "南区宿舍 4 栋楼下",
+      "images": [
+        "mattress-rainbow-1.jpg",
+        "mattress-rainbow-2.jpg"
+      ],
+      "views": 91,
+      "favorites": 4,
+      "description": "几乎全新的森惠高密度海绵床垫，尺寸 1 × 1.9 米，厚度 10 厘米，宿舍单人床正合适。\n\n- 黑白小格子配彩虹云朵图案，颜值在线\n- 高密度海绵，回弹好，10 cm 的厚度睡着很软，不会硌到床板\n- 布套可以拉开拆下来洗，平时换洗很方便\n- 能卷起来捆好（图二），搬宿舍的时候一个人就能抱走\n\n保存得很好，没啥明显使用痕迹。原本有两张，已经卖掉一张，剩这一张诚意出，可以小刀。\n\n价格可聊，喜欢直接拍，想看细节可以问我。"
+    },
+    {
+      "id": 1575,
+      "owner": 908,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "素万乳胶绒垫 1.5×2 米 泰国乳胶 带原包装",
+      "price": 80,
+      "originalPrice": null,
+      "location": "东区宿舍 5 栋楼下",
+      "images": [
+        "topper-suvarn-1.jpg",
+        "topper-suvarn-2.jpg",
+        "topper-suvarn-3.jpg",
+        "topper-suvarn-4.jpg",
+        "topper-suvarn-5.jpg"
+      ],
+      "views": 633,
+      "favorites": 19,
+      "description": "出素万（SUVARN）乳胶绒垫，1.5 × 2 米，泰国进口乳胶。\n\n- 厚度不到 1 cm，相当于一层薄褥子，铺在床垫上面或者直接铺硬板床上都可以\n- 正面是浅灰色水晶绒，菱形压花，摸起来软软的（图一）\n- 背面是 5D 透气网（图二），不闷汗，也不容易滑动\n- 软硬适中，睡着舒服\n\n成色：挺新的，没有污渍、没有破损。原装手提收纳袋还在（图三），吊牌和洗标也都在（图四、图五），规格写的是 150 × 200 cm。\n\n全部是实拍。二手物品，当面看好再带走，不退不换，喜欢私聊。"
+    },
+    {
+      "id": 1576,
+      "owner": 909,
+      "category": "BEDDING",
+      "condition": "LIKE_NEW",
+      "title": "1.8×2 米弹簧床垫 成色挺新 带包装膜",
+      "price": 28,
+      "originalPrice": null,
+      "location": "北区研究生宿舍楼下",
+      "images": [
+        "mattress-dihao-1.jpg"
+      ],
+      "views": 253,
+      "favorites": 35,
+      "description": "二手弹簧床垫，尺寸 1.8 × 2 米。\n\n- 白色提花面料，侧面是立体绗缝，带透气孔和提手\n- 弹性还在，躺上去回弹好，睡着舒服\n- 外面的包装膜还没完全拆掉（图里那层印着绿色 logo 的就是），面料基本没接触过灰\n\n成色挺新，没有污渍、没有塌陷。毕业搬走带不走，便宜出。\n\n床垫很大，需要自己找人来搬，可以先来看实物，喜欢私聊。"
+    },
+    {
+      "id": 1577,
+      "owner": 912,
+      "category": "BEDDING",
+      "condition": "GOOD",
+      "title": "洁丽雅乳胶护颈枕 单只 48×74cm 蓝色",
+      "price": 15,
+      "originalPrice": 35,
+      "location": "南区宿舍 5 栋楼下",
+      "images": [
+        "pillow-latex-1.jpg"
+      ],
+      "views": 10,
+      "favorites": 0,
+      "description": "出闲置洁丽雅（grace）乳胶护颈枕，单只装，48 × 74 cm。\n\n- 填充是乳胶片 + 蓬松纤维，枕芯高度约 12–14 cm\n- 中间下凹、两边高，蝶形 3D 造型，侧睡平躺都托得住脖子\n- 白色六边形绗缝面料，中间是蓝色透气网布\n\n成色：用过几次，睡着很舒服，有轻微使用痕迹，干净没有异味。当时买 35，现在 15 出。\n\n图片是同款商品图。喜欢可以聊聊，价格可小刀。"
+    },
+    {
+      "id": 1578,
+      "owner": 911,
+      "category": "TRANSPORT",
+      "condition": "LIKE_NEW",
+      "title": "捷安特 ATX660 山地车 26 寸 24 速 碳灰黑",
+      "price": 520,
+      "originalPrice": null,
+      "location": "体育馆旁停车棚",
+      "images": [
+        "bike-giant-atx660-1.jpg",
+        "bike-giant-atx660-2.jpg",
+        "bike-giant-atx660-3.jpg",
+        "bike-giant-atx660-4.jpg",
+        "bike-giant-atx660-5.jpg"
+      ],
+      "views": 10000,
+      "favorites": 1155,
+      "description": "出自用的捷安特（Giant）ATX660 山地自行车。之前教室离宿舍比较远，买来代步用的，平时骑的时候都特别爱护，外观成色基本全新。现在毕业了基本不骑，便宜出掉。\n\n配置：\n- 26 寸轮径，24 速变速，适合身高 160–185\n- 经典碳灰黑配色，全车高碳钢车架\n- 前后线碟刹，刹车灵敏\n- 前叉带避震，骑烂路也不颠\n\n现在骑起来也很轻松，平时上课、去食堂、周末出去刷圈、绕湖骑行都绰绰有余。水壶架、脚撑、前后挡泥板都装好了，图一里的水壶一起送。\n\n关于售后：二手非质量问题不退不换，可以当面验车、试骑，没问题再交易。有意私聊，可小刀，非诚勿扰，谢谢理解～"
+    },
+    {
+      "id": 1579,
+      "owner": 903,
+      "category": "TRANSPORT",
+      "condition": "LIKE_NEW",
+      "title": "捷安特 ATX660 碳灰黑山地车 送全套配件",
+      "price": 480,
+      "originalPrice": null,
+      "location": "西区宿舍 1 栋楼下",
+      "images": [
+        "bike-atx660-b-1.jpg",
+        "bike-atx660-b-2.jpg",
+        "bike-atx660-b-3.jpg",
+        "bike-atx660-b-4.jpg",
+        "bike-atx660-b-5.jpg"
+      ],
+      "views": 2320,
+      "favorites": 151,
+      "description": "【毕业了带不走】捷安特 ATX660 碳灰黑色山地自行车，便宜转让！\n\n车是朋友生日送的，买回来只骑过一回，之后就一直放在宿舍楼道里，几乎全新。马上要出去实习上班了，也骑不了，车子又不好带回家，直接便宜出。\n\n车况：\n- 全车碳钢材质，坚固耐用\n- 24 速 26 寸，男生女生都能轻松驾驭\n- 前后线碟刹 + 前叉避震，骑起来舒适流畅\n- 后拨是禧玛诺 Tourney，换挡顺（图五）\n- 轮胎纹路还很深，基本没磨\n\n为了让新车主用着方便，我还准备了一些配件：打气筒、挡泥板、安装工具、车灯、水壶架、车锁，全都一起送！\n\n可以当面看车试骑，满意再交易，交易后非质量问题不退不换。喜欢和爽快的同学交流，有兴趣随时联系我。"
+    },
+    {
+      "id": 1580,
+      "owner": 910,
+      "category": "TRANSPORT",
+      "condition": "LIKE_NEW",
+      "title": "捷安特 ATX660 山地车 21 速 26 寸 送收纳包水杯架",
+      "price": 450,
+      "originalPrice": null,
+      "location": "东区宿舍 3 栋楼下",
+      "images": [
+        "bike-atx660-c-1.jpg",
+        "bike-atx660-c-2.jpg",
+        "bike-atx660-c-3.jpg",
+        "bike-atx660-c-4.jpg"
+      ],
+      "views": 2149,
+      "favorites": 236,
+      "description": "闲置出捷安特 ATX660 山地自行车。买的时候没想太多，买完骑了一次就一直停着，现在亏本转给需要的同学。\n\n配置：\n- 26 寸，21 速变速\n- 前后双碟刹，刹车很稳\n- 前叉带避震，路面不平也不颠\n- 车架碳灰色，GIANT 字样的轮圈很好看\n\n赠品：车头收纳包、水杯架、车锁、手电筒、挡泥板，所有配件一起送。\n\n上课、去图书馆、周末骑出去锻炼都很不错。图片都是实拍，所见即所得，诚心想要可以小刀一点点。\n\n可以当面验车，验完再付款，交易后非质量问题不退不换。"
+    },
+    {
+      "id": 1581,
+      "owner": 905,
+      "category": "TRANSPORT",
+      "condition": "LIKE_NEW",
+      "title": "捷安特 ATX660 山地车 禧玛诺变速 带车灯车铃",
+      "price": 430,
+      "originalPrice": null,
+      "location": "南区宿舍 7 栋楼下",
+      "images": [
+        "bike-atx660-d-1.jpg",
+        "bike-atx660-d-2.jpg",
+        "bike-atx660-d-3.jpg",
+        "bike-atx660-d-4.jpg",
+        "bike-atx660-d-5.jpg"
+      ],
+      "views": 4295,
+      "favorites": 522,
+      "description": "出捷安特 ATX660 山地自行车，买来只骑过一次，一直放着没怎么动，基本还是新车的样子，现在着急出。\n\n配置：\n- 26 寸，21 速，前后双碟刹\n- 前拨、后拨都是禧玛诺（SHIMANO）的，后拨是 Tourney 系列（图四、图五）\n- 牙盘带护盘，裤脚不容易卷进去\n- 前叉避震，骑着舒服\n\n送的配件都已经装好了：前车灯（很亮，图三墙上那块光斑就是它照的）、车铃、上管收纳包、水壶和水杯架、前后挡泥板、车锁，全部一起送。\n\n图片就是实物，所见即所得。诚心要可以小刀一点。\n\n大件，当面验车，验好再交易，交易后非质量问题不退不换。"
+    },
+    {
+      "id": 1582,
+      "owner": 904,
+      "category": "TRANSPORT",
+      "condition": "LIKE_NEW",
+      "title": "捷安特白色弯把公路车 碟刹 几乎全新",
+      "price": 1680,
+      "originalPrice": 3200,
+      "location": "东区宿舍 1 栋楼下",
+      "images": [
+        "bike-road-white-1.jpg",
+        "bike-road-white-2.jpg"
+      ],
+      "views": 434,
+      "favorites": 41,
+      "description": "个人闲置，捷安特（Giant）白色弯把公路车，几乎全新，原价三千多。\n\n- 白色车架配黑色 GIANT 大字，很显眼\n- 弯把设计，骑起来比直把更省力，速度快也轻松\n- 前后碟刹，下坡刹车有底气\n- 黑色刀圈轮组，颜值很高\n\n买来是想周末出去骑行锻炼的，结果课太多基本没时间，只骑过几次，车况跟新的差不多，没有磕碰和划痕。\n\n送配件：车锁、打气筒、手电筒、水壶架和水壶、六角扳手、铃铛、护链贴、气嘴灯、后反光片、挡泥板，一套都一起送。\n\n日常上课通勤、去图书馆、周末骑行都很合适，性价比特别高。可以当面看车试骑，满意再交易，爽快的价格好商量。"
+    },
+    {
+      "id": 1583,
+      "owner": 914,
+      "category": "TRANSPORT",
+      "condition": "LIKE_NEW",
+      "title": "20 寸白色折叠自行车 变速 前后减震 几乎没骑",
+      "price": 220,
+      "originalPrice": 999,
+      "location": "东区宿舍 2 栋车棚",
+      "images": [
+        "bike-fold-benz-1.jpg",
+        "bike-fold-benz-2.jpg",
+        "bike-fold-benz-3.jpg"
+      ],
+      "views": 612,
+      "favorites": 58,
+      "description": "之前参加活动抽到的赠品折叠车，到手后一共没骑几次，一直停在车棚盖着车罩，轮胎上的胎毛都还在。\n\n- 20 寸轮径，高碳钢车架，白色车身配原厂贴标，颜值很高\n- 一秒折叠设计，折起来能塞进宿舍床底或者衣柜旁边，不占地方\n- 带变速档位，平路省力，上坡也不费劲\n- 前后减震加厚坐垫，过减速带不颠，骑久了也不累\n- 前后挡泥板齐全，下雨天不甩泥\n\n我平时基本走路上课，宿舍又已经有一辆自行车，这辆实在用不上，放着积灰可惜。\n\n适合宿舍到教学楼、食堂、图书馆这种短途代步。第三张是刚拿到时折叠的样子，车身保护膜都还没撕完。可以约时间来车棚看车试骑，价格好商量。"
+    },
+    {
+      "id": 1584,
+      "owner": 913,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "麦希 Macce 灰色山地车 21 速 双碟刹",
+      "price": 260,
+      "originalPrice": 799,
+      "location": "西区宿舍 4 栋车棚",
+      "images": [
+        "bike-macce-grey-1.jpg"
+      ],
+      "views": 388,
+      "favorites": 27,
+      "description": "大四毕业清东西，出一辆自己骑了一年多的麦希 Macce 山地车，哑光深灰色，低调耐看。\n\n- 型号 XTC1050，24 寸轮组，适合 155-175cm 的同学\n- 高碳钢车架，结实不怕磕碰\n- 21 速变速，前后双碟刹，刹车灵敏，变速顺畅\n- 前叉带减震，校园里的减速带和砖路骑着很稳\n- 送原装挡泥板和脚撑（照片里挡泥板还没装上）\n\n一直停在室内，没有淋过雨，车架没生锈，链条上周刚上过油。轮胎纹路还很深，正常磨损。\n\n上课、去食堂、周末绕校园骑一圈都很合适，毕业带不走才出，价格已经很低了，诚心要的可以小刀。"
+    },
+    {
+      "id": 1585,
+      "owner": 915,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "飞鸽 24 寸山地自行车 铝合金 21 速 碟刹",
+      "price": 200,
+      "originalPrice": 899,
+      "location": "北区宿舍 3 栋车棚",
+      "images": [
+        "bike-pigeon-24-1.jpg"
+      ],
+      "views": 296,
+      "favorites": 19,
+      "description": "飞鸽 FLYING PIGEON 24 寸山地车，深蓝配荧光黄，自己一直在骑，最近换了公路车所以出掉。\n\n- 铝合金车架，比同尺寸的钢架轻不少，扛上楼梯也不费劲\n- 前叉减震，3×7 共 21 速变速\n- 线拉碟刹，刹车灵敏，变速顺畅，上周自己刚调过一遍\n- 送挡泥板和水壶架\n- 轮胎胎纹还很深，骑起来轻快\n\n24 寸车身偏小巧，适合身高 150-170cm 左右的同学，女生骑也很合适。\n\n车身有正常使用的小划痕，功能全部正常，没有任何大毛病。我是机械学院的，平时自己会保养车，车况如实描述。可以来车棚当面看车试骑，满意再交易。"
+    },
+    {
+      "id": 1586,
+      "owner": 918,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "梦伦鸟 20 寸浅蓝折叠车 带车篮后座",
+      "price": 60,
+      "originalPrice": 399,
+      "location": "南区宿舍 1 栋楼下",
+      "images": [
+        "bike-fold-blue-1.jpg"
+      ],
+      "views": 245,
+      "favorites": 22,
+      "description": "梦伦鸟 20 寸折叠自行车，浅蓝色，很有少女感。下学期要出国交换，带不走所以低价出。\n\n- 20 寸小轮，高碳钢车架，可折叠\n- 自带前车篮、后座垫、前后挡泥板和脚撑，配件一个不少\n- 单速 V 刹，结构简单不容易坏，刹车灵敏\n- 车座和车把高度都可以调，个子不高的同学骑起来正好\n- 轮胎花纹清晰，骑行顺畅\n\n平时就骑着去食堂和教学楼，前车篮放书包、奶茶、水果特别方便，后座还能临时带东西。\n\n骑得不多，成色挺新，功能都正常。价格可以聊，走之前都可以在宿舍楼下看车。"
+    },
+    {
+      "id": 1587,
+      "owner": 917,
+      "category": "TRANSPORT",
+      "condition": "FAIR",
+      "title": "iColour 黑色山地车 26 寸 21 速 双碟刹",
+      "price": 177,
+      "originalPrice": 699,
+      "location": "图书馆东侧车棚",
+      "images": [
+        "bike-icolour-1.jpg"
+      ],
+      "views": 204,
+      "favorites": 13,
+      "description": "iColour 山地自行车，黑色车架，26 寸轮组，大一买的，骑了三年。\n\n- 21 速变速，前后双碟刹\n- 带前后挡泥板和上管包，可以放手机钥匙\n- 送车铃和水壶架\n- 车座是后来换的加厚款，骑着比原装舒服\n\n外观有明显使用痕迹，车架有些掉漆和划痕，介意勿拍。但刹车、变速、链条都正常，上个月刚换了刹车皮，骑起来没有异响。\n\n找了实习要搬出宿舍，车用不上了。适合想要一辆便宜好骑的通勤车的同学，宿舍到教学楼来回很方便。"
+    },
+    {
+      "id": 1588,
+      "owner": 916,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "爱玛墨绿色电动自行车 动力足 手续齐全",
+      "price": 900,
+      "originalPrice": 2599,
+      "location": "东区电动车充电棚",
+      "images": [
+        "ebike-aima-green-1.jpg"
+      ],
+      "views": 503,
+      "favorites": 46,
+      "description": "爱玛墨绿色电动自行车，纯电动踏板款，研一开学买的，现在实验室离宿舍近，基本用不上了。\n\n- 动力足，上坡不吃力，骑着舒服\n- 电池耐用，满电在校园里骑一周没问题\n- 后减震、后扶手都在，后座可以带东西\n- 手续齐全，校内车辆登记可以配合办理转移\n- 前后灯、喇叭、仪表都正常\n\n外观有轻微使用痕迹，车身没有磕碰，坐垫无破损。一直在学校充电棚充电，没有在室内充过。\n\n适合宿舍离教学楼远、或者经常去校区另一头上课的同学。可以来充电棚看车试骑，钥匙两把一起给。"
+    },
+    {
+      "id": 1589,
+      "owner": 911,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "爱玛 Q57 灰色电动车 前后碟刹 有合格证",
+      "price": 750,
+      "originalPrice": 2999,
+      "location": "经管楼停车棚",
+      "images": [
+        "ebike-aima-q57-1.jpg"
+      ],
+      "views": 341,
+      "favorites": 31,
+      "description": "爱玛 Q57 灰色款电动车，复古圆灯造型，配红色轮毂，很好看。\n\n- 前后碟刹，刹车灵敏，骑着很稳\n- 带靠背，坐垫宽大，久骑不累\n- 有合格证，手续齐全\n- 外观很新，没有摔过，功能全部正常\n\n买来主要用来去校外实习单位，实习结束就一直停在车棚，成色还可以。电池状态良好，续航够在学校里日常使用。\n\n售出不退，可以先来车棚看车、试骑，确认没问题再交易。"
+    },
+    {
+      "id": 1590,
+      "owner": 915,
+      "category": "TRANSPORT",
+      "condition": "FAIR",
+      "title": "众星 XQS 黑黄电动车 带货架护杠 裸车出",
+      "price": 480,
+      "originalPrice": 2299,
+      "location": "北区电动车充电棚",
+      "images": [
+        "ebike-zxmco-1.jpg",
+        "ebike-zxmco-2.jpg",
+        "ebike-zxmco-3.jpg"
+      ],
+      "views": 276,
+      "favorites": 18,
+      "description": "众星 XQS 黑黄配色电动车，之前兼职送餐时用的，车很能扛，现在不做兼职了所以出。\n\n- 带后货架和前后护杠，放大箱子、驮东西很方便\n- 动力还行，刹车片刚换过，刹车灵敏，骑着顺手\n- 适配 60V 换电电池\n- 仪表、车壳齐全，结构完整\n\n注意：裸车出，不带电池和牌照，价格已经按裸车算了。脚踏板有磨损，车身有明显使用痕迹，介意的同学慎拍。\n\n适合自己有电池、或者想要一辆耐造的车拉东西的同学。二手物品看好再买，可以约时间到充电棚看车。"
+    },
+    {
+      "id": 1591,
+      "owner": 908,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "雅迪奶白色电动车 带后备箱 原装卡其坐垫",
+      "price": 1500,
+      "originalPrice": 3299,
+      "location": "南区电动车充电棚",
+      "images": [
+        "ebike-yadea-1.jpg",
+        "ebike-yadea-2.jpg",
+        "ebike-yadea-3.jpg",
+        "ebike-yadea-4.jpg"
+      ],
+      "views": 688,
+      "favorites": 72,
+      "description": "自用雅迪奶白色电动车，颜值很高，平时骑得特别小心，非常爱惜。\n\n- 全部出厂配置，没有改装过\n- 刮痕很少很少，车身干净\n- 带同色系后备箱，头盔、雨衣、书包都放得下\n- 买来就套了黑色皮垫，里面原装的卡其色坐垫没有用过，没有任何瑕疵（看第四张图）\n- 送一对车把保暖手套，冬天骑车不冻手\n\n车况没有任何问题，有牌照，可以配合过户，学校车辆登记也可以一起转。\n\n准备毕业离校才出，可以试骑，也可以线下看细节，颜值和质量都很好。售出不退不换。"
+    },
+    {
+      "id": 1592,
+      "owner": 918,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "立马白色薄荷绿电动车 带靠背 60V 续航长",
+      "price": 1800,
+      "originalPrice": 3599,
+      "location": "西区电动车充电棚",
+      "images": [
+        "ebike-lima-1.jpg",
+        "ebike-lima-2.jpg",
+        "ebike-lima-3.jpg"
+      ],
+      "views": 547,
+      "favorites": 49,
+      "description": "立马 LIMA 电动车，白色车身配薄荷绿，外观时尚，骑出去回头率很高。\n\n- 车况很好，动力强劲\n- 60V 电池，满电续航 60km 左右，两三天充一次就够\n- 后靠背、侧支架、主支架都在\n- 前后轮胎纹路清晰，刹车灵敏\n\n出国交换前处理掉，车一直停在学校充电棚，按规定在棚里充电。车身漆面光亮，只有一点日常使用的细小划痕。\n\n适合校区大、宿舍离教学楼远的同学，也适合经常去校外实习的同学。可以约时间看车试骑，价格可小刀。"
+    },
+    {
+      "id": 1593,
+      "owner": 917,
+      "category": "TRANSPORT",
+      "condition": "FAIR",
+      "title": "星光白色电动车 带靠背 碟刹 代步车",
+      "price": 580,
+      "originalPrice": 1999,
+      "location": "北区电动车充电棚",
+      "images": [
+        "ebike-xingguang-1.jpg"
+      ],
+      "views": 233,
+      "favorites": 14,
+      "description": "星光电动车，白色车身，前碟刹，带后靠背。大二买的，骑了两年多，实习搬出学校所以低价出。\n\n- 动力正常，电池还能用，满电日常上课来回没问题\n- 前碟刹灵敏，大灯、转向灯、喇叭都好用\n- 坐垫无破损，靠背稳固\n\n车身有明显使用痕迹，挡泥板和轮胎有泥，没来得及洗，外壳有一些划痕，功能都正常。\n\n价格按成色给得很实在，适合只想要一辆代步车上课、去食堂的同学。感兴趣可以私聊约看车。"
+    },
+    {
+      "id": 1594,
+      "owner": 916,
+      "category": "TRANSPORT",
+      "condition": "FAIR",
+      "title": "五星钻豹电动车 今年 5 月新买 轮胎电池都好",
+      "price": 600,
+      "originalPrice": 1899,
+      "location": "东区电动车充电棚",
+      "images": [
+        "ebike-wuxing-1.jpg"
+      ],
+      "views": 315,
+      "favorites": 24,
+      "description": "五星钻豹电动车，今年 5 月 31 号才买的，骑了几个月，因为要毕业离校，带不走只能出掉。\n\n- 轮胎、电池都没问题，续航 15-25km，校内代步完全够用\n- 带前车篮，放书包和购物袋都很方便\n- 后座带靠背，坐着舒服\n- 刹车、灯光、喇叭全部正常\n\n车身有使用痕迹和一点划痕，坐垫套着防晒垫，下面是好的。牌照手续齐全，可以配合办理。\n\n可以细聊，来充电棚看车试骑都可以，毕业季着急出，价格好商量。"
+    },
+    {
+      "id": 1595,
+      "owner": 904,
+      "category": "TRANSPORT",
+      "condition": "GOOD",
+      "title": "小牛电动车 动力版 带电池 没改装",
+      "price": 1980,
+      "originalPrice": 3999,
+      "location": "体育馆旁停车棚",
+      "images": [
+        "ebike-niu-1.jpg"
+      ],
+      "views": 721,
+      "favorites": 66,
+      "description": "小牛电动车，动力版，带原装电池，没有改装过，手续齐全。\n\n- 动力足，起步快，上坡不吃力\n- 原装锂电池，续航稳定\n- 车身造型简洁，圆形 LED 大灯很有辨识度\n- 支持手机 App 查看电量和车辆位置\n\n图为官方款式图，实车为黑色，外观有轻微日常使用痕迹，实拍可以私聊发你。\n\n准备换车了所以出，平时上课、去校外实习都很方便。价格可聊，可以约时间来停车棚看车试骑。"
+    },
+    {
+      "id": 1596,
+      "owner": 914,
+      "category": "TRANSPORT",
+      "condition": "LIKE_NEW",
+      "title": "赛鸽温柔粉紫电动车 60V 续航 40km 几乎全新",
+      "price": 980,
+      "originalPrice": 2199,
+      "location": "南区电动车充电棚",
+      "images": [
+        "ebike-saige-1.jpg",
+        "ebike-saige-2.jpg",
+        "ebike-saige-3.jpg"
+      ],
+      "views": 456,
+      "favorites": 53,
+      "description": "赛鸽电动车，温柔粉紫配色，买来不到半年，骑了不到一千公里，成色很新。\n\n- 60V 铅酸电池，续航 40 公里左右\n- 动力足，刹车灵敏，灯亮喇叭响，功能都正常\n- 带前车篮和后靠背，坐垫是奶咖色的，很好看\n- 有 3C 认证，手续齐全\n\n照片是雨后拍的所以车身有水珠，实车干干净净没有划痕。下学期课少，基本不出门，所以转给需要的同学。\n\n到手就能骑，喜欢的来，价格可聊。可以约在充电棚看车试骑。"
+    },
+    {
+      "id": 1597,
+      "owner": 917,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "联想台式电脑全套 i5 8G 固态+机械 配 19 寸显示器",
+      "price": 380,
+      "originalPrice": 2499,
+      "location": "计算机学院楼 B 区一楼大厅",
+      "images": [
+        "pc-lenovo-desk-1.jpg",
+        "pc-lenovo-desk-2.jpg",
+        "pc-lenovo-desk-3.jpg",
+        "pc-lenovo-desk-4.jpg"
+      ],
+      "views": 468,
+      "favorites": 37,
+      "description": "实验室项目结束后换下来的联想品牌台式机，一直在宿舍和实验室用，质量很稳定，现在打包出全套。\n\n- 配置：Intel i5 处理器，8G 内存，128G 固态 + 500G 机械双硬盘\n- 开机十几秒进桌面，Windows 系统已经装好并激活，插电就能用\n- 联想 19 寸液晶显示器，屏幕无坏点、无亮线\n- 送一套全新键盘鼠标，原装电源线、视频线都带\n- 机箱前面板 USB、耳机麦克风口都正常，后面有 VGA 和多个 USB 3.0\n\nWord、PPT、Excel 写报告做课设都很流畅，开十几个网页、上网课、看剧听歌都没问题，也能跑 CAD、PS 这类入门设计软件。机箱外壳有少量使用痕迹，功能完好，没有拆修过。\n\n宿舍放一套当第二块屏或者专门写代码、打印资料的电脑很合适。只要主机也可以单出，价格私聊。可以到学院楼一楼当面开机测试，确认没问题再交易。"
+    },
+    {
+      "id": 1598,
+      "owner": 912,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "iPhone XR 256G 白色 国行双卡 面容灵敏 无拆修",
+      "price": 390,
+      "originalPrice": 6499,
+      "location": "A 栋女生宿舍门口",
+      "images": [
+        "phone-xr-white-1.jpg",
+        "phone-xr-white-2.jpg",
+        "phone-xr-white-3.jpg",
+        "phone-xr-white-4.jpg"
+      ],
+      "views": 389,
+      "favorites": 34,
+      "description": "自用的苹果 iPhone XR，白色，256G 大内存，国行双卡双待。换了新手机，这台一直放抽屉里，转给需要的同学。\n\n- 存储 256GB，运行内存 3GB，装课程资料、拍照存视频都够用\n- 所有功能都正常：面容识别灵敏，充电、扬声器、信号、摄像头都没问题\n- 原装机，无任何拆修，没有 ID 锁，可以随意还原和升级系统\n- A12 处理器，刷网课、看剧、日常打游戏都很流畅，不会发烫\n- 白色后壳干干净净，边框有轻微使用划痕，屏幕一直贴膜\n\n一手自用，没有暗病。拍照自带一点柔光效果，自拍很好看。适合当主力机、备用机，或者专门用来上网课、刷题、听歌。\n\n送一个浅蓝色硅胶手机壳（第二张图里那个）。可以在宿舍楼下当面验机，确认没问题再交易。"
+    },
+    {
+      "id": 1599,
+      "owner": 905,
+      "category": "SPORTS",
+      "condition": "FAIR",
+      "title": "篮球社旧训练球 WITESS 7 号翻毛篮球 单个价",
+      "price": 18,
+      "originalPrice": 69,
+      "location": "体育馆篮球场门口",
+      "images": [
+        "ball-club-suede-1.jpg",
+        "ball-club-suede-2.jpg"
+      ],
+      "views": 356,
+      "favorites": 29,
+      "description": "篮球社换了一批新训练球，旧的这批翻毛球整理出来低价转给同学，标价是单个的价格。\n\n- 品牌 WITESS，7 号标准比赛用球\n- 超细纤维翻毛表皮，手感软、抓得住，室内木地板和室外水泥场都能打\n- 每个都充气试过：不漏气、不开胶、不变形\n- 有正常训练留下的使用痕迹、磨损和轻微刮擦，颜色深浅不一\n\n平时社团训练、体育课、宿舍楼下投篮都完全够用，比买新球划算很多。球是放了一段时间的，气没有打满，拿回去补点气就行，社团可以借打气筒。\n\n想要几个都可以，多拿可以便宜点。训练日晚上在体育馆篮球场门口可以当面挑。"
+    },
+    {
+      "id": 1600,
+      "owner": 911,
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "title": "WITESS 白色涂鸦篮球 7 号 YOLO 款 颜值高",
+      "price": 25,
+      "originalPrice": 89,
+      "location": "东区操场篮球场",
+      "images": [
+        "ball-yolo-white-1.jpg"
+      ],
+      "views": 241,
+      "favorites": 22,
+      "description": "WITESS 白色涂鸦款 7 号篮球，\"YOU ONLY LIVE ONCE\" 主题，彩色线条加黑色泼墨，拍照特别出片。\n\n- 7 号标准比赛用球\n- 复合皮表面，耐磨防滑，室内室外都能用\n- 不漏气、不开胶，弹性正常\n- 表面有一点轻微使用痕迹，整体还很干净\n\n当时买来主要是觉得好看，打了几次就一直放在宿舍柜子里当摆件。现在宿舍东西太多想清一清，转给喜欢的同学。\n\n送一根打气针。可以在东区操场篮球场当面拍几下试试手感。"
+    },
+    {
+      "id": 1601,
+      "owner": 913,
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "title": "摩腾 Molten GG7X 7 号比赛篮球 FIBA 认证",
+      "price": 58,
+      "originalPrice": 299,
+      "location": "西区篮球场",
+      "images": [
+        "ball-molten-gg7x-1.jpg",
+        "ball-molten-gg7x-2.jpg",
+        "ball-molten-gg7x-3.jpg"
+      ],
+      "views": 512,
+      "favorites": 47,
+      "description": "摩腾 Molten GG7X，FIBA 认证的 7 号比赛用球，很多正式比赛都用这一款，手感是公认的好。\n\n- 7 号标准比赛用球，PU 合成革表面\n- 经典橙色配米白色十二片设计，颗粒清晰，抓握感强\n- 不漏气、不开胶、不变形，弹性正常\n- 表面有轻微使用痕迹，九成新左右\n\n之前打院赛买的，比赛结束后就基本放在宿舍，偶尔周末拿去投投篮。马上毕业了东西太多带不走，转给爱打球的同学。\n\n室内木地板手感最好，室外水泥场也能打。送一根打气针和网兜，球是充好气的，拿到就能打。可以在西区篮球场当面拍拍试手感。"
+    },
+    {
+      "id": 1602,
+      "owner": 909,
+      "category": "SPORTS",
+      "condition": "LIKE_NEW",
+      "title": "安踏 CUBAL 大学生联赛款 7 号篮球 多款可选 单个价",
+      "price": 35,
+      "originalPrice": 129,
+      "location": "体育馆东门",
+      "images": [
+        "ball-anta-cubal-1.jpg",
+        "ball-anta-cubal-2.jpg",
+        "ball-anta-cubal-3.jpg",
+        "ball-anta-cubal-4.jpg",
+        "ball-anta-cubal-5.jpg"
+      ],
+      "views": 678,
+      "favorites": 63,
+      "description": "校篮球队之前参加大学生篮球联赛时统一发的训练和比赛用球，队里多出来六个，几乎全新，单个出。\n\n- 安踏正品 7 号球，PU 材质，室内外通用\n- 款式有：蓝色 CUBAL 联赛款、棕色 CUBAL 联赛款、棕色金标、黑金款、红黑 KPMV 款（照片里都有）\n- 耐磨防滑，气密性好，手感舒服\n- 都只在室内馆里用过几次，表面干净，没有脱皮\n\n平时班级赛、院赛、体育课、日常训练都很合适，CUBAL 款也很有纪念意义，送给喜欢打球的朋友当礼物也不错。\n\n想要哪一款私聊说一下，先到先得。可以约在体育馆东门当面挑，多拿可以小刀。"
+    },
+    {
+      "id": 1603,
+      "owner": 906,
+      "category": "SPORTS",
+      "condition": "LIKE_NEW",
+      "title": "准者 RIGORER 7 号篮球 红白蓝 / 黑白 两个可选",
+      "price": 35,
+      "originalPrice": 119,
+      "location": "北区篮球场",
+      "images": [
+        "ball-rigorer-1.jpg",
+        "ball-rigorer-2.jpg",
+        "ball-rigorer-3.jpg",
+        "ball-rigorer-4.jpg",
+        "ball-rigorer-5.jpg"
+      ],
+      "views": 433,
+      "favorites": 38,
+      "description": "准者 RIGORER 7 号篮球，一个红白蓝撞色、一个黑白配色，都是九五新，标价是单个价格。\n\n- 7 号标准尺寸，室内外通用（INDOOR/OUTDOOR）\n- 吸湿 PU 表皮，出汗了也不打滑\n- 丁基内胆，保气性好，充一次气能打很久\n- 不漏气、不开胶，弹性和手感都很好\n\n篮球社活动时买的，后来社团统一换了比赛用球，这两个就没怎么用过，表面颗粒还很清晰。\n\n配色在球场上很显眼，拍照也好看。赠送打气针和网兜，充好气直接就能打。可以约在北区篮球场当面看球。"
+    },
+    {
+      "id": 1604,
+      "owner": 910,
+      "category": "SPORTS",
+      "condition": "FAIR",
+      "title": "匹克 PEAK I CAN PLAY 7 号篮球 黑黄 / 黑银 / 星纹",
+      "price": 20,
+      "originalPrice": 99,
+      "location": "南区篮球场",
+      "images": [
+        "ball-peak-1.jpg",
+        "ball-peak-2.jpg",
+        "ball-peak-3.jpg"
+      ],
+      "views": 298,
+      "favorites": 21,
+      "description": "匹克 PEAK I CAN PLAY 系列 7 号篮球，有黑银、黑黄、黄黑星纹几种配色，标价是单个价格。\n\n- PU 材质，标准 7 号球，室内外都能用\n- 耐磨耐打，弹跳正常，手感不错\n- 都不漏气，放心打球\n- 有轻微使用痕迹，个别表面有一点点脱皮，不影响使用\n\n宿舍几个人之前一起买的，现在大四都不怎么打了，统一处理掉。价格很低，适合刚开始练球、或者想要一个随便打的室外球的同学。\n\n想要哪种颜色私聊，可以在南区篮球场当面挑。"
+    },
+    {
+      "id": 1605,
+      "owner": 902,
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "title": "AND1 SUPREME GRIP 涂鸦 7 号篮球 橡胶室外球",
+      "price": 15,
+      "originalPrice": 69,
+      "location": "东区操场篮球场",
+      "images": [
+        "ball-and1-graffiti-1.jpg",
+        "ball-and1-graffiti-2.jpg",
+        "ball-and1-graffiti-3.jpg",
+        "ball-and1-graffiti-4.jpg"
+      ],
+      "views": 187,
+      "favorites": 12,
+      "description": "AND1 SUPREME GRIP 系列 7 号篮球，红绿蓝黄的街头涂鸦配色，很有街球味道。\n\n- 橡胶材质，耐磨抗造，室外水泥地随便打\n- 颗粒深、抓握感好，下雨后地面潮一点也不太打滑\n- 不漏气，弹性正常\n- 表面有一点使用痕迹和小白点，照片都拍出来了\n\n之前专门买来在室外场打的，现在基本去室内馆，这个就闲置了。价格很低，适合想要一个室外耐打球的同学，或者放宿舍偶尔下楼投几个。可以在东区操场篮球场当面看球。"
+    },
+    {
+      "id": 1606,
+      "owner": 905,
+      "category": "SPORTS",
+      "condition": "FAIR",
+      "title": "篮球社器材清点 编号旧球 斯伯丁 / 李宁 / 摩腾等 单个价",
+      "price": 25,
+      "originalPrice": 199,
+      "location": "体育馆器材室门口",
+      "images": [
+        "ball-club-numbered-1.jpg",
+        "ball-club-numbered-2.jpg",
+        "ball-club-numbered-3.jpg",
+        "ball-club-numbered-4.jpg"
+      ],
+      "views": 403,
+      "favorites": 31,
+      "description": "篮球社每学期清点器材，这批是社团用了几年的旧球，都贴了编号，统一低价转给同学，标价是单个起步价。\n\n- 全部是 7 号球，品牌有斯伯丁、李宁、摩腾、准者、JumpStart 等\n- 有 CBA 款、黑金款、Sketch 涂鸦款、蟒纹款，照片上的编号就是球号\n- 每个都换过新气门芯，打气测试过不漏气，不影响使用\n- 成色一般，都有明显的训练使用痕迹，具体看图\n\n不同的球价格不一样，大概 25-45 元一个，看中哪个编号私聊问价。社团活动时间可以到体育馆器材室门口当面打气试球，收到的钱会充进社团经费买新器材。"
+    },
+    {
+      "id": 1607,
+      "owner": 903,
+      "category": "SPORTS",
+      "condition": "FAIR",
+      "title": "7 号篮球转让 斯伯丁 / 耐克 / 李宁 训练用过 单个 19 起",
+      "price": 19,
+      "originalPrice": 159,
+      "location": "北区篮球场",
+      "images": [
+        "ball-mixed-brand-1.jpg",
+        "ball-mixed-brand-2.jpg",
+        "ball-mixed-brand-3.jpg",
+        "ball-mixed-brand-4.jpg",
+        "ball-mixed-brand-5.jpg"
+      ],
+      "views": 276,
+      "favorites": 19,
+      "description": "宿舍几个人打球攒下来的 7 号篮球，平时训练用过，现在大四都不怎么打了，统一转让。\n\n- 斯伯丁 GRIP CONTROL 棕色室内外款\n- 斯伯丁黑色 NBA 款\n- 耐克 ALL-COURT 黑金款\n- 李宁黑色款，还有一个斯伯丁湖人黄色款\n\n都有明显使用痕迹，个别 logo 有掉色，但都不漏气，弹性和手感都没问题，每个都是实物拍照。\n\n普通款 19 元一个，耐克和斯伯丁黑色 NBA 款 39 元一个。需要哪个私聊，可以在北区篮球场当面看球试手感。"
+    },
+    {
+      "id": 1608,
+      "owner": 918,
+      "category": "SPORTS",
+      "condition": "FAIR",
+      "title": "炫彩反光 7 号篮球 BE YOURSELF 拍照超出片",
+      "price": 15,
+      "originalPrice": 79,
+      "location": "南区宿舍 1 栋楼下",
+      "images": [
+        "ball-reflective-1.jpg",
+        "ball-reflective-2.jpg",
+        "ball-reflective-3.jpg",
+        "ball-reflective-4.jpg"
+      ],
+      "views": 221,
+      "favorites": 26,
+      "description": "炫彩反光 7 号篮球，表面是全息反光材质，用手机闪光灯一照会变成彩虹色，晚上在球场拍照特别出片。\n\n- 7 号标准尺寸，PU 材质，室内外通用\n- 弹力好，手感不错\n- 不漏气，正常打球没问题\n- 有明显使用痕迹，表面有些细小折痕和磨损，照片都如实拍了\n\n当时买来主要是拍照用的，打了几次。马上要出国交换，宿舍东西都在清，低价转给喜欢的同学。\n\n适合晚上在球场打球、拍视频，也可以当宿舍摆件。可以在宿舍楼下当面看。"
+    },
+    {
+      "id": 1609,
+      "owner": 907,
+      "category": "SPORTS",
+      "condition": "LIKE_NEW",
+      "title": "碳素乒乓球拍 5 木 + 2 碳 几乎全新未撕膜 单只价",
+      "price": 45,
+      "originalPrice": 168,
+      "location": "学生活动中心乒乓球室",
+      "images": [
+        "pingpong-carbon-1.jpg",
+        "pingpong-carbon-2.jpg",
+        "pingpong-carbon-3.jpg",
+        "pingpong-carbon-4.jpg",
+        "pingpong-carbon-5.jpg"
+      ],
+      "views": 367,
+      "favorites": 33,
+      "description": "乒乓球协会集训时买的两只碳素比赛拍，只拿来练过几次动作，胶皮保护膜都还没撕，粘性都在，标价是单只价格。\n\n- 配置：5 层木 + 2 层纳米碳素底板，红黑双面套胶\n- 参数：速度 141，控制 46，偏快攻和弧圈打法\n- 底板透力大，胶皮弹性强，近台快攻、中远台拉球都很顺手\n- 胶皮完好无破损，边条和拍柄都很新\n- 都是横拍长柄\n\n买两只送一个大容量双拍拍套，再送 6 个三星训练球（第一张图里那些）。\n\n适合刚进协会想换一块好拍子的同学，体育课选了乒乓球的同学用也很合适。可以到学生活动中心乒乓球室当面试打几板，满意再交易。"
+    },
+    {
+      "id": 1610,
+      "owner": 901,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "Zara 银色一字带高跟凉鞋 36 码",
+      "price": 98.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Zara 银色高跟凉鞋，36 码。银色漆皮鞋面，一字带设计，鞋跟高度适中。外观和磨损情况见配套实物图，尺码与鞋底细节可以先沟通。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-712233831778-1.jpg"
+      ],
+      "sourceAssetId": "goofish-712233831778"
+    },
+    {
+      "id": 1611,
+      "owner": 902,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "LILI 白色缝线 A 字半裙",
+      "price": 35.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "LILI 商务款白色缝线 A 字半裙，中裙版型，可搭配衬衣或 T 恤。照片可能存在色差，实际颜色和成色请当面核对。具体尺码没有完整标注，先沟通尺寸再决定。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-776555423740-1.jpg"
+      ],
+      "sourceAssetId": "goofish-776555423740"
+    },
+    {
+      "id": 1612,
+      "owner": 903,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "Only 黑色冰丝小衫 S 码",
+      "price": 50.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Only 黑色冰丝小衫，S 码，有弹力，面料垂坠，前短后长的设计。外观见配套图片；暂未完整的平铺尺寸，衣长、胸围和具体穿着痕迹可以先确认。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-791404685295-1.jpg"
+      ],
+      "sourceAssetId": "goofish-791404685295"
+    },
+    {
+      "id": 1613,
+      "owner": 906,
+      "category": "other",
+      "condition": "GOOD",
+      "title": "Alter 东方 Project 芙兰朵露手办 带盒",
+      "price": 1000.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Alter 东方 Project 芙兰朵露·斯卡雷特手办，已经拆盒摆放过，原盒还在。具体摆件与盒子状态以配套实物图为准，介意盒角、涂装或摆放痕迹的同学可以先沟通需要查看的细节。\n\n校内当面交接，先在聊天里确认物品范围与细节，再约时间查看实物。外观、配件和使用情况确认清楚后再交易。",
+      "images": [
+        "goofish-798298155573-1.jpg"
+      ],
+      "sourceAssetId": "goofish-798298155573"
+    },
+    {
+      "id": 1614,
+      "owner": 908,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "vivo / iQOO 双 Type-C 200W 数据线",
+      "price": 38.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "vivo / iQOO 原装双 Type-C 口数据线，来源标注 10A、200W，介绍提到 iQOO 10 Pro、11 Pro。具体适配与能达到的充电功率需要结合手机和充电头确认，线身及接头成色见图。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-771438581301-1.jpg"
+      ],
+      "sourceAssetId": "goofish-771438581301"
+    },
+    {
+      "id": 1615,
+      "owner": 909,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "iPad 键盘 盒装拆封未用",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置 iPad 键盘，带包装盒，仅拆封没有使用。商品说明提到适用于 iPad 第 7、8、9 代及 Air 3 等机型，完整兼容型号没有全部保留，购买前请按自己的设备型号核对接口与尺寸。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-805742496860-1.jpg"
+      ],
+      "sourceAssetId": "goofish-805742496860"
+    },
+    {
+      "id": 1616,
+      "owner": 911,
+      "category": "DAILY",
+      "condition": "GOOD",
+      "title": "ReFa 面部滚轮按摩仪",
+      "price": 200.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "ReFa 面部滚轮按摩仪，闲置转让，外观见配套实物图。暂未完整列出型号、配件和使用次数，因此不补写未经确认的参数；可先沟通滚轮、手柄和表面细节，确认适合后再交接。\n\n校内当面交接，先在聊天里确认物品范围与细节，再约时间查看实物。外观、配件和使用情况确认清楚后再交易。",
+      "images": [
+        "goofish-1095679840970-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095679840970"
+    },
+    {
+      "id": 1617,
+      "owner": 912,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "佳能 EOS 20D 单反相机与配件",
+      "price": 368.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "佳能 EOS 20D 单反，外观有使用痕迹。快门、对焦、屏幕和按键正常，CMOS 与镜头干净，无拆修。配件列有机身、镜头、电池、充电器和手绳；镜头具体型号及配件范围先确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1093193035233-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093193035233"
+    },
+    {
+      "id": 1618,
+      "owner": 913,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "三星 i6 数码相机 带电池与读卡配件",
+      "price": 268.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "三星 i6 数码相机，功能完好，成色见图。配件包括充电器、电池、内存卡、读卡器和转接头。见面可检查开机、拍照、屏幕和导出照片，旧电子产品的电池状态也请一起核对。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1053663958389-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1053663958389"
+    },
+    {
+      "id": 1619,
+      "owner": 914,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "松下 FH10 数码相机",
+      "price": 378.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "松下 FH10 数码相机，成色较新、功能正常。列出的配件有内存卡、读卡器和电池，读卡器有不同接口，需要先确认使用的手机接口。充电器需要自备，不把未列明的配件算作附带。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1095006580962-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095006580962"
+    },
+    {
+      "id": 1620,
+      "owner": 915,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "尼康 L310 长焦数码相机",
+      "price": 485.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "尼康 L310 长焦数码相机， 1400 万像素、21 倍光学变焦，闪光灯、变焦和拍照功能正常。配件列有 8GB 内存卡、镜头盖和肩带，需要自备四节五号电池。属于较早期数码设备，外观、电池仓与实际成像可见面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1095755145074-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095755145074"
+    },
+    {
+      "id": 1621,
+      "owner": 916,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "索尼 DSC-T3 银色数码相机",
+      "price": 228.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "索尼 DSC-T3 数码相机，银色金属机身，510 万像素 CCD 传感器，卡尔蔡司 3 倍光学变焦。机身有正常使用痕迹，镜头干净无霉，屏幕、按键和菜单正常，没有拆修。适合日常记录或了解老式数码相机，具体外观见配套图。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1094292054115-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094292054115"
+    },
+    {
+      "id": 1622,
+      "owner": 917,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "佳能 400D / Kiss X 银色单反机身",
+      "price": 235.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "佳能 400D / Kiss X 银色单反机身。取景器干净、屏幕清晰，快门、回看、设置、闪光灯和按键功能正常。标价对应单机身，18–55mm 镜头属于可选配件，电池和充电器需要自备，交易前先核对范围。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1080070059164-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1080070059164"
+    },
+    {
+      "id": 1623,
+      "owner": 918,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "卡西欧 TR70 白色数码相机",
+      "price": 299.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "卡西欧 TR70 白色数码相机，屏幕显示正常，按键灵敏，镜头干净，功能正常。配件有电池、充电器和内存卡，日常拍照、聚会记录都可以考虑。机身成色见配套实物图，电池使用情况和配件容量可先确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1096303912372-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1096303912372"
+    },
+    {
+      "id": 1624,
+      "owner": 901,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "卡西欧 ZS20 CCD 数码相机",
+      "price": 450.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "卡西欧 ZS20 CCD 数码相机，1610 万像素、6 倍光学变焦，带多种 BS 场景模式。闲置了一段时间，按键、变焦、闪光灯、微距和回放均标注正常。配件有电池、充电器与 8GB 内存卡，实际外观与电池状态可见面核对。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1093729559571-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093729559571"
+    },
+    {
+      "id": 1625,
+      "owner": 902,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "索尼 DSC-J10 蓝色数码相机 裸机",
+      "price": 200.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "索尼 DSC-J10 蓝色数码相机，按键正常，可以开机拍照，带 USB 接口。只出裸机，不把没有列出的充电器、包装或存储配件算作附带。成色按配套图和实物确认，想了解屏幕与拍照效果可以先沟通。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1093731539196-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093731539196"
+    },
+    {
+      "id": 1626,
+      "owner": 903,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "富士 J15fd 银色日版相机",
+      "price": 378.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "富士 J15fd 银色日版数码相机，外壳有瑕疵。 820 万像素、3 倍光学变焦、CCD 传感器，功能正常。配件列有电池、万能充、内存卡和电脑读卡器，手机端读卡设备需要另外确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1092530837705-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1092530837705"
+    },
+    {
+      "id": 1627,
+      "owner": 904,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "柯达 AZ651 相机 屏内有灰点",
+      "price": 399.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "柯达 AZ651 相机，外观有二手使用痕迹，功能标注正常。屏幕画面有一个小灰点，具体灰尘位置尚未确认，可能需要清理；屏幕本身没有破损。只有相机一台，没有充电器，介意灰点或需要完整配件的同学先确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1070695409013-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1070695409013"
+    },
+    {
+      "id": 1628,
+      "owner": 905,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "松下 FX40 日语版数码相机",
+      "price": 450.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "松下 FX40 日语版数码相机，成色约九成新，有少量划痕，屏幕有贴膜。传感器无黑点，闪光灯、按键和录制正常。基础配件列有电池、万能充、内存卡和电脑读卡器，手机读卡器及其他充电器属于另选配件。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1095679941367-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095679941367"
+    },
+    {
+      "id": 1629,
+      "owner": 906,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "三洋 T700 CCD 数码相机",
+      "price": 248.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "三洋 T700 CCD 数码相机，功能完好，外观成色见配套图片。配件列有电池、充电器、内存卡和电脑读卡器。具体容量、接口和电池状态未完整标注，可以在见面前确认，再检查实际拍照与导出功能。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1083177499680-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1083177499680"
+    },
+    {
+      "id": 1630,
+      "owner": 907,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "松下 FX12 数码相机",
+      "price": 349.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "松下 FX12 数码相机，成色较新、功能正常。配件列有内存卡、读卡器和电池，读卡器接口需要按自己的设备确认。充电器需要自备，具体外观、屏幕与拍摄效果请以实物检查为准。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1094627749290-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094627749290"
+    },
+    {
+      "id": 1631,
+      "owner": 908,
+      "category": "DIGITAL",
+      "condition": "FAIR",
+      "title": "徕卡 V-LUX 30 故障相机 需维修",
+      "price": 488.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "故障机，屏幕显示异常，镜头叶片有些合不上，需要维修或用于零件研究。不能作为正常可用相机购买。\n\n出个徕卡LEICA V-LUX 30黑色长焦一体机，1210 万像素，16倍光学变焦，徕卡镜头，CCD传感器。故障机，屏幕显示异常，镜头叶片有点合不上，具体看图，机身有使用痕迹，成色看看图，具体以图为准。配件只有内存卡。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1093724243873-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093724243873"
+    },
+    {
+      "id": 1632,
+      "owner": 909,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "佳能 IXUS 430 / IXY 450 CCD 相机",
+      "price": 480.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "佳能 IXUS 430 CCD 相机，亦称 IXY 450，日版带中文菜单。配件列有电池、充电器、CF 内存卡和读卡器，标注功能完好。旧机的按键、屏幕、电池与存储卡可逐项检查，未列明的附件不额外承诺。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1091484212204-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091484212204"
+    },
+    {
+      "id": 1633,
+      "owner": 910,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "彩族 C8 白色数码相机与配件",
+      "price": 288.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "彩族 C8 白色数码相机，介绍标注 64G、支持 4K 录像、前后双摄和自动对焦。使用过一两次，屏幕、按键和镜头状态较好，配有包装盒、说明书、挂绳、读卡器、转换器和收纳袋。具体存储范围、接口和成像效果可见面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1093954549667-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093954549667"
+    },
+    {
+      "id": 1634,
+      "owner": 911,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "佳能 EOS 450D 单反套机",
+      "price": 350.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "佳能 EOS 450D 单反套机，介绍标注功能正常、无维修，快门与按键正常。套机清单有机身、镜头、电池、充电器、内存卡、读卡器、镜头盖、肩带和相机包；18–55mm 镜头与其他配置的具体范围先确认，适合摄影入门的同学了解。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1080710804565-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1080710804565"
+    },
+    {
+      "id": 1635,
+      "owner": 912,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "美团黄色 22.5W 充电宝 自带双线",
+      "price": 22.99,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "美团黄色自带线充电宝， 7500mAh、22.5W，带 Type-C 和苹果接口。外观接近全新，标注功能正常，可循环充电。容量与认证信息请以机身标识为准，不把是否可带上飞机作为额外保证。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1055555031221-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1055555031221"
+    },
+    {
+      "id": 1636,
+      "owner": 915,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米 20000mAh 二手充电宝",
+      "price": 35.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米二手充电宝，容量标注 20000mAh，支持 USB-C 双向快充。介绍说明无拆修、功能正常，外观有使用痕迹，介意品相可以先看细节。包装、线材和具体型号没有全部列明，机身标识与实际充放电请当面核对。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1023667406363-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1023667406363"
+    },
+    {
+      "id": 1637,
+      "owner": 917,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "美团黄色自带线充电宝",
+      "price": 17.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "美团黄色自带线充电宝，介绍中同时提到 7500mAh 快充款和 5000mAh 慢充款，具体这一件的容量请按机身标识核对。带 Type-C 与苹果接口，外观有使用痕迹，标注功能正常。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1039246046809-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1039246046809"
+    },
+    {
+      "id": 1638,
+      "owner": 918,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "怪兽 5000mAh 自带三线充电宝",
+      "price": 13.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "怪兽充电宝，容量标注 5000mAh，自带三根输出线，可自充，补电接口为 Type-C。外观有灰色、黑色款式，具体这一件的颜色按配套图确认。介绍标注功能正常，线头、电量指示与实际充放电可见面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-969922492746-1.jpg"
+      ],
+      "sourceAssetId": "goofish-969922492746"
+    },
+    {
+      "id": 1639,
+      "owner": 902,
+      "category": "DIGITAL",
+      "condition": "FAIR",
+      "title": "美团 22.5W 自带线充电宝 外壳磨损",
+      "price": 19.99,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "美团自带线二手充电宝， 22.5W、7000–7500mAh，带苹果和 Type-C 输出线，侧面 Type-C 接口可为充电宝补电。外壳有明显划痕、磨损和磕碰掉皮，不是全新品相，具体容量以机身标识为准。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1095219913348-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095219913348"
+    },
+    {
+      "id": 1640,
+      "owner": 903,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "小米移动电源 3 20000mAh 18W",
+      "price": 39.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米移动电源 3， 20000mAh、18W，成色约九成新。外壳有划痕，介绍说明不影响使用。接口磨损、机身标识和实际充放电可当面核对，原商家的售后期限不作为校内交易承诺。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-996496048807-1.jpg"
+      ],
+      "sourceAssetId": "goofish-996496048807"
+    },
+    {
+      "id": 1641,
+      "owner": 905,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "20000mAh 22.5W 自带双线充电宝",
+      "price": 17.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "20000mAh、22.5W 自带双线移动电源，约八成新，有正常使用痕迹，功能正常、无鼓包。具体品牌、接口、容量与外壳状态以实物为准，未列明的充电器和包装不额外算入。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1055368515874-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1055368515874"
+    },
+    {
+      "id": 1642,
+      "owner": 906,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米 PB100DZM 深蓝色 10000mAh 充电宝",
+      "price": 15.88,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米 PB100DZM 深蓝色充电宝，10000mAh、22.5W，带双 USB 与 Type-C 接口。外观有使用痕迹，功能正常，适合日常随身补电。只出裸机，没有包装和数据线；具体电池与接口情况可以当面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1080819677954-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1080819677954"
+    },
+    {
+      "id": 1643,
+      "owner": 907,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米 20000mAh USB-C 双向快充充电宝",
+      "price": 35.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米二手 20000mAh 充电宝，介绍标注 USB-C 双向快充，功能正常、无拆无修。外观有一些使用痕迹，不是全新状态。具体型号、额定容量、线材范围与电池状态需要先按机身标识确认，再约交接。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1012163479302-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1012163479302"
+    },
+    {
+      "id": 1644,
+      "owner": 908,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米 PB100DZM 10000mAh 充电宝 单机",
+      "price": 19.65,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米 PB100DZM 充电宝， 10000mAh、22.5W，带双 USB 接口。约八成新，外壳有轻微划痕和使用痕迹；单机转让，没有配件。具体颜色、机身标识和充放电状态请按这一件实物确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1086095880123-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1086095880123"
+    },
+    {
+      "id": 1645,
+      "owner": 909,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "小米 P15ZM 口袋版自带线充电宝",
+      "price": 21.05,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米 P15ZM 口袋版自带线充电宝，10000mAh、22.5W，机身无刻字，成色约八至九成新，有正常二手使用痕迹。介绍列有米色和蓝色，具体这一件以配套图为准，机身标识与自带线状态可当面核对。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1094570426472-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094570426472"
+    },
+    {
+      "id": 1646,
+      "owner": 910,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "美团黄色 22.5W 充电宝",
+      "price": 27.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "美团黄色 22.5W 自带线充电宝，成色接近全新，带 Type-C 和苹果接口，介绍标注功能正常、可以循环充放电。具体容量和认证信息按机身标识核对，补电速度以实际设备兼容情况为准，不沿用商家的额外质保承诺。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1047021137008-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1047021137008"
+    },
+    {
+      "id": 1647,
+      "owner": 911,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米 PB1022ZM 白色口袋充电宝",
+      "price": 20.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米 PB1022ZM 白色口袋版充电宝，10000mAh、22.5W，带双 USB-A、Type-C 和 Micro-USB 接口及电量指示灯。机身有使用痕迹，功能标注正常。只出裸机，没有包装和数据线，具体接口与充放电可当面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1089378417589-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1089378417589"
+    },
+    {
+      "id": 1648,
+      "owner": 912,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "怪兽 SPB90 自带三线充电宝",
+      "price": 12.98,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "怪兽 SPB90 自带三线充电宝，电池容量 5000mAh、额定容量 3000mAh，来自共享机柜拆机设备。自带不同手机接口的输出线，机身与接头成色见配套图，实际可用接口和充放电请当面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1084516303210-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1084516303210"
+    },
+    {
+      "id": 1649,
+      "owner": 913,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "怪兽 5000mAh 自带线充电宝",
+      "price": 11.88,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "怪兽 5000mAh 自带线充电宝，约九成新，有一些划痕，Type-C 通用口。具体是双线还是三线版本以实物为准，不把多个款式混成同一件商品的确定配置。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1065718845030-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1065718845030"
+    },
+    {
+      "id": 1650,
+      "owner": 914,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "怪兽 5000mAh 三线充电宝",
+      "price": 12.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "怪兽二手充电宝，5000mAh，自带苹果、安卓与 Type-C 接口输出线。外形便携，可为充电宝自身补电，介绍标注功能正常。线头磨损、机身容量标识和每条线的实际使用情况可当面检查，不额外承诺出行携带资格。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1081035954221-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1081035954221"
+    },
+    {
+      "id": 1651,
+      "owner": 915,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "美团 7500mAh 22.5W 二手充电宝",
+      "price": 29.99,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "美团二手充电宝，7500mAh、22.5W，成色约九成至九五新，有正常使用痕迹，没有明显大磕碰。介绍标注充放电正常，具体外观见配套实物图。自带线、接口、电量指示和机身标识可以见面逐项检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1093582012218-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093582012218"
+    },
+    {
+      "id": 1652,
+      "owner": 917,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "绿联 PB762-Qi 无线充电宝",
+      "price": 25.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "绿联 PB762-Qi2 磁吸无线充电宝，容量 5000mAh，支持无线与 Type-C 充电。机身有使用痕迹，SN 码有轻微刮擦，功能标注正常，只出裸机。磁吸、无线充电和带壳使用效果需要按自己的设备确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1080668582122-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1080668582122"
+    },
+    {
+      "id": 1653,
+      "owner": 918,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米 10000mAh 充电宝",
+      "price": 16.88,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米银色 10000mAh 充电宝，双 USB 接口，介绍标注支持快充、充电正常。外壳有使用痕迹，具体成色见图，只出裸机。型号、额定容量与配件范围没有完整列出，可以先核对机身标识，再见面检查充放电。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1084273179926-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1084273179926"
+    },
+    {
+      "id": 1654,
+      "owner": 904,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "街电自带线充电宝 两个一组",
+      "price": 11.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "街电自带线充电宝，标价对应两个一组。外壳和线头情况见配套实物图，容量、接口和每一只的实际充放电情况需要先确认；交接时逐个检查，避免只检查其中一只。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-960141570213-1.jpg"
+      ],
+      "sourceAssetId": "goofish-960141570213"
+    },
+    {
+      "id": 1655,
+      "owner": 905,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米白色 20000mAh 充电宝",
+      "price": 32.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米白色 20000mAh 二手充电宝，配套图片展示机身外观。部分信息待确认，具体型号、输入输出接口、额定容量以及是否带线需要先核对机身标识。外壳痕迹和充放电状态可以在见面时检查，不额外承诺未确认的快充规格。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1078028949970-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1078028949970"
+    },
+    {
+      "id": 1656,
+      "owner": 906,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "华为 6A 原装二手数据线 两根一组",
+      "price": 13.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "华为二手原装 6A 数据线，两根一组，线长约 1 米。商品说明提到支持 66W、88W、100W 等充电方案，实际功率需要设备和充电头同时支持。部分线身发黄，成色见图，不包含充电头。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-967125973478-1.jpg"
+      ],
+      "sourceAssetId": "goofish-967125973478"
+    },
+    {
+      "id": 1657,
+      "owner": 907,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "小米 / 红米 33W 3A 原装数据线",
+      "price": 14.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小米 / 红米原装 33W、3A 二手数据线，介绍提到 K30、K40 等系列机型。线身与接头成色见图，具体接口和设备兼容情况先确认。标价对应单根线，不含充电头，实际快充功率取决于设备与充电器。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-810263746106-1.jpg"
+      ],
+      "sourceAssetId": "goofish-810263746106"
+    },
+    {
+      "id": 1658,
+      "owner": 908,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "华为 6A 原装快充线 1 米",
+      "price": 13.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "华为 6A 二手原装数据线，约 1 米，介绍标注适配 66W 等快充方案，提到华为、荣耀及部分智选机型。实际功率受手机、充电头和协议影响，先确认接口和兼容性。线身及接头磨损按配套实物图核对，不包含充电头。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-782782232865-1.jpg"
+      ],
+      "sourceAssetId": "goofish-782782232865"
+    },
+    {
+      "id": 1659,
+      "owner": 909,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "荣耀 6A 双 Type-C 数据线 1 米",
+      "price": 12.98,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "荣耀 6A 双 Type-C 数据线，长 1 米，拆封后成色较新。介绍标注支持 80W、90W、100W 等充电方案，具体需手机与充电器同时兼容。单根线转让，不包含充电头，接口和线身状态按配套图及实物确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1071675401619-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1071675401619"
+    },
+    {
+      "id": 1660,
+      "owner": 910,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "华为 6A 原装快充数据线 单线",
+      "price": 13.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "华为 6A 原装快充数据线，线长 1 米，成色约九成新，线身无破损，介绍标注功能正常。标价对应单根，不包含充电头。使用前先核对手机、充电头与线材协议，具体外观和接头磨损可以见面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-743229027046-1.jpg"
+      ],
+      "sourceAssetId": "goofish-743229027046"
+    },
+    {
+      "id": 1661,
+      "owner": 911,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "华为 Micro-USB 原装数据线 成色分档",
+      "price": 12.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "华为原装 Micro-USB 数据线，约 1 米，2A，梯形接口，可用于充电与电脑数据传输。来源按成色区分多线组合，部分发黄；具体根数与价格范围需要先按图片和聊天确认，不把旧款接口写成 Type-C。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-822222959768-1.jpg"
+      ],
+      "sourceAssetId": "goofish-822222959768"
+    },
+    {
+      "id": 1662,
+      "owner": 912,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "vivo / iQOO 6A 原装数据线 1 米",
+      "price": 14.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "vivo / iQOO 6A 二手原装数据线，约 1 米，成色约九五至九九新。介绍提到 vivo S15、S15e、S16、S15 Pro 与部分 iQOO Neo 系列，实际型号兼容性先确认。线材随着使用可能变软或发黄，具体外观以实物为准。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-803995366189-1.jpg"
+      ],
+      "sourceAssetId": "goofish-803995366189"
+    },
+    {
+      "id": 1663,
+      "owner": 913,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "华为 6A 双 Type-C 二手快充线",
+      "price": 12.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "华为原装二手 6A 双 Type-C 快充线，线长 1 米，成色约八五至九成新。功能正常，具体外观见图。标价为单根线，不包含充电头，实际快充功率取决于设备和充电器的兼容情况。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1026666023548-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1026666023548"
+    },
+    {
+      "id": 1664,
+      "owner": 914,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "苹果 USB-C 转 Lightning PD 快充线",
+      "price": 12.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "苹果二手 USB-C 转 Lightning PD 快充线，介绍提到适配 iPhone 12、13、14 等 Lightning 接口设备，配合相应 USB-C 充电头使用。线身和接头有二手使用痕迹，交易前请确认接口，不适用于需要双 Type-C 线的设备。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-941193065189-1.jpg"
+      ],
+      "sourceAssetId": "goofish-941193065189"
+    },
+    {
+      "id": 1665,
+      "owner": 915,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "苹果 USB-A 转 Lightning 数据线 约 1 米",
+      "price": 15.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "苹果 USB-A 转 Lightning 数据线，白色，长度约 1 米。只有线，没有包装，有二手使用痕迹，介绍标注充电和数据传输正常。适用于对应 Lightning 接口设备，购买前核对充电头接口，接头和线身状态可当面检查。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1038820650754-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1038820650754"
+    },
+    {
+      "id": 1666,
+      "owner": 916,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "MacBook 双 Type-C 充电线 2 米",
+      "price": 13.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "苹果 MacBook 双 Type-C 二手充电线，长 2 米，介绍标注 5A，支持充电与数据传输。可与兼容 USB-C 接口设备搭配，实际功率和传输表现受设备限制。只有线材，具体线身、接头与充电器兼容性先确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-889972302769-1.jpg"
+      ],
+      "sourceAssetId": "goofish-889972302769"
+    },
+    {
+      "id": 1667,
+      "owner": 917,
+      "category": "DIGITAL",
+      "condition": "FAIR",
+      "title": "苹果 PD 原装快充线 1 米 有发黄",
+      "price": 23.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "苹果二手 USB-C 转 Lightning PD 快充线，约 1 米，有明显使用痕迹和发黄，但没有破皮，介绍标注功能正常。适配使用 Lightning 接口的 iPhone，具体设备和充电头先核对，不包含充电头与其他配件。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1041181432505-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1041181432505"
+    },
+    {
+      "id": 1668,
+      "owner": 918,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "荣耀 65W 二手原装数据线",
+      "price": 12.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "荣耀 65W 二手原装数据线，标价对应单根线。具体线长、两端接口与适配型号没有全部标注，需要先按配套实物图确认；不包含充电头。线身及接头磨损可当面检查，再用兼容设备确认充电状态。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1016252080037-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1016252080037"
+    },
+    {
+      "id": 1669,
+      "owner": 901,
+      "category": "DIGITAL",
+      "condition": "LIKE_NEW",
+      "title": "华为 / 荣耀 6A 原装拆机数据线",
+      "price": 13.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "华为 / 荣耀原装拆机 6A 快充线，1 米，成色约八五至九成新，线身无破损，介绍标注功能正常。标价为单根，不包含充电头，具体快充功率取决于手机和充电器。线头磨损与线身状况按配套图和实物确认。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-743751682982-1.jpg"
+      ],
+      "sourceAssetId": "goofish-743751682982"
+    },
+    {
+      "id": 1670,
+      "owner": 902,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "vivo 120W 二手快充数据线",
+      "price": 14.92,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "vivo 120W 二手快充数据线，成色接近全新，外观较新，介绍标注功能正常。具体接口、线长及可兼容的手机、充电器需要先确认，不能仅按标注功率判断所有设备都能快充。只转让线材，未列明充电头。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1087943666181-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1087943666181"
+    },
+    {
+      "id": 1671,
+      "owner": 903,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "红米 Note 8 Pro Type-C 3A 数据线",
+      "price": 13.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "红米 Note 8 Pro 等机型使用的 Type-C 3A 二手数据线，约 1 米。介绍说明为旧款接口设计，不是改装快充线，成色比较差，但标注功能与快充正常。介意线身磨损的同学先查看细节，并核对自己的设备兼容性。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-743548043698-1.jpg"
+      ],
+      "sourceAssetId": "goofish-743548043698"
+    },
+    {
+      "id": 1672,
+      "owner": 904,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "荣耀 65W 二手数据线",
+      "price": 12.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "荣耀 65W 二手原装数据线，介绍同时提到华为 65W 笔记本充电器线。完整长度和接口规格未全部标明，可先按配套实物图核对接头，再确认与充电器及设备是否兼容。线材单独转让，不默认附带充电器。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-1036201907331-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1036201907331"
+    },
+    {
+      "id": 1673,
+      "owner": 905,
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "title": "绿联 PD20W Type-C 转 Lightning 线",
+      "price": 19.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "绿联 PD20W Type-C 转 Lightning 数据线，白色线身有发黄。商品说明列有 1 米、1.5 米、2 米等版本，具体这一根的长度需要先确认。适配使用 Lightning 接口的设备，功能、长度与接头磨损见面核对。\n\n校内当面交接，先在聊天里核对型号、接口、配件和成色。见面时可检查对应功能；快充功率还取决于设备与充电头，确认兼容后再交易。",
+      "images": [
+        "goofish-859629366512-1.jpg"
+      ],
+      "sourceAssetId": "goofish-859629366512"
+    },
+    {
+      "id": 1674,
+      "owner": 906,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "卫衣与长裤套装 尺寸见详情",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "卫衣与长裤套装，裤子不加绒、偏牛仔面料：腰围约 78cm，臀围 98cm，裤长 91cm，立裆 28cm，大腿围 54cm、小腿围 38cm。上衣衣长 55cm、袖长 55.5cm、肩宽 53cm、胸围 118cm，带防风袖口与腰部设计，尺寸请再核对。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1089963404441-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1089963404441"
+    },
+    {
+      "id": 1675,
+      "owner": 907,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "茜雅朵朵米白色毛呢大衣 L 码",
+      "price": 19.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "SEEYOURSTORY 茜雅朵朵毛呢大衣，L 码，米白色中长款，泡泡袖设计，带内衬。介绍给出的身材参考为身高 1.55–1.65 米、体重 90–100 斤左右，仅供参考，具体平铺尺寸先确认。适合秋冬穿，二手成色按配套图与实物核对。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1090216624288-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1090216624288"
+    },
+    {
+      "id": 1676,
+      "owner": 908,
+      "category": "clothing",
+      "condition": "FAIR",
+      "title": "绿色中长款连帽棉服 2XL",
+      "price": 14.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "绿色中长款连帽棉服，2XL，口袋较大，背面有字母装饰。衣服有明显穿着痕迹，按二手状态转让，胸围参考约 100cm。具体衣长、袖口、内衬和污渍情况可以先沟通，再确认是否合适。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1060439687865-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1060439687865"
+    },
+    {
+      "id": 1677,
+      "owner": 909,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "黄色连帽卫衣 S 码 衣长 65cm",
+      "price": 15.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "黄色连帽卫衣，S 码，衣长约 65cm、胸围约 100cm，有轻微穿着痕迹。照片为实物展示，尺寸为手工测量，会有少量误差。袖口、领口与印花状态可以先沟通查看，再确认是否合适。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1092551180084-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1092551180084"
+    },
+    {
+      "id": 1678,
+      "owner": 910,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "SCALER 女士薄外套 L 码 袖口有污渍",
+      "price": 13.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "SCALER 女士薄外套，L 码，肩宽约 34cm、胸围约 96cm、衣长约 63cm。袖口有污渍，因此按有瑕疵的二手衣物转让，不能保证清洗后完全去除。尺寸为手工测量，仅作参考，具体颜色和污渍见实物。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1091561080713-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091561080713"
+    },
+    {
+      "id": 1679,
+      "owner": 911,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "黄色连帽棉服 L 码 宽松款",
+      "price": 12.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "黄色连帽棉服，L 码，衣长约 64cm、胸围约 120cm，宽松版型，前方有口袋，下摆带抽绳。穿过几次，尚未清洗，入手后需自行清洁。具体面料、袖口和内衬状态可先沟通，不把未清洗写成全新。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1095091353221-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095091353221"
+    },
+    {
+      "id": 1680,
+      "owner": 912,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "粉色短款外套 S 码 穿过一次",
+      "price": 26.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "粉色短款外套，S 码，只穿过一次，没有污渍瑕疵。外观见配套实物图，完整面料成分和平铺尺寸未标注，可以先确认衣长、肩宽和胸围，避免只凭尺码判断是否合适。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1095946304180-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095946304180"
+    },
+    {
+      "id": 1681,
+      "owner": 913,
+      "category": "clothing",
+      "condition": "FAIR",
+      "title": "谜菲姜黄色宽松加绒卫衣 均码",
+      "price": 12.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "谜菲姜黄色宽松加绒卫衣，均码，衣长约 58cm、宽约 50cm。穿过多次，有明显穿着痕迹，按有使用感的二手衣物转让。颜色和版型见配套图，起球、领口袖口及污渍情况可以先确认。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1093297303186-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093297303186"
+    },
+    {
+      "id": 1682,
+      "owner": 914,
+      "category": "clothing",
+      "condition": "FAIR",
+      "title": "米白衬衫裙与咖啡色马甲两件套 S 码",
+      "price": 19.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "米白色长袖喇叭袖衬衫裙与咖啡色马甲两件套，S 码，双排扣、收腰设计，裙长为短裙。保存较好，整体没有明显使用痕迹，但作为二手衣物可能存在微小瑕疵。具体肩宽、胸围与裙长需要先确认。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1086911324653-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1086911324653"
+    },
+    {
+      "id": 1683,
+      "owner": 915,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "欧华伊秀黑色长款外套 衣长 78cm",
+      "price": 19.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "欧华伊秀长款外套，衣长约 78cm、胸围约 92cm，带口袋设计，个人闲置转让。具体面料与内衬情况没有完整列明，可以先沟通细节；外观和使用痕迹以配套实物图及当面检查为准。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-899172060441-1.jpg"
+      ],
+      "sourceAssetId": "goofish-899172060441"
+    },
+    {
+      "id": 1684,
+      "owner": 916,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "灰色圆领加绒卫衣 M 码",
+      "price": 16.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "灰色圆领加绒卫衣，M 码，衣长约 61cm、胸围约 108cm，有轻微穿着痕迹。配套图展示实物，尺寸为手工测量，会有少量误差。具体面料与袖口、领口状态未完全列明，可以先确认再交接。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1092627799676-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1092627799676"
+    },
+    {
+      "id": 1685,
+      "owner": 917,
+      "category": "clothing",
+      "condition": "FAIR",
+      "title": "H&M 黑色连帽卫衣 S 码",
+      "price": 9.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "H&M 黑色连帽卫衣，S 码，衣长约 68cm、胸围约 106cm，有明显穿着痕迹。尺寸均为手工测量，仅作参考，外观见配套实物图。介意褪色、起球或袖口磨损的同学可以先沟通细节。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1089559967990-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1089559967990"
+    },
+    {
+      "id": 1686,
+      "owner": 918,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "女士薄外套 3XL 有污渍",
+      "price": 16.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "女士薄外套，3XL，肩宽约 48cm、胸围约 116cm、衣长约 69cm。有污渍，以有瑕疵的二手衣物转让。照片为实物展示，尺寸是手工测量，可能有轻微误差，先确认污渍与袖口情况再决定。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1087008937481-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1087008937481"
+    },
+    {
+      "id": 1687,
+      "owner": 901,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "黑色长款棉质衣服",
+      "price": 8.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "黑色长款棉质衣服，个人闲置，棉质面料。具体衣长、肩宽、胸围和尺码没有完整保留，可以先按配套图沟通测量。成色与领口、袖口等细节当面确认，避免把未说明的尺寸写成确定参数。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1096642204637-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1096642204637"
+    },
+    {
+      "id": 1688,
+      "owner": 903,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "GAP 女士红色卫衣",
+      "price": 19.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "GAP 女士红色卫衣，胸围约 124cm、衣长约 59cm。照片为实物展示，尺寸均为手工测量，仅供参考；具体尺码标、面料和领口袖口磨损没有完整标注，可以在聊天中先确认，按实物成色交接。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1091033983136-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091033983136"
+    },
+    {
+      "id": 1689,
+      "owner": 904,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "clanline 牛油果绿亮面薄外套 M 码",
+      "price": 7.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "clanline 牛油果绿亮面短款薄外套，M 码，尺码标 160/84A。轻薄款，可作春夏外搭，实物没有破洞，内里有轻微穿着痕迹。具体衣长、袖口与面料状态可以先确认，颜色按实物核对。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1048742048941-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1048742048941"
+    },
+    {
+      "id": 1690,
+      "owner": 905,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "撞色加绒卫衣 M 码 袖子有油渍",
+      "price": 14.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "M 码撞色拼接加绒卫衣，黄色、粉色与绿色袖子，胸前有 DIVE 字母印花。衣服较厚，穿过次数不多，但一只袖子有几滴油渍，尚未清洗，不能保证能完全洗掉，介意污渍的同学先确认细节。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1008934869912-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1008934869912"
+    },
+    {
+      "id": 1691,
+      "owner": 906,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "Lilbetter 克莱因蓝连帽卫衣 M 码",
+      "price": 19.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Lilbetter 克莱因蓝连帽卫衣，M 码，衣长约 64cm、胸围约 112cm，宽松版型。个人闲置，整体较新，但按二手衣物看待，可能有微小瑕疵。版型与颜色见配套图，领口、袖口和内里状态可先确认。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1089046436696-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1089046436696"
+    },
+    {
+      "id": 1692,
+      "owner": 907,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "格纹背带裙与上衣 尺码先沟通",
+      "price": 5.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "格纹背带裙与上衣，闲置衣柜整理，配套图展示具体款式。商品说明未完整列出这组的尺码和尺寸，先沟通单件或套装范围，再确认价格和交接。衣物存在二手使用痕迹，不能按全新品相期待。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1012808880736-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1012808880736"
+    },
+    {
+      "id": 1693,
+      "owner": 908,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "浅色圆领卫衣 L 码",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "浅色圆领卫衣，L 码，有轻微穿着痕迹。商品说明提供的身材参考为身高约 160cm、体重 120 斤以内，但仅供参考，实际合不合适仍需核对衣长和胸围。外观见配套实物图。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1092212441787-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1092212441787"
+    },
+    {
+      "id": 1694,
+      "owner": 909,
+      "category": "clothing",
+      "condition": "FAIR",
+      "title": "白色立领轻薄短款棉服",
+      "price": 12.99,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "白色立领轻薄短款棉服，横条绗缝，带拉链口袋，短款版型。平铺胸围约 54cm、整圈约 108cm，衣长约 53cm，有不明显的穿着痕迹。尺码和版型仅按尺寸参考，具体领口、拉链与污渍情况可以先确认。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1095450957723-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095450957723"
+    },
+    {
+      "id": 1695,
+      "owner": 910,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "白色短袖与牛仔短裤套装 S 码",
+      "price": 19.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "白色短袖与牛仔短裤套装，建议 S 码，商品说明提到约 62cm 腰围可穿。穿过一两次，有轻微穿着痕迹，二手衣物可能存在微小瑕疵。具体衣长、裤长与实际腰围可先沟通，赠送其他衣服不作为固定承诺。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1090903978809-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1090903978809"
+    },
+    {
+      "id": 1696,
+      "owner": 911,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "33000ft 女士夹棉外套 S 码",
+      "price": 24.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "33000ft 女士夹棉外套，S 码，肩宽约 37cm、胸围约 94cm、衣长约 64cm，有轻微穿着痕迹。图片为实物拍摄，尺寸为手工测量，可能有少量误差。内衬、拉链与袖口细节可以先核对。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1073551678780-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1073551678780"
+    },
+    {
+      "id": 1697,
+      "owner": 912,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "唐狮白色加绒卫衣 L 码 有轻微污迹",
+      "price": 17.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "唐狮白色加绒卫衣，L 码，尺码标 165/88A，圆领长袖、落肩宽松款。面料标注 27% 聚酯纤维、73% 棉，带 Pink Rabbit 兔子图案。保存较好，但白色面料有一点污迹，介意的同学先核对细节。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1015782054949-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1015782054949"
+    },
+    {
+      "id": 1698,
+      "owner": 914,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "H&M 女款加绒卫衣 L 码",
+      "price": 15.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "H&M 女款加绒卫衣，L 码，衣长约 53cm、胸围约 120cm，有轻微穿着痕迹。尺寸为手工测量，仅供参考，外观见配套实物图。袖口、领口、内里与起球情况可以先沟通，确认合适再约交接。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1093592544348-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093592544348"
+    },
+    {
+      "id": 1699,
+      "owner": 915,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "米色宽松圆领卫衣 均码",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "米色宽松圆领卫衣，均码，胸围约 100cm、衣长约 55cm，个人闲置转让。成色接近全新，具体面料成分未完整列明。尺寸与领口、袖口状态按配套实物图及当面检查确认。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1094971940909-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094971940909"
+    },
+    {
+      "id": 1700,
+      "owner": 916,
+      "category": "clothing",
+      "condition": "GOOD",
+      "title": "PLAY 女士短袖 衣长 63cm",
+      "price": 19.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "PLAY 女士短袖，胸围约 96cm、衣长约 63cm。图片为实物拍摄、尺寸为手工测量，成色按实际情况确认。具体尺码标、面料与领口状态没有全部列明，可先沟通细节，避免只按品牌判断版型。\n\n校内当面交接，先在聊天里确认尺码、平铺尺寸和需要看的细节，再约时间。衣物的穿着痕迹、污渍和面料情况请一起核对，确认合适后再交易。",
+      "images": [
+        "goofish-1093753320985-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093753320985"
+    },
+    {
+      "id": 1701,
+      "owner": 917,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "闲置文具打包 笔记本文件夹与书写用品",
+      "price": 100.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置文具打包，标价 100 元对应整组。商品说明列有笔记本、文件夹、长尾夹、回形针、中性笔、插排等，基本没怎么使用。零碎物品较多，需要在聊天中确认完整清单，见面逐件查看，不用随机替代物品。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-983645932734-1.jpg"
+      ],
+      "sourceAssetId": "goofish-983645932734"
+    },
+    {
+      "id": 1702,
+      "owner": 918,
+      "category": "STATIONERY",
+      "condition": "LIKE_NEW",
+      "title": "思笔乐文具套装 带替换铅",
+      "price": 108.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "思笔乐文具套装，成色接近全新，没怎么用过，带一盒替换铅。可用于日常书写与绘画。具体各件文具的型号、数量与铅芯规格没有全部列明，先根据配套图核对清单，再见面试写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1085036426935-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1085036426935"
+    },
+    {
+      "id": 1703,
+      "owner": 901,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "派通橄榄绿签字笔与自动铅笔",
+      "price": 108.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "派通橄榄绿签字笔与自动铅笔，保存较好，只试写过，介绍标注书写顺滑，成色接近全新。两类笔的笔芯规格、数量与余量没有全部列明，先按配套图确认范围，再见面试写和检查出铅。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1088627154351-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1088627154351"
+    },
+    {
+      "id": 1704,
+      "owner": 902,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "派克 Jotter 海军蓝圆珠笔 带盒",
+      "price": 100.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "派克 Jotter 海军蓝亮漆笔杆圆珠笔，老款美版，带原装盒与原始价标。按压出芯，可更换笔芯，二手外观以实物为准。笔夹、漆面与出芯状态可以先查看，剩余墨量和实际书写可当面确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1065732079784-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1065732079784"
+    },
+    {
+      "id": 1705,
+      "owner": 903,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "Cross 高仕涛声圆珠笔 杆套有小磕碰",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Cross 高仕涛声圆珠笔，二手单笔，功能正常。杆套存在微小磕碰，其余状态较好，具体外观见配套实物图。笔芯剩余量和更换规格没有完整标注，可以先确认，再当面检查出芯和书写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1072457871534-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1072457871534"
+    },
+    {
+      "id": 1706,
+      "owner": 904,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "派克二手圆珠笔",
+      "price": 108.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "派克二手圆珠笔，笔身有正常使用痕迹，整体成色见配套实物图。可用于日常书写或文具收藏，具体型号、笔芯规格和剩余墨量未完整列出。先确认细节，见面检查笔夹、出芯与书写状态。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1083200273609-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1083200273609"
+    },
+    {
+      "id": 1707,
+      "owner": 905,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "三文梨手账文具套装 部分本子撕过页",
+      "price": 125.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "三文梨手账文具套装，包含三本手账本、收纳袋、贴纸以及水性笔、提亮笔等。手账本用过，部分内页已经撕除，这个缺点保留说明；介意缺页的同学先确认剩余页数。整组的具体清单与配件按实物核对。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1073101269662-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1073101269662"
+    },
+    {
+      "id": 1708,
+      "owner": 906,
+      "category": "STATIONERY",
+      "condition": "LIKE_NEW",
+      "title": "考研与美术文具打包",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "考研与美术文具打包，介绍标注成色约九成新以上，包含彩铅、绘画笔、修正贴、削笔器和笔袋等，整组标价 128 元。物件较多，具体种类、根数和剩余耗材应先核对清单，按实际需要确认整组范围。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1091615806613-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091615806613"
+    },
+    {
+      "id": 1709,
+      "owner": 907,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "青年牌 308 铱金钢笔 带盒",
+      "price": 150.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "80 年代青年牌 308 铱金钢笔，带原装盒，铱金笔尖，有二手使用痕迹。可作收藏或日常书写，具体笔尖粗细、上墨方式与出墨状态没有全部列明。外观见配套图，见面可检查笔帽、笔尖和实际书写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1070072723215-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1070072723215"
+    },
+    {
+      "id": 1710,
+      "owner": 908,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "Chobits 文具套装 拆封未用",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Chobits 文具套装，已经拆封，未使用。按二手收藏状态转让，可能有浮灰、老化、微小瑕疵或缺件，不把拆封未用等同于完美全新。配套图片展示现状，完整清单和缺件情况需要先确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1059436566220-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1059436566220"
+    },
+    {
+      "id": 1711,
+      "owner": 909,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "日系中性笔合集 以 0.5mm 为主",
+      "price": 120.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "日系基础款中性笔合集，以 0.5mm 为主，包含斑马、百乐、三菱、派通等品牌。闲置全新、书写顺滑，适合笔记和手账。具体支数、颜色、剩余墨量与是否拆封请按这组实物逐项确认，不包含其他商品组合。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1094123761325-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094123761325"
+    },
+    {
+      "id": 1712,
+      "owner": 910,
+      "category": "STATIONERY",
+      "condition": "FAIR",
+      "title": "英雄永生等老式钢笔 36 支 部分有裂痕",
+      "price": 100.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "老式钢笔共 36 支，包含英雄、永生等国产品牌。笔身有使用痕迹，部分存在裂痕，需自配相应笔芯或配件。整组偏向收藏与整理用途，各支的上墨和书写状态应逐一核对，不保证每一支都能直接使用。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1041356151671-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1041356151671"
+    },
+    {
+      "id": 1713,
+      "owner": 911,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "末匠 EF / 半句 F 短钢笔 单支价",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "两款短钢笔可分别转让：紫色末匠 EF 尖、彩色半句 F 尖，保存较好，只试写过，书写顺滑。标价是单支价，不是两支打包价；想同时带走需先确认组合范围和金额。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1090070720669-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1090070720669"
+    },
+    {
+      "id": 1714,
+      "owner": 912,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "Morion 尼尔森 14K F 尖短钢笔",
+      "price": 130.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Morion 尼尔森 14K 短钢笔，F 粗细笔尖，书写线条约 0.5mm，带空墨囊。日常使用痕迹，笔杆和笔尖保存良好，笔帽有小划痕、小磕碰。正常书写，墨囊状态和实际出墨可见面检查。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1066156069262-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1066156069262"
+    },
+    {
+      "id": 1715,
+      "owner": 913,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "三菱 UNI Pure Malt 橡木三合一复合笔",
+      "price": 180.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "三菱 UNI Pure Malt 橡木三合一复合笔，日本老款，木质笔杆，介绍标注功能正常、书写流畅。笔身有正常使用痕迹，具体成色见图。各档出芯、对应笔芯与剩余墨量需要先核对，适合日常笔记或收藏。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1085447658847-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1085447658847"
+    },
+    {
+      "id": 1716,
+      "owner": 914,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "闲置练习本与书写收纳文具打包",
+      "price": 100.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置练习本与文具组合，包含包书皮、练习本、铅笔、荧光笔、0.5mm 自动铅笔与铅芯、橡皮、笔盒、计算器、文件夹和笔筒等，成色约八成新。物件较多，图片中的书不默认包含，具体清单、数量与剩余空白页先确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1073520787232-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1073520787232"
+    },
+    {
+      "id": 1717,
+      "owner": 915,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "百乐 S20 原木色自动铅笔 0.5mm",
+      "price": 110.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "百乐 S20 原木色自动铅笔，0.5mm 木质笔杆，介绍标注书写和出铅正常。整体保存较好，只有轻微使用痕迹，可用于笔记、绘画与日常练字。具体笔夹、握位和笔尖状态见配套图，余芯量可当面确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1075552424529-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1075552424529"
+    },
+    {
+      "id": 1718,
+      "owner": 916,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "闲置文具一组 具体清单先确认",
+      "price": 100.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置文具一组，配套图片展示当前物品，为积存后整理转让。具体包含的种类、数量、剩余耗材和使用状态没有完整列明，可先逐项确认清单，再按实物检查，避免默认照片外还有其他赠品。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1081156603227-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1081156603227"
+    },
+    {
+      "id": 1719,
+      "owner": 917,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "手账笔记本 单本转让",
+      "price": 110.7,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "手账笔记本闲置转让，来源按购入单价逐本出。可先从配套图确认需要哪一本、数量、页型与剩余空白页，文具可能有二手瑕疵。没有完整标注的品牌和页数不补写，先沟通再约交接。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1085034447025-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1085034447025"
+    },
+    {
+      "id": 1720,
+      "owner": 918,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "COACH 蔻驰钢笔与圆珠笔套装 带铁盒",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "COACH 蔻驰钢笔与圆珠笔套装，带原装铁盒，蓝色钢笔、绿色圆珠笔，金属笔身。整体保存较新，使用较少，具体外观见图。墨囊、笔芯规格及两支笔的实际书写状态可以先核对，再约交接。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1095970464137-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095970464137"
+    },
+    {
+      "id": 1721,
+      "owner": 902,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "齐心 Comix 直液式中性笔 黑色 0.5mm",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "齐心 Comix 直液式中性笔，0.5mm 黑色子弹头，单支转让。笔身较新，墨量刻度窗显示仍有墨水，直液式供墨，灰色笔杆。出墨顺畅，适合记笔记和日常书写，可见面试写确认实际状态。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1090890964732-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1090890964732"
+    },
+    {
+      "id": 1722,
+      "owner": 903,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "昭和复古 HAPPY MEMO 手账文具套装",
+      "price": 160.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "昭和复古 HAPPY MEMO 限定款手账文具套装，包含日文手账文具、小画笔和便签，带花朵图案。具体内容与二手成色见配套实物图，适合做手账或收藏。页数、剩余耗材和附件完整性可以先逐项确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1063434296953-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1063434296953"
+    },
+    {
+      "id": 1723,
+      "owner": 904,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "MUJI 文具组 仅拆未用",
+      "price": 140.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "MUJI 文具组，仅拆封、未使用，标价 150 元对应打包整组。照片展示当前的纸本文具和配件，具体件数与清单需要先确认。二手拆封物品可能有收纳产生的微小瑕疵，见面时可逐件核对。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1077912720268-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1077912720268"
+    },
+    {
+      "id": 1724,
+      "owner": 905,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "日系 0.5mm 自动铅笔 8 支打包",
+      "price": 105.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "日系自动铅笔 8 支打包，均为 0.5mm，包含三菱、蜻蜓、派通、辉柏嘉等品牌。笔身有使用痕迹与磨损，介绍标注出铅正常。具体品牌对应哪一支、余芯与笔夹状态按配套图和实物逐项核对。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-982956097196-1.jpg"
+      ],
+      "sourceAssetId": "goofish-982956097196"
+    },
+    {
+      "id": 1725,
+      "owner": 906,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "百乐 74 黑色金夹中性笔",
+      "price": 118.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "百乐 74 黑色金夹中性笔，黑色树脂笔身、金色笔夹。笔身有正常使用痕迹，金属部分有轻微磨损掉色，介绍标注书写顺滑。具体笔芯型号、墨量与笔夹状态可以先确认，再见面试写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1029356192357-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1029356192357"
+    },
+    {
+      "id": 1726,
+      "owner": 907,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "万宝龙古典 281 圆珠笔 笔夹有细裂纹",
+      "price": 138.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "万宝龙古典 281 圆珠笔，二手单笔，日常使用痕迹，整体成色较新。笔夹两侧存在微小裂纹，按压笔夹出芯，功能正常。裂纹与金属表面状态先核对，再见面确认出芯和书写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1072212380289-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1072212380289"
+    },
+    {
+      "id": 1727,
+      "owner": 908,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "半句 / 慕乐钢笔 黑黄两色",
+      "price": 175.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "半句 / 慕乐黑色与黄色钢笔，可分开或组合转让。介绍列有 EF、F 等笔尖，成色接近全新，保存较好。具体笔杆材质、笔尖对应颜色与标价范围需先核对，不能把单支价格默认成两支打包价。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1076227350231-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1076227350231"
+    },
+    {
+      "id": 1728,
+      "owner": 909,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "MUJI 斑马晨光百乐等闲置文具",
+      "price": 25.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置文具组合，商品说明提到 MUJI、斑马、晨光、百乐等品牌，包含笔、计时器和笔筒。计时器为附赠来源，笔筒只使用过一次；多数文具保存较新。具体品牌对应哪一支、数量与耗材剩余情况请按图片核对。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1094592946615-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094592946615"
+    },
+    {
+      "id": 1729,
+      "owner": 910,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "晨光 Flag 系列 AGPA1702 中性笔 16 支",
+      "price": 12.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "晨光 Flag 国旗系列 AGPA1702 中性笔，黑色水性签字笔，16 支一组。有轻微使用痕迹。具体剩余墨量和每支笔的出墨状态可逐一检查，适合记笔记、做题和日常书写，不默认每支都满墨。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1073877735288-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1073877735288"
+    },
+    {
+      "id": 1730,
+      "owner": 911,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "得力铅笔与自动铅笔卷笔刀套装",
+      "price": 13.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "得力铅笔 10 支、自动铅笔 4 支和卷笔刀 4 个，铅笔和自动铅笔没有使用过。蓝色粗杆带圆点防滑设计，可用于书写、练字和绘画。完整根数、笔尖与卷笔刀状态可按配套图逐项确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1093241569857-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093241569857"
+    },
+    {
+      "id": 1731,
+      "owner": 912,
+      "category": "STATIONERY",
+      "condition": "LIKE_NEW",
+      "title": "德国 RB 红色大理石纹铱金钢笔",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "德国 RB 铱金钢笔，红色大理石纹笔杆，德国铱金笔尖，保存较好、未使用过，成色接近全新。具体笔尖粗细和适配墨囊没有完整说明，想用于日常书写或收藏可以先确认细节。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-998658732415-1.jpg"
+      ],
+      "sourceAssetId": "goofish-998658732415"
+    },
+    {
+      "id": 1732,
+      "owner": 913,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "老文具圆珠笔与水彩笔 110 支 功能未逐支确认",
+      "price": 200.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "老文具圆珠笔与水彩笔整组转让，圆珠笔 110 支，多品牌组合，部分有使用痕迹。长期闲置，没有保证每一支都能正常书写，不能当作全部功能完好的新笔购买，更适合整理、收藏或筛选可用耗材。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-684348381490-1.jpg"
+      ],
+      "sourceAssetId": "goofish-684348381490"
+    },
+    {
+      "id": 1733,
+      "owner": 914,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "百乐 Grance 红色大理石自动铅笔 0.5mm",
+      "price": 199.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Pilot 百乐 Grance 红色大理石自动铅笔，0.5mm，二手单笔。功能正常、按压出铅顺畅，笔帽环圈有轻微磨损，杆套没有磕碰脱漆。具体细节见配套图，笔芯余量与出铅可当面检查。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1058825759603-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1058825759603"
+    },
+    {
+      "id": 1734,
+      "owner": 915,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "晨光黑色按动中性笔 8 支 0.5mm",
+      "price": 8.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "晨光黑色按动中性笔 8 支，0.5mm 子弹头，笔身有标签，型号可查看实物。介绍标注书写顺滑，可用于日常笔记与考试。具体每支的出墨、墨量与笔夹状态请逐项检查，不默认所有笔芯都满墨。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1077275608972-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1077275608972"
+    },
+    {
+      "id": 1735,
+      "owner": 917,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "得力晨光三菱等文具打包",
+      "price": 19.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "得力、晨光、三菱、ZEBRA 等品牌闲置文具组合，包含中性笔、铅笔、马克笔、荧光笔、橡皮和墨囊等，部分未拆封，保存较新。物件较多，可先确认具体清单、完整件数和剩余耗材，再决定需要的范围。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1091049518001-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091049518001"
+    },
+    {
+      "id": 1736,
+      "owner": 918,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "斑马百乐晨光等中性笔一组",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "斑马、百乐、晨光、得力等中性笔一组，有黑、蓝、红等颜色，包含按动式、拔盖式，部分带动漫或限定图案。笔身有二手使用痕迹，具体品牌、支数与余量以实物为准，可以先按图片确认，再见面逐支试写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1083903997129-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1083903997129"
+    },
+    {
+      "id": 1737,
+      "owner": 901,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "HB 铅笔尺子橡皮与削笔刀套装",
+      "price": 13.8,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置文具组合，含 HB 铅笔、尺子、橡皮、三木削笔刀和七巧板等。部分笔芯已经使用，整体不是全新状态，可用于日常绘画、练字和美术学习。具体根数、余量和削笔刀状态可以先按配套图确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1081560650152-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1081560650152"
+    },
+    {
+      "id": 1738,
+      "owner": 902,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "毕业清理 尺子圆规与笔芯 部分可能不出墨",
+      "price": 30.6,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "毕业清理文具，包含三十几把尺子、两套圆规和几十支笔芯。物品可能有瑕疵，部分笔芯存放时间较长，可能已经写不出来，这点保留说明。想用于课程或绘图的同学可以先确认清单，见面逐件试用。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1056857868644-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1056857868644"
+    },
+    {
+      "id": 1739,
+      "owner": 903,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "晨光 / 米等 0.5mm 中性笔",
+      "price": 20.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "晨光 / 米等 0.5mm 按动中性笔，包含黑色、红色和蓝色。用过部分笔，有使用痕迹，书写顺滑，正常使用不受影响。具体支数、各色数量和墨量需要先按这一组实物核对，再见面试写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1089879358951-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1089879358951"
+    },
+    {
+      "id": 1740,
+      "owner": 905,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "得力 2B 铅笔 33 支 加粗笔杆",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "得力 2B 加粗笔杆铅笔，共 33 支，成色接近全新，笔尖已经削好。可用于书写、绘画与需要 2B 铅笔的场景，具体笔杆、笔尖磨损和实际支数按实物核对。交接时可试写，确认使用手感与涂写效果。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1049060314189-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1049060314189"
+    },
+    {
+      "id": 1741,
+      "owner": 906,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "毕业闲置 0.5mm 签字笔 单支转让",
+      "price": 20.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "毕业后剩余的 0.5mm 签字笔，黑色墨水、油性笔芯，包含宝克、三菱、得力、晨光等品牌。外壳有金属和塑料款，多数使用不多。来源为单支 2 元，具体选哪支与笔芯状态先沟通。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1071238800681-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1071238800681"
+    },
+    {
+      "id": 1742,
+      "owner": 907,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "毕业闲置中性笔与笔芯 带笔袋",
+      "price": 16.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "毕业整理的中性笔与笔芯，包含晨光、得力、百乐、三菱等品牌，黑色、红色和 0.5mm 规格都有。成色接近全新，附一个笔袋。具体数量、颜色和剩余墨量没有逐一列明，先按图片核对，再见面试写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1008726720827-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1008726720827"
+    },
+    {
+      "id": 1743,
+      "owner": 909,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "Dickson 铅笔与橡皮订书机文具组合",
+      "price": 19.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "Dickson 铅笔与文具组合，含 2B、HB 铅笔、自动铅笔、圆珠笔、订书机及一包 4B 橡皮，部分带笔套。整体保存较新，多数使用不多。完整支数、耗材余量与订书机附件先按图片核对，再逐项试用。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1093527598710-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093527598710"
+    },
+    {
+      "id": 1744,
+      "owner": 910,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "红黑笔芯修正带与夹子组合",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置文具组合，包含笔、修正带、夹子，以及 4 根红笔芯和 4 根黑笔芯。多数接近全新，保存较好、正常使用。具体各件品牌、耗材剩余量和完整清单按配套图确认，不把图片外的物品算作附带。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1088620794896-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1088620794896"
+    },
+    {
+      "id": 1745,
+      "owner": 911,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "晨光 2B 涂卡笔与橡皮铅芯套装",
+      "price": 15.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "晨光考试文具套装，包含 2B 涂卡笔、橡皮和铅芯，商品说明提到两支笔芯，成色接近全新。可用于考试涂卡和日常整理复习资料；实际件数、铅芯余量和笔杆状态可先按图片确认，见面检查出铅与涂写。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1064653715789-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1064653715789"
+    },
+    {
+      "id": 1746,
+      "owner": 912,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "得力笔与笔记本礼盒 带棉麻布袋",
+      "price": 20.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "得力文具礼盒，含 S82 中性笔、S86 宝珠笔、S941 原木铅笔，以及格子缝线笔记本、横线缝线笔记本和棉麻布袋。介绍标注成色接近全新，具体件数、笔芯余量和本册空白页按实物确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1086606779231-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1086606779231"
+    },
+    {
+      "id": 1747,
+      "owner": 913,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "晨光得力铅笔与本册文具组合",
+      "price": 17.6,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "晨光 HB、2H 原木六角铅笔、得力铅笔及本册文具组合，另有两个小笔记本和小米巨能写。数量与各件剩余使用量没有完整列明，可先根据配套图核对清单，确认本册空白页、笔尖和书写状态。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1079150871911-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1079150871911"
+    },
+    {
+      "id": 1748,
+      "owner": 914,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "文具打包 计算器与书写用品 不含徽章",
+      "price": 23.9,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "文具整组转让，标价 19.9 元，不包含图中的徽章。笔主要是得力和晨光，另有得力计算器，计算器正常开关，还有一支百乐笔正常出墨、使用过一两次；左下角四支为附带文具，具体清单先确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1078539298037-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1078539298037"
+    },
+    {
+      "id": 1749,
+      "owner": 915,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "文具八件套 0.5mm 笔芯与修正带",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "文具八件套，含斑马笔、大管笔芯、修正带与替芯，笔芯为 0.5mm，修正带为 7mm 加宽款，另有两个未拆封替芯。整体保存较新，介绍标注书写顺滑。完整八件清单、剩余耗材与适配规格先核对。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1093736731880-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093736731880"
+    },
+    {
+      "id": 1750,
+      "owner": 916,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "中华 HB 铅笔 5 支与得力橡皮 15 块",
+      "price": 11.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "中华 HB 铅笔 5 支和得力 2B 橡皮 15 块，桶装收纳。介绍说明没有使用过，保存较好，可用于书写、绘画和笔记整理。实际件数、笔尖与橡皮表面状态按配套图和实物确认，不默认附带其他文具。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1048253088597-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1048253088597"
+    },
+    {
+      "id": 1751,
+      "owner": 917,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "闲置本册文具一组 有泛黄",
+      "price": 13.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "闲置本册文具一组，标价对应一组。各件都有轻微使用痕迹和泛黄，不能按全新状态期待。具体本册数量、页型、剩余空白页和附带物品以配套实物图为准，可以先在聊天中核对清单。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1073348937307-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1073348937307"
+    },
+    {
+      "id": 1752,
+      "owner": 918,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "晨光 24 色水溶性彩色铅笔 桶装",
+      "price": 8.88,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "晨光 24 色水溶性彩色铅笔，桶装、木质笔杆，颜色齐全，整体成色较新，部分笔尖有使用痕迹。可用于绘画、涂色与手账，实际剩余长度和颜色完整性可以先按图片核对，再当面查看。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1088295818976-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1088295818976"
+    },
+    {
+      "id": 1753,
+      "owner": 901,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "派通三菱百乐与标签书签文具组合",
+      "price": 14.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "派通、三菱、百乐等日系文具组合，包含一盒彩色 Post-it 标签、两个书签和四支中性笔，整体保存较新。可用于记笔记、标记和手账，具体品牌对应哪支、颜色与墨量先按配套图和实物清单确认。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1091212792750-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091212792750"
+    },
+    {
+      "id": 1754,
+      "owner": 902,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "得力兔八哥 HM713-24 水溶性旋彩棒 24 色",
+      "price": 10.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "得力兔八哥联名水溶性旋彩棒，HM713-24，24 色桶装，旋转出芯。颜色齐全，用过几次，成色较新，水溶性笔芯可用于绘画、涂色和手账。剩余笔芯长度及桶身状态按配套图与实物核对。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1089623687517-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1089623687517"
+    },
+    {
+      "id": 1755,
+      "owner": 903,
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "title": "樱花与老人头软硬橡皮 三组",
+      "price": 24.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "樱花与老人头软硬橡皮，共三组。软橡皮用过一个，硬橡皮使用较少，整体有二手使用痕迹，可用于擦铅与素描整理。具体每组形状、剩余量和软硬程度可以先看配套实物图，再见面检查。\n\n校内当面交接，可以先在聊天里确认单支或整组的范围、剩余耗材与配件清单。见面时逐件查看和试写，笔尖、出墨、出铅情况确认后再交易。",
+      "images": [
+        "goofish-1066704633571-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1066704633571"
+    },
+    {
+      "id": 1756,
+      "owner": 904,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "海尔 / 美的 178L 双门冰箱",
+      "price": 116.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "178L 双门冰箱，商品说明列有风冷无霜、内置净味系统和电子温控，标注功能正常。给出的外形参考为高约 1.4 米、宽约 0.5 米；品牌与具体型号需核对铭牌，不把文案中并列的品牌当作同一台设备。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1033861510420-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1033861510420"
+    },
+    {
+      "id": 1757,
+      "owner": 905,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "个人闲置双门小冰箱",
+      "price": 50.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "个人闲置双门小冰箱，一级能效，冷藏冷冻分区，介绍标注功能正常。外观有使用痕迹，内部较干净。具体容量、型号和尺寸没有完整列明，可先核对铭牌，再安排通电检查与搬运。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1096179896472-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1096179896472"
+    },
+    {
+      "id": 1758,
+      "owner": 906,
+      "category": "FURNITURE",
+      "condition": "FAIR",
+      "title": "哆啦 A 梦图案小冰箱",
+      "price": 60.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "新飞双门小冰箱，带哆啦 A 梦图案，二级能效，冷藏冷冻分区。使用两年多，有明显使用痕迹，介绍标注制冷与压缩机工作正常，没有维修过。具体容量、内部门架与密封条状态先核对，再安排交接。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1092380958318-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1092380958318"
+    },
+    {
+      "id": 1759,
+      "owner": 908,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "个人闲置小冰箱",
+      "price": 81.42,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "个人闲置小冰箱，海尔、未使用。详细容量、具体型号、尺寸和附件未完整列出，需要先根据配套实物图和铭牌确认。搬运、电源与通电检查安排先沟通，不补写未核实的制冷参数。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1069186009831-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1069186009831"
+    },
+    {
+      "id": 1760,
+      "owner": 909,
+      "category": "FURNITURE",
+      "condition": "LIKE_NEW",
+      "title": "TCL 小冰箱",
+      "price": 300.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "TCL 对开门冰箱， 318L、风冷无霜、二级能效，成色约九成新。介绍说明使用频率较低，运行安静、无维修，带温度调节。外观与实际容量、型号请按实物铭牌核对，搬运前先量好尺寸。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-848019215483-1.jpg"
+      ],
+      "sourceAssetId": "goofish-848019215483"
+    },
+    {
+      "id": 1761,
+      "owner": 910,
+      "category": "FURNITURE",
+      "condition": "FAIR",
+      "title": "新飞双门小冰箱",
+      "price": 65.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "新飞双门小冰箱， 58L，高约 70cm、宽约 40cm，成色较新，曾使用约半年。原文列有低能耗描述，具体耗电量以铭牌为准；具体购入时间、外壳磨损和实际制冷状态可先确认。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1016441215222-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1016441215222"
+    },
+    {
+      "id": 1762,
+      "owner": 911,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "西门子 254L 双门冰箱",
+      "price": 130.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "西门子双门冰箱，254L，介绍标注一级能效，已做清洁，制冷正常。机身有轻微使用痕迹，外观见配套图，具体型号、尺寸和能效信息按铭牌确认。先安排好通电检查、搬运人员与通道尺寸，再约交接。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-737648894117-1.jpg"
+      ],
+      "sourceAssetId": "goofish-737648894117"
+    },
+    {
+      "id": 1763,
+      "owner": 912,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "二手小冰箱 近期使用次数少",
+      "price": 68.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "二手小冰箱，购入后自己清理过，插电使用不到 10 次，之后闲置。具体品牌、容量和尺寸没有完整说明，外观见配套图。可先核对铭牌和内部状态，再约时间通电检查与交接。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1095581581598-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095581581598"
+    },
+    {
+      "id": 1764,
+      "owner": 914,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "奥马 Homa 单门小冰箱",
+      "price": 65.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "奥马 Homa 单门小冰箱，旋钮调温，购入使用约两年，没有维修过，制冷正常，平时用于放饮料和水果，经常清洗、无异味。因更换大冰箱而闲置，具体尺寸和容量请先核对铭牌。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1094434750885-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094434750885"
+    },
+    {
+      "id": 1765,
+      "owner": 915,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "志高 68L 小冰箱",
+      "price": 130.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "志高二手小冰箱， 68L，成色较新，因搬家闲置。适合需要较小冷藏空间的同学先了解，具体尺寸、型号、附件以及冷藏冷冻范围未完整列明，先核对铭牌与内部结构，再安排通电检查和搬运。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1096179124679-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1096179124679"
+    },
+    {
+      "id": 1766,
+      "owner": 917,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "华宝双门小冰箱 33L 冷藏与 15L 冷冻",
+      "price": 100.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "华宝双门小冰箱，33L 冷藏与 15L 冷冻空间，介绍标注一级能效、铜管制冷，2025 年 10 月购入。保护膜还在，外观较新，功能正常、无维修。具体尺寸、型号和实际分区情况按铭牌与实物核对。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1094575397573-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094575397573"
+    },
+    {
+      "id": 1767,
+      "owner": 918,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "小冰箱 门胶条需要更换",
+      "price": 50.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "小冰箱闲置转让，可以正常使用、体积较小。小门的密封胶条需要更换，这个缺点保留说明；实际密封效果、容量和耗电情况应以通电检查与铭牌为准，搬运前先确认尺寸。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1096822040737-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1096822040737"
+    },
+    {
+      "id": 1768,
+      "owner": 901,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "萨士特 BCD-102A 双门小冰箱 102L",
+      "price": 80.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "萨士特 BCD-102A 双门小冰箱，102L，上冷冻下冷藏，直冷制冷，机身约 16kg。介绍列有冷冻能力 1.0kg/12h、日耗电约 0.33 度，功能正常、无维修，外壳有少量使用痕迹。具体参数以铭牌为准，搬运前先确认尺寸。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1084383295493-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1084383295493"
+    },
+    {
+      "id": 1769,
+      "owner": 902,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "荣事达 BCD-52B128 双门冰箱",
+      "price": 135.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "荣事达 BCD-52B128 双门小冰箱，冷藏室 35L、冷冻室 17L，一级能效。外观有二手使用痕迹，内部较干净，介绍标注制冷正常、无维修。门体、密封条和实际运行声音可以先了解，再见面通电核对。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1093637783867-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1093637783867"
+    },
+    {
+      "id": 1770,
+      "owner": 904,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "奥克斯双门小冰箱",
+      "price": 150.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "奥克斯双门小冰箱，冷藏冷冻分区，外壳有使用痕迹和小划痕，内部干净，没有明显异味或生锈。介绍标注功能正常、制冷较好，因搬运不方便而闲置。容量、尺寸和型号先按铭牌确认，再安排交接。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1073278805629-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1073278805629"
+    },
+    {
+      "id": 1771,
+      "owner": 905,
+      "category": "FURNITURE",
+      "condition": "LIKE_NEW",
+      "title": "海尔 452L 对开门冰箱",
+      "price": 500.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "海尔 452L 对开门冰箱，白色，风冷无霜、一级能效，带 Wi-Fi 连接与温度调节。介绍标注使用较少、无维修，外观约九成新。大件设备搬运前先核对具体尺寸、门体与内部门架，再确认通道和运输安排。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-794981206656-1.jpg"
+      ],
+      "sourceAssetId": "goofish-794981206656"
+    },
+    {
+      "id": 1772,
+      "owner": 906,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "58L 小冰箱",
+      "price": 58.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "58L 小冰箱，成色接近全新、功能完好无维修。具体品牌、外形尺寸、冷藏冷冻分区和能效没有完整列明，先根据配套实物图与铭牌核对。需要搬运的同学可先量好摆放空间，再约时间查看。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-961180673106-1.jpg"
+      ],
+      "sourceAssetId": "goofish-961180673106"
+    },
+    {
+      "id": 1773,
+      "owner": 907,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "二手冰箱 外壳有划痕",
+      "price": 112.08,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "二手冰箱，老款机型，外壳有划痕，外观一般。通电制冷正常、保鲜可用，只支持自行搬运。具体容量和型号未完整列明，可先查看配套图与铭牌，再约时间检查内部和实际制冷状态。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1094662850854-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094662850854"
+    },
+    {
+      "id": 1774,
+      "owner": 908,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "米奇图案小冰箱",
+      "price": 89.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "米奇图案小冰箱，商品说明仅提供了名称与配套实物图，没有完整标注容量、型号、耗电量和使用年限。外观及内部细节可以先沟通，见面再核对铭牌和通电状态，避免仅凭图片判断具体规格。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-864733101122-1.jpg"
+      ],
+      "sourceAssetId": "goofish-864733101122"
+    },
+    {
+      "id": 1775,
+      "owner": 909,
+      "category": "FURNITURE",
+      "condition": "FAIR",
+      "title": "奥克斯 35L 双门小冰箱 有锈迹掉漆",
+      "price": 99.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "奥克斯 35L 双门小冰箱，三级能效，重量约 14–15kg。密封条脏污明显，壁底有生锈和掉漆，使用年限较长，不能按新机成色期待。现有搬运条件为五楼步梯，需自行安排人员，先确认实际状态再交易。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1094441404726-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094441404726"
+    },
+    {
+      "id": 1776,
+      "owner": 910,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "新飞约 118L 双门小冰箱 有划痕污渍",
+      "price": 60.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "新飞灰色双门小冰箱，容量约 118L，介绍给出的尺寸为长约 420mm、宽约 420mm、高约 850mm，参数以铭牌为准。外壳边角掉漆，内部有划痕和污渍，功能标注正常、无维修，先确认清洁与密封条状态。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1091383170330-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091383170330"
+    },
+    {
+      "id": 1777,
+      "owner": 912,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "志高 BCD-58P118 双门小冰箱",
+      "price": 80.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "志高 BCD-58P118 双门小冰箱，冷藏 40L、冷冻 18L，三级能效，综合耗电量标注 0.47 度 / 24 小时。内部较干净，外观有使用痕迹，介绍标注制冷正常。具体铭牌、门体与密封情况可以见面检查。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1095185221485-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1095185221485"
+    },
+    {
+      "id": 1778,
+      "owner": 914,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "二手冰箱 实物见图",
+      "price": 30.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "二手冰箱，外观见配套实物图。商品说明没有完整列出品牌、容量、尺寸和使用年限，先确认铭牌、内部空间、附件与实际制冷情况。搬运前可测量所需空间和通道，确认范围后再约交接。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1094412790413-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1094412790413"
+    },
+    {
+      "id": 1779,
+      "owner": 903,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "格力冷暖二手空调",
+      "price": 300.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "格力二手冷暖空调，一级能效，成色接近全新，制冷、制热功能正常，无拆修。来源介绍有多种匹数和机型，具体这一件的型号、匹数与内外机范围需要先按铭牌确认，拆装费用另行沟通。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1084057472079-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1084057472079"
+    },
+    {
+      "id": 1780,
+      "owner": 904,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "格力空调单独内机 不含整套设备",
+      "price": 322.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "格力空调单独内机，标价不包含室外机，也不是整套空调价格。一级能效、冷暖型，外观较新，无拆修。匹数、接口及对应室外机必须先核对，单独内机不能独立完成制冷，拆装另行安排。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1091443028573-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1091443028573"
+    },
+    {
+      "id": 1781,
+      "owner": 910,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "格力 3 匹立式柜机 变频冷暖",
+      "price": 730.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "格力 3 匹立式柜机，一级能效、变频冷暖，成色接近全新，原装无拆修、功能正常，外观较干净。内外机、铜管与其他附件的实际范围先确认，拆装、搬运与现场通电检查可另行约定。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1034465351552-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1034465351552"
+    },
+    {
+      "id": 1782,
+      "owner": 911,
+      "category": "FURNITURE",
+      "condition": "LIKE_NEW",
+      "title": "二手空调单独内机 不含整套设备",
+      "price": 399.88,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "二手空调单独内机，标价只对应内机，不是一整套空调。成色约九成新、无异味，经过调试，存在多种匹数和机型。具体型号、接口与配套室外机需要先核对，不将多种可选规格当作同一件确定配置。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1085566456133-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1085566456133"
+    },
+    {
+      "id": 1783,
+      "owner": 912,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "格力空调单独内机 规格先确认",
+      "price": 315.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "格力空调单独内机，标价不含室外机。冷暖型、一级能效，外观有二手使用痕迹，功能状态正常、未拆修。具体匹数、型号与连接规格需要先确认，内机必须与兼容的室外机配套使用。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1074211911311-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1074211911311"
+    },
+    {
+      "id": 1784,
+      "owner": 914,
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "title": "格力二手冷暖空调",
+      "price": 300.0,
+      "location": "校内公共交接点（具体位置聊天确认）",
+      "description": "格力二手冷暖空调，一级能效，使用不到一年，功能正常、没有维修过，外观接近全新。来源提到多种匹数与机型，因此具体这一件的铭牌、内外机及附件范围先核对，拆装安排不作为默认赠送服务。\n\n校内当面交接，先沟通尺寸、电源条件、配件范围和搬运安排，再约时间查看实物。空调的拆装另行沟通；家电使用前请确认学校的用电与安装规定。",
+      "images": [
+        "goofish-1090348637896-1.jpg"
+      ],
+      "sourceAssetId": "goofish-1090348637896"
+    }
+  ]
+}
