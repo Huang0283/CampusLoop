@@ -1,0 +1,87 @@
+import datetime
+import json
+import shutil
+from pathlib import Path
+
+w=Path(__file__).resolve().parent
+root=w.parents[1]
+out=root/'output/recovered-catalog-20261030'
+p=json.loads((out/'progress.json').read_text(encoding='utf8'))
+api=json.loads((out/'live-api-check.json').read_text(encoding='utf8'))
+browser=json.loads((out/'browser-check.json').read_text(encoding='utf8'))
+preserve=json.loads((out/'preservation-check.json').read_text(encoding='utf8'))
+assert not browser['errors'] and preserve['passed']
+p.update({'dailyImported':True,'dailyVerifiedAt':datetime.datetime.now().astimezone().isoformat(),
+    'dailySite':'http://127.0.0.1:5174/market','dailyApi':api['api'],'visibleDailyTotal':api['visibleTotal'],
+    'verifiedPhotos':api['verifiedPhotosIncludingHeld'],'testsPassed':11,'browserChecks':len(browser['results'])})
+extra=[]
+cat=json.loads((root/'backend/seed_assets/showcase.json').read_text(encoding='utf8'))
+used={n for product in cat['products'] for n in product['images']}
+prov=json.loads((root/'backend/seed_assets/import-provenance.json').read_text(encoding='utf8'))
+for file in (root/'backend/seed_assets/products').glob('goofish-*.jpg'):
+    if file.name in used:continue
+    aid=file.stem.rsplit('-',1)[0]
+    reason=next(x['reason'] for x in prov['excluded'] if x['assetId']==aid)
+    extra.append({'file':file.name,'reason':reason})
+p['previouslyExcludedGoofishPhotos']=extra
+(out/'progress.json').write_text(json.dumps(p,ensure_ascii=False,indent=2),encoding='utf8')
+process=out/'process';process.mkdir(exist_ok=True)
+for name in ['clean_images.py','final_ledger.py','finalize_copy.py','apply_reviewed.py','verify_live.py','compare_state.py','browser.cjs','save_completion.py','index.json','old-index.json','before-showcase.json','before-provenance.json']:
+    shutil.copy2(w/name,process/name)
+report=f'''# CampusLoop 商品图片整理与本地验收
+
+完成日期：2026-10-30（Asia/Shanghai）。
+
+## 已更新的版本
+
+- 工作目录：`C:\\Users\\Administrator\\Desktop\\CampusLoop`。
+- 分支：`feat/recovered-catalog-20261030`，基于 `b3706b8`；本轮未提交、未合并、未推送。
+- 本地网站：`http://127.0.0.1:5174/market`；API：`http://127.0.0.1:8001`。
+- 使用 `scripts/start-local.ps1 -NoBrowser` 重建更新，保留 `campusloop-local-db` 和媒体卷。
+
+## 商品与图片核算
+
+- 本轮整理新增91件：90件可售展示，1件因覆盖实物的水印暂缓；旧商品另有8件暂缓。
+- catalog共375件、681张图库文件；其中366件可售展示。日常商城含其他原有商品，共381件可售。
+- 恢复的近期308张原图均逐张记账：199张进入可见图库、1张属于暂缓商品、71张来源证据、21张超出5图的补充角度、9张待确认、其余7张分别为已售/宣传、水印角度、省略的不同规格和重复宣传图。
+- 旧50张未关联的pp/stat图片：46张用于15件新增商品，2张与既有商品重复，1张不适合大学平台，1张随机福袋范围待确认。
+- 先前已排除的2张goofish图片继续排除，原因保存在progress.json。所有原图均保留。
+- 21张图片经裁剪或局部去水印后使用；9件无法在保留实物状态的前提下处理的商品暂缓，不以修补后的虚假表面替代实物。
+- 商品文案删除儿童等字眼及“自提”，交接地点统一“校内公共交接点（具体位置聊天确认）”；按摩用品归生活用品。
+
+## 价格
+
+- 逐件保存91件新增商品的来源标价、单件/套餐范围与挂牌价；46件有规格解释或演示调价理由。
+- 4件旧商品纠正明显异常：1716文具组合100→35元，1719手账本110.7→15元，1721单支中性笔99→2元，1741单支签字笔20→3元。
+- 洗衣机的不同机器不混图，低价占位或多款价不能当整机价。详情见price-review.json。
+- 这些价格用于教学演示挂牌，不作为真实市场成交估值；未改动其他用户的自主发布商品。
+
+## 验收
+
+- 独立数据库`campusloop_recovered_audit_20261030`、Redis DB15及独立MinIO桶完成迁移、两遍导入幂等和11项相关测试；Ruff检查及格式检查通过。
+- 日常库更新前备份：`.codex-tmp/recovered-catalog/daily-before-import.dump`。
+- 108个原有账号的凭据、角色和状态摘要一致；11张聊天/交易等业务表摘要一致；既有商品交易状态、收藏数与浏览数保持，只有8件指定在售旧商品转为隐藏。
+- 681张图库文件HTTP/JPEG/SHA256核对通过；API标题、描述、价格、分类、成色、地点与图库顺序均与catalog一致。
+- 9件暂缓商品不出现在市场列表，游客详情返回404；原文件仍保留。
+- 1720px桌面和390px手机检查5个分类、3件新增详情、翻图/缩略图、刷新、价格/地点、游客联系卖家跳转登录和隐藏商品失败状态；无页面异常和横向溢出。
+
+## 仍需来源确认
+
+- B3第8张为与实拍不同的宣传手提箱。
+- B45第4–9张为不同面板/外观的海尔洗衣机，不能确认机器对应关系。
+- B55两张多款发夹托盘，来源5元和正文10–15元范围冲突，不能整盘挂牌。
+- 旧stat-kokuyo-campus随机1–2件福袋的具体范围不明。
+- 9件暂缓商品需要干净原图，具体ID和原因见progress.json。
+
+## 文件
+
+- `source-image-ledger.json`：逐图分类、原文件名、哈希和商品关联。
+- `price-review.json`：价格来源、调整前后和理由。
+- `image-cleaning.json`：清理坐标、前后哈希、原图备份和省略原因。
+- `reviewed-products.json`：整理过的商品、证据与照片引用。
+- `live-api-check.json`、`browser-check.json`、`preservation-check.json`及页面截图：验收证据。
+- `process/`：处理脚本及基线快照，归档不自动执行；脚本原运行位置为`.codex-tmp/recovered-catalog`，恢复到该位置并安装Pillow/numpy/OpenCV后按依赖执行。不要盲目重跑apply_reviewed.py，它会覆盖后续清理；日常最终资产以backend/seed_assets为准。
+- 原会话、308张来源图及水印处理前原图：`C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521`，原文件未删除。
+'''
+(out/'README.md').write_text(report,encoding='utf8')
+print('Completion report saved; 308 recent and 50 old photos accounted for.')

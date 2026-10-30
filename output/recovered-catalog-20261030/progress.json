@@ -1,0 +1,96 @@
+{
+  "updatedAt": "2026-10-30T10:57:59.902050+08:00",
+  "branch": "feat/recovered-catalog-20261030",
+  "merged": false,
+  "catalogProducts": 375,
+  "catalogImages": 681,
+  "newProducts": 91,
+  "newVisibleProducts": 90,
+  "heldProducts": [
+    {
+      "id": 1610,
+      "title": "Zara 银色一字带高跟凉鞋 36 码",
+      "reason": "原图密集平铺水印覆盖鞋面，缺少无水印替代照片，暂缓展示。"
+    },
+    {
+      "id": 1612,
+      "title": "Only 黑色冰丝小衫 S 码",
+      "reason": "原图含广告拼贴，裁切后清晰度不足，等待清晰无水印的服装实拍。"
+    },
+    {
+      "id": 1701,
+      "title": "闲置文具打包 笔记本文件夹与书写用品",
+      "reason": "半透明水印横跨文具与包装，缺少干净替代图，暂缓展示。"
+    },
+    {
+      "id": 1756,
+      "title": "海尔 / 美的 178L 双门冰箱",
+      "reason": "多处广告覆盖冰箱门体与边缘，无法在保留实物表面的前提下安全清理，暂缓展示。"
+    },
+    {
+      "id": 1779,
+      "title": "格力冷暖二手空调",
+      "reason": "广告与安装承诺贴字覆盖空调上缘，缺少完整无广告原图，暂缓展示。"
+    },
+    {
+      "id": 1780,
+      "title": "格力空调单独内机 不含整套设备",
+      "reason": "大字广告覆盖空调机身，缺少干净替代图，暂缓展示。"
+    },
+    {
+      "id": 1783,
+      "title": "格力空调单独内机 规格先确认",
+      "reason": "安装广告紧贴空调上沿，背景修补存在明显色块，等待干净原图。"
+    },
+    {
+      "id": 1784,
+      "title": "格力二手冷暖空调",
+      "reason": "能效宣传大字覆盖机身，不能据此验证能效，缺少干净替代图，暂缓展示。"
+    },
+    {
+      "id": 1820,
+      "title": "彩色亚克力方形收纳盒四件套",
+      "reason": "水印覆盖透明收纳盒及内部物品，保留原图等待干净替代照片。"
+    }
+  ],
+  "expectedVisibleShowcase": 366,
+  "recentSourceImages": 308,
+  "recentClassifications": {
+    "入图库照片": 199,
+    "来源证据": 71,
+    "补充角度": 21,
+    "待确认": 9,
+    "已售或宣传": 2,
+    "暂缓商品图片": 1,
+    "水印角度省略": 2,
+    "重复宣传图": 1,
+    "套餐或规格不同": 2
+  },
+  "oldUnlinkedImages": 50,
+  "oldClassifications": {
+    "入图库照片": 46,
+    "与既有商品重复": 2,
+    "不适合大学平台": 1,
+    "待确认": 1
+  },
+  "sourceImagesUnaccounted": 0,
+  "dailyImported": true,
+  "priceNotice": "仅调整教学演示商品的挂牌价；保留来源标价、数量范围和调整理由，不表示真实市场成交估值。",
+  "dailyVerifiedAt": "2026-10-30T11:28:22.091918+08:00",
+  "dailySite": "http://127.0.0.1:5174/market",
+  "dailyApi": "http://127.0.0.1:8001",
+  "visibleDailyTotal": 381,
+  "verifiedPhotos": 681,
+  "testsPassed": 11,
+  "browserChecks": 18,
+  "previouslyExcludedGoofishPhotos": [
+    {
+      "file": "goofish-1078415544034-1.jpg",
+      "reason": "标题写两台空调，图片和标价无法确认对应单台或整批"
+    },
+    {
+      "file": "goofish-1095688677202-1.jpg",
+      "reason": "标题、商品信息与图片中的物品无法确认一致"
+    }
+  ]
+}

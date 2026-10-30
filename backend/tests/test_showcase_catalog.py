@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -43,6 +44,40 @@ def test_missing_showcase_photo_fails_instead_of_becoming_placeholder(tmp_path) 
     (tmp_path / "showcase.json").write_text(json.dumps(catalog), encoding="utf-8")
     with pytest.raises(FileNotFoundError):
         load_catalog(tmp_path)
+
+
+def test_showcase_copy_matches_campus_marketplace_scope() -> None:
+    directory = Path(__file__).resolve().parents[1] / "seed_assets"
+    for product in load_catalog(directory)["products"]:
+        assert product["location"] == "校内公共交接点（具体位置聊天确认）"
+        copy = product["title"] + product["description"]
+        assert not re.search(r"儿童|宝宝|幼儿|小孩|小学|自提|\?{3,}|\\n", copy), product["id"]
+        if "按摩" in product["title"]:
+            assert product["category"] == "DAILY"
+
+
+@requires_postgres
+@pytest.mark.integration
+@pytest.mark.parametrize(
+    ("before", "after"),
+    [("ON_SALE", "HIDDEN"), ("HIDDEN", "HIDDEN"), ("RESERVED", "RESERVED"), ("SOLD", "SOLD")],
+)
+def test_showcase_publication_hold_preserves_existing_trades(before, after) -> None:
+    from app.db.session import session_scope
+    from app.models import Product
+    from scripts.seed import SHOWCASE, run_seed
+
+    held = next(item for item in SHOWCASE if item.get("publicationHold"))
+    with session_scope() as session:
+        run_seed(session, verbose=False)
+        product = session.get(Product, held["id"])
+        assert product.status == "HIDDEN"  # New catalogs also suppress the held item.
+        product.status = before
+        session.flush()
+        run_seed(session, verbose=False)
+        session.expire_all()
+        assert product.status == after
+        session.rollback()
 
 
 @requires_postgres

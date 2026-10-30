@@ -1,0 +1,376 @@
+{
+  "cleaned": [
+    {
+      "file": "goofish-996496048807-1.jpg",
+      "originalSha256": "d69ec4f69980338db1153719377385550cddd9eca0f3fa63dfe8cbb87b35bd7d",
+      "sha256": "624a64e223f7755e60f8a6e66da81292ecbfe217af7f4acc1e81c25dec91b9bc",
+      "operation": {
+        "patch": [
+          [
+            0.775,
+            0,
+            1,
+            0.235
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-996496048807-1.jpg"
+    },
+    {
+      "file": "goofish-1012163479302-1.jpg",
+      "originalSha256": "8aa1826331c9b97d8540634d221010e0ba321fe8284b6247f21d55bd8c830f1a",
+      "sha256": "afc11826b754ea03db74ed4fe0e013e7508bc5ac6ad3568f3b21e6954281328f",
+      "operation": {
+        "crop": [
+          0,
+          0,
+          1,
+          0.963
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1012163479302-1.jpg"
+    },
+    {
+      "file": "goofish-1078028949970-1.jpg",
+      "originalSha256": "113d8e85d6ff9dc10f7ee2e5f0e6c7c033033d927133dd48d350c11909eff2dd",
+      "sha256": "b3ea6223c028462efc6f3abdbf250d8f7332428d35be31928ff6f1c264ddcb14",
+      "operation": {
+        "crop": [
+          0,
+          0,
+          1,
+          0.87
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1078028949970-1.jpg"
+    },
+    {
+      "file": "goofish-1072457871534-1.jpg",
+      "originalSha256": "f3ba6a12da34279bed7eeb46e5293dc97533be6ee509a805ed40aedd728f46bc",
+      "sha256": "5a2f32ab112823717c74347762d0bfb4a94a3b7caad97730bade9192bec07ec7",
+      "operation": {
+        "white": [
+          [
+            0.675,
+            0,
+            1,
+            0.66
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1072457871534-1.jpg"
+    },
+    {
+      "file": "goofish-1066156069262-1.jpg",
+      "originalSha256": "2e7e492f3e3b2dc054d15ef3f012b2fb4afa37e62b46639a1af7581bf73c3343",
+      "sha256": "0f642abb1077208b6fe1d7d67674db35699a7746f372f757ef9ebae1592c4739",
+      "operation": {
+        "white": [
+          [
+            0.675,
+            0,
+            1,
+            0.66
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1066156069262-1.jpg"
+    },
+    {
+      "file": "goofish-1072212380289-1.jpg",
+      "originalSha256": "f75b56175b01d34f892f11ac883472b526e089b080fa2b27d7c7e185d32e1270",
+      "sha256": "36a27839768f92f4d21796af97ffd2d625702746f3c4c6586cd6ed426e5e7b53",
+      "operation": {
+        "white": [
+          [
+            0.675,
+            0,
+            1,
+            0.66
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1072212380289-1.jpg"
+    },
+    {
+      "file": "goofish-1078539298037-1.jpg",
+      "originalSha256": "002183ef2c831456c31c86b5a92f40633c96e204a25f8a0efafa022356f2651f",
+      "sha256": "671d457a54aace33ad3f99e8590c5abfa3a21a2fb7c161f9b8219d663fa3ff1a",
+      "operation": {
+        "patch": [
+          [
+            0.7,
+            0.655,
+            0.81,
+            0.83
+          ],
+          [
+            0.9,
+            0.88,
+            1,
+            0.96
+          ],
+          [
+            0,
+            0.865,
+            0.13,
+            0.95
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1078539298037-1.jpg"
+    },
+    {
+      "file": "goofish-1085566456133-1.jpg",
+      "originalSha256": "472c0c3336b88caa39a72b84cfaa6c750fba79957bea5cc3fd2340677034c685",
+      "sha256": "520ffc58a5b766f4d94becbb4a3b3f64f9381469b0ab09885eb1b07c5fb23a08",
+      "operation": {
+        "blueOnly": [
+          [
+            0.48,
+            0.52,
+            0.81,
+            0.65
+          ]
+        ],
+        "cropAfter": [
+          0,
+          0,
+          1,
+          0.61
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1085566456133-1.jpg"
+    },
+    {
+      "file": "goofish-1034465351552-1.jpg",
+      "originalSha256": "6f3a5cfad37b72f136fd5814e20dd82503158ad7db39573e9c3588265b348ff2",
+      "sha256": "c4340bb8a8d0ea228f57ccf4241434653f9942438b129cdf2ad33e6356993b6a",
+      "operation": {
+        "crop": [
+          0,
+          0,
+          1,
+          0.875
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1034465351552-1.jpg"
+    },
+    {
+      "file": "goofish-1069186009831-1.jpg",
+      "originalSha256": "68d7a75abd3a242b1dde3cfa1ecb37e793e2f0a7d7ceb8aa8749404cef8d2390",
+      "sha256": "de2d83dc9f54ff29f63cbf4a0ca37a604d18d0c5010b9de521b01315460bf07c",
+      "operation": {
+        "crop": [
+          0,
+          0,
+          1,
+          0.895
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1069186009831-1.jpg"
+    },
+    {
+      "file": "goofish-1090216624288-1.jpg",
+      "originalSha256": "1996c691815b9e163ca6423926c58e65b7ef6592f72b9da233c14cb8bf7b3709",
+      "sha256": "32b91bfb2ba2c0f4fa7e935865dadc5e94faca97a5293581bdc8f86e1870c735",
+      "operation": {
+        "crop": [
+          0,
+          0,
+          1,
+          0.893
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1090216624288-1.jpg"
+    },
+    {
+      "file": "goofish-1094441404726-1.jpg",
+      "originalSha256": "80c50a30ad1b57e18cb7277f9d1a4939df633d1313b90de00403a0e29b009c09",
+      "sha256": "fc9795edc65f520598069bb3c741be7cb7c2ef69145d663f3dc308f47f5b6b01",
+      "operation": {
+        "patch": [
+          [
+            0.68,
+            0.88,
+            0.97,
+            0.982
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1094441404726-1.jpg"
+    },
+    {
+      "file": "rec-organizer-purple-bin-1.jpg",
+      "originalSha256": "fd64c8a4b5d231055185758cb532451141bf910efdde469b9ec1d73dd65af9d8",
+      "sha256": "c34da5d03e072fddfad52536f1399cb855d586b1a4df7c4af32129016da10f35",
+      "operation": {
+        "crop": [
+          0,
+          0,
+          1,
+          0.885
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-organizer-purple-bin-1.jpg"
+    },
+    {
+      "file": "rec-organizer-purple-bin-4.jpg",
+      "originalSha256": "1d7bcd25f4a8a965dca00fd727668255f6a66610ca92749c05297d9150f50e1a",
+      "sha256": "dcd54a1c3992901afd765da0d2d401b1d81d3377b64ebb4646a2a784e4c3b0ca",
+      "operation": {
+        "crop": [
+          0,
+          0,
+          1,
+          0.889
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-organizer-purple-bin-4.jpg"
+    },
+    {
+      "file": "rec-washer-haier-dark-1.jpg",
+      "originalSha256": "c0fff54dad3876dcba4edbe1a5b229ee9134b89fe1f8d45be351b52b6e61f72a",
+      "sha256": "64b1dc472df67c8d7d0a8937366ce2a749851df98f3e31ff961c86d7b67374b3",
+      "operation": {
+        "patch": [
+          [
+            0.84,
+            0.855,
+            0.975,
+            0.927
+          ],
+          [
+            0.58,
+            0.924,
+            0.99,
+            0.972
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-washer-haier-dark-1.jpg"
+    },
+    {
+      "file": "rec-washer-haier-dark-2.jpg",
+      "originalSha256": "7fd543b2e2ef047cc8ae2bb86630fc3ea605ff6d2ad508452f45ef2bccdef805",
+      "sha256": "c11af6be02beb5b64adad7a1d7f20c6de4ca59a0accdfff871c94c1dab1cd6aa",
+      "operation": {
+        "patch": [
+          [
+            0.845,
+            0.875,
+            1,
+            0.952
+          ],
+          [
+            0.56,
+            0.938,
+            1,
+            1
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-washer-haier-dark-2.jpg"
+    },
+    {
+      "file": "rec-washer-haier-dark-3.jpg",
+      "originalSha256": "2218820550d0e94bc24ba60c8f72d2e5f08262ea074ec06ca627c3ca66c6cef5",
+      "sha256": "f76a0542f653363368b4e16794301bec57e7a55f463b9644672e72bd9b3e0b6e",
+      "operation": {
+        "patch": [
+          [
+            0.845,
+            0.875,
+            1,
+            0.952
+          ],
+          [
+            0.56,
+            0.938,
+            1,
+            1
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-washer-haier-dark-3.jpg"
+    },
+    {
+      "file": "rec-umbrella-mi-pair-1.jpg",
+      "originalSha256": "2a7bd038f59505a9ebf66f114d6e65db52060721b5743814712f2a11e62e40fa",
+      "sha256": "f7908894b7a9043194a72d23331d6614bac2fb5789e9e771c797f47c442a8e73",
+      "operation": {
+        "patch": [
+          [
+            0.035,
+            0.886,
+            0.265,
+            0.997
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-umbrella-mi-pair-1.jpg"
+    },
+    {
+      "file": "rec-umbrella-mi-pair-2.jpg",
+      "originalSha256": "0841d1c9079c30a7558e48c5e4271fca7dc27de9c483f0ae16932c24cb7b4954",
+      "sha256": "57480ef0c9e7b9d11e747a65b9146843570d634427cc37a93189fcd6cdb59a08",
+      "operation": {
+        "patch": [
+          [
+            0.035,
+            0.886,
+            0.265,
+            0.997
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-umbrella-mi-pair-2.jpg"
+    },
+    {
+      "file": "rec-rack-dark-double-1.jpg",
+      "originalSha256": "46b26703b8f51ce2bdcfbc4100b08d9717f491af7ccc32466acecd84dfe9791f",
+      "sha256": "100c70ee59f76ef8343c262eb9d7ad4e0328dd8a7fde4ea67f3d3b3ce2bb412f",
+      "operation": {
+        "patch": [
+          [
+            0.57,
+            0,
+            1,
+            0.18
+          ]
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-rack-dark-double-1.jpg"
+    },
+    {
+      "file": "rec-basket-laundry-caster-1.jpg",
+      "originalSha256": "eed7fca9e52b5f5f4bf9e464025c1107b13c6ac6b100ac8e824373c7a011b75d",
+      "sha256": "11bcc007968904d9e268ded6e143f23f768ca86598ff5fd141f615cdb92725a4",
+      "operation": {
+        "crop": [
+          0.18,
+          0.15,
+          0.81,
+          0.97
+        ]
+      },
+      "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-basket-laundry-caster-1.jpg"
+    }
+  ],
+  "withheld": {
+    "1610": "原图密集平铺水印覆盖鞋面，缺少无水印替代照片，暂缓展示。",
+    "1756": "多处广告覆盖冰箱门体与边缘，无法在保留实物表面的前提下安全清理，暂缓展示。",
+    "1780": "大字广告覆盖空调机身，缺少干净替代图，暂缓展示。",
+    "1784": "能效宣传大字覆盖机身，不能据此验证能效，缺少干净替代图，暂缓展示。",
+    "1612": "原图含广告拼贴，裁切后清晰度不足，等待清晰无水印的服装实拍。",
+    "1779": "广告与安装承诺贴字覆盖空调上缘，缺少完整无广告原图，暂缓展示。",
+    "1701": "半透明水印横跨文具与包装，缺少干净替代图，暂缓展示。",
+    "1783": "安装广告紧贴空调上沿，背景修补存在明显色块，等待干净原图。",
+    "1820": "水印覆盖透明收纳盒及内部物品，保留原图等待干净替代照片。"
+  },
+  "omittedGalleryImages": {
+    "rec-organizer-purple-bin-2.jpg": "水印覆盖箱体下缘，采用同批第一、第四张的完整箱体照片。",
+    "rec-organizer-purple-bin-3.jpg": "同批有其他角度，底部水印覆盖箱体边缘，保留原图但不展示此角度。",
+    "rec-bin-white-lid-1.jpg": "同批第三张为同一画面无宣传贴纸原图，采用无贴纸版本。"
+  }
+}

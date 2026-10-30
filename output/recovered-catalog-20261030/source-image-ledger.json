@@ -1,0 +1,4236 @@
+{
+  "recent": [
+    {
+      "batch": 1,
+      "image": 1,
+      "sourceFile": "codex-clipboard-QiT8tO.png",
+      "sha256": "be3e7ae4d1e2e152ad0e934c378150dec81718a20bf4a0ad90b79477810b063b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1785
+      ],
+      "galleryFiles": [
+        "rec-case-black-20-1.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 2,
+      "sourceFile": "codex-clipboard-SAGRtH.png",
+      "sha256": "ff33d383b3f890af4d90b7b4de55d72e91c2dd62662e1f1d2f2e4b56a838e819",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1785
+      ],
+      "galleryFiles": [
+        "rec-case-black-20-2.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 3,
+      "sourceFile": "codex-clipboard-WyV5rJ.png",
+      "sha256": "eb82f9e60afd4725dd7bff61c62781c2593411f76b990441ce2144ebd46260e1",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1785
+      ],
+      "galleryFiles": [
+        "rec-case-black-20-3.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 4,
+      "sourceFile": "codex-clipboard-IHOLbD.png",
+      "sha256": "17a4a10c844d02acdcb62913d39f677908bada96875d10b33c264d72c595a4ff",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1785
+      ],
+      "galleryFiles": [
+        "rec-case-black-20-4.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 5,
+      "sourceFile": "codex-clipboard-yAHJeU.png",
+      "sha256": "c49b4f556b54f606ed91d3a36ff62d1ef9ee5609870c1750ff435dff77e37423",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1799
+      ],
+      "galleryFiles": [
+        "rec-case-black-zip-extra-1.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 6,
+      "sourceFile": "codex-clipboard-q0ojQX.png",
+      "sha256": "979aea61a77e44f5282c5bda5d58213e1ce0142dd472a22172abe53c3a1566f9",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1799
+      ],
+      "galleryFiles": [
+        "rec-case-black-zip-extra-2.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 7,
+      "sourceFile": "codex-clipboard-VV09c5.png",
+      "sha256": "b0c6452f0f35dfa960c0ff23fc4d607a2f4016b884b99290fc9707e32dfcfa3b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1799
+      ],
+      "galleryFiles": [
+        "rec-case-black-zip-extra-3.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 8,
+      "sourceFile": "codex-clipboard-G63lGJ.png",
+      "sha256": "3b25b941a95e4fb43aed7f761f3a1796777ada8cc966c462804d80a0249fc653",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1799
+      ],
+      "galleryFiles": [
+        "rec-case-black-zip-extra-4.jpg"
+      ]
+    },
+    {
+      "batch": 1,
+      "image": 9,
+      "sourceFile": "codex-clipboard-7ayM8S.png",
+      "sha256": "072a843cd7681423569dcb6f05e551a7f22013edd4bc12a95578e4195c89a075",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1799
+      ],
+      "galleryFiles": [
+        "rec-case-black-zip-extra-5.jpg"
+      ]
+    },
+    {
+      "batch": 2,
+      "image": 1,
+      "sourceFile": "codex-clipboard-v0wxaI.png",
+      "sha256": "4ec3ed0b96f47ed4d414efcecbe6aea1188d48bdcefcb2b5b318940fb037984c",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 3,
+      "image": 1,
+      "sourceFile": "codex-clipboard-T6erD5.png",
+      "sha256": "fe79b442f4083876b18c84a82222ce11966f59367bced3773851435188679720",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1786
+      ],
+      "galleryFiles": [
+        "rec-case-blue-20-1.jpg"
+      ]
+    },
+    {
+      "batch": 3,
+      "image": 2,
+      "sourceFile": "codex-clipboard-YDa3Cp.png",
+      "sha256": "f1c6a74934c2a4005367c857eda3280ff90f4b33cd88d5632fcd9d9eee8d4dd1",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1787
+      ],
+      "galleryFiles": [
+        "rec-case-white-20-1.jpg"
+      ]
+    },
+    {
+      "batch": 3,
+      "image": 3,
+      "sourceFile": "codex-clipboard-JO6Jfd.png",
+      "sha256": "9f8a609db5f530a619517eda2f4ebf9b920b87669ccafe3777b8001b713951cf",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1787
+      ],
+      "galleryFiles": [
+        "rec-case-white-20-2.jpg"
+      ]
+    },
+    {
+      "batch": 3,
+      "image": 4,
+      "sourceFile": "codex-clipboard-F5lQsM.png",
+      "sha256": "197f15b7577a4eb599a73d054ee14141b7946599fc285c555c48aac9382ed697",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1787
+      ],
+      "galleryFiles": [
+        "rec-case-white-20-3.jpg"
+      ]
+    },
+    {
+      "batch": 3,
+      "image": 5,
+      "sourceFile": "codex-clipboard-HGvPuA.png",
+      "sha256": "d8782e4550abe1a4bfaf9322fec77741e47843bcc76998c3954633f768832447",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1787
+      ],
+      "galleryFiles": [
+        "rec-case-white-20-4.jpg"
+      ]
+    },
+    {
+      "batch": 3,
+      "image": 6,
+      "sourceFile": "codex-clipboard-jTDmju.png",
+      "sha256": "bf1d7f6683605809befc17249b6138eb7ac1eaaa15cf9d810579fa7c7eda01e4",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 3,
+      "image": 7,
+      "sourceFile": "codex-clipboard-F3Dics.png",
+      "sha256": "2bc8dfca041099cd7eeb79d268315e8e9364e31accce0d95542f9a62b30f8918",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1787
+      ],
+      "galleryFiles": [
+        "rec-case-white-20-5.jpg"
+      ]
+    },
+    {
+      "batch": 3,
+      "image": 8,
+      "sourceFile": "codex-clipboard-QwyyQ1.png",
+      "sha256": "a564eabec4df562e7e81b5241503e9e7c1cea36a1249ef87ba962740f89f02e2",
+      "classification": "待确认",
+      "reason": "独立宣传手提箱，与实拍箱体款式不同，未独立定价。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 3,
+      "image": 9,
+      "sourceFile": "codex-clipboard-fR7eDi.png",
+      "sha256": "8c0d1ab00e2085c989fa9d086cb6c150be7b4dbbaac68ecd8ec9e9d5cebad104",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 4,
+      "image": 1,
+      "sourceFile": "codex-clipboard-pzTsD3.png",
+      "sha256": "9ba049a66eab7d617dacbc3212ad02a03c2eff1b954bfe520271f73ba83a81ed",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1788
+      ],
+      "galleryFiles": [
+        "rec-case-mint-character-2.jpg"
+      ]
+    },
+    {
+      "batch": 4,
+      "image": 2,
+      "sourceFile": "codex-clipboard-YXyKx1.png",
+      "sha256": "d186e0c94011d049196d78c3dc48d7560036be8f8c13d1cf12bcb79116f90fca",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1788
+      ],
+      "galleryFiles": [
+        "rec-case-mint-character-1.jpg"
+      ]
+    },
+    {
+      "batch": 4,
+      "image": 3,
+      "sourceFile": "codex-clipboard-QJfMHZ.png",
+      "sha256": "f4321efffce55cb311dbf92ccb3bf42c37acb54ba82581464f325a1544914212",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1788
+      ],
+      "galleryFiles": [
+        "rec-case-mint-character-3.jpg"
+      ]
+    },
+    {
+      "batch": 4,
+      "image": 4,
+      "sourceFile": "codex-clipboard-pwYdid.png",
+      "sha256": "a599293bacb6492413f57e37d4febaaf247e67bbacd5c4130c512e275c09447f",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 5,
+      "image": 1,
+      "sourceFile": "codex-clipboard-u943fj.png",
+      "sha256": "018661bc27364785691e44fad0221380195c785d0589e28bc9fde26ca98615af",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1789
+      ],
+      "galleryFiles": [
+        "rec-case-white-scratched-1.jpg"
+      ]
+    },
+    {
+      "batch": 5,
+      "image": 2,
+      "sourceFile": "codex-clipboard-Idr7sh.png",
+      "sha256": "b769f9b7a98d4ded11cb5d3b951b08cfc66ba5f881e67f75a9ff6cf863662a6d",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1789
+      ],
+      "galleryFiles": [
+        "rec-case-white-scratched-2.jpg"
+      ]
+    },
+    {
+      "batch": 5,
+      "image": 3,
+      "sourceFile": "codex-clipboard-0sXYX9.png",
+      "sha256": "90816d10c31803a20aca8cebb14a1cc99e0525ed8536d7c18be4ba3ccb1e72ae",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1789
+      ],
+      "galleryFiles": [
+        "rec-case-white-scratched-3.jpg"
+      ]
+    },
+    {
+      "batch": 5,
+      "image": 4,
+      "sourceFile": "codex-clipboard-le8GgR.png",
+      "sha256": "3df2bffaf9bd6a853c3a62b2bfe6807b34d40a73f2c067681d23b507f44a0347",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 5,
+      "image": 5,
+      "sourceFile": "codex-clipboard-suoDVF.png",
+      "sha256": "21519afe20060c57ced240ca36433ac5f329cb46ab9b64165ff3907568aca76c",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1789
+      ],
+      "galleryFiles": [
+        "rec-case-white-scratched-4.jpg"
+      ]
+    },
+    {
+      "batch": 5,
+      "image": 6,
+      "sourceFile": "codex-clipboard-Whb7z0.png",
+      "sha256": "c3dd9b2f01c09bc820f13e96281dfdd4b734c334d9589e3248c181180fe91994",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1789
+      ],
+      "galleryFiles": [
+        "rec-case-white-scratched-5.jpg"
+      ]
+    },
+    {
+      "batch": 5,
+      "image": 7,
+      "sourceFile": "codex-clipboard-pv15y8.png",
+      "sha256": "280d936c2c52a015f1a082c7e5e605364cb2026b70e2498b5e64401c8626f171",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 6,
+      "image": 1,
+      "sourceFile": "codex-clipboard-zLphY8.png",
+      "sha256": "c1eef676f398ac35bdf866e6a6aec22d109a964cf99dfdd808bec53eb4629a3e",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1790
+      ],
+      "galleryFiles": [
+        "rec-case-duck-pair-2.jpg"
+      ]
+    },
+    {
+      "batch": 6,
+      "image": 2,
+      "sourceFile": "codex-clipboard-jJBQRC.png",
+      "sha256": "00561a3cc826bae90fc0eb44e48114f9ea67164972cd2a5f114e7f7b462d97ef",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1790
+      ],
+      "galleryFiles": [
+        "rec-case-duck-pair-3.jpg"
+      ]
+    },
+    {
+      "batch": 6,
+      "image": 3,
+      "sourceFile": "codex-clipboard-Sglazd.png",
+      "sha256": "c520b6d2fdc66b94b0820f94d5fc1666c9dfbeed30affecbedce30fa846afdf5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1790
+      ],
+      "galleryFiles": [
+        "rec-case-duck-pair-1.jpg"
+      ]
+    },
+    {
+      "batch": 6,
+      "image": 4,
+      "sourceFile": "codex-clipboard-1DLv4D.png",
+      "sha256": "2f416b6bb8799a34a1b3bcf9c2a7a5cad0087a0db770ffa77d605e3a94e4daa3",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1790
+      ],
+      "galleryFiles": [
+        "rec-case-duck-pair-4.jpg"
+      ]
+    },
+    {
+      "batch": 6,
+      "image": 5,
+      "sourceFile": "codex-clipboard-Dr2aJq.png",
+      "sha256": "f224532a42af10fa02a9c5f596ab31dd2af8b82b0a80452e7f74d523783c60f3",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1790
+      ],
+      "galleryFiles": [
+        "rec-case-duck-pair-5.jpg"
+      ]
+    },
+    {
+      "batch": 6,
+      "image": 6,
+      "sourceFile": "codex-clipboard-yOWf4O.png",
+      "sha256": "34e839df4acaf115abf4278431692a8827fa439d98217a56a1b824d6ebc98c99",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 7,
+      "image": 1,
+      "sourceFile": "codex-clipboard-cIfw4P.png",
+      "sha256": "867aa405bacab123b5b923ec2797398d8dc756083a24a1c9a83d97fb1c941a65",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1791
+      ],
+      "galleryFiles": [
+        "rec-case-black-22-1.jpg"
+      ]
+    },
+    {
+      "batch": 7,
+      "image": 2,
+      "sourceFile": "codex-clipboard-gcOPV9.png",
+      "sha256": "62c1f2c112e2f0cbf213812a78051e0216ba3f867328aac923318e0b37c7c1e7",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 8,
+      "image": 1,
+      "sourceFile": "codex-clipboard-h8bwit.png",
+      "sha256": "cb16dfe67a4b586d5385222b10cd2c03eef4d4b90e6590207bc124fcb4af208a",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1792
+      ],
+      "galleryFiles": [
+        "rec-case-squirrels-1.jpg"
+      ]
+    },
+    {
+      "batch": 8,
+      "image": 2,
+      "sourceFile": "codex-clipboard-KFEAfk.png",
+      "sha256": "614067bd9e0c4273ec0146872b609008c842d8cb39432cbeceef9980cfa86df1",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1792
+      ],
+      "galleryFiles": [
+        "rec-case-squirrels-2.jpg"
+      ]
+    },
+    {
+      "batch": 8,
+      "image": 3,
+      "sourceFile": "codex-clipboard-E2ZTFI.png",
+      "sha256": "4e9a23f2984d47380ba70cbefa1fc1ec73d48a0201547a6535c6d3a896669298",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1792
+      ],
+      "galleryFiles": [
+        "rec-case-squirrels-3.jpg"
+      ]
+    },
+    {
+      "batch": 8,
+      "image": 4,
+      "sourceFile": "codex-clipboard-y36KL3.png",
+      "sha256": "961f0e4a02a951ae3ebab3733cbd390a35220b104b574e994f2e521019c0b149",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1792
+      ],
+      "galleryFiles": [
+        "rec-case-squirrels-4.jpg"
+      ]
+    },
+    {
+      "batch": 8,
+      "image": 5,
+      "sourceFile": "codex-clipboard-XW0VWN.png",
+      "sha256": "29db5d445252e558c4495667ece3affea2c49b744c7d41f2870641e56459d9a8",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1792
+      ],
+      "galleryFiles": [
+        "rec-case-squirrels-5.jpg"
+      ]
+    },
+    {
+      "batch": 8,
+      "image": 6,
+      "sourceFile": "codex-clipboard-gSYOcu.png",
+      "sha256": "7afa8e576d1a146f907fa258e03d7c09e4f71cdf5e973a47990068d800c7ab94",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 9,
+      "image": 1,
+      "sourceFile": "codex-clipboard-MxgIK4.png",
+      "sha256": "734662b4ebeb357ebc5342dbcb126c862bae9142158d837f4afcfb7fc516216f",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1793
+      ],
+      "galleryFiles": [
+        "rec-case-oxford-26-1.jpg"
+      ]
+    },
+    {
+      "batch": 9,
+      "image": 2,
+      "sourceFile": "codex-clipboard-f3AF0i.png",
+      "sha256": "c59ef3f7d629606c6e1b753e9ac7adcf4c2c019ee9931ac4980cd379bbc2b1d4",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 10,
+      "image": 1,
+      "sourceFile": "codex-clipboard-yhp7Fr.png",
+      "sha256": "65308ba0dbdffbd0f4cbe0a646499116b754e1a575befa91766966a81ff5a164",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1794
+      ],
+      "galleryFiles": [
+        "rec-case-rose-16-1.jpg"
+      ]
+    },
+    {
+      "batch": 10,
+      "image": 2,
+      "sourceFile": "codex-clipboard-4Y5mdC.png",
+      "sha256": "2f5b74dfd36f88064baec8018ae42e307182eb6dc98f8d26a7c19c07763efd2c",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1794
+      ],
+      "galleryFiles": [
+        "rec-case-rose-16-2.jpg"
+      ]
+    },
+    {
+      "batch": 10,
+      "image": 3,
+      "sourceFile": "codex-clipboard-m5JBvc.png",
+      "sha256": "3bf65d8d235fa91475e20c97ec662017dc5b782f3fcfdb2b336f8b287144344e",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 11,
+      "image": 1,
+      "sourceFile": "codex-clipboard-emONmt.png",
+      "sha256": "fd888db046572130caebec4f543988dde467c8c9f3d1c989d934888f481b47cc",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1795
+      ],
+      "galleryFiles": [
+        "rec-case-black-zip20-2.jpg"
+      ]
+    },
+    {
+      "batch": 11,
+      "image": 2,
+      "sourceFile": "codex-clipboard-kMjes8.png",
+      "sha256": "8353a2feba4d8780bf6a8b17f77a66c2e824c9ccb0b691a54bf1fb96fc5c7845",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1795
+      ],
+      "galleryFiles": [
+        "rec-case-black-zip20-1.jpg"
+      ]
+    },
+    {
+      "batch": 11,
+      "image": 3,
+      "sourceFile": "codex-clipboard-10GdPX.png",
+      "sha256": "21fac70148528d857ab8b85696a8d625b88345f9a47d273ec1e0d5dc4cc465fb",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 12,
+      "image": 1,
+      "sourceFile": "codex-clipboard-eF8ZGn.png",
+      "sha256": "4cea12f60d39aa39fd895475b4962e77ee67ea4d628b828475db0379522d02fd",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1796
+      ],
+      "galleryFiles": [
+        "rec-case-cat-soft-1.jpg"
+      ]
+    },
+    {
+      "batch": 12,
+      "image": 2,
+      "sourceFile": "codex-clipboard-LFdlTp.png",
+      "sha256": "13f3dea82729aea91df2a7043b718300b53ca890b6c4a561c3406f432a323c1b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1796
+      ],
+      "galleryFiles": [
+        "rec-case-cat-soft-2.jpg"
+      ]
+    },
+    {
+      "batch": 12,
+      "image": 3,
+      "sourceFile": "codex-clipboard-CNxTJG.png",
+      "sha256": "cc7c1990d839a4eddcc79238f1c6f8142191bbeeb127d47667a731468fdc39de",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1796
+      ],
+      "galleryFiles": [
+        "rec-case-cat-soft-3.jpg"
+      ]
+    },
+    {
+      "batch": 12,
+      "image": 4,
+      "sourceFile": "codex-clipboard-qlAjUe.png",
+      "sha256": "fe827aaa67f44aae17d6913a14618ff8ea81e95c3c68417472be7d727738f896",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 13,
+      "image": 1,
+      "sourceFile": "codex-clipboard-s3tQGo.png",
+      "sha256": "34f2f6d79da47d91c2208a9e82438ef2e826acb9d9198baad8614d9fd8056c4c",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1797
+      ],
+      "galleryFiles": [
+        "rec-case-square22-1.jpg"
+      ]
+    },
+    {
+      "batch": 13,
+      "image": 2,
+      "sourceFile": "codex-clipboard-Ydoh15.png",
+      "sha256": "57e1613fcf050da30a15d68cf3d0e1e2e17034dda26fb73fc6c69d7ecf448e14",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1797
+      ],
+      "galleryFiles": [
+        "rec-case-square22-2.jpg"
+      ]
+    },
+    {
+      "batch": 13,
+      "image": 3,
+      "sourceFile": "codex-clipboard-JacrkA.png",
+      "sha256": "75130f3c322237607351e34c2c7e9598027daa462b23383b191be17f71449e54",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 13,
+      "image": 4,
+      "sourceFile": "codex-clipboard-7FhbZ0.png",
+      "sha256": "7143b581c4612b91e3a4f7820c8be52bf841db50db07ce6405135b48f6ac100c",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1797
+      ],
+      "galleryFiles": [
+        "rec-case-square22-3.jpg"
+      ]
+    },
+    {
+      "batch": 13,
+      "image": 5,
+      "sourceFile": "codex-clipboard-6xxXOR.png",
+      "sha256": "0c56634d288de41bbebae4e4bac2236722c260b26f432672111c0296d01be561",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1797
+      ],
+      "galleryFiles": [
+        "rec-case-square22-4.jpg"
+      ]
+    },
+    {
+      "batch": 13,
+      "image": 6,
+      "sourceFile": "codex-clipboard-SYyo7Z.png",
+      "sha256": "4303934082400f6fbad0821ec0d9418f9de1690de639438100715b9225f64d83",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 13,
+      "image": 7,
+      "sourceFile": "codex-clipboard-1OdmAh.png",
+      "sha256": "d1214763c34ccbb417e0d47e41b9ba73f4422c4a33e7855cacfa96a7775d6f98",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1797
+      ],
+      "galleryFiles": [
+        "rec-case-square22-5.jpg"
+      ]
+    },
+    {
+      "batch": 13,
+      "image": 8,
+      "sourceFile": "codex-clipboard-8Xbht4.png",
+      "sha256": "1469d18199bd3579892dfc388f2448866c88ac3f56026dd93cb37dae826af97f",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 14,
+      "image": 1,
+      "sourceFile": "codex-clipboard-bF19Wd.png",
+      "sha256": "db1c8bd4290603ce9270f1102b51436a22542383ee8a505ae2e3b717838a21f7",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1798
+      ],
+      "galleryFiles": [
+        "rec-case-rilakkuma16-1.jpg"
+      ]
+    },
+    {
+      "batch": 14,
+      "image": 2,
+      "sourceFile": "codex-clipboard-PZCXpp.png",
+      "sha256": "a4f8c40bff9b418734ab2bd0dbfcc4449f42737a047c1342746bbb1c77912a75",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 16,
+      "image": 1,
+      "sourceFile": "codex-clipboard-dmqnoP.png",
+      "sha256": "9c33b0c1a6a348ea0163603529fb3cb22ff5be21acc29a026f4c16f449b1963b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1800
+      ],
+      "galleryFiles": [
+        "rec-case-swiss-hand-1.jpg"
+      ]
+    },
+    {
+      "batch": 16,
+      "image": 2,
+      "sourceFile": "codex-clipboard-XFLcTN.png",
+      "sha256": "7884fe2c945d1f527442d0f05c98ac9f86fb744d4dd9dd018b411c5409d52a63",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 16,
+      "image": 3,
+      "sourceFile": "codex-clipboard-8dVUkW.png",
+      "sha256": "d510db72b1b37d9e23090473b7146aa90690304e56be74a6e6ce0ea89059c13c",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 16,
+      "image": 4,
+      "sourceFile": "codex-clipboard-Y84Zoz.png",
+      "sha256": "cf8a4030b83ea3388bb6ff6f87cafa1b4c0f6ed8fb818a225ace32387dc33bfe",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 16,
+      "image": 5,
+      "sourceFile": "codex-clipboard-Vt8DP3.png",
+      "sha256": "c7264b675147dbb3117493927b9e69727f345296e3cf8580ba59f9d2baed7bdb",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1800
+      ],
+      "galleryFiles": [
+        "rec-case-swiss-hand-2.jpg"
+      ]
+    },
+    {
+      "batch": 16,
+      "image": 6,
+      "sourceFile": "codex-clipboard-h5GYuH.png",
+      "sha256": "f409b4ed18437fa7d3b08dfaaa299c0d8603ab64272cf22951e3c4a871d2d789",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1800
+      ],
+      "galleryFiles": [
+        "rec-case-swiss-hand-3.jpg"
+      ]
+    },
+    {
+      "batch": 16,
+      "image": 7,
+      "sourceFile": "codex-clipboard-xpnyPB.png",
+      "sha256": "86d97b641c6f2d2cb0ac870252f7ead20ce2a639bcff45c9a9aa19ff163c2ae1",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1800
+      ],
+      "galleryFiles": [
+        "rec-case-swiss-hand-4.jpg"
+      ]
+    },
+    {
+      "batch": 16,
+      "image": 8,
+      "sourceFile": "codex-clipboard-AFfKD2.png",
+      "sha256": "c910a361300c42c5776903fe29339c02f65a71681008bcbfc1d39f4d2fe60f5e",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1800
+      ],
+      "galleryFiles": [
+        "rec-case-swiss-hand-5.jpg"
+      ]
+    },
+    {
+      "batch": 16,
+      "image": 9,
+      "sourceFile": "codex-clipboard-0kMLUo.png",
+      "sha256": "b739e6c1434543610a29eaaeaad7b1071ed6e749eedc568cf907b817cfd414f1",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 16,
+      "image": 10,
+      "sourceFile": "codex-clipboard-JIcGYz.png",
+      "sha256": "8f832bb9a1c153afe0b7e9fb097646a470b29e820854f63ef7c42b3fb95d45e1",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 17,
+      "image": 1,
+      "sourceFile": "codex-clipboard-ukxitn.png",
+      "sha256": "e138b0638142e8b0cc68a6030084b3a51988c2adb6e3a14ad9ed2b29de967fc7",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1801
+      ],
+      "galleryFiles": [
+        "rec-case-zebra20-1.jpg"
+      ]
+    },
+    {
+      "batch": 17,
+      "image": 2,
+      "sourceFile": "codex-clipboard-IrhYdS.png",
+      "sha256": "dfd4c22c6f2484cbda5e18e5b3623ebd907bceae6910c9ab53e906b81e61a147",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1801
+      ],
+      "galleryFiles": [
+        "rec-case-zebra20-2.jpg"
+      ]
+    },
+    {
+      "batch": 17,
+      "image": 3,
+      "sourceFile": "codex-clipboard-49cWPd.png",
+      "sha256": "2f5c4cb51466b35511b404ae5e8d2604c1f13df466da510c8aef9915b0e5db72",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1801
+      ],
+      "galleryFiles": [
+        "rec-case-zebra20-3.jpg"
+      ]
+    },
+    {
+      "batch": 17,
+      "image": 4,
+      "sourceFile": "codex-clipboard-6w1TDF.png",
+      "sha256": "acb57fb3297438abf0041bf63e4b1269e6110ce81dd415a2bc0bbb56f46595c9",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 18,
+      "image": 1,
+      "sourceFile": "codex-clipboard-GxNm7l.png",
+      "sha256": "ce7d586836895b5529030dcc930dccd08ac64cc2cbe255c0a8602be87d384461",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1802
+      ],
+      "galleryFiles": [
+        "rec-case-cream12-1.jpg"
+      ]
+    },
+    {
+      "batch": 18,
+      "image": 2,
+      "sourceFile": "codex-clipboard-NmslXK.png",
+      "sha256": "a4b28ae89b918d24153047e10ff3d59b77f9ef2d4fd047b905dc7538153a6f1e",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 19,
+      "image": 1,
+      "sourceFile": "codex-clipboard-imd0cy.png",
+      "sha256": "5b1857650dc458d236a42221cc6d17e620fa0821e67ccd2179183ef8df32edc0",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1803
+      ],
+      "galleryFiles": [
+        "rec-case-handry20-1.jpg"
+      ]
+    },
+    {
+      "batch": 19,
+      "image": 2,
+      "sourceFile": "codex-clipboard-zYSV0d.png",
+      "sha256": "0d65e34e235a96fbb5842c5bab5090ba6421e0fbfbe630158db8613c4634f426",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1803
+      ],
+      "galleryFiles": [
+        "rec-case-handry20-2.jpg"
+      ]
+    },
+    {
+      "batch": 19,
+      "image": 3,
+      "sourceFile": "codex-clipboard-Vm9mB9.png",
+      "sha256": "67a69a17fd548c535822c874451359e4f5d8c4ddf0b154e1e428246f0c073d65",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1803
+      ],
+      "galleryFiles": [
+        "rec-case-handry20-3.jpg"
+      ]
+    },
+    {
+      "batch": 19,
+      "image": 4,
+      "sourceFile": "codex-clipboard-70av5l.png",
+      "sha256": "5c153c97c80846701c5a778210f78cfec1708a365262600fe1cb210eef2be099",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1803
+      ],
+      "galleryFiles": [
+        "rec-case-handry20-4.jpg"
+      ]
+    },
+    {
+      "batch": 19,
+      "image": 5,
+      "sourceFile": "codex-clipboard-pI7GhZ.png",
+      "sha256": "f2219ecb32e3f7735c9fc1205dab0d01ae10e4b688db18d8bd8ae4f347c81f9a",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 20,
+      "image": 1,
+      "sourceFile": "codex-clipboard-wL3jr6.png",
+      "sha256": "cbf15679d6280859350a0d6e56af9b1641f8f1cd9298e284eb1d663c71aaf2a6",
+      "classification": "已售或宣传",
+      "reason": "同画面含已售灰色与薄荷箱，不作为在售商品图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 20,
+      "image": 2,
+      "sourceFile": "codex-clipboard-HVg1MS.png",
+      "sha256": "cd605c5a29c7e724cdd76793cc344723432a6c6a02de2e7d1cee29496257afbb",
+      "classification": "已售或宣传",
+      "reason": "同画面含已售灰色与薄荷箱，不作为在售商品图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 20,
+      "image": 3,
+      "sourceFile": "codex-clipboard-HHwO2U.png",
+      "sha256": "4f032ec5fd90c302c84d7dcd6129b74db4519a9b5ddafab4e43f7db7c2049f41",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1804
+      ],
+      "galleryFiles": [
+        "rec-case-yellow20-1.jpg"
+      ]
+    },
+    {
+      "batch": 20,
+      "image": 4,
+      "sourceFile": "codex-clipboard-DeNdmo.png",
+      "sha256": "f2ce5f0367202a4d2ebb27cdd9e25cee6cf829291bf56eef8daac0afca7e4d21",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1804
+      ],
+      "galleryFiles": [
+        "rec-case-yellow20-2.jpg"
+      ]
+    },
+    {
+      "batch": 20,
+      "image": 5,
+      "sourceFile": "codex-clipboard-OQFcna.png",
+      "sha256": "1ba6d3d27c59d7296f3db64c69ef13b78b5bbbf84fcc09833dbaf2694bdbbf14",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1804
+      ],
+      "galleryFiles": [
+        "rec-case-yellow20-3.jpg"
+      ]
+    },
+    {
+      "batch": 20,
+      "image": 6,
+      "sourceFile": "codex-clipboard-lCvNy7.png",
+      "sha256": "d663e8cd50e55c497fe0c541cffe12ee7ec96de061ea80009acd5ca2cbac0a6a",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1804
+      ],
+      "galleryFiles": [
+        "rec-case-yellow20-4.jpg"
+      ]
+    },
+    {
+      "batch": 20,
+      "image": 7,
+      "sourceFile": "codex-clipboard-XXSipB.png",
+      "sha256": "8e6e764a104d8866a755e7d7442b57d2b3ec16cf8731d9cfc0d75e54aa5086fa",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1804
+      ],
+      "galleryFiles": [
+        "rec-case-yellow20-5.jpg"
+      ]
+    },
+    {
+      "batch": 20,
+      "image": 8,
+      "sourceFile": "codex-clipboard-r7w9Bg.png",
+      "sha256": "9a82febe41793fcac2bec96b221e238665b21d57af4008ae9519dbe6946e05c2",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 21,
+      "image": 1,
+      "sourceFile": "codex-clipboard-D2FSr4.png",
+      "sha256": "61f202c637da45bbc29d77ff0bdad464ec444bf6bef46c85e7b10f8a2bd86850",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1805
+      ],
+      "galleryFiles": [
+        "rec-lamp-fold-strip-1.jpg"
+      ]
+    },
+    {
+      "batch": 21,
+      "image": 2,
+      "sourceFile": "codex-clipboard-P2d6PP.png",
+      "sha256": "1def317c1a307ddd355027efebfed5baf98b8df606f95758323e1b8d18620184",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1805
+      ],
+      "galleryFiles": [
+        "rec-lamp-fold-strip-2.jpg"
+      ]
+    },
+    {
+      "batch": 21,
+      "image": 3,
+      "sourceFile": "codex-clipboard-Y7lnzk.png",
+      "sha256": "284dd782db5164de31f36f60e1521275f6b1d092f55ba180ea2fbf5555d4a7a1",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1805
+      ],
+      "galleryFiles": [
+        "rec-lamp-fold-strip-3.jpg"
+      ]
+    },
+    {
+      "batch": 21,
+      "image": 4,
+      "sourceFile": "codex-clipboard-joBihA.png",
+      "sha256": "f756a668ecd4b676e8972ee6dbbf5071a67fa2fccb0d8cb8ef45e6ecf371945c",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 21,
+      "image": 5,
+      "sourceFile": "codex-clipboard-rVFX7n.png",
+      "sha256": "82f23aeeb78c80d8241dbd3d78e9bdfabff6ddeffb8a5eb54b26121d9dacbe08",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1805
+      ],
+      "galleryFiles": [
+        "rec-lamp-fold-strip-4.jpg"
+      ]
+    },
+    {
+      "batch": 21,
+      "image": 6,
+      "sourceFile": "codex-clipboard-6Yc1es.png",
+      "sha256": "67661156f9c190d206c350c0a5fb8022bb6d20e1b12d59ceed31bb60bfa4490d",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 21,
+      "image": 7,
+      "sourceFile": "codex-clipboard-8dg6Tp.png",
+      "sha256": "edcf8a13fb17dfb208badcbce030d7455f58c1f2cad0b0e0cc39bfcc1b0e9f81",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1805
+      ],
+      "galleryFiles": [
+        "rec-lamp-fold-strip-5.jpg"
+      ]
+    },
+    {
+      "batch": 21,
+      "image": 8,
+      "sourceFile": "codex-clipboard-fCfkdq.png",
+      "sha256": "43981db72bfbbd33574dd80176638ef5e880b2f63c049d6e3d15c0fd715dd8c6",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 22,
+      "image": 1,
+      "sourceFile": "codex-clipboard-mlybYC.png",
+      "sha256": "4eae8526b752aadad2c12ce4d6cd8c70db13cfdc4b1bf07889e7bf4c805b0679",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1806
+      ],
+      "galleryFiles": [
+        "rec-lamp-mt150-1.jpg"
+      ]
+    },
+    {
+      "batch": 22,
+      "image": 2,
+      "sourceFile": "codex-clipboard-naNXOn.png",
+      "sha256": "fbefcfd93961851ee8f7d12e5745898aed62aa7c359a04aceb203d30618fedb5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1806
+      ],
+      "galleryFiles": [
+        "rec-lamp-mt150-2.jpg"
+      ]
+    },
+    {
+      "batch": 22,
+      "image": 3,
+      "sourceFile": "codex-clipboard-GyG0nm.png",
+      "sha256": "5b1dcdc10ad6657996115dfe54f4d44ef40e3a3856a7de1eb8da738b7542c5df",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1806
+      ],
+      "galleryFiles": [
+        "rec-lamp-mt150-3.jpg"
+      ]
+    },
+    {
+      "batch": 22,
+      "image": 4,
+      "sourceFile": "codex-clipboard-yZkcjf.png",
+      "sha256": "2ec7a0d8a81a83fadcd2d2c30e5ea37495c6855a1bd45d3aae92e0eb4c54ca99",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1806
+      ],
+      "galleryFiles": [
+        "rec-lamp-mt150-4.jpg"
+      ]
+    },
+    {
+      "batch": 22,
+      "image": 5,
+      "sourceFile": "codex-clipboard-juNL8q.png",
+      "sha256": "8940196197fc884e71e146fd5a3b3bf8e62790291b7a940baeea9971838d4fca",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 22,
+      "image": 6,
+      "sourceFile": "codex-clipboard-xG3cow.png",
+      "sha256": "ee2aef7a6fcd579b0a42d61bdd4ab2f35eedbf23bfeda5e7617d8d6e6c947b04",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1806
+      ],
+      "galleryFiles": [
+        "rec-lamp-mt150-5.jpg"
+      ]
+    },
+    {
+      "batch": 22,
+      "image": 7,
+      "sourceFile": "codex-clipboard-WgF9zp.png",
+      "sha256": "cd5d24b475d37811e6e32a2cc01ba4096c9da7a120ad4e909c7147dd13d73cab",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 23,
+      "image": 1,
+      "sourceFile": "codex-clipboard-jUEgXc.png",
+      "sha256": "e0b1d2db52137173737727f30d9fd4bf0750edd2756472b4c9e2ae75dc8cb46a",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1807
+      ],
+      "galleryFiles": [
+        "rec-lamp-baoliang-1.jpg"
+      ]
+    },
+    {
+      "batch": 23,
+      "image": 2,
+      "sourceFile": "codex-clipboard-h3aW3c.png",
+      "sha256": "363a5c286300126e9bbfcec9a8d2d712eac0045b22d167f4c2ec31c0593dddbf",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1807
+      ],
+      "galleryFiles": [
+        "rec-lamp-baoliang-2.jpg"
+      ]
+    },
+    {
+      "batch": 23,
+      "image": 3,
+      "sourceFile": "codex-clipboard-hjbHxt.png",
+      "sha256": "468d3b384b9a3cf6cc5d24b050824a11db035df89cf165b13dda458fcbc4e53a",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 24,
+      "image": 1,
+      "sourceFile": "codex-clipboard-sbtNpE.png",
+      "sha256": "0ca00274b52692a36144f4023c6efb38e100abb9edfc9890efa443bba3fafd8c",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1808
+      ],
+      "galleryFiles": [
+        "rec-lamp-dp6060-1.jpg"
+      ]
+    },
+    {
+      "batch": 24,
+      "image": 2,
+      "sourceFile": "codex-clipboard-tB2Hpb.png",
+      "sha256": "ca29fd237e56d2b6c85d01170c54036c9cbcbdacab676d03ddd60c93af7004da",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1808
+      ],
+      "galleryFiles": [
+        "rec-lamp-dp6060-2.jpg"
+      ]
+    },
+    {
+      "batch": 24,
+      "image": 3,
+      "sourceFile": "codex-clipboard-nH2gtA.png",
+      "sha256": "4c6d123056feb61a25b675d73f00baea1db7d101bfaf9e36aeda8970db6c92a2",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 25,
+      "image": 1,
+      "sourceFile": "codex-clipboard-ufgD4q.png",
+      "sha256": "d9c0fbb32041343b4e769d9ccd16159a58668d444648137d7069052d0f385c02",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1809
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-delay-1.jpg"
+      ]
+    },
+    {
+      "batch": 25,
+      "image": 2,
+      "sourceFile": "codex-clipboard-u6BL68.png",
+      "sha256": "9e9906c3498e7e61423f6f3ae222ee57f9afa4dfb6cf4340972b014c24cdce3a",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1809
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-delay-2.jpg"
+      ]
+    },
+    {
+      "batch": 25,
+      "image": 3,
+      "sourceFile": "codex-clipboard-SOorFS.png",
+      "sha256": "2a75d4d1ed024bdd00ce2441401c2f28f555011e259226a96c02da619b1ea5ac",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1809
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-delay-3.jpg"
+      ]
+    },
+    {
+      "batch": 25,
+      "image": 4,
+      "sourceFile": "codex-clipboard-tTvbNc.png",
+      "sha256": "32c60f63bc39f2c5f48956214c8147975ddb7f8c5e20e69112c79f902f572822",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1809
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-delay-4.jpg"
+      ]
+    },
+    {
+      "batch": 25,
+      "image": 5,
+      "sourceFile": "codex-clipboard-v8nCks.png",
+      "sha256": "2f594d0cdfbe0b53299ff7c78218d37394d0d7350f88b40316a30f82b267a59f",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1809
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-delay-5.jpg"
+      ]
+    },
+    {
+      "batch": 25,
+      "image": 6,
+      "sourceFile": "codex-clipboard-QedvMy.png",
+      "sha256": "ea0df1c81e75c1441329f124d27e5338f0af999168956de76eac82466aa4191f",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 26,
+      "image": 1,
+      "sourceFile": "codex-clipboard-QmJLq2.png",
+      "sha256": "50a61c9055b45cbc0f404dcd8204a0bb0326f3e08f9e85dcce2bb728def458e2",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1810
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-clock-1.jpg"
+      ]
+    },
+    {
+      "batch": 26,
+      "image": 2,
+      "sourceFile": "codex-clipboard-sRK1cH.png",
+      "sha256": "16cd23a1656acc313458a6d64ec9b5f407b01eed83279ab17f3df8d4e5e0038d",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1810
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-clock-2.jpg"
+      ]
+    },
+    {
+      "batch": 26,
+      "image": 3,
+      "sourceFile": "codex-clipboard-ZbS0l3.png",
+      "sha256": "86f0fe0434b7e38a53503467f8bd45eea7561e5e2fed8b89d205cca22ba7e090",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1810
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-clock-3.jpg"
+      ]
+    },
+    {
+      "batch": 26,
+      "image": 4,
+      "sourceFile": "codex-clipboard-zT2ME8.png",
+      "sha256": "ed51d184d9a0fb15388a2fc4b4786c3030dc6cc3c11ceb7e56b47691086b4d64",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 26,
+      "image": 5,
+      "sourceFile": "codex-clipboard-oduj5h.png",
+      "sha256": "1f7cd8aedee9ec5d72dcb2e5dcd8ebc49dc6aadac05408e50fd55caf50ecc5f5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1810
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-clock-4.jpg"
+      ]
+    },
+    {
+      "batch": 26,
+      "image": 6,
+      "sourceFile": "codex-clipboard-mWl3jO.png",
+      "sha256": "9815b968803a29e156b8af4af279013db903aaf906fd208228cd30eea70314ad",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 26,
+      "image": 7,
+      "sourceFile": "codex-clipboard-5c575p.png",
+      "sha256": "970287d176f7cdb31546a1af6b4ec7d368e3d8944e3b64e0e191f70fd43e1a04",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 26,
+      "image": 8,
+      "sourceFile": "codex-clipboard-LQ7F7z.png",
+      "sha256": "5d480abc2c625d9fd3d4757ce3b32f492fd9a07f5a05ae8e9bf7fc937c9d1bdf",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1810
+      ],
+      "galleryFiles": [
+        "rec-lamp-midea-clock-5.jpg"
+      ]
+    },
+    {
+      "batch": 26,
+      "image": 9,
+      "sourceFile": "codex-clipboard-y00vA7.png",
+      "sha256": "a963eee2e8abe8a7e15820b8f59d6230280278e8a147134030025586777220bd",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 27,
+      "image": 1,
+      "sourceFile": "codex-clipboard-jVNcSv.png",
+      "sha256": "a74a93aaba330c671ca71029c9998c732736b6e8b77bf40a9261bc642f61ad6d",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1811
+      ],
+      "galleryFiles": [
+        "rec-lamp-dp6037-1.jpg"
+      ]
+    },
+    {
+      "batch": 27,
+      "image": 2,
+      "sourceFile": "codex-clipboard-zLEAog.png",
+      "sha256": "9b8f0dbb3cf1812264f1dbf53ee05515a9d6a827c5934844ec8a053745655cb3",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1811
+      ],
+      "galleryFiles": [
+        "rec-lamp-dp6037-2.jpg"
+      ]
+    },
+    {
+      "batch": 27,
+      "image": 3,
+      "sourceFile": "codex-clipboard-VzbZqn.png",
+      "sha256": "f2cc2382c6809c20175a8410800f54a70df1bb89e7fec6d6d48276409c4802f5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1811
+      ],
+      "galleryFiles": [
+        "rec-lamp-dp6037-3.jpg"
+      ]
+    },
+    {
+      "batch": 27,
+      "image": 4,
+      "sourceFile": "codex-clipboard-ulFuMJ.png",
+      "sha256": "c81ffe4208fc5e962bc762ef7d1a281a4f4fcaf153703b3a2dbf4e1493e2c94a",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 27,
+      "image": 5,
+      "sourceFile": "codex-clipboard-Sqd3mU.png",
+      "sha256": "eba72c942b14567e1ec3b8a0201e024d9e904c78963f8d33e1243ceb236e6262",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1811
+      ],
+      "galleryFiles": [
+        "rec-lamp-dp6037-4.jpg"
+      ]
+    },
+    {
+      "batch": 27,
+      "image": 6,
+      "sourceFile": "codex-clipboard-wk5Fx7.png",
+      "sha256": "5f813dadf3d982ac2f912042d3b5ab0f73decb1084e6bd2ff9816b4df6a960e3",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 27,
+      "image": 7,
+      "sourceFile": "codex-clipboard-Y0eWnH.png",
+      "sha256": "6782f1cd990ccbf1fd019945a7e9431f17026fa64027283f2e702d300cff123a",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1811
+      ],
+      "galleryFiles": [
+        "rec-lamp-dp6037-5.jpg"
+      ]
+    },
+    {
+      "batch": 27,
+      "image": 8,
+      "sourceFile": "codex-clipboard-Hksj2z.png",
+      "sha256": "ddbe20e6cb9dd945dfe714dcdb9ecaf9ede3c88f859e03ce36d41e28d647cd52",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 28,
+      "image": 1,
+      "sourceFile": "codex-clipboard-5sjDlG.png",
+      "sha256": "daba1cc928effb9a3b752b8fddf2bb365068982a997a6584cc76c0829d96a824",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1812
+      ],
+      "galleryFiles": [
+        "rec-lamp-typec-round-1.jpg"
+      ]
+    },
+    {
+      "batch": 28,
+      "image": 2,
+      "sourceFile": "codex-clipboard-g2JkQ4.png",
+      "sha256": "0627bd528967c0eeac34cc45d74f6f06715f7eadcc8ce5d79b11b8def410e5eb",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1812
+      ],
+      "galleryFiles": [
+        "rec-lamp-typec-round-2.jpg"
+      ]
+    },
+    {
+      "batch": 28,
+      "image": 3,
+      "sourceFile": "codex-clipboard-nGC0J5.png",
+      "sha256": "565abb5ebed4a89f29140c3d5d25fa5e2d9c2db5d0945fe636509244c5ad9e97",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1812
+      ],
+      "galleryFiles": [
+        "rec-lamp-typec-round-3.jpg"
+      ]
+    },
+    {
+      "batch": 28,
+      "image": 4,
+      "sourceFile": "codex-clipboard-dVsGxp.png",
+      "sha256": "4269256717664c12f8ed85586150a6fdba7db053225360de658e48ff9b5338e2",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1812
+      ],
+      "galleryFiles": [
+        "rec-lamp-typec-round-4.jpg"
+      ]
+    },
+    {
+      "batch": 28,
+      "image": 5,
+      "sourceFile": "codex-clipboard-Qxdjji.png",
+      "sha256": "db6d1339de7e256106a383d9d06bf80ca296660ec6eda6fab7a7e1701ecbf329",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 29,
+      "image": 1,
+      "sourceFile": "codex-clipboard-lVjHF5.png",
+      "sha256": "fcd9694126ef0caa57f1928afb65db55359f3bdd33d8039c246b898541657bbf",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1813
+      ],
+      "galleryFiles": [
+        "rec-organizer-cork-1.jpg"
+      ]
+    },
+    {
+      "batch": 29,
+      "image": 2,
+      "sourceFile": "codex-clipboard-Pu5R9H.png",
+      "sha256": "215cabaf6518827c8ee6094e40828b008562932847ae378697eb319063af9bc9",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1813
+      ],
+      "galleryFiles": [
+        "rec-organizer-cork-2.jpg"
+      ]
+    },
+    {
+      "batch": 29,
+      "image": 3,
+      "sourceFile": "codex-clipboard-RtavlF.png",
+      "sha256": "c624ff61d124e931d50e6bd18614211f24ad0e1cc982affec9b07759927a6d14",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1813
+      ],
+      "galleryFiles": [
+        "rec-organizer-cork-3.jpg"
+      ]
+    },
+    {
+      "batch": 29,
+      "image": 4,
+      "sourceFile": "codex-clipboard-yuZLoM.png",
+      "sha256": "3d88ff44466d644319b6f70d8f3e4795c37e2f563025c069809bad096934fdb6",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1813
+      ],
+      "galleryFiles": [
+        "rec-organizer-cork-4.jpg"
+      ]
+    },
+    {
+      "batch": 29,
+      "image": 5,
+      "sourceFile": "codex-clipboard-hgC4nX.png",
+      "sha256": "307afe57edf25ffe5ca027345f10a7455d3ed965f6b7d170db3a84b011134dad",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1813
+      ],
+      "galleryFiles": [
+        "rec-organizer-cork-5.jpg"
+      ]
+    },
+    {
+      "batch": 29,
+      "image": 6,
+      "sourceFile": "codex-clipboard-Qy062U.png",
+      "sha256": "cf59eff5d48f3e5dd81a275de5dd0db90508ca33aadb3ffa35c5ac7cec2ea989",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 29,
+      "image": 7,
+      "sourceFile": "codex-clipboard-GFjf4n.png",
+      "sha256": "4705f8bbd16861b2eb3987a5d1e7e6a2dae350b3d583219d2dad8bcf517006ac",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 29,
+      "image": 8,
+      "sourceFile": "codex-clipboard-IycKqN.png",
+      "sha256": "a9a1da7812abc9c0cfcb6a9249f6406595228e726626f205fbeb6d2b43c63e18",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 29,
+      "image": 9,
+      "sourceFile": "codex-clipboard-P3uhA6.png",
+      "sha256": "d62f218418ee32d161f67f5d57b09df70e43fe90b96a5fcc6f0faaf1dd6ab3a4",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 30,
+      "image": 1,
+      "sourceFile": "codex-clipboard-nFF410.png",
+      "sha256": "bbb4cffd4e4a59a603bfe76c21fedf4ce7723a72f47eb48ddd66f1bb35231e2b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1814
+      ],
+      "galleryFiles": [
+        "rec-organizer-three-drawer-1.jpg"
+      ]
+    },
+    {
+      "batch": 30,
+      "image": 2,
+      "sourceFile": "codex-clipboard-xrDjUg.png",
+      "sha256": "135ee13063d4ac243674688839c72d1658de0dfb5261b9b624af4d74b13c8e47",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1814
+      ],
+      "galleryFiles": [
+        "rec-organizer-three-drawer-2.jpg"
+      ]
+    },
+    {
+      "batch": 30,
+      "image": 3,
+      "sourceFile": "codex-clipboard-Nyw0Oh.png",
+      "sha256": "ebe9d6edde2af67b67ee82f0adc9602d409d3ff3f74297abff9b04344b700994",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1814
+      ],
+      "galleryFiles": [
+        "rec-organizer-three-drawer-3.jpg"
+      ]
+    },
+    {
+      "batch": 30,
+      "image": 4,
+      "sourceFile": "codex-clipboard-ZhOcPA.png",
+      "sha256": "5c6a6d07c84cd9b7369b50f9ee5f8ef68185e266d318855ff09b7b1318f2e726",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1814
+      ],
+      "galleryFiles": [
+        "rec-organizer-three-drawer-4.jpg"
+      ]
+    },
+    {
+      "batch": 30,
+      "image": 5,
+      "sourceFile": "codex-clipboard-ixws76.png",
+      "sha256": "ae296e086e8205c13f9e3362df3b48c457f7c22223bc15088f625062decd50ec",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 32,
+      "image": 1,
+      "sourceFile": "codex-clipboard-xC4vgg.png",
+      "sha256": "af000fa112f36931154c8b313dc0017e2903b65666e8a108aeb6571f4421b05b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1815
+      ],
+      "galleryFiles": [
+        "rec-organizer-router-1.jpg"
+      ]
+    },
+    {
+      "batch": 32,
+      "image": 2,
+      "sourceFile": "codex-clipboard-Kshj0e.png",
+      "sha256": "9b9b0f1cff8f63585785f30b7f586c00c0f1a3240367017046a5653b882205b1",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1815
+      ],
+      "galleryFiles": [
+        "rec-organizer-router-2.jpg"
+      ]
+    },
+    {
+      "batch": 32,
+      "image": 3,
+      "sourceFile": "codex-clipboard-gqbVCj.png",
+      "sha256": "c6dd13c9de7fe0fccda0301e1c0eb0a810c088df4e4d4567eb242c515f0043ec",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1815
+      ],
+      "galleryFiles": [
+        "rec-organizer-router-3.jpg"
+      ]
+    },
+    {
+      "batch": 32,
+      "image": 4,
+      "sourceFile": "codex-clipboard-S2AeQX.png",
+      "sha256": "4c8bd94fcef8629f8ec3347951c758c903f9192f18bc3114f1e77f64bef3252d",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1815
+      ],
+      "galleryFiles": [
+        "rec-organizer-router-4.jpg"
+      ]
+    },
+    {
+      "batch": 32,
+      "image": 5,
+      "sourceFile": "codex-clipboard-xFabNN.png",
+      "sha256": "3922658c5f651fab2741f69c4ca5df48bb348a934465eca61614df1ccfff5b01",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 33,
+      "image": 1,
+      "sourceFile": "codex-clipboard-pKQocy.png",
+      "sha256": "11f96288185244fb9f7b40d3e6bf370a4c321c2e6c454a1e424b019c519a6f86",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1816
+      ],
+      "galleryFiles": [
+        "rec-organizer-jewelry-1.jpg"
+      ]
+    },
+    {
+      "batch": 33,
+      "image": 2,
+      "sourceFile": "codex-clipboard-weee5a.png",
+      "sha256": "002dbfc84c8c8e50b505e44453407f1c0da04a3434631246080d6c08fdfcdce5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1816
+      ],
+      "galleryFiles": [
+        "rec-organizer-jewelry-2.jpg"
+      ]
+    },
+    {
+      "batch": 33,
+      "image": 3,
+      "sourceFile": "codex-clipboard-xzZ4oD.png",
+      "sha256": "facdacad2a66b8cbc80c350a9f180cb91a0daa3d98d6c116e2d736538c3a56c2",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 34,
+      "image": 1,
+      "sourceFile": "codex-clipboard-jRj9Re.png",
+      "sha256": "0deedfc0a846b50c7fb57e0fc784e8a487522d553aa2e45839e821ca23c92a90",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1817
+      ],
+      "galleryFiles": [
+        "rec-organizer-neat-set-1.jpg"
+      ]
+    },
+    {
+      "batch": 34,
+      "image": 2,
+      "sourceFile": "codex-clipboard-YIIr9k.png",
+      "sha256": "1a6e2d562568858e79ad42c1b4fd335f9a47353e4ce744955883fcb3a87b71fc",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1817
+      ],
+      "galleryFiles": [
+        "rec-organizer-neat-set-2.jpg"
+      ]
+    },
+    {
+      "batch": 34,
+      "image": 3,
+      "sourceFile": "codex-clipboard-KfgbOd.png",
+      "sha256": "90e62ea51f065b84d29b48d899ac0b926223b219e902b5ca82824507e9f851e8",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1817
+      ],
+      "galleryFiles": [
+        "rec-organizer-neat-set-3.jpg"
+      ]
+    },
+    {
+      "batch": 34,
+      "image": 4,
+      "sourceFile": "codex-clipboard-o1tHoi.png",
+      "sha256": "cd95cf1ff3d03b0de356c0636b16e3066f44f44d53a805ecf5bbb8308d382ce1",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 35,
+      "image": 1,
+      "sourceFile": "codex-clipboard-EHk2Qc.png",
+      "sha256": "e5f12db1a9dfe8ffd22c2a605c59c2566691d078d041597dbb209a2ffef49f2e",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1818
+      ],
+      "galleryFiles": [
+        "rec-organizer-two-drawer-1.jpg"
+      ]
+    },
+    {
+      "batch": 36,
+      "image": 1,
+      "sourceFile": "codex-clipboard-6wyqs8.png",
+      "sha256": "d04554f984841b54f0fcbe301d1e97429e9b1f021fb574b3b79d0c53d39bdf4b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1818
+      ],
+      "galleryFiles": [
+        "rec-organizer-two-drawer-2.jpg"
+      ]
+    },
+    {
+      "batch": 36,
+      "image": 2,
+      "sourceFile": "codex-clipboard-zvnsBO.png",
+      "sha256": "2f09fe7917b93b58efdf310f246f52b9f4aa013b77f4d3f31367212aa10e3f5c",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1818
+      ],
+      "galleryFiles": [
+        "rec-organizer-two-drawer-3.jpg"
+      ]
+    },
+    {
+      "batch": 36,
+      "image": 3,
+      "sourceFile": "codex-clipboard-PErAeg.png",
+      "sha256": "74f8443c2aafc53e30fb3e988a4c6b4a347a3fcb255571186e35731eb9bb31c4",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1818
+      ],
+      "galleryFiles": [
+        "rec-organizer-two-drawer-4.jpg"
+      ]
+    },
+    {
+      "batch": 36,
+      "image": 4,
+      "sourceFile": "codex-clipboard-9yDeLQ.png",
+      "sha256": "4732a58921808c865787d1bb82a36a2d304aa03cfa75d5e4a4835f555728de15",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 37,
+      "image": 1,
+      "sourceFile": "codex-clipboard-AdTQlS.png",
+      "sha256": "64a9af1222621a9079a6f2a83ccd8c6c628a8997ac52542a26e4a8f487143bfb",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1819
+      ],
+      "galleryFiles": [
+        "rec-organizer-nine-drawer-1.jpg"
+      ]
+    },
+    {
+      "batch": 37,
+      "image": 2,
+      "sourceFile": "codex-clipboard-e9WmFi.png",
+      "sha256": "e7b12d961b8b3e1409e2afc8d75d1312547458ae4219107642e96154f14c0c02",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1819
+      ],
+      "galleryFiles": [
+        "rec-organizer-nine-drawer-2.jpg"
+      ]
+    },
+    {
+      "batch": 37,
+      "image": 3,
+      "sourceFile": "codex-clipboard-SUOMjS.png",
+      "sha256": "32aaceff3d2f33fc977a68e5cc191571fe832268e0cab05b443a5f0409df2e05",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 38,
+      "image": 1,
+      "sourceFile": "codex-clipboard-7n7nsm.png",
+      "sha256": "f0d95304fcd623b6037cea85aeae2e4403492e46fcb091aef5c7fbac8b4659aa",
+      "classification": "暂缓商品图片",
+      "reason": "水印覆盖实物，商品暂缓展示。",
+      "products": [
+        1820
+      ],
+      "galleryFiles": [
+        "rec-organizer-color-cubes-1.jpg"
+      ]
+    },
+    {
+      "batch": 38,
+      "image": 2,
+      "sourceFile": "codex-clipboard-FQv9g7.png",
+      "sha256": "e7e4f37ca0a5e79ecbc0eecbfde485122553b668c12f3dd952f200b994511739",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 39,
+      "image": 1,
+      "sourceFile": "codex-clipboard-SMFQlZ.png",
+      "sha256": "f03f3565f91e508e73642bcbbe0fa61e2b919a38ac5f5b64175c895a58ac6f46",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1821
+      ],
+      "galleryFiles": [
+        "rec-organizer-purple-bin-1.jpg"
+      ]
+    },
+    {
+      "batch": 39,
+      "image": 2,
+      "sourceFile": "codex-clipboard-W3AEt9.png",
+      "sha256": "f461bb3218d9524f63736ff2a4feaeaabe4dcaf82a87eb4f5762484a9af2cd84",
+      "classification": "水印角度省略",
+      "reason": "水印覆盖箱体下缘，采用本批其他干净角度。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 39,
+      "image": 3,
+      "sourceFile": "codex-clipboard-jJRnNW.png",
+      "sha256": "97468aebd378b9a39ef10724894ccd8303dc891b1dceeb7cbf5379ceb4bf29cc",
+      "classification": "水印角度省略",
+      "reason": "水印覆盖底部边缘，采用本批其他干净角度。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 39,
+      "image": 4,
+      "sourceFile": "codex-clipboard-iHf3sa.png",
+      "sha256": "e86457e831019662b15464ce125a01eb7269b79465a66735c5cd23e55c6c43b5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1821
+      ],
+      "galleryFiles": [
+        "rec-organizer-purple-bin-4.jpg"
+      ]
+    },
+    {
+      "batch": 39,
+      "image": 5,
+      "sourceFile": "codex-clipboard-56w8jl.png",
+      "sha256": "c1f762026acf6ecb5fb3bbf95b4805a7d6029eb2704696bd4c5f552a6cb6efda",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 40,
+      "image": 1,
+      "sourceFile": "codex-clipboard-QoXgy6.png",
+      "sha256": "a5f65f623ed4da1ca69a0b84e6c6996acde401b33b072dc47840953e25b28748",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1822
+      ],
+      "galleryFiles": [
+        "rec-organizer-narrow-bin-1.jpg"
+      ]
+    },
+    {
+      "batch": 40,
+      "image": 2,
+      "sourceFile": "codex-clipboard-Lk5kSl.png",
+      "sha256": "acac9e23d5f7bdfedc13e3275ef320cb3f3c9825eaaa9a3adf2e23525ed68882",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1822
+      ],
+      "galleryFiles": [
+        "rec-organizer-narrow-bin-2.jpg"
+      ]
+    },
+    {
+      "batch": 40,
+      "image": 3,
+      "sourceFile": "codex-clipboard-sU5f7U.png",
+      "sha256": "fcb6f5a4fea6fd491a8226090e7e50355282fb30dbe856018bcf3c7fb43804d6",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 41,
+      "image": 1,
+      "sourceFile": "codex-clipboard-v7329X.png",
+      "sha256": "1ab9a2a261c94bec2643ab107ecab472b9bef6e57b1f023e1b543bc8be9ffe29",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1823
+      ],
+      "galleryFiles": [
+        "rec-washer-tcl10-1.jpg"
+      ]
+    },
+    {
+      "batch": 41,
+      "image": 2,
+      "sourceFile": "codex-clipboard-tgvjce.png",
+      "sha256": "946022c34008851a024840061eac7dec272c07da90cdf74f08007acdb3e69205",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1823
+      ],
+      "galleryFiles": [
+        "rec-washer-tcl10-2.jpg"
+      ]
+    },
+    {
+      "batch": 41,
+      "image": 3,
+      "sourceFile": "codex-clipboard-fhUEag.png",
+      "sha256": "d2a64d4d30855f737d1ec21ac96dad376601a2463ad07c986deae889b4aeb3fc",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1823
+      ],
+      "galleryFiles": [
+        "rec-washer-tcl10-3.jpg"
+      ]
+    },
+    {
+      "batch": 41,
+      "image": 4,
+      "sourceFile": "codex-clipboard-DiRg9J.png",
+      "sha256": "8a306c9ace7168006ff374d9ba7dd7d6ec1d154ee2fd447375c1d6b567f2a25b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1824
+      ],
+      "galleryFiles": [
+        "rec-washer-tcl-dial-1.jpg"
+      ]
+    },
+    {
+      "batch": 41,
+      "image": 5,
+      "sourceFile": "codex-clipboard-Od2EhX.png",
+      "sha256": "f38a6eb19dfa5548647119704e26ab478c8f3e3d56fe898c4699aef89c088cab",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1824
+      ],
+      "galleryFiles": [
+        "rec-washer-tcl-dial-2.jpg"
+      ]
+    },
+    {
+      "batch": 41,
+      "image": 6,
+      "sourceFile": "codex-clipboard-bUBARa.png",
+      "sha256": "fc36ffba756e094c3b4ac9e33dc9760197f35411e046fb7fb1322d0fc09ae441",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1824
+      ],
+      "galleryFiles": [
+        "rec-washer-tcl-dial-3.jpg"
+      ]
+    },
+    {
+      "batch": 41,
+      "image": 7,
+      "sourceFile": "codex-clipboard-VMQyei.png",
+      "sha256": "8356835b9b84d1b14c4beaf60905f85968d20643a111b552f0d129bcfe1f924e",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 42,
+      "image": 1,
+      "sourceFile": "codex-clipboard-ABWjEA.png",
+      "sha256": "03840d93f7d12ef70ee94eb78db15eff1cde6338a419de7242c7cdd167bb0865",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1825
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-champagne-1.jpg"
+      ]
+    },
+    {
+      "batch": 42,
+      "image": 2,
+      "sourceFile": "codex-clipboard-tPExbT.png",
+      "sha256": "de833658f6a32fadf37118a70b41af20e3b3fccf762e8b0acd29de30f382faa1",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1825
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-champagne-2.jpg"
+      ]
+    },
+    {
+      "batch": 42,
+      "image": 3,
+      "sourceFile": "codex-clipboard-qaPgJQ.png",
+      "sha256": "6fb593ec9e3ad2bafae0a1ec50d02d35caf807e48b0e4cb2ceab3a542cbc5456",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1825
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-champagne-3.jpg"
+      ]
+    },
+    {
+      "batch": 42,
+      "image": 4,
+      "sourceFile": "codex-clipboard-gWHoCK.png",
+      "sha256": "85190636d08179bb390a58e30c533bbb47b24e6d71e46ef0989bb5aecde5ab59",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 42,
+      "image": 5,
+      "sourceFile": "codex-clipboard-p7xSjJ.png",
+      "sha256": "8c19f74e0ccf6cf2b3892bd6488c49b2c26c24b7e520f2122d1db7d8a0f8057f",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1825
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-champagne-4.jpg"
+      ]
+    },
+    {
+      "batch": 42,
+      "image": 6,
+      "sourceFile": "codex-clipboard-isXWON.png",
+      "sha256": "2b6c9145f64b90f0f432ac948a14ee6957a93c6891ff040bca1f0293c356ce8e",
+      "classification": "补充角度",
+      "reason": "同件已有5张图库照片，此角度作为补充保留。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 42,
+      "image": 7,
+      "sourceFile": "codex-clipboard-wrap1w.png",
+      "sha256": "96ce61010cd569db081b887ab24a90cc46a0a7bfaec8d5f03f4c81bac9cbca14",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1825
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-champagne-5.jpg"
+      ]
+    },
+    {
+      "batch": 42,
+      "image": 8,
+      "sourceFile": "codex-clipboard-GSjA8n.png",
+      "sha256": "c813542a72c476b3d2c0ca2e6348bb36eaebdfd7331256f1ffa611a1ae8fa2b6",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 43,
+      "image": 1,
+      "sourceFile": "codex-clipboard-11o8pK.png",
+      "sha256": "3ea29e61339650d78ecac8554b53da3e38214e82386a47ba667c8c702131a022",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1826
+      ],
+      "galleryFiles": [
+        "rec-washer-yangzi10-1.jpg"
+      ]
+    },
+    {
+      "batch": 43,
+      "image": 2,
+      "sourceFile": "codex-clipboard-IOFA76.png",
+      "sha256": "21edb1862c350c632bf2a49679fac6b79578ded148d588286bbeee6faff49e98",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1826
+      ],
+      "galleryFiles": [
+        "rec-washer-yangzi10-2.jpg"
+      ]
+    },
+    {
+      "batch": 43,
+      "image": 3,
+      "sourceFile": "codex-clipboard-qsDKYJ.png",
+      "sha256": "dfb6adb3630795b2ee289931f96179708bffc53f625805f333b6bcc6f848d704",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 44,
+      "image": 1,
+      "sourceFile": "codex-clipboard-IxUVOU.png",
+      "sha256": "942031da6f4f6dbef3f3ac3fdb3385867b14adee4f5982ae3f00d5a319717fc4",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1827
+      ],
+      "galleryFiles": [
+        "rec-washer-aux-small-1.jpg"
+      ]
+    },
+    {
+      "batch": 44,
+      "image": 2,
+      "sourceFile": "codex-clipboard-HFEb2T.png",
+      "sha256": "1f5b49cdc212266e10d82d6312ff2b2da226ed7db17080391ee233526c2ce6af",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 45,
+      "image": 1,
+      "sourceFile": "codex-clipboard-9EV8qP.png",
+      "sha256": "9abaabd1d7f55e4ca8eb0b5fdce512e4fbee6bc5a63ae52a44d5cccba45e2910",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1828
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-dark-1.jpg"
+      ]
+    },
+    {
+      "batch": 45,
+      "image": 2,
+      "sourceFile": "codex-clipboard-NbI3qR.png",
+      "sha256": "718240698674ea6820cc3ddbe4f7a3302b28c55eb91268bc0d06733118607abd",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1828
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-dark-2.jpg"
+      ]
+    },
+    {
+      "batch": 45,
+      "image": 3,
+      "sourceFile": "codex-clipboard-taf3BR.png",
+      "sha256": "fca31663c8473dd5f653cb27108be797e5438705e6ae079b51bb1fc26e4ce4db",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1828
+      ],
+      "galleryFiles": [
+        "rec-washer-haier-dark-3.jpg"
+      ]
+    },
+    {
+      "batch": 45,
+      "image": 4,
+      "sourceFile": "codex-clipboard-Ct86lp.png",
+      "sha256": "c4ef5ea5bee6b2758e97ab0ac926d1628df3780737bd2ac7a12dbf8717f8bd47",
+      "classification": "待确认",
+      "reason": "海尔滚筒面板、旋钮及外观不同，无法确认具体机器归属，不与前三张混图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 45,
+      "image": 5,
+      "sourceFile": "codex-clipboard-u7fiOk.png",
+      "sha256": "820a145e1fe1966aa83aae7577f5f08fbebe394e85b456f70d5ac660501609d5",
+      "classification": "待确认",
+      "reason": "海尔滚筒面板、旋钮及外观不同，无法确认具体机器归属，不与前三张混图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 45,
+      "image": 6,
+      "sourceFile": "codex-clipboard-NlvFpZ.png",
+      "sha256": "bdbf80b606b215d3f75cd10ad397edb6de5f04fccd1f9da58c1c278ab3f49174",
+      "classification": "待确认",
+      "reason": "海尔滚筒面板、旋钮及外观不同，无法确认具体机器归属，不与前三张混图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 45,
+      "image": 7,
+      "sourceFile": "codex-clipboard-QVhxus.png",
+      "sha256": "b33320f66211d64916b58dbcae81c5d37bbaab5570a4e0f2a992e53dd4141327",
+      "classification": "待确认",
+      "reason": "海尔滚筒面板、旋钮及外观不同，无法确认具体机器归属，不与前三张混图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 45,
+      "image": 8,
+      "sourceFile": "codex-clipboard-NvToob.png",
+      "sha256": "76f9274fb2c1399d36a6e74454c1b43c3f639a6d8a380559b036800a799bba35",
+      "classification": "待确认",
+      "reason": "海尔滚筒面板、旋钮及外观不同，无法确认具体机器归属，不与前三张混图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 45,
+      "image": 9,
+      "sourceFile": "codex-clipboard-3qAtU1.png",
+      "sha256": "b30e48a033339199d1f09cf422fe6140d179ba0862d0fcff3596c8ccddd5106d",
+      "classification": "待确认",
+      "reason": "海尔滚筒面板、旋钮及外观不同，无法确认具体机器归属，不与前三张混图。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 45,
+      "image": 10,
+      "sourceFile": "codex-clipboard-nILseQ.png",
+      "sha256": "1963e4499767da43881633029f0b9c6549b45aac30f82c4db3761149c1c50c67",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 46,
+      "image": 1,
+      "sourceFile": "codex-clipboard-YmysCo.png",
+      "sha256": "8d12563fce638a075a36f97ecc152c0cea242da8982b7849421cdf9c418a09d5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1829
+      ],
+      "galleryFiles": [
+        "rec-massager-white-u-1.jpg"
+      ]
+    },
+    {
+      "batch": 46,
+      "image": 2,
+      "sourceFile": "codex-clipboard-jIiura.png",
+      "sha256": "ea4daeaeeef03f3898f425019fb679d145cc4ee2eab4ef3c74b44b21e9a4b5e4",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1829
+      ],
+      "galleryFiles": [
+        "rec-massager-white-u-2.jpg"
+      ]
+    },
+    {
+      "batch": 46,
+      "image": 3,
+      "sourceFile": "codex-clipboard-cIGYvT.png",
+      "sha256": "aa8e27782df6cff355d903f8adc2cfa92bc304a044c872e3dc85f9be710fb871",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 47,
+      "image": 1,
+      "sourceFile": "codex-clipboard-DeNXJ7.png",
+      "sha256": "022cb2a667228e1b0c86ab761be7c8b7455025b75aa4a36f4a13923ba31c85c9",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1830
+      ],
+      "galleryFiles": [
+        "rec-massager-konka-u-1.jpg"
+      ]
+    },
+    {
+      "batch": 47,
+      "image": 2,
+      "sourceFile": "codex-clipboard-Qbk0tX.png",
+      "sha256": "862fa2727e1af4adb680d5011782a0a4732ba2ec83b96c8448f6105e53280d59",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1830
+      ],
+      "galleryFiles": [
+        "rec-massager-konka-u-2.jpg"
+      ]
+    },
+    {
+      "batch": 47,
+      "image": 3,
+      "sourceFile": "codex-clipboard-0JeeFe.png",
+      "sha256": "f0ce1dcb0da6443e4e14db9060b0c31007b786e6aa25ada93cb616b064987d86",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 48,
+      "image": 1,
+      "sourceFile": "codex-clipboard-KgegTe.png",
+      "sha256": "2d22e7fc67020e8f416d1706b3710db20eaadb4ff96c0bd31c45dba6b45a2a24",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1831
+      ],
+      "galleryFiles": [
+        "rec-massager-jingzao-se-1.jpg"
+      ]
+    },
+    {
+      "batch": 48,
+      "image": 2,
+      "sourceFile": "codex-clipboard-GbqAgp.png",
+      "sha256": "b3fd57ac8979ef77c142d99c98321ab3267b2fe9e3a0a32848e1b37bd1f79b16",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1831
+      ],
+      "galleryFiles": [
+        "rec-massager-jingzao-se-2.jpg"
+      ]
+    },
+    {
+      "batch": 48,
+      "image": 3,
+      "sourceFile": "codex-clipboard-lgpH4K.png",
+      "sha256": "e041bda736ce3e89e3c9b670c8724874c2f5cce47cdb34b25889d67c02d7eb04",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1831
+      ],
+      "galleryFiles": [
+        "rec-massager-jingzao-se-3.jpg"
+      ]
+    },
+    {
+      "batch": 48,
+      "image": 4,
+      "sourceFile": "codex-clipboard-Dyjoiv.png",
+      "sha256": "24ed1ff6d74ce71ee6853c70f2384d5d1a10b8a7d4fa9f49c36e4ed8b5acbd6a",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 49,
+      "image": 1,
+      "sourceFile": "codex-clipboard-MrEPFa.png",
+      "sha256": "4e88c089ad45ffa9cc1eafd03eee55e556cbce17aa3088612e2467d561906353",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1832
+      ],
+      "galleryFiles": [
+        "rec-massager-skg-h5-1.jpg"
+      ]
+    },
+    {
+      "batch": 49,
+      "image": 2,
+      "sourceFile": "codex-clipboard-HV4a7W.png",
+      "sha256": "f691d28e59340f5515a0810d52f1a6afca30ad4e04ba0981cc6be6a746c8ee10",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1832
+      ],
+      "galleryFiles": [
+        "rec-massager-skg-h5-2.jpg"
+      ]
+    },
+    {
+      "batch": 49,
+      "image": 3,
+      "sourceFile": "codex-clipboard-FU80gd.png",
+      "sha256": "6cf6683976d9fffdbd1aee3c747f824102b1d5efcaf06ffc8870968675309146",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 51,
+      "image": 1,
+      "sourceFile": "codex-clipboard-y1yXaG.png",
+      "sha256": "1002129ef5e8a18bf73d52700851502ead9e06398edb6f83a0cd5dd167ce5aa7",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1833
+      ],
+      "galleryFiles": [
+        "rec-massager-skg-k3-1.jpg"
+      ]
+    },
+    {
+      "batch": 51,
+      "image": 2,
+      "sourceFile": "codex-clipboard-9sD6pE.png",
+      "sha256": "fac2661b77b6d45c979bc5c297fd95842fb2d125ed35c7e1ef4e2629010cf69b",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 52,
+      "image": 1,
+      "sourceFile": "codex-clipboard-OtFDte.png",
+      "sha256": "20c2b8561ccb397cbda8088030a6412eed4bdfe2402fd82ad0a5cc0325c5767f",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1834
+      ],
+      "galleryFiles": [
+        "rec-massager-skg-g1-1.jpg"
+      ]
+    },
+    {
+      "batch": 52,
+      "image": 2,
+      "sourceFile": "codex-clipboard-pZ3CLT.png",
+      "sha256": "7a64a3652f9b293cdad705b6e8133a19bb400d1443d1a31aac9391e3f5b6b210",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1834
+      ],
+      "galleryFiles": [
+        "rec-massager-skg-g1-2.jpg"
+      ]
+    },
+    {
+      "batch": 52,
+      "image": 3,
+      "sourceFile": "codex-clipboard-uUSdii.png",
+      "sha256": "0f422b37a9d53e61746f2e9dfd66a5d92f030d85aeca1cc141fd80e04f1bf825",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 53,
+      "image": 1,
+      "sourceFile": "codex-clipboard-HorfXb.png",
+      "sha256": "717a1ce84a1ce35f7985fc4aa8dbd8a1fe3a0eaca716da50ccc642cf7a1c883d",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1835
+      ],
+      "galleryFiles": [
+        "rec-hair-minnie-bow-1.jpg"
+      ]
+    },
+    {
+      "batch": 53,
+      "image": 2,
+      "sourceFile": "codex-clipboard-YEIOiZ.png",
+      "sha256": "e918b509b84c55cc1357b7073c58c8cf4b46e08954363aec2b6041322404cd58",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1835
+      ],
+      "galleryFiles": [
+        "rec-hair-minnie-bow-2.jpg"
+      ]
+    },
+    {
+      "batch": 53,
+      "image": 3,
+      "sourceFile": "codex-clipboard-IjJbRK.png",
+      "sha256": "57a1588174af4a2239958aca1b96f5740714cfb0c96015999d190bb17b919dbe",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1835
+      ],
+      "galleryFiles": [
+        "rec-hair-minnie-bow-3.jpg"
+      ]
+    },
+    {
+      "batch": 53,
+      "image": 4,
+      "sourceFile": "codex-clipboard-N6Aksp.png",
+      "sha256": "4063a738164a85d23e87592d6df2188b09625e22dd062d3de5169bacd4706830",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 54,
+      "image": 1,
+      "sourceFile": "codex-clipboard-xt6GMF.png",
+      "sha256": "c7e60dd18937b3cf18a779d2fe75342a6a17d2729c0e38514badbdf31d7bf3c4",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1836
+      ],
+      "galleryFiles": [
+        "rec-hair-bow-bundle-1.jpg"
+      ]
+    },
+    {
+      "batch": 54,
+      "image": 2,
+      "sourceFile": "codex-clipboard-isuJyN.png",
+      "sha256": "30f69d9e0e291e901f4323ef40b7c4bd7d915ed182481038089a8f1c485b22e6",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1836
+      ],
+      "galleryFiles": [
+        "rec-hair-bow-bundle-2.jpg"
+      ]
+    },
+    {
+      "batch": 54,
+      "image": 3,
+      "sourceFile": "codex-clipboard-tz9oAB.png",
+      "sha256": "9af344424153a0f68a099fb287455ec6222f5e20358bc64c6790612f80c30318",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 55,
+      "image": 1,
+      "sourceFile": "codex-clipboard-pzXkAU.png",
+      "sha256": "352d8556bf2b4cd3201d0dc08b2bce16d3209c21c4360a36786c75052be033d8",
+      "classification": "待确认",
+      "reason": "多款发夹混盘，不能按5元整盘挂牌；单件与10–15元价格尚未对应。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 55,
+      "image": 2,
+      "sourceFile": "codex-clipboard-euqzvf.png",
+      "sha256": "ca1a3a82648c6b85b2a1551fa2376904835ba4ba7da55f60db06eefe17225a88",
+      "classification": "待确认",
+      "reason": "多款发夹混盘，不能按5元整盘挂牌；单件与10–15元价格尚未对应。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 55,
+      "image": 3,
+      "sourceFile": "codex-clipboard-uf4ItH.png",
+      "sha256": "afb9738d34a4862862fe4d5282614c6f7a0d923456d952afbcb740fb662c5409",
+      "classification": "来源证据",
+      "reason": "保留价格矛盾的来源截图，未制作商品。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 56,
+      "image": 1,
+      "sourceFile": "codex-clipboard-HCPefA.png",
+      "sha256": "7c2ae15597faef57435bd2c4af58c58848cc460a68cfc7ef3ea74f3250968e57",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1837
+      ],
+      "galleryFiles": [
+        "rec-hair-silver-crown-1.jpg"
+      ]
+    },
+    {
+      "batch": 56,
+      "image": 2,
+      "sourceFile": "codex-clipboard-g0aR6G.png",
+      "sha256": "e837b5b364efca9c6d01099bf935e446c19fa7bf7c1460e3bca25d8c1806eef5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1837
+      ],
+      "galleryFiles": [
+        "rec-hair-silver-crown-2.jpg"
+      ]
+    },
+    {
+      "batch": 56,
+      "image": 3,
+      "sourceFile": "codex-clipboard-65qPXQ.png",
+      "sha256": "d47bfd7ac9fda7a68f1cecc0ec6ce44f04bd887d8c84bc561a6b49689c913145",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 57,
+      "image": 1,
+      "sourceFile": "codex-clipboard-tUvyWJ.png",
+      "sha256": "c2146d76d689759b7046076846fc605ba71c6b39a85d4c1f13ea14021ac987e8",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1838
+      ],
+      "galleryFiles": [
+        "rec-hair-johnsonmeow-1.jpg"
+      ]
+    },
+    {
+      "batch": 57,
+      "image": 2,
+      "sourceFile": "codex-clipboard-KMqEcC.png",
+      "sha256": "4cac4ff7248efd0728254e19a0b2e50e917b342ebf0933904a8d8364ef71aac7",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 58,
+      "image": 1,
+      "sourceFile": "codex-clipboard-JapyHl.png",
+      "sha256": "9237980bd00296fcf905546437a9706d1fe89c4cb6a47743ea74ab08c0d9f08f",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1839
+      ],
+      "galleryFiles": [
+        "rec-hair-xmas-red-1.jpg"
+      ]
+    },
+    {
+      "batch": 58,
+      "image": 2,
+      "sourceFile": "codex-clipboard-9npPeR.png",
+      "sha256": "f74cd2c3a781ad8ff8f3137e802cc6c85ed6e3596de9ff9ce7d9e5c3f337786b",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1840
+      ],
+      "galleryFiles": [
+        "rec-hair-xmas-black-1.jpg"
+      ]
+    },
+    {
+      "batch": 58,
+      "image": 3,
+      "sourceFile": "codex-clipboard-Ns8QaH.png",
+      "sha256": "113e5bfc396cdcdc93e09451d8790db047593a18ac8fee71b6f45007f9e99652",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 59,
+      "image": 1,
+      "sourceFile": "codex-clipboard-47aR5a.png",
+      "sha256": "31a28e200c878ad04506e491838146d938b30ee55ceb9d3d984477b662424d02",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1841
+      ],
+      "galleryFiles": [
+        "rec-hanger-wood20-1.jpg"
+      ]
+    },
+    {
+      "batch": 59,
+      "image": 2,
+      "sourceFile": "codex-clipboard-VMEKjZ.png",
+      "sha256": "46a05d585a5d7fe9a8b711e97e3a16522e4cfb8198a5571c0ab6e39f423337df",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1841
+      ],
+      "galleryFiles": [
+        "rec-hanger-wood20-2.jpg"
+      ]
+    },
+    {
+      "batch": 59,
+      "image": 3,
+      "sourceFile": "codex-clipboard-9kZ9Yc.png",
+      "sha256": "329f653acfcc04c8d3a8857b860b2e3f9ab0d7a64b796bdb08693c4635d80f21",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 60,
+      "image": 1,
+      "sourceFile": "codex-clipboard-ay25cN.png",
+      "sha256": "e3483eca0eecb1dd5c1e715af9a4bea3fe3f6741d3a5d3216234869f6e0e3e86",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1842
+      ],
+      "galleryFiles": [
+        "rec-rack-white-pair-1.jpg"
+      ]
+    },
+    {
+      "batch": 60,
+      "image": 2,
+      "sourceFile": "codex-clipboard-lhiOJD.png",
+      "sha256": "73a84e60f148e98a20668de9a0862f736c985ce58dbba1c48e2124632ee1e614",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1842
+      ],
+      "galleryFiles": [
+        "rec-rack-white-pair-2.jpg"
+      ]
+    },
+    {
+      "batch": 60,
+      "image": 3,
+      "sourceFile": "codex-clipboard-rlv1so.png",
+      "sha256": "8094d48e134d2443ce23e71730185b527f8a78e276c9c2a864325b9da96e22d8",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 61,
+      "image": 1,
+      "sourceFile": "codex-clipboard-BbyXjQ.png",
+      "sha256": "5fe3de34cdc34c30ec56f5e9ccf60fb7854a2409b37a95d2704f19c35b1cfbc7",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1843
+      ],
+      "galleryFiles": [
+        "rec-hanger-coated50-1.jpg"
+      ]
+    },
+    {
+      "batch": 61,
+      "image": 2,
+      "sourceFile": "codex-clipboard-f1cMeK.png",
+      "sha256": "0d97cec9676d9adefb460933a05c4f063156ad19e17e9783ef41e0babb284b8d",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1843
+      ],
+      "galleryFiles": [
+        "rec-hanger-coated50-2.jpg"
+      ]
+    },
+    {
+      "batch": 61,
+      "image": 3,
+      "sourceFile": "codex-clipboard-6qTF2J.png",
+      "sha256": "92e9e41f7b12b833751ec635c1fda37d4c7b831db3bb1fd690229e05228ee056",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1843
+      ],
+      "galleryFiles": [
+        "rec-hanger-coated50-3.jpg"
+      ]
+    },
+    {
+      "batch": 61,
+      "image": 4,
+      "sourceFile": "codex-clipboard-y2Dhxt.png",
+      "sha256": "2312d0aa62631eb31328d9902e97d6668d1ac646b88952ea5a2ab21c167133e3",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 62,
+      "image": 1,
+      "sourceFile": "codex-clipboard-qKtPyc.png",
+      "sha256": "13414acbcc574e2121a462320d6614e08372ec835f6a8ad6c0f11890482f0b22",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1844
+      ],
+      "galleryFiles": [
+        "rec-rack-caster-white-1.jpg"
+      ]
+    },
+    {
+      "batch": 62,
+      "image": 2,
+      "sourceFile": "codex-clipboard-B8LMIM.png",
+      "sha256": "1263258240f55967607a507b2fc6ab1e736580b517e3f10b1733f3e661fddb0a",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1845
+      ],
+      "galleryFiles": [
+        "rec-rack-caster-black-1.jpg"
+      ]
+    },
+    {
+      "batch": 62,
+      "image": 3,
+      "sourceFile": "codex-clipboard-cno2v6.png",
+      "sha256": "b7ed3e3d161fe0b7fe8f3dbb804a671a15eb9bda796907933e15f42bfc50c62f",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 63,
+      "image": 1,
+      "sourceFile": "codex-clipboard-4FaJDq.png",
+      "sha256": "df7bfd841a914d3602b985ad5ea5fb29ba4b8a5c2821de48ec0688c77c8e7154",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1846
+      ],
+      "galleryFiles": [
+        "rec-hanger-cream20-1.jpg"
+      ]
+    },
+    {
+      "batch": 63,
+      "image": 2,
+      "sourceFile": "codex-clipboard-o4bxzF.png",
+      "sha256": "be9a72695869725b2404780b54425669cebdad3811b3bd879a73859de87b1a20",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1846
+      ],
+      "galleryFiles": [
+        "rec-hanger-cream20-2.jpg"
+      ]
+    },
+    {
+      "batch": 63,
+      "image": 3,
+      "sourceFile": "codex-clipboard-RvTcT7.png",
+      "sha256": "3d58d2ff9af41d0f6f4e08674fd59d62525f060600e76bed778b890fa0377998",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 64,
+      "image": 1,
+      "sourceFile": "codex-clipboard-XrxVfi.png",
+      "sha256": "bc625c988d3b179bf6fe11bba0b6500c87a6342fc5271dd8158c71a0803f9304",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1847
+      ],
+      "galleryFiles": [
+        "rec-rack-dark-double-1.jpg"
+      ]
+    },
+    {
+      "batch": 64,
+      "image": 2,
+      "sourceFile": "codex-clipboard-JUhBiT.png",
+      "sha256": "c85c337e1b880a76845f3154a1768cefe19a2aa9ea674429b932d45c1efdc904",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1847
+      ],
+      "galleryFiles": [
+        "rec-rack-dark-double-2.jpg"
+      ]
+    },
+    {
+      "batch": 64,
+      "image": 3,
+      "sourceFile": "codex-clipboard-W0AfxG.png",
+      "sha256": "6458aa6c8a5a9835fb0ecac0a87f289870b6661eb42b8d82123f6d9948fc5c52",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 65,
+      "image": 1,
+      "sourceFile": "codex-clipboard-lH3LMP.png",
+      "sha256": "0ec2d02238b9b380ad5b8e110e120724ecf96b9707a60b25614e8dd8ae07146c",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1848
+      ],
+      "galleryFiles": [
+        "rec-umbrella-white-bow-1.jpg"
+      ]
+    },
+    {
+      "batch": 65,
+      "image": 2,
+      "sourceFile": "codex-clipboard-XfDJA5.png",
+      "sha256": "4f305e897c0be3d5c6cb6b09e6a6e4d4227818e62669213498993f89d5a814ad",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1848
+      ],
+      "galleryFiles": [
+        "rec-umbrella-white-bow-2.jpg"
+      ]
+    },
+    {
+      "batch": 65,
+      "image": 3,
+      "sourceFile": "codex-clipboard-agBZk3.png",
+      "sha256": "37489ce5ee70d5cb53bd4d3cc36d1cf1af63ec784dc0d69de4b9f4ecfc3810c2",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 66,
+      "image": 1,
+      "sourceFile": "codex-clipboard-GmNeH7.png",
+      "sha256": "915e2fb040aaef6b0b0acfd9d25461a35bef4c90d4827cd4c0295ac9bef5c210",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1849
+      ],
+      "galleryFiles": [
+        "rec-umbrella-capsule-green-1.jpg"
+      ]
+    },
+    {
+      "batch": 66,
+      "image": 2,
+      "sourceFile": "codex-clipboard-d4TDMB.png",
+      "sha256": "2d57d590de7c7a448c399a82e5534279fbdf86886ca6194a313a8156aaa14b59",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 67,
+      "image": 1,
+      "sourceFile": "codex-clipboard-zwBuvf.png",
+      "sha256": "4ce692eacb17089353ad7d3d5a590246aee043bd0a98c9524a9e29251d557847",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1850
+      ],
+      "galleryFiles": [
+        "rec-umbrella-lrp-1.jpg"
+      ]
+    },
+    {
+      "batch": 67,
+      "image": 2,
+      "sourceFile": "codex-clipboard-nyJHKU.png",
+      "sha256": "1743fda9a6ea66dc2287cd47d3307e62e8c34c8aa1fa011a72840bba681d71f3",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1850
+      ],
+      "galleryFiles": [
+        "rec-umbrella-lrp-2.jpg"
+      ]
+    },
+    {
+      "batch": 67,
+      "image": 3,
+      "sourceFile": "codex-clipboard-Pqfiog.png",
+      "sha256": "caa226e2ff2d9efe9feb8d66f17106d93a54ff8944aaac45fb9ce15d5f7af948",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 68,
+      "image": 1,
+      "sourceFile": "codex-clipboard-WTqkwQ.png",
+      "sha256": "06301d4c999526ce83c81e30f09f5cff1e7fabc5e016be00f2f3fef844e656cb",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1851
+      ],
+      "galleryFiles": [
+        "rec-umbrella-dark-pair-1.jpg"
+      ]
+    },
+    {
+      "batch": 68,
+      "image": 2,
+      "sourceFile": "codex-clipboard-cbR3tl.png",
+      "sha256": "2e437a8983e866a5759eedce1e42fb5bd19de3d874a13bdcfa6244b48af31446",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 69,
+      "image": 1,
+      "sourceFile": "codex-clipboard-XTt6S2.png",
+      "sha256": "909f2d4338ac2acf4b3144683d01f205089062a32856f974a27e9c807c0f1597",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1852
+      ],
+      "galleryFiles": [
+        "rec-umbrella-mi-pair-1.jpg"
+      ]
+    },
+    {
+      "batch": 69,
+      "image": 2,
+      "sourceFile": "codex-clipboard-80P6Kn.png",
+      "sha256": "fc73663a3f98e5e96b69c871589362ed8d45383a0d507200e09574188db2d7ec",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1852
+      ],
+      "galleryFiles": [
+        "rec-umbrella-mi-pair-2.jpg"
+      ]
+    },
+    {
+      "batch": 69,
+      "image": 3,
+      "sourceFile": "codex-clipboard-q7ERkb.png",
+      "sha256": "e815cb32137010b80deb34e3d5c01efbd4ac9148560273a4e4c703ebf22397aa",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 70,
+      "image": 1,
+      "sourceFile": "codex-clipboard-mgtS5V.png",
+      "sha256": "d3594ccfe098bbcff1851993859e545f59d7d7652398ae67edde47b53b33a5b4",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1853
+      ],
+      "galleryFiles": [
+        "rec-umbrella-kitty-pink-1.jpg"
+      ]
+    },
+    {
+      "batch": 70,
+      "image": 2,
+      "sourceFile": "codex-clipboard-mRgWgm.png",
+      "sha256": "cf0184f39065955ce6312a636b8969141931cbb04f22a7ac72d058b40a3ac1af",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1853
+      ],
+      "galleryFiles": [
+        "rec-umbrella-kitty-pink-2.jpg"
+      ]
+    },
+    {
+      "batch": 70,
+      "image": 3,
+      "sourceFile": "codex-clipboard-zRq3kF.png",
+      "sha256": "d72fbd8cc9d2d95952f5c7fa85f4af20e2f464ddfe9b1d3524460b98b4fe0d4b",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 71,
+      "image": 1,
+      "sourceFile": "codex-clipboard-TxNdfY.png",
+      "sha256": "692c46864c818a6044b92003369551152c61c2db6e24017b4bbbd4796c80750d",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1854
+      ],
+      "galleryFiles": [
+        "rec-basket-laundry-caster-1.jpg"
+      ]
+    },
+    {
+      "batch": 71,
+      "image": 2,
+      "sourceFile": "codex-clipboard-5M5ZPt.png",
+      "sha256": "15f2fd2615f91c4e259b77b950dcdfd368b924c49c3a88fc1c8a4c7b26ee202a",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 72,
+      "image": 1,
+      "sourceFile": "codex-clipboard-dBL17u.png",
+      "sha256": "3ecdcb19ce0f38e2fc90eff7986b3df481ae7406bfb8b677250eaf7c49054d39",
+      "classification": "重复宣传图",
+      "reason": "同批第三张为相同画面无宣传贴纸版本，展示干净版本。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 72,
+      "image": 2,
+      "sourceFile": "codex-clipboard-iftUM8.png",
+      "sha256": "34e84b0e02606903005e325e90feb21532e6c1f8c95cf8e0456901a914f9560f",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1855
+      ],
+      "galleryFiles": [
+        "rec-bin-white-lid-2.jpg"
+      ]
+    },
+    {
+      "batch": 72,
+      "image": 3,
+      "sourceFile": "codex-clipboard-wfnGi1.png",
+      "sha256": "ea374c54a323da0ac95e58ba269bae154fd2921aea2a814768fc826d538a1db0",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1855
+      ],
+      "galleryFiles": [
+        "rec-bin-white-lid-3.jpg"
+      ]
+    },
+    {
+      "batch": 72,
+      "image": 4,
+      "sourceFile": "codex-clipboard-WinqDr.png",
+      "sha256": "61ae5eab26ce3b5ed171c2905ceecf9b1bc5d50319af06aca0f4a6ea57edf6e9",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 73,
+      "image": 1,
+      "sourceFile": "codex-clipboard-AJeBjO.png",
+      "sha256": "eb2beee935de4a55bfedf602ffc2a6ef7ad9b9fd208ee75a7d5a85e40ec174f5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1856
+      ],
+      "galleryFiles": [
+        "rec-basket-rattanlook-three-1.jpg"
+      ]
+    },
+    {
+      "batch": 73,
+      "image": 2,
+      "sourceFile": "codex-clipboard-7wVb0G.png",
+      "sha256": "97645cc778eb65d59d73e8d62514b6eb2ded4068ebd6e8f7b6375b7f91b08357",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1856
+      ],
+      "galleryFiles": [
+        "rec-basket-rattanlook-three-2.jpg"
+      ]
+    },
+    {
+      "batch": 73,
+      "image": 3,
+      "sourceFile": "codex-clipboard-ZFxowm.png",
+      "sha256": "33e17fde0005ee805d7e9240bf34ba7dc62effb9dd7fa2b4f877d8ba4eccf37d",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 74,
+      "image": 1,
+      "sourceFile": "codex-clipboard-55tPqM.png",
+      "sha256": "6bd5fe818457203fbc0955dfff232e64cd7e1728a4206c15cb59476d0d1a1e04",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1857
+      ],
+      "galleryFiles": [
+        "rec-hamper-wovenlook-1.jpg"
+      ]
+    },
+    {
+      "batch": 74,
+      "image": 2,
+      "sourceFile": "codex-clipboard-5Ls7rs.png",
+      "sha256": "9bf5c286b2de2b0394af3bffdd656a5c0fb51691c1279f44b17d094e119c84a5",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1857
+      ],
+      "galleryFiles": [
+        "rec-hamper-wovenlook-2.jpg"
+      ]
+    },
+    {
+      "batch": 74,
+      "image": 3,
+      "sourceFile": "codex-clipboard-xZCEVC.png",
+      "sha256": "9919a431922d41821021b8067890d8a7aa44af4cfe6c7ca4db60dc7d5ef959e0",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 75,
+      "image": 1,
+      "sourceFile": "codex-clipboard-ckQMM4.png",
+      "sha256": "1fcb5f1a7f54ffd9d89b3a8df3ea13131bc587d00a02cef4143f890efa7404ca",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1859
+      ],
+      "galleryFiles": [
+        "rec-hamper-canvas-brown-1.jpg"
+      ]
+    },
+    {
+      "batch": 75,
+      "image": 2,
+      "sourceFile": "codex-clipboard-GCbciC.png",
+      "sha256": "a18b36afef61be4f1025d8ab12fcf0575dc87fb0aa6ab96217fe79698f3662cb",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1858
+      ],
+      "galleryFiles": [
+        "rec-hamper-canvas-white-1.jpg"
+      ]
+    },
+    {
+      "batch": 75,
+      "image": 3,
+      "sourceFile": "codex-clipboard-T7dyq5.png",
+      "sha256": "806748f559557671135a66a21d02737a2982cfbd5208d1c6c2cc21a9e946bb83",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 76,
+      "image": 1,
+      "sourceFile": "codex-clipboard-UQuQFb.png",
+      "sha256": "31fb8fd52c49bfbdd1368288452234e06ac2aee953355e54cfebe68e94c86d7c",
+      "classification": "套餐或规格不同",
+      "reason": "两件组合不等同本页单个中号，保留作范围核对证据。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 76,
+      "image": 2,
+      "sourceFile": "codex-clipboard-oZrK2F.png",
+      "sha256": "3e3e8531ba9139f4d9d6a5a126973fe5e81a0b4a9e1f7089ab455578964feb97",
+      "classification": "入图库照片",
+      "reason": "同件实拍已匹配商品；每件最多5张。",
+      "products": [
+        1860
+      ],
+      "galleryFiles": [
+        "rec-basket-woven-middle-1.jpg"
+      ]
+    },
+    {
+      "batch": 76,
+      "image": 3,
+      "sourceFile": "codex-clipboard-aO0GgH.png",
+      "sha256": "c755de82b483805bcccdadb86f70a5b65634ad3e829a43591e4a005f36239abc",
+      "classification": "套餐或规格不同",
+      "reason": "另一个尺寸的篮子，不能与已发布中号混为同一商品。",
+      "products": [],
+      "galleryFiles": []
+    },
+    {
+      "batch": 76,
+      "image": 4,
+      "sourceFile": "codex-clipboard-kUZRvy.png",
+      "sha256": "724c40474b1f2cb179a11c6219005df2e9436e53ecc3b691fbb20472de364100",
+      "classification": "来源证据",
+      "reason": "原商品介绍或价签截图，仅留作证据，不进图库。",
+      "products": [],
+      "galleryFiles": []
+    }
+  ],
+  "oldLocal": [
+    {
+      "file": "pp-361-set-1.jpg",
+      "sha256": "2047d1d662926be26977b5b5a91041a1f4f936e87593cc4c518f9c07331e5c6c",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1876
+    },
+    {
+      "file": "pp-361-set-2.jpg",
+      "sha256": "6d16e0fe002844923080bfb86b1d8c7b8047d3ffc8da8cd64c2be17a632ce589",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1876
+    },
+    {
+      "file": "pp-361-set-3.jpg",
+      "sha256": "5ab692df37628309161de95fbfcc225551d3e029a6f6dbdb3dd40835fdfaa3f8",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1876
+    },
+    {
+      "file": "pp-361-set-4.jpg",
+      "sha256": "84f0eb88263582a152b5a5970bd2673c8297a76a0259a3a202aa3fa1ca058e79",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1876
+    },
+    {
+      "file": "pp-dhs-2002-1.jpg",
+      "sha256": "e87e5b86e1b879c82fe697e33fe15e5273fbd5a17c1e93516e6b12a99459a723",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1873
+    },
+    {
+      "file": "pp-dhs-2002-2.jpg",
+      "sha256": "7d48ef2bb860b49973dfec42f8f0e314f3553b10cb4dcb39b26a6fee5dea4b9d",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1873
+    },
+    {
+      "file": "pp-dhs-2002-3.jpg",
+      "sha256": "6aeb3adb3893898c2621d5a9f987cab3da591f4cf8b12b661fd32083ad2316eb",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1873
+    },
+    {
+      "file": "pp-dhs-2002-4.jpg",
+      "sha256": "63f840a3f8f33e3fbcb5bc32e5f918854b8d204641edef59ebcb6d13b23fa89b",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1873
+    },
+    {
+      "file": "pp-dhs-2002-5.jpg",
+      "sha256": "28eaeb7786fe3277bbddd8ef6dbbee20d56c7dd7226632c9c0db890446a55a2d",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1873
+    },
+    {
+      "file": "pp-doublefish-8484-1.jpg",
+      "sha256": "325f91e6723f294c184c924fa82121b795095fea021fea1d13c387d107860a65",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1871
+    },
+    {
+      "file": "pp-doublefish-8484-2.jpg",
+      "sha256": "3ac4ae5b9666dc4894fa788e747cfd61886346a99925d2fe3c97436ae82ecc25",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1871
+    },
+    {
+      "file": "pp-doublefish-8484-3.jpg",
+      "sha256": "47f407752f22d9073bd44f233822d79dee0d762217619465f73bad97329e3025",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1871
+    },
+    {
+      "file": "pp-doublefish-8484-4.jpg",
+      "sha256": "796bb7b9ad6150cc0aa46f5bb46f4b25450242a156c60c0cc8df40228ac37e01",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1871
+    },
+    {
+      "file": "pp-doublefish-8484-5.jpg",
+      "sha256": "2916eace5f421336bc2a1a5f5dfa8679c3f210cdb929154f88731f2b4a7b05c6",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1871
+    },
+    {
+      "file": "pp-lansheng-1.jpg",
+      "sha256": "a8aeb88aeeb1c9497c9b5e1dccf6542fe67031aa7ec1466ce3df6d47a4252b3c",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1875
+    },
+    {
+      "file": "pp-lansheng-2.jpg",
+      "sha256": "0463adbc594b188f78b28237e62b5734ee665da27d178d88aa0aef026bd40514",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1875
+    },
+    {
+      "file": "pp-lansheng-3.jpg",
+      "sha256": "6ca7effcb66813223fc970c2130c0d711b32891922b985321cb35ce84b5a164e",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1875
+    },
+    {
+      "file": "pp-lansheng-4.jpg",
+      "sha256": "aa3decf484debc8a3b37a61fa1a8d1cb25c674d3bbb417586047378d1068b9cc",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1875
+    },
+    {
+      "file": "pp-lansheng-5.jpg",
+      "sha256": "b9b593249e734350781b0677c5210ff80a3925e529a48ee9ca884b15b658b67c",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1875
+    },
+    {
+      "file": "pp-peak-1.jpg",
+      "sha256": "f9b6f7dc67ba8a29f05fdbcccd663ab09307ec53ea7b6044972d28a185fee1e5",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1872
+    },
+    {
+      "file": "pp-peak-2.jpg",
+      "sha256": "80fdbebb8c6e4dfb384b7ef544d5d21f97d51f18942d1c2d26cc315b5e258c8c",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1872
+    },
+    {
+      "file": "pp-peak-3.jpg",
+      "sha256": "d48e60908f389c3328beb5914e842eb428b7a49e0755abcf72cf3ebbbae96149",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1872
+    },
+    {
+      "file": "pp-peak-4.jpg",
+      "sha256": "9f9c9d05fc6c2a101de13cf1edcee9952be255a7e5dc57691de5202be62e6fea",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1872
+    },
+    {
+      "file": "pp-peak-5.jpg",
+      "sha256": "dc58703d34a690b95076d4101a823cb06affd1aed19027a4fe38dccbb2e9329a",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1872
+    },
+    {
+      "file": "pp-penhold-pair-1.jpg",
+      "sha256": "9c2dd0f197a538e78ff0b983642f789c7a3e6d8bf306a9b7578ff4c1e42f88f9",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1874
+    },
+    {
+      "file": "pp-penhold-pair-2.jpg",
+      "sha256": "13d591b12c899b8daa2ebb0f7ba9ad96058c1145bb50be2a3f13ec8f745d04f9",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1874
+    },
+    {
+      "file": "pp-penhold-pair-3.jpg",
+      "sha256": "21ddcaca53433e45ceebd939cd48ead7343612a8095d5c7c00d886692b88d499",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1874
+    },
+    {
+      "file": "pp-penhold-pair-4.jpg",
+      "sha256": "013c60f9ebc540e55232a12b51642632b2210a8003c546e862c230398293fb66",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1874
+    },
+    {
+      "file": "pp-penhold-pair-5.jpg",
+      "sha256": "e42ffff03f6975d6ca40cdb5b2d72307a51ce0968432d05f5e703c2f21da2104",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1874
+    },
+    {
+      "file": "stat-art-kit-1.jpg",
+      "sha256": "ccdfed621d5f2f9adc5b0ecd7b61310989447326391af37882130a631b22ab49",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1866
+    },
+    {
+      "file": "stat-art-kit-2.jpg",
+      "sha256": "5fb1034360e7cc9e26d5222e978445e4843a5c40b5f32acf5152da339a7003c4",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1866
+    },
+    {
+      "file": "stat-art-kit-3.jpg",
+      "sha256": "b91a649ec1658aff2bf4de33a9a0a4a4c3e9c25a974f8155d8c219323b0383a8",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1866
+    },
+    {
+      "file": "stat-art-kit-4.jpg",
+      "sha256": "11c91c8d4789e58f260202e6b3dac4a102f8a2d50223a7aaef39b67a175e7cf2",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1866
+    },
+    {
+      "file": "stat-books-bundle-1.jpg",
+      "sha256": "79711844a426df4f156819d1a99176773d1043c6a0413cf08191d434efcb35c7",
+      "classification": "与既有商品重复",
+      "reason": "与1716相同的文具本册照片，沿用既有商品，不重复创建。",
+      "productId": 1716
+    },
+    {
+      "file": "stat-books-bundle-2.jpg",
+      "sha256": "5c9eef26a56e3b582e4bb833acb115ebfac66c064aeded66b693c99711b1fd24",
+      "classification": "不适合大学平台",
+      "reason": "该书架含小学类书籍，原图保留，不进商品图库。",
+      "productId": null
+    },
+    {
+      "file": "stat-deli-bags-1.jpg",
+      "sha256": "e7e219aa504eec45804377800ce288c3a2739129ea1124054c601312b740cc08",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1865
+    },
+    {
+      "file": "stat-deli-bags-2.jpg",
+      "sha256": "420bbb97844a5c2c5a0b4278ae2dad8b6b7dd0efa77e6b51b98f9391aedfdd26",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1865
+    },
+    {
+      "file": "stat-desk-set-1.jpg",
+      "sha256": "1207b674a307d7bc10bc7aa9b1b7d595a7b327ab953f925b7f11cf21c20831b1",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1868
+    },
+    {
+      "file": "stat-journal-bundle-1.jpg",
+      "sha256": "6044d17e608c4fbea06392837217dd468115cbc1090fd390f3ccffed6718d002",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1870
+    },
+    {
+      "file": "stat-journal-bundle-2.jpg",
+      "sha256": "865f47787f38bf822811a941c8c54a97a8b80266b83431bd23349fee49adc49a",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1870
+    },
+    {
+      "file": "stat-kokuyo-campus-1.jpg",
+      "sha256": "53a8b1ce0286b5be5278aada1194003f1a7781e25c40736e4e9e1b30a2f83261",
+      "classification": "待确认",
+      "reason": "随机1–2件福袋与整张图片范围不对应，未按整图挂牌。",
+      "productId": null
+    },
+    {
+      "file": "stat-mg-pencils-1.jpg",
+      "sha256": "16beb0a35959c358191d5de52ff6c6c729dde95322dbbb8d062ce8b1f2458494",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1869
+    },
+    {
+      "file": "stat-mg-pencils-2.jpg",
+      "sha256": "eb8ebba53bcdaecfa9f511226c4f6949f680d5fb4f0d16bfe1f184a7dd44d3e5",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1869
+    },
+    {
+      "file": "stat-office-cabinet-1.jpg",
+      "sha256": "14ddea022fb01f83280860233bbbf33b3cebb132537fd44e44a985bfa94171ab",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1862
+    },
+    {
+      "file": "stat-penbox-notes-1.jpg",
+      "sha256": "a84dddb707812fd32d6d8ce2ebb0bef1d7937d550305a2510b6b25f43cabcc58",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1867
+    },
+    {
+      "file": "stat-penbox-notes-2.jpg",
+      "sha256": "d69026ad962c42ef125cfb9c2cf70bcab79f838238b39a23cfe3cfca1e959c4e",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1867
+    },
+    {
+      "file": "stat-pens-bundle-1.jpg",
+      "sha256": "9bec724e88e64ffce6f5e6b454a7c0e04d2e840d8a921b03947f3675beca9d65",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1861
+    },
+    {
+      "file": "stat-pens-bundle-2.jpg",
+      "sha256": "c6fa41a47c721b324c34e2664d9e014ff3958e09dec158df88be3137809b8493",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1861
+    },
+    {
+      "file": "stat-sticky-box-1.jpg",
+      "sha256": "4a0e203d28f07ec020fbc6af2b436b4c4bbd1fdb3d1d3bb348c2761afc5102cc",
+      "classification": "入图库照片",
+      "reason": "旧素材已匹配明确商品，原JPEG复用。",
+      "productId": 1864
+    },
+    {
+      "file": "stat-zebra-set-1.jpg",
+      "sha256": "2ad3e322e1c2a01e8024f720b537c6d57b9012c85d0944f86d9aa6b1186c0be6",
+      "classification": "与既有商品重复",
+      "reason": "与既有1749商品相同的照片，不重复创建。",
+      "productId": 1749
+    }
+  ]
+}

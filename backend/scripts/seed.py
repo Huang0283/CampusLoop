@@ -573,7 +573,8 @@ def refresh(session, model, rows: list[dict], columns: list[str]) -> None:
 def sync_showcase(session) -> None:
     """Showcase sellers, products and images follow showcase.json, also on existing databases.
 
-    Only the content fields are refreshed; views, favorites and sale status stay as they are.
+    Content fields are refreshed; views, favorites and sale status stay as they are,
+    except explicitly held ON_SALE showcase items are hidden until reviewed.
     """
     refresh(
         session,
@@ -609,7 +610,11 @@ def sync_showcase(session) -> None:
                 price=item["price"],
                 original_price=item.get("originalPrice"),
                 campus_location=item["location"],
-                status=ProductStatus.ON_SALE.value,
+                status=(
+                    ProductStatus.HIDDEN.value
+                    if item.get("publicationHold")
+                    else ProductStatus.ON_SALE.value
+                ),
                 attributes={},
                 view_count=item.get("views", 0),
                 favorite_count=item.get("favorites", 0),
@@ -632,6 +637,18 @@ def sync_showcase(session) -> None:
         for image_id, product_id, _, key, order in SEED_IMAGES
         if product_id < 2001
     ]
+    held = [item for item in SHOWCASE if item.get("publicationHold")]
+    for item in held:
+        session.execute(
+            update(Product)
+            .where(
+                Product.id == item["id"],
+                Product.owner_id == item["owner"],
+                Product.status == ProductStatus.ON_SALE.value,
+                Product.deleted_at.is_(None),
+            )
+            .values(status=ProductStatus.HIDDEN.value)
+        )
     session.execute(
         delete(ProductImage).where(
             ProductImage.product_id.in_([item["id"] for item in SHOWCASE]),

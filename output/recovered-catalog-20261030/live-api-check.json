@@ -1,0 +1,18 @@
+{
+  "api": "http://127.0.0.1:8001",
+  "visibleTotal": 381,
+  "visibleShowcase": 366,
+  "verifiedPhotosIncludingHeld": 681,
+  "heldAbsentAnd404": [
+    1610,
+    1612,
+    1701,
+    1756,
+    1779,
+    1780,
+    1783,
+    1784,
+    1820
+  ],
+  "catalogCopyAndPricesMatch": true
+}

@@ -1,0 +1,762 @@
+{
+  "existingAdjustments": [
+    {
+      "productId": 1716,
+      "title": "闲置练习本与书写收纳文具打包",
+      "before": 100.0,
+      "after": 35,
+      "reason": "同一组本册文件夹与旧素材重复，剔除不适合大学平台的额外书籍后按图示组合设演示挂牌价35元。"
+    },
+    {
+      "productId": 1719,
+      "title": "手账笔记本 单本转让",
+      "before": 110.7,
+      "after": 15,
+      "reason": "未核实特殊材质或版本的普通手账本，单本110.7元明显偏高，设演示挂牌价15元。"
+    },
+    {
+      "productId": 1721,
+      "title": "齐心 Comix 直液式中性笔 黑色 0.5mm",
+      "before": 99.0,
+      "after": 2,
+      "reason": "普通齐心0.5mm单支直液式中性笔，99元与单支规格明显不符，设演示挂牌价2元；不改品牌收藏笔。"
+    },
+    {
+      "productId": 1741,
+      "title": "毕业闲置 0.5mm 签字笔 单支转让",
+      "before": 20.0,
+      "after": 3,
+      "reason": "普通毕业闲置0.5mm签字笔为单支价，20元明显偏高，设演示挂牌价3元；不混同品牌收藏笔。"
+    }
+  ],
+  "newListingPrices": [
+    {
+      "productId": 1785,
+      "title": "黑色 20 寸硬壳拉杆箱",
+      "observedPriceText": "38",
+      "price": 38,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1786,
+      "title": "浅蓝色 20 寸拉杆行李箱",
+      "observedPriceText": "19.9–39.99（多款）",
+      "price": 30,
+      "reason": "多颜色区间价，按照片中的单只20寸箱设置演示售价，非来源成交价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1787,
+      "title": "白色 20 寸竖纹拉杆箱",
+      "observedPriceText": "19.9–39.99（多款）",
+      "price": 30,
+      "reason": "区间标价未明确颜色对应，按同批单只20寸箱设置演示售价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1788,
+      "title": "浅绿色卡通图案 20 寸行李箱",
+      "observedPriceText": "18.70",
+      "price": 25,
+      "reason": "活动标价偏低，按有使用痕迹的单只硬壳箱设置演示售价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1789,
+      "title": "白色 20 寸拉杆箱 箱面有明显擦痕",
+      "observedPriceText": "30",
+      "price": 25,
+      "reason": "箱面和轮组磨损明显，演示售价下调",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1790,
+      "title": "小黄鸭图案 20 寸行李箱 带配套小箱",
+      "observedPriceText": "20",
+      "price": 25,
+      "reason": "按一大一小组合及拉链缺陷设置演示价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1791,
+      "title": "黑色竖纹 22 寸行李箱",
+      "observedPriceText": "20",
+      "price": 25,
+      "reason": "单只22寸箱演示定价；来源使用信息较少，按普通二手品处理",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1792,
+      "title": "三只松鼠黄色 20 寸行李箱 箱壳偏薄",
+      "observedPriceText": "35",
+      "price": 30,
+      "reason": "保留箱壳偏薄的使用限制，演示售价小幅下调",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1793,
+      "title": "黑色牛津布 26 寸拉杆行李箱",
+      "observedPriceText": "60",
+      "price": 60,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1794,
+      "title": "玫瑰金色 16 寸小行李箱",
+      "observedPriceText": "28.88",
+      "price": 28,
+      "reason": "将活动尾数价整理为校园演示售价，规格不变",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1795,
+      "title": "黑色 20 寸拉链行李箱 有落灰",
+      "observedPriceText": "36.50",
+      "price": 35,
+      "reason": "按实拍落灰与轻微痕迹整理演示售价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1796,
+      "title": "猫咪图案软壳行李箱 内衬有使用痕迹",
+      "observedPriceText": "15（正文25）",
+      "price": 20,
+      "reason": "截图标题和正文价格不一致，按内衬状态设定演示售价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1797,
+      "title": "黑色 22 寸方形行李箱 带蓝色内衬",
+      "observedPriceText": "42",
+      "price": 42,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1798,
+      "title": "轻松熊米白色 16 寸手提箱",
+      "observedPriceText": "18",
+      "price": 25,
+      "reason": "按图示小型手提硬箱设定演示售价，未宣称品牌真伪已验",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1799,
+      "title": "黑色竖纹拉链拉杆箱",
+      "observedPriceText": "同批另一个箱体；无独立对应价签",
+      "price": 30,
+      "reason": "独立箱体无对应价格，按普通二手箱设置演示挂牌价30元；不沿用其他箱子的38元或尺寸。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1800,
+      "title": "SWISS MILITARY 黑色手提小箱",
+      "observedPriceText": "29",
+      "price": 29,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1801,
+      "title": "斑马纹 20 寸硬壳行李箱",
+      "observedPriceText": "30",
+      "price": 30,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1802,
+      "title": "奶油色 12 寸手提收纳箱",
+      "observedPriceText": "20",
+      "price": 20,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1803,
+      "title": "亨得利黑色牛津布 20 寸拉杆箱",
+      "observedPriceText": "20",
+      "price": 20,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1804,
+      "title": "黄色卡通 20 寸拉杆箱",
+      "observedPriceText": "30",
+      "price": 30,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1805,
+      "title": "白色折叠长条台灯",
+      "observedPriceText": "20",
+      "price": 20,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1806,
+      "title": "MT-150 软管插电台灯（开关偏紧）",
+      "observedPriceText": "8.9",
+      "price": 8.9,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1807,
+      "title": "宝量白色可调台灯",
+      "observedPriceText": "11.2",
+      "price": 11.2,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1808,
+      "title": "久量 DP-6060 软管台灯",
+      "observedPriceText": "16",
+      "price": 16,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1809,
+      "title": "美的白色圆底台灯",
+      "observedPriceText": "35",
+      "price": 35,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1810,
+      "title": "美的时钟笔筒台灯（外壳泛黄）",
+      "observedPriceText": "39.99",
+      "price": 30,
+      "reason": "考虑明显泛黄、污渍和未知电池情况，演示挂牌价由39.99元调为30元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1811,
+      "title": "久量 DP-6037 折叠台灯",
+      "observedPriceText": "9.9",
+      "price": 9.9,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1812,
+      "title": "白色 Type-C 圆底软管台灯",
+      "observedPriceText": "15",
+      "price": 15,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1813,
+      "title": "软木花纹小首饰收纳盒",
+      "observedPriceText": "10",
+      "price": 10,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1814,
+      "title": "桌面三层抽屉收纳盒",
+      "observedPriceText": "价签3；正文1",
+      "price": 8,
+      "reason": "来源价签与正文1/3元互相矛盾，按完整一件桌面收纳盒设置演示挂牌价8元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1815,
+      "title": "白色镂空路由器收纳盒",
+      "observedPriceText": "8",
+      "price": 8,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1816,
+      "title": "透明亚克力首饰收纳架",
+      "observedPriceText": "8.64",
+      "price": 8.64,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1817,
+      "title": "透明塑料抽屉收纳盒三件套",
+      "observedPriceText": "单个8；三个20",
+      "price": 20,
+      "reason": "采用来源明确的三个20元套餐，标题及描述同步注明三件，避免单价与套装照片不一致。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1818,
+      "title": "白色双抽屉桌面收纳架",
+      "observedPriceText": "10",
+      "price": 10,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1819,
+      "title": "白色九抽屉收纳盒（单件）",
+      "observedPriceText": "正文三个15；照片为单件",
+      "price": 10,
+      "reason": "来源三个15元与单件照片不完全匹配，统一为单件演示挂牌价10元，不把照片一件宣称为三件。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1820,
+      "title": "彩色亚克力方形收纳盒四件套",
+      "observedPriceText": "9.9每个",
+      "price": 32,
+      "reason": "来源为单个9.9元，四件组合设演示挂牌价32元，明确数量，避免单价误作全部售价。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1821,
+      "title": "紫色带盖塑料收纳箱",
+      "observedPriceText": "15",
+      "price": 15,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1822,
+      "title": "奶油黄色窄款手提收纳篮（单件）",
+      "observedPriceText": "价签7；正文5每个/三件13",
+      "price": 7,
+      "reason": "按价签7元保留为单件售价，剔除正文三件套餐造成的数量歧义。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1823,
+      "title": "TCL 10kg 波轮洗衣机",
+      "observedPriceText": "68（截图品牌与照片不符）",
+      "price": 260,
+      "reason": "68元截图混用了品牌且像引流价；按此实物组设置演示挂牌价260元，非市场成交评估。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1824,
+      "title": "TCL 旋钮面板波轮洗衣机",
+      "observedPriceText": "68（与另一台机器混图）",
+      "price": 220,
+      "reason": "不同机器拆分，原68元价签不能准确对应；该台设置演示挂牌价220元，容量待铭牌核对。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1825,
+      "title": "海尔香槟色 10kg 滚筒洗衣机",
+      "observedPriceText": "价签180；正文288",
+      "price": 900,
+      "reason": "180/288元互相矛盾且与10kg滚筒整机明显失衡，设演示挂牌价900元；不是已核验成交行情。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1826,
+      "title": "扬子 10kg 波轮洗衣机",
+      "observedPriceText": "130",
+      "price": 280,
+      "reason": "原130元偏低，按整机而非配件设置演示挂牌价280元；无市场成交验证。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1827,
+      "title": "奥克斯小型波轮洗衣机",
+      "observedPriceText": "70",
+      "price": 70,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1828,
+      "title": "海尔深灰色滚筒洗衣机",
+      "observedPriceText": "107（同批出现多种不同面板机器）",
+      "price": 780,
+      "reason": "107元与滚筒整机明显失衡，设演示挂牌价780元；其余不同机器照片不混入本件。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1829,
+      "title": "白色 U 形颈部按摩仪",
+      "observedPriceText": "40.7",
+      "price": 40.7,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1830,
+      "title": "康佳 U 形颈部按摩仪",
+      "observedPriceText": "25",
+      "price": 25,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1831,
+      "title": "京东京造 SE 颈部按摩仪",
+      "observedPriceText": "30",
+      "price": 30,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1832,
+      "title": "SKG H5 肩背按摩靠垫",
+      "observedPriceText": "50",
+      "price": 50,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1833,
+      "title": "SKG K3 浅色颈部按摩仪",
+      "observedPriceText": "18",
+      "price": 18,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1834,
+      "title": "SKG G1 白色颈部按摩仪",
+      "observedPriceText": "50",
+      "price": 50,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1835,
+      "title": "米妮橙色波点蝴蝶结发圈",
+      "observedPriceText": "26.5",
+      "price": 26.5,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1836,
+      "title": "蝴蝶结发夹发圈组合",
+      "observedPriceText": "价签18；正文打包50",
+      "price": 30,
+      "reason": "价签18元与正文整组50元矛盾，按图示组合设置演示挂牌价30元，非单件价。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1837,
+      "title": "银色水晶风花朵蝴蝶结发冠",
+      "observedPriceText": "58",
+      "price": 58,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1838,
+      "title": "JohnsonMeow 黄色波点发圈",
+      "observedPriceText": "55",
+      "price": 35,
+      "reason": "无凭证支撑品牌溢价，普通发圈演示挂牌价由55元调至35元；不代表品牌真实行情。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1839,
+      "title": "红色圣诞小熊发箍",
+      "observedPriceText": "9.99",
+      "price": 9.99,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1840,
+      "title": "黑色圣诞小熊发箍",
+      "observedPriceText": "9.99",
+      "price": 9.99,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1841,
+      "title": "木质金属衣架 20 个装",
+      "observedPriceText": "10个19.99；20个29.99",
+      "price": 29.99,
+      "reason": "选用来源明确的20个29.99元规格，同步注明数量，不沿用10.6元起的引流价。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1842,
+      "title": "白色落地挂衣架两件套",
+      "observedPriceText": "两件59",
+      "price": 59,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1843,
+      "title": "包塑金属衣架 50 个装",
+      "observedPriceText": "50个19.9",
+      "price": 19.9,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1844,
+      "title": "白色带轮落地挂衣架",
+      "observedPriceText": "20.99–25.59多尺寸",
+      "price": 25,
+      "reason": "多规格区间未匹配尺寸，白色单件使用演示挂牌价25元，不虚构具体长度。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1845,
+      "title": "黑色带轮落地挂衣架",
+      "observedPriceText": "20.99–25.59多尺寸",
+      "price": 25,
+      "reason": "颜色拆分为独立单件，采用演示挂牌价25元，长度不擅自指定。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1846,
+      "title": "奶油色 40cm 衣架 20 个装",
+      "observedPriceText": "20个10",
+      "price": 10,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1847,
+      "title": "深色双层落地挂衣架",
+      "observedPriceText": "6.8小号；16.8/17.8大号",
+      "price": 30,
+      "reason": "不采用小号6.8元引流价；图示较大架设置演示挂牌价30元，尺寸待实测。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1848,
+      "title": "白色蝴蝶结星星三折伞",
+      "observedPriceText": "9.8",
+      "price": 9.8,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1849,
+      "title": "绿色胶囊收纳折叠伞",
+      "observedPriceText": "8.19–13.99多规格",
+      "price": 12,
+      "reason": "多规格区间中选图示绿色单件，演示挂牌价12元，不沿用最低价或未经匹配的品牌。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1850,
+      "title": "黑色理肤泉标识胶囊伞",
+      "observedPriceText": "10",
+      "price": 10,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1851,
+      "title": "黑色藏蓝手动折叠伞两把装",
+      "observedPriceText": "两把8",
+      "price": 12,
+      "reason": "来源两把8元过低，按明确两把组合设置演示挂牌价12元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1852,
+      "title": "小米标识黑色长短伞组合",
+      "observedPriceText": "短23；长30；两把48",
+      "price": 48,
+      "reason": "采用来源明确的两把48元套餐，避免单把价格误配两把照片。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1853,
+      "title": "粉色 Hello Kitty 手动三折伞",
+      "observedPriceText": "12.8–16.9",
+      "price": 15,
+      "reason": "来源多规格区间，按照片这把伞设置演示挂牌价15元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1854,
+      "title": "奶油色带轮大洗衣篮",
+      "observedPriceText": "4.8–16.8不同规格",
+      "price": 20,
+      "reason": "最低价4.8元对应另一种小件，图示大洗衣篮设置演示挂牌价20元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1855,
+      "title": "白色带盖收纳箱",
+      "observedPriceText": "9.7–28.6多规格",
+      "price": 20,
+      "reason": "来源多规格价格未准确匹配，采用图示单件演示挂牌价20元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1856,
+      "title": "仿藤编塑料收纳篮三件套",
+      "observedPriceText": "6.6–9.9多规格",
+      "price": 12,
+      "reason": "明确三件套数量后设置演示挂牌价12元，避免多规格最低价与陈列数量混淆。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1857,
+      "title": "大号仿编织手提脏衣篮",
+      "observedPriceText": "8.8–19.8不同规格",
+      "price": 23,
+      "reason": "图示为较大款，剔除小号起价，设置演示挂牌价23元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1858,
+      "title": "白色卡通帆布脏衣篮",
+      "observedPriceText": "5.9–9.9多规格",
+      "price": 18,
+      "reason": "原价为多规格起价，按完整布篮和支撑架设置演示挂牌价18元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1859,
+      "title": "棕色卡通帆布脏衣篮",
+      "observedPriceText": "5.9–9.9多规格",
+      "price": 18,
+      "reason": "单独拆分颜色，完整篮体和支架演示挂牌价18元，不把多规格最低价当作整件价。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1860,
+      "title": "棕色长方形编织收纳篮",
+      "observedPriceText": "中号18.5；大号19.5；两个中号35.5",
+      "price": 18.5,
+      "reason": "采用来源单个中号18.5元口径，尺寸待实物核对，其他照片不作为两件套承诺。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1861,
+      "title": "多色笔与文件袋文具组合",
+      "observedPriceText": "58",
+      "price": 58,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1862,
+      "title": "笔记本与收纳文具组合",
+      "observedPriceText": "155",
+      "price": 80,
+      "reason": "无明细的混合二手文具不支撑155元整组价，演示挂牌价调为80元，仍需清点实际内容。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1864,
+      "title": "便签贴纸与本册文具组合",
+      "observedPriceText": "195",
+      "price": 70,
+      "reason": "原195元包含未列明的追加内容；改为图示明确组合，演示挂牌价70元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1865,
+      "title": "蓝色书写笔与笔袋文具组",
+      "observedPriceText": "15",
+      "price": 15,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1866,
+      "title": "彩铅画笔与书写文具组合",
+      "observedPriceText": "18",
+      "price": 18,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1867,
+      "title": "笔与笔芯错题本打包组合",
+      "observedPriceText": "20",
+      "price": 20,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1868,
+      "title": "计算器订书机与桌面文具组合",
+      "observedPriceText": "24",
+      "price": 24,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1869,
+      "title": "晨光桶装 12 色彩色铅笔",
+      "observedPriceText": "截图未识别出可靠售价",
+      "price": 8,
+      "reason": "没有可靠价签，按普通12色闲置彩铅设演示挂牌价8元。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1870,
+      "title": "本册胶带与手账文具组合",
+      "observedPriceText": "20",
+      "price": 20,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1871,
+      "title": "双鱼 8484 直拍两支与拍袋",
+      "observedPriceText": "25",
+      "price": 25,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1872,
+      "title": "匹克直拍乒乓球拍",
+      "observedPriceText": "来源截图未识别出可靠售价",
+      "price": 20,
+      "reason": "无可靠价签，按普通二手直拍设演示挂牌价20元，非专业器材估值。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1873,
+      "title": "红双喜 2002 横拍（更换过胶皮）",
+      "observedPriceText": "34",
+      "price": 34,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1874,
+      "title": "直拍乒乓球拍两支组合",
+      "observedPriceText": "19每支，要求打包",
+      "price": 38,
+      "reason": "两支按来源单价19×2=38元，避免把一支价格误写成一对。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1875,
+      "title": "岚晟长短柄乒乓球拍两支组合",
+      "observedPriceText": "18单支；34两支",
+      "price": 34,
+      "reason": "使用明确的两支34元套餐口径，不误用单支价。",
+      "priceType": "demo_asking_price"
+    },
+    {
+      "productId": 1876,
+      "title": "361° 横拍两支与拍包（有脱胶）",
+      "observedPriceText": "25.88",
+      "price": 25.88,
+      "reason": "保留来源标价",
+      "priceType": "demo_asking_price"
+    }
+  ]
+}

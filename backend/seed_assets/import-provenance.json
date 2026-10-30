@@ -12,7 +12,8 @@
       ],
       "price": 98.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "原图密集平铺水印覆盖鞋面，缺少无水印替代照片，暂缓展示。"
     },
     {
       "assetId": "goofish-776555423740",
@@ -38,7 +39,8 @@
       ],
       "price": 50.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "原图含广告拼贴，裁切后清晰度不足，等待清晰无水印的服装实拍。"
     },
     {
       "assetId": "goofish-798298155573",
@@ -398,11 +400,29 @@
       "originalTitle": "【小米18w快充】2万毫安移动电源3大容量快充质保80天 9成新  9成新  9成新  外观有点划痕 不影响使用  小店实话实说 不坑蒙拐骗  同样的货 别的平台未拆封的在120左右 三分之一的价格 这个东西 一分money一分货!!!   广东广州发货!!! #超大容量充电宝 #快充充电宝 #...",
       "originalDescription": "【小米18w快充】2万毫安移动电源3大容量快充质保80天 9成新  9成新  9成新  外观有点划痕 不影响使用  小店实话实说 不坑蒙拐骗  同样的货 别的平台未拆封的在120左右 三分之一的价格 这个东西 一分money一分货!!!   广东广州发货!!! #超大容量充电宝 #快充充电宝 #...",
       "imageSha256": [
-        "d69ec4f69980338db1153719377385550cddd9eca0f3fa63dfe8cbb87b35bd7d"
+        "624a64e223f7755e60f8a6e66da81292ecbfe217af7f4acc1e81c25dec91b9bc"
       ],
       "price": 39.8,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-996496048807-1.jpg",
+          "originalSha256": "d69ec4f69980338db1153719377385550cddd9eca0f3fa63dfe8cbb87b35bd7d",
+          "sha256": "624a64e223f7755e60f8a6e66da81292ecbfe217af7f4acc1e81c25dec91b9bc",
+          "operation": {
+            "patch": [
+              [
+                0.775,
+                0,
+                1,
+                0.235
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-996496048807-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1055368515874",
@@ -437,11 +457,27 @@
       "originalTitle": "二手小米20000毫安充电宝，原装正品，无拆无修，功能都正常 支持USB-C双向快充，安卓苹果都能用，出门应急很方便，支持代发，合作私聊 容量真实检测，假一赔十，支持打假 外观有点使用痕迹，介意外观的可以提前沟通 包邮到家  快递到货记得先验货，签收前记得拍开箱视频 喜欢直接拍，细节私聊～",
       "originalDescription": "二手小米20000毫安充电宝，原装正品，无拆无修，功能都正常 支持USB-C双向快充，安卓苹果都能用，出门应急很方便，支持代发，合作私聊 容量真实检测，假一赔十，支持打假 外观有点使用痕迹，介意外观的可以提前沟通 包邮到家  快递到货记得先验货，签收前记得拍开箱视频 喜欢直接拍，细节私聊～",
       "imageSha256": [
-        "8aa1826331c9b97d8540634d221010e0ba321fe8284b6247f21d55bd8c830f1a"
+        "afc11826b754ea03db74ed4fe0e013e7508bc5ac6ad3568f3b21e6954281328f"
       ],
       "price": 35.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1012163479302-1.jpg",
+          "originalSha256": "8aa1826331c9b97d8540634d221010e0ba321fe8284b6247f21d55bd8c830f1a",
+          "sha256": "afc11826b754ea03db74ed4fe0e013e7508bc5ac6ad3568f3b21e6954281328f",
+          "operation": {
+            "crop": [
+              0,
+              0,
+              1,
+              0.963
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1012163479302-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1086095880123",
@@ -593,11 +629,27 @@
       "originalTitle": "小米白色20000毫安移动电源 二手非全新成色8成新正常使用痕迹以视频实拍为准不鼓包无暗病功能正常正品保证 二手商品非质量问题不退不换完美主义请绕道！",
       "originalDescription": "小米白色20000毫安移动电源 二手非全新成色8成新正常使用痕迹以视频实拍为准不鼓包无暗病功能正常正品保证 二手商品非质量问题不退不换完美主义请绕道！",
       "imageSha256": [
-        "113d8e85d6ff9dc10f7ee2e5f0e6c7c033033d927133dd48d350c11909eff2dd"
+        "b3ea6223c028462efc6f3abdbf250d8f7332428d35be31928ff6f1c264ddcb14"
       ],
       "price": 32.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1078028949970-1.jpg",
+          "originalSha256": "113d8e85d6ff9dc10f7ee2e5f0e6c7c033033d927133dd48d350c11909eff2dd",
+          "sha256": "b3ea6223c028462efc6f3abdbf250d8f7332428d35be31928ff6f1c264ddcb14",
+          "operation": {
+            "crop": [
+              0,
+              0,
+              1,
+              0.87
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1078028949970-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-967125973478",
@@ -853,11 +905,27 @@
       "originalTitle": "SEEYOURSTORY茜雅朵朵毛呢大衣，L码，建议身高1. 55-1.65米，体重90-100斤左右，中长款，米白色，泡泡袖设计，带内衬，质量不错，成色以图为准，实物拍摄，性价比高，适合秋冬穿。特价19.9包邮，偏远地区除外。看好再拍，二手衣物不退不换哈！！！！！！！",
       "originalDescription": "SEEYOURSTORY茜雅朵朵毛呢大衣，L码，建议身高1. 55-1.65米，体重90-100斤左右，中长款，米白色，泡泡袖设计，带内衬，质量不错，成色以图为准，实物拍摄，性价比高，适合秋冬穿。特价19.9包邮，偏远地区除外。看好再拍，二手衣物不退不换哈！！！！！！！",
       "imageSha256": [
-        "1996c691815b9e163ca6423926c58e65b7ef6592f72b9da233c14cb8bf7b3709"
+        "32b91bfb2ba2c0f4fa7e935865dadc5e94faca97a5293581bdc8f86e1870c735"
       ],
       "price": 19.9,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1090216624288-1.jpg",
+          "originalSha256": "1996c691815b9e163ca6423926c58e65b7ef6592f72b9da233c14cb8bf7b3709",
+          "sha256": "32b91bfb2ba2c0f4fa7e935865dadc5e94faca97a5293581bdc8f86e1870c735",
+          "operation": {
+            "crop": [
+              0,
+              0,
+              1,
+              0.893
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1090216624288-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1060439687865",
@@ -1195,7 +1263,8 @@
       ],
       "price": 100.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "半透明水印横跨文具与包装，缺少干净替代图，暂缓展示。"
     },
     {
       "assetId": "goofish-1085036426935",
@@ -1243,11 +1312,29 @@
       "originalTitle": "【加菲文具】Cross 高仕涛声 圆珠笔 二手单笔，功能正常。杆套微小磕碰例如图9所示，其他良好。      低价处理，包邮普快不议价，能拍就还在。",
       "originalDescription": "【加菲文具】Cross 高仕涛声 圆珠笔 二手单笔，功能正常。杆套微小磕碰例如图9所示，其他良好。      低价处理，包邮普快不议价，能拍就还在。",
       "imageSha256": [
-        "f3ba6a12da34279bed7eeb46e5293dc97533be6ee509a805ed40aedd728f46bc"
+        "5a2f32ab112823717c74347762d0bfb4a94a3b7caad97730bade9192bec07ec7"
       ],
       "price": 99.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1072457871534-1.jpg",
+          "originalSha256": "f3ba6a12da34279bed7eeb46e5293dc97533be6ee509a805ed40aedd728f46bc",
+          "sha256": "5a2f32ab112823717c74347762d0bfb4a94a3b7caad97730bade9192bec07ec7",
+          "operation": {
+            "white": [
+              [
+                0.675,
+                0,
+                1,
+                0.66
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1072457871534-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1083200273609",
@@ -1360,11 +1447,29 @@
       "originalTitle": "【加菲文具】morion 尼尔森14k短钢金笔 二手单笔，带空墨囊。日常使用痕迹，笔杆笔尖保存良好，笔帽有小划痕小磕碰等例如后三张图片所示。      笔尖为14k“F”粗细，正常书写，顺滑，0.5mm左右粗细。      低价处理，性价比较高，包邮普...",
       "originalDescription": "【加菲文具】morion 尼尔森14k短钢金笔 二手单笔，带空墨囊。日常使用痕迹，笔杆笔尖保存良好，笔帽有小划痕小磕碰等例如后三张图片所示。      笔尖为14k“F”粗细，正常书写，顺滑，0.5mm左右粗细。      低价处理，性价比较高，包邮普...",
       "imageSha256": [
-        "2e7e492f3e3b2dc054d15ef3f012b2fb4afa37e62b46639a1af7581bf73c3343"
+        "0f642abb1077208b6fe1d7d67674db35699a7746f372f757ef9ebae1592c4739"
       ],
       "price": 130.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1066156069262-1.jpg",
+          "originalSha256": "2e7e492f3e3b2dc054d15ef3f012b2fb4afa37e62b46639a1af7581bf73c3343",
+          "sha256": "0f642abb1077208b6fe1d7d67674db35699a7746f372f757ef9ebae1592c4739",
+          "operation": {
+            "white": [
+              [
+                0.675,
+                0,
+                1,
+                0.66
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1066156069262-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1085447658847",
@@ -1388,9 +1493,12 @@
       "imageSha256": [
         "a64683942983552325b188d6867539070c3bf2966831f6e886ee1ecb4b606815"
       ],
-      "price": 100.0,
+      "price": 35,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "observedPrice": 100.0,
+      "priceAdjustmentReason": "同一组本册文件夹与旧素材重复，剔除不适合大学平台的额外书籍后按图示组合设演示挂牌价35元。",
+      "priceType": "demo_asking_price"
     },
     {
       "assetId": "goofish-1075552424529",
@@ -1427,9 +1535,12 @@
       "imageSha256": [
         "ee77238c7eec82def68917f1d71c1be0dadf792911052f55cffc42d0d26bd572"
       ],
-      "price": 110.7,
+      "price": 15,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "observedPrice": 110.7,
+      "priceAdjustmentReason": "未核实特殊材质或版本的普通手账本，单本110.7元明显偏高，设演示挂牌价15元。",
+      "priceType": "demo_asking_price"
     },
     {
       "assetId": "goofish-1095970464137",
@@ -1453,9 +1564,12 @@
       "imageSha256": [
         "415ea62d11e685c7434e84ee83c9b5a1c412d0e2ac0943a1d1fecf6eb92be64b"
       ],
-      "price": 99.0,
+      "price": 2,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "observedPrice": 99.0,
+      "priceAdjustmentReason": "普通齐心0.5mm单支直液式中性笔，99元与单支规格明显不符，设演示挂牌价2元；不改品牌收藏笔。",
+      "priceType": "demo_asking_price"
     },
     {
       "assetId": "goofish-1063434296953",
@@ -1516,11 +1630,29 @@
       "originalTitle": "【加菲文具】万宝龙古典281圆珠笔 二手单笔，日常使用痕迹，整体成色较新，笔夹两侧微小裂纹存在例如图89所示。      按压笔夹出芯，功能正常。低价处理，包邮普快不议价，能拍就还在。",
       "originalDescription": "【加菲文具】万宝龙古典281圆珠笔 二手单笔，日常使用痕迹，整体成色较新，笔夹两侧微小裂纹存在例如图89所示。      按压笔夹出芯，功能正常。低价处理，包邮普快不议价，能拍就还在。",
       "imageSha256": [
-        "f75b56175b01d34f892f11ac883472b526e089b080fa2b27d7c7e185d32e1270"
+        "36a27839768f92f4d21796af97ffd2d625702746f3c4c6586cd6ed426e5e7b53"
       ],
       "price": 138.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1072212380289-1.jpg",
+          "originalSha256": "f75b56175b01d34f892f11ac883472b526e089b080fa2b27d7c7e185d32e1270",
+          "sha256": "36a27839768f92f4d21796af97ffd2d625702746f3c4c6586cd6ed426e5e7b53",
+          "operation": {
+            "white": [
+              [
+                0.675,
+                0,
+                1,
+                0.66
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1072212380289-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1076227350231",
@@ -1713,9 +1845,12 @@
       "imageSha256": [
         "755917c51f9855a4448506edee7563315f5f18935d4557f066c46b9f1fd7233d"
       ],
-      "price": 20.0,
+      "price": 3,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "observedPrice": 20.0,
+      "priceAdjustmentReason": "普通毕业闲置0.5mm签字笔为单支价，20元明显偏高，设演示挂牌价3元；不混同品牌收藏笔。",
+      "priceType": "demo_asking_price"
     },
     {
       "assetId": "goofish-1008726720827",
@@ -1802,11 +1937,41 @@
       "originalTitle": "文具大礼包 打包带走19.9包邮（徽章除外） 文具中的笔基本都是得力和晨光的 计算器也是得力的，正常开关 还有一只百乐（正常出墨，仅用过一两次） 左下角的四只为赠品  主页还有其他学生生活以及学习用品多买可刀",
       "originalDescription": "文具大礼包 打包带走19.9包邮（徽章除外） 文具中的笔基本都是得力和晨光的 计算器也是得力的，正常开关 还有一只百乐（正常出墨，仅用过一两次） 左下角的四只为赠品  主页还有其他学生生活以及学习用品多买可刀",
       "imageSha256": [
-        "002183ef2c831456c31c86b5a92f40633c96e204a25f8a0efafa022356f2651f"
+        "671d457a54aace33ad3f99e8590c5abfa3a21a2fb7c161f9b8219d663fa3ff1a"
       ],
       "price": 23.9,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1078539298037-1.jpg",
+          "originalSha256": "002183ef2c831456c31c86b5a92f40633c96e204a25f8a0efafa022356f2651f",
+          "sha256": "671d457a54aace33ad3f99e8590c5abfa3a21a2fb7c161f9b8219d663fa3ff1a",
+          "operation": {
+            "patch": [
+              [
+                0.7,
+                0.655,
+                0.81,
+                0.83
+              ],
+              [
+                0.9,
+                0.88,
+                1,
+                0.96
+              ],
+              [
+                0,
+                0.865,
+                0.13,
+                0.95
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1078539298037-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1093736731880",
@@ -1910,7 +2075,8 @@
       ],
       "price": 116.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "多处广告覆盖冰箱门体与边缘，无法在保留实物表面的前提下安全清理，暂缓展示。"
     },
     {
       "assetId": "goofish-1096179896472",
@@ -1945,11 +2111,27 @@
       "originalTitle": "小冰箱 感兴趣的话点“我想要”和我私聊吧～",
       "originalDescription": "小冰箱 感兴趣的话点“我想要”和我私聊吧～\n\n页面列出的商品属性：\n全新 Haier/海尔 未使用",
       "imageSha256": [
-        "68d7a75abd3a242b1dde3cfa1ecb37e793e2f0a7d7ceb8aa8749404cef8d2390"
+        "de2d83dc9f54ff29f63cbf4a0ca37a604d18d0c5010b9de521b01315460bf07c"
       ],
       "price": 81.42,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1069186009831-1.jpg",
+          "originalSha256": "68d7a75abd3a242b1dde3cfa1ecb37e793e2f0a7d7ceb8aa8749404cef8d2390",
+          "sha256": "de2d83dc9f54ff29f63cbf4a0ca37a604d18d0c5010b9de521b01315460bf07c",
+          "operation": {
+            "crop": [
+              0,
+              0,
+              1,
+              0.895
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1069186009831-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-848019215483",
@@ -2153,11 +2335,29 @@
       "originalTitle": "奥克斯小冰箱35升简约款，双门，密封条脏污明显，壁底有些生锈 掉漆，3级能效。五楼步梯需自行搬运，重量14-15kg。 【二手冰箱，不要以全新要求】",
       "originalDescription": "奥克斯小冰箱35升简约款，双门，密封条脏污明显，壁底有些生锈 掉漆，3级能效。五楼步梯需自行搬运，重量14-15kg。 【二手冰箱，不要以全新要求】\n\n页面列出的商品属性：\n明显使用痕迹 AUX/奥克斯 5年及以上",
       "imageSha256": [
-        "80c50a30ad1b57e18cb7277f9d1a4939df633d1313b90de00403a0e29b009c09"
+        "fc9795edc65f520598069bb3c741be7cb7c2ef69145d663f3dc308f47f5b6b01"
       ],
       "price": 99.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1094441404726-1.jpg",
+          "originalSha256": "80c50a30ad1b57e18cb7277f9d1a4939df633d1313b90de00403a0e29b009c09",
+          "sha256": "fc9795edc65f520598069bb3c741be7cb7c2ef69145d663f3dc308f47f5b6b01",
+          "operation": {
+            "patch": [
+              [
+                0.68,
+                0.88,
+                0.97,
+                0.982
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1094441404726-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1091383170330",
@@ -2209,7 +2409,8 @@
       ],
       "price": 300.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "广告与安装承诺贴字覆盖空调上缘，缺少完整无广告原图，暂缓展示。"
     },
     {
       "assetId": "goofish-1091443028573",
@@ -2222,7 +2423,8 @@
       ],
       "price": 322.0,
       "priceScope": "single indoor unit",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "大字广告覆盖空调机身，缺少干净替代图，暂缓展示。"
     },
     {
       "assetId": "goofish-1034465351552",
@@ -2231,11 +2433,27 @@
       "originalTitle": "格力3匹立式柜机，一级能效变频冷暖，几乎全新，原装无拆修，功 能正常，外观干净，送3米铜管，雪种加满，支持自提，包送货上门安装，安装后调试再付款。价格可聊，喜欢私聊。",
       "originalDescription": "格力3匹立式柜机，一级能效变频冷暖，几乎全新，原装无拆修，功 能正常，外观干净，送3米铜管，雪种加满，支持自提，包送货上门安装，安装后调试再付款。价格可聊，喜欢私聊。\n\n页面列出的商品属性：\n几乎全新 Gree/格力 1年(含)-3年(不含)",
       "imageSha256": [
-        "6f3a5cfad37b72f136fd5814e20dd82503158ad7db39573e9c3588265b348ff2"
+        "c4340bb8a8d0ea228f57ccf4241434653f9942438b129cdf2ad33e6356993b6a"
       ],
       "price": 730.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1034465351552-1.jpg",
+          "originalSha256": "6f3a5cfad37b72f136fd5814e20dd82503158ad7db39573e9c3588265b348ff2",
+          "sha256": "c4340bb8a8d0ea228f57ccf4241434653f9942438b129cdf2ad33e6356993b6a",
+          "operation": {
+            "crop": [
+              0,
+              0,
+              1,
+              0.875
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1034465351552-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1085566456133",
@@ -2244,11 +2462,35 @@
       "originalTitle": "深圳最快当天安装！送货上门安装  二手空调包安装一级能效九成 新一级能|||效冷暖两用变频成色:九成新，无异味，经过调试匹数:1匹、1.5匹、2 匹，3匹   5匹空调:挂机，柜机，天花机免费送货上门安装。安装:免费安装配送，送三米管，如需打孔支架、加管请提前告知。空调适用面积（经验选型）1p壁挂式空调适用      (0--10）    平米 1.5P壁挂式空调适用 （10--16） 平米2p壁挂式空调适用    （15--25） 平米2P柜式空调适用        （20--30） 平米3P壁挂式空调适用    （25--35） 平米3P柜式空调适用        （28--38） 平米5P柜式空调适用        （35-65）    平米标价是一个单独内机的价格，一套根据品牌匹数价格都会有浮动需要的朋友右下角“我想要”私聊#Gree/格力 #Midea/美的 #空调",
       "originalDescription": "深圳最快当天安装！送货上门安装  二手空调包安装一级能效九成 新一级能|||效冷暖两用变频成色:九成新，无异味，经过调试匹数:1匹、1.5匹、2 匹，3匹   5匹空调:挂机，柜机，天花机免费送货上门安装。安装:免费安装配送，送三米管，如需打孔支架、加管请提前告知。空调适用面积（经验选型）1p壁挂式空调适用      (0--10）    平米 1.5P壁挂式空调适用 （10--16） 平米2p壁挂式空调适用    （15--25） 平米2P柜式空调适用        （20--30） 平米3P壁挂式空调适用    （25--35） 平米3P柜式空调适用        （28--38） 平米5P柜式空调适用        （35-65）    平米标价是一个单独内机的价格，一套根据品牌匹数价格都会有浮动需要的朋友右下角“我想要”私聊#Gree/格力 #Midea/美的 #空调\n\n页面列出的商品属性：\n几乎全新 Gree/格力 1年以下",
       "imageSha256": [
-        "472c0c3336b88caa39a72b84cfaa6c750fba79957bea5cc3fd2340677034c685"
+        "520ffc58a5b766f4d94becbb4a3b3f64f9381469b0ab09885eb1b07c5fb23a08"
       ],
       "price": 399.88,
       "priceScope": "single indoor unit",
-      "detailVerified": false
+      "detailVerified": false,
+      "imageEdits": [
+        {
+          "file": "goofish-1085566456133-1.jpg",
+          "originalSha256": "472c0c3336b88caa39a72b84cfaa6c750fba79957bea5cc3fd2340677034c685",
+          "sha256": "520ffc58a5b766f4d94becbb4a3b3f64f9381469b0ab09885eb1b07c5fb23a08",
+          "operation": {
+            "blueOnly": [
+              [
+                0.48,
+                0.52,
+                0.81,
+                0.65
+              ]
+            ],
+            "cropAfter": [
+              0,
+              0,
+              1,
+              0.61
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\goofish-1085566456133-1.jpg"
+        }
+      ]
     },
     {
       "assetId": "goofish-1074211911311",
@@ -2261,7 +2503,8 @@
       ],
       "price": 315.0,
       "priceScope": "single indoor unit",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "安装广告紧贴空调上沿，背景修补存在明显色块，等待干净原图。"
     },
     {
       "assetId": "goofish-1090348637896",
@@ -2274,7 +2517,3729 @@
       ],
       "price": 300.0,
       "priceScope": "see retained product description",
-      "detailVerified": false
+      "detailVerified": false,
+      "publicationHold": "能效宣传大字覆盖机身，不能据此验证能效，缺少干净替代图，暂缓展示。"
+    },
+    {
+      "assetId": "recovered-20261030-case-black-20",
+      "productId": 1785,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        1,
+        2
+      ],
+      "originalDescription": "¥ 38 包 邮 几 乎 全 新 244 人 想 要 4381 浏 览 个 人 闲 置 20 寸 黑 色 拉 杆 行 李 箱 ， 几 乎 全 新 ， 硬 壳 款 ， 带 密 码 锁 ， 万 向 轮 顺 滑 好 推 ， 拉 杆 结 实 不 晃 ， 箱 体 ABS+ PC 材 质 ， 结 实 耐 用 ， 抗 压 防 刮 ， 短 途 旅 行 、 学 生 上 学 、 出 差 都 能 用 ， 尺 寸 标 准 ， 容 量 大 ， 分 区 收 纳 方 便 ， 箱 子 很 轻 ， 收 到 直 接 用 ， 质 量 罪 谱 ， 好 看 又 好 用 哦 ！ ！ ！ 老 妈 帮 我 买 去 大 学 宿 舍 用 的 ， 黑 色 的 我 不 喜 欢 所 以 一 直 都 没 用 ， 自 己 又 买 了 个 新 的 ， 这 个 就 闲 置 了 又 大 又 占 位 置 ， 干 脆 随 便 便 宜 出 了 换 点 零 花 钱 吧 ！ 一 个 39 元 包 邮 到 家 特 价 便 宜 出 了 ， 买 到 就 是 赚 到 哦 ！ 需 要 的 宝 子 们 赶 紧 拍 回 去 用 哈 ， 绝 对 是 物 超 所 值 了 ！ 丨 丨 成 色 ： 几 乎 全 新 材 质 ： ABS+PC 0 聊 一 聊 担 保 交 举 报 20 寸 行 李 箱 立 即 购 买 收 藏",
+      "imageSha256": [
+        "1614d60fe1618d6fd2cd56a07fd35881215b137482ac2c7fa6fef8706fe4882a",
+        "fabdf27462c1750a4c0525ebc1e7a2688e2d511a80df493a814d47f319550417",
+        "39f7aa87e2470a7366cd0babb5c3a2c57b598fe0d88b8a2dcde8f26d47c6cafe",
+        "ac5fb1ef98360a6dab611872a870de2a9b3fa33cb83e52c61b8fe5cbbc1bce75"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 1,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-QiT8tO.png",
+          "originalSha256": "be3e7ae4d1e2e152ad0e934c378150dec81718a20bf4a0ad90b79477810b063b"
+        },
+        {
+          "sourceBatch": 1,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-SAGRtH.png",
+          "originalSha256": "ff33d383b3f890af4d90b7b4de55d72e91c2dd62662e1f1d2f2e4b56a838e819"
+        },
+        {
+          "sourceBatch": 1,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-WyV5rJ.png",
+          "originalSha256": "eb82f9e60afd4725dd7bff61c62781c2593411f76b990441ce2144ebd46260e1"
+        },
+        {
+          "sourceBatch": 1,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-IHOLbD.png",
+          "originalSha256": "17a4a10c844d02acdcb62913d39f677908bada96875d10b33c264d72c595a4ff"
+        }
+      ],
+      "observedPriceText": "38",
+      "price": 38,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-blue-20",
+      "productId": 1786,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        3
+      ],
+      "originalDescription": "活 动 价 ¥ 19 ． 9 - 39 · 99 包 邮 日 闲 鱼 号 66 人 想 要 661 浏 览 闲 置 20 寸 薄 荷 绿 行 李 箱 ， ABS+PC 材 质 ， 带 密 码 锁 ， 拉 杆 顺 滑 ， 万 向 轮 推 着 很 轻 ， 容 量 大 ， 适 合 短 途 出 行 、 学 生 党 、 出 差 都 能 用 成 色 几 乎 全 新 ， 没 怎 么 用 过 ， 保 存 很 好 （ 蓝 色 白 色 黄 色 ） MoncIer/% 可 睐 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "e47477c526e0833d1bb1a7ce95ce6d42f36453038a78bbcdbf4191e60350366a"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 3,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-T6erD5.png",
+          "originalSha256": "fe79b442f4083876b18c84a82222ce11966f59367bced3773851435188679720"
+        }
+      ],
+      "observedPriceText": "19.9–39.99（多款）",
+      "price": 30,
+      "priceAdjustmentReason": "多颜色区间价，按照片中的单只20寸箱设置演示售价，非来源成交价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-white-20",
+      "productId": 1787,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        3
+      ],
+      "originalDescription": "活 动 价 ¥ 19 ． 9 - 39 · 99 包 邮 日 闲 鱼 号 66 人 想 要 661 浏 览 闲 置 20 寸 薄 荷 绿 行 李 箱 ， ABS+PC 材 质 ， 带 密 码 锁 ， 拉 杆 顺 滑 ， 万 向 轮 推 着 很 轻 ， 容 量 大 ， 适 合 短 途 出 行 、 学 生 党 、 出 差 都 能 用 成 色 几 乎 全 新 ， 没 怎 么 用 过 ， 保 存 很 好 （ 蓝 色 白 色 黄 色 ） MoncIer/% 可 睐 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "36184762651aab026b6485eea3a1813431928de2748ca2dd9999873697292b1e",
+        "d642a00d9828259ea18f30bee314528bc579fdcc9e0942b9d6e6d6b3fe0e78a8",
+        "85597fce25eb613c7c09c814b2c78e0587cd6419911daa3862a7e090da9844ac",
+        "4c796a95e69c21cff335c661de7f250c6d21bf7b01dc2077e23afabd55488786",
+        "c1d98c3cb599aa629ffec847b82dc7f16d0de021ad70575dc0b0db006bd75de9"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 3,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-YDa3Cp.png",
+          "originalSha256": "f1c6a74934c2a4005367c857eda3280ff90f4b33cd88d5632fcd9d9eee8d4dd1"
+        },
+        {
+          "sourceBatch": 3,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-JO6Jfd.png",
+          "originalSha256": "9f8a609db5f530a619517eda2f4ebf9b920b87669ccafe3777b8001b713951cf"
+        },
+        {
+          "sourceBatch": 3,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-F5lQsM.png",
+          "originalSha256": "197f15b7577a4eb599a73d054ee14141b7946599fc285c555c48aac9382ed697"
+        },
+        {
+          "sourceBatch": 3,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-HGvPuA.png",
+          "originalSha256": "d8782e4550abe1a4bfaf9322fec77741e47843bcc76998c3954633f768832447"
+        },
+        {
+          "sourceBatch": 3,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-F3Dics.png",
+          "originalSha256": "2bc8dfca041099cd7eeb79d268315e8e9364e31accce0d95542f9a62b30f8918"
+        }
+      ],
+      "observedPriceText": "19.9–39.99（多款）",
+      "price": 30,
+      "priceAdjustmentReason": "区间标价未明确颜色对应，按同批单只20寸箱设置演示售价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-mint-character",
+      "productId": 1788,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        4
+      ],
+      "originalDescription": "活 动 价 ¥ 18 · 70 仅 自 提 近 十 五 天 降 价 50 ％ 轻 微 使 用 痕 迹 2 人 想 要 69 浏 览 20 寸 奶 白 色 硬 壳 登 机 箱 ， ABS+PC 材 质 ， 竖 条 纹 设 计 ， 带 TSA 密 码 锁 ， 拉 链 闭 合 ， 四 个 静 音 万 向 轮 ， 拉 杆 顺 滑 好 推 ， 箱 体 轻 ， 搬 动 不 费 劲 。 内 部 有 分 隔 层 和 扩 展 层 ， 收 纳 分 区 清 楚 ， 容 量 够 装 短 途 衣 物 ， 登 机 不 用 托 运 ， 学 生 党 出 差 旅 游 都 合 适 。 家 里 闲 置 出 来 的 ， 平 时 用 得 不 多 ， 成 色 很 新 ， 功 能 都 正 常 ， 推 着 很 轻 松 。 支 持 自 提 ， 价 格 好 聊 ， 喜 欢 可 以 私 聊 0 0 APP 反 馈 客 服 收 藏 担 保 交 成 色 ： 轻 微 使 痕 材 质 ： ABS+PC 0 聊 一 聊 举 报 20 寸 登 机 箱 立 即 购 买 庶 佃 研 喜 彳 寺 您 的 意 见",
+      "imageSha256": [
+        "d9f769529692e35051bf242e20da8f85833d9bfcac6c6b2d7c2b47f729a5e22a",
+        "0c72b765aaca77412726c7a00d1eb8b144fa7cb3a6380fdc355ac4de92c06821",
+        "645d72bb6b7a84c82682db45331a03a8e3cb316a5f86058673ab67acf815319c"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 4,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-YXyKx1.png",
+          "originalSha256": "d186e0c94011d049196d78c3dc48d7560036be8f8c13d1cf12bcb79116f90fca"
+        },
+        {
+          "sourceBatch": 4,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-pzTsD3.png",
+          "originalSha256": "9ba049a66eab7d617dacbc3212ad02a03c2eff1b954bfe520271f73ba83a81ed"
+        },
+        {
+          "sourceBatch": 4,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-QJfMHZ.png",
+          "originalSha256": "f4321efffce55cb311dbf92ccb3bf42c37acb54ba82581464f325a1544914212"
+        }
+      ],
+      "observedPriceText": "18.70",
+      "price": 25,
+      "priceAdjustmentReason": "活动标价偏低，按有使用痕迹的单只硬壳箱设置演示售价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-white-scratched",
+      "productId": 1789,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        5
+      ],
+      "originalDescription": "¥ 30 仅 自 提 明 显 使 用 痕 迹 1 人 想 要 4 浏 览 20 寸 白 色 拉 杆 行 李 箱 ， ABS+PC 材 质 ， 拉 杆 顺 滑 ， 轮 子 正 常 。 箱 子 有 明 显 使 用 痕 迹 ， 整 体 成 色 还 可 以 ， 内 部 干 净 ， 空 间 大 ， 分 区 合 理 ， 结 实 耐 用 ， 承 重 没 问 题 ， 轮 子 声 音 不 大 ， 适 合 短 途 旅 行 或 搬 家 用 。 同 城 自 提 优 先 ， 外 地 可 邮 寄 （ 邮 费 自 理 ） 。 二 手 物 品 ， 售 后 不 退 ， 价 格 可 聊 ， 喜 欢 私 聊 。 成 色 ： 明 显 使 痕 材 质 ： ABS+PC 0 聊 一 聊 20 寸 行 李 箱 立 即 购 买 收 藏",
+      "imageSha256": [
+        "4dc7759b23838a09e0a24f5578e306da82e8dc1783deacc77a0f9fb008bca743",
+        "b2048667a7e13fa1863e5a3aa1703d3233a3af7700de136ab80c983c2fe7f781",
+        "03f0b4885d762ba1c2a1cfcab45112c6699e4c906f213964637e3f7f272fa9c9",
+        "3352bbeaec4aa477ca47d9988256277f3a52118ffabd4ef1373caf1b6cb8aed6",
+        "a0dfd1f7d593d1f37b52952172a3bb9e8c4b1e81cd190af43264922818399e66"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 5,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-u943fj.png",
+          "originalSha256": "018661bc27364785691e44fad0221380195c785d0589e28bc9fde26ca98615af"
+        },
+        {
+          "sourceBatch": 5,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-Idr7sh.png",
+          "originalSha256": "b769f9b7a98d4ded11cb5d3b951b08cfc66ba5f881e67f75a9ff6cf863662a6d"
+        },
+        {
+          "sourceBatch": 5,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-0sXYX9.png",
+          "originalSha256": "90816d10c31803a20aca8cebb14a1cc99e0525ed8536d7c18be4ba3ccb1e72ae"
+        },
+        {
+          "sourceBatch": 5,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-suoDVF.png",
+          "originalSha256": "21519afe20060c57ced240ca36433ac5f329cb46ab9b64165ff3907568aca76c"
+        },
+        {
+          "sourceBatch": 5,
+          "sourceImage": 6,
+          "sourceFile": "codex-clipboard-Whb7z0.png",
+          "originalSha256": "c3dd9b2f01c09bc820f13e96281dfdd4b734c334d9589e3248c181180fe91994"
+        }
+      ],
+      "observedPriceText": "30",
+      "price": 25,
+      "priceAdjustmentReason": "箱面和轮组磨损明显，演示售价下调",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-duck-pair",
+      "productId": 1790,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        6
+      ],
+      "originalDescription": "¥ 20 仅 自 提 日 闲 鱼 号 明 显 使 用 痕 迹 1 人 想 要 23 浏 览 个 人 闲 置 20 寸 小 黄 鸭 行 李 箱 ， 外 观 挺 新 的 ， 刚 撕 掉 保 护 膜 ， 拉 链 本 来 是 双 边 ， 现 在 只 剩 单 边 ， 轮 子 顺 滑 ， 推 着 很 轻 松 。 适 合 短 途 出 行 ， 家 里 闲 置 出 来 的 ， 买 大 箱 送 小 箱 ， 两 个 一 起 出 。 支 持 自 提 ， 喜 欢 可 以 私 聊 ， 细 节 可 以 问 我 。 小 黄 鸭 （ 母 婴 ） 20 寸 0 聊 一 聊 成 色 ： 明 显 使 用 痕 迹 行 李 箱 立 即 购 买 收 藏 0 消 息 0 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "4e6ab8349d8771b1cb66756512cf68ae9c36ef35c2528d01254413f38f178fed",
+        "4c1881d1587dc040ac0b1e163d59d4db53525300f43b9c21f9dd0c608d96e1a9",
+        "7370719346933f32a6eea00d5c3a91d5cc4906d85614158bd848305f79dac804",
+        "8f888d7ed5cf3d6ea7e12f6f5dfb86866076a84c9450f93b3899a7b8bec489ac",
+        "967d4a63c232765c95e930930f182d7c7f85067a8f21990e8bc32c184a716f53"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 6,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-Sglazd.png",
+          "originalSha256": "c520b6d2fdc66b94b0820f94d5fc1666c9dfbeed30affecbedce30fa846afdf5"
+        },
+        {
+          "sourceBatch": 6,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-zLphY8.png",
+          "originalSha256": "c1eef676f398ac35bdf866e6a6aec22d109a964cf99dfdd808bec53eb4629a3e"
+        },
+        {
+          "sourceBatch": 6,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-jJBQRC.png",
+          "originalSha256": "00561a3cc826bae90fc0eb44e48114f9ea67164972cd2a5f114e7f7b462d97ef"
+        },
+        {
+          "sourceBatch": 6,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-1DLv4D.png",
+          "originalSha256": "2f416b6bb8799a34a1b3bcf9c2a7a5cad0087a0db770ffa77d605e3a94e4daa3"
+        },
+        {
+          "sourceBatch": 6,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-Dr2aJq.png",
+          "originalSha256": "f224532a42af10fa02a9c5f596ab31dd2af8b82b0a80452e7f74d523783c60f3"
+        }
+      ],
+      "observedPriceText": "20",
+      "price": 25,
+      "priceAdjustmentReason": "按一大一小组合及拉链缺陷设置演示价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-black-22",
+      "productId": 1791,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        7
+      ],
+      "originalDescription": "¥ 20 闲 置 行 李 箱 感 兴 趣 的 话 点 \" 我 想 要 ' 和 我 私 聊 吧 ～ 22 寸 0 聊 一 聊 立 即 购 买 日 闲 鱼 号 1 人 想 要 6 浏 览 收 藏 API 客 引",
+      "imageSha256": [
+        "601f517b6e762417aface7561a32047d47bb71ba0e7358170c8de7f80ac326d4"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 7,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-cIfw4P.png",
+          "originalSha256": "867aa405bacab123b5b923ec2797398d8dc756083a24a1c9a83d97fb1c941a65"
+        }
+      ],
+      "observedPriceText": "20",
+      "price": 25,
+      "priceAdjustmentReason": "单只22寸箱演示定价；来源使用信息较少，按普通二手品处理",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-squirrels",
+      "productId": 1792,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        8
+      ],
+      "originalDescription": "日 闲 鱼 号 几 乎 全 新 12 浏 览 活 动 价 ¥ 35 · 00 包 邮 描 述 不 符 包 邮 退 满 足 条 件 时 ， 买 家 可 退 货 目 运 由 卖 家 承 担 闲 置 99 新 三 只 松 鼠 20 寸 登 机 箱 保 险 公 司 送 的 年 礼 里 面 的 零 食 吃 掉 了 ， 箱 子 没 啥 用 ， 家 里 行 李 箱 比 较 多 ， 这 个 箱 子 皮 比 较 薄 ， 不 适 合 托 运 ， 最 好 也 别 拖 山 路 石 子 路 ， 没 那 么 结 实 ， 毕 竟 价 格 摆 在 这 了 ， 登 机 用 ， 自 驾 之 类 的 都 可 以 ， 或 者 临 时 需 要 非 偏 包 邮 自 提 更 好 成 色 ： 几 乎 全 新 材 质 ： ABS+PC 0 聊 一 聊 20 寸 登 机 箱 立 即 购 买 0 0 0 APP 反 馈 客 服 收 藏",
+      "imageSha256": [
+        "a570ae38313b3110028639231d5591070e2ec14a237b0351eb61578312610c36",
+        "f54a31e1f3ed507ef7bbb347c75c88598ed9f152d787180ce77123fa71cadbcc",
+        "3cbafddd1a2948d839b9e21e7f02241dacb0fadb9fc1e83a209e7fb0f8607ab7",
+        "d406bcc0bf811b606453393fcf500c6eafec4b2c0c63e3ade37c57fb70968435",
+        "3bb9a4fe3066a25bc210d2fe25550705f2dcfc9060af90a9969583e4af360f42"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 8,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-h8bwit.png",
+          "originalSha256": "cb16dfe67a4b586d5385222b10cd2c03eef4d4b90e6590207bc124fcb4af208a"
+        },
+        {
+          "sourceBatch": 8,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-KFEAfk.png",
+          "originalSha256": "614067bd9e0c4273ec0146872b609008c842d8cb39432cbeceef9980cfa86df1"
+        },
+        {
+          "sourceBatch": 8,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-E2ZTFI.png",
+          "originalSha256": "4e9a23f2984d47380ba70cbefa1fc1ec73d48a0201547a6535c6d3a896669298"
+        },
+        {
+          "sourceBatch": 8,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-y36KL3.png",
+          "originalSha256": "961f0e4a02a951ae3ebab3733cbd390a35220b104b574e994f2e521019c0b149"
+        },
+        {
+          "sourceBatch": 8,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-XW0VWN.png",
+          "originalSha256": "29db5d445252e558c4495667ece3affea2c49b744c7d41f2870641e56459d9a8"
+        }
+      ],
+      "observedPriceText": "35",
+      "price": 30,
+      "priceAdjustmentReason": "保留箱壳偏薄的使用限制，演示售价小幅下调",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-oxford-26",
+      "productId": 1793,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        9
+      ],
+      "originalDescription": "日 闲 鱼 号 ¥ 60 仅 近 十 五 天 降 价 33 ％ 黑 色 牛 津 布 拉 杆 行 李 箱 闲 置 出 25 人 想 要 293 浏 览 大 容 量 款 ， 适 合 旅 行 / 出 差 / 搬 家 / 出 国 托 运 用 ， 黑 色 也 比 较 耐 看 不 挑 搭 配 拉 杆 、 轮 子 、 拉 链 这 些 日 常 使 用 都 挺 方 便 ， 箱 体 整 体 看 着 成 色 不 错 ， 具 体 尺 寸 和 细 节 可 以 私 聊 我 确 认 家 里 闲 置 用 不 上 了 ， 喜 欢 可 以 私 聊 细 节 图 随 时 发 ， 支 持 邮 寄 ， 售 出 不 退 不 换 、 26 寸 0 聊 一 聊 发 10 0 0 0 APP 反 馈 客 服 立 即 购 买 收 藏 庶 佃 研 喜 彳 寺 您 的 意 见",
+      "imageSha256": [
+        "cdeeef007da79dba937ddf0676966afb4ba8cf08c4354a823c1daf1667c9c2bc"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 9,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-MxgIK4.png",
+          "originalSha256": "734662b4ebeb357ebc5342dbcb126c862bae9142158d837f4afcfb7fc516216f"
+        }
+      ],
+      "observedPriceText": "60",
+      "price": 60,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-rose-16",
+      "productId": 1794,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        10
+      ],
+      "originalDescription": "¥ 28 · 88 宀 ¥ 8 《 仅 自 提 累 计 降 价 57 ％ 日 闲 鱼 号 轻 微 使 用 痕 迹 2 人 想 要 1 1 1 浏 览 1 6 寸 的 拉 杆 行 李 箱 ， 用 不 上 了 ， 出 闲 置 。 能 正 常 使 用 ， 没 有 任 何 问 题 。 只 限 自 提 [ 通 州 区 新 华 联 家 园 南 区 29 号 楼 ] 成 色 ： 轻 微 使 痕 材 质 ： ABS+PC 0 聊 一 聊 行 李 箱 立 即 购 买 收 藏",
+      "imageSha256": [
+        "c10000c75b387deb97e83fdec30bd4f4dfd9f6e505259993260cfcc29ef4ae9b",
+        "ab54c895d6241e54c901f4e2f88ac3c95040bf580f4152cc5018e6fd08b54669"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 10,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-yhp7Fr.png",
+          "originalSha256": "65308ba0dbdffbd0f4cbe0a646499116b754e1a575befa91766966a81ff5a164"
+        },
+        {
+          "sourceBatch": 10,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-4Y5mdC.png",
+          "originalSha256": "2f5b74dfd36f88064baec8018ae42e307182eb6dc98f8d26a7c19c07763efd2c"
+        }
+      ],
+      "observedPriceText": "28.88",
+      "price": 28,
+      "priceAdjustmentReason": "将活动尾数价整理为校园演示售价，规格不变",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-black-zip20",
+      "productId": 1795,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        11
+      ],
+      "originalDescription": "¥ 36 ． 50 包 邮 行 李 箱 一 20 寸 新 旧 程 度 ： 9 ， 9 新 （ 有 点 灰 尘 ， 擦 一 下 即 可 ） 尺 寸 参 数 ： 20 寸 （ 可 以 登 机 ） 买 宝 马 车 送 的 ， 质 量 可 以 ！ 拉 链 款 一 如 图 ！ 个 人 闲 置 出 售 ， 自 提 ， 可 以 小 刀 ！ 地 址 ： 塘 尾 地 铁 站 边 上 源 兴 商 务 大 厦 成 色 ： 几 乎 全 新 材 质 ： ABS+PC 0 聊 一 聊 20 寸 行 李 箱 立 即 购 买 日 闲 鱼 号 几 乎 全 新 3 人 想 要 1 10 浏 览 发 10 0 0 0 APP 反 馈 客 服 收 藏",
+      "imageSha256": [
+        "eb3c6bde50f26696b8ed84aadcf9a1d20ed52623ee616d7381808dcbf71f4728",
+        "c8293c483662199b15ca5bdd23fef25f273a658a76c478fedc6a61fe72372cb6"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 11,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-kMjes8.png",
+          "originalSha256": "8353a2feba4d8780bf6a8b17f77a66c2e824c9ccb0b691a54bf1fb96fc5c7845"
+        },
+        {
+          "sourceBatch": 11,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-emONmt.png",
+          "originalSha256": "fd888db046572130caebec4f543988dde467c8c9f3d1c989d934888f481b47cc"
+        }
+      ],
+      "observedPriceText": "36.50",
+      "price": 35,
+      "priceAdjustmentReason": "按实拍落灰与轻微痕迹整理演示售价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-cat-soft",
+      "productId": 1796,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        12
+      ],
+      "originalDescription": "活 动 价 ¥ 15 ． 00 日 闲 鱼 号 明 显 使 用 痕 迹 8 人 想 要 142 浏 览 宿 舍 闲 置 软 壳 行 李 箱 ， 用 不 上 了 ， 25 不 包 邮 、 可 小 刀 ， 支 持 自 提 功 能 完 好 ， 容 量 很 大 ， 有 密 码 锁 ， 猫 咪 图 案 外 壳 ， 轮 子 顺 滑 ， 拉 杆 正 常 ， 适 合 出 行 / 收 纳 用 。 成 色 还 可 以 ， 有 正 常 使 用 痕 迹 ， 具 体 看 图 。 卖 出 不 退 。 成 色 ： 明 显 使 痕 0 聊 一 聊 行 李 箱 立 即 购 买 收 藏 0 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "cc1b83eafcaa4bd695305065f5b20b3675a301383509490ad8f508d073953d82",
+        "4abe67a5d7a5ef9c0e70de5526d8a553b99488778be67df19faf1bc846df0b49",
+        "c7b4109b6b1e05158a218a4df5a1eb3f6aca53bad4128dc54c49cc93225931fe"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 12,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-eF8ZGn.png",
+          "originalSha256": "4cea12f60d39aa39fd895475b4962e77ee67ea4d628b828475db0379522d02fd"
+        },
+        {
+          "sourceBatch": 12,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-LFdlTp.png",
+          "originalSha256": "13f3dea82729aea91df2a7043b718300b53ca890b6c4a561c3406f432a323c1b"
+        },
+        {
+          "sourceBatch": 12,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-CNxTJG.png",
+          "originalSha256": "cc7c1990d839a4eddcc79238f1c6f8142191bbeeb127d47667a731468fdc39de"
+        }
+      ],
+      "observedPriceText": "15（正文25）",
+      "price": 20,
+      "priceAdjustmentReason": "截图标题和正文价格不一致，按内衬状态设定演示售价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-square22",
+      "productId": 1797,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        13
+      ],
+      "originalDescription": "¥ 42 可 自 提 大 22 时 方 形 拉 杆 行 李 箱 ， 一 个 。 规 格 尺 寸 ： 43 宽 × 26 厚 X 50 高 C M 黑 色 ， 硬 壳 材 质 ， 结 实 耐 用 。 四 轮 及 拉 杆 均 顺 滑 。 箱 体 内 夕 卜 干 净 。 密 码 锁 需 用 钥 匙 锁 。 见 图 闲 置 物 品 ， 出 货 概 不 退 换 。 如 需 邮 寄 ， 邮 费 由 买 家 负 责 。 自 提 ， 或 可 送 到 五 山 地 铁 站 内 。 22 寸 0 聊 一 聊 行 李 箱 立 即 购 买 日 闲 鱼 号 2 人 想 要 51 浏 览 收 藏 丶 ．",
+      "imageSha256": [
+        "453b01cdb803aee5d8acff32a7d06e2df064c5a2a52d506a10b34976694285c2",
+        "68e3fab8022771d0cc1df35f2a379b48b0f0f59b4054a42d134b1dbe5d64ed44",
+        "dee6eca8560868a1511aaca45ed800fa2890b1b93a30a17fb3cede52c620304e",
+        "c2e0d593ed540b40ede293ee2c37709073874fd28558190dd5db803a3c67bae8",
+        "51af6d19d2ce7fa8180f0b8f899bd20f6464523f628df611cbe0dfe6787ac6da"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 13,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-s3tQGo.png",
+          "originalSha256": "34f2f6d79da47d91c2208a9e82438ef2e826acb9d9198baad8614d9fd8056c4c"
+        },
+        {
+          "sourceBatch": 13,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-Ydoh15.png",
+          "originalSha256": "57e1613fcf050da30a15d68cf3d0e1e2e17034dda26fb73fc6c69d7ecf448e14"
+        },
+        {
+          "sourceBatch": 13,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-7FhbZ0.png",
+          "originalSha256": "7143b581c4612b91e3a4f7820c8be52bf841db50db07ce6405135b48f6ac100c"
+        },
+        {
+          "sourceBatch": 13,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-6xxXOR.png",
+          "originalSha256": "0c56634d288de41bbebae4e4bac2236722c260b26f432672111c0296d01be561"
+        },
+        {
+          "sourceBatch": 13,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-1OdmAh.png",
+          "originalSha256": "d1214763c34ccbb417e0d47e41b9ba73f4422c4a33e7855cacfa96a7775d6f98"
+        }
+      ],
+      "observedPriceText": "42",
+      "price": 42,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-rilakkuma16",
+      "productId": 1798,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        14
+      ],
+      "originalDescription": "活 动 价 ¥ 18 · 00 “ 购 入 价 3 ． 9 扌 斤 轻 松 熊 行 李 箱 1 6 寸 米 白 色 卡 通 款 转 卖 带 密 码 锁 可 装 A4 文 件 闲 置 便 宜 出 杭 州 可 自 提 支 持 邮 寄 价 格 可 聊 细 节 私 信 16 寸 0 聊 一 聊 行 李 箱 立 即 购 买 日 闲 鱼 号 1 人 想 要 25 浏 览 收 藏",
+      "imageSha256": [
+        "0462659a25f14f6af33e55010ec81a0f2ef730f49fb6bb8de94c18d80dafae52"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 14,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-bF19Wd.png",
+          "originalSha256": "db1c8bd4290603ce9270f1102b51436a22542383ee8a505ae2e3b717838a21f7"
+        }
+      ],
+      "observedPriceText": "18",
+      "price": 25,
+      "priceAdjustmentReason": "按图示小型手提硬箱设定演示售价，未宣称品牌真伪已验",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-black-zip-extra",
+      "productId": 1799,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        1
+      ],
+      "originalDescription": "",
+      "imageSha256": [
+        "f53920646963a4d570cdc34bc2987d837257dea99a3b6bef9f3c589e638fbf51",
+        "da0123b3c0c8be44dde83eb5aa7cc2fa48709ccca2a4f93d463b14994534257b",
+        "bda3de396f1595387d950594e72416e990bbdec028008fce080c279b95ab9761",
+        "fbf3988b704ae869516656dee42c4788385f70c121810b927e8ffcd845895a4d",
+        "ab1464736f6ace094f9d76afd95889dac03c2005a615e284db794b63125c319b"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 1,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-yAHJeU.png",
+          "originalSha256": "c49b4f556b54f606ed91d3a36ff62d1ef9ee5609870c1750ff435dff77e37423"
+        },
+        {
+          "sourceBatch": 1,
+          "sourceImage": 6,
+          "sourceFile": "codex-clipboard-q0ojQX.png",
+          "originalSha256": "979aea61a77e44f5282c5bda5d58213e1ce0142dd472a22172abe53c3a1566f9"
+        },
+        {
+          "sourceBatch": 1,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-VV09c5.png",
+          "originalSha256": "b0c6452f0f35dfa960c0ff23fc4d607a2f4016b884b99290fc9707e32dfcfa3b"
+        },
+        {
+          "sourceBatch": 1,
+          "sourceImage": 8,
+          "sourceFile": "codex-clipboard-G63lGJ.png",
+          "originalSha256": "3b25b941a95e4fb43aed7f761f3a1796777ada8cc966c462804d80a0249fc653"
+        },
+        {
+          "sourceBatch": 1,
+          "sourceImage": 9,
+          "sourceFile": "codex-clipboard-7ayM8S.png",
+          "originalSha256": "072a843cd7681423569dcb6f05e551a7f22013edd4bc12a95578e4195c89a075"
+        }
+      ],
+      "observedPriceText": "同批另一个箱体；无独立对应价签",
+      "price": 30,
+      "priceAdjustmentReason": "独立箱体无对应价格，按普通二手箱设置演示挂牌价30元；不沿用其他箱子的38元或尺寸。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-swiss-hand",
+      "productId": 1800,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        16
+      ],
+      "originalDescription": "¥ 29 包 邮 日 闲 鱼 号 轻 微 使 用 痕 迹 3 人 想 要 275 浏 览 SWISS MILITARY 手 提 箱 ， 黑 色 ， 带 吊 牌 ， 外 观 有 划 痕 ， 没 用 过 ， 带 原 包 装 盒 ， 拉 链 顺 滑 ， 内 部 分 层 网 眼 ， 适 合 装 化 妆 品 数 码 小 件 ， 大 约 尺 寸 30 * 23 * 14 谁 用 的 上 来 谈 ， 支 持 自 提 ， 二 手 物 品 售 出 不 退 成 色 ： 轻 微 使 痕 0 聊 一 聊 手 提 箱 立 即 购 买 收 藏",
+      "imageSha256": [
+        "f8a8da41ae64ff33ad131db2ac2b6eee1349cb42f37a7afda8b1a58fd8882c9d",
+        "d71d9dccdba6e3cce116604322cf5a3780e798f412456913a216b51358c70567",
+        "79e7b91cee9121bb7f1d1fe29cbcbcd32081df887f02eb22f782b97202993adc",
+        "dd2ae4a06c503a80b70575ea3205707c65005ccb3a6c006253edaf101019df9d",
+        "5f24d9f121455901a2e6e3c02f762612db2e2ae341d44eab0e53cac31ebaf77e"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 16,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-dmqnoP.png",
+          "originalSha256": "9c33b0c1a6a348ea0163603529fb3cb22ff5be21acc29a026f4c16f449b1963b"
+        },
+        {
+          "sourceBatch": 16,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-Vt8DP3.png",
+          "originalSha256": "c7264b675147dbb3117493927b9e69727f345296e3cf8580ba59f9d2baed7bdb"
+        },
+        {
+          "sourceBatch": 16,
+          "sourceImage": 6,
+          "sourceFile": "codex-clipboard-h5GYuH.png",
+          "originalSha256": "f409b4ed18437fa7d3b08dfaaa299c0d8603ab64272cf22951e3c4a871d2d789"
+        },
+        {
+          "sourceBatch": 16,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-xpnyPB.png",
+          "originalSha256": "86d97b641c6f2d2cb0ac870252f7ead20ce2a639bcff45c9a9aa19ff163c2ae1"
+        },
+        {
+          "sourceBatch": 16,
+          "sourceImage": 8,
+          "sourceFile": "codex-clipboard-AFfKD2.png",
+          "originalSha256": "c910a361300c42c5776903fe29339c02f65a71681008bcbfc1d39f4d2fe60f5e"
+        }
+      ],
+      "observedPriceText": "29",
+      "price": 29,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-zebra20",
+      "productId": 1801,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        17
+      ],
+      "originalDescription": "¥ 30 淙 艹 包 邮 累 计 降 价 25 ％ 日 闲 鱼 号 4 人 想 要 192 浏 览 毕 业 清 理 ， 出 斑 马 纹 拉 杆 箱 ， 20 寸 登 机 箱 ， 硬 壳 材 质 ， 带 轮 子 。 注 ： 大 二 时 候 269 元 购 买 ， 现 30 元 低 价 出 。 平 时 在 学 校 床 铺 下 放 着 吃 灰 ， 放 假 回 家 就 带 着 走 。 有 使 用 痕 迹 ， 轮 子 有 磨 损 ， 有 落 灰 ， 自 己 也 懒 得 再 清 洗 ， 故 低 价 出 。 看 清 能 接 受 再 拍 。 、 适 合 出 行 、 收 纳 用 ， 外 观 有 个 性 ， 黑 白 条 纹 很 特 别 ， 实 用 型 。 包 邮 ， 同 城 可 自 提 ， 二 手 物 品 售 出 不 退 不 换 ， 喜 欢 直 接 拍 ， 细 节 可 详 聊 ～ 20 寸 拉 杆 箱 发 10 0 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "860658cd7b057c80921576885e4f30b27941f6408e9712ebc1facd7c43c5cd89",
+        "279996c52aad14887e75ecced479fcfd1ce28c40c9e21062de4d962720aabf03",
+        "5143c60abb6b105ddad8363dac17e7a2101640dc6c2d0e71aaacaa9cc23fcae1"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 17,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-ukxitn.png",
+          "originalSha256": "e138b0638142e8b0cc68a6030084b3a51988c2adb6e3a14ad9ed2b29de967fc7"
+        },
+        {
+          "sourceBatch": 17,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-IrhYdS.png",
+          "originalSha256": "dfd4c22c6f2484cbda5e18e5b3623ebd907bceae6910c9ab53e906b81e61a147"
+        },
+        {
+          "sourceBatch": 17,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-49cWPd.png",
+          "originalSha256": "2f5c4cb51466b35511b404ae5e8d2604c1f13df466da510c8aef9915b0e5db72"
+        }
+      ],
+      "observedPriceText": "30",
+      "price": 30,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-cream12",
+      "productId": 1802,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        18
+      ],
+      "originalDescription": "活 动 价 ¥ 20 ． 00 包 邮 轻 微 使 用 痕 迹 1 15 浏 览 米 白 色 12 寸 手 提 行 李 箱 ， 拉 链 款 ， 无 锁 无 拉 杆 ， 轻 便 好 带 ， 容 量 大 ， 短 途 出 行 、 收 纳 衣 服 、 化 妆 品 都 很 方 便 ， 白 搭 实 用 。 带 镜 子 的 化 妆 格 子 收 纳 盒 一 起 出 ， 收 纳 更 方 便 。 箱 子 成 色 还 可 以 ， 有 点 使 用 痕 迹 ， 整 体 挺 新 ， 拉 链 顺 滑 ， 内 部 干 净 ， 正 常 使 用 没 问 题 。 聊 我 、 细 节 图 可 补 成 色 ： 轻 微 使 痕 0 聊 一 聊 包 邮 ， 同 城 可 自 提 ， 价 格 可 聊 ， 闲 置 清 理 ， 喜 欢 的 朋 友 可 以 私 行 李 箱 立 即 购 买 收 藏",
+      "imageSha256": [
+        "40f635a41d1f05cc5a9b854185ade20bacbad0e2fce68fb467a283991cb0d9cc"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 18,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-GxNm7l.png",
+          "originalSha256": "ce7d586836895b5529030dcc930dccd08ac64cc2cbe255c0a8602be87d384461"
+        }
+      ],
+      "observedPriceText": "20",
+      "price": 20,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-handry20",
+      "productId": 1803,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        19
+      ],
+      "originalDescription": "¥ 20 仅 自 提 色 还 可 以 ， 有 点 使 用 痕 迹 ， 不 影 响 用 。 个 人 闲 置 ， 支 持 自 提 。 HANDRY/* 得 利 日 闲 鱼 号 轻 微 使 用 痕 迹 4 人 想 要 137 浏 览 亨 得 利 20 寸 拉 杆 行 李 箱 ， 黑 色 牛 津 布 ， 带 密 码 锁 ， 拉 杆 顺 滑 ， 轮 子 好 推 。 结 实 耐 用 ， 容 量 大 ， 适 合 短 途 出 行 、 收 纳 。 成 20 寸 0 聊 一 聊 成 色 ： 轻 微 使 用 痕 迹 拉 杆 箱 立 即 购 买 0 0 商 占 AI 收 藏",
+      "imageSha256": [
+        "21b624714081b814176c7d966f506e6bc3b024f68adc9a863fadf9ae90435273",
+        "28555f71c57a824c4adc4d9f979d1ea1b7518c9df88840393e13635af2bd6dc2",
+        "35de1bd593b81cd9ceb03750a3e41bb4b3005a574bcec21da2bade6bdccc88d4",
+        "49e3b81aafbc32d6830d48e508fd45ef5b49d954dac9ee2455bc7f253b5320c1"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 19,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-imd0cy.png",
+          "originalSha256": "5b1857650dc458d236a42221cc6d17e620fa0821e67ccd2179183ef8df32edc0"
+        },
+        {
+          "sourceBatch": 19,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-zYSV0d.png",
+          "originalSha256": "0d65e34e235a96fbb5842c5bab5090ba6421e0fbfbe630158db8613c4634f426"
+        },
+        {
+          "sourceBatch": 19,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-Vm9mB9.png",
+          "originalSha256": "67a69a17fd548c535822c874451359e4f5d8c4ddf0b154e1e428246f0c073d65"
+        },
+        {
+          "sourceBatch": 19,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-70av5l.png",
+          "originalSha256": "5c153c97c80846701c5a778210f78cfec1708a365262600fe1cb210eef2be099"
+        }
+      ],
+      "observedPriceText": "20",
+      "price": 20,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-case-yellow20",
+      "productId": 1804,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        20
+      ],
+      "originalDescription": "轻 微 使 用 痕 迹 ¥ 30 仅 自 提 10 人 想 要 323 浏 览 近 十 五 天 降 价 25 ％ 小 旅 行 箱 ， 20 寸 ， 用 了 几 次 ， 成 色 新 ， 功 能 元 好 。 二 手 物 品 一 经 售 出 不 退 不 换 ！ 仅 限 自 提 （ 青 羊 区 苏 坡 立 交 桥 附 近 ） 。 成 色 ： 轻 微 使 痕 行 李 箱 0 聊 一 聊 20 寸 立 即 购 买 收 藏",
+      "imageSha256": [
+        "4efc5bb8426e27feab85bfab86ef48af2143aed991585f0ac0710365b47d3b9f",
+        "3e749ea7aaa54bf3a49e42f5cf7a7b8c6c0060f3136ffb2417d32f124c86f9bc",
+        "3f0efb8ebac4d7b3529b49fbebc969d964ec6c11b819aa6b8ef47ef2f1f6811c",
+        "0a989f3a235fb942e1172b0e741fa49cfa42cf4a9adcb9fa4e9d972fe03113ed",
+        "4d870088bd5658d7e1a9a09a872e686444484c86394317ae036c72956de3f3e1"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 20,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-HHwO2U.png",
+          "originalSha256": "4f032ec5fd90c302c84d7dcd6129b74db4519a9b5ddafab4e43f7db7c2049f41"
+        },
+        {
+          "sourceBatch": 20,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-DeNdmo.png",
+          "originalSha256": "f2ce5f0367202a4d2ebb27cdd9e25cee6cf829291bf56eef8daac0afca7e4d21"
+        },
+        {
+          "sourceBatch": 20,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-OQFcna.png",
+          "originalSha256": "1ba6d3d27c59d7296f3db64c69ef13b78b5bbbf84fcc09833dbaf2694bdbbf14"
+        },
+        {
+          "sourceBatch": 20,
+          "sourceImage": 6,
+          "sourceFile": "codex-clipboard-lCvNy7.png",
+          "originalSha256": "d663e8cd50e55c497fe0c541cffe12ee7ec96de061ea80009acd5ca2cbac0a6a"
+        },
+        {
+          "sourceBatch": 20,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-XXSipB.png",
+          "originalSha256": "8e6e764a104d8866a755e7d7442b57d2b3ec16cf8731d9cfc0d75e54aa5086fa"
+        }
+      ],
+      "observedPriceText": "30",
+      "price": 30,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "照片1、2的灰色与薄荷色箱体标为已售，不使用这些照片，也不通过去除已售标记重新发布。"
+      ]
+    },
+    {
+      "assetId": "recovered-20261030-lamp-fold-strip",
+      "productId": 1805,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        21
+      ],
+      "originalDescription": "¥ 20 包 邮 日 闲 鱼 号 几 乎 全 新 314 人 想 要 S518 浏 览 原 价 109 买 的 护 眼 台 灯 ， 几 乎 全 新 ， 没 怎 么 用 过 ， 夕 卜 观 干 净 ， 功 能 正 常 ， 三 档 调 光 调 色 ， 白 光 暖 光 自 然 光 都 有 ， 光 线 柔 和 不 刺 眼 ， 长 时 间 用 眼 也 不 累 。 充 插 两 用 ， 带 电 源 线 ， 支 持 边 充 电 边 用 ， 底 座 稳 ， 适 合 学 生 党 、 宿 舍 、 书 房 、 卧 室 都 能 用 ， 看 书 学 习 、 晚 上 阅 读 都 很 合 适 包 邮 ， 喜 欢 直 接 拍 ， 细 节 私 聊 、 0 t 商 品 AP 反 《 成 色 ： 几 乎 全 新 灯 是 否 带 光 源 ： 带 光 源 0 聊 一 聊 调 光 功 能 ． 可 调 立 即 购 买 收 藏",
+      "imageSha256": [
+        "29c917263477f58c7523a812bcea3441f113afa48a397d92ef2a87901b60da00",
+        "b6ae6811e6cea042a92584201f5deb9138306f7afcc5143db27f1b56dde8fbdd",
+        "9bb3b7f520e32f53417e63038522e0d93d8eb059eb425bed7ed430a0d67031bc",
+        "03e1c2c7a332ea8ed43933d4a62b7f9c215163971d20601ec0019ecfb94681d6",
+        "61eb5214c762d89bee3b6a6adf6e2e4543f70f1706415abcf4f16a54899c185f"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 21,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-D2FSr4.png",
+          "originalSha256": "61f202c637da45bbc29d77ff0bdad464ec444bf6bef46c85e7b10f8a2bd86850"
+        },
+        {
+          "sourceBatch": 21,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-P2d6PP.png",
+          "originalSha256": "1def317c1a307ddd355027efebfed5baf98b8df606f95758323e1b8d18620184"
+        },
+        {
+          "sourceBatch": 21,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-Y7lnzk.png",
+          "originalSha256": "284dd782db5164de31f36f60e1521275f6b1d092f55ba180ea2fbf5555d4a7a1"
+        },
+        {
+          "sourceBatch": 21,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-rVFX7n.png",
+          "originalSha256": "82f23aeeb78c80d8241dbd3d78e9bdfabff6ddeffb8a5eb54b26121d9dacbe08"
+        },
+        {
+          "sourceBatch": 21,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-8dg6Tp.png",
+          "originalSha256": "edcf8a13fb17dfb208badcbce030d7455f58c1f2cad0b0e0cc39bfcc1b0e9f81"
+        }
+      ],
+      "observedPriceText": "20",
+      "price": 20,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-lamp-mt150",
+      "productId": 1806,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        22
+      ],
+      "originalDescription": "¥ 8 ． 90 包 邮 LED 台 灯 MT-150 4W 插 电 款 灯 头 可 调 节 角 度 随 意 灯 光 柔 和 适 合 书 桌 学 习 开 关 不 太 好 了 。 不 太 好 按 成 色 还 可 以 功 能 正 常 调 光 功 能 ． 可 调 0 聊 一 聊 日 闲 鱼 号 24 浏 览 灯 具 是 否 带 光 源 ： 带 光 源 立 即 购 买 收 藏",
+      "imageSha256": [
+        "63f4708931a5281c8d4d0c8732927e0b23a90b8be48d315900ff922b2ee15a66",
+        "be30493c0a8041ed124f4578f42e4a7b0ba6f2d4a54a879a6c48528b667bfdc0",
+        "cfb525a5664baef9176c374e88e356fd4127ef946aaa3b6264d8aafa6547194b",
+        "0b98783c04e83f6c178f96211a1f59908c575bd1f748c48763f7cba682a3cc08",
+        "8706d8f8d15a2b85153900effa207d108b37468a8554af87a3efd39fcd2744f7"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 22,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-mlybYC.png",
+          "originalSha256": "4eae8526b752aadad2c12ce4d6cd8c70db13cfdc4b1bf07889e7bf4c805b0679"
+        },
+        {
+          "sourceBatch": 22,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-naNXOn.png",
+          "originalSha256": "fbefcfd93961851ee8f7d12e5745898aed62aa7c359a04aceb203d30618fedb5"
+        },
+        {
+          "sourceBatch": 22,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-GyG0nm.png",
+          "originalSha256": "5b1dcdc10ad6657996115dfe54f4d44ef40e3a3856a7de1eb8da738b7542c5df"
+        },
+        {
+          "sourceBatch": 22,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-yZkcjf.png",
+          "originalSha256": "2ec7a0d8a81a83fadcd2d2c30e5ea37495c6855a1bd45d3aae92e0eb4c54ca99"
+        },
+        {
+          "sourceBatch": 22,
+          "sourceImage": 6,
+          "sourceFile": "codex-clipboard-xG3cow.png",
+          "originalSha256": "ee2aef7a6fcd579b0a42d61bdd4ab2f35eedbf23bfeda5e7617d8d6e6c947b04"
+        }
+      ],
+      "observedPriceText": "8.9",
+      "price": 8.9,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-lamp-baoliang",
+      "productId": 1807,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        23
+      ],
+      "originalDescription": "活 动 价 ¥ 11 ． 20 包 邮 轻 微 使 用 痕 迹 2 人 想 要 48 浏 览 宝 量 LED 护 眼 台 灯 ， 白 色 款 ， 几 乎 全 新 ， 外 观 干 净 ， 功 能 正 常 ， 插 电 / 充 电 两 用 ， 三 档 调 光 ， 触 摸 开 关 ， 灯 头 可 调 节 ， 光 线 柔 和 不 刺 眼 ， 适 合 学 生 、 宿 舍 、 卧 室 用 。 同 城 可 自 提 ， 价 格 可 聊 ， 喜 欢 的 朋 友 欢 迎 私 聊 看 细 节 图 、 成 色 ： 轻 微 使 用 痕 迹 灯 具 是 否 带 光 源 ： 带 光 源 调 光 功 能 ： 可 调 0 聊 一 聊 立 即 购 买 收 藏 发 10 0 消 息 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "2bf16ed05893ba3329b12ab365fa2484301d823d9e89b2be4c1cf2707ea63fc3",
+        "c9d48bb0e8ce7fb8eb19369edfb8fdfbe70a75e0ab1844ce227b33b62e3cc577"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 23,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-jUEgXc.png",
+          "originalSha256": "e0b1d2db52137173737727f30d9fd4bf0750edd2756472b4c9e2ae75dc8cb46a"
+        },
+        {
+          "sourceBatch": 23,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-h3aW3c.png",
+          "originalSha256": "363a5c286300126e9bbfcec9a8d2d712eac0045b22d167f4c2ec31c0593dddbf"
+        }
+      ],
+      "observedPriceText": "11.2",
+      "price": 11.2,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-lamp-dp6060",
+      "productId": 1808,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        24
+      ],
+      "originalDescription": "¥ 16 包 邮 累 计 降 价 20 ％ 日 闲 鱼 号 轻 微 使 用 痕 迹 3 人 想 要 72 浏 览 Duration Power 久 量 品 牌 双 模 触 控 台 灯 、 型 号 DP 一 6060 ， 白 色 款 ， 支 持 充 电 和 插 电 两 种 供 电 方 式 ， 适 合 书 房 、 卧 室 、 宿 舍 使 用 。 功 能 完 好 ， 成 色 新 ， 触 摸 开 关 灵 敏 ， 光 线 柔 和 护 眼 。 灯 杆 可 随 意 弯 曲 调 节 、 可 自 提 （ 一 4 块 ） 、 不 退 不 换 Duration Power/Ä 量 调 光 功 能 ： 不 可 调 0 聊 一 聊 成 色 ： 轻 微 使 用 痕 迹 灯 具 是 否 带 光 源 ： 带 光 源 立 即 购 买 收 藏 发 10 0 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "7d99966b801aa1169455089f7e10416dbe85a0ee627121997ede3961e9b26247",
+        "6e995bf19e207c930d2bb4cdfb5e59070133a40ef9730b2e3371c4f6f919d529"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 24,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-sbtNpE.png",
+          "originalSha256": "0ca00274b52692a36144f4023c6efb38e100abb9edfc9890efa443bba3fafd8c"
+        },
+        {
+          "sourceBatch": 24,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-tB2Hpb.png",
+          "originalSha256": "ca29fd237e56d2b6c85d01170c54036c9cbcbdacab676d03ddd60c93af7004da"
+        }
+      ],
+      "observedPriceText": "16",
+      "price": 16,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-lamp-midea-delay",
+      "productId": 1809,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        25
+      ],
+      "originalDescription": "¥ 35 包 邮 Midea/*B9 灯 是 否 带 光 源 ： 带 光 源 0 聊 一 聊 日 闲 鱼 号 2 人 想 要 107 浏 览 美 的 台 灯 MTD12 ， 5 一 MK 一 05 。 插 电 款 。 灯 头 可 调 节 。 带 延 时 和 感 光 功 能 。 线 很 长 。 功 能 正 常 。 成 色 还 可 以 。 杭 州 九 堡 自 取 。 调 光 功 能 ． 可 调 立 即 购 买 收 藏",
+      "imageSha256": [
+        "bed6bfa0f4dcfde7d8df164c53dd02f1d359855b06dd2a24624e56cdcefac8be",
+        "f43935ab87c31b1f77ad75079929b6e165110cd9bf02f996fea7325888ac29b6",
+        "40b362ab8e97999841df53a462a46b8a5b18b031948f4e43a03c484fc501d63e",
+        "308eefe2663caa814f230c22eed8a22e3db729b8729f708f07691979f9a7f3c4",
+        "dc55c3bcec4989edb2e0fa09b5e2d5125d557bfd7ceace5f7d7aef2e3a82bac9"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 25,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-ufgD4q.png",
+          "originalSha256": "d9c0fbb32041343b4e769d9ccd16159a58668d444648137d7069052d0f385c02"
+        },
+        {
+          "sourceBatch": 25,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-u6BL68.png",
+          "originalSha256": "9e9906c3498e7e61423f6f3ae222ee57f9afa4dfb6cf4340972b014c24cdce3a"
+        },
+        {
+          "sourceBatch": 25,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-SOorFS.png",
+          "originalSha256": "2a75d4d1ed024bdd00ce2441401c2f28f555011e259226a96c02da619b1ea5ac"
+        },
+        {
+          "sourceBatch": 25,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-tTvbNc.png",
+          "originalSha256": "32c60f63bc39f2c5f48956214c8147975ddb7f8c5e20e69112c79f902f572822"
+        },
+        {
+          "sourceBatch": 25,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-v8nCks.png",
+          "originalSha256": "2f594d0cdfbe0b53299ff7c78218d37394d0d7350f88b40316a30f82b267a59f"
+        }
+      ],
+      "observedPriceText": "35",
+      "price": 35,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-lamp-midea-clock",
+      "productId": 1810,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        26
+      ],
+      "originalDescription": "¥ 39 · 99 艹 ¥ + 99 《 包 邮 日 闲 鱼 号 明 显 使 用 痕 迹 4 人 想 要 181 浏 览 护 眼 美 的 台 灯 MTD7.5-M/K-01 三 色 变 光 、 无 极 调 光 带 笔 筒 + 时 钟 多 角 度 可 调 外 观 有 使 用 痕 迹 85 新 （ 磕 碰 划 痕 发 黄 、 脏 需 要 自 己 打 理 ） 功 能 全 正 常 （ 插 电 正 常 使 用 ， 充 电 续 航 未 知 ， 当 插 电 用 ） 7 ， 5W LED 光 源 ， 底 座 有 笔 筒 和 电 子 时 钟 ， 桌 面 收 纳 方 便 灯 光 柔 和 不 刺 眼 ， 适 合 学 生 、 办 公 、 卧 室 送 充 电 线 ， 实 拍 图 支 持 自 提 ， 包 邮 夕 卜 观 问 题 不 做 售 后 Midea/*B9 调 光 功 能 ： 可 调 0 聊 一 聊 成 色 ： 明 显 使 用 痕 迹 灯 具 是 否 带 光 源 ： 带 光 源 立 即 购 买 收 藏",
+      "imageSha256": [
+        "cbc175a700fef7c27f628b166474f9bf3532091221c194ce5bc698995565a32a",
+        "1264b7fd1907f4680d75728d65cf0c23be8ee3865ffbecba7de9828527bf39e4",
+        "33dba5441629c3a3fce58892e3497dc09c8da26c3451ef074ad5ba40b86a91a1",
+        "7c48c30740af556c9bb850ad9ebca26326aea6a3fd7423645d6cc0c7bcfcfe3f",
+        "cc8e171e7754ccd37d88aa439b6fd57b1579524732ddc93469be79fb5ea077a6"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 26,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-QmJLq2.png",
+          "originalSha256": "50a61c9055b45cbc0f404dcd8204a0bb0326f3e08f9e85dcce2bb728def458e2"
+        },
+        {
+          "sourceBatch": 26,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-sRK1cH.png",
+          "originalSha256": "16cd23a1656acc313458a6d64ec9b5f407b01eed83279ab17f3df8d4e5e0038d"
+        },
+        {
+          "sourceBatch": 26,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-ZbS0l3.png",
+          "originalSha256": "86f0fe0434b7e38a53503467f8bd45eea7561e5e2fed8b89d205cca22ba7e090"
+        },
+        {
+          "sourceBatch": 26,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-oduj5h.png",
+          "originalSha256": "1f7cd8aedee9ec5d72dcb2e5dcd8ebc49dc6aadac05408e50fd55caf50ecc5f5"
+        },
+        {
+          "sourceBatch": 26,
+          "sourceImage": 8,
+          "sourceFile": "codex-clipboard-LQ7F7z.png",
+          "originalSha256": "5d480abc2c625d9fd3d4757ce3b32f492fd9a07f5a05ae8e9bf7fc937c9d1bdf"
+        }
+      ],
+      "observedPriceText": "39.99",
+      "price": 30,
+      "priceAdjustmentReason": "考虑明显泛黄、污渍和未知电池情况，演示挂牌价由39.99元调为30元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-lamp-dp6037",
+      "productId": 1811,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        27
+      ],
+      "originalDescription": "¥ 9 · 90 包 邮 日 闲 鱼 号 轻 微 使 用 痕 迹 1 人 想 要 138 浏 览 久 量 DP 一 6037 折 叠 LED 台 灯 白 色 款 带 充 电 宝 功 能 支 持 USB 充 电 / 插 电 灯 头 可 调 角 度 亮 度 可 调 灯 光 柔 和 底 座 有 开 关 和 USB 口 能 充 手 机 功 能 正 常 成 色 看 看 图 有 点 使 用 痕 迹 包 邮 不 议 价 需 要 的 直 接 拍 Duration Power/Ä 量 调 光 功 能 ： 可 调 0 聊 一 聊 成 色 ： 轻 微 使 用 痕 迹 灯 具 是 否 带 光 源 ： 带 光 源 立 即 购 买 收 藏",
+      "imageSha256": [
+        "98a469c358e6f1f0cebaeeea3f22f023caa1307779ef55f108f68c398fa9ba06",
+        "31b8b4ce7a99d06f16213267944b1a155ad3f4f2e097ee04a07b134d3e6decb8",
+        "a280d3732522eea65f65599b6ace5a525d845dd31a8702da8f581b7e9a09c66a",
+        "5e4a46141b2ed8c25f8cd66bf9dfe67af3b7a929e8b17df6372ba1202ebf083b",
+        "bbf94d1fc948427e614100a7b26dc02e37deda4955e5e610cd38b8c9ed8b871f"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 27,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-jVNcSv.png",
+          "originalSha256": "a74a93aaba330c671ca71029c9998c732736b6e8b77bf40a9261bc642f61ad6d"
+        },
+        {
+          "sourceBatch": 27,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-zLEAog.png",
+          "originalSha256": "9b8f0dbb3cf1812264f1dbf53ee05515a9d6a827c5934844ec8a053745655cb3"
+        },
+        {
+          "sourceBatch": 27,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-VzbZqn.png",
+          "originalSha256": "f2cc2382c6809c20175a8410800f54a70df1bb89e7fec6d6d48276409c4802f5"
+        },
+        {
+          "sourceBatch": 27,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-Sqd3mU.png",
+          "originalSha256": "eba72c942b14567e1ec3b8a0201e024d9e904c78963f8d33e1243ceb236e6262"
+        },
+        {
+          "sourceBatch": 27,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-Y0eWnH.png",
+          "originalSha256": "6782f1cd990ccbf1fd019945a7e9431f17026fa64027283f2e702d300cff123a"
+        }
+      ],
+      "observedPriceText": "9.9",
+      "price": 9.9,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-lamp-typec-round",
+      "productId": 1812,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        28
+      ],
+      "originalDescription": "活 动 价 ¥ 15 ． 00 包 邮 白 色 LED 护 眼 台 灯 ， 几 乎 全 新 ， 成 色 很 新 圆 形 灯 头 ， 鹅 颈 灯 管 可 弯 折 ， 角 度 好 调 日 闲 鱼 号 几 乎 全 新 2 人 想 要 26 浏 览 发 10 0 底 座 自 带 LED 光 源 ， 光 线 柔 和 不 刺 眼 ， 看 书 学 习 都 合 适 0 0 底 座 侧 面 有 ON/OFF 独 立 开 关 和 5V Type-C 接 口 充 电 款 ， 充 满 可 长 时 间 用 ， 也 能 插 电 功 能 正 常 ， 闲 置 转 出 ， 支 持 三 色 转 换 包 邮 ， 也 可 自 提 喜 欢 直 接 拍 ， 售 出 不 退 不 换 、 成 色 ： 几 乎 全 新 灯 是 否 带 光 源 ： 带 光 源 0 聊 一 聊 调 光 功 能 ． 可 调 立 即 购 买 APP 反 馈 客 服 收 藏",
+      "imageSha256": [
+        "9a4371070fbc0b9e77fb879e3371e16e8dd2bc0ffc8d9b6a75946e31a4b1d070",
+        "c0306bba58e38fdd91ca608d76037a4da5827484787d5a3bb23928328a7e03af",
+        "ec6fb667a15657eb99ab7281dcc916da5e8308d0980f5bccde9b3176a7468535",
+        "d889cf1f372a2def193e2ba7e1d29290cf6dc2fec8b38c5d943a453081c21b85"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 28,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-5sjDlG.png",
+          "originalSha256": "daba1cc928effb9a3b752b8fddf2bb365068982a997a6584cc76c0829d96a824"
+        },
+        {
+          "sourceBatch": 28,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-g2JkQ4.png",
+          "originalSha256": "0627bd528967c0eeac34cc45d74f6f06715f7eadcc8ce5d79b11b8def410e5eb"
+        },
+        {
+          "sourceBatch": 28,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-nGC0J5.png",
+          "originalSha256": "565abb5ebed4a89f29140c3d5d25fa5e2d9c2db5d0945fe636509244c5ad9e97"
+        },
+        {
+          "sourceBatch": 28,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-dVsGxp.png",
+          "originalSha256": "4269256717664c12f8ed85586150a6fdba7db053225360de658e48ff9b5338e2"
+        }
+      ],
+      "observedPriceText": "15",
+      "price": 15,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-cork",
+      "productId": 1813,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        29
+      ],
+      "originalDescription": "日 闲 鱼 号 全 新 2 人 想 要 1 50 浏 览 ¥ 10 艹 料 包 邮 包 邮 成 色 ： 全 新 软 木 首 饰 收 纳 盒 ， 几 乎 全 新 ， 保 存 很 好 ， 表 面 干 净 ， 拉 链 顺 滑 ， 分 格 设 计 ， 内 里 绒 布 ， 收 纳 耳 环 、 戒 指 、 项 链 、 手 链 都 很 方 便 。 尺 寸 约 10 * 10 * 5cm ， 小 巧 便 携 ， 旅 行 、 居 家 收 纳 都 合 适 。 软 木 外 壳 + 绒 布 内 衬 ， 手 感 软 糯 ， 环 保 材 质 ， 无 异 味 。 个 人 闲 置 ， 图 片 所 见 即 所 得 ， 不 议 价 ， 不 退 不 换 ， 不 适 合 完 美 主 义 者 。 other/R 他 材 质 ： 其 他 0 聊 一 聊 消 息 0 0 0 APP 反 馈 客 服 立 即 购 买 收 藏 庶 佃 研 明 彳 寺 您 的 意 见",
+      "imageSha256": [
+        "9a8aae9f53da2c131410b621f6c834040018eded9148ba84dd07ba8fb7fb74ca",
+        "73a417c429c9e2ff61644b864dc199efb6ca7338f3ec0b5557cf9053f7459b58",
+        "9ea3bdd07ffc98d928bc55e0e1c8211f90929f3d7f1edc71c6a508c2f10e0e4f",
+        "1fd5c98a65d0c7c19893bde6ae30a51cb77254a4305f7f51d42a87559f3946d5",
+        "4c72fababf55436ba27122b4d300a5e55aefea21d491e61c70fbdae5360624c4"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 29,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-lVjHF5.png",
+          "originalSha256": "fcd9694126ef0caa57f1928afb65db55359f3bdd33d8039c246b898541657bbf"
+        },
+        {
+          "sourceBatch": 29,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-Pu5R9H.png",
+          "originalSha256": "215cabaf6518827c8ee6094e40828b008562932847ae378697eb319063af9bc9"
+        },
+        {
+          "sourceBatch": 29,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-RtavlF.png",
+          "originalSha256": "c624ff61d124e931d50e6bd18614211f24ad0e1cc982affec9b07759927a6d14"
+        },
+        {
+          "sourceBatch": 29,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-yuZLoM.png",
+          "originalSha256": "3d88ff44466d644319b6f70d8f3e4795c37e2f563025c069809bad096934fdb6"
+        },
+        {
+          "sourceBatch": 29,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-hgC4nX.png",
+          "originalSha256": "307afe57edf25ffe5ca027345f10a7455d3ed965f6b7d170db3a84b011134dad"
+        }
+      ],
+      "observedPriceText": "10",
+      "price": 10,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-three-drawer",
+      "productId": 1814,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        30
+      ],
+      "originalDescription": "活 动 价 ¥ 3 · 00 仅 自 提 日 闲 鱼 号 明 显 使 用 痕 迹 7 浏 览 闲 置 收 纳 盒 ， 1 元 处 理 ， 需 要 的 来 自 提 ， 截 止 30 号 晚 上 ， 月 底 退 房 搬 家 ， 详 细 地 址 ： 广 州 市 白 云 区 元 下 田 南 二 街 14 号 。 other/R 他 材 质 ： 0 聊 一 聊 成 色 ： 明 显 使 用 痕 迹 立 即 购 买 收 藏 0 0 0 0 APP 反 馈",
+      "imageSha256": [
+        "8f95f410dbe9b92ecb462661425d510de564866b2b1ed35d2e089bb0b2c905f7",
+        "16ea3209c4f8c120911be5f1bcfde8f286773d8536b7d1063bbb6c97afa64134",
+        "c6b3ef10f388547d5f6a93bd5515179b2cb7662b5749b089f0392ff01a8c4294",
+        "1443219116cd772faf40d708126c36da2815bdaa44fdbb5aea26fee0b3130501"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 30,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-nFF410.png",
+          "originalSha256": "bbb4cffd4e4a59a603bfe76c21fedf4ce7723a72f47eb48ddd66f1bb35231e2b"
+        },
+        {
+          "sourceBatch": 30,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-xrDjUg.png",
+          "originalSha256": "135ee13063d4ac243674688839c72d1658de0dfb5261b9b624af4d74b13c8e47"
+        },
+        {
+          "sourceBatch": 30,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-Nyw0Oh.png",
+          "originalSha256": "ebe9d6edde2af67b67ee82f0adc9602d409d3ff3f74297abff9b04344b700994"
+        },
+        {
+          "sourceBatch": 30,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-ZhOcPA.png",
+          "originalSha256": "5c6a6d07c84cd9b7369b50f9ee5f8ef68185e266d318855ff09b7b1318f2e726"
+        }
+      ],
+      "observedPriceText": "价签3；正文1",
+      "price": 8,
+      "priceAdjustmentReason": "来源价签与正文1/3元互相矛盾，按完整一件桌面收纳盒设置演示挂牌价8元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-router",
+      "productId": 1815,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        32
+      ],
+      "originalDescription": "日 闲 鱼 号 轻 微 使 用 痕 迹 活 动 价 ¥ 8 ． 00 22 浏 览 包 邮 个 人 闲 置 ， 白 色 路 由 器 收 纳 盒 ， 塑 料 材 质 ， 尺 寸 32 × 20 × 20cm ， 前 面 开 口 设 计 ， 取 放 方 便 ， 底 部 通 风 孔 散 热 好 ， 适 合 放 路 由 器 、 机 顶 盒 、 电 源 线 等 小 电 器 ， 桌 面 收 纳 很 实 用 。 成 色 还 可 以 ， 有 点 使 用 痕 迹 ， 不 影 响 正 常 使 用 。 珠 海 自 提 ， 不 退 不 换 成 色 ： 轻 微 使 痕 0 聊 一 聊 材 质 ： 立 即 购 买 APF 收 藏",
+      "imageSha256": [
+        "1c80338786e9dad13b5edac0cf4c08afb4562e9cb783af09b03dba2bd49122f2",
+        "255555f3d172f1d80a424b4320353f1c6dd5018bfa2743355242ed95462116d4",
+        "08fef76057f4a696e51eaad1b6a5101c0a8d2f072516b73413b102229a103534",
+        "0cfea9aa0badc4a52c4b83f88edeb12dcccef5b576ea417d6262eb97a5c7a0aa"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 32,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-xC4vgg.png",
+          "originalSha256": "af000fa112f36931154c8b313dc0017e2903b65666e8a108aeb6571f4421b05b"
+        },
+        {
+          "sourceBatch": 32,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-Kshj0e.png",
+          "originalSha256": "9b9b0f1cff8f63585785f30b7f586c00c0f1a3240367017046a5653b882205b1"
+        },
+        {
+          "sourceBatch": 32,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-gqbVCj.png",
+          "originalSha256": "c6dd13c9de7fe0fccda0301e1c0eb0a810c088df4e4d4567eb242c515f0043ec"
+        },
+        {
+          "sourceBatch": 32,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-S2AeQX.png",
+          "originalSha256": "4c8bd94fcef8629f8ec3347951c758c903f9192f18bc3114f1e77f64bef3252d"
+        }
+      ],
+      "observedPriceText": "8",
+      "price": 8,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-jewelry",
+      "productId": 1816,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        33
+      ],
+      "originalDescription": "¥ 8 ． 64 艹 ¥ 勰 包 邮 购 入 价 4 ． 2 扌 斤 透 明 三 层 首 饰 收 纳 盒 转 卖 日 闲 鱼 号 几 乎 全 新 1 1 浏 览 带 抽 屉 ， 亚 克 力 材 质 ， 13 * 13 * 24 ， 5cm ， 家 里 首 饰 太 多 用 不 过 来 ， 闲 置 出 耳 环 项 链 手 链 戒 指 都 能 放 ， 桌 面 放 着 挺 整 齐 ， 成 色 挺 新 ， 没 怎 么 用 ， 没 明 显 划 痕 武 汉 自 提 成 色 ： 几 乎 全 新 0 聊 一 聊 材 质 ： 业 力 克 立 即 购 买 收 藏 消 息 0 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "d25dd8bc81662e62d4d660522708335e97b32ad111d694d544542d5b809414b3",
+        "f9c2029ee3e79164b09d4eac160367f499fc63f3a476e286bccc9edfbc67db79"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 33,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-pKQocy.png",
+          "originalSha256": "11f96288185244fb9f7b40d3e6bf370a4c321c2e6c454a1e424b019c519a6f86"
+        },
+        {
+          "sourceBatch": 33,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-weee5a.png",
+          "originalSha256": "002dbfc84c8c8e50b505e44453407f1c0da04a3434631246080d6c08fdfcdce5"
+        }
+      ],
+      "observedPriceText": "8.64",
+      "price": 8.64,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-neat-set",
+      "productId": 1817,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        34
+      ],
+      "originalDescription": "日 闲 鱼 号 几 乎 全 新 ¥ 8 《 仅 自 提 17 浏 览 Neat 抽 屉 式 收 纳 盒 ， 白 色 + 透 明 抽 屉 款 ， 简 约 设 计 ， 可 叠 加 ， 容 量 大 ， 适 合 收 纳 文 具 、 化 妆 品 、 杂 物 等 。 尺 寸 约 27 × 1 8 × 1 Ocm ， 塑 料 材 质 ， 结 实 耐 用 ， 抽 屉 顺 滑 ， 拿 取 方 便 。 成 色 几 乎 全 新 ， 外 观 干 净 ， 保 存 很 好 ， 家 里 闲 置 转 出 。 一 个 8 元 ， 三 个 都 要 20 元 。 同 城 自 提 ， 价 格 可 聊 、 喜 欢 的 朋 友 可 以 私 聊 成 色 ： 几 乎 全 新 0 聊 一 聊 材 质 ： 立 即 购 买 收 藏",
+      "imageSha256": [
+        "0cb327c4225c6502264685c48cf2a9038310abe51c498dcec15f9f12e909d706",
+        "a17a7aad358400956df1129f4d20f4f40b00286c69902dbdad85eaf0407a11fa",
+        "3101c01f5410ca3cde2a89d7eb72333ac4613cbc2db987cb8e2ec67586ff9259"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 34,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-jRj9Re.png",
+          "originalSha256": "0deedfc0a846b50c7fb57e0fc784e8a487522d553aa2e45839e821ca23c92a90"
+        },
+        {
+          "sourceBatch": 34,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-YIIr9k.png",
+          "originalSha256": "1a6e2d562568858e79ad42c1b4fd335f9a47353e4ce744955883fcb3a87b71fc"
+        },
+        {
+          "sourceBatch": 34,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-KfgbOd.png",
+          "originalSha256": "90e62ea51f065b84d29b48d899ac0b926223b219e902b5ca82824507e9f851e8"
+        }
+      ],
+      "observedPriceText": "单个8；三个20",
+      "price": 20,
+      "priceAdjustmentReason": "采用来源明确的三个20元套餐，标题及描述同步注明三件，避免单价与套装照片不一致。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-two-drawer",
+      "productId": 1818,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        35,
+        36
+      ],
+      "originalDescription": "¥ 10 包 邮 日 闲 鱼 号 轻 微 使 用 痕 迹 2 人 想 要 51 浏 览 桌 面 收 纳 盒 ， 塑 料 材 质 ， 带 两 个 抽 屉 ， 分 格 设 计 ， 容 量 大 ， 化 妆 品 、 文 具 、 小 物 件 都 能 放 ， 整 理 桌 面 很 方 便 、 成 色 还 可 以 ， 有 点 使 用 痕 迹 ， 不 影 响 正 常 使 用 ， 搬 家 闲 置 出 ， 细 节 图 可 以 私 聊 发 、 成 色 ： 轻 微 使 痕 0 聊 一 聊 材 质 ： 立 即 购 买 收 藏 0 0 0 APP 反 馈",
+      "imageSha256": [
+        "909dae04d98780684692d4d0b961741882502b6c7aa1c96bf85b91b0b517c5ea",
+        "d1428f9b26d0f36f70d2a639ea5106927940897b527d09f8b20d8334d975905e",
+        "dbf8dd7398f9f9002835f5fc38b8263924535292cf37a5ffe4a824db203d5db5",
+        "352c114f180809cd1c73baddfea3544994564af9c72db8187e21e5335a3678b9"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 35,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-EHk2Qc.png",
+          "originalSha256": "e5f12db1a9dfe8ffd22c2a605c59c2566691d078d041597dbb209a2ffef49f2e"
+        },
+        {
+          "sourceBatch": 36,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-6wyqs8.png",
+          "originalSha256": "d04554f984841b54f0fcbe301d1e97429e9b1f021fb574b3b79d0c53d39bdf4b"
+        },
+        {
+          "sourceBatch": 36,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-zvnsBO.png",
+          "originalSha256": "2f09fe7917b93b58efdf310f246f52b9f4aa013b77f4d3f31367212aa10e3f5c"
+        },
+        {
+          "sourceBatch": 36,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-PErAeg.png",
+          "originalSha256": "74f8443c2aafc53e30fb3e988a4c6b4a347a3fcb255571186e35731eb9bb31c4"
+        }
+      ],
+      "observedPriceText": "10",
+      "price": 10,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-nine-drawer",
+      "productId": 1819,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        37
+      ],
+      "originalDescription": "¥ 15 包 邮 闲 鱼 币 大 额 肝 3 元 二 手 九 宫 格 收 纳 盒 （ 3 个 包 邮 ） 日 闲 鱼 号 轻 微 使 用 痕 迹 16 人 想 要 331 浏 览 如 果 有 卖 水 晶 的 话 ， 它 非 常 适 合 分 类 存 放 不 同 水 晶 碎 石 、 配 件 、 隔 珠 、 弹 力 线 ， 避 免 珠 子 混 色 、 配 件 丢 失 。 也 可 以 收 纳 文 具 、 耳 钉 戒 指 等 首 饰 、 化 妆 品 小 样 、 小 药 盒 、 回 形 针 这 类 零 碎 小 物 。 细 节 贴 心 ： 抽 屉 抽 拉 顺 滑 ， 卡 位 设 计 防 止 滑 落 ； 白 色 简 约 外 观 ， 适 配 大 部 分 桌 面 风 格 ， 也 可 以 贴 贴 纸 改 造 。 DIY 材 质 ： 成 色 ： 轻 微 使 用 痕 迹 0 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "ec18ece522d90b94b030079ebe0e84bc1ae39ddddff57ea503d7acfe050f4b21",
+        "8d189c966498d3545c8a0cd231e86276d6c74b6a7f15f914f3eaf1bd0656c030"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 37,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-AdTQlS.png",
+          "originalSha256": "64a9af1222621a9079a6f2a83ccd8c6c628a8997ac52542a26e4a8f487143bfb"
+        },
+        {
+          "sourceBatch": 37,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-e9WmFi.png",
+          "originalSha256": "e7b12d961b8b3e1409e2afc8d75d1312547458ae4219107642e96154f14c0c02"
+        }
+      ],
+      "observedPriceText": "正文三个15；照片为单件",
+      "price": 10,
+      "priceAdjustmentReason": "来源三个15元与单件照片不完全匹配，统一为单件演示挂牌价10元，不把照片一件宣称为三件。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-organizer-color-cubes",
+      "productId": 1820,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        38
+      ],
+      "originalDescription": "活 动 价 ¥ 9 · 90 日 闲 鱼 号 轻 微 使 用 痕 迹 70 浏 览 万 益 蓝 亚 克 力 收 纳 盒 ， 家 里 有 十 几 个 ， 没 用 过 ， 运 输 过 程 中 有 轻 微 磨 损 ， 完 美 主 义 者 慎 拍 ！ 1 2 × 1 2 × 1 2 厘 米 。 深 蓝 色 ， 浅 蓝 色 ， 黄 色 ， 一 个 10 元 ， 四 个 包 邮 ， 闲 置 出 手 概 不 退 换 ！ 非 诚 勿 扰 ！ 成 色 ： 轻 微 使 痕 0 聊 一 聊 立 即 购 买 收 藏 发 10 0 消 息 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "d04c537eb098501c637067f874be3c86c38024485ecfd4fa7e915591ec7bfc7e"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 38,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-7n7nsm.png",
+          "originalSha256": "f0d95304fcd623b6037cea85aeae2e4403492e46fcb091aef5c7fbac8b4659aa"
+        }
+      ],
+      "observedPriceText": "9.9每个",
+      "price": 32,
+      "priceAdjustmentReason": "来源为单个9.9元，四件组合设演示挂牌价32元，明确数量，避免单价误作全部售价。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [],
+      "publicationHold": "水印覆盖透明收纳盒及内部物品，保留原图等待干净替代照片。"
+    },
+    {
+      "assetId": "recovered-20261030-organizer-purple-bin",
+      "productId": 1821,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        39
+      ],
+      "originalDescription": "¥ 15 包 邮 日 闲 鱼 号 几 乎 全 新 122 浏 览 紫 色 大 号 收 纳 箱 ， 带 盖 子 和 手 柄 ， 容 量 很 大 ， 适 合 放 宝 宝 衣 服 、 玩 具 、 杂 物 ， 也 能 当 储 物 箱 用 。 成 色 几 乎 全 新 ， 外 观 干 净 ， 没 啥 明 显 使 用 痕 迹 ， 家 里 囤 多 了 ， 闲 置 转 出 。 包 邮 25 ， 支 持 自 提 ， 价 格 可 聊 ， 喜 欢 直 接 拍 ， 细 节 私 聊 、 成 色 ： 几 乎 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "c34da5d03e072fddfad52536f1399cb855d586b1a4df7c4af32129016da10f35",
+        "dcd54a1c3992901afd765da0d2d401b1d81d3377b64ebb4646a2a784e4c3b0ca"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 39,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-SMFQlZ.png",
+          "originalSha256": "f03f3565f91e508e73642bcbbe0fa61e2b919a38ac5f5b64175c895a58ac6f46"
+        },
+        {
+          "sourceBatch": 39,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-iHf3sa.png",
+          "originalSha256": "e86457e831019662b15464ce125a01eb7269b79465a66735c5cd23e55c6c43b5"
+        }
+      ],
+      "observedPriceText": "15",
+      "price": 15,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "同批有其他角度，底部水印覆盖箱体边缘，保留原图但不展示此角度。",
+        "水印覆盖箱体下缘，采用同批第一、第四张的完整箱体照片。",
+        "同批有其他角度，底部水印覆盖箱体边缘，保留原图但不展示此角度。"
+      ],
+      "imageEdits": [
+        {
+          "file": "rec-organizer-purple-bin-1.jpg",
+          "originalSha256": "fd64c8a4b5d231055185758cb532451141bf910efdde469b9ec1d73dd65af9d8",
+          "sha256": "c34da5d03e072fddfad52536f1399cb855d586b1a4df7c4af32129016da10f35",
+          "operation": {
+            "crop": [
+              0,
+              0,
+              1,
+              0.885
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-organizer-purple-bin-1.jpg"
+        },
+        {
+          "file": "rec-organizer-purple-bin-4.jpg",
+          "originalSha256": "1d7bcd25f4a8a965dca00fd727668255f6a66610ca92749c05297d9150f50e1a",
+          "sha256": "dcd54a1c3992901afd765da0d2d401b1d81d3377b64ebb4646a2a784e4c3b0ca",
+          "operation": {
+            "crop": [
+              0,
+              0,
+              1,
+              0.889
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-organizer-purple-bin-4.jpg"
+        }
+      ]
+    },
+    {
+      "assetId": "recovered-20261030-organizer-narrow-bin",
+      "productId": 1822,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        40
+      ],
+      "originalDescription": "¥ 7 《 仅 自 提 奶 油 黄 高 款 小 号 收 纳 盒 塑 料 材 质 ， 结 实 耐 用 ， 带 拉 手 ， 拿 取 方 便 尺 寸 见 图 ， 适 合 厨 房 、 橱 柜 、 桌 面 收 纳 锅 具 、 调 料 、 杂 物 成 色 还 可 以 ， 有 使 用 痕 迹 和 闲 置 痕 迹 ， 具 体 看 图 仅 自 提 ， 一 个 5 元 ， 3 个 打 包 价 1 3 。 自 提 位 置 ， 郑 少 卜 | 市 京 广 路 航 海 路 交 叉 口 附 近 成 色 ： 轻 微 使 痕 0 聊 一 聊 材 质 ： 立 即 购 买 轻 微 使 用 痕 迹 29 浏 览 0 0 0 APP 反 馈 收 藏 客 服",
+      "imageSha256": [
+        "c18a3b076d61bef25d732b0cc13b26db133efe5d1db5b26601471d71dbb4fe24",
+        "0d6ebb2fa2909a740046dfddce7fcc2310c41de7736a1407d70f69e2c9317978"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 40,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-QoXgy6.png",
+          "originalSha256": "a5f65f623ed4da1ca69a0b84e6c6996acde401b33b072dc47840953e25b28748"
+        },
+        {
+          "sourceBatch": 40,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-Lk5kSl.png",
+          "originalSha256": "acac9e23d5f7bdfedc13e3275ef320cb3f3c9825eaaa9a3adf2e23525ed68882"
+        }
+      ],
+      "observedPriceText": "价签7；正文5每个/三件13",
+      "price": 7,
+      "priceAdjustmentReason": "按价签7元保留为单件售价，剔除正文三件套餐造成的数量歧义。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-washer-tcl10",
+      "productId": 1823,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        41
+      ],
+      "originalDescription": "日 闲 鱼 号 轻 微 使 用 痕 迹 ¥ 68 1 S07 人 想 要 1 万 浏 览 包 邮 # 洗 衣 机 二 手 波 轮 洗 衣 机 ， 功 能 完 好 低 价 转 ！ 二 手 波 轮 洗 衣 机 ， 功 能 完 好 无 损 。 价 格 实 惠 ， 是 你 的 经 济 之 选 。 全 国 顺 丰 包 邮 到 家 Haier/ 海 尔 洗 涤 公 斤 量 ． 7-8kg 功 能 状 态 ： 功 能 完 好 无 维 修 0 聊 一 聊 成 色 ： 轻 微 使 用 痕 迹 波 轮 氵 先 衣 机 已 用 年 限 ： 1 年 〔 含 ） ． 3 年 （ 不 含 ） 0 0 0 0 APP 反 馈 客 服 立 即 购 买 收 藏 庶 佃 研 喜 您 的 意 见",
+      "imageSha256": [
+        "51fa291607e553bba4aeea9bb39775c09f2789435dce15e49856f555d6b2d537",
+        "c674c063d243d2f16637d925fac65c255820b620b4d340050a4c971c70eb1ecd",
+        "5648155dec5859a473034e7e81793c8d07a328d2761a360ee314f2cc5dea8e2b"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 41,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-v7329X.png",
+          "originalSha256": "1ab9a2a261c94bec2643ab107ecab472b9bef6e57b1f023e1b543bc8be9ffe29"
+        },
+        {
+          "sourceBatch": 41,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-tgvjce.png",
+          "originalSha256": "946022c34008851a024840061eac7dec272c07da90cdf74f08007acdb3e69205"
+        },
+        {
+          "sourceBatch": 41,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-fhUEag.png",
+          "originalSha256": "d2a64d4d30855f737d1ec21ac96dad376601a2463ad07c986deae889b4aeb3fc"
+        }
+      ],
+      "observedPriceText": "68（截图品牌与照片不符）",
+      "price": 260,
+      "priceAdjustmentReason": "68元截图混用了品牌且像引流价；按此实物组设置演示挂牌价260元，非市场成交评估。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-washer-tcl-dial",
+      "productId": 1824,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        41
+      ],
+      "originalDescription": "日 闲 鱼 号 轻 微 使 用 痕 迹 ¥ 68 1 S07 人 想 要 1 万 浏 览 包 邮 # 洗 衣 机 二 手 波 轮 洗 衣 机 ， 功 能 完 好 低 价 转 ！ 二 手 波 轮 洗 衣 机 ， 功 能 完 好 无 损 。 价 格 实 惠 ， 是 你 的 经 济 之 选 。 全 国 顺 丰 包 邮 到 家 Haier/ 海 尔 洗 涤 公 斤 量 ． 7-8kg 功 能 状 态 ： 功 能 完 好 无 维 修 0 聊 一 聊 成 色 ： 轻 微 使 用 痕 迹 波 轮 氵 先 衣 机 已 用 年 限 ： 1 年 〔 含 ） ． 3 年 （ 不 含 ） 0 0 0 0 APP 反 馈 客 服 立 即 购 买 收 藏 庶 佃 研 喜 您 的 意 见",
+      "imageSha256": [
+        "11f1aefedc727d70140f6a439951a0c045b30db8c7f70a1b51c5eacd0fc608c2",
+        "27f425c0cc7a1fd9c60a6e2d62ba05e514e185e888b56fea5b841d004fc4465d",
+        "1dce5ddd81eadb537abed9bdbe74057789004db891d7f08ba04cecaae20bfc95"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 41,
+          "sourceImage": 4,
+          "sourceFile": "codex-clipboard-DiRg9J.png",
+          "originalSha256": "8a306c9ace7168006ff374d9ba7dd7d6ec1d154ee2fd447375c1d6b567f2a25b"
+        },
+        {
+          "sourceBatch": 41,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-Od2EhX.png",
+          "originalSha256": "f38a6eb19dfa5548647119704e26ab478c8f3e3d56fe898c4699aef89c088cab"
+        },
+        {
+          "sourceBatch": 41,
+          "sourceImage": 6,
+          "sourceFile": "codex-clipboard-bUBARa.png",
+          "originalSha256": "fc36ffba756e094c3b4ac9e33dc9760197f35411e046fb7fb1322d0fc09ae441"
+        }
+      ],
+      "observedPriceText": "68（与另一台机器混图）",
+      "price": 220,
+      "priceAdjustmentReason": "不同机器拆分，原68元价签不能准确对应；该台设置演示挂牌价220元，容量待铭牌核对。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-washer-haier-champagne",
+      "productId": 1825,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        42
+      ],
+      "originalDescription": "2 人 小 刀 价 ¥ 180 ． 00 淙 2 包 邮 直 接 买 ¥ 288 ℃ 0 日 闲 鱼 号 几 乎 全 新 14S8 人 想 要 1 万 浏 览 描 述 不 符 包 邮 退 满 足 条 件 时 ， 买 家 可 退 货 目 运 由 卖 家 承 担 精 品 海 尔 1 0 公 洗 烘 烘 一 体 滚 筒 全 自 动 洗 衣 机 九 九 新 保 护 的 特 别 新 洗 衣 机 房 子 没 人 住 基 本 上 闲 着 使 用 频 率 低 内 桶 无 污 垢 机 子 无 刮 擦 无 磕 碰 香 槟 色 看 起 来 特 别 好 看 支 持 智 能 控 制 支 持 除 菌 洗 桶 清 洁 洗 衣 服 特 别 洗 的 干 净 支 持 烘 干 空 气 洗 洗 出 来 的 衣 服 不 会 皱 变 频 电 机 运 行 安 静 节 能 省 电 特 别 耐 用 洗 衣 服 特 别 安 静 一 级 能 耗 全 原 装 无 维 修 无 暗 病 容 量 大 洗 床 单 被 套 都 没 有 问 题 机 子 的 颜 色 白 看 不 腻 功 能 多 下 面 有 他 的 介 绍 功 能 性 价 比 超 高 还 不 赶 紧 入 手 一 台 需 要 的 详 细 咨 询 直 接 拍 不 发 货 发 10 0 0 0 APP 反 馈 客 服 Haier/ 海 尔 洗 涤 公 斤 量 ： 10kg 及 以 上 功 能 状 态 ： 功 能 完 好 无 维 修 0 聊 一 聊 担 保 交 举 报 成 色 ： 几 乎 全 新 滚 筒 氵 先 衣 机 已 岸 年 限 ： 1 年 以 下 立 即 购 买 收 藏 庶 佃 研 喜 彳 寺 您 的 意 见",
+      "imageSha256": [
+        "45c4b412fba3745b11242230b66aaea60af4be4f641033b39569463d12c3a712",
+        "f63c56cca5e00d4c8dcdc4115f70b30d9b1f47a5da4265003f4a5e43364a189b",
+        "451478928ee7afa725d29615aa97b373b561fc668a02136e16da64235f6601b4",
+        "f293c41236e4156378b1f748df79b21ffbdc6436fe5710102ba604b3bcd66ffa",
+        "ba80259d7e545e512b28d07898aff99c4084458c8d2a7e1527a7b33bb7e6b93e"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 42,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-ABWjEA.png",
+          "originalSha256": "03840d93f7d12ef70ee94eb78db15eff1cde6338a419de7242c7cdd167bb0865"
+        },
+        {
+          "sourceBatch": 42,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-tPExbT.png",
+          "originalSha256": "de833658f6a32fadf37118a70b41af20e3b3fccf762e8b0acd29de30f382faa1"
+        },
+        {
+          "sourceBatch": 42,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-qaPgJQ.png",
+          "originalSha256": "6fb593ec9e3ad2bafae0a1ec50d02d35caf807e48b0e4cb2ceab3a542cbc5456"
+        },
+        {
+          "sourceBatch": 42,
+          "sourceImage": 5,
+          "sourceFile": "codex-clipboard-p7xSjJ.png",
+          "originalSha256": "8c19f74e0ccf6cf2b3892bd6488c49b2c26c24b7e520f2122d1db7d8a0f8057f"
+        },
+        {
+          "sourceBatch": 42,
+          "sourceImage": 7,
+          "sourceFile": "codex-clipboard-wrap1w.png",
+          "originalSha256": "96ce61010cd569db081b887ab24a90cc46a0a7bfaec8d5f03f4c81bac9cbca14"
+        }
+      ],
+      "observedPriceText": "价签180；正文288",
+      "price": 900,
+      "priceAdjustmentReason": "180/288元互相矛盾且与10kg滚筒整机明显失衡，设演示挂牌价900元；不是已核验成交行情。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-washer-yangzi10",
+      "productId": 1826,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        43
+      ],
+      "originalDescription": "¥ 130 包 邮 日 闲 鱼 号 全 新 1887 人 想 要 1 万 浏 览 发 1 扬 子 全 自 动 洗 衣 机 ， 1 0 公 斤 大 容 量 ， 适 合 家 用 租 房 宿 舍 。 带 蓝 光 杀 菌 功 能 ， 智 能 预 约 洗 涤 ， 不 锈 钢 内 筒 ， 一 键 洗 脱 超 方 便 。 功 能 完 好 。 同 城 自 提 洗 涤 公 斤 量 ： 10kg 及 以 上 0 聊 一 聊 成 色 ： 全 新 立 即 购 买 收 藏",
+      "imageSha256": [
+        "cff58fb8abdb3f076909b7e6549dffd2c52f32b45d4bbec16a3fc46a8e63f7fd",
+        "edf552868f4b06a1dccd82fa8960c3a392bb323bd798c985a306b7ee00b69ca3"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 43,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-11o8pK.png",
+          "originalSha256": "3ea29e61339650d78ecac8554b53da3e38214e82386a47ba667c8c702131a022"
+        },
+        {
+          "sourceBatch": 43,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-IOFA76.png",
+          "originalSha256": "21edb1862c350c632bf2a49679fac6b79578ded148d588286bbeee6faff49e98"
+        }
+      ],
+      "observedPriceText": "130",
+      "price": 280,
+      "priceAdjustmentReason": "原130元偏低，按整机而非配件设置演示挂牌价280元；无市场成交验证。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-washer-aux-small",
+      "productId": 1827,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        44
+      ],
+      "originalDescription": "¥ 70 仅 日 闲 鱼 号 明 显 使 用 痕 迹 23 人 想 要 四 8 浏 览 奥 克 斯 洗 衣 机 ， 功 能 完 好 ， 有 些 使 用 痕 迹 ， 但 不 影 响 使 用 ， 占 地 小 ， 适 合 单 人 使 用 ， 先 到 先 得 ， 可 小 刀 AUX/ 奥 克 斯 洗 涤 公 斤 量 ： 3-5kg 功 能 状 态 ： 功 能 完 好 无 维 修 0 聊 一 聊 成 色 ： 明 显 使 用 痕 迹 便 携 式 氵 先 衣 机 已 用 年 限 ： 3 年 〔 含 ） ． 5 年 （ 不 含 ） 发 10 0 0 0 APP 立 即 购 买 收 藏",
+      "imageSha256": [
+        "3205fdc49584f4383bd9b63737204c749e28cbde6eddd4e5e4b9b83d440c7654"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 44,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-IxUVOU.png",
+          "originalSha256": "942031da6f4f6dbef3f3ac3fdb3385867b14adee4f5982ae3f00d5a319717fc4"
+        }
+      ],
+      "observedPriceText": "70",
+      "price": 70,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-washer-haier-dark",
+      "productId": 1828,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        45
+      ],
+      "originalDescription": "¥ 107 《 包 邮 日 闲 鱼 号 全 新 220 人 想 要 978 浏 览 海 尔 1 0 公 斤 滚 筒 洗 衣 机 ， 个 人 闲 置 ， 成 色 几 乎 全 新 ， 外 观 很 新 ， 功 能 都 正 常 ， 羽 绒 服 也 能 洗 ， 变 频 除 菌 ， 一 级 能 效 ， 省 水 省 电 ， 操 作 简 单 ， 适 合 多 口 之 家 、 全 国 联 保 卡 在 手 ， 质 保 两 年 ， 全 国 包 邮 Haier/ 海 尔 成 色 ： 全 新 滚 筒 洗 衣 机 已 年 限 ： 未 使 0 聊 一 聊 G100726B12G 洗 氵 条 公 斤 量 ： 9 ． 10kg 功 能 状 态 ： 功 能 完 好 无 维 修 立 即 购 买 0 〔 商 品 API 收 藏",
+      "imageSha256": [
+        "64b1dc472df67c8d7d0a8937366ce2a749851df98f3e31ff961c86d7b67374b3",
+        "c11af6be02beb5b64adad7a1d7f20c6de4ca59a0accdfff871c94c1dab1cd6aa",
+        "f76a0542f653363368b4e16794301bec57e7a55f463b9644672e72bd9b3e0b6e"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 45,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-9EV8qP.png",
+          "originalSha256": "9abaabd1d7f55e4ca8eb0b5fdce512e4fbee6bc5a63ae52a44d5cccba45e2910"
+        },
+        {
+          "sourceBatch": 45,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-NbI3qR.png",
+          "originalSha256": "718240698674ea6820cc3ddbe4f7a3302b28c55eb91268bc0d06733118607abd"
+        },
+        {
+          "sourceBatch": 45,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-taf3BR.png",
+          "originalSha256": "fca31663c8473dd5f653cb27108be797e5438705e6ae079b51bb1fc26e4ce4db"
+        }
+      ],
+      "observedPriceText": "107（同批出现多种不同面板机器）",
+      "price": 780,
+      "priceAdjustmentReason": "107元与滚筒整机明显失衡，设演示挂牌价780元；其余不同机器照片不混入本件。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "同批照片4–9面板/机身不同，暂不擅自合并；证据页型号未与本机铭牌匹配。"
+      ],
+      "imageEdits": [
+        {
+          "file": "rec-washer-haier-dark-1.jpg",
+          "originalSha256": "c0fff54dad3876dcba4edbe1a5b229ee9134b89fe1f8d45be351b52b6e61f72a",
+          "sha256": "64b1dc472df67c8d7d0a8937366ce2a749851df98f3e31ff961c86d7b67374b3",
+          "operation": {
+            "patch": [
+              [
+                0.84,
+                0.855,
+                0.975,
+                0.927
+              ],
+              [
+                0.58,
+                0.924,
+                0.99,
+                0.972
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-washer-haier-dark-1.jpg"
+        },
+        {
+          "file": "rec-washer-haier-dark-2.jpg",
+          "originalSha256": "7fd543b2e2ef047cc8ae2bb86630fc3ea605ff6d2ad508452f45ef2bccdef805",
+          "sha256": "c11af6be02beb5b64adad7a1d7f20c6de4ca59a0accdfff871c94c1dab1cd6aa",
+          "operation": {
+            "patch": [
+              [
+                0.845,
+                0.875,
+                1,
+                0.952
+              ],
+              [
+                0.56,
+                0.938,
+                1,
+                1
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-washer-haier-dark-2.jpg"
+        },
+        {
+          "file": "rec-washer-haier-dark-3.jpg",
+          "originalSha256": "2218820550d0e94bc24ba60c8f72d2e5f08262ea074ec06ca627c3ca66c6cef5",
+          "sha256": "f76a0542f653363368b4e16794301bec57e7a55f463b9644672e72bd9b3e0b6e",
+          "operation": {
+            "patch": [
+              [
+                0.845,
+                0.875,
+                1,
+                0.952
+              ],
+              [
+                0.56,
+                0.938,
+                1,
+                1
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-washer-haier-dark-3.jpg"
+        }
+      ]
+    },
+    {
+      "assetId": "recovered-20261030-massager-white-u",
+      "productId": 1829,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        46
+      ],
+      "originalDescription": "活 动 价 ¥ 40 ． 70 亠 阝 小 米 米 家 智 能 颈 椎 按 摩 仪 全 新 未 使 用 原 包 装 盒 说 明 书 充 电 线 配 件 齐 全 米 家 A P P 连 手 机 就 能 调 模 式 档 位 力 度 随 手 改 脉 冲 按 摩 加 热 敷 脖 子 肩 膀 后 背 都 能 用 久 坐 低 头 后 仰 一 按 很 舒 服 内 置 电 池 充 电 款 续 航 长 机 身 轻 巧 办 公 室 午 休 家 里 放 松 出 差 带 着 都 方 便 自 己 闲 置 转 出 不 议 价 要 的 私 聊 MIUI/ 小 米 功 能 状 态 ： 功 能 完 好 无 维 修 电 源 方 式 ： 充 电 、 插 电 0 聊 一 聊 成 色 ： 全 新 已 年 限 ： 未 使 立 即 购 买 全 新 1 人 想 要 35 浏 览 收 藏",
+      "imageSha256": [
+        "6e4897e96a523f6e0e140fefa90c4a14bc23276b371828816a12fdb6703f2e9c",
+        "634b06f2efcbe82a4b055ed97598731ed279d5f138f703fcc83a227fe5b1f7d0"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 46,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-YmysCo.png",
+          "originalSha256": "8d12563fce638a075a36f97ecc152c0cea242da8982b7849421cdf9c418a09d5"
+        },
+        {
+          "sourceBatch": 46,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-jIiura.png",
+          "originalSha256": "ea4daeaeeef03f3898f425019fb679d145cc4ee2eab4ef3c74b44b21e9a4b5e4"
+        }
+      ],
+      "observedPriceText": "40.7",
+      "price": 40.7,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-massager-konka-u",
+      "productId": 1830,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        47
+      ],
+      "originalDescription": "活 动 价 ¥ 25 · 00 包 邮 全 新 4 人 想 要 124 浏 览 康 佳 KONKA 肩 颈 按 摩 仪 ， 全 新 ， 配 件 齐 全 ， 正 品 保 证 。 随 机 送 芦 荟 凝 胶 30g 有 效 期 到 2027 ， 9 ． 1 8 全 新 未 使 用 ， 只 打 开 一 次 包 装 拍 照 ， 是 客 户 礼 盒 里 的 赠 品 之 一 ， 拆 卖 无 原 装 盒 ， 所 见 即 所 得 。 包 邮 ， 售 出 不 退 不 换 ！ Kon ka/ 康 佳 功 能 状 态 ： 功 能 完 好 无 维 修 电 源 方 式 ： 充 电 0 聊 一 聊 成 色 ： 全 新 已 年 限 ： 未 使 立 即 购 买 收 藏",
+      "imageSha256": [
+        "5705e8e09689fcdeac30b45684fd7605504bdfa622acdabedce5f3b4a717f0a0",
+        "5b221bc0040a6020a6a6e2bcf92141eb44f421af0cbce35a76e7ed72917721a8"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 47,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-DeNXJ7.png",
+          "originalSha256": "022cb2a667228e1b0c86ab761be7c8b7455025b75aa4a36f4a13923ba31c85c9"
+        },
+        {
+          "sourceBatch": 47,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-Qbk0tX.png",
+          "originalSha256": "862fa2727e1af4adb680d5011782a0a4732ba2ec83b96c8448f6105e53280d59"
+        }
+      ],
+      "observedPriceText": "25",
+      "price": 25,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-massager-jingzao-se",
+      "productId": 1831,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        48
+      ],
+      "originalDescription": "¥ 30 包 邮 近 十 五 天 降 价 21 ％ 全 新 32 浏 览 出 京 东 京 造 智 能 颈 椎 按 摩 器 SE ， 朋 友 送 的 ， 没 用 上 ， 全 新 未 拆 封 ！ 皓 月 白 ， 原 包 装 在 ， 充 电 款 ， 带 恒 温 热 敷 ， 5 种 按 摩 模 式 ， 操 作 简 单 ， 脖 子 贴 合 ， 适 合 久 坐 办 公 、 学 生 用 ， 缓 解 颈 椎 疲 劳 。 京 东 京 造 功 能 状 态 ： 功 能 完 好 无 维 修 电 源 方 式 ： 充 电 0 聊 一 聊 成 色 ： 全 新 已 年 限 ： 未 使 立 即 购 买 收 藏",
+      "imageSha256": [
+        "585af245cfc71f2952902eded63c8bef28de0ed9b7a12892500d454a8a659630",
+        "967f6984e3c1606de84bc501ffd88172b4088c9b11498917f1afdece38973796",
+        "6896273761fa832d7cd641eb0d59520402e204dc6ca730f52e0d487cc009f260"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 48,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-KgegTe.png",
+          "originalSha256": "2d22e7fc67020e8f416d1706b3710db20eaadb4ff96c0bd31c45dba6b45a2a24"
+        },
+        {
+          "sourceBatch": 48,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-GbqAgp.png",
+          "originalSha256": "b3fd57ac8979ef77c142d99c98321ab3267b2fe9e3a0a32848e1b37bd1f79b16"
+        },
+        {
+          "sourceBatch": 48,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-lgpH4K.png",
+          "originalSha256": "e041bda736ce3e89e3c9b670c8724874c2f5cce47cdb34b25889d67c02d7eb04"
+        }
+      ],
+      "observedPriceText": "30",
+      "price": 30,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-massager-skg-h5",
+      "productId": 1832,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        49
+      ],
+      "originalDescription": "¥ 50 宀 ¥ 艹 包 邮 购 入 价 1 ． 7 折 明 显 使 用 痕 迹 11 人 想 要 486 浏 SKG H5 肩 颈 按 摩 器 ， 肩 颈 腰 背 都 能 用 ， 热 敷 揉 捏 一 体 ， 操 作 简 单 ， 缓 解 疲 劳 很 舒 服 。 2020 年 1 0 月 淘 宝 头 的 ， 原 价 两 白 多 ， 功 能 正 常 ， 成 色 很 不 错 ， 没 怎 么 过 ， 非 样 机 ， 正 品 和 旗 舰 店 一 样 。 包 邮 ， 同 城 可 自 提 ， 不 退 不 换 。 喜 欢 直 接 拍 ， 细 节 私 聊 。 SKG 功 能 状 态 ： 功 能 完 好 无 维 修 电 源 方 式 ： 插 电 0 聊 一 聊 成 色 ： 明 显 使 痕 已 用 年 限 ： 1 年 （ 含 》 3 年 （ 不 含 ） 立 即 购 买 收 藏",
+      "imageSha256": [
+        "bc5240384d6bd8cc1c2b28695804ee111ec10eeaf1bc775988230b90e75170b5",
+        "a0549eb10e548101693143eee9c584770b78e611acef5080b8f66fd99b87c83d"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 49,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-MrEPFa.png",
+          "originalSha256": "4e88c089ad45ffa9cc1eafd03eee55e556cbce17aa3088612e2467d561906353"
+        },
+        {
+          "sourceBatch": 49,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-HV4a7W.png",
+          "originalSha256": "f691d28e59340f5515a0810d52f1a6afca30ad4e04ba0981cc6be6a746c8ee10"
+        }
+      ],
+      "observedPriceText": "50",
+      "price": 50,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-massager-skg-k3",
+      "productId": 1833,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        51
+      ],
+      "originalDescription": "¥ 18 近 十 五 天 降 价 33 ％ 轻 微 使 用 痕 迹 2 人 想 要 32 浏 览 SKG 颈 椎 按 摩 仪 K3SKG 颈 椎 按 摩 仪 K3 系 列 ， 浅 米 色 U 型 设 计 ， 带 品 牌 标 识 ， 放 在 原 装 内 衬 盒 中 。 支 持 低 频 脉 冲 和 热 敷 ， 多 档 可 调 ， 日 常 办 公 缓 解 颈 肩 疲 劳 用 。 实 物 有 轻 微 使 用 痕 迹 ， 具 体 功 能 和 配 件 情 况 请 参 考 实 拍 细 节 。 SKG 0 聊 一 聊 成 色 ： 轻 微 使 痕 立 即 购 买 收 藏",
+      "imageSha256": [
+        "5192a62aebc10b59045ddd8979d22976a8e5abce2e80b8c56c0b906f498eb0a8"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 51,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-y1yXaG.png",
+          "originalSha256": "1002129ef5e8a18bf73d52700851502ead9e06398edb6f83a0cd5dd167ce5aa7"
+        }
+      ],
+      "observedPriceText": "18",
+      "price": 18,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-massager-skg-g1",
+      "productId": 1834,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        52
+      ],
+      "originalDescription": "¥ 50 几 乎 全 新 2 人 想 要 65 浏 览 SKG 颈 椎 按 摩 仪 GI 豪 华 款 ， 白 色 ， 充 电 款 ， 功 能 正 常 ， 成 色 几 乎 全 新 ， 外 观 很 新 ， 没 啥 明 显 使 用 痕 迹 支 持 多 种 按 摩 模 式 + 热 敷 ， 力 度 可 调 ， 佩 戴 轻 便 ， 脖 子 酸 痛 、 肩 颈 放 松 都 很 适 合 ， 通 勤 、 家 用 都 方 便 朋 友 送 的 ， 基 本 没 怎 么 用 过 ， 没 有 购 买 凭 证 ， 包 邮 ， 感 兴 趣 直 接 拍 SKG 功 能 状 态 ： 功 能 完 好 无 维 修 电 源 方 式 ： 充 电 成 色 ： 几 乎 全 新 已 年 限 ： 6 个 月 内",
+      "imageSha256": [
+        "7e6efa0caed9e97ddcad09d58788c5be8f1265d1f5409195d3d3f2bc527741c5",
+        "248563b6e916565b73b8b44702c5a714a317d1616fc7986a364b04604c3535eb"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 52,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-OtFDte.png",
+          "originalSha256": "20c2b8561ccb397cbda8088030a6412eed4bdfe2402fd82ad0a5cc0325c5767f"
+        },
+        {
+          "sourceBatch": 52,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-pZ3CLT.png",
+          "originalSha256": "7a64a3652f9b293cdad705b6e8133a19bb400d1443d1a31aac9391e3f5b6b210"
+        }
+      ],
+      "observedPriceText": "50",
+      "price": 50,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hair-minnie-bow",
+      "productId": 1835,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        53
+      ],
+      "originalDescription": "¥ 26 ． 50 包 邮 东 京 迪 士 尼 + 米 妮 橘 色 波 点 蝴 蝶 结 发 绳 日 本 买 回 ， 保 正 比 较 少 见 的 橘 色 波 点 标 清 + 收 藏 装 饰 都 合 适 包 邮 可 直 拍 + 售 出 不 退 换 Disney,fi± 尼 发 饰 分 类 ： 0 聊 一 聊 成 色 ： 几 乎 全 新 立 即 购 买 几 乎 全 新 收 藏",
+      "imageSha256": [
+        "e797b88540a3302382a1d9c9fb8f126d9458286970b9e857946239656fa2e66c",
+        "0627ea8fe00d8cc67f8368e75f36cea6a0816596f38f00066be060286c5689f5",
+        "f33b5342d6ea36f58ac8207fdd37d3b28699bdc036f2e71c53add485a3d8b854"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 53,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-HorfXb.png",
+          "originalSha256": "717a1ce84a1ce35f7985fc4aa8dbd8a1fe3a0eaca716da50ccc642cf7a1c883d"
+        },
+        {
+          "sourceBatch": 53,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-YEIOiZ.png",
+          "originalSha256": "e918b509b84c55cc1357b7073c58c8cf4b46e08954363aec2b6041322404cd58"
+        },
+        {
+          "sourceBatch": 53,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-IjJbRK.png",
+          "originalSha256": "57a1588174af4a2239958aca1b96f5740714cfb0c96015999d190bb17b919dbe"
+        }
+      ],
+      "observedPriceText": "26.5",
+      "price": 26.5,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hair-bow-bundle",
+      "productId": 1836,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        54
+      ],
+      "originalDescription": "活 动 价 ¥ 18 · 00 包 邮 香 蕉 夹 ， 发 圈 ， 抓 夹 ， 50 飞 感 兴 趣 的 话 点 \" 我 想 要 \" 和 我 私 聊 吧 ～ 成 色 ： 全 新 0 聊 一 聊 发 饰 分 类 ： 立 即 购 买 全 新 收 藏",
+      "imageSha256": [
+        "89bd7efa765432469164949901e5deebc3e7beb3aa65503b43f3c348a6234ac1",
+        "ff6359e0738a71666c30d996e8de7933f8a9376aa7d87c9e9010e46b4a13988d"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 54,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-xt6GMF.png",
+          "originalSha256": "c7e60dd18937b3cf18a779d2fe75342a6a17d2729c0e38514badbdf31d7bf3c4"
+        },
+        {
+          "sourceBatch": 54,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-isuJyN.png",
+          "originalSha256": "30f69d9e0e291e901f4323ef40b7c4bd7d915ed182481038089a8f1c485b22e6"
+        }
+      ],
+      "observedPriceText": "价签18；正文打包50",
+      "price": 30,
+      "priceAdjustmentReason": "价签18元与正文整组50元矛盾，按图示组合设置演示挂牌价30元，非单件价。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hair-silver-crown",
+      "productId": 1837,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        56
+      ],
+      "originalDescription": "几 乎 全 新 ¥ 58 包 邮 银 色 水 晶 皇 冠 头 饰 ， 成 色 几 乎 全 新 ， 保 存 得 很 不 错 ， 没 有 掉 钻 ， 细 节 都 在 ， 花 朵 + 蝴 蝶 结 造 型 ， 戴 上 真 的 很 闪 ， 拍 照 、 婚 礼 、 生 日 、 成 人 礼 、 派 对 都 能 用 ， 搭 礼 服 、 婚 纱 、 汉 服 都 很 出 片 ， 氛 围 感 直 接 拉 满 、 包 邮 ， 支 持 自 提 ， 价 格 可 聊 ， 喜 欢 直 接 拍 ， 二 手 商 品 不 退 不 换 成 色 ： 几 乎 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "6f409beeba6611b660e5c9d8a4f013bc01ffafa865db5c58c086dbe73099c165",
+        "a163ecc0f1fc6e0ddd071a450d08f23f17ab9b5aed3d31beaefe0e2192cf1870"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 56,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-HCPefA.png",
+          "originalSha256": "7c2ae15597faef57435bd2c4af58c58848cc460a68cfc7ef3ea74f3250968e57"
+        },
+        {
+          "sourceBatch": 56,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-g0aR6G.png",
+          "originalSha256": "e837b5b364efca9c6d01099bf935e446c19fa7bf7c1460e3bca25d8c1806eef5"
+        }
+      ],
+      "observedPriceText": "58",
+      "price": 58,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hair-johnsonmeow",
+      "productId": 1838,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        57
+      ],
+      "originalDescription": "¥ 55 包 邮 （ 包 邮 出 〗 丁 禹 兮 梵 hnsonMeow 一 波 点 发 圈 全 新 未 拆 可 直 拍 有 问 题 私 聊 特 惠 寄 包 非 偏 主 页 有 其 他 一 起 收 可 小 刀 成 色 ： 全 新 0 聊 一 聊 发 饰 分 类 ： 发 绳 立 即 购 买 全 新 1 人 想 要 6 浏 览 收 藏",
+      "imageSha256": [
+        "1af0f3f0ef7c852a2e5b344a7e4d45f34e906f7a0639b7b871c437112063b075"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 57,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-tUvyWJ.png",
+          "originalSha256": "c2146d76d689759b7046076846fc605ba71c6b39a85d4c1f13ea14021ac987e8"
+        }
+      ],
+      "observedPriceText": "55",
+      "price": 35,
+      "priceAdjustmentReason": "无凭证支撑品牌溢价，普通发圈演示挂牌价由55元调至35元；不代表品牌真实行情。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hair-xmas-red",
+      "productId": 1839,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        58
+      ],
+      "originalDescription": "¥ 9 · 99 包 邮 出 闲 置 ！ 圣 诞 甜 心 小 熊 发 箍 ， 新 款 毛 绒 头 饰 ， 蝴 蝶 结 + 小 熊 造 型 ， 超 可 爱 ， 节 日 氛 围 感 满 满 、 松 紧 合 适 ， 大 人 小 孩 都 能 戴 ， 拍 照 、 聚 会 、 市 集 都 很 适 戴 上 就 是 圣 诞 甜 心 ！ 成 色 全 新 ， 现 货 有 ， 能 拍 都 有 、 喜 欢 直 接 拍 ～ 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "b8026d0f0b772bdec3816e4bcfdca544730ba59764f7c1cb335abc1c171f1943"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 58,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-JapyHl.png",
+          "originalSha256": "9237980bd00296fcf905546437a9706d1fe89c4cb6a47743ea74ab08c0d9f08f"
+        }
+      ],
+      "observedPriceText": "9.99",
+      "price": 9.99,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hair-xmas-black",
+      "productId": 1840,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        58
+      ],
+      "originalDescription": "¥ 9 · 99 包 邮 出 闲 置 ！ 圣 诞 甜 心 小 熊 发 箍 ， 新 款 毛 绒 头 饰 ， 蝴 蝶 结 + 小 熊 造 型 ， 超 可 爱 ， 节 日 氛 围 感 满 满 、 松 紧 合 适 ， 大 人 小 孩 都 能 戴 ， 拍 照 、 聚 会 、 市 集 都 很 适 戴 上 就 是 圣 诞 甜 心 ！ 成 色 全 新 ， 现 货 有 ， 能 拍 都 有 、 喜 欢 直 接 拍 ～ 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "a248cdf92dd614cee81d022b10b685533ea41a38600e6d45e3c78de0b17c99a9"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 58,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-9npPeR.png",
+          "originalSha256": "f74cd2c3a781ad8ff8f3137e802cc6c85ed6e3596de9ff9ce7d9e5c3f337786b"
+        }
+      ],
+      "observedPriceText": "9.99",
+      "price": 9.99,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hanger-wood20",
+      "productId": 1841,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        59
+      ],
+      "originalDescription": "¥ 10 · 6 - 10 ， 包 邮 52 人 想 要 657 浏 览 厂 家 退 货 轻 微 残 次 品 1 0 ， 000 个 榉 木 衣 架 家 用 挂 衣 防 滑 无 痕 衣 架 挂 架 子 高 端 成 人 衣 架 晾 晒 衣 服 10 个 装 19 · 99 元 20 个 装 29 · 99 元 榉 木 铁 艺 衣 架 ． 厂 家 退 货 残 次 品 掉 点 漆 ． 不 影 响 正 常 使 用 ！ 优 质 举 目 搭 配 ． 金 属 高 锰 钢 制 作 ， 肩 部 加 宽 设 计 ． 防 滑 不 伤 衣 宽 肩 设 置 挂 衣 服 不 鼓 包 质 结 实 耐 用 ， 衣 服 店 酒 店 使 用 一 件 多 用 很 实 用 复 古 衣 架 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "759fd2a0db0cb03a2b5a4c70362e44276687069bc70744b0a285076f615e663d",
+        "36df97088acc023acf1b45f6684ccd93980da480b6a6efb81a065ad44346a036"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 59,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-47aR5a.png",
+          "originalSha256": "31a28e200c878ad04506e491838146d938b30ee55ceb9d3d984477b662424d02"
+        },
+        {
+          "sourceBatch": 59,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-VMEKjZ.png",
+          "originalSha256": "46a05d585a5d7fe9a8b711e97e3a16522e4cfb8198a5571c0ab6e39f423337df"
+        }
+      ],
+      "observedPriceText": "10个19.99；20个29.99",
+      "price": 29.99,
+      "priceAdjustmentReason": "选用来源明确的20个29.99元规格，同步注明数量，不沿用10.6元起的引流价。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-rack-white-pair",
+      "productId": 1842,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        60
+      ],
+      "originalDescription": "几 乎 全 新 ¥ 59 包 邮 搬 家 啦 ～ 汕 头 澄 海 自 提 落 地 衣 架 两 个 几 乎 全 新 承 重 力 特 别 强 两 个 59 成 色 ： 几 乎 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "431f5a2972f0f3c235fad9b2758c9688110f606c9c6fdaf361b384f5e3d89aa6",
+        "faaf2095bc716dd8b5249d36eba46b8269faa77b691e9859a4976ba92bd33b59"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 60,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-ay25cN.png",
+          "originalSha256": "e3483eca0eecb1dd5c1e715af9a4bea3fe3f6741d3a5d3216234869f6e0e3e86"
+        },
+        {
+          "sourceBatch": 60,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-lhiOJD.png",
+          "originalSha256": "73a84e60f148e98a20668de9a0862f736c985ce58dbba1c48e2124632ee1e614"
+        }
+      ],
+      "observedPriceText": "两件59",
+      "price": 59,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hanger-coated50",
+      "productId": 1843,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        61
+      ],
+      "originalDescription": "¥ 9 · 8 - 19 · 9 《 包 邮 2148 人 想 要 2 万 浏 览 描 述 不 符 包 邮 退 满 足 条 件 时 ， 买 家 可 退 货 目 运 由 卖 家 承 担 包 邮 全 新 50 个 衣 架 加 粗 北 欧 风 家 用 浸 塑 衣 服 架 带 挂 钩 衣 架 成 人 衣 架 亏 本 价 1 9 ， 9 元 包 邮 特 价 一 批 衣 架 ， 喜 欢 直 接 下 单 ， 价 格 ： 1 9 ． 9 元 包 邮 （ 亏 本 促 钅 肖 价 ） 数 量 ． 50 只 尺 寸 ， 长 40cm 加 粗 承 重 ， 8 斤 颜 色 ： 浅 蓝 ， 浅 粉 白 色 墨 绿 色 黑 色 需 要 选 择 颜 色 ， 可 以 给 我 留 言 ！ 需 要 直 接 拍 下 就 行 。 谢 谢 ！ 除 新 疆 ， 西 藏 以 外 全 部 包 邮 拍 下 24 小 时 内 发 货 寄 ！ # 晾 日 西 衣 架 0",
+      "imageSha256": [
+        "bb6a375e6fadaeff46b9fa196dc16ff05aaed1c99109c8d4ffbf469026aaad1e",
+        "f82fc9b7ab23e91aecf94723b2dd0cd87e1d8462144b714652a7c41b0b431f90",
+        "2479c270a336bea85da22d84617fd637590e408e82284d5281852c61d85ed05f"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 61,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-BbyXjQ.png",
+          "originalSha256": "5fe3de34cdc34c30ec56f5e9ccf60fb7854a2409b37a95d2704f19c35b1cfbc7"
+        },
+        {
+          "sourceBatch": 61,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-f1cMeK.png",
+          "originalSha256": "0d97cec9676d9adefb460933a05c4f063156ad19e17e9783ef41e0babb284b8d"
+        },
+        {
+          "sourceBatch": 61,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-6qTF2J.png",
+          "originalSha256": "92e9e41f7b12b833751ec635c1fda37d4c7b831db3bb1fd690229e05228ee056"
+        }
+      ],
+      "observedPriceText": "50个19.9",
+      "price": 19.9,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-rack-caster-white",
+      "productId": 1844,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        62
+      ],
+      "originalDescription": "¥ 20 · 99 - 25 · 59 包 邮 28 人 想 要 469 浏 览 〖 清 仓 特 价 〗 特 粗 衣 帽 架 落 地 立 式 移 动 奶 油 风 挂 衣 服 简 易 宿 舍 挂 衣 架 移 动 式 晾 衣 架 加 粗 管 径 奶 油 白 加 长 晾 衣 架 ， 带 轮 子 ， 移 动 方 便 | 碳 钢 材 质 ， 结 实 耐 用 ， 承 重 力 强 ， 挂 衣 服 很 稳 ， 卧 室 、 阳 台 、 宿 舍 都 能 用 ， 收 纳 空 间 大 ， 底 部 可 放 鞋 子 或 杂 物 。 移 动 灵 活 ， 收 纳 神 器 ！ 全 新 包 邮 ， 能 拍 就 是 有 货 ， 喜 欢 直 接 拍 ～ 100cm 《 加 厚 加 粗 网 红 推 荐 轮 120Cm 《 加 厚 加 粗 网 红 推 荐 轮 150Cm 《 加 厚 加 粗 网 红 推 荐 轮 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "e953d96d4d8b03593fdfdf668ab6152c6bea00d2d677190ffc31cdbaee84ddd0"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 62,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-qKtPyc.png",
+          "originalSha256": "13414acbcc574e2121a462320d6614e08372ec835f6a8ad6c0f11890482f0b22"
+        }
+      ],
+      "observedPriceText": "20.99–25.59多尺寸",
+      "price": 25,
+      "priceAdjustmentReason": "多规格区间未匹配尺寸，白色单件使用演示挂牌价25元，不虚构具体长度。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-rack-caster-black",
+      "productId": 1845,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        62
+      ],
+      "originalDescription": "¥ 20 · 99 - 25 · 59 包 邮 28 人 想 要 469 浏 览 〖 清 仓 特 价 〗 特 粗 衣 帽 架 落 地 立 式 移 动 奶 油 风 挂 衣 服 简 易 宿 舍 挂 衣 架 移 动 式 晾 衣 架 加 粗 管 径 奶 油 白 加 长 晾 衣 架 ， 带 轮 子 ， 移 动 方 便 | 碳 钢 材 质 ， 结 实 耐 用 ， 承 重 力 强 ， 挂 衣 服 很 稳 ， 卧 室 、 阳 台 、 宿 舍 都 能 用 ， 收 纳 空 间 大 ， 底 部 可 放 鞋 子 或 杂 物 。 移 动 灵 活 ， 收 纳 神 器 ！ 全 新 包 邮 ， 能 拍 就 是 有 货 ， 喜 欢 直 接 拍 ～ 100cm 《 加 厚 加 粗 网 红 推 荐 轮 120Cm 《 加 厚 加 粗 网 红 推 荐 轮 150Cm 《 加 厚 加 粗 网 红 推 荐 轮 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "91aa7e49b0c2fc97638e7e4d356acab28c36637ee72cfae178ef6adec8337698"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 62,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-B8LMIM.png",
+          "originalSha256": "1263258240f55967607a507b2fc6ab1e736580b517e3f10b1733f3e661fddb0a"
+        }
+      ],
+      "observedPriceText": "20.99–25.59多尺寸",
+      "price": 25,
+      "priceAdjustmentReason": "颜色拆分为独立单件，采用演示挂牌价25元，长度不擅自指定。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hanger-cream20",
+      "productId": 1846,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        63
+      ],
+      "originalDescription": "活 动 价 ¥ 9 · 60 艹 ¥ 艹 包 邮 描 述 不 符 包 邮 退 · 7 天 无 理 由 退 货 全 新 128 人 想 要 15 巧 浏 览 出 全 新 白 色 衣 架 ， 40cm 加 粗 款 ， 奶 白 色 ， 结 实 耐 用 ， 挂 衣 服 不 掉 ， 防 滑 设 计 ， 收 纳 空 间 大 。 全 新 未 用 ， 家 里 多 买 了 闲 置 转 卖 ， 数 量 多 ， 20 个 1 0 元 包 邮 发 货 。 喜 欢 的 朋 友 可 以 直 接 拍 ， 有 问 题 随 时 私 聊 。 家 居 好 物 成 色 ： 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "5fbf2f6c826fdacee2523a3978ae6c131a9f175d0381819faff8fad6bd6d04c2",
+        "f5082b08b698737713a055a29a375ed40a6215c0e6e99c1b32d8ef5b7504c406"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 63,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-4FaJDq.png",
+          "originalSha256": "df7bfd841a914d3602b985ad5ea5fb29ba4b8a5c2821de48ec0688c77c8e7154"
+        },
+        {
+          "sourceBatch": 63,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-o4bxzF.png",
+          "originalSha256": "be9a72695869725b2404780b54425669cebdad3811b3bd879a73859de87b1a20"
+        }
+      ],
+      "observedPriceText": "20个10",
+      "price": 10,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-rack-dark-double",
+      "productId": 1847,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        64
+      ],
+      "originalDescription": "¥ 6 ． 80 L 包 邮 3 人 想 要 97 浏 览 〖 全 新 6 ， 8 包 邮 〕 晾 衣 架 加 粗 加 厚 落 地 衣 帽 架 家 用 卧 室 阳 台 晾 衣 杆 架 晒 衣 服 架 子 扌 圭 架 工 厂 急 需 资 金 周 转 ， 亏 本 清 理 一 批 货 ！ ！ 采 用 圆 润 挂 钩 无 毛 刺 ， 加 粗 挂 杆 可 堪 重 用 ， 一 体 式 稳 固 底 座 ， 优 选 碳 钢 管 安 装 简 易 ！ 规 格 ： 单 杠 52 * 1 00 〖 6 ． 8 元 〗 全 新 包 邮 （ 尾 图 ） 单 杠 长 1 1 0 * 高 150cm （ 16 ． 8 元 〕 全 新 包 邮 单 杠 长 130 * 高 150cm 07 ， 8 元 〕 全 新 包 邮 HOTATA/ 好 太 太 0 聊 一 聊 立 即 购 买 展 开 丷 收 藏",
+      "imageSha256": [
+        "100c70ee59f76ef8343c262eb9d7ad4e0328dd8a7fde4ea67f3d3b3ce2bb412f",
+        "1199d1daf2b34c551bb878758f543af84be7885e220e2b47a21d2a787b93d5f1"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 64,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-XrxVfi.png",
+          "originalSha256": "bc625c988d3b179bf6fe11bba0b6500c87a6342fc5271dd8158c71a0803f9304"
+        },
+        {
+          "sourceBatch": 64,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-JUhBiT.png",
+          "originalSha256": "c85c337e1b880a76845f3154a1768cefe19a2aa9ea674429b932d45c1efdc904"
+        }
+      ],
+      "observedPriceText": "6.8小号；16.8/17.8大号",
+      "price": 30,
+      "priceAdjustmentReason": "不采用小号6.8元引流价；图示较大架设置演示挂牌价30元，尺寸待实测。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [],
+      "imageEdits": [
+        {
+          "file": "rec-rack-dark-double-1.jpg",
+          "originalSha256": "46b26703b8f51ce2bdcfbc4100b08d9717f491af7ccc32466acecd84dfe9791f",
+          "sha256": "100c70ee59f76ef8343c262eb9d7ad4e0328dd8a7fde4ea67f3d3b3ce2bb412f",
+          "operation": {
+            "patch": [
+              [
+                0.57,
+                0,
+                1,
+                0.18
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-rack-dark-double-1.jpg"
+        }
+      ]
+    },
+    {
+      "assetId": "recovered-20261030-umbrella-white-bow",
+      "productId": 1848,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        65
+      ],
+      "originalDescription": "¥ 9 ． 80 宀 艹 全 新 149 人 想 要 四 81 浏 览 森 系 复 古 雨 伞 遮 阳 伞 晴 雨 两 用 黑 胶 防 晒 紫 外 线 折 叠 三 折 太 阳 伞 厂 家 清 仓 ， 库 存 有 限 ， 数 量 不 多 ， 能 拍 直 接 下 单 白 色 系 蝴 蝶 结 图 案 ， 晴 雨 两 用 ， 遮 阳 防 雨 都 很 实 用 ， 轻 便 好 收 纳 ， 女 生 用 也 很 可 爱 ， 出 门 上 班 上 学 都 合 适 、 蝴 蝶 纟 吉 星 星 （ 手 动 〗 9 ， 8 不 要 问 有 没 有 ， 能 看 到 链 接 就 有 货 ， 直 接 拍 下 京 成 色 ： 全 新 折 叠 伞 0 聊 一 聊 开 合 方 式 ： 手 动 途 ： 阳 伞 立 即 购 买 展 开 丷 收 藏",
+      "imageSha256": [
+        "5e6a3f95c0b10bd16267556f182d88578451f3cf4a1744b3f3b82c5f31edba77",
+        "342cce0af688e0a2a18107b222d176b02d57927bfb8d98cb35a81aa17e1fc75e"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 65,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-lH3LMP.png",
+          "originalSha256": "0ec2d02238b9b380ad5b8e110e120724ecf96b9707a60b25614e8dd8ae07146c"
+        },
+        {
+          "sourceBatch": 65,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-XfDJA5.png",
+          "originalSha256": "4f305e897c0be3d5c6cb6b09e6a6e4d4227818e62669213498993f89d5a814ad"
+        }
+      ],
+      "observedPriceText": "9.8",
+      "price": 9.8,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-umbrella-capsule-green",
+      "productId": 1849,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        66
+      ],
+      "originalDescription": "¥ 8 · 19 - 13 · 99 包 邮 1033 人 想 要 2 万 浏 览 描 述 不 符 包 邮 退 满 足 条 件 时 ， 买 家 可 退 货 且 运 费 由 卖 家 承 担 26 年 遮 阳 伞 高 颜 值 全 新 蕉 同 款 式 6 股 防 晒 黑 胶 胶 囊 伞 UPF50+ 小 巧 便 携 收 起 只 有 手 掌 大 太 阳 伞 雨 伞 蕉 同 款 无 标 胶 囊 伞 ， 伞 的 内 层 是 黑 色 高 性 能 防 晒 涂 层 ， 可 以 阻 隔 99 ％ 的 紫 外 线 半 斤 45 ～ 50cm, 手 工 测 量 有 误 差 ， 批 次 问 题 ， 有 黄 标 ， 白 标 ， 蓝 标 随 机 色 有 圆 柄 ， 有 椭 圆 柄 ， 长 柄 。 0 ： 防 止 物 流 原 路 退 回 ， 请 写 清 楚 门 牌 号 或 者 驿 站 才 发 随 机 色 只 有 水 果 系 列 的 。 7 ， 1 1 的 是 福 利 款 ， 每 日 颜 色 不 定 。 需 关 注 谢 谢 。 伞 都 是 手 动 的 。 伞 的 形 状 颜 色 看 商 品 规 格 中 的 图 片 ， 也 可 以 问 我 要 实 拍 图 。 other/ 其 他 0 聊 一 聊 立 即 购 买 展 开 丷 收 藏",
+      "imageSha256": [
+        "2be07fdeac3b54cf6a4c78c1b4d358f1d74eed6d3964cd60eacb43c21c10ea5f"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 66,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-GmNeH7.png",
+          "originalSha256": "915e2fb040aaef6b0b0acfd9d25461a35bef4c90d4827cd4c0295ac9bef5c210"
+        }
+      ],
+      "observedPriceText": "8.19–13.99多规格",
+      "price": 12,
+      "priceAdjustmentReason": "多规格区间中选图示绿色单件，演示挂牌价12元，不沿用最低价或未经匹配的品牌。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-umbrella-lrp",
+      "productId": 1850,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        67
+      ],
+      "originalDescription": "活 动 价 ¥ 10 · 00 》 包 邮 70 人 想 要 205S 浏 览 描 述 不 符 包 邮 退 满 足 条 件 时 ， 买 家 可 退 货 且 运 费 由 妄 家 承 担 理 肤 泉 胶 囊 晴 雨 伞 ， 黑 色 款 ， 几 乎 全 新 ， 官 方 正 品 ， 京 东 旗 舰 店 购 入 ， 带 原 装 胶 囊 收 纳 盒 ， 晴 雨 两 用 ， 防 晒 遮 阳 都 OK, 伞 身 小 巧 便 携 ， 随 身 带 不 占 地 丿 IJ, 适 合 日 常 出 门 、 上 班 、 上 学 用 。 支 持 包 邮 ， 同 城 可 自 提 ， 价 格 可 聊 。 喜 欢 的 小 伙 伴 点 \" 我 想 要 ' 私 聊 ， 细 节 图 可 发 、 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "c4b8446bab9a7881a9d3e43fa799815edc39faf619752f180f752448da720e59",
+        "c64771f8e41e4425923369da8e424765d2fe5d0862079b1da3dff76af759ca70"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 67,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-zwBuvf.png",
+          "originalSha256": "4ce692eacb17089353ad7d3d5a590246aee043bd0a98c9524a9e29251d557847"
+        },
+        {
+          "sourceBatch": 67,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-nyJHKU.png",
+          "originalSha256": "1743fda9a6ea66dc2287cd47d3307e62e8c34c8aa1fa011a72840bba681d71f3"
+        }
+      ],
+      "observedPriceText": "10",
+      "price": 10,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-umbrella-dark-pair",
+      "productId": 1851,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        68
+      ],
+      "originalDescription": "几 乎 全 新 3 浏 览 折 叠 晴 雨 伞 ， 两 把 一 起 出 ， 一 把 黑 色 一 把 藏 青 色 ， 手 动 开 合 ， 晴 雨 两 用 ， 伞 面 结 实 ， 开 合 顺 畅 ， 收 起 来 不 占 地 ， 手 柄 好 握 ， 日 常 通 勤 、 出 门 都 合 适 。 成 色 还 可 以 ， 外 观 挺 新 ， 没 有 明 显 使 用 痕 迹 ， 保 存 很 好 ， 功 能 正 常 ， 质 量 靠 谱 ， 单 人 用 ， 伞 面 没 有 图 案 和 字 ， 颜 色 就 是 图 片 这 种 。 包 邮 ， 可 自 提 。 喜 欢 可 以 私 聊 ， 价 格 可 聊 。 成 色 ： 几 乎 全 新 折 叠 伞 0 聊 一 聊 开 合 方 式 ： 手 动 途 ： 暗 雨 伞 立 即 购 买 收 藏",
+      "imageSha256": [
+        "a839467bbb8e0802cad07b1643dba88fcbdc6fc7f904c3aba9f44efebfcc347d"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 68,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-WTqkwQ.png",
+          "originalSha256": "06301d4c999526ce83c81e30f09f5cff1e7fabc5e016be00f2f3fef844e656cb"
+        }
+      ],
+      "observedPriceText": "两把8",
+      "price": 12,
+      "priceAdjustmentReason": "来源两把8元过低，按明确两把组合设置演示挂牌价12元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-umbrella-mi-pair",
+      "productId": 1852,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        69
+      ],
+      "originalDescription": "¥ 23 一 53 《 包 邮 507 人 想 要 1 万 浏 览 描 述 不 符 包 邮 退 满 足 条 件 时 ， 买 家 可 退 货 目 运 费 由 卖 家 承 担 全 新 库 存 几 十 小 米 配 套 汽 车 礼 品 伞 自 动 雨 伞 超 大 直 柄 伞 晴 雨 两 用 折 叠 伞 定 制 长 柄 伞 车 行 剩 下 几 箱 小 米 配 套 汽 车 礼 品 伞 ， 长 短 都 有 ， 质 量 很 好 ， 全 新 出 售 ！ ． 短 款 23 寸 ． 23 元 ， 两 扌 巴 40 元 包 邮 @长款 28 寸 ： 30 元 ， 两 把 53 元 包 邮 ． 推 荐 搭 配 ： 一 长 一 短 搭 配 48 包 邮 晴 雨 两 用 ， 轻 奢 商 务 ！ 全 纤 维 伞 骨 ， 韧 劲 十 足 ， 抗 风 不 易 断 ， 不 易 生 锈 ！ 长 款 ： 伞 宽 1 ， 2 米 ， 超 大 伞 面 ， 可 供 3 人 ， 一 铤 。 0 聊 一 聊 立 即 购 买 展 开 丷 0 收 藏",
+      "imageSha256": [
+        "f7908894b7a9043194a72d23331d6614bac2fb5789e9e771c797f47c442a8e73",
+        "57480ef0c9e7b9d11e747a65b9146843570d634427cc37a93189fcd6cdb59a08"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 69,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-XTt6S2.png",
+          "originalSha256": "909f2d4338ac2acf4b3144683d01f205089062a32856f974a27e9c807c0f1597"
+        },
+        {
+          "sourceBatch": 69,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-80P6Kn.png",
+          "originalSha256": "fc73663a3f98e5e96b69c871589362ed8d45383a0d507200e09574188db2d7ec"
+        }
+      ],
+      "observedPriceText": "短23；长30；两把48",
+      "price": 48,
+      "priceAdjustmentReason": "采用来源明确的两把48元套餐，避免单把价格误配两把照片。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [],
+      "imageEdits": [
+        {
+          "file": "rec-umbrella-mi-pair-1.jpg",
+          "originalSha256": "2a7bd038f59505a9ebf66f114d6e65db52060721b5743814712f2a11e62e40fa",
+          "sha256": "f7908894b7a9043194a72d23331d6614bac2fb5789e9e771c797f47c442a8e73",
+          "operation": {
+            "patch": [
+              [
+                0.035,
+                0.886,
+                0.265,
+                0.997
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-umbrella-mi-pair-1.jpg"
+        },
+        {
+          "file": "rec-umbrella-mi-pair-2.jpg",
+          "originalSha256": "0841d1c9079c30a7558e48c5e4271fca7dc27de9c483f0ae16932c24cb7b4954",
+          "sha256": "57480ef0c9e7b9d11e747a65b9146843570d634427cc37a93189fcd6cdb59a08",
+          "operation": {
+            "patch": [
+              [
+                0.035,
+                0.886,
+                0.265,
+                0.997
+              ]
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-umbrella-mi-pair-2.jpg"
+        }
+      ]
+    },
+    {
+      "assetId": "recovered-20261030-umbrella-kitty-pink",
+      "productId": 1853,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        70
+      ],
+      "originalDescription": "活 动 价 ¥ 12 · 8 - 16 · 9 包 邮 清 仓 处 理 Hello Kitty 黑 胶 防 晒 晴 雨 伞 174 人 想 要 2904 浏 览 8 骨 手 动 款 ， 黑 胶 防 晒 ， 晴 雨 两 用 ， 伞 面 大 ， 遮 阳 防 雨 都 很 实 用 ， 适 合 1 一 2 人 用 伞 下 直 径 96 c m ， 三 折 设 计 ， 收 纳 方 便 ， 女 生 学 生 送 礼 都 合 适 全 新 包 邮 发 货 ， 偏 远 地 区 不 发 货 质 量 问 题 可 处 理 ， 其 他 不 退 不 换 喜 欢 直 接 拍 ， 有 问 题 随 时 私 聊 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "85992fe10be6f9133cc3d1ff1ae844e3237b4dd3dc87e51f4ad5b764610edfd7",
+        "b6a6cd87a374f97e2f404f9ed6cc71a0ce124807ba3fa89a77b04d2621f78659"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 70,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-mgtS5V.png",
+          "originalSha256": "d3594ccfe098bbcff1851993859e545f59d7d7652398ae67edde47b53b33a5b4"
+        },
+        {
+          "sourceBatch": 70,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-mRgWgm.png",
+          "originalSha256": "cf0184f39065955ce6312a636b8969141931cbb04f22a7ac72d058b40a3ac1af"
+        }
+      ],
+      "observedPriceText": "12.8–16.9",
+      "price": 15,
+      "priceAdjustmentReason": "来源多规格区间，按照片这把伞设置演示挂牌价15元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-basket-laundry-caster",
+      "productId": 1854,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        71
+      ],
+      "originalDescription": "¥ 4 ． 8 - 16 · 8 《 包 邮 494 人 想 要 5387 浏 览 （ 工 厂 倒 闭 清 仓 〗 脏 衣 篓 浴 室 置 物 架 家 用 脏 衣 服 脏 衣 篮 浴 室 洗 衣 篮 卫 生 间 置 物 架 脏 衣 篮 收 纳 筐 家 用 卫 生 间 浴 室 大 容 量 脏 衣 篓 洗 衣 篮 子 放 脏 衣 服 收 纳 筐 小 红 书 同 款 博 主 推 荐 家 居 博 主 闲 置 抖 音 同 款 非 偏 远 地 区 都 包 邮 0 全 新 全 新 清 仓 ！ 全 新 ！ 全 新 ！ 筐 子 是 镂 空 折 叠 设 计 ， 通 风 透 气 ， 还 有 万 向 轮 可 以 轻 松 推 动 ， 很 方 便 好 用 ！ 容 量 大 颜 值 高 ！ 0 2 个 颜 色 ， 珍 珠 白 、 奶 油 黄 配 件 ： 手 提 、 带 滑 轮 选 项 已 设 置 好 滴 ， 直 接 拍 喜 欢 的 颜 色 就 行 啦 、 0 规 格 ： 内 衣 篮 尺 寸 22 ． 5 * 1 6 ， 5 * 12cm 脏 衣 篓 尺 寸 36 * 26 * 37cm 0 选 项 已 设 置 好 ！ 家 人 们 直 接 选 择 需 要 的 规 格 自 行 下 单 即 可 、 48 小 时 内 必 发 出 ！ 关 注 我 优 先 发 货 哦 、 收 到 包 裹 签 收 前 请 检 查 包 装 ， 没 损 坏 再 签 收 ， 闲 置 处 理 产 品 不 支 持 无 理 由 退 换 ， 望 理 解 、 非 偏 远 地 区 都 包 邮 、 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "11bcc007968904d9e268ded6e143f23f768ca86598ff5fd141f615cdb92725a4"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 71,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-TxNdfY.png",
+          "originalSha256": "692c46864c818a6044b92003369551152c61c2db6e24017b4bbbd4796c80750d"
+        }
+      ],
+      "observedPriceText": "4.8–16.8不同规格",
+      "price": 20,
+      "priceAdjustmentReason": "最低价4.8元对应另一种小件，图示大洗衣篮设置演示挂牌价20元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [],
+      "imageEdits": [
+        {
+          "file": "rec-basket-laundry-caster-1.jpg",
+          "originalSha256": "eed7fca9e52b5f5f4bf9e464025c1107b13c6ac6b100ac8e824373c7a011b75d",
+          "sha256": "11bcc007968904d9e268ded6e143f23f768ca86598ff5fd141f615cdb92725a4",
+          "operation": {
+            "crop": [
+              0.18,
+              0.15,
+              0.81,
+              0.97
+            ]
+          },
+          "originalBackup": "C:\\Users\\Administrator\\.codex\\backups\\CampusLoop-context-20261030-085521\\catalog-originals\\rec-basket-laundry-caster-1.jpg"
+        }
+      ]
+    },
+    {
+      "assetId": "recovered-20261030-bin-white-lid",
+      "productId": 1855,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        72
+      ],
+      "originalDescription": "¥ 9 ． 7 - 28 · 包 邮 4 人 想 要 51 浏 览 剩 下 100 个 全 新 整 理 杂 物 收 纳 篮 浴 室 收 纳 盒 收 纳 箱 田 带 盖 桌 面 储 物 箱 家 用 多 功 能 学 生 宿 舍 收 纳 神 器 收 纳 箱 直 接 付 款 24 小 时 发 货 低 价 处 理 一 批 全 新 收 纳 箱 ， 质 量 非 常 好 ， 可 以 用 来 装 玩 具 ， 书 本 ， 文 具 ， 零 食 ， 杂 物 ， 衣 服 ， 厨 房 用 具 等 高 颜 值 非 常 实 用 的 收 纳 盒 出 售 原 因 ， 由 于 朋 友 店 铺 倒 闭 ， 剩 下 一 批 收 纳 盒 ， 还 有 20 多 个 ， 低 价 处 理 掉 ， 能 下 单 就 是 有 货 、 清 仓 价 非 质 量 问 题 不 退 不 换 长 宽 高 尺 寸 ： 36cm × 25 ， 5cm × 24cm （ 手 工 测 量 有 偏 差 介 意 勿 拍 ） 0 聊 一 聊 立 即 购 买 展 开 v 收 藏 待 您",
+      "imageSha256": [
+        "66a2adcb560fabb566f05b65412f455dcda7aa19709d1ade188259be03783a67",
+        "43e0a8b603a65caac1b47938681824f5e7047ed491d3f36224c9fae4aff0ad59"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 72,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-iftUM8.png",
+          "originalSha256": "34e84b0e02606903005e325e90feb21532e6c1f8c95cf8e0456901a914f9560f"
+        },
+        {
+          "sourceBatch": 72,
+          "sourceImage": 3,
+          "sourceFile": "codex-clipboard-wfnGi1.png",
+          "originalSha256": "ea374c54a323da0ac95e58ba269bae154fd2921aea2a814768fc826d538a1db0"
+        }
+      ],
+      "observedPriceText": "9.7–28.6多规格",
+      "price": 20,
+      "priceAdjustmentReason": "来源多规格价格未准确匹配，采用图示单件演示挂牌价20元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "同批第三张为同一画面无宣传贴纸原图，采用无贴纸版本。"
+      ]
+    },
+    {
+      "assetId": "recovered-20261030-basket-rattanlook-three",
+      "productId": 1856,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        73
+      ],
+      "originalDescription": "¥ 6 · 6 一 9 · 包 邮 无 异 味 ， 数 量 有 限 ， 喜 欢 直 接 拍 ， 细 节 私 聊 、 4 人 想 要 184 浏 览 6 ， 6 元 包 邮 出 3 个 全 新 仿 藤 编 收 纳 筐 仿 藤 编 收 纳 篮 桌 面 收 纳 盒 篮 子 零 食 筐 杂 物 家 用 厨 房 玩 具 置 物 篮 储 物 篮 米 白 色 ， 塑 料 材 质 ， 结 实 耐 用 ， 带 手 提 ， 拿 取 方 便 ， 量 大 ， 桌 面 杂 物 、 零 食 、 化 妆 品 、 洗 护 用 品 都 能 装 ， 简 约 白 搭 ， 家 用 、 厨 房 、 卧 室 、 浴 室 都 能 用 、 other/ 其 他 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "5e1a9b622b5acfa1ad982d611639c0e230b58165a85fb6ce4c93b717aa626c5b",
+        "d79fc7711cb3d2dbb8922b473870e74e7b39d1a3534be14a440c4004675e1507"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 73,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-AJeBjO.png",
+          "originalSha256": "eb2beee935de4a55bfedf602ffc2a6ef7ad9b9fd208ee75a7d5a85e40ec174f5"
+        },
+        {
+          "sourceBatch": 73,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-7wVb0G.png",
+          "originalSha256": "97645cc778eb65d59d73e8d62514b6eb2ded4068ebd6e8f7b6375b7f91b08357"
+        }
+      ],
+      "observedPriceText": "6.6–9.9多规格",
+      "price": 12,
+      "priceAdjustmentReason": "明确三件套数量后设置演示挂牌价12元，避免多规格最低价与陈列数量混淆。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hamper-wovenlook",
+      "productId": 1857,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        74
+      ],
+      "originalDescription": "包 邮 2078 人 想 要 3 万 浏 览 （ 8 ． 8 包 邮 〗 全 新 大 容 量 脏 衣 篮 洗 衣 篮 脏 衣 服 收 纳 筐 家 用 衣 篓 装 放 衣 服 框 仿 藤 篮 子 脏 衣 篓 神 器 简 约 时 尚 因 仓 库 升 级 需 要 腾 地 方 ， 全 都 便 宜 处 理 了 每 款 颜 色 还 剩 50 余 套 ， 清 完 下 架 ， 能 拍 就 是 有 货 哈 ， 欢 的 朋 友 们 可 直 接 下 单 。 用 处 多 多 ， 容 量 特 大 ！ 脏 衣 服 ， 玩 具 ， 零 食 ， 杂 物 都 能 装 ！ 收 纳 神 器 ！ 实 用 耐 看 ！ 颜 色 ， 棕 灰 白 、 棕 灰 米 、 纯 米 色 尺 寸 收 纳 达 人 0 聊 一 聊 立 即 购 买 展 开 丷 收 藏",
+      "imageSha256": [
+        "1a6c0e877de19eceb4d92136aa6a36ea7b1b145b0d2a2a0ce400edbc824feab1",
+        "76de527b1569f2c1caf94c5f057b8ff3ee986b321e955ced7e450331fbc74473"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 74,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-55tPqM.png",
+          "originalSha256": "6bd5fe818457203fbc0955dfff232e64cd7e1728a4206c15cb59476d0d1a1e04"
+        },
+        {
+          "sourceBatch": 74,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-5Ls7rs.png",
+          "originalSha256": "9bf5c286b2de2b0394af3bffdd656a5c0fb51691c1279f44b17d094e119c84a5"
+        }
+      ],
+      "observedPriceText": "8.8–19.8不同规格",
+      "price": 23,
+      "priceAdjustmentReason": "图示为较大款，剔除小号起价，设置演示挂牌价23元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hamper-canvas-white",
+      "productId": 1858,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        75
+      ],
+      "originalDescription": "¥ 5 · 9 - 9 ． 9 包 邮 7 天 无 理 由 退 货 承 诺 买 家 可 申 退 货 ， 运 费 需 买 家 承 担 全 新 5 人 想 要 1 07 浏 览 （ 清 仓 5 ， 9 包 邮 〗 脏 衣 服 篮 脏 衣 篓 家 用 洗 衣 服 框 收 纳 筐 宿 舍 ins 折 叠 内 衣 盒 衣 物 置 物 架 大 号 夫 见 格 ： 高 50cm × 长 35cm × 宽 25cm 材 质 ： 金 属 骨 架 结 实 耐 用 ， 可 以 用 来 装 玩 具 ， 收 纳 杂 物 。 成 色 ： 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "60d1ccfb19b626a705e58d29671d1f53ab0e1550f42b8dd1870df9e206ba80be"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 75,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-GCbciC.png",
+          "originalSha256": "a18b36afef61be4f1025d8ab12fcf0575dc87fb0aa6ab96217fe79698f3662cb"
+        }
+      ],
+      "observedPriceText": "5.9–9.9多规格",
+      "price": 18,
+      "priceAdjustmentReason": "原价为多规格起价，按完整布篮和支撑架设置演示挂牌价18元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-hamper-canvas-brown",
+      "productId": 1859,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        75
+      ],
+      "originalDescription": "¥ 5 · 9 - 9 ． 9 包 邮 7 天 无 理 由 退 货 承 诺 买 家 可 申 退 货 ， 运 费 需 买 家 承 担 全 新 5 人 想 要 1 07 浏 览 （ 清 仓 5 ， 9 包 邮 〗 脏 衣 服 篮 脏 衣 篓 家 用 洗 衣 服 框 收 纳 筐 宿 舍 ins 折 叠 内 衣 盒 衣 物 置 物 架 大 号 夫 见 格 ： 高 50cm × 长 35cm × 宽 25cm 材 质 ： 金 属 骨 架 结 实 耐 用 ， 可 以 用 来 装 玩 具 ， 收 纳 杂 物 。 成 色 ： 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "8148a9b0b4bdb9b71a9bf4e23998bd60206a65c7a34945afb913829397f0abe1"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 75,
+          "sourceImage": 1,
+          "sourceFile": "codex-clipboard-ckQMM4.png",
+          "originalSha256": "1fcb5f1a7f54ffd9d89b3a8df3ea13131bc587d00a02cef4143f890efa7404ca"
+        }
+      ],
+      "observedPriceText": "5.9–9.9多规格",
+      "price": 18,
+      "priceAdjustmentReason": "单独拆分颜色，完整篮体和支架演示挂牌价18元，不把多规格最低价当作整件价。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-basket-woven-middle",
+      "productId": 1860,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        76
+      ],
+      "originalDescription": "¥ 18 ． 5 - 36 ． 5 包 邮 32 引 人 想 要 8 万 浏 览 （ 特 价 清 仓 〕 纯 手 工 编 织 大 容 量 美 式 收 纳 筐 仿 藤 编 衣 服 收 纳 箱 收 纳 整 理 新 款 网 红 收 纳 师 推 荐 外 贸 出 口 品 质 ， 纯 手 工 编 织 ， 结 实 耐 用 。 做 工 精 细 ， 细 节 处 理 非 常 到 位 ， 无 毛 刺 ， 不 会 划 手 ， 不 会 划 伤 棉 品 丝 线 ， 防 水 防 霉 。 方 形 收 纳 筐 ： 中 号 38 × 28 × 20cm 两 个 ： 35 ， 5 元 方 形 收 纳 筐 大 号 38 × 28 × 24cm 收 纳 达 人 立 即 购 买 0 聊 一 聊 展 开 v 收 藏",
+      "imageSha256": [
+        "68c9187c74356e418164f2ca5fa1eda9cfbe8de263f4e822a2660bdf7a97727d"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 76,
+          "sourceImage": 2,
+          "sourceFile": "codex-clipboard-oZrK2F.png",
+          "originalSha256": "3e3e8531ba9139f4d9d6a5a126973fe5e81a0b4a9e1f7089ab455578964feb97"
+        }
+      ],
+      "observedPriceText": "中号18.5；大号19.5；两个中号35.5",
+      "price": 18.5,
+      "priceAdjustmentReason": "采用来源单个中号18.5元口径，尺寸待实物核对，其他照片不作为两件套承诺。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-pens-bundle",
+      "productId": 1861,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "活 动 价 ¥ 58 · 00 包 邮 几 乎 全 新 80 浏 览 闲 置 文 具 一 大 包 ， 多 色 文 具 混 合 出 ， 适 合 日 常 学 习 / 办 公 / 手 账 备 用 、 有 新 有 旧 ， 荧 光 笔 基 本 都 是 新 的 ， 书 夹 新 的 ， 试 卷 袋 有 全 新 也 有 八 九 成 新 的 ； A4 尺 寸 。 彩 色 笔 有 白 乐 ， 部 分 韩 国 品 牌 ， 点 石 为 主 。 非 偏 包 邮 ， 不 议 价 ， 有 点 重 ， 喜 欢 直 接 拍 。 细 节 可 私 聊 、 成 色 ： 几 乎 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "9bec724e88e64ffce6f5e6b454a7c0e04d2e840d8a921b03947f3675beca9d65",
+        "c6fa41a47c721b324c34e2664d9e014ff3958e09dec158df88be3137809b8493"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 473,
+          "sourceFile": "473.png",
+          "originalSha256": "f08f26c99ac81453abf90ca78227ef58e85e516f3069e02e146f9b26915b720f"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 474,
+          "sourceFile": "474.png",
+          "originalSha256": "27c9e2b43fb72c9ce3b052534326cef9de0e6b979a9e1237420c8627dd343b29"
+        }
+      ],
+      "observedPriceText": "58",
+      "price": 58,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-office-cabinet",
+      "productId": 1862,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 155 包 邮 出 闲 置 文 具 ， 打 包 全 带 走 感 兴 趣 的 话 点 \" 我 想 要 \" 和 我 私 聊 吧 ～ 成 色 ： 轻 微 使 痕 0 聊 一 聊 立 即 购 买 轻 微 使 用 痕 迹 12 浏 览 收 藏",
+      "imageSha256": [
+        "14ddea022fb01f83280860233bbbf33b3cebb132537fd44e44a985bfa94171ab"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 476,
+          "sourceFile": "476.png",
+          "originalSha256": "a1db695e9b359930e1839b4171622bb1f78ec0805d45d7b1f16be0a30fcf6ad7"
+        }
+      ],
+      "observedPriceText": "155",
+      "price": 80,
+      "priceAdjustmentReason": "无明细的混合二手文具不支撑155元整组价，演示挂牌价调为80元，仍需清点实际内容。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-sticky-box",
+      "productId": 1864,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "活 动 价 ¥ 195 · 00 包 邮 高 三 毕 业 文 具 大 礼 包 闲 置 出 买 了 绝 不 亏 里 面 有 笔 、 本 、 贴 纸 、 便 利 贴 、 笔 芯 国 誉 、 白 乐 “ ． 品 牌 几 乎 全 新 9 人 想 要 2S6 浏 览 不 仅 图 示 内 容 在 持 续 整 理 中 具 体 可 以 私 聊 问 我 状 态 很 新 用 得 少 适 合 学 生 党 或 者 喜 欢 文 具 的 小 伙 伴 不 退 不 换 喜 欢 可 以 直 接 拍 有 问 题 随 时 私 聊 很 耐 心 哒 KOKUYO/ 国 誉 0 聊 一 聊 成 色 ： 几 乎 全 新 立 即 购 买 收 藏",
+      "imageSha256": [
+        "4a0e203d28f07ec020fbc6af2b436b4c4bbd1fdb3d1d3bb348c2761afc5102cc"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 481,
+          "sourceFile": "481.png",
+          "originalSha256": "01912ddbfebcd512d490a6acc98d637a40d24aca78e78e7a18670bf457ec498b"
+        }
+      ],
+      "observedPriceText": "195",
+      "price": 70,
+      "priceAdjustmentReason": "原195元包含未列明的追加内容；改为图示明确组合，演示挂牌价70元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-deli-bags",
+      "productId": 1865,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 15 包 邮 累 计 降 价 21 ％ 全 新 85 浏 览 文 具 打 包 出 都 是 没 用 过 的 大 部 分 都 是 d e 巧 得 力 的 笔 都 是 蓝 色 的 哈 闲 置 出 个 人 闲 置 物 品 二 手 商 品 不 退 不 换 看 好 再 拍 DeIi/ 得 力 0 聊 一 聊 成 色 ： 全 新 立 即 购 买 收 藏",
+      "imageSha256": [
+        "e7e219aa504eec45804377800ce288c3a2739129ea1124054c601312b740cc08",
+        "420bbb97844a5c2c5a0b4278ae2dad8b6b7dd0efa77e6b51b98f9391aedfdd26"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 484,
+          "sourceFile": "484.png",
+          "originalSha256": "8cd355c2fba737a525bf3eb5328cbde90b96d480a487a9cc01013ecbea61647f"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 485,
+          "sourceFile": "485.png",
+          "originalSha256": "e0b286b255fb6d24fcc88073b873bf4cb8d3a3e2bbb4e8a6fd62c0ebacfd0ed9"
+        }
+      ],
+      "observedPriceText": "15",
+      "price": 15,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-art-kit",
+      "productId": 1866,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 18 包 邮 〖 图 一 所 有 文 具 画 具 〗 校 考 时 期 用 的 画 具 文 具 彩 铅 几 乎 都 没 怎 么 用 有 彩 色 签 字 笔 秀 丽 楷 笔 针 管 笔 但 是 不 确 定 还 有 没 有 水 开 盲 盒 吧 闲 置 物 品 不 退 不 换 ， 非 偏 包 邮 0 聊 一 聊 立 即 购 买 1 人 想 要 67 浏 览 收 藏",
+      "imageSha256": [
+        "ccdfed621d5f2f9adc5b0ecd7b61310989447326391af37882130a631b22ab49",
+        "5fb1034360e7cc9e26d5222e978445e4843a5c40b5f32acf5152da339a7003c4",
+        "b91a649ec1658aff2bf4de33a9a0a4a4c3e9c25a974f8155d8c219323b0383a8",
+        "11c91c8d4789e58f260202e6b3dac4a102f8a2d50223a7aaef39b67a175e7cf2"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 501,
+          "sourceFile": "501.png",
+          "originalSha256": "43d8d7e4a0c576774f0dd09d773613ab257807ab6c4a9be0acfb4d8efe74d120"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 502,
+          "sourceFile": "502.png",
+          "originalSha256": "61c9e69357933993f1f89547937ec9a6d881bef89867c2a8ea62c0302609989d"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 503,
+          "sourceFile": "503.png",
+          "originalSha256": "807fd48ce74e339b744587a9b7c0af5e4ae79faeab82cff836a962eba8c97457"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 504,
+          "sourceFile": "504.png",
+          "originalSha256": "530772b7c404191d4836d7bd1b6e7684e110bfb7a1b46993c19bec1641617fc8"
+        }
+      ],
+      "observedPriceText": "18",
+      "price": 18,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-penbox-notes",
+      "productId": 1867,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 20 几 乎 全 新 36 浏 览 出 闲 置 文 具 ， 8 盒 笔 ， 3 盒 笔 芯 ， 6 个 错 题 本 ， 几 乎 没 用 过 八 成 新 。 不 拆 卖 ， 一 共 50 多 支 笔 ， 20 不 包 邮 ， 邮 费 10 走 zz 多 退 少 补 。 不 退 不 换 成 色 ： 几 乎 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "a84dddb707812fd32d6d8ce2ebb0bef1d7937d550305a2510b6b25f43cabcc58",
+        "d69026ad962c42ef125cfb9c2cf70bcab79f838238b39a23cfe3cfca1e959c4e"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 507,
+          "sourceFile": "507.png",
+          "originalSha256": "e20294258c235ae30995439a2cf49abee7c86a3e92d4f36cff94a2ce4aa29813"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 508,
+          "sourceFile": "508.png",
+          "originalSha256": "b69b032d76f7b0627ab81375ecc9a4b50bc3ef3791b3f685bd0fcab350a8e8ab"
+        }
+      ],
+      "observedPriceText": "20",
+      "price": 20,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-desk-set",
+      "productId": 1868,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 24 包 邮 出 一 堆 文 具 明 显 使 用 痕 迹 304 浏 览 临 近 搬 家 ， 打 包 出 图 中 全 部 文 具 。 有 计 算 器 、 订 书 机 、 笔 、 尺 子 等 。 标 价 包 括 所 有 图 中 内 容 ， 只 要 是 照 片 上 的 ， 全 都 包 含 在 内 ， 成 色 如 图 。 〖 购 买 须 知 〗 ． 下 单 前 可 视 频 验 货 ， 24 小 时 内 发 货 ， 签 收 后 非 质 量 问 题 不 退 。 如 有 质 量 问 题 ， 请 提 供 开 箱 视 频 并 展 示 问 题 ， 卖 方 承 担 退 货 运 费 。 ． 不 议 价 。 商 品 的 定 价 是 根 据 多 重 因 素 决 定 的 ， 会 不 定 期 调 整 。 可 以 蹲 一 蹲 等 待 降 价 后 再 来 咨 询 。 成 色 ： 明 显 使 痕 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "1207b674a307d7bc10bc7aa9b1b7d595a7b327ab953f925b7f11cf21c20831b1"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 510,
+          "sourceFile": "510.png",
+          "originalSha256": "a6750b3b020b0202e0d6a385c9bfe2efc4d07a9cd7b0f2a1c52fce3f23856cb4"
+        }
+      ],
+      "observedPriceText": "24",
+      "price": 24,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-mg-pencils",
+      "productId": 1869,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "全 新 44 浏 览 包 邮 几 乎 全 新 晨 光 1 2 色 彩 色 铅 笔 ， 型 号 AWQI 922 ， 桶 装 一 整 套 12 支 。 家 里 闲 置 出 来 的 ， 保 存 很 好 ， 没 有 使 用 痕 迹 ， 从 来 没 用 过 没 有 打 开 过 ， 笔 头 都 还 是 尖 的 ， 可 以 直 接 拿 来 画 画 涂 色 。 油 性 彩 铅 ， 颜 色 鲜 艳 、 着 色 饱 满 ， 笔 芯 细 腻 好 上 色 ， 不 易 断 芯 ， 削 起 来 也 不 费 劲 。 安 全 无 异 味 ， 学 生 画 画 、 手 工 涂 色 都 合 适 ， 桶 装 设 计 随 身 带 也 方 便 ， 也 可 以 当 补 色 彩 铅 用 。 天 津 本 地 可 自 提 ， 外 地 可 邮 寄 。 喜 欢 的 来 聊 ， 细 节 图 私 发 、 M&G/R 光 种 类 ： 铅 笔 0 聊 一 聊 成 色 ： 全 新 立 即 购 买 收 藏",
+      "imageSha256": [
+        "16beb0a35959c358191d5de52ff6c6c729dde95322dbbb8d062ce8b1f2458494",
+        "eb8ebba53bcdaecfa9f511226c4f6949f680d5fb4f0d16bfe1f184a7dd44d3e5"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 512,
+          "sourceFile": "512.png",
+          "originalSha256": "532643d1675436d823fa2904dae71ff75781a0654d9da563f08fbe54f2f9c7cb"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 513,
+          "sourceFile": "513.png",
+          "originalSha256": "8756ac8f6bd1dd6ddd5470ea2e1161b7bf8626c3feb5687063119da464096c15"
+        }
+      ],
+      "observedPriceText": "截图未识别出可靠售价",
+      "price": 8,
+      "priceAdjustmentReason": "没有可靠价签，按普通12色闲置彩铅设演示挂牌价8元。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-stat-journal-bundle",
+      "productId": 1870,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "活 动 价 ¥ 20 ． 00 包 邮 几 乎 全 新 1 人 想 要 142 浏 览 〖 文 具 福 袋 〕 搬 家 带 不 走 便 宜 出 本 子 、 笔 、 胶 水 、 手 帐 胶 带 、 素 材 、 贴 纸 之 类 的 ， 买 得 太 多 了 ， 都 质 量 都 挺 好 ， 没 怎 么 用 过 ， 成 色 很 新 ， 适 合 学 生 党 或 者 有 需 要 的 宝 宝 ， 直 接 包 邮 出 啦 、 成 色 ： 几 乎 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "imageSha256": [
+        "6044d17e608c4fbea06392837217dd468115cbc1090fd390f3ccffed6718d002",
+        "865f47787f38bf822811a941c8c54a97a8b80266b83431bd23349fee49adc49a"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 517,
+          "sourceFile": "517.png",
+          "originalSha256": "6098d57ca588f02a9a6f5159c8f52bd7649a646dcafaedeba5ba213a3e2d9f96"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 518,
+          "sourceFile": "518.png",
+          "originalSha256": "7ab6b2098f6cb79913d88215d7c814bfa6f701396955aea6674441809532d4bc"
+        }
+      ],
+      "observedPriceText": "20",
+      "price": 20,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-pp-doublefish-8484",
+      "productId": 1871,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 25 包 邮 累 计 降 价 34 ％ 明 显 使 用 痕 迹 1 人 想 要 62 浏 览 〖 二 手 闲 置 〗 双 鱼 8484 乒 乓 球 拍 一 对 ， 直 拍 ， 正 反 手 双 面 反 胶 ， 成 色 还 可 以 ， 有 点 使 用 痕 迹 ， 有 点 脱 胶 ， 不 影 响 使 用 ， 实 拍 图 。 送 收 纳 袋 ， 适 合 日 常 练 习 、 比 赛 用 。 售 出 商 品 不 支 持 退 货 ， 请 理 性 下 单 ！ DOUBLE FISH/*E 握 拍 方 式 ： 直 拍 0 聊 一 聊 成 色 ： 明 显 使 用 痕 迹 立 即 购 买 收 藏 发 闲 置 吉 0 0 0 APP 反 馈 客 服",
+      "imageSha256": [
+        "325f91e6723f294c184c924fa82121b795095fea021fea1d13c387d107860a65",
+        "3ac4ae5b9666dc4894fa788e747cfd61886346a99925d2fe3c97436ae82ecc25",
+        "47f407752f22d9073bd44f233822d79dee0d762217619465f73bad97329e3025",
+        "796bb7b9ad6150cc0aa46f5bb46f4b25450242a156c60c0cc8df40228ac37e01",
+        "2916eace5f421336bc2a1a5f5dfa8679c3f210cdb929154f88731f2b4a7b05c6"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 493,
+          "sourceFile": "493.png",
+          "originalSha256": "a7d04bd7d4fe9c31b05654b3ae287224e0e6a3bec6de5042f72a580f60fead43"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 494,
+          "sourceFile": "494.png",
+          "originalSha256": "4c989d57e17a9f5310a7da50d10515f86a75046ada527a6575adc7bca9afc661"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 495,
+          "sourceFile": "495.png",
+          "originalSha256": "f2f97583c7c802e186087dda02e3b8ad4f240467a00b9aef03d4b5fa81bbc511"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 496,
+          "sourceFile": "496.png",
+          "originalSha256": "090c2b8643caa687451828bc2cd2d2abd73a3e3059d3128cbbc0535465eadc29"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 497,
+          "sourceFile": "497.png",
+          "originalSha256": "382f0166e007b5d28af0246447aa37854bb0fbbbed9238abd80ae843c8920be8"
+        }
+      ],
+      "observedPriceText": "25",
+      "price": 25,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-pp-peak",
+      "productId": 1872,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "",
+      "imageSha256": [
+        "f9b6f7dc67ba8a29f05fdbcccd663ab09307ec53ea7b6044972d28a185fee1e5",
+        "80fdbebb8c6e4dfb384b7ef544d5d21f97d51f18942d1c2d26cc315b5e258c8c",
+        "d48e60908f389c3328beb5914e842eb428b7a49e0755abcf72cf3ebbbae96149",
+        "9f9c9d05fc6c2a101de13cf1edcee9952be255a7e5dc57691de5202be62e6fea",
+        "dc58703d34a690b95076d4101a823cb06affd1aed19027a4fe38dccbb2e9329a"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 520,
+          "sourceFile": "520.png",
+          "originalSha256": "a2a04d00f373f3d8017ebf1f54d3c7f2491d7e72b7eaccdda073014200f37732"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 521,
+          "sourceFile": "521.png",
+          "originalSha256": "234c63068ec25ab3401596b7df2c5f0e35ca78f82509fdde855f5ba1190701d3"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 524,
+          "sourceFile": "524.png",
+          "originalSha256": "4052559ab1b0415ce6b6c1e1a352994284d92f3ac8fdca1f90fb252bb814b9fe"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 527,
+          "sourceFile": "527.png",
+          "originalSha256": "ed344dc4fd125c0ca98358844574cd655390bea600e1eb7bbfdc0be4aa7dc552"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 528,
+          "sourceFile": "528.png",
+          "originalSha256": "f1f6f22c03c7a244cd7521339cefb5991bb6420e10da1960c5e0385de7ad2b82"
+        }
+      ],
+      "observedPriceText": "来源截图未识别出可靠售价",
+      "price": 20,
+      "priceAdjustmentReason": "无可靠价签，按普通二手直拍设演示挂牌价20元，非专业器材估值。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-pp-dhs-2002",
+      "productId": 1873,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 34 包 邮 明 显 使 用 痕 迹 2 人 想 要 44 浏 览 红 双 喜 2002 二 星 横 拍 水 星 和 红 双 喜 6512 的 胶 皮 ， 后 贴 的 拍 子 有 轻 微 使 用 痕 迹 胶 皮 状 态 正 常 边 缘 完 整 底 板 无 开 裂 没 有 磕 碰 个 人 闲 置 DHS/ 红 双 喜 握 拍 方 式 ： 0 聊 一 聊 成 色 ： 明 显 使 用 痕 迹 立 即 购 买 收 藏",
+      "imageSha256": [
+        "e87e5b86e1b879c82fe697e33fe15e5273fbd5a17c1e93516e6b12a99459a723",
+        "7d48ef2bb860b49973dfec42f8f0e314f3553b10cb4dcb39b26a6fee5dea4b9d",
+        "6aeb3adb3893898c2621d5a9f987cab3da591f4cf8b12b661fd32083ad2316eb",
+        "63f840a3f8f33e3fbcb5bc32e5f918854b8d204641edef59ebcb6d13b23fa89b",
+        "28eaeb7786fe3277bbddd8ef6dbbee20d56c7dd7226632c9c0db890446a55a2d"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 530,
+          "sourceFile": "530.png",
+          "originalSha256": "94f70bc7f7bb7ad1d2edb944e84b29b9bdac6578be100a128139c67deff75d66"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 531,
+          "sourceFile": "531.png",
+          "originalSha256": "ae63e32d3d3b79318b06cdd01c0edd00f211743a98bf6ef039799cbddde79ba5"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 536,
+          "sourceFile": "536.png",
+          "originalSha256": "87fb8080b848db8fb79aac676c80451dd6ff9ad103c33c9e2f985f4d45ca01f3"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 537,
+          "sourceFile": "537.png",
+          "originalSha256": "80509a90ee29f22329b624b6aab63422292092b5860e489524dd10ad1dfe3438"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 538,
+          "sourceFile": "538.png",
+          "originalSha256": "9357560e1bd15025faa8a02a409cbb210177d4a7f7a5e4cb97ddfa5511533790"
+        }
+      ],
+      "observedPriceText": "34",
+      "price": 34,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-pp-penhold-pair",
+      "productId": 1874,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 19 艹 ¥ 《 包 邮 描 述 不 符 包 邮 退 满 足 条 件 时 ， 买 家 可 退 货 目 运 由 卖 家 承 担 一 对 乒 乓 球 拍 。 全 品 无 磕 伤 无 裂 痕 有 使 用 痕 迹 特 价 包 邮 不 议 价 标 价 为 一 个 的 价 钱 不 议 价 打 包 出 成 色 ： 轻 微 使 痕 0 聊 一 聊 立 即 购 买 日 闲 鱼 号 轻 微 使 用 痕 迦 2 人 想 要 402 浏 骘 收 藏",
+      "imageSha256": [
+        "9c2dd0f197a538e78ff0b983642f789c7a3e6d8bf306a9b7578ff4c1e42f88f9",
+        "13d591b12c899b8daa2ebb0f7ba9ad96058c1145bb50be2a3f13ec8f745d04f9",
+        "21ddcaca53433e45ceebd939cd48ead7343612a8095d5c7c00d886692b88d499",
+        "013c60f9ebc540e55232a12b51642632b2210a8003c546e862c230398293fb66",
+        "e42ffff03f6975d6ca40cdb5b2d72307a51ce0968432d05f5e703c2f21da2104"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 540,
+          "sourceFile": "540.png",
+          "originalSha256": "a8021f65d2799b4de720055ebb0e44ac96e473ca8ecbdcdcb3c24dc72ac00369"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 541,
+          "sourceFile": "541.png",
+          "originalSha256": "aa6df1dcad497a9c95c6d54e2d144d13858ec0ceb2d10d654a5789b2f325ad03"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 542,
+          "sourceFile": "542.png",
+          "originalSha256": "5669aa47bbcabe0066cd0e7128b15d4ebe19e8ead21ea897e7a9786149ac86d4"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 544,
+          "sourceFile": "544.png",
+          "originalSha256": "152ac604656cd81388d942059120fc27bf5a0b6072544b6be1ca34c7b36c4271"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 545,
+          "sourceFile": "545.png",
+          "originalSha256": "975a0f93fa8aaafc6ff80d30117c32d062177ccc98495d61f4f56b89137235a5"
+        }
+      ],
+      "observedPriceText": "19每支，要求打包",
+      "price": 38,
+      "priceAdjustmentReason": "两支按来源单价19×2=38元，避免把一支价格误写成一对。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-pp-lansheng",
+      "productId": 1875,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "¥ 18 艹 ¥ 39 《 包 邮 日 闲 鱼 号 轻 微 使 用 痕 迹 2S88 人 想 要 4 万 浏 览 出 几 只 准 新 岚 晟 十 星 乒 乓 球 拍 ， 长 柄 跟 短 柄 都 有 ， 1 8 元 一 只 送 包 跟 三 个 蝴 蝶 乒 乓 球 ， 34 元 两 只 送 一 个 包 10 个 蝴 蝶 乒 乓 球 ， 除 偏 远 地 区 ， 全 部 包 邮 喜 欢 的 点 击 我 想 要 ， 一 只 直 接 拍 下 即 可 ， 两 只 联 系 我 改 价 ， 量 不 多 先 到 先 得 ， 买 到 就 是 赚 到 ， 二 手 卖 出 不 退 不 换 岚 晟 握 拍 方 式 ： 0 聊 一 聊 成 色 ： 轻 微 使 用 痕 迹 立 即 购 买 发 闲 # 0 0 0 APP 反 馈 客 服 收 藏",
+      "imageSha256": [
+        "a8aeb88aeeb1c9497c9b5e1dccf6542fe67031aa7ec1466ce3df6d47a4252b3c",
+        "0463adbc594b188f78b28237e62b5734ee665da27d178d88aa0aef026bd40514",
+        "6ca7effcb66813223fc970c2130c0d711b32891922b985321cb35ce84b5a164e",
+        "aa3decf484debc8a3b37a61fa1a8d1cb25c674d3bbb417586047378d1068b9cc",
+        "b9b593249e734350781b0677c5210ff80a3925e529a48ee9ca884b15b658b67c"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 549,
+          "sourceFile": "549.png",
+          "originalSha256": "bf0096520e0bb065af76b669c6b72e976d7e1d898faa30af760efff12c3e40cd"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 550,
+          "sourceFile": "550.png",
+          "originalSha256": "8be0b22161fa574a13dcc884ca4a0dc398c737ba8cbbf96fe7a681c76bd35add"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 551,
+          "sourceFile": "551.png",
+          "originalSha256": "a5ac37f26e0cc6651a776efe1e97659f344d7d23967014045514f267cce4e334"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 554,
+          "sourceFile": "554.png",
+          "originalSha256": "cbf05e3b835a037d99969fa3b69efe9115e036dd85e2ecbdb72ad86be4be5621"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 555,
+          "sourceFile": "555.png",
+          "originalSha256": "de8b839c1edb110f08eeb9535f42205c61e0864a035781022d85240cd187bbd3"
+        }
+      ],
+      "observedPriceText": "18单支；34两支",
+      "price": 34,
+      "priceAdjustmentReason": "使用明确的两支34元套餐口径，不误用单支价。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
+    },
+    {
+      "assetId": "recovered-20261030-pp-361-set",
+      "productId": 1876,
+      "sourcePackage": "recovered-user-session-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "sourceBatchNumbers": [
+        90
+      ],
+      "originalDescription": "日 闲 鱼 号 明 显 使 用 痕 迹 ¥ 25 ． 88 1 人 想 要 94 浏 览 包 邮 〖 361 。 乒 乓 球 拍 套 装 〕 带 原 装 拍 包 ， 一 对 横 拍 ， 成 色 还 可 以 ， 用 过 三 四 次 有 点 使 用 痕 迹 ， 胶 皮 弹 性 正 常 ， 不 知 道 是 361 的 做 工 还 是 比 较 差 的 有 可 能 也 是 因 为 这 个 拍 子 本 身 就 是 低 端 拍 吧 ， 有 脱 胶 ， 可 以 自 行 弄 一 点 胶 水 上 去 给 它 粘 起 来 ， 买 的 时 候 是 60 块 买 的 ， 现 在 不 打 了 ， 便 宜 出 了 ， 适 合 初 学 和 家 庭 娱 乐 ， 手 感 舒 服 ， 直 接 带 走 不 用 再 配 东 西 、 拍 包 也 在 ， 平 时 收 纳 携 带 都 方 便 支 持 自 提 ， 喜 欢 直 接 拍 ， 细 节 私 聊 、 361 。 握 拍 方 式 ： 0 聊 一 聊 成 色 ： 明 显 使 用 痕 迹 立 即 购 买 收 藏",
+      "imageSha256": [
+        "2047d1d662926be26977b5b5a91041a1f4f936e87593cc4c518f9c07331e5c6c",
+        "6d16e0fe002844923080bfb86b1d8c7b8047d3ffc8da8cd64c2be17a632ce589",
+        "5ab692df37628309161de95fbfcc225551d3e029a6f6dbdb3dd40835fdfaa3f8",
+        "84f0eb88263582a152b5a5970bd2673c8297a76a0259a3a202aa3fa1ca058e79"
+      ],
+      "sourcePhotos": [
+        {
+          "sourceBatch": 90,
+          "sourceImage": 558,
+          "sourceFile": "558.png",
+          "originalSha256": "e9756842e1b18875a21c05483ebe14cabf5a69254c0dd4c89bab8e71b60d1fea"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 559,
+          "sourceFile": "559.png",
+          "originalSha256": "a7cc530e2277e7b39bbdbf7cc20ace8319cbcfc98c514084ea4441e5028468aa"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 560,
+          "sourceFile": "560.png",
+          "originalSha256": "36cc96e364c3db5ef205497a5a13073bb27554fbe120f56e3b04ed4aed6f7d47"
+        },
+        {
+          "sourceBatch": 90,
+          "sourceImage": 561,
+          "sourceFile": "561.png",
+          "originalSha256": "1b7ecd8c163191f4dbf0b3bd11520e0708198e6d56c6b32d2af170e09bbba59b"
+        }
+      ],
+      "observedPriceText": "25.88",
+      "price": 25.88,
+      "priceAdjustmentReason": "保留来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": []
     }
   ],
   "excluded": [

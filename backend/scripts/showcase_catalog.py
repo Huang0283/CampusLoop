@@ -50,6 +50,11 @@ def load_catalog(directory: Path) -> dict:
             raise ValueError(f"Invalid title/description length on product {identity}")
         if product["price"] < 0 or product["condition"] not in {"NEW", "LIKE_NEW", "GOOD", "FAIR"}:
             raise ValueError(f"Invalid price/condition on product {identity}")
+        if "publicationHold" in product and (
+            not isinstance(product["publicationHold"], str)
+            or not product["publicationHold"].strip()
+        ):
+            raise ValueError(f"Publication hold needs a review reason on product {identity}")
         if product.get("originalPrice") is not None and product["originalPrice"] < product["price"]:
             raise ValueError(f"Original price below sale price on product {identity}")
         source_id = product.get("sourceAssetId")

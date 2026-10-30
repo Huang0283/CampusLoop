@@ -1,0 +1,17 @@
+{
+  "existingAccountsUnchanged": 108,
+  "businessTablesUnchanged": 11,
+  "existingProductStatesChecked": 320,
+  "intendedPublicationHolds": [
+    1610,
+    1612,
+    1701,
+    1756,
+    1779,
+    1780,
+    1783,
+    1784
+  ],
+  "backup": ".codex-tmp/recovered-catalog/daily-before-import.dump",
+  "passed": true
+}
