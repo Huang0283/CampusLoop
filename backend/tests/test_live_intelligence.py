@@ -1,4 +1,5 @@
 from datetime import timedelta
+from uuid import uuid4
 
 import pytest
 
@@ -165,3 +166,56 @@ def test_timeout_does_not_rollback_publish_and_filters_expired_wanted(client, mo
 def test_search_rejects_nonfinite_prices_without_server_error(client, parameter, value):
     response = client.get("/search", params={"query": "book", parameter: value})
     assert response.status_code == 422, response.text
+
+
+def test_catalog_search_new_products_edits_relevance_filters_and_visibility(client):
+    seller = account(client)
+    marker = uuid4().hex
+    # Publish through real upload/product APIs; assertions never depend on catalog fixture IDs.
+    seed = product(client, seller)
+    base = {
+        "category": "DIGITAL", "condition": "GOOD", "price": 100,
+        "campusLocation": "校内", "images": seed["images"], "description": "功能正常",
+    }
+
+    def publish(title, description):
+        response = client.post(
+            "/products", headers=key_headers(seller),
+            json={**base, "title": f"{title} {marker}", "description": description},
+        )
+        assert response.status_code == 201, response.text
+        return response.json()["data"]
+
+    computer = publish("验收台式电脑", "功能正常")
+    bag = publish("验收手提包", "购买后闲置，可装电脑")
+    quilt = publish("验收被子", "购买后闲置")
+
+    def search(query, **params):
+        response = client.get(
+            "/search", params={"query": f"{query} {marker}", "pageSize": 100, **params}
+        )
+        assert response.status_code == 200, response.text
+        return response.json()["data"]
+
+    ids = [row["id"] for row in search("购买电脑")["items"]]
+    assert ids.index(computer["id"]) < ids.index(bag["id"])
+    assert quilt["id"] not in ids
+    assert [row["id"] for row in search("验收 电脑 台式")["items"]] == [computer["id"]]
+    assert search("验收不存在的东西")["pagination"]["total"] == 0
+    assert search("验收 电脑", maxPrice=50)["items"] == []
+    assert search("验收 电脑", category="BEDDING")["items"] == []
+    assert search("验收 电脑", condition="NEW")["items"] == []
+    assert search("验收 电脑", page=2, pageSize=1)["items"][0]["id"] == bag["id"]
+    assert search("验收 电脑", sort="newest")["items"][0]["id"] == bag["id"]
+    changed = client.patch(
+        f'/products/{bag["id"]}', headers=headers(seller),
+        json={**base, "title": f"验收手提包 {marker}", "description": "可装平板"},
+    )
+    assert changed.status_code == 200, changed.text
+    assert bag["id"] not in [row["id"] for row in search("验收 电脑")["items"]]
+    assert bag["id"] in [row["id"] for row in search("验收 平板")["items"]]
+    hidden = client.patch(
+        f'/products/{computer["id"]}/status', headers=headers(seller), json={"status": "HIDDEN"}
+    )
+    assert hidden.status_code == 200, hidden.text
+    assert search("验收 电脑")["items"] == []

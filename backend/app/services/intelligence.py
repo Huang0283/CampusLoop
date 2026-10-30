@@ -13,6 +13,7 @@ from app.core.security import utcnow
 from app.models import Product, User, WantedPost
 from app.services.ai_adapters import rank_payload
 from app.services.business_serializers import products
+from app.services.catalog_search import SEARCH_VERSION, refine_search, search_query
 
 ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
@@ -195,9 +196,13 @@ def input_snapshot(db, query, wanted: WantedPost | None = None, filters=None):
 def rank_live(
     db, query, wanted=None, mode="keyword", filters=None, sort="relevance", lock_candidates=False
 ):
+    if wanted is None:
+        query = search_query(query)
     entities, payload = input_snapshot(db, query, wanted, filters)
     payload["options"] = {"mode": "semantic" if mode != "keyword" else "keyword", "sort": sort}
     result = rank_payload(payload)
+    if wanted is None:
+        result = refine_search(result, payload["products"], query, sort)
     # Re-read visibility after RPC, before public output; never return internal IDs blindly.
     ranked_ids = [int(item["productId"]) for item in result["items"]]
     fresh_query = select(Product)
@@ -230,6 +235,8 @@ def rank_live(
         "algorithm": result["metadata"]["algorithmVersion"],
         "options": payload["options"],
     }
+    if wanted is None:
+        stable["catalogSearchVersion"] = SEARCH_VERSION
     version = hashlib.sha256(json.dumps(stable, sort_keys=True, default=str).encode()).hexdigest()
     if wanted and (
         wanted.status != "OPEN" or wanted.expires_at is None or wanted.expires_at <= utcnow()

@@ -1,18 +1,41 @@
 import { Avatar, Button, Form, Input, Rate, Space, Tag } from 'antd'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
+import { ApiError, data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
 import type { UpdateProfileRequest } from '../sdk'
 import { Failure, Page, Resource, useMutation, useRemote } from './common'
 import { useSession } from './session'
 import { AuthScene } from '../landing/AuthScene'
 
 export function AuthPage({ registering = false }: { registering?: boolean }) {
+  return <AuthForm key={registering ? 'register' : 'login'} registering={registering} />
+}
+
+function authError(error: unknown, registering: boolean) {
+  if (error instanceof ApiError) {
+    const messages: Record<string, string> = {
+      AUTH_INVALID_CREDENTIALS: '邮箱或密码错误，请检查后重试。',
+      EMAIL_ALREADY_REGISTERED: '该邮箱已注册，请直接登录或使用其他邮箱。',
+      ACCOUNT_DISABLED: '该账号已被禁用，请联系管理员处理。',
+      RATE_LIMITED: '操作过于频繁，请稍后再试。',
+      AUTH_SERVICE_UNAVAILABLE: '登录服务暂不可用，请稍后重试。',
+      NETWORK_ERROR: '网络连接失败，请检查网络后重试。',
+      REQUEST_CANCELLED_OR_TIMEOUT: '请求超时，请稍后重试。',
+      VALIDATION_ERROR: registering ? '注册信息格式有误，请检查邮箱后缀、密码长度和昵称。' : '登录信息格式有误，请检查邮箱和密码。',
+    }
+    if (messages[error.code]) return messages[error.code]
+    if (error.status >= 500) return '服务暂不可用，请稍后重试。'
+    if (error.status === 0) return '网络连接失败，请检查网络后重试。'
+  }
+  return registering ? '注册失败，请检查填写的信息后重试。' : '登录失败，请检查邮箱和密码后重试。'
+}
+
+function AuthForm({ registering }: { registering: boolean }) {
   const mutation = useMutation()
   const navigate = useNavigate()
   const location = useLocation()
   const onFinish = (values: { email: string; password: string; nickname?: string }) => void mutation.run(async () => {
-    const result = registering ? await data(register({ body: { email: values.email, password: values.password, nickname: values.nickname || '' } })) : await data(login({ body: { email: values.email, password: values.password } }))
+    const result = await (registering ? data(register({ body: { email: values.email.trim(), password: values.password, nickname: values.nickname || '' } })) : data(login({ body: { email: values.email.trim(), password: values.password } }))).catch((error: unknown) => { throw new Error(authError(error, registering)) })
     useSession.getState().accept(result)
     const from: unknown = location.state?.from
     const safe = typeof from === 'string' && from.startsWith('/') && !from.startsWith('//') && !from.includes('\\') && !from.startsWith('/login') && !from.startsWith('/register')
@@ -21,11 +44,11 @@ export function AuthPage({ registering = false }: { registering?: boolean }) {
   return <AuthScene registering={registering}>
     <Failure error={mutation.error} />
     <Form layout="vertical" onFinish={onFinish} size="large" requiredMark={false}>
-      <Form.Item name="email" label="校园邮箱" rules={[{ required: true }, { type: 'email' }]}><Input prefix={<MailOutlined />} placeholder="请输入邮箱" autoComplete="username" autoFocus /></Form.Item>
-      {registering && <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40 }]}><Input prefix={<UserOutlined />} placeholder="请输入昵称" maxLength={40} /></Form.Item>}
-      <Form.Item name="password" label="密码" rules={[{ required: true, min: registering ? 8 : 1, max: 128 }]}><Input.Password prefix={<LockOutlined />} placeholder={registering ? '请设置至少 8 位密码' : '请输入密码'} autoComplete={registering ? 'new-password' : 'current-password'} /></Form.Item>
+      <Form.Item name="email" label="校园邮箱" normalize={(value: string) => value.trim()} extra={registering ? '演示邮箱后缀：@example.com 或 @example.invalid，例如 name@example.com。' : undefined} rules={[{ required: true, message: '请输入邮箱。' }, { type: 'email', max: 255, message: '请输入完整邮箱，例如 name@example.com。' }]}><Input prefix={<MailOutlined />} placeholder={registering ? 'name@example.com' : '请输入邮箱'} autoComplete="username" autoFocus /></Form.Item>
+      {registering && <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40, message: '请输入 1–40 个字符的昵称，不能全为空格。' }]}><Input prefix={<UserOutlined />} placeholder="请输入昵称" maxLength={40} /></Form.Item>}
+      <Form.Item name="password" label="密码" extra={registering ? '密码长度为 8–128 个字符，区分大小写；不是只能填写 8 位。' : undefined} rules={[{ required: true, message: '请输入密码。' }, { min: registering ? 8 : 1, max: 128, message: registering ? '密码长度须为 8–128 个字符。' : '密码不能超过 128 个字符。' }]}><Input.Password prefix={<LockOutlined />} placeholder={registering ? '请设置 8–128 个字符的密码' : '请输入密码'} autoComplete={registering ? 'new-password' : 'current-password'} /></Form.Item>
       {registering && <p className="note">教学演示注册：请填写类似 name@example.invalid 或 name@example.com 的测试邮箱，并自行设置密码。无需真实邮箱，也不会发送验证码；这不代表真实学校身份认证。已有账号请直接登录。</p>}
-      <Button type="primary" htmlType="submit" block loading={mutation.busy} className="submit">{registering ? '注册并登录' : '登录'}</Button>
+      <Button type="primary" htmlType="submit" aria-label={registering ? '注册并登录' : '登录'} block loading={mutation.busy} className="submit">{registering ? '注册并登录' : '登录'}</Button>
     </Form>
     <div className="alt"><Link to={registering ? '/login' : '/register'} state={location.state}>{registering ? '已有账号，去登录' : '还没有账号？去注册'}</Link><Link to="/market">先逛逛 →</Link></div>
   </AuthScene>

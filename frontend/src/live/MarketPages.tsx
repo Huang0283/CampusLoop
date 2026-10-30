@@ -80,23 +80,25 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const [params, setParams] = useSearchParams()
   const query = params.get('query') || ''
   const page = Math.max(1, Number(params.get('page')) || 1)
-  const sort = params.get('sort') === 'price_asc' ? 'price_asc' : params.get('sort') === 'price_desc' ? 'price_desc' : 'newest'
+  const rawSort = params.get('sort')
+  const searching = mode === 'public' && Boolean(query.trim())
+  const sort = rawSort === 'price_asc' || rawSort === 'price_desc' || rawSort === 'newest' ? rawSort : searching ? 'relevance' : 'newest'
   const rawSearchMode = params.get('searchMode')
-  const searchMode: 'keyword' | 'hybrid' | 'semantic' = rawSearchMode === 'keyword' || rawSearchMode === 'semantic' ? rawSearchMode : 'hybrid'
+  const searchMode: 'keyword' | 'hybrid' | 'semantic' = rawSearchMode === 'hybrid' || rawSearchMode === 'semantic' ? rawSearchMode : 'keyword'
   const category = params.get('category') || undefined
   const condition = params.get('condition') || undefined
   // FE4-04 搜索降级：先按所选模式请求，503 且非 keyword 时自动用 keyword 重试一次，仍失败才交给 error 状态。
   const loadCatalog = async (signal: AbortSignal) => {
     if (mode === 'mine') return api.data(api.listMyProducts({ signal, query: { query, page, pageSize: 12 } }))
     if (mode === 'favorites') return api.data(api.listFavorites({ signal, query: { page, pageSize: 12 } }))
-    if (!query.trim()) return api.data(api.listProducts({ signal, query: { query, page, pageSize: 12, sort, category, condition } }))
+    if (!query.trim()) return api.data(api.listProducts({ signal, query: { query, page, pageSize: 12, sort: sort === 'relevance' ? 'newest' : sort, category, condition } }))
     const runSearch = (searchModeArg: 'keyword' | 'hybrid' | 'semantic') => api.data(api.searchProducts({ signal, query: { query, page, pageSize: 12, sort, category, condition, mode: searchModeArg } }))
     try {
       return await runSearch(searchMode)
     } catch (error) {
       if (error instanceof api.ApiError && error.status === 503 && searchMode !== 'keyword') {
         const fallback = await runSearch('keyword')
-        return { ...fallback, degraded: true, degradationReason: `智能搜索暂不可用，已自动改用关键词。${fallback.degradationReason || error.code}` }
+        return { ...fallback, degraded: true, degradationReason: '智能搜索暂不可用，已自动改用关键词。' }
       }
       throw error
     }
@@ -119,10 +121,10 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
     <Failure error={mutation.error} />
     {canRecoverSearch && <Button style={{ marginBottom: 16 }} onClick={() => change('searchMode', 'keyword')}>改用关键词搜索</Button>}
     <Resource {...remote}>
-      {searchResult?.degraded && <Alert type="warning" title="搜索正在使用关键词降级结果" description={searchResult.degradationReason || '智能检索不可用，当前展示关键词结果。'} style={{ marginBottom: 16 }} />}
+      {searchResult?.degraded && <Alert type="warning" title="搜索正在使用关键词降级结果" description="智能检索暂不可用，已使用商品名称和简介进行关键词搜索。" style={{ marginBottom: 16 }} />}
       {searchResult && <div className="search-note">
         <div>当前使用：{searchModeLabel[searchResult.mode]}</div>
-        <div>结果版本：{searchResult.resultVersion || '后端未提供'}</div>
+        <div>搜索范围：商品名称和简介，新发布的商品自动参与搜索。</div>
         <div>检索说明：{searchExplanation[searchResult.mode]}</div>
       </div>}
       {remote.value?.items.length ? <ProductCards products={remote.value.items} from={location.pathname + location.search} actions={mode === 'mine' ? (product) => <Space wrap>
@@ -155,7 +157,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
     </section>
     <div className="market-body">
       <aside className="market-filters cl-card" aria-label="筛选">
-        <Input.Search maxLength={200} aria-label="搜索商品" placeholder="搜索商品关键词" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
+        <Input.Search key={query} maxLength={200} aria-label="搜索商品" placeholder="搜索商品名称或简介" defaultValue={query} onSearch={(value) => change('query', value)} allowClear />
         <div><h4>搜索方式</h4><Segmented aria-label="搜索模式" block value={searchMode} options={searchModeOptions} onChange={(value) => change('searchMode', String(value))} /></div>
         <div><h4>分类</h4><div className="cat-list" role="group" aria-label="商品分类">
           {[{ value: '', label: '全部' }, ...categories].map((entry) => {
@@ -175,7 +177,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
         <div className="grid-head">
           <h2>{query ? `“${query}” 的结果` : category ? categories.find((entry) => entry.value === category)?.label : '全部商品'}</h2>
           {total !== undefined && <span className="count">{total} 件</span>}
-          <Segmented aria-label="商品排序" value={sort} options={[{ value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', String(value))} />
+          <Segmented aria-label="商品排序" value={sort} options={[...(searching ? [{ value: 'relevance', label: '最相关' }] : []), { value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', String(value))} />
           {publish}
         </div>
         {results}

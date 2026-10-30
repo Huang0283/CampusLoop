@@ -21,7 +21,7 @@ async function routeApi(page: Page, path: string, handler: Parameters<Page['rout
 
 test.beforeEach(async ({ page }) => { await setup(page) })
 
-test('503 search fallback preserves filters and exposes actual mode, reason and version', async ({ page }) => {
+test('503 search fallback preserves filters and explains the actual search mode and scope', async ({ page }) => {
   const requests: URL[] = []
   await page.route('**/search?**', (route) => {
     const url = new URL(route.request().url()); requests.push(url)
@@ -30,7 +30,7 @@ test('503 search fallback preserves filters and exposes actual mode, reason and 
   })
   await page.goto('/market?query=教材&category=BOOKS&condition=GOOD&sort=price_asc&searchMode=semantic')
   await expect(page.getByText('搜索正在使用关键词降级结果', { exact: true })).toBeVisible()
-  await expect(page.getByText(/结果版本：search-fixture-v4/)).toBeVisible()
+  await expect(page.getByText('搜索范围：商品名称和简介，新发布的商品自动参与搜索。')).toBeVisible()
   await expect(page.getByText('当前使用：关键词检索', { exact: true })).toBeVisible()
   await expect(page.getByText(/检索说明：/)).toBeVisible()
   expect(requests.map((url) => url.searchParams.get('mode'))).toEqual(['semantic', 'keyword'])
