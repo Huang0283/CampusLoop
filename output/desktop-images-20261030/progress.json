@@ -1,0 +1,53 @@
+{
+  "updatedAt": "2026-10-30T17:43:31.998988+08:00",
+  "sourceDirectory": "C:\\Users\\Administrator\\Desktop\\图片",
+  "sourceImages": 34,
+  "newProducts": 15,
+  "newGalleryImages": 15,
+  "evidenceScreenshots": 15,
+  "excludedGroups": [
+    {
+      "photo": 9,
+      "key": "ribbon-brooch",
+      "reason": "来源明确无现货，仅可复刻定制；不作为大学二手平台的在售现物上架。",
+      "observed": "18.30元定制参考价"
+    },
+    {
+      "photo": 23,
+      "key": "rental-dog-costume",
+      "reason": "来源为35元/天的租赁服务，平台当前为二手商品出售流程，不能将日租金当出售价格。",
+      "observed": "35元/天，需押金"
+    }
+  ],
+  "dailyCategory": 2,
+  "otherCategory": 13,
+  "newProductIds": [
+    1877,
+    1878,
+    1879,
+    1880,
+    1881,
+    1882,
+    1883,
+    1884,
+    1885,
+    1886,
+    1887,
+    1888,
+    1889,
+    1890,
+    1891
+  ],
+  "catalogProducts": 390,
+  "catalogImages": 696,
+  "branch": "feat/desktop-images-20261030",
+  "merged": false,
+  "dailyImported": true,
+  "dailySite": "http://127.0.0.1:5174/market",
+  "dailyApi": "http://127.0.0.1:8001",
+  "visibleDailyTotal": 396,
+  "verifiedPhotos": 696,
+  "testsPassed": 11,
+  "browserChecks": 36,
+  "completedAt": "2026-10-30T17:48:01.366533+08:00"
+}

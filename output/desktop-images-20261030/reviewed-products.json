@@ -1,0 +1,608 @@
+{
+  "entries": [
+    {
+      "photo": 1,
+      "key": "felt-cake",
+      "title": "薄荷巧克力造型不织布蛋糕摆件",
+      "price": 25.9,
+      "description": "不织布手工蛋糕造型摆件，深棕色蛋糕主体配薄荷色装饰，顶部有草莓、饼干卷等造型。仅为装饰物，不可食用。图示为桌面摆件，本页不包含定制挂件服务。手工缝线与边缘可能有不对称，按照片查看细节。",
+      "category": "other",
+      "condition": "GOOD"
+    },
+    {
+      "photo": 3,
+      "key": "pink-staff",
+      "title": "粉白色蝴蝶结手作拍照权杖",
+      "price": 38,
+      "description": "图示粉白色手作权杖，弯柄上有丝带、蝴蝶结、珠饰与白色绒球，适合社团演出或主题拍照。来源标注长度约75cm，实际尺寸交接测量。本页对应照片中的一件现物，不包含改色、设计或定制服务；配件松紧及手作溢胶请见面检查。",
+      "category": "other",
+      "condition": "GOOD"
+    },
+    {
+      "photo": 5,
+      "key": "crochet-dolls",
+      "title": "毛线钩织造型玩偶两只组合",
+      "price": 80,
+      "description": "图示两只毛线钩织造型玩偶，均带帽饰和花朵等装饰。来源称单只高度约15cm，实际大小与造型以照片为准。本页为照片中两只现物一起转让，手工缝合和五官可能略有不对称，附属装饰请交接清点。",
+      "category": "other",
+      "condition": "GOOD",
+      "observed": "来源45元；定制36–48元不等，未明确图中两只组合价。",
+      "reason": "照片含两只玩偶，按图示两只组合设演示挂牌价80元；不把45元单款价直接当两件组合价。"
+    },
+    {
+      "photo": 7,
+      "key": "faceted-beads",
+      "title": "棕金色6mm切面手作珠一组",
+      "price": 15,
+      "description": "棕金色透明切面手作珠，带穿线孔，可作串珠及手工作品配件。来源标注6mm、40颗15元；本页按该组来源规格整理，数量与孔径需交接时清点核对，照片未逐粒计数。珠体可能有微小瑕疵，不承诺每颗颜色与切面完全一致。",
+      "category": "other",
+      "condition": "GOOD"
+    },
+    {
+      "photo": 11,
+      "key": "figure-charms",
+      "title": "毛球串珠造型挂件六件组合",
+      "price": 90,
+      "description": "图示六件不同配色的造型挂件，每件配挂环、串珠或毛球装饰。本页对应照片中六件一起转让，不是随机款，也不包含来源宣传的额外赠品。挂环牢固程度、配件数量及表面细节请交接核对。",
+      "category": "other",
+      "condition": "GOOD",
+      "observed": "10.66–49.99元多款区间价，未明确图示六件整组价格。",
+      "reason": "按照片六件组合设置演示挂牌价90元；不把最低单款价作为整组六件价格。"
+    },
+    {
+      "photo": 13,
+      "key": "foxtail-fern",
+      "title": "狐尾天门冬盆栽两盆组合",
+      "price": 18.8,
+      "description": "图示两盆狐尾天门冬，叶片呈细密蓬松的直立形态，带原有盆土一起交接。来源明确写两盆装18.8元，本页对应两盆组合。植物状态会随养护与时间变化，交接时查看叶片、盆土与根部情况；不沿用原来源的异地配送承诺。",
+      "category": "other",
+      "condition": "GOOD",
+      "observed": "价签16.8–95元；正文明确两盆装18.8元。",
+      "reason": "采用正文对应图中两盆组合的18.8元，不采用多规格区间最低价。"
+    },
+    {
+      "photo": 15,
+      "key": "potted-chrysanthemum",
+      "title": "粉色小菊盆栽 含盆土",
+      "price": 25,
+      "description": "一盆图示粉色小菊，带原花盆与盆土，照片中可见已开花与花苞。来源称高度约40cm，交接以实物测量为准。旁边背景花束及摆件不在转让范围内；植物花期和叶片状态会变化，见面确认盆体、叶片与花苞。",
+      "category": "other",
+      "condition": "GOOD"
+    },
+    {
+      "photo": 17,
+      "key": "pruning-shears",
+      "title": "Berry&Bird园艺修枝剪 带包装盒",
+      "price": 54.8,
+      "description": "图示Berry&Bird园艺修枝剪一把，带包装卡与盒子。本页只包含剪具及图示原包装，不包含其他园艺配件。来源标注SK5高碳钢，材料信息尚未独立验证；交接检查开合、锁扣、刀刃及包装状态。",
+      "category": "other",
+      "condition": "GOOD",
+      "conditionOverride": "NEW",
+      "categoryOverride": "DAILY"
+    },
+    {
+      "photo": 19,
+      "key": "blue-moon-plant",
+      "title": "蓝月光蔓绿绒盆栽 含盆土",
+      "price": 15.88,
+      "description": "图示一盆观叶植物，来源称蓝月光蔓绿绒，具体品种未独立鉴定。带原花盆与盆土，叶片及新芽状态见照片，交接时再次确认盆体、根系和叶片。植物生长状态会随养护变化，不作长期存活或养护效果保证。",
+      "category": "other",
+      "condition": "GOOD"
+    },
+    {
+      "photo": 21,
+      "key": "natural-seed-pods",
+      "title": "天然银叶果手工素材六个组合",
+      "price": 6,
+      "description": "图示六个天然果壳造型手工素材，来源称银叶果。可用于手工装饰、造型或摆放；不作为食品或可发芽种子出售。天然纹理、尺寸和颜色各有不同，本页范围仅为图示六个，交接时核对完整程度。",
+      "category": "other",
+      "condition": "GOOD",
+      "observed": "49.90元，正文称50个起发，未明确照片六个的价格。",
+      "reason": "来源批量范围不对应图示六个，按六个现物组合设演示挂牌价6元，保留批量原价及原因。"
+    },
+    {
+      "photo": 25,
+      "key": "cosplay-shoulder-pad",
+      "title": "Cosplay造型肩垫 单件",
+      "price": 29.1,
+      "description": "图示手工造型肩垫一件，带弹力带及固定结构，适合社团服装制作和舞台造型。本页按照片中的单件整理，不将单侧照片描述成一对。来源提到单侧增加约3–4cm，实际厚度和适配肩宽需实物核对；不保证对任何体型都合身。",
+      "category": "other",
+      "condition": "GOOD"
+    },
+    {
+      "photo": 27,
+      "key": "photo-diffuser-umbrella",
+      "title": "白色65cm摄影柔光伞",
+      "price": 35,
+      "description": "图示白色球形摄影柔光伞，来源标注直径约65cm，适合摄影、拍照及补光布置。它是摄影柔光附件，不能当作遮雨伞使用。照片未完整展示灯具、电源及支架，挂牌范围为柔光伞本体，相关附件与安装接口请交接确认；不沿用来源的插电即用承诺。",
+      "category": "other",
+      "condition": "GOOD",
+      "categoryOverride": "DAILY",
+      "conditionOverride": "LIKE_NEW"
+    },
+    {
+      "photo": 29,
+      "key": "pink-blue-prop-fork",
+      "title": "粉蓝色蝴蝶结Cosplay道具叉",
+      "price": 56,
+      "description": "图示粉蓝色手作道具叉，带蝴蝶结、丝带与珠饰，适合社团演出和主题拍照。来源标注PVC材质、长约50cm，实际尺寸和结构见面确认。本页仅为照片中的一件现物，不包含其他长度、改色或定制服务；手作可能有溢胶与不对称。",
+      "category": "other",
+      "condition": "GOOD"
+    },
+    {
+      "photo": 31,
+      "key": "flower-hairclips",
+      "title": "浅紫色缠花Cosplay发饰一组",
+      "price": 49,
+      "description": "图示浅紫色缠花造型发饰，花瓣配浅蓝色垂片与珠饰。本页对应照片右侧展示的花饰一组；具体夹具和数量请交接清点，不包含左侧角色参考图中的服装及其他装扮。手工花瓣可能有轻微不对称，避免挤压与拉扯，交接检查固定结构。",
+      "category": "other",
+      "condition": "GOOD",
+      "crop": [
+        0.51,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "photo": 33,
+      "key": "cosplay-prop-sword",
+      "title": "蓝金色Cosplay道具剑（柄部有瑕疵）",
+      "price": 50,
+      "description": "图示蓝金配色Cosplay道具剑一件，仅作舞台造型或拍照道具。来源明确本体不会发光，且各件柄部圆弧均有塌陷；本页保留这一瑕疵，不按完美品描述。该来源还有不同颜色及较重瑕疵版本，本页只对应所示蓝金色外观，透光程度、柄部变形与配件需交接逐项确认，不包含发光设备。",
+      "category": "other",
+      "condition": "GOOD",
+      "conditionOverride": "FAIR"
+    }
+  ],
+  "excluded": [
+    {
+      "photo": 9,
+      "key": "ribbon-brooch",
+      "reason": "来源明确无现货，仅可复刻定制；不作为大学二手平台的在售现物上架。",
+      "observed": "18.30元定制参考价"
+    },
+    {
+      "photo": 23,
+      "key": "rental-dog-costume",
+      "reason": "来源为35元/天的租赁服务，平台当前为二手商品出售流程，不能将日租金当出售价格。",
+      "observed": "35元/天，需押金"
+    }
+  ],
+  "provenance": [
+    {
+      "assetId": "desktop-20261030-felt-cake",
+      "productId": 1877,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 25 ． 90 包 邮 薄 荷 巧 克 力 小 蛋 糕 2 ， 0 ， 不 织 布 摆 件 可 以 定 制 成 挂 件 标 价 包 邮 可 直 拍 會 手 工 制 品 默 认 有 瑕 ， 售 出 不 退 不 换 0 聊 一 聊 立 即 购 买 59 人 想 要 2367 浏 览 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "a6bdd457b868f4a442e6c5d359fadc18.png",
+          "originalSha256": "aea948d0534546941b0b905e6a582cb9d97dc8e6b14697f58ac54c1e139236c7"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "73ed007294f27cd3d5e365f40bc858be.png",
+        "sha256": "179945fcfffdd19b25219b87da92311fef2fc747ec930daa9486c351c485f51d"
+      },
+      "imageSha256": [
+        "fdea55e14fe5a7c1062151634fb633dc5a988b045aedc4fb0659c122cf357833"
+      ],
+      "observedPriceText": "25.9",
+      "price": 25.9,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-pink-staff",
+      "productId": 1878,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 38 包 邮 Lo 手 作 权 杖 道 具 拐 棍 现 货 / 可 定 制 粉 白 蓝 白 爱 丽 丝 粉 棕 薄 荷 绿 均 可 定 制 长 度 75cm 其 他 长 度 也 能 做 定 制 款 工 期 7 到 1 5 天 接 受 | 0 裙 图 定 制 ， 根 据 不 司 0 裙 特 别 设 计 拍 下 根 据 裙 子 设 计 会 出 稿 出 稿 根 据 小 宝 们 喜 好 和 裙 子 元 素 设 计 细 节 都 可 以 沟 通 改 动 实 物 和 稿 子 由 于 材 料 尺 寸 比 对 调 整 会 向 裙 子 元 素 靠 拢 有 一 定 出 入 手 作 成 品 不 退 换 无 开 箱 不 售 后 出 售 状 态 ： 儿 贝 0 聊 一 聊 配 件 饰 品 ． 其 他 立 即 购 买 116 人 想 要 S920 浏 览 展 开 v 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "87b5a3e0e743ee332385edd0a663fe5e.png",
+          "originalSha256": "d7e4cedde55afa9220dab2ecae7d1bfe5681be75c54d93831d427fd520fc358d"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "8a73f8ebcdca9c8ce83bc31042bbb846.png",
+        "sha256": "c1871d7abeeee8c43cf0defa126dd1d3b7bb4887ae7df3f42c38c537d262e62e"
+      },
+      "imageSha256": [
+        "0acda892e061b95a08eeb33d3d8a32abca0744bd1443baef5250731958880301"
+      ],
+      "observedPriceText": "38",
+      "price": 38,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-crochet-dolls",
+      "productId": 1879,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 45 包 邮 370 人 想 要 8248 浏 览 大 软 糖 钩 织 玩 偶 ， 纯 手 工 制 作 ， 约 1 5 厘 米 高 。 多 款 造 型 可 选 ， 毛 线 钩 织 的 手 感 超 好 ， 做 工 精 致 可 爱 。 定 制 36 一 48 不 等 不 包 邮 手 工 制 品 难 免 有 小 瑕 疵 ， 完 美 主 义 者 慎 拍 。 不 退 不 换 ， 介 意 勿 拍 。 喜 欢 的 小 伙 伴 赶 紧 私 聊 我 吧 ～ 可 以 提 供 更 多 款 式 实 拍 细 节 图 。 也 可 发 图 片 定 制 ， 欢 迎 大 家 来 选 购 ！ 0 聊 一 聊 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "da60ab272196f4fec6191b6ac15b0e53.png",
+          "originalSha256": "d9472dd20335178fddc301447ed2ae9064979a6493797166af8b033c312ef242"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "1900f6a1a507612bf6f8face6ce8bb90.png",
+        "sha256": "0198800d52c78d7a672e53c4a611837c7d4a4df3ef8b3908ff2d654d5ce3b651"
+      },
+      "imageSha256": [
+        "506ac58e29e923ecaa336bf0f65129798bd2c7f1bd2a6ea85f5545e5d2361464"
+      ],
+      "observedPriceText": "来源45元；定制36–48元不等，未明确图中两只组合价。",
+      "price": 80,
+      "priceAdjustmentReason": "照片含两只玩偶，按图示两只组合设演示挂牌价80元；不把45元单款价直接当两件组合价。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-faceted-beads",
+      "productId": 1880,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 15 包 邮 轻 微 使 用 痕 迹 28 人 想 要 746 浏 览 手 作 捷 克 珠 退 坑 6mm 40 颗 1 5 元 绝 对 便 宜 默 认 微 瑕 后 面 不 用 来 挑 珠 子 问 题 满 40 元 包 邮 二 手 商 品 不 退 不 换 能 接 受 来 当 天 没 有 凑 到 起 送 的 取 消 订 单 请 确 认 能 凑 到 40 元 再 拍 DIY 配 件 ： 零 部 亻 牛 缺 少 ， 不 影 响 使 0 聊 一 聊 成 色 ： 轻 微 使 用 痕 迹 材 质 ： 其 他 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "58717e975b845fe8b1add9f877700034.png",
+          "originalSha256": "7db7191eef798fbbfbf723ba3c70b471e370c341395876bd182adec8e2622d2f"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "e63077444c43d2794649b57c35ed7304.png",
+        "sha256": "5328cd54559721680c4013c8fd1d8991b32e1723882d7094987bd6edf7d4eeb3"
+      },
+      "imageSha256": [
+        "c59565aa9ef93af9b3b6fa84065ca815c1f85e4c22861ee66ca867e2888eee16"
+      ],
+      "observedPriceText": "15",
+      "price": 15,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-figure-charms",
+      "productId": 1881,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "活 动 价 ¥ 10 ． 66 - 49 ． 99 包 邮 8 人 想 要 384 浏 览 全 新 D 丨 Y 手 工 D | MOO 星 期 八 系 列 萌 粒 挂 件 ， 现 货 ！ 下 单 包 由 超 可 爱 造 型 ， 毛 球 + 串 珠 装 饰 ， 挂 包 包 / 手 机 / 钥 匙 / 耳 机 盒 / 书 包 都 很 白 搭 ， 颜 值 在 线 ， 氛 围 感 拉 满 ， 送 礼 自 留 都 合 适 ！ 库 存 还 有 最 近 50 套 ， 喜 欢 直 接 拍 ， 细 节 私 聊 ～ 下 单 不 退 不 换 ， 一 件 包 邮 （ 下 单 送 手 机 垫 片 ） DIY 0 聊 一 聊 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "7409d14db5e1448f18f6d890f9691519.png",
+          "originalSha256": "1d2a22e86fdce108c2363299300b7a941c122cad8af396912af1e84525608a42"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "3beb39d5e88d98c2e53ae12f4bf83a9b.png",
+        "sha256": "da131d0427d830f308ec71db88b31f6370750a68e049ef26272228389d57b0be"
+      },
+      "imageSha256": [
+        "2d47f4ad7b4c71a4b0ff81a652b5e562e90e43c336f1cdaa2bb4c45653afe365"
+      ],
+      "observedPriceText": "10.66–49.99元多款区间价，未明确图示六件整组价格。",
+      "price": 90,
+      "priceAdjustmentReason": "按照片六件组合设置演示挂牌价90元；不把最低单款价作为整组六件价格。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-foxtail-fern",
+      "productId": 1882,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 16 · 8 - 95 包 邮 53 人 想 要 889 浏 览 狐 尾 天 门 冬 ， 2 盆 装 1 8 ． 8 包 邮 。 图 片 就 是 发 货 实 拍 。 状 态 好 ， 叶 子 细 密 ， 观 赏 性 强 ， 养 护 简 单 ， 皮 实 好 养 ， 阳 台 院 子 都 能 种 ， 新 手 也 能 养 活 ， 净 化 空 气 ， 观 赏 性 强 。 带 盆 发 货 ， 包 邮 （ 新 疆 、 西 藏 、 内 蒙 、 海 南 不 发 ） ， 喜 欢 的 可 以 自 提 ， 也 能 邮 寄 。 要 细 节 图 私 聊 ， 喜 欢 直 接 拍 、 0 聊 一 聊 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "6f3a4976455376b2ac816095f92f4867.png",
+          "originalSha256": "4834aa5eb91c857091d7f74ea89ddce953c7c56f3c6cabcb24e460a5646bd67d"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "838848a8eb6edc63de39f51854466363.png",
+        "sha256": "35a4e48e4e001fe05407c4bcb90c18060471e2d00c2d585762be59bd6573d14a"
+      },
+      "imageSha256": [
+        "ae8d9a979a5577fb05e782542210aadde9ff9a515283ee53e7e334794e9d6edc"
+      ],
+      "observedPriceText": "价签16.8–95元；正文明确两盆装18.8元。",
+      "price": 18.8,
+      "priceAdjustmentReason": "采用正文对应图中两盆组合的18.8元，不采用多规格区间最低价。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-potted-chrysanthemum",
+      "productId": 1883,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 25 《 仅 自 提 5 浏 览 南 农 丹 心 切 花 小 菊 ， 带 盆 一 起 出 ， 直 接 养 不 用 换 盆 ， 带 原 盆 土 发 货 ～ 高 度 大 约 40C m ， 叶 片 健 康 ， 根 系 状 态 好 ， 花 苞 饱 满 ， 花 型 漂 亮 皮 实 好 养 ， 新 手 也 能 轻 松 照 顾 ， 室 内 阳 台 都 适 合 ， 观 赏 性 强 。 支 持 自 提 ， 喜 欢 直 接 拍 ， 细 节 图 私 聊 发 、 含 盆 亻 七 ． 艹 0 聊 一 聊 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "49a2ae6c0e57e542071335914cc07eb2.png",
+          "originalSha256": "b76e9596dc3bb7709f4126bd86b32428b6ec5c54b920f6689cb6242950cc4683"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "3a4c04a183116bb81343daa8325374a1.png",
+        "sha256": "c5883213a6b47a04b6af5795806124ca825584327112f7258f108574a2813605"
+      },
+      "imageSha256": [
+        "fe477c929ad4c7be3d588cd5aa344e9a9f1299dcb3a3289598b2ab9c0db30943"
+      ],
+      "observedPriceText": "25",
+      "price": 25,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-pruning-shears",
+      "productId": 1884,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 54 · 80 宀 ¥ 宀 包 邮 全 新 13 人 想 要 369 浏 览 〖 全 新 正 品 店 铺 满 两 件 包 邮 〕 Berry&Bird 园 艺 修 枝 剪 ， 带 原 包 装 盒 SK5 高 碳 钢 刀 片 ， 利 耐 用 ， 手 柄 舒 适 ， 剪 粗 枝 细 枝 都 OK, 家 用 阳 台 花 园 都 能 用 ， 设 计 省 力 ， 修 花 剪 枝 很 方 便 店 内 任 拍 两 件 包 邮 ， 同 城 可 自 提 ， 喜 欢 直 接 拍 Berry&Bi rd / 园 艺 森 林 0 聊 一 聊 成 色 ： 全 新 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "70c27a22ea90f2cfe5c341f985ec04d2.png",
+          "originalSha256": "a6ab2637a431be7f95ff7083695532a276071cd4e79523ac15afcd9dd728a7cb"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "a35c4ba58123bc1bddd44385b56e68c8.png",
+        "sha256": "ca61f7868e769368a4707c4311100a3d9782475e3f0c5c793b79350b39b8e1c1"
+      },
+      "imageSha256": [
+        "39818eb1a2986315aa4ff2971f9f2d03a10fa0ab756037b41156701943184b04"
+      ],
+      "observedPriceText": "54.8",
+      "price": 54.8,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-blue-moon-plant",
+      "productId": 1885,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 15 ． 88 仅 61 浏 览 蓝 月 光 藤 芋 ， 带 盆 土 一 起 出 ！ 根 系 很 健 康 ， 叶 片 状 态 也 不 错 ， 养 着 很 省 心 、 用 的 华 风 园 好 土 ， 养 护 简 单 ， 只 支 持 自 提 哈 ， 喜 欢 的 可 以 私 聊 植 物 品 种 ： 其 他 0 聊 一 聊 含 盆 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "67917b248b23d2fbd68c2f5a1fa98361.png",
+          "originalSha256": "2f00996cd37cae7c2f1498d149e07da773cefa1deedb148048d6d3e024bb1c7e"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "192f4b4b9c6654ff459a8f2bcefc0b8a.png",
+        "sha256": "bf1b53498fca61e912c601f2428624f63f8ed0c6ad3fc353e17eda53771e9b5d"
+      },
+      "imageSha256": [
+        "7d838b491deb0af036023855a87385fd94e88b64db890d3f00c4f466349a0964"
+      ],
+      "observedPriceText": "15.88",
+      "price": 15.88,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-natural-seed-pods",
+      "productId": 1886,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 49 · 90 包 邮 5 浏 览 银 叶 果 ， 南 方 天 然 果 实 ， 今 年 新 果 ， 外 壳 完 整 ， 自 然 生 长 纹 理 ， 表 面 光 滑 ， 手 感 不 错 。 适 合 D | Y 手 工 、 标 本 、 园 艺 、 家 居 摆 件 等 。 数 量 有 限 ， 50 个 起 发 包 邮 ， 喜 欢 可 聊 0 聊 一 聊 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "0237f3a2b16c26f8a6d7121db037334e.png",
+          "originalSha256": "fd54bf17e21a550ae2090863cb563c336a2553d18776eefdb9cd860558b42830"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "cdfbcf8b4c103dd14ee22ee8bf8e267e.png",
+        "sha256": "f62f56fa1c0fbc1448da59b309d25b8d97cd41eca231bdea400ad75df5ce6e03"
+      },
+      "imageSha256": [
+        "b487218722ec8215aed628e20eb0c66699fc9900535e8c328403e6351d3b693b"
+      ],
+      "observedPriceText": "49.90元，正文称50个起发，未明确照片六个的价格。",
+      "price": 6,
+      "priceAdjustmentReason": "来源批量范围不对应图示六个，按六个现物组合设演示挂牌价6元，保留批量原价及原因。",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-cosplay-shoulder-pad",
+      "productId": 1887,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "活 动 价 ¥ 29 ． 10 包 邮 全 新 1782 人 想 要 7 万 浏 览 成 男 Cos 垫 肩 / 肌 肉 垫 肩 ， 现 货 包 邮 ， 可 邮 寄 、 手 工 缝 制 ， 单 边 增 加 约 4cm ， 肩 部 固 定 更 稳 ， 不 容 易 滑 落 ； 大 臂 松 紧 带 固 定 ， 活 动 更 灵 活 ， 肩 膀 魔 术 贴 设 计 ， 穿 着 也 更 稳 。 适 合 cos 服 、 服 装 设 计 、 舞 台 演 出 等 场 景 ， 可 做 男 性 直 角 肩 效 果 ， 大 臂 有 肌 肉 弧 形 ， 整 体 更 有 肩 宽 和 力 量 感 。 发 货 ： 现 货 ， 一 般 当 天 发 出 ， 最 晚 第 二 天 上 午 发 出 。 现 货 可 拍 ， 不 退 不 换 。 （ 新 疆 、 西 藏 、 内 蒙 古 半 包 邮 ） cosplay 舞 台 演 出 成 男 垫 肩 肌 肉 垫 肩 其 他 成 色 ： 全 新 0 聊 一 聊 其 他 ACG 作 品 出 售 状 态 ： 丸 贝 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "eed66dac25ec0260ecd5e0c0f3a3339b.png",
+          "originalSha256": "bfaf85a414c2bf691341c8e05bdfdaa8892d5034a073250bb1950b256ce3b3c0"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "66c47be23256ba82430cff017a3a2b5a.png",
+        "sha256": "3e90bc92f4730c937eb1efde80d7703cbebef7bde95c3c1d0b367bdc7e92dc43"
+      },
+      "imageSha256": [
+        "4f2f523d072e29d112a76f332380dbee9c6137bf768a727b535c2c4886816809"
+      ],
+      "observedPriceText": "29.1",
+      "price": 29.1,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-photo-diffuser-umbrella",
+      "productId": 1888,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 35 包 邮 几 乎 全 新 2 人 想 要 22 浏 览 白 色 球 形 柔 光 伞 ， 直 径 约 65cm ， 伞 面 干 净 ， 几 乎 全 新 ， 保 存 很 好 ， 没 啥 使 用 痕 迹 ， 适 合 摄 影 、 直 播 、 补 光 用 ， 灯 光 柔 和 均 匀 ， 拍 人 像 、 美 妆 、 服 装 都 合 适 ， 伞 体 结 实 ， 撑 开 平 整 ， 插 电 即 用 ， 功 能 正 常 ， 家 里 工 作 室 都 能 用 干 干 净 净 ， 闲 置 出 ， 包 邮 发 货 ， 价 格 可 聊 ， 喜 欢 直 接 拍 ， 细 节 图 私 聊 成 色 ： 几 乎 全 新 0 聊 一 聊 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "e3d80bf57febdf1774f185289143ad25.png",
+          "originalSha256": "042c3890de6b0f8e39348c059567e21106e5cf85fd85b69db85e76f4399241f1"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "fa7e8093fdae1e0c8d153cb4360d91b3.png",
+        "sha256": "8cbd3abd7d70b39ae194397b70d439902d6cdcaebea6d7ee6117f6fe58e82f48"
+      },
+      "imageSha256": [
+        "08d07e01dd65a6d01c62d370513baaf07ce3f47d5461c170ae4f7314ae3f6946"
+      ],
+      "observedPriceText": "35",
+      "price": 35,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-pink-blue-prop-fork",
+      "productId": 1889,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 56 包 邮 233 人 想 要 7543 浏 览 粉 蓝 色 50cm 长 cosp 丨 ay 道 具 叉 子 pvc 材 质 漫 展 活 动 演 出 手 作 Lo 丨 ita 拍 照 道 具 可 以 改 色 的 哦 ！ 还 可 以 做 80cm 长 120Cm 长 的 哦 ^ 0 ^ 手 工 自 己 做 的 ， 需 要 的 宝 宝 拍 下 ， 手 工 默 认 微 瑕 直 拍 价 包 邮 包 s × f 出 售 状 态 ： 儿 贝 0 聊 一 聊 配 件 饰 品 ． 其 他 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "495abb8c6868dd539a5a4e9700297fd2.png",
+          "originalSha256": "861b0cb798fae00b9a45f7551f0f99645be18ad3db9f9884c78bc8d97b994ef9"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "6978102ef80fbeda342a988ee0a841ed.png",
+        "sha256": "da174431f224cbcad77664ab8197f7e6afb1efb0a4756bd9486f5bbdb465564b"
+      },
+      "imageSha256": [
+        "39769d0c5ee9e17fafc67884959de14e875061474d758807b56cbafc9ba598cb"
+      ],
+      "observedPriceText": "56",
+      "price": 56,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-flower-hairclips",
+      "productId": 1890,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 49 包 邮 27 人 想 要 982 浏 览 〖 现 货 〗 原 神 荧 妹 COS 道 具 旅 行 者 因 提 瓦 特 花 头 饰 手 工 缠 花 发 夹 O 标 价 包 邮 可 直 拍 ， 加 购 主 页 任 意 一 件 包 邮 商 品 可 减 6 元 ， 偏 远 地 区 需 补 运 费 。 （ 西 藏 和 新 疆 需 要 衤 卜 1 2 元 ） 缠 花 怕 水 怕 火 ， 切 勿 挤 压 、 拉 扯 ， 收 到 缠 花 后 如 有 变 形 可 适 当 调 整 形 状 0 聊 一 聊 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "217df00d491c19c92a029ebe4b058192.png",
+          "originalSha256": "ef702eae529e1f0e79152ea9a3e59ac826503913e6f76aa99249fc139cbcaac4"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "ed169421fb4c2e2d2f1932cc3bdb55c9.png",
+        "sha256": "35e6a1f171d5c9d67a424a3907394eb6b7c8030626ff5a5bc9593790e7f05400"
+      },
+      "imageSha256": [
+        "94c0a5f968f1dcf7ba8c1d7c1db20221e3cecc163bab6426ffa56dd71651e2db"
+      ],
+      "observedPriceText": "49",
+      "price": 49,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ],
+      "imageEdits": [
+        {
+          "file": "desk-flower-hairclips-1.jpg",
+          "crop": [
+            0.51,
+            0,
+            1,
+            1
+          ],
+          "reason": "保留右侧实物花饰，移除左侧角色参考画面。",
+          "originalSha256": "ef702eae529e1f0e79152ea9a3e59ac826503913e6f76aa99249fc139cbcaac4",
+          "sha256": "94c0a5f968f1dcf7ba8c1d7c1db20221e3cecc163bab6426ffa56dd71651e2db"
+        }
+      ]
+    },
+    {
+      "assetId": "desktop-20261030-cosplay-prop-sword",
+      "productId": 1891,
+      "sourcePackage": "user-desktop-images-20261030",
+      "sourceType": "user-supplied-photos-and-screenshots",
+      "originalDescription": "¥ 50 艹 ¥ 7 人 想 要 208 浏 览 〖 现 货 直 拍 〗 奥 黛 塔 co s 武 器 现 货 散 件 没 用 过 可 自 己 加 手 电 发 光 ， 本 身 不 会 发 光 ， 没 赶 上 计 划 拍 完 没 用 上 可 直 拍 ， 不 包 ， 拍 下 私 信 颜 色 0 品 做 多 四 把 ， 金 色 一 把 ， 亮 金 三 把 ， 例 图 亮 金 ， 亮 金 和 金 色 对 比 见 图 五 ， 亮 金 有 一 把 瑕 品 （ 图 4 ） 剑 身 温 度 过 高 不 那 么 透 + 柄 圆 弧 塌 陷 严 重 （ 每 把 都 有 塌 陷 ） ， 瑕 品 一 8r （ 发 货 返 ） 亮 金 余 2 配 件 饰 品 ． 装 备 / 武 器 0 聊 一 聊 出 售 状 态 ： 丸 贝 立 即 购 买 收 藏",
+      "sourcePhotos": [
+        {
+          "sourceFile": "d34664369ac6e6de36c1b265000d5e01.png",
+          "originalSha256": "30684eb90650cb9f42f9b006ba2c526345b64742714c62fb80304e36ec23c4e0"
+        }
+      ],
+      "sourceEvidence": {
+        "sourceFile": "b6cffc56068295781d8f485d6f87b146.png",
+        "sha256": "8ff58a8111980409e9b16505bb62c5a4e5bfc60f6e3245165e5f5aa3b9bd488e"
+      },
+      "imageSha256": [
+        "e018e0880dbb738418fa36e8b3be3d10db93352db3c93c2a22b5370c03fc60b5"
+      ],
+      "observedPriceText": "50",
+      "price": 50,
+      "priceAdjustmentReason": "保留与本页单件范围对应的来源标价",
+      "priceType": "demo_asking_price",
+      "detailVerified": false,
+      "reviewNotes": [
+        "按用户指定分类：雨伞和剪具归DAILY，其余归other；仅使用商品照片，不将说明截图放入图库。"
+      ]
+    }
+  ]
+}
