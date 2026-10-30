@@ -40,8 +40,8 @@
   ],
   "catalogProducts": 390,
   "catalogImages": 696,
-  "branch": "feat/desktop-images-20261030",
-  "merged": false,
+  "branch": "main",
+  "merged": true,
   "dailyImported": true,
   "dailySite": "http://127.0.0.1:5174/market",
   "dailyApi": "http://127.0.0.1:8001",
@@ -49,5 +49,6 @@
   "verifiedPhotos": 696,
   "testsPassed": 11,
   "browserChecks": 36,
-  "completedAt": "2026-10-30T17:48:01.366533+08:00"
+  "completedAt": "2026-10-30T17:48:01.366533+08:00",
+  "catalogCommit": "d7deff8"
 }

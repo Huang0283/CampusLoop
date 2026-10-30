@@ -1,0 +1,10 @@
+{
+  "catalogCommit": "d7deff8",
+  "baseMain": "db665f2",
+  "branch": "main",
+  "merged": true,
+  "mergeMethod": "fast-forward",
+  "localSite": "http://127.0.0.1:5174/market",
+  "api": "http://127.0.0.1:8001",
+  "recordedAt": "2026-10-30T17:49:05.392570+08:00"
+}
