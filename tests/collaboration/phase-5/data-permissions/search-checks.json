@@ -1,0 +1,549 @@
+[
+  {
+    "id": "Q01",
+    "kind": "exact",
+    "query": "九成新高等数学上册",
+    "filters": {
+      "category": "BOOKS"
+    },
+    "acceptableProductFixtureIds": [
+      "P001"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P001"
+    ],
+    "reason": "人工按商品定义核对：九成新高等数学上册；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q02",
+    "kind": "synonym",
+    "query": "高数",
+    "filters": {
+      "category": "BOOKS"
+    },
+    "acceptableProductFixtureIds": [
+      "P001"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P049"
+    ],
+    "reason": "人工按商品定义核对：九成新高等数学上册；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q03",
+    "kind": "purpose",
+    "query": "学习微积分",
+    "filters": {
+      "category": "BOOKS"
+    },
+    "acceptableProductFixtureIds": [
+      "P001"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：九成新高等数学上册；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q04",
+    "kind": "structured",
+    "query": "",
+    "filters": {
+      "category": "BOOKS",
+      "condition": "NEW"
+    },
+    "acceptableProductFixtureIds": [
+      "P001",
+      "P002"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P001",
+      "P002"
+    ],
+    "reason": "人工按商品定义核对：九成新高等数学上册；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q05",
+    "kind": "no_answer",
+    "query": "不存在的火星仪器-BOOKS",
+    "filters": {
+      "category": "BOOKS"
+    },
+    "acceptableProductFixtureIds": [],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：九成新高等数学上册；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q06",
+    "kind": "exact",
+    "query": "罗技无线鼠标",
+    "filters": {
+      "category": "DIGITAL"
+    },
+    "acceptableProductFixtureIds": [
+      "P009"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P009"
+    ],
+    "reason": "人工按商品定义核对：罗技无线鼠标；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q07",
+    "kind": "synonym",
+    "query": "无线指针设备",
+    "filters": {
+      "category": "DIGITAL"
+    },
+    "acceptableProductFixtureIds": [
+      "P009"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：罗技无线鼠标；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q08",
+    "kind": "purpose",
+    "query": "电脑指针操作",
+    "filters": {
+      "category": "DIGITAL"
+    },
+    "acceptableProductFixtureIds": [
+      "P009"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：罗技无线鼠标；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q09",
+    "kind": "structured",
+    "query": "",
+    "filters": {
+      "category": "DIGITAL",
+      "condition": "NEW"
+    },
+    "acceptableProductFixtureIds": [
+      "P009",
+      "P010"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P009",
+      "P010"
+    ],
+    "reason": "人工按商品定义核对：罗技无线鼠标；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q10",
+    "kind": "no_answer",
+    "query": "不存在的火星仪器-DIGITAL",
+    "filters": {
+      "category": "DIGITAL"
+    },
+    "acceptableProductFixtureIds": [],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：罗技无线鼠标；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q11",
+    "kind": "exact",
+    "query": "宿舍护眼台灯",
+    "filters": {
+      "category": "DAILY"
+    },
+    "acceptableProductFixtureIds": [
+      "P017"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P017"
+    ],
+    "reason": "人工按商品定义核对：宿舍护眼台灯；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q12",
+    "kind": "synonym",
+    "query": "照明灯",
+    "filters": {
+      "category": "DAILY"
+    },
+    "acceptableProductFixtureIds": [
+      "P017"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：宿舍护眼台灯；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q13",
+    "kind": "purpose",
+    "query": "宿舍夜间阅读",
+    "filters": {
+      "category": "DAILY"
+    },
+    "acceptableProductFixtureIds": [
+      "P017"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：宿舍护眼台灯；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q14",
+    "kind": "structured",
+    "query": "",
+    "filters": {
+      "category": "DAILY",
+      "condition": "NEW"
+    },
+    "acceptableProductFixtureIds": [
+      "P017",
+      "P018"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P017",
+      "P018"
+    ],
+    "reason": "人工按商品定义核对：宿舍护眼台灯；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q15",
+    "kind": "no_answer",
+    "query": "不存在的火星仪器-DAILY",
+    "filters": {
+      "category": "DAILY"
+    },
+    "acceptableProductFixtureIds": [],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：宿舍护眼台灯；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q16",
+    "kind": "exact",
+    "query": "羽毛球拍",
+    "filters": {
+      "category": "SPORTS"
+    },
+    "acceptableProductFixtureIds": [
+      "P025"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P025",
+      "P052"
+    ],
+    "reason": "人工按商品定义核对：羽毛球拍；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q17",
+    "kind": "synonym",
+    "query": "羽球拍",
+    "filters": {
+      "category": "SPORTS"
+    },
+    "acceptableProductFixtureIds": [
+      "P025"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：羽毛球拍；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q18",
+    "kind": "purpose",
+    "query": "课后打羽毛球",
+    "filters": {
+      "category": "SPORTS"
+    },
+    "acceptableProductFixtureIds": [
+      "P025"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：羽毛球拍；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q19",
+    "kind": "structured",
+    "query": "",
+    "filters": {
+      "category": "SPORTS",
+      "condition": "NEW"
+    },
+    "acceptableProductFixtureIds": [
+      "P025",
+      "P026"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P025",
+      "P026",
+      "P058"
+    ],
+    "reason": "人工按商品定义核对：羽毛球拍；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q20",
+    "kind": "no_answer",
+    "query": "不存在的火星仪器-SPORTS",
+    "filters": {
+      "category": "SPORTS"
+    },
+    "acceptableProductFixtureIds": [],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：羽毛球拍；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q21",
+    "kind": "exact",
+    "query": "全新未摘吊牌卫衣",
+    "filters": {
+      "category": "clothing"
+    },
+    "acceptableProductFixtureIds": [
+      "P033"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P033"
+    ],
+    "reason": "人工按商品定义核对：全新未摘吊牌卫衣；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q22",
+    "kind": "synonym",
+    "query": "套头衫",
+    "filters": {
+      "category": "clothing"
+    },
+    "acceptableProductFixtureIds": [
+      "P033"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：全新未摘吊牌卫衣；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q23",
+    "kind": "purpose",
+    "query": "秋季保暖",
+    "filters": {
+      "category": "clothing"
+    },
+    "acceptableProductFixtureIds": [
+      "P033"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：全新未摘吊牌卫衣；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q24",
+    "kind": "structured",
+    "query": "",
+    "filters": {
+      "category": "clothing",
+      "condition": "NEW"
+    },
+    "acceptableProductFixtureIds": [
+      "P033",
+      "P034"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P033",
+      "P034"
+    ],
+    "reason": "人工按商品定义核对：全新未摘吊牌卫衣；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q25",
+    "kind": "no_answer",
+    "query": "不存在的火星仪器-clothing",
+    "filters": {
+      "category": "clothing"
+    },
+    "acceptableProductFixtureIds": [],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：全新未摘吊牌卫衣；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q26",
+    "kind": "exact",
+    "query": "桌面装饰摆件",
+    "filters": {
+      "category": "other"
+    },
+    "acceptableProductFixtureIds": [
+      "P041"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P041"
+    ],
+    "reason": "人工按商品定义核对：桌面装饰摆件；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q27",
+    "kind": "synonym",
+    "query": "桌面装饰",
+    "filters": {
+      "category": "other"
+    },
+    "acceptableProductFixtureIds": [
+      "P041"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P041"
+    ],
+    "reason": "人工按商品定义核对：桌面装饰摆件；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q28",
+    "kind": "purpose",
+    "query": "布置书桌",
+    "filters": {
+      "category": "other"
+    },
+    "acceptableProductFixtureIds": [
+      "P041"
+    ],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：桌面装饰摆件；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "candidate-only; keyword baseline need not infer semantics",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q29",
+    "kind": "structured",
+    "query": "",
+    "filters": {
+      "category": "other",
+      "condition": "NEW"
+    },
+    "acceptableProductFixtureIds": [
+      "P041",
+      "P042"
+    ],
+    "keywordExpectedProductFixtureIds": [
+      "P041",
+      "P042",
+      "P054"
+    ],
+    "reason": "人工按商品定义核对：桌面装饰摆件；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "id": "Q30",
+    "kind": "no_answer",
+    "query": "不存在的火星仪器-other",
+    "filters": {
+      "category": "other"
+    },
+    "acceptableProductFixtureIds": [],
+    "keywordExpectedProductFixtureIds": [],
+    "reason": "人工按商品定义核对：桌面装饰摆件；结构化过滤遵循market.list_products；无答案核对完整60件快照。",
+    "semanticExpectation": "literal",
+    "caseIds": [
+      "T2-C04"
+    ]
+  }
+]

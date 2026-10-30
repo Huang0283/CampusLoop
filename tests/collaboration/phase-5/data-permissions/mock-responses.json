@@ -1,0 +1,599 @@
+[
+  {
+    "id": "MR01",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products",
+    "scenario": "success",
+    "status": 200,
+    "schema": "ProductListResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": {
+        "items": [
+          {
+            "id": 1,
+            "seller": {
+              "id": 1,
+              "nickname": "Synthetic seller",
+              "avatar": null,
+              "rating": 0,
+              "transactionCount": 0
+            },
+            "title": "Synthetic fixture book",
+            "description": "MOCK_RESPONSE only",
+            "category": "BOOKS",
+            "condition": "GOOD",
+            "price": 25,
+            "campusLocation": "校内",
+            "status": "ON_SALE",
+            "images": [
+              "https://example.invalid/synthetic/M01.jpg"
+            ],
+            "createdAt": "2026-10-30T00:00:00Z",
+            "updatedAt": "2026-10-30T00:00:00Z"
+          }
+        ],
+        "pagination": {
+          "page": 1,
+          "pageSize": 20,
+          "total": 1
+        }
+      }
+    }
+  },
+  {
+    "id": "MR02",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products",
+    "scenario": "empty",
+    "status": 200,
+    "schema": "ProductListResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": {
+        "items": [],
+        "pagination": {
+          "page": 1,
+          "pageSize": 20,
+          "total": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "MR03",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products",
+    "scenario": "failure",
+    "status": 500,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": "INTERNAL_ERROR",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR04",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products",
+    "scenario": "unauthorized",
+    "status": 401,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "401 on a public route is an artificial transport scenario, not expected guest behavior",
+    "body": {
+      "code": "AUTH_UNAUTHORIZED",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR05",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products",
+    "scenario": "loading",
+    "status": 200,
+    "schema": "ProductListResponse",
+    "delayMs": 3000,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": {
+        "items": [
+          {
+            "id": 1,
+            "seller": {
+              "id": 1,
+              "nickname": "Synthetic seller",
+              "avatar": null,
+              "rating": 0,
+              "transactionCount": 0
+            },
+            "title": "Synthetic fixture book",
+            "description": "MOCK_RESPONSE only",
+            "category": "BOOKS",
+            "condition": "GOOD",
+            "price": 25,
+            "campusLocation": "校内",
+            "status": "ON_SALE",
+            "images": [
+              "https://example.invalid/synthetic/M01.jpg"
+            ],
+            "createdAt": "2026-10-30T00:00:00Z",
+            "updatedAt": "2026-10-30T00:00:00Z"
+          }
+        ],
+        "pagination": {
+          "page": 1,
+          "pageSize": 20,
+          "total": 1
+        }
+      }
+    }
+  },
+  {
+    "id": "MR06",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products/1",
+    "scenario": "success",
+    "status": 200,
+    "schema": "ProductResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": {
+        "id": 1,
+        "seller": {
+          "id": 1,
+          "nickname": "Synthetic seller",
+          "avatar": null,
+          "rating": 0,
+          "transactionCount": 0
+        },
+        "title": "Synthetic fixture book",
+        "description": "MOCK_RESPONSE only",
+        "category": "BOOKS",
+        "condition": "GOOD",
+        "price": 25,
+        "campusLocation": "校内",
+        "status": "ON_SALE",
+        "images": [
+          "https://example.invalid/synthetic/M01.jpg"
+        ],
+        "createdAt": "2026-10-30T00:00:00Z",
+        "updatedAt": "2026-10-30T00:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "MR07",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products/1",
+    "scenario": "not_found",
+    "status": 404,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": "NOT_FOUND",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR08",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products/1",
+    "scenario": "failure",
+    "status": 500,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": "INTERNAL_ERROR",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR09",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products/1",
+    "scenario": "unauthorized",
+    "status": 401,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "401 on a public route is an artificial transport scenario, not expected guest behavior",
+    "body": {
+      "code": "AUTH_UNAUTHORIZED",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR10",
+    "kind": "MOCK_RESPONSE",
+    "api": "/products/1",
+    "scenario": "loading",
+    "status": 200,
+    "schema": "ProductResponse",
+    "delayMs": 3000,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": {
+        "id": 1,
+        "seller": {
+          "id": 1,
+          "nickname": "Synthetic seller",
+          "avatar": null,
+          "rating": 0,
+          "transactionCount": 0
+        },
+        "title": "Synthetic fixture book",
+        "description": "MOCK_RESPONSE only",
+        "category": "BOOKS",
+        "condition": "GOOD",
+        "price": 25,
+        "campusLocation": "校内",
+        "status": "ON_SALE",
+        "images": [
+          "https://example.invalid/synthetic/M01.jpg"
+        ],
+        "createdAt": "2026-10-30T00:00:00Z",
+        "updatedAt": "2026-10-30T00:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "MR11",
+    "kind": "MOCK_RESPONSE",
+    "api": "/chat/sessions",
+    "scenario": "success",
+    "status": 200,
+    "schema": "ChatSessionListResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": [
+        {
+          "id": 1,
+          "type": "PRODUCT",
+          "peer": {
+            "id": 1,
+            "nickname": "Synthetic seller",
+            "avatar": null,
+            "rating": 0,
+            "transactionCount": 0
+          },
+          "unreadCount": 0,
+          "product": {
+            "id": 1,
+            "seller": {
+              "id": 1,
+              "nickname": "Synthetic seller",
+              "avatar": null,
+              "rating": 0,
+              "transactionCount": 0
+            },
+            "title": "Synthetic fixture book",
+            "description": "MOCK_RESPONSE only",
+            "category": "BOOKS",
+            "condition": "GOOD",
+            "price": 25,
+            "campusLocation": "校内",
+            "status": "ON_SALE",
+            "images": [
+              "https://example.invalid/synthetic/M01.jpg"
+            ],
+            "createdAt": "2026-10-30T00:00:00Z",
+            "updatedAt": "2026-10-30T00:00:00Z"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "MR12",
+    "kind": "MOCK_RESPONSE",
+    "api": "/chat/sessions",
+    "scenario": "empty",
+    "status": 200,
+    "schema": "ChatSessionListResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": []
+    }
+  },
+  {
+    "id": "MR13",
+    "kind": "MOCK_RESPONSE",
+    "api": "/chat/sessions",
+    "scenario": "failure",
+    "status": 500,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": "INTERNAL_ERROR",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR14",
+    "kind": "MOCK_RESPONSE",
+    "api": "/chat/sessions",
+    "scenario": "unauthorized",
+    "status": 401,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "401 on a public route is an artificial transport scenario, not expected guest behavior",
+    "body": {
+      "code": "AUTH_UNAUTHORIZED",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR15",
+    "kind": "MOCK_RESPONSE",
+    "api": "/chat/sessions",
+    "scenario": "loading",
+    "status": 200,
+    "schema": "ChatSessionListResponse",
+    "delayMs": 3000,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": [
+        {
+          "id": 1,
+          "type": "PRODUCT",
+          "peer": {
+            "id": 1,
+            "nickname": "Synthetic seller",
+            "avatar": null,
+            "rating": 0,
+            "transactionCount": 0
+          },
+          "unreadCount": 0,
+          "product": {
+            "id": 1,
+            "seller": {
+              "id": 1,
+              "nickname": "Synthetic seller",
+              "avatar": null,
+              "rating": 0,
+              "transactionCount": 0
+            },
+            "title": "Synthetic fixture book",
+            "description": "MOCK_RESPONSE only",
+            "category": "BOOKS",
+            "condition": "GOOD",
+            "price": 25,
+            "campusLocation": "校内",
+            "status": "ON_SALE",
+            "images": [
+              "https://example.invalid/synthetic/M01.jpg"
+            ],
+            "createdAt": "2026-10-30T00:00:00Z",
+            "updatedAt": "2026-10-30T00:00:00Z"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "MR16",
+    "kind": "MOCK_RESPONSE",
+    "api": "/orders/1",
+    "scenario": "success",
+    "status": 200,
+    "schema": "OrderResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": {
+        "id": 1,
+        "product": {
+          "id": 1,
+          "seller": {
+            "id": 1,
+            "nickname": "Synthetic seller",
+            "avatar": null,
+            "rating": 0,
+            "transactionCount": 0
+          },
+          "title": "Synthetic fixture book",
+          "description": "MOCK_RESPONSE only",
+          "category": "BOOKS",
+          "condition": "GOOD",
+          "price": 25,
+          "campusLocation": "校内",
+          "status": "ON_SALE",
+          "images": [
+            "https://example.invalid/synthetic/M01.jpg"
+          ],
+          "createdAt": "2026-10-30T00:00:00Z",
+          "updatedAt": "2026-10-30T00:00:00Z"
+        },
+        "buyer": {
+          "id": 2,
+          "nickname": "Synthetic buyer",
+          "avatar": null,
+          "rating": 0,
+          "transactionCount": 0
+        },
+        "seller": {
+          "id": 1,
+          "nickname": "Synthetic seller",
+          "avatar": null,
+          "rating": 0,
+          "transactionCount": 0
+        },
+        "status": "BOOKED",
+        "amount": 25,
+        "buyerConfirmedComplete": false,
+        "sellerConfirmedComplete": false,
+        "createdAt": "2026-10-30T00:00:00Z",
+        "updatedAt": "2026-10-30T00:00:00Z"
+      }
+    }
+  },
+  {
+    "id": "MR17",
+    "kind": "MOCK_RESPONSE",
+    "api": "/orders/1",
+    "scenario": "not_found",
+    "status": 404,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": "NOT_FOUND",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR18",
+    "kind": "MOCK_RESPONSE",
+    "api": "/orders/1",
+    "scenario": "failure",
+    "status": 500,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": "INTERNAL_ERROR",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR19",
+    "kind": "MOCK_RESPONSE",
+    "api": "/orders/1",
+    "scenario": "unauthorized",
+    "status": 401,
+    "schema": "ErrorResponse",
+    "delayMs": 0,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "401 on a public route is an artificial transport scenario, not expected guest behavior",
+    "body": {
+      "code": "AUTH_UNAUTHORIZED",
+      "message": "Synthetic mocked failure",
+      "details": null,
+      "requestId": "synthetic-request"
+    }
+  },
+  {
+    "id": "MR20",
+    "kind": "MOCK_RESPONSE",
+    "api": "/orders/1",
+    "scenario": "loading",
+    "status": 200,
+    "schema": "OrderResponse",
+    "delayMs": 3000,
+    "contract": "openapi/campusloop.v1.yaml @ 3b0b333; UI injection only, never production or live evidence",
+    "injectionNote": "synthetic fixture",
+    "body": {
+      "code": 0,
+      "message": "ok",
+      "data": {
+        "id": 1,
+        "product": {
+          "id": 1,
+          "seller": {
+            "id": 1,
+            "nickname": "Synthetic seller",
+            "avatar": null,
+            "rating": 0,
+            "transactionCount": 0
+          },
+          "title": "Synthetic fixture book",
+          "description": "MOCK_RESPONSE only",
+          "category": "BOOKS",
+          "condition": "GOOD",
+          "price": 25,
+          "campusLocation": "校内",
+          "status": "ON_SALE",
+          "images": [
+            "https://example.invalid/synthetic/M01.jpg"
+          ],
+          "createdAt": "2026-10-30T00:00:00Z",
+          "updatedAt": "2026-10-30T00:00:00Z"
+        },
+        "buyer": {
+          "id": 2,
+          "nickname": "Synthetic buyer",
+          "avatar": null,
+          "rating": 0,
+          "transactionCount": 0
+        },
+        "seller": {
+          "id": 1,
+          "nickname": "Synthetic seller",
+          "avatar": null,
+          "rating": 0,
+          "transactionCount": 0
+        },
+        "status": "BOOKED",
+        "amount": 25,
+        "buyerConfirmedComplete": false,
+        "sellerConfirmedComplete": false,
+        "createdAt": "2026-10-30T00:00:00Z",
+        "updatedAt": "2026-10-30T00:00:00Z"
+      }
+    }
+  }
+]
