@@ -1,98 +1,548 @@
 [
   {
-    "id": "INV-01", "target": "product", "description": "空标题", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "", "description": "test", "category": "BOOKS", "condition": "GOOD", "price": 10, "campusLocation": "图书馆" }
+    "id": "INV-01",
+    "target": "product",
+    "description": "空标题",
+    "payload": {
+      "title": "",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "BOOKS",
+      "condition": "NEW",
+      "price": 0.01,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": [
+        "$OWNED_M01"
+      ]
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "title",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.title",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-02", "target": "product", "description": "超长标题（>50字）", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "这是一个非常非常非常非常非常非常非常非常非常非常非常非常非常长的测试标题", "description": "test", "category": "BOOKS", "condition": "GOOD", "price": 10, "campusLocation": "图书馆" }
+    "id": "INV-02",
+    "target": "product",
+    "description": "标题超过100字符",
+    "payload": {
+      "title": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "BOOKS",
+      "condition": "NEW",
+      "price": 0.01,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": [
+        "$OWNED_M01"
+      ]
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "title",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.title",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-03", "target": "product", "description": "负数价格", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "测试商品", "description": "test", "category": "BOOKS", "condition": "GOOD", "price": -10, "campusLocation": "图书馆" }
+    "id": "INV-03",
+    "target": "product",
+    "description": "负数价格",
+    "payload": {
+      "title": "九成新高等数学上册",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "BOOKS",
+      "condition": "NEW",
+      "price": -1,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": [
+        "$OWNED_M01"
+      ]
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "price",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.price",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-04", "target": "product", "description": "超精度价格（小数点后3位）", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "测试商品", "description": "test", "category": "BOOKS", "condition": "GOOD", "price": 10.999, "campusLocation": "图书馆" }
+    "id": "INV-04",
+    "target": "product",
+    "description": "三位小数",
+    "payload": {
+      "title": "九成新高等数学上册",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "BOOKS",
+      "condition": "NEW",
+      "price": 1.001,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": [
+        "$OWNED_M01"
+      ]
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "price",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.price",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-05", "target": "product", "description": "非法类别", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "测试商品", "description": "test", "category": "INVALID", "condition": "GOOD", "price": 10, "campusLocation": "图书馆" }
+    "id": "INV-05",
+    "target": "product",
+    "description": "非法分类",
+    "payload": {
+      "title": "九成新高等数学上册",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "INVALID",
+      "condition": "NEW",
+      "price": 0.01,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": [
+        "$OWNED_M01"
+      ]
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "category",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.category",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-06", "target": "product", "description": "非法成色", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "测试商品", "description": "test", "category": "BOOKS", "condition": "INVALID", "price": 10, "campusLocation": "图书馆" }
+    "id": "INV-06",
+    "target": "product",
+    "description": "非法成色",
+    "payload": {
+      "title": "九成新高等数学上册",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "BOOKS",
+      "condition": "INVALID",
+      "price": 0.01,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": [
+        "$OWNED_M01"
+      ]
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "condition",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.condition",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-07", "target": "product", "description": "无图片（根据当前契约）", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "测试商品", "description": "test", "category": "BOOKS", "condition": "GOOD", "price": 10, "campusLocation": "图书馆", "images": [] }
+    "id": "INV-07",
+    "target": "product",
+    "description": "无图片",
+    "payload": {
+      "title": "九成新高等数学上册",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "BOOKS",
+      "condition": "NEW",
+      "price": 0.01,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": []
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "images",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.images",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-08", "target": "product", "description": "超限图片数量（>5张）", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "测试商品", "description": "test", "category": "BOOKS", "condition": "GOOD", "price": 10, "campusLocation": "图书馆", "images": ["1","2","3","4","5","6"] }
+    "id": "INV-08",
+    "target": "product",
+    "description": "图片超过5张",
+    "payload": {
+      "title": "九成新高等数学上册",
+      "description": "测试教材，少量铅笔笔记，无缺页。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。 虚构功能样例，价格仅用于边界/筛选，不代表市场估值。",
+      "category": "BOOKS",
+      "condition": "NEW",
+      "price": 0.01,
+      "originalPrice": 49,
+      "campusLocation": "校内",
+      "images": [
+        "$OWNED_M01",
+        "$OWNED_M01",
+        "$OWNED_M01",
+        "$OWNED_M01",
+        "$OWNED_M01",
+        "$OWNED_M01"
+      ]
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "ProductWrite",
+    "invalidField": "images",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:ProductWrite.images",
+    "caseIds": [
+      "T2-C07"
+    ]
   },
   {
-    "id": "INV-09", "target": "wanted", "description": "空标题", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "", "description": "test", "budgetMin": 10, "budgetMax": 20, "condition": "GOOD", "location": "图书馆", "expireAt": "+7d" }
+    "id": "INV-09",
+    "target": "wanted",
+    "description": "空标题",
+    "payload": {
+      "title": "",
+      "description": "大一新生求购，接受轻微笔记。",
+      "budgetMin": 20,
+      "budgetMax": 50,
+      "condition": "GOOD",
+      "location": "校内",
+      "expireAt": "$FUTURE_ISO"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "title",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:WantedWrite.title",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-10", "target": "wanted", "description": "预算为负", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "求购测试", "description": "test", "budgetMin": -10, "budgetMax": 20, "condition": "GOOD", "location": "图书馆", "expireAt": "+7d" }
+    "id": "INV-10",
+    "target": "wanted",
+    "description": "负预算",
+    "payload": {
+      "title": "求购高数教材",
+      "description": "大一新生求购，接受轻微笔记。",
+      "budgetMin": -1,
+      "budgetMax": 50,
+      "condition": "GOOD",
+      "location": "校内",
+      "expireAt": "$FUTURE_ISO"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "budgetMin",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:WantedWrite.budgetMin",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-11", "target": "wanted", "description": "最小预算大于最大预算", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "求购测试", "description": "test", "budgetMin": 50, "budgetMax": 20, "condition": "GOOD", "location": "图书馆", "expireAt": "+7d" }
+    "id": "INV-11",
+    "target": "wanted",
+    "description": "预算逆序",
+    "payload": {
+      "title": "求购高数教材",
+      "description": "大一新生求购，接受轻微笔记。",
+      "budgetMin": 51,
+      "budgetMax": 50,
+      "condition": "GOOD",
+      "location": "校内",
+      "expireAt": "$FUTURE_ISO"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "budgetMin",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:WantedWrite.budgetMin",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-12", "target": "wanted", "description": "非法成色", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "求购测试", "description": "test", "budgetMin": 10, "budgetMax": 20, "condition": "INVALID", "location": "图书馆", "expireAt": "+7d" }
+    "id": "INV-12",
+    "target": "wanted",
+    "description": "非法成色",
+    "payload": {
+      "title": "求购高数教材",
+      "description": "大一新生求购，接受轻微笔记。",
+      "budgetMin": 20,
+      "budgetMax": 50,
+      "condition": "INVALID",
+      "location": "校内",
+      "expireAt": "$FUTURE_ISO"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "condition",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:WantedWrite.condition",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-13", "target": "wanted", "description": "空地点", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "求购测试", "description": "test", "budgetMin": 10, "budgetMax": 20, "condition": "GOOD", "location": "", "expireAt": "+7d" }
+    "id": "INV-13",
+    "target": "wanted",
+    "description": "空地点",
+    "payload": {
+      "title": "求购高数教材",
+      "description": "大一新生求购，接受轻微笔记。",
+      "budgetMin": 20,
+      "budgetMax": 50,
+      "condition": "GOOD",
+      "location": "",
+      "expireAt": "$FUTURE_ISO"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "location",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:WantedWrite.location",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-14", "target": "wanted", "description": "过去到期时间", "expected": "待M10确认", "mappedCase": "T1-C02",
-    "payload": { "title": "求购测试", "description": "test", "budgetMin": 10, "budgetMax": 20, "condition": "GOOD", "location": "图书馆", "expireAt": "2020-01-01T00:00:00Z" }
+    "id": "INV-14",
+    "target": "wanted",
+    "description": "过期时间",
+    "payload": {
+      "title": "求购高数教材",
+      "description": "大一新生求购，接受轻微笔记。",
+      "budgetMin": 20,
+      "budgetMax": 50,
+      "condition": "GOOD",
+      "location": "校内",
+      "expireAt": "2000-01-01T00:00:00Z"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "expireAt",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/api/routes/market.py:create_wanted expiry check",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-15", "target": "wanted", "description": "非法日期格式", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "求购测试", "description": "test", "budgetMin": 10, "budgetMax": 20, "condition": "GOOD", "location": "图书馆", "expireAt": "not-a-date" }
+    "id": "INV-15",
+    "target": "wanted",
+    "description": "非法日期",
+    "payload": {
+      "title": "求购高数教材",
+      "description": "大一新生求购，接受轻微笔记。",
+      "budgetMin": 20,
+      "budgetMax": 50,
+      "condition": "GOOD",
+      "location": "校内",
+      "expireAt": "not-a-date"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "expireAt",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:WantedWrite.expireAt",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-16", "target": "wanted", "description": "超长说明", "expected": "400", "mappedCase": "T1-C02",
-    "payload": { "title": "求购测试", "description": "这是一段非常非常非常非常非常非常非常非常非常非常非常长的描述，用来测试字段长度限制。", "budgetMin": 10, "budgetMax": 20, "condition": "GOOD", "location": "图书馆", "expireAt": "+7d" }
+    "id": "INV-16",
+    "target": "wanted",
+    "description": "说明超过3000字符",
+    "payload": {
+      "title": "求购高数教材",
+      "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "budgetMin": 20,
+      "budgetMax": 50,
+      "condition": "GOOD",
+      "location": "校内",
+      "expireAt": "$FUTURE_ISO"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "WantedWrite",
+    "invalidField": "description",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:WantedWrite.description",
+    "caseIds": [
+      "T2-C16"
+    ]
   },
   {
-    "id": "INV-17", "target": "auth", "description": "无效邮箱格式", "expected": "400", "mappedCase": "T1-C03",
-    "payload": { "email": "invalid-email", "password": "password123", "nickname": "测试" }
+    "id": "INV-17",
+    "target": "auth",
+    "description": "邮箱格式错误",
+    "payload": {
+      "email": "invalid-email",
+      "password": "$RUNTIME_PASSWORD",
+      "nickname": "虚构学生"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "RegisterRequest",
+    "invalidField": "email",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/auth.py:RegisterRequest.email",
+    "caseIds": [
+      "T1-C03"
+    ]
   },
   {
-    "id": "INV-18", "target": "auth", "description": "重复邮箱", "expected": "409", "mappedCase": "T1-C03",
-    "payload": { "email": "duplicate@example.com", "password": "password123", "nickname": "测试" }
+    "id": "INV-18",
+    "target": "auth",
+    "description": "重复邮箱",
+    "payload": {
+      "email": "$EXISTING_EMAIL",
+      "password": "$RUNTIME_PASSWORD",
+      "nickname": "虚构学生"
+    },
+    "expectedStatus": 409,
+    "expectedCode": "EMAIL_ALREADY_REGISTERED",
+    "schema": "RegisterRequest",
+    "invalidField": "email",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/api/routes/auth.py:register duplicate email conflict",
+    "caseIds": [
+      "T1-C02"
+    ]
   },
   {
-    "id": "INV-19", "target": "auth", "description": "空密码", "expected": "400", "mappedCase": "T1-C03",
-    "payload": { "email": "test@example.com", "password": "", "nickname": "测试" }
+    "id": "INV-19",
+    "target": "auth",
+    "description": "空密码",
+    "payload": {
+      "email": "$NEW_EMAIL",
+      "password": "",
+      "nickname": "虚构学生"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "RegisterRequest",
+    "invalidField": "password",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/auth.py:RegisterRequest.password",
+    "caseIds": [
+      "T1-C04"
+    ]
   },
   {
-    "id": "INV-20", "target": "auth", "description": "密码长度不足（<8）", "expected": "400", "mappedCase": "T1-C03",
-    "payload": { "email": "test@example.com", "password": "123", "nickname": "测试" }
+    "id": "INV-20",
+    "target": "auth",
+    "description": "密码不足8位",
+    "payload": {
+      "email": "$NEW_EMAIL",
+      "password": "123",
+      "nickname": "虚构学生"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "RegisterRequest",
+    "invalidField": "password",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/auth.py:RegisterRequest.password",
+    "caseIds": [
+      "T1-C05"
+    ]
   },
   {
-    "id": "INV-21", "target": "chat", "description": "空消息", "expected": "400", "mappedCase": "T2-C21",
-    "payload": { "content": "", "type": "TEXT" }
+    "id": "INV-21",
+    "target": "chat",
+    "description": "空消息",
+    "payload": {
+      "clientMsgId": "00000000-0000-4000-8000-000000000001",
+      "kind": "TEXT",
+      "content": ""
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "MessageWrite",
+    "invalidField": "content",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:MessageWrite.content",
+    "caseIds": [
+      "T2-C01"
+    ]
   },
   {
-    "id": "INV-22", "target": "chat", "description": "超长消息", "expected": "400", "mappedCase": "T2-C21",
-    "payload": { "content": "这是一条非常非常非常非常非常非常非常非常长的测试消息...", "type": "TEXT" }
+    "id": "INV-22",
+    "target": "chat",
+    "description": "消息超过4000字符",
+    "payload": {
+      "clientMsgId": "00000000-0000-4000-8000-000000000001",
+      "kind": "TEXT",
+      "content": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "MessageWrite",
+    "invalidField": "content",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:MessageWrite.content",
+    "caseIds": [
+      "T2-C01"
+    ]
   },
   {
-    "id": "INV-23", "target": "offer", "description": "非正报价", "expected": "400", "mappedCase": "T2-C25",
-    "payload": { "amount": -100, "note": "test" }
+    "id": "INV-23",
+    "target": "offer",
+    "description": "非正报价",
+    "payload": {
+      "amount": 0
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "AmountWrite",
+    "invalidField": "amount",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:AmountWrite.amount",
+    "caseIds": [
+      "T2-C08"
+    ]
   },
   {
-    "id": "INV-24", "target": "meetup", "description": "过去见面时间", "expected": "400", "mappedCase": "T2-C37",
-    "payload": { "location": "图书馆", "time": "2020-01-01T10:00:00Z" }
+    "id": "INV-24",
+    "target": "meetup",
+    "description": "结束时间早于开始",
+    "payload": {
+      "campusLocation": "校内",
+      "scheduledDate": "2099-01-01",
+      "timeSlotStart": "10:00",
+      "timeSlotEnd": "09:00"
+    },
+    "expectedStatus": 422,
+    "expectedCode": "VALIDATION_ERROR",
+    "schema": "MeetupWrite",
+    "invalidField": "timeSlotEnd",
+    "precondition": "Authenticated fixture owner; bind placeholders from manifest",
+    "basis": "backend/app/schemas/business.py:MeetupWrite.timeSlotEnd",
+    "caseIds": [
+      "T2-C09"
+    ]
   }
 ]

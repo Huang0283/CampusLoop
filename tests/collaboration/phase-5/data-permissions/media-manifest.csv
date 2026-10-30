@@ -1,0 +1,13 @@
+fixtureId,path,valid,mime,size,sha256,license,source,expectedStatus,expectedCode
+M01,media/M01.jpg,true,image/jpeg,7256,5d3b7173af0eaf1e1f9cb0906c12a7da127ec894641265c8216ac6cc94094fe9,CC0-1.0,Original project geometry; generate_media.py,201,
+M02,media/M02.jpg,true,image/jpeg,6880,17935b409e36961d71d64b04cc2595a5dc671727f0dd41d459377d08e6a26eb3,CC0-1.0,Original project geometry; generate_media.py,201,
+M03,media/M03.jpg,true,image/jpeg,6935,62e871826ba981ca1ab35df972f88d8976e3521b9aadb307704e8dc383771a19,CC0-1.0,Original project geometry; generate_media.py,201,
+M04,media/M04.jpg,true,image/jpeg,7188,a6a2fe3eb6e41d87394f69421ccac75818763b4397b75114e5862c16b7d3b2b5,CC0-1.0,Original project geometry; generate_media.py,201,
+M05,media/M05.png,true,image/png,2853,39b1cc42f740d027ab1a58da229b82df6acc89a12ae6a2e403515e32b64b8197,CC0-1.0,Original project geometry; generate_media.py,201,
+M06,media/M06.png,true,image/png,2857,41c1e0bfdc7c23e7a7a22588bdcfa386b6796a2c4b790c11bce3acfc3cbfe7fa,CC0-1.0,Original project geometry; generate_media.py,201,
+M07,media/M07.png,true,image/png,2815,e90e236d0b8117c5228899b2b50615e8cea56fddf77e8c130cff164c34055ef1,CC0-1.0,Original project geometry; generate_media.py,201,
+M08,media/M08.png,true,image/png,2872,8b19750e7882c946fd93da2e44c010031086edb2c274c16a262ddf45c4017bed,CC0-1.0,Original project geometry; generate_media.py,201,
+M09,media/generated/empty.png,false,image/png,0,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,CC0-1.0,generate_invalid_media.py,415,UNSUPPORTED_IMAGE
+M10,media/generated/text.jpg,false,image/jpeg,30,5f23fcd14452daf7805027d3d4f87006350307cababf724d27e9d72e248a9b54,CC0-1.0,generate_invalid_media.py,415,UNSUPPORTED_IMAGE
+M11,media/generated/unsupported.gif,false,image/gif,57,be89dec1d6356271f1091a730a6d20ec4905df5317d3140a7a16a78da7d8a37e,CC0-1.0,generate_invalid_media.py,415,UNSUPPORTED_IMAGE
+M12,media/generated/oversize.jpg,false,image/jpeg,5242881,06436f6045c7910f98c9b4dfc797a406ef4afef43e442cfcf71a01ce08df1dd0,CC0-1.0,generate_invalid_media.py,413,IMAGE_TOO_LARGE

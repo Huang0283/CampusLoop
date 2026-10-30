@@ -1,0 +1,3 @@
+defect_id,software_sha,status,evidence,reviewer
+T1-PKG-01,3b0b333af6ae5a26272ef62b3954f14e293b56d6,基础包自动化通过,runtime-evidence.json,独立成员复核待完成
+T1-BLOCK-01,3b0b333af6ae5a26272ef62b3954f14e293b56d6,阻塞,setup-reset.md,M10待接收

@@ -1,0 +1,13 @@
+scope,software_sha,status,evidence
+static fixture validation,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+9 package unit tests,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+lost create response recovery,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+repeat setup without duplicate facts,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+two namespace ID isolation,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+reset dry-run,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+reset other namespace snapshot,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+stored image SHA256 readback,3b0b333af6ae5a26272ef62b3954f14e293b56d6,PASS,runtime-evidence.json
+reset full purge,3b0b333af6ae5a26272ef62b3954f14e293b56d6,BLOCKED; supported cleanup complete,runtime-evidence.json
+missing administrator setup and verify,3b0b333af6ae5a26272ef62b3954f14e293b56d6,EXPECTED_BLOCKED_EXIT_2,runtime-evidence-blocked.json
+36 permission cases,3b0b333af6ae5a26272ef62b3954f14e293b56d6,NOT_EXECUTED,execution-log.csv
+3 unavailable transport cases,3b0b333af6ae5a26272ef62b3954f14e293b56d6,NOT_EXECUTED,dataset-verification.md

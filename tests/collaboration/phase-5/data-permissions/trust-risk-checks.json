@@ -1,38 +1,542 @@
 [
   {
-    "id": "TR01", "group": "no_trade", "userId": "E", "facts": { "tradeCount": 0, "reviews": [], "reports": [] }, "expectedOutput": { "trustScore": "low", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+    "id": "TR01",
+    "group": "no_trade",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": []
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR02", "group": "no_trade", "userId": "E", "facts": { "tradeCount": 0, "reviews": [], "reports": [] }, "expectedOutput": { "trustScore": "low", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+    "id": "TR02",
+    "group": "no_trade",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": []
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR03", "group": "no_trade", "userId": "E", "facts": { "tradeCount": 0, "reviews": [], "reports": [] }, "expectedOutput": { "trustScore": "low", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+    "id": "TR03",
+    "group": "no_trade",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": []
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR04", "group": "normal_trade", "userId": "A", "facts": { "tradeCount": 5, "reviews": [5, 5, 4, 5, 5], "reports": [] }, "expectedOutput": { "trustScore": "high", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+    "id": "TR04",
+    "group": "normal_trade",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [
+        {
+          "type": "REVIEW",
+          "status": "COMPLETED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 3
+        }
+      ],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": [
+        {
+          "type": "REVIEW",
+          "status": "COMPLETED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 3
+        }
+      ]
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "AVAILABLE",
+      "trustScore": 3.42,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR05", "group": "normal_trade", "userId": "A", "facts": { "tradeCount": 5, "reviews": [5, 5, 4, 5, 5], "reports": [] }, "expectedOutput": { "trustScore": "high", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+    "id": "TR05",
+    "group": "normal_trade",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [
+        {
+          "type": "REVIEW",
+          "status": "COMPLETED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 4
+        }
+      ],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": [
+        {
+          "type": "REVIEW",
+          "status": "COMPLETED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 4
+        }
+      ]
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "AVAILABLE",
+      "trustScore": 3.58,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR06", "group": "normal_trade", "userId": "A", "facts": { "tradeCount": 5, "reviews": [5, 5, 4, 5, 5], "reports": [] }, "expectedOutput": { "trustScore": "high", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+    "id": "TR06",
+    "group": "normal_trade",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [
+        {
+          "type": "REVIEW",
+          "status": "COMPLETED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 5
+        }
+      ],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": [
+        {
+          "type": "REVIEW",
+          "status": "COMPLETED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 5
+        }
+      ]
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "AVAILABLE",
+      "trustScore": 3.75,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR07", "group": "risk_trade", "userId": "Z", "facts": { "tradeCount": 10, "reviews": [1, 2, 1, 1, 2], "reports": [{"type": "SPAM"}, {"type": "HARASSMENT"}] }, "expectedOutput": { "trustScore": "low", "riskLevel": "high" }, "forbiddenOutput": ["auto_ban", "guilty"], "caseIds": ["T2-C60"]
+    "id": "TR07",
+    "group": "cancel_report",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [
+        {
+          "type": "SALE",
+          "status": "CANCELLED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 1
+        }
+      ],
+      "reportCount7d": 2
+    },
+    "trustInput": {
+      "events": [
+        {
+          "type": "SALE",
+          "status": "CANCELLED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 1
+        }
+      ]
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 2
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR08", "group": "risk_trade", "userId": "Z", "facts": { "tradeCount": 10, "reviews": [1, 2, 1, 1, 2], "reports": [{"type": "SPAM"}, {"type": "HARASSMENT"}] }, "expectedOutput": { "trustScore": "low", "riskLevel": "high" }, "forbiddenOutput": ["auto_ban", "guilty"], "caseIds": ["T2-C60"]
+    "id": "TR08",
+    "group": "cancel_report",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [
+        {
+          "type": "SALE",
+          "status": "CANCELLED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 1
+        }
+      ],
+      "reportCount7d": 3
+    },
+    "trustInput": {
+      "events": [
+        {
+          "type": "SALE",
+          "status": "CANCELLED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 1
+        }
+      ]
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 3
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "CLUES_FOUND",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR09", "group": "risk_trade", "userId": "Z", "facts": { "tradeCount": 10, "reviews": [1, 2, 1, 1, 2], "reports": [{"type": "SPAM"}, {"type": "HARASSMENT"}] }, "expectedOutput": { "trustScore": "low", "riskLevel": "high" }, "forbiddenOutput": ["auto_ban", "guilty"], "caseIds": ["T2-C60"]
+    "id": "TR09",
+    "group": "cancel_report",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [
+        {
+          "type": "SALE",
+          "status": "CANCELLED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 1
+        }
+      ],
+      "reportCount7d": 4
+    },
+    "trustInput": {
+      "events": [
+        {
+          "type": "SALE",
+          "status": "CANCELLED",
+          "disputed": false,
+          "invalid": false,
+          "rating": 1
+        }
+      ]
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 4
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "direct-rule",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "CLUES_FOUND",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR10", "group": "degraded", "userId": "A", "facts": null, "expectedOutput": { "trustScore": "unknown", "riskLevel": "unknown" }, "forbiddenOutput": ["fail", "fraud"], "caseIds": ["T2-C60"]
+    "id": "TR10",
+    "group": "unavailable",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": []
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "unavailable",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR11", "group": "degraded", "userId": "A", "facts": null, "expectedOutput": { "trustScore": "unknown", "riskLevel": "unknown" }, "forbiddenOutput": ["fail", "fraud"], "caseIds": ["T2-C60"]
+    "id": "TR11",
+    "group": "unavailable",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": []
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "unavailable",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   },
   {
-    "id": "TR12", "group": "degraded", "userId": "A", "facts": null, "expectedOutput": { "trustScore": "unknown", "riskLevel": "unknown" }, "forbiddenOutput": ["fail", "fraud"], "caseIds": ["T2-C60"]
+    "id": "TR12",
+    "group": "unavailable",
+    "labelLevel": "L0_SYNTHETIC",
+    "facts": {
+      "description": "虚构规则输入，不写入交易/评价/举报业务表",
+      "events": [],
+      "reportCount7d": 0
+    },
+    "trustInput": {
+      "events": []
+    },
+    "riskInput": {
+      "failedPaymentCount24h": 0,
+      "listingCount1h": 0,
+      "distinctCounterpartyCount24h": 0,
+      "sameDeviceAccountCount7d": 0,
+      "reportCount7d": 0
+    },
+    "schemaMapping": "Only valid COMPLETED events contribute to trust; reports map to risk reportCount7d, not trust ratings.",
+    "transport": "unavailable",
+    "expected": {
+      "trustStatus": "NEW_USER_NEUTRAL",
+      "trustScore": 3.5,
+      "riskStatus": "NO_RULE_CLUES",
+      "onUnavailable": "AI_UNAVAILABLE; no fabricated score; manual fallback"
+    },
+    "basis": "services/m8_baseline/engine.py:trust_summary,risk_clues (neutral prior 3.5, weight 5)",
+    "forbiddenOutput": [
+      "auto_ban",
+      "fraud_verdict",
+      "L3_COMPLETED_TRANSACTION"
+    ],
+    "caseIds": [
+      "T2-C60"
+    ]
   }
 ]

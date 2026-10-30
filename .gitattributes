@@ -65,3 +65,10 @@ docs/evidence/phase-2/intelligence/review-aid/human-review-sheet.csv -text white
 /docs/evidence/m7-evaluation/** -text
 /docs/evidence/m7-evaluation/evidence/*.txt -whitespace
 /.github/workflows/m7-evaluation-protocol.yml text eol=lf
+
+# T1 fixtures have portable text hashes and exact binary media hashes.
+/tests/collaboration/phase-5/data-permissions/** text eol=lf
+/tests/collaboration/phase-5/data-permissions/media/*.jpg -text
+/tests/collaboration/phase-5/data-permissions/media/*.png -text
+/docs/collaboration/phase-5/testing/data-permissions/** text eol=lf
+/.github/workflows/t1-fixtures.yml text eol=lf

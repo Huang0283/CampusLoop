@@ -1,20 +1,15 @@
-import os
-from pathlib import Path
+"""Generate local file-format/size rejection fixtures, with no network requests."""
 
-MEDIA_DIR = Path(__file__).parent / "media"
+from generate_media import BASE, invalid_bytes
+
 
 def generate():
-    os.makedirs(MEDIA_DIR, exist_ok=True)
-    
-    # 1. 伪装成 jpg 的文本
-    with open(MEDIA_DIR / "invalid-fake.jpg", "w") as f:
-        f.write("This is not an image")
-        
-    # 2. 截断的图片 (假数据)
-    with open(MEDIA_DIR / "invalid-truncated.png", "wb") as f:
-        f.write(b'\x89PNG\r\n\x1a\n' + b'\x00' * 10)
-        
-    print(f"已生成非法媒体文件到 {MEDIA_DIR}")
+    target = BASE / "media/generated"
+    target.mkdir(parents=True, exist_ok=True)
+    for name, content, _, _, _ in invalid_bytes():
+        (target / name).write_bytes(content)
+    print("Four local negative media fixtures generated; no uploads performed.")
+
 
 if __name__ == "__main__":
     generate()

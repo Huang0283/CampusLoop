@@ -1,74 +1,650 @@
 [
   {
-    "id": "PR01", "category": "BOOKS", "condition": "NEW", "originalPrice": 50, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR01",
+    "category": "BOOKS",
+    "kind": "normal",
+    "schemaMapping": {
+      "category": "books",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "books",
+      "condition": "good",
+      "originalPriceFen": 10000,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR02", "category": "BOOKS", "condition": "FAIR", "originalPrice": 50, "expectedType": "low_bound", "expectedBehavior": "返回较低区间", "caseIds": ["T2-C59"]
+    "id": "PR02",
+    "category": "BOOKS",
+    "kind": "boundary",
+    "schemaMapping": {
+      "category": "books",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "books",
+      "condition": "fair",
+      "originalPriceFen": 1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR03", "category": "DIGITAL", "condition": "LIKE_NEW", "originalPrice": 5000, "expectedType": "high_bound", "expectedBehavior": "返回较高区间", "caseIds": ["T2-C59"]
+    "id": "PR03",
+    "category": "BOOKS",
+    "kind": "insufficient",
+    "schemaMapping": {
+      "category": "books",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "books",
+      "condition": "good",
+      "originalPriceFen": null,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "INSUFFICIENT_DATA",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR04", "category": "DIGITAL", "condition": "FAIR", "originalPrice": null, "expectedType": "missing_field", "expectedBehavior": "缺少原价，返回提示或不可用", "caseIds": ["T2-C59"]
+    "id": "PR04",
+    "category": "BOOKS",
+    "kind": "invalid",
+    "schemaMapping": {
+      "category": "books",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "books",
+      "condition": "good",
+      "originalPriceFen": -1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "VALIDATION_ERROR",
+      "httpStatus": 422
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR05", "category": "DAILY", "condition": "GOOD", "originalPrice": 100, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR05",
+    "category": "DIGITAL",
+    "kind": "normal",
+    "schemaMapping": {
+      "category": "digital",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "digital",
+      "condition": "good",
+      "originalPriceFen": 10000,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR06", "category": "DAILY", "condition": "NEW", "originalPrice": 10, "expectedType": "low_bound", "expectedBehavior": "返回较低区间", "caseIds": ["T2-C59"]
+    "id": "PR06",
+    "category": "DIGITAL",
+    "kind": "boundary",
+    "schemaMapping": {
+      "category": "digital",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "digital",
+      "condition": "fair",
+      "originalPriceFen": 1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR07", "category": "SPORTS", "condition": "FAIR", "originalPrice": 2000, "expectedType": "high_bound", "expectedBehavior": "返回较高区间", "caseIds": ["T2-C59"]
+    "id": "PR07",
+    "category": "DIGITAL",
+    "kind": "insufficient",
+    "schemaMapping": {
+      "category": "digital",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "digital",
+      "condition": "good",
+      "originalPriceFen": null,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "INSUFFICIENT_DATA",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR08", "category": "SPORTS", "condition": "GOOD", "originalPrice": -100, "expectedType": "invalid_field", "expectedBehavior": "非法字段，应被拒绝", "caseIds": ["T2-C59"]
+    "id": "PR08",
+    "category": "DIGITAL",
+    "kind": "invalid",
+    "schemaMapping": {
+      "category": "digital",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "digital",
+      "condition": "good",
+      "originalPriceFen": -1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "VALIDATION_ERROR",
+      "httpStatus": 422
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR09", "category": "CLOTHING", "condition": "LIKE_NEW", "originalPrice": 300, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR09",
+    "category": "DAILY",
+    "kind": "normal",
+    "schemaMapping": {
+      "category": "household",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "household",
+      "condition": "good",
+      "originalPriceFen": 10000,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR10", "category": "CLOTHING", "condition": "NEW", "originalPrice": 50, "expectedType": "low_bound", "expectedBehavior": "返回较低区间", "caseIds": ["T2-C59"]
+    "id": "PR10",
+    "category": "DAILY",
+    "kind": "boundary",
+    "schemaMapping": {
+      "category": "household",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "household",
+      "condition": "fair",
+      "originalPriceFen": 1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR11", "category": "OTHER", "condition": "GOOD", "originalPrice": 150, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR11",
+    "category": "DAILY",
+    "kind": "insufficient",
+    "schemaMapping": {
+      "category": "household",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "household",
+      "condition": "good",
+      "originalPriceFen": null,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "INSUFFICIENT_DATA",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR12", "category": "OTHER", "condition": "FAIR", "originalPrice": null, "expectedType": "missing_field", "expectedBehavior": "缺少原价，返回提示或不可用", "caseIds": ["T2-C59"]
+    "id": "PR12",
+    "category": "DAILY",
+    "kind": "invalid",
+    "schemaMapping": {
+      "category": "household",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "household",
+      "condition": "good",
+      "originalPriceFen": -1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "VALIDATION_ERROR",
+      "httpStatus": 422
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR13", "category": "BOOKS", "condition": "GOOD", "originalPrice": 20, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR13",
+    "category": "SPORTS",
+    "kind": "normal",
+    "schemaMapping": {
+      "category": "sports",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "sports",
+      "condition": "good",
+      "originalPriceFen": 10000,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR14", "category": "BOOKS", "condition": "LIKE_NEW", "originalPrice": 60, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR14",
+    "category": "SPORTS",
+    "kind": "boundary",
+    "schemaMapping": {
+      "category": "sports",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "sports",
+      "condition": "fair",
+      "originalPriceFen": 1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR15", "category": "DIGITAL", "condition": "NEW", "originalPrice": 800, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR15",
+    "category": "SPORTS",
+    "kind": "insufficient",
+    "schemaMapping": {
+      "category": "sports",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "sports",
+      "condition": "good",
+      "originalPriceFen": null,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "INSUFFICIENT_DATA",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR16", "category": "DIGITAL", "condition": "GOOD", "originalPrice": 200, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR16",
+    "category": "SPORTS",
+    "kind": "invalid",
+    "schemaMapping": {
+      "category": "sports",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "sports",
+      "condition": "good",
+      "originalPriceFen": -1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "VALIDATION_ERROR",
+      "httpStatus": 422
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR17", "category": "DAILY", "condition": "LIKE_NEW", "originalPrice": 80, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR17",
+    "category": "clothing",
+    "kind": "normal",
+    "schemaMapping": {
+      "category": "clothing",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "clothing",
+      "condition": "good",
+      "originalPriceFen": 10000,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR18", "category": "DAILY", "condition": "FAIR", "originalPrice": 40, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR18",
+    "category": "clothing",
+    "kind": "boundary",
+    "schemaMapping": {
+      "category": "clothing",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "clothing",
+      "condition": "fair",
+      "originalPriceFen": 1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR19", "category": "SPORTS", "condition": "NEW", "originalPrice": 500, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR19",
+    "category": "clothing",
+    "kind": "insufficient",
+    "schemaMapping": {
+      "category": "clothing",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "clothing",
+      "condition": "good",
+      "originalPriceFen": null,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "INSUFFICIENT_DATA",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR20", "category": "SPORTS", "condition": "LIKE_NEW", "originalPrice": 1000, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR20",
+    "category": "clothing",
+    "kind": "invalid",
+    "schemaMapping": {
+      "category": "clothing",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "clothing",
+      "condition": "good",
+      "originalPriceFen": -1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "VALIDATION_ERROR",
+      "httpStatus": 422
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR21", "category": "CLOTHING", "condition": "GOOD", "originalPrice": 120, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR21",
+    "category": "other",
+    "kind": "normal",
+    "schemaMapping": {
+      "category": "other",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "other",
+      "condition": "good",
+      "originalPriceFen": 10000,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR22", "category": "CLOTHING", "condition": "FAIR", "originalPrice": 60, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR22",
+    "category": "other",
+    "kind": "boundary",
+    "schemaMapping": {
+      "category": "other",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "other",
+      "condition": "fair",
+      "originalPriceFen": 1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "LOW_CONFIDENCE",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR23", "category": "OTHER", "condition": "LIKE_NEW", "originalPrice": 400, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+    "id": "PR23",
+    "category": "other",
+    "kind": "insufficient",
+    "schemaMapping": {
+      "category": "other",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "other",
+      "condition": "good",
+      "originalPriceFen": null,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "INSUFFICIENT_DATA",
+      "httpStatus": 200
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   },
   {
-    "id": "PR24", "category": "OTHER", "condition": "NEW", "originalPrice": 9999, "expectedType": "high_bound", "expectedBehavior": "返回高价格区间", "caseIds": ["T2-C59"]
+    "id": "PR24",
+    "category": "other",
+    "kind": "invalid",
+    "schemaMapping": {
+      "category": "other",
+      "money": "yuan to integer fen",
+      "condition": "lowercase"
+    },
+    "serviceInput": {
+      "category": "other",
+      "condition": "good",
+      "originalPriceFen": -1,
+      "purchaseAgeMonths": null,
+      "accessoryState": "complete",
+      "defectTags": []
+    },
+    "expected": {
+      "status": "VALIDATION_ERROR",
+      "httpStatus": 422
+    },
+    "basis": "services/m8_baseline/engine.py:price_advice; scripts/m8_phase2/pipeline.py:advise",
+    "labelLevel": "L0_SYNTHETIC",
+    "caseIds": [
+      "T2-C59"
+    ]
   }
 ]

@@ -1,0 +1,550 @@
+{
+  "openapiSha256": "431ea96df929c132c57482d505c8388798be81cb1ceac932b5a67d2705daffba",
+  "hashNormalization": "UTF-8, universal newlines to LF",
+  "schemas": {
+    "ProductListResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ApiEnvelope"
+        },
+        {
+          "type": "object",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "type": "object",
+              "required": [
+                "items",
+                "pagination"
+              ],
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Product"
+                  }
+                },
+                "pagination": {
+                  "$ref": "#/$defs/Pagination"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ApiEnvelope": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "example": 0
+        },
+        "message": {
+          "type": "string",
+          "example": "ok"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "required": [
+        "id",
+        "seller",
+        "title",
+        "category",
+        "condition",
+        "price",
+        "status",
+        "images",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "seller": {
+          "$ref": "#/$defs/UserBrief"
+        },
+        "title": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "originalPrice": {
+          "type": "number",
+          "minimum": 0
+        },
+        "price": {
+          "type": "number",
+          "minimum": 0
+        },
+        "campusLocation": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "status": {
+          "$ref": "#/$defs/ProductStatus"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "UserBrief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "nickname",
+        "avatar",
+        "rating",
+        "transactionCount"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "rating": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "transactionCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "ProductStatus": {
+      "type": "string",
+      "enum": [
+        "ON_SALE",
+        "RESERVED",
+        "SOLD",
+        "HIDDEN"
+      ]
+    },
+    "Pagination": {
+      "type": "object",
+      "required": [
+        "page",
+        "pageSize",
+        "total"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pageSize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "ProductResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ApiEnvelope"
+        },
+        {
+          "type": "object",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/Product"
+            }
+          }
+        }
+      ]
+    },
+    "ChatSessionListResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ApiEnvelope"
+        },
+        {
+          "type": "object",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ChatSession"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ChatSession": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "peer",
+        "unreadCount"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "$ref": "#/$defs/ChatSessionType"
+        },
+        "peer": {
+          "$ref": "#/$defs/UserBrief"
+        },
+        "product": {
+          "$ref": "#/$defs/Product"
+        },
+        "wanted": {
+          "$ref": "#/$defs/Wanted"
+        },
+        "lastMessage": {
+          "$ref": "#/$defs/Message"
+        },
+        "unreadCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "ChatSessionType": {
+      "type": "string",
+      "enum": [
+        "PRODUCT",
+        "WANTED"
+      ]
+    },
+    "Wanted": {
+      "type": "object",
+      "required": [
+        "id",
+        "owner",
+        "title",
+        "budgetMin",
+        "budgetMax",
+        "condition",
+        "location",
+        "status",
+        "expireAt",
+        "createdAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "owner": {
+          "$ref": "#/$defs/UserBrief"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "budgetMin": {
+          "type": "number",
+          "minimum": 0
+        },
+        "budgetMax": {
+          "type": "number",
+          "minimum": 0
+        },
+        "condition": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/WantedStatus"
+        },
+        "expireAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "WantedStatus": {
+      "type": "string",
+      "enum": [
+        "OPEN",
+        "MATCHED",
+        "CLOSED",
+        "EXPIRED"
+      ]
+    },
+    "Message": {
+      "type": "object",
+      "required": [
+        "id",
+        "clientMsgId",
+        "sessionId",
+        "senderId",
+        "kind",
+        "createdAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "clientMsgId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "senderId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "kind": {
+          "$ref": "#/$defs/MessageKind"
+        },
+        "content": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MessageKind": {
+      "type": "string",
+      "enum": [
+        "TEXT",
+        "IMAGE",
+        "OFFER",
+        "ORDER_EVENT",
+        "SYSTEM"
+      ]
+    },
+    "OrderResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/ApiEnvelope"
+        },
+        {
+          "type": "object",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "$ref": "#/$defs/Order"
+            }
+          }
+        }
+      ]
+    },
+    "Order": {
+      "type": "object",
+      "required": [
+        "id",
+        "product",
+        "buyer",
+        "seller",
+        "status",
+        "amount",
+        "buyerConfirmedComplete",
+        "sellerConfirmedComplete",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "product": {
+          "$ref": "#/$defs/Product"
+        },
+        "buyer": {
+          "$ref": "#/$defs/UserBrief"
+        },
+        "seller": {
+          "$ref": "#/$defs/UserBrief"
+        },
+        "status": {
+          "$ref": "#/$defs/OrderStatus"
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "meetup": {
+          "$ref": "#/$defs/Meetup"
+        },
+        "buyerConfirmedComplete": {
+          "type": "boolean"
+        },
+        "sellerConfirmedComplete": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "OrderStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING_CONFIRM",
+        "BOOKED",
+        "MEETUP_ARRANGED",
+        "COMPLETED",
+        "CANCELLED",
+        "DISPUTED"
+      ]
+    },
+    "Meetup": {
+      "type": "object",
+      "required": [
+        "id",
+        "orderId",
+        "version",
+        "campusLocation",
+        "scheduledDate",
+        "timeSlotStart",
+        "timeSlotEnd",
+        "buyerConfirmed",
+        "sellerConfirmed",
+        "createdAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orderId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "campusLocation": {
+          "type": "string"
+        },
+        "scheduledDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "timeSlotStart": {
+          "type": "string",
+          "format": "time"
+        },
+        "timeSlotEnd": {
+          "type": "string",
+          "format": "time"
+        },
+        "note": {
+          "type": "string"
+        },
+        "buyerConfirmed": {
+          "type": "boolean"
+        },
+        "sellerConfirmed": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "required": [
+        "code",
+        "message",
+        "requestId"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        },
+        "requestId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
