@@ -5,7 +5,7 @@
 ## 已更新的版本
 
 - 工作目录：`C:\Users\Administrator\Desktop\CampusLoop`。
-- 分支：`feat/recovered-catalog-20261030`，基于 `b3706b8`；本轮未提交、未合并、未推送。
+- 商品提交：`7efde25`（来源分支 `feat/recovered-catalog-20261030`，基于 `b3706b8`）；已按用户要求快进合并到本地 `main`。
 - 本地网站：`http://127.0.0.1:5174/market`；API：`http://127.0.0.1:8001`。
 - 使用 `scripts/start-local.ps1 -NoBrowser` 重建更新，保留 `campusloop-local-db` 和媒体卷。
 

@@ -1,7 +1,8 @@
 {
   "updatedAt": "2026-10-30T10:57:59.902050+08:00",
-  "branch": "feat/recovered-catalog-20261030",
-  "merged": false,
+  "branch": "main",
+  "merged": true,
+  "catalogCommit": "7efde25",
   "catalogProducts": 375,
   "catalogImages": 681,
   "newProducts": 91,
