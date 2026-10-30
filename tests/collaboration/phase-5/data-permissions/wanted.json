@@ -1,0 +1,38 @@
+[
+  {
+    "fixtureId": "W01", "ownerAlias": "B", "title": "求购高数教材", "description": "大一新生求购，接受轻微笔记。", "budgetMin": 20, "budgetMax": 50, "condition": "GOOD", "location": "图书馆门口", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W02", "ownerAlias": "B", "title": "求购二手 iPad", "description": "用于看网课，成色好一点。", "budgetMin": 1000, "budgetMax": 2000, "condition": "LIKE_NEW", "location": "宿舍楼下", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W03", "ownerAlias": "B", "title": "求购机械键盘", "description": "红轴或茶轴皆可。", "budgetMin": 100, "budgetMax": 250, "condition": "GOOD", "location": "教学楼A座", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W04", "ownerAlias": "B", "title": "求购羽毛球拍", "description": "新手入门，不太重即可。", "budgetMin": 30, "budgetMax": 80, "condition": "FAIR", "location": "体育馆", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W05", "ownerAlias": "B", "title": "求购宿舍收纳箱", "description": "要大号，最好带轮子。", "budgetMin": 20, "budgetMax": 40, "condition": "NEW", "location": "宿舍楼下", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W06", "ownerAlias": "B", "title": "求购冬季外套", "description": "男生L码，保暖就行。", "budgetMin": 50, "budgetMax": 150, "condition": "GOOD", "location": "宿舍楼下", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W07", "ownerAlias": "B", "title": "求购二手显示器", "description": "24寸，1080P即可。", "budgetMin": 300, "budgetMax": 500, "condition": "GOOD", "location": "图书馆门口", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W08", "ownerAlias": "B", "title": "求购降噪耳机", "description": "为了期末复习，价格好商量。", "budgetMin": 400, "budgetMax": 800, "condition": "LIKE_NEW", "location": "教学楼B座", "expireAt": "+7d", "caseIds": ["T2-C16"]
+  },
+  {
+    "fixtureId": "W09", "ownerAlias": "B", "title": "求购考研政治资料", "description": "已关闭。", "budgetMin": 20, "budgetMax": 50, "condition": "GOOD", "location": "图书馆门口", "expireAt": "+7d", "status": "CLOSED", "caseIds": ["T2-C17"]
+  },
+  {
+    "fixtureId": "W10", "ownerAlias": "B", "title": "求购吉他", "description": "已关闭。", "budgetMin": 100, "budgetMax": 300, "condition": "GOOD", "location": "宿舍楼下", "expireAt": "+7d", "status": "CLOSED", "caseIds": ["T2-C17"]
+  },
+  {
+    "fixtureId": "W11", "ownerAlias": "B", "title": "求购折叠自行车", "description": "已关闭。", "budgetMin": 200, "budgetMax": 400, "condition": "FAIR", "location": "车棚", "expireAt": "+7d", "status": "CLOSED", "caseIds": ["T2-C17"]
+  },
+  {
+    "fixtureId": "W12", "ownerAlias": "B", "title": "求购网线", "description": "已关闭。", "budgetMin": 5, "budgetMax": 10, "condition": "NEW", "location": "宿舍楼下", "expireAt": "+7d", "status": "CLOSED", "caseIds": ["T2-C17"]
+  }
+]

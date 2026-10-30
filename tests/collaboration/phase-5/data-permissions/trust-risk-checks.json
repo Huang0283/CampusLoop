@@ -1,0 +1,38 @@
+[
+  {
+    "id": "TR01", "group": "no_trade", "userId": "E", "facts": { "tradeCount": 0, "reviews": [], "reports": [] }, "expectedOutput": { "trustScore": "low", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR02", "group": "no_trade", "userId": "E", "facts": { "tradeCount": 0, "reviews": [], "reports": [] }, "expectedOutput": { "trustScore": "low", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR03", "group": "no_trade", "userId": "E", "facts": { "tradeCount": 0, "reviews": [], "reports": [] }, "expectedOutput": { "trustScore": "low", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR04", "group": "normal_trade", "userId": "A", "facts": { "tradeCount": 5, "reviews": [5, 5, 4, 5, 5], "reports": [] }, "expectedOutput": { "trustScore": "high", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR05", "group": "normal_trade", "userId": "A", "facts": { "tradeCount": 5, "reviews": [5, 5, 4, 5, 5], "reports": [] }, "expectedOutput": { "trustScore": "high", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR06", "group": "normal_trade", "userId": "A", "facts": { "tradeCount": 5, "reviews": [5, 5, 4, 5, 5], "reports": [] }, "expectedOutput": { "trustScore": "high", "riskLevel": "none" }, "forbiddenOutput": ["fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR07", "group": "risk_trade", "userId": "Z", "facts": { "tradeCount": 10, "reviews": [1, 2, 1, 1, 2], "reports": [{"type": "SPAM"}, {"type": "HARASSMENT"}] }, "expectedOutput": { "trustScore": "low", "riskLevel": "high" }, "forbiddenOutput": ["auto_ban", "guilty"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR08", "group": "risk_trade", "userId": "Z", "facts": { "tradeCount": 10, "reviews": [1, 2, 1, 1, 2], "reports": [{"type": "SPAM"}, {"type": "HARASSMENT"}] }, "expectedOutput": { "trustScore": "low", "riskLevel": "high" }, "forbiddenOutput": ["auto_ban", "guilty"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR09", "group": "risk_trade", "userId": "Z", "facts": { "tradeCount": 10, "reviews": [1, 2, 1, 1, 2], "reports": [{"type": "SPAM"}, {"type": "HARASSMENT"}] }, "expectedOutput": { "trustScore": "low", "riskLevel": "high" }, "forbiddenOutput": ["auto_ban", "guilty"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR10", "group": "degraded", "userId": "A", "facts": null, "expectedOutput": { "trustScore": "unknown", "riskLevel": "unknown" }, "forbiddenOutput": ["fail", "fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR11", "group": "degraded", "userId": "A", "facts": null, "expectedOutput": { "trustScore": "unknown", "riskLevel": "unknown" }, "forbiddenOutput": ["fail", "fraud"], "caseIds": ["T2-C60"]
+  },
+  {
+    "id": "TR12", "group": "degraded", "userId": "A", "facts": null, "expectedOutput": { "trustScore": "unknown", "riskLevel": "unknown" }, "forbiddenOutput": ["fail", "fraud"], "caseIds": ["T2-C60"]
+  }
+]

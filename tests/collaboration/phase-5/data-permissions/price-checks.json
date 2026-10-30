@@ -1,0 +1,74 @@
+[
+  {
+    "id": "PR01", "category": "BOOKS", "condition": "NEW", "originalPrice": 50, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR02", "category": "BOOKS", "condition": "FAIR", "originalPrice": 50, "expectedType": "low_bound", "expectedBehavior": "返回较低区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR03", "category": "DIGITAL", "condition": "LIKE_NEW", "originalPrice": 5000, "expectedType": "high_bound", "expectedBehavior": "返回较高区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR04", "category": "DIGITAL", "condition": "FAIR", "originalPrice": null, "expectedType": "missing_field", "expectedBehavior": "缺少原价，返回提示或不可用", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR05", "category": "DAILY", "condition": "GOOD", "originalPrice": 100, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR06", "category": "DAILY", "condition": "NEW", "originalPrice": 10, "expectedType": "low_bound", "expectedBehavior": "返回较低区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR07", "category": "SPORTS", "condition": "FAIR", "originalPrice": 2000, "expectedType": "high_bound", "expectedBehavior": "返回较高区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR08", "category": "SPORTS", "condition": "GOOD", "originalPrice": -100, "expectedType": "invalid_field", "expectedBehavior": "非法字段，应被拒绝", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR09", "category": "CLOTHING", "condition": "LIKE_NEW", "originalPrice": 300, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR10", "category": "CLOTHING", "condition": "NEW", "originalPrice": 50, "expectedType": "low_bound", "expectedBehavior": "返回较低区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR11", "category": "OTHER", "condition": "GOOD", "originalPrice": 150, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR12", "category": "OTHER", "condition": "FAIR", "originalPrice": null, "expectedType": "missing_field", "expectedBehavior": "缺少原价，返回提示或不可用", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR13", "category": "BOOKS", "condition": "GOOD", "originalPrice": 20, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR14", "category": "BOOKS", "condition": "LIKE_NEW", "originalPrice": 60, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR15", "category": "DIGITAL", "condition": "NEW", "originalPrice": 800, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR16", "category": "DIGITAL", "condition": "GOOD", "originalPrice": 200, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR17", "category": "DAILY", "condition": "LIKE_NEW", "originalPrice": 80, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR18", "category": "DAILY", "condition": "FAIR", "originalPrice": 40, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR19", "category": "SPORTS", "condition": "NEW", "originalPrice": 500, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR20", "category": "SPORTS", "condition": "LIKE_NEW", "originalPrice": 1000, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR21", "category": "CLOTHING", "condition": "GOOD", "originalPrice": 120, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR22", "category": "CLOTHING", "condition": "FAIR", "originalPrice": 60, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR23", "category": "OTHER", "condition": "LIKE_NEW", "originalPrice": 400, "expectedType": "normal", "expectedBehavior": "返回正常区间", "caseIds": ["T2-C59"]
+  },
+  {
+    "id": "PR24", "category": "OTHER", "condition": "NEW", "originalPrice": 9999, "expectedType": "high_bound", "expectedBehavior": "返回高价格区间", "caseIds": ["T2-C59"]
+  }
+]

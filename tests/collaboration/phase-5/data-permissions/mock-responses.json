@@ -1,0 +1,25 @@
+[
+  { "id": "MR01", "api": "/products", "scenario": "success", "status": 200, "body": { "code": 0, "message": "ok", "data": { "list": [], "total": 0 } } },
+  { "id": "MR02", "api": "/products", "scenario": "empty", "status": 200, "body": { "code": 0, "message": "ok", "data": { "list": [], "total": 0 } } },
+  { "id": "MR03", "api": "/products", "scenario": "failure", "status": 500, "body": { "code": 500, "message": "Internal Server Error", "data": null } },
+  { "id": "MR04", "api": "/products", "scenario": "unauthorized", "status": 401, "body": { "code": 401, "message": "Unauthorized", "data": null } },
+  { "id": "MR05", "api": "/products", "scenario": "loading", "status": 200, "delay": 3000, "body": { "code": 0, "message": "ok", "data": { "list": [], "total": 0 } } },
+  
+  { "id": "MR06", "api": "/products/1", "scenario": "success", "status": 200, "body": { "code": 0, "message": "ok", "data": { "id": 1, "title": "test" } } },
+  { "id": "MR07", "api": "/products/1", "scenario": "not_found", "status": 404, "body": { "code": 404, "message": "Not Found", "data": null } },
+  { "id": "MR08", "api": "/products/1", "scenario": "failure", "status": 500, "body": { "code": 500, "message": "error", "data": null } },
+  { "id": "MR09", "api": "/products/1", "scenario": "unauthorized", "status": 401, "body": { "code": 401, "message": "Unauthorized", "data": null } },
+  { "id": "MR10", "api": "/products/1", "scenario": "loading", "status": 200, "delay": 3000, "body": { "code": 0, "message": "ok", "data": { "id": 1 } } },
+
+  { "id": "MR11", "api": "/chat/sessions", "scenario": "success", "status": 200, "body": { "code": 0, "message": "ok", "data": { "list": [], "total": 0 } } },
+  { "id": "MR12", "api": "/chat/sessions", "scenario": "empty", "status": 200, "body": { "code": 0, "message": "ok", "data": { "list": [], "total": 0 } } },
+  { "id": "MR13", "api": "/chat/sessions", "scenario": "failure", "status": 500, "body": { "code": 500, "message": "error", "data": null } },
+  { "id": "MR14", "api": "/chat/sessions", "scenario": "unauthorized", "status": 401, "body": { "code": 401, "message": "Unauthorized", "data": null } },
+  { "id": "MR15", "api": "/chat/sessions", "scenario": "loading", "status": 200, "delay": 3000, "body": { "code": 0, "message": "ok", "data": { "list": [] } } },
+
+  { "id": "MR16", "api": "/orders/1", "scenario": "success", "status": 200, "body": { "code": 0, "message": "ok", "data": { "id": 1, "status": "PENDING_CONFIRM" } } },
+  { "id": "MR17", "api": "/orders/1", "scenario": "not_found", "status": 404, "body": { "code": 404, "message": "Not Found", "data": null } },
+  { "id": "MR18", "api": "/orders/1", "scenario": "failure", "status": 500, "body": { "code": 500, "message": "error", "data": null } },
+  { "id": "MR19", "api": "/orders/1", "scenario": "unauthorized", "status": 401, "body": { "code": 401, "message": "Unauthorized", "data": null } },
+  { "id": "MR20", "api": "/orders/1", "scenario": "loading", "status": 200, "delay": 3000, "body": { "code": 0, "message": "ok", "data": { "id": 1 } } }
+]

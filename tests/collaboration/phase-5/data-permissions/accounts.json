@@ -1,0 +1,58 @@
+[
+  {
+    "alias": "A",
+    "role": "student",
+    "nickname": "卖家A",
+    "emailPrefix": "seller-a",
+    "purpose": "卖家，发布商品、接受报价、发起约定"
+  },
+  {
+    "alias": "B",
+    "role": "student",
+    "nickname": "买家B",
+    "emailPrefix": "buyer-b",
+    "purpose": "买家，报价、接受约定、完成交易"
+  },
+  {
+    "alias": "C",
+    "role": "student",
+    "nickname": "竞争买家C",
+    "emailPrefix": "buyer-c",
+    "purpose": "竞争买家，用于并发接受报价测试"
+  },
+  {
+    "alias": "D",
+    "role": "student",
+    "nickname": "非参与者D",
+    "emailPrefix": "outsider-d",
+    "purpose": "越权测试，尝试访问 A/B 的私聊、订单、求购"
+  },
+  {
+    "alias": "E",
+    "role": "student",
+    "nickname": "空资料学生E",
+    "emailPrefix": "empty-profile-e",
+    "purpose": "空资料、空列表学生"
+  },
+  {
+    "alias": "Z",
+    "role": "student",
+    "nickname": "禁用学生Z",
+    "emailPrefix": "banned-z",
+    "purpose": "被禁用账号，登录和操作应被拒绝"
+  },
+  {
+    "alias": "R",
+    "role": "admin",
+    "nickname": "管理员R",
+    "emailPrefix": "admin-r",
+    "purpose": "处理举报、审核、重复/并发审核"
+  },
+  {
+    "alias": "S",
+    "role": "admin",
+    "nickname": "管理员S",
+    "emailPrefix": "admin-s",
+    "purpose": "第二个管理员，处理并发审核场景"
+  }
+]

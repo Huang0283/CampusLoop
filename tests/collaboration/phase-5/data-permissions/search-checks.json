@@ -1,0 +1,92 @@
+[
+  {
+    "id": "Q01", "query": "高等数学", "filters": { "category": "BOOKS" }, "acceptableProductFixtureIds": ["P001"], "reason": "标题包含高等数学", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q02", "query": "四级", "filters": { "category": "BOOKS" }, "acceptableProductFixtureIds": ["P002"], "reason": "标题包含四级", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q03", "query": "线性代数", "filters": { "category": "BOOKS" }, "acceptableProductFixtureIds": ["P003"], "reason": "标题包含线性代数", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q04", "query": "物理实验", "filters": { "category": "BOOKS" }, "acceptableProductFixtureIds": ["P004"], "reason": "标题包含物理实验", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q05", "query": "考研政治", "filters": { "category": "BOOKS" }, "acceptableProductFixtureIds": ["P008"], "reason": "标题包含考研政治", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q06", "query": "鼠标", "filters": { "category": "DIGITAL" }, "acceptableProductFixtureIds": ["P009"], "reason": "标题包含鼠标", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q07", "query": "电子书", "filters": { "category": "DIGITAL" }, "acceptableProductFixtureIds": ["P010"], "reason": "标题包含电子书", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q08", "query": "移动硬盘", "filters": { "category": "DIGITAL" }, "acceptableProductFixtureIds": ["P011"], "reason": "标题包含移动硬盘", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q09", "query": "显示器", "filters": { "category": "DIGITAL" }, "acceptableProductFixtureIds": ["P013"], "reason": "标题包含显示器", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q10", "query": "键盘", "filters": { "category": "DIGITAL" }, "acceptableProductFixtureIds": ["P014"], "reason": "标题包含键盘", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q11", "query": "台灯", "filters": { "category": "DAILY" }, "acceptableProductFixtureIds": ["P017"], "reason": "标题包含台灯", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q12", "query": "收纳箱", "filters": { "category": "DAILY" }, "acceptableProductFixtureIds": ["P018"], "reason": "标题包含收纳箱", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q13", "query": "保温杯", "filters": { "category": "DAILY" }, "acceptableProductFixtureIds": ["P019"], "reason": "标题包含保温杯", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q14", "query": "瑜伽垫", "filters": { "category": "DAILY" }, "acceptableProductFixtureIds": ["P022"], "reason": "标题包含瑜伽垫", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q15", "query": "吹风机", "filters": { "category": "DAILY" }, "acceptableProductFixtureIds": ["P023"], "reason": "标题包含吹风机", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q16", "query": "羽毛球拍", "filters": { "category": "SPORTS" }, "acceptableProductFixtureIds": ["P025"], "reason": "标题包含羽毛球拍", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q17", "query": "篮球", "filters": { "category": "SPORTS" }, "acceptableProductFixtureIds": ["P026"], "reason": "标题包含篮球", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q18", "query": "跳绳", "filters": { "category": "SPORTS" }, "acceptableProductFixtureIds": ["P027"], "reason": "标题包含跳绳", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q19", "query": "轮滑", "filters": { "category": "SPORTS" }, "acceptableProductFixtureIds": ["P028"], "reason": "标题包含轮滑", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q20", "query": "自行车", "filters": { "category": "SPORTS" }, "acceptableProductFixtureIds": ["P032"], "reason": "标题包含自行车", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q21", "query": "卫衣", "filters": { "category": "CLOTHING" }, "acceptableProductFixtureIds": ["P033"], "reason": "标题包含卫衣", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q22", "query": "外套", "filters": { "category": "CLOTHING" }, "acceptableProductFixtureIds": ["P034"], "reason": "标题包含外套", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q23", "query": "帆布鞋", "filters": { "category": "CLOTHING" }, "acceptableProductFixtureIds": ["P037"], "reason": "标题包含帆布鞋", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q24", "query": "双肩包", "filters": { "category": "CLOTHING" }, "acceptableProductFixtureIds": ["P038"], "reason": "标题包含双肩包", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q25", "query": "羽绒服", "filters": { "category": "CLOTHING" }, "acceptableProductFixtureIds": ["P040"], "reason": "标题包含羽绒服", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q26", "query": "吉他", "filters": { "category": "OTHER" }, "acceptableProductFixtureIds": ["P042"], "reason": "标题包含吉他", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q27", "query": "手账", "filters": { "category": "OTHER" }, "acceptableProductFixtureIds": ["P043"], "reason": "标题包含手账", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q28", "query": "加湿器", "filters": { "category": "OTHER" }, "acceptableProductFixtureIds": ["P045"], "reason": "标题包含加湿器", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q29", "query": "投影仪", "filters": { "category": "OTHER" }, "acceptableProductFixtureIds": ["P048"], "reason": "标题包含投影仪", "caseIds": ["T2-C04"]
+  },
+  {
+    "id": "Q30", "query": "找不到的东西", "filters": {}, "acceptableProductFixtureIds": [], "reason": "无匹配项", "caseIds": ["T2-C04"]
+  }
+]

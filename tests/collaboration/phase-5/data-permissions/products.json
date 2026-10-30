@@ -1,0 +1,182 @@
+[
+  {
+    "fixtureId": "P001", "ownerAlias": "A", "title": "九成新高等数学上册", "description": "测试教材，少量铅笔笔记，无缺页。", "category": "BOOKS", "condition": "LIKE_NEW", "price": 25, "originalPrice": 49, "campusLocation": "图书馆门口", "imageFixtureIds": ["M01"], "caseIds": ["T2-C07", "T2-C01"]
+  },
+  {
+    "fixtureId": "P002", "ownerAlias": "A", "title": "大学英语四级真题", "description": "全新未拆封，适合备考。", "category": "BOOKS", "condition": "NEW", "price": 0.01, "originalPrice": null, "campusLocation": "教学楼A座", "imageFixtureIds": ["M02"], "caseIds": ["T2-C07"]
+  },
+  {
+    "fixtureId": "P003", "ownerAlias": "A", "title": "线性代数辅导讲义", "description": "八成新，部分重点已标注。", "category": "BOOKS", "condition": "GOOD", "price": 10, "originalPrice": 30, "campusLocation": "图书馆门口", "imageFixtureIds": ["M03"], "caseIds": ["T2-C07"]
+  },
+  {
+    "fixtureId": "P004", "ownerAlias": "A", "title": "大学物理实验报告册", "description": "全新空白，未使用。", "category": "BOOKS", "condition": "NEW", "price": 50, "originalPrice": 60, "campusLocation": "教学楼B座", "imageFixtureIds": ["M04"], "caseIds": ["T2-C07"]
+  },
+  {
+    "fixtureId": "P005", "ownerAlias": "A", "title": "考研数学复习全书", "description": "七成新，有少量折角。", "category": "BOOKS", "condition": "FAIR", "price": 100, "originalPrice": 200, "campusLocation": "图书馆门口", "imageFixtureIds": ["M05", "M06"], "caseIds": ["T2-C07"]
+  },
+  {
+    "fixtureId": "P006", "ownerAlias": "A", "title": "英语六级听力真题", "description": "八成新，附赠听力音频。", "category": "BOOKS", "condition": "GOOD", "price": 200, "originalPrice": 400, "campusLocation": "教学楼A座", "imageFixtureIds": ["M07"], "caseIds": ["T2-C07"]
+  },
+  {
+    "fixtureId": "P007", "ownerAlias": "A", "title": "计算机二级教程", "description": "九成新，几乎无笔迹。", "category": "BOOKS", "condition": "LIKE_NEW", "price": 500, "originalPrice": 800, "campusLocation": "图书馆门口", "imageFixtureIds": ["M08"], "caseIds": ["T2-C07"]
+  },
+  {
+    "fixtureId": "P008", "ownerAlias": "A", "title": "考研政治全套资料", "description": "全新未拆封，多本合售。", "category": "BOOKS", "condition": "NEW", "price": 1000, "originalPrice": 1500, "campusLocation": "图书馆门口", "imageFixtureIds": ["M01", "M02"], "caseIds": ["T2-C07"]
+  },
+  {
+    "fixtureId": "P009", "ownerAlias": "B", "title": "罗技无线鼠标", "description": "八成新，功能正常。", "category": "DIGITAL", "condition": "GOOD", "price": 25, "originalPrice": 99, "campusLocation": "图书馆门口", "imageFixtureIds": ["M03"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P010", "ownerAlias": "B", "title": "Kindle 电子书阅读器", "description": "九成新，带保护套。", "category": "DIGITAL", "condition": "LIKE_NEW", "price": 10, "originalPrice": 658, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M04"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P011", "ownerAlias": "B", "title": "移动硬盘 1TB", "description": "全新未拆封，USB3.0。", "category": "DIGITAL", "condition": "NEW", "price": 0.01, "originalPrice": 399, "campusLocation": "图书馆门口", "imageFixtureIds": ["M05"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P012", "ownerAlias": "B", "title": "蓝牙耳机", "description": "七成新，续航一般。", "category": "DIGITAL", "condition": "FAIR", "price": 50, "originalPrice": 199, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M06"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P013", "ownerAlias": "B", "title": "27寸外接显示器", "description": "九成新，显示效果极佳。", "category": "DIGITAL", "condition": "LIKE_NEW", "price": 100, "originalPrice": 899, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M07", "M08"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P014", "ownerAlias": "B", "title": "机械键盘", "description": "八成新，红轴，手感很好。", "category": "DIGITAL", "condition": "GOOD", "price": 200, "originalPrice": 400, "campusLocation": "教学楼A座", "imageFixtureIds": ["M01"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P015", "ownerAlias": "B", "title": "大疆手机云台", "description": "全新未拆封，闲置转让。", "category": "DIGITAL", "condition": "NEW", "price": 500, "originalPrice": 699, "campusLocation": "图书馆门口", "imageFixtureIds": ["M02"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P016", "ownerAlias": "B", "title": "旧款 iPad", "description": "七成新，电池健康度尚可。", "category": "DIGITAL", "condition": "FAIR", "price": 1000, "originalPrice": 3000, "campusLocation": "图书馆门口", "imageFixtureIds": ["M03", "M04"], "caseIds": ["T2-C01"]
+  },
+  {
+    "fixtureId": "P017", "ownerAlias": "A", "title": "宿舍护眼台灯", "description": "九成新，灯光无频闪。", "category": "DAILY", "condition": "LIKE_NEW", "price": 10, "originalPrice": 59, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M05"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P018", "ownerAlias": "A", "title": "小型收纳箱", "description": "八成新，空间很大。", "category": "DAILY", "condition": "GOOD", "price": 25, "originalPrice": 45, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M06"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P019", "ownerAlias": "A", "title": "保温杯", "description": "全新，未使用过。", "category": "DAILY", "condition": "NEW", "price": 0.01, "originalPrice": 99, "campusLocation": "教学楼B座", "imageFixtureIds": ["M07"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P020", "ownerAlias": "A", "title": "洗护用品套装", "description": "七成新，剩余量足。", "category": "DAILY", "condition": "FAIR", "price": 50, "originalPrice": 120, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M08"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P021", "ownerAlias": "A", "title": "折叠衣架", "description": "全新，买多了一套。", "category": "DAILY", "condition": "NEW", "price": 100, "originalPrice": 150, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M01", "M02"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P022", "ownerAlias": "A", "title": "瑜伽垫", "description": "九成新，无破损。", "category": "DAILY", "condition": "LIKE_NEW", "price": 200, "originalPrice": 299, "campusLocation": "体育馆", "imageFixtureIds": ["M03"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P023", "ownerAlias": "A", "title": "小型吹风机", "description": "八成新，风力强劲。", "category": "DAILY", "condition": "GOOD", "price": 500, "originalPrice": 999, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M04"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P024", "ownerAlias": "A", "title": "宿舍小冰箱", "description": "七成新，制冷正常。", "category": "DAILY", "condition": "FAIR", "price": 1000, "originalPrice": 2000, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M05", "M06"], "caseIds": ["T2-C02"]
+  },
+  {
+    "fixtureId": "P025", "ownerAlias": "B", "title": "羽毛球拍", "description": "八成新，已穿线。", "category": "SPORTS", "condition": "GOOD", "price": 25, "originalPrice": 150, "campusLocation": "体育馆", "imageFixtureIds": ["M07"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P026", "ownerAlias": "B", "title": "篮球", "description": "九成新，手感好。", "category": "SPORTS", "condition": "LIKE_NEW", "price": 10, "originalPrice": 80, "campusLocation": "体育馆", "imageFixtureIds": ["M08"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P027", "ownerAlias": "B", "title": "跳绳", "description": "全新未拆封。", "category": "SPORTS", "condition": "NEW", "price": 0.01, "originalPrice": 20, "campusLocation": "操场", "imageFixtureIds": ["M01"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P028", "ownerAlias": "B", "title": "轮滑鞋", "description": "七成新，尺码42。", "category": "SPORTS", "condition": "FAIR", "price": 50, "originalPrice": 300, "campusLocation": "操场", "imageFixtureIds": ["M02"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P029", "ownerAlias": "B", "title": "网球拍", "description": "八成新，送两个球。", "category": "SPORTS", "condition": "GOOD", "price": 100, "originalPrice": 299, "campusLocation": "网球场", "imageFixtureIds": ["M03", "M04"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P030", "ownerAlias": "B", "title": "护膝护腕套装", "description": "全新未使用。", "category": "SPORTS", "condition": "NEW", "price": 200, "originalPrice": 250, "campusLocation": "体育馆", "imageFixtureIds": ["M05"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P031", "ownerAlias": "B", "title": "折叠跑步机", "description": "九成新，上门自提。", "category": "SPORTS", "condition": "LIKE_NEW", "price": 500, "originalPrice": 1500, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M06"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P032", "ownerAlias": "B", "title": "公路自行车", "description": "七成新，刚保养过。", "category": "SPORTS", "condition": "FAIR", "price": 1000, "originalPrice": 3000, "campusLocation": "车棚", "imageFixtureIds": ["M07", "M08"], "caseIds": ["T2-C03"]
+  },
+  {
+    "fixtureId": "P033", "ownerAlias": "A", "title": "全新未摘吊牌卫衣", "description": "全新，买大了一码。", "category": "CLOTHING", "condition": "NEW", "price": 50, "originalPrice": 199, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M01"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P034", "ownerAlias": "A", "title": "牛仔外套", "description": "九成新，穿过两次。", "category": "CLOTHING", "condition": "LIKE_NEW", "price": 25, "originalPrice": 150, "campusLocation": "图书馆门口", "imageFixtureIds": ["M02"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P035", "ownerAlias": "A", "title": "运动短裤", "description": "八成新，无污渍。", "category": "CLOTHING", "condition": "GOOD", "price": 10, "originalPrice": 49, "campusLocation": "体育馆", "imageFixtureIds": ["M03"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P036", "ownerAlias": "A", "title": "加绒长裤", "description": "七成新，冬季御寒。", "category": "CLOTHING", "condition": "FAIR", "price": 0.01, "originalPrice": 99, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M04"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P037", "ownerAlias": "A", "title": "帆布鞋", "description": "九成新，39码。", "category": "CLOTHING", "condition": "LIKE_NEW", "price": 100, "originalPrice": 299, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M05", "M06"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P038", "ownerAlias": "A", "title": "双肩包", "description": "八成新，容量大。", "category": "CLOTHING", "condition": "GOOD", "price": 200, "originalPrice": 399, "campusLocation": "图书馆门口", "imageFixtureIds": ["M07"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P039", "ownerAlias": "A", "title": "纯棉短袖", "description": "全新，多件合售。", "category": "CLOTHING", "condition": "NEW", "price": 500, "originalPrice": 600, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M08"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P040", "ownerAlias": "A", "title": "羽绒服", "description": "七成新，保暖效果好。", "category": "CLOTHING", "condition": "FAIR", "price": 1000, "originalPrice": 1999, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M01", "M02"], "caseIds": ["T2-C04"]
+  },
+  {
+    "fixtureId": "P041", "ownerAlias": "B", "title": "多肉植物", "description": "健康，连盆转让。", "category": "OTHER", "condition": "GOOD", "price": 10, "originalPrice": 30, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M03"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P042", "ownerAlias": "B", "title": "吉他", "description": "八成新，送吉他包。", "category": "OTHER", "condition": "GOOD", "price": 200, "originalPrice": 899, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M04"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P043", "ownerAlias": "B", "title": "手账本", "description": "全新带塑封。", "category": "OTHER", "condition": "NEW", "price": 0.01, "originalPrice": 30, "campusLocation": "图书馆门口", "imageFixtureIds": ["M05"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P044", "ownerAlias": "B", "title": "盲盒手办", "description": "九成新，已拆盒。", "category": "OTHER", "condition": "LIKE_NEW", "price": 25, "originalPrice": 69, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M06"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P045", "ownerAlias": "B", "title": "桌面加湿器", "description": "七成新，无漏水。", "category": "OTHER", "condition": "FAIR", "price": 50, "originalPrice": 89, "campusLocation": "图书馆门口", "imageFixtureIds": ["M07", "M08"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P046", "ownerAlias": "B", "title": "香薰蜡烛", "description": "全新未点过。", "category": "OTHER", "condition": "NEW", "price": 100, "originalPrice": 150, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M01"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P047", "ownerAlias": "B", "title": "尤克里里", "description": "九成新，带背带。", "category": "OTHER", "condition": "LIKE_NEW", "price": 500, "originalPrice": 899, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M02"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P048", "ownerAlias": "B", "title": "小型投影仪", "description": "八成新，画质清晰。", "category": "OTHER", "condition": "GOOD", "price": 1000, "originalPrice": 2500, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M03", "M04"], "caseIds": ["T2-C05"]
+  },
+  {
+    "fixtureId": "P049", "ownerAlias": "A", "title": "场景01-高数书", "description": "用于S01咨询场景。", "category": "BOOKS", "condition": "GOOD", "price": 25, "originalPrice": 49, "campusLocation": "图书馆门口", "imageFixtureIds": ["M05"], "caseIds": ["T2-S01"]
+  },
+  {
+    "fixtureId": "P050", "ownerAlias": "A", "title": "场景02-机械键盘", "description": "用于S02报价场景。", "category": "DIGITAL", "condition": "GOOD", "price": 200, "originalPrice": 400, "campusLocation": "图书馆门口", "imageFixtureIds": ["M06"], "caseIds": ["T2-S02"]
+  },
+  {
+    "fixtureId": "P051", "ownerAlias": "A", "title": "场景03-台灯", "description": "用于S03还价场景。", "category": "DAILY", "condition": "LIKE_NEW", "price": 50, "originalPrice": 100, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M07"], "caseIds": ["T2-S03"]
+  },
+  {
+    "fixtureId": "P052", "ownerAlias": "A", "title": "场景04-羽毛球拍", "description": "用于S04拒绝场景。", "category": "SPORTS", "condition": "GOOD", "price": 60, "originalPrice": 150, "campusLocation": "体育馆", "imageFixtureIds": ["M08"], "caseIds": ["T2-S04"]
+  },
+  {
+    "fixtureId": "P053", "ownerAlias": "A", "title": "场景05-牛仔外套", "description": "用于S05唯一订单场景。", "category": "CLOTHING", "condition": "LIKE_NEW", "price": 80, "originalPrice": 200, "campusLocation": "图书馆门口", "imageFixtureIds": ["M01", "M02"], "caseIds": ["T2-S05"]
+  },
+  {
+    "fixtureId": "P054", "ownerAlias": "A", "title": "场景06-收纳盒", "description": "用于S06约定场景。", "category": "OTHER", "condition": "NEW", "price": 15, "originalPrice": 30, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M03"], "caseIds": ["T2-S06"]
+  },
+  {
+    "fixtureId": "P055", "ownerAlias": "A", "title": "场景07-四级真题", "description": "用于S07单方完成场景。", "category": "BOOKS", "condition": "GOOD", "price": 10, "originalPrice": 30, "campusLocation": "图书馆门口", "imageFixtureIds": ["M04"], "caseIds": ["T2-S07"]
+  },
+  {
+    "fixtureId": "P056", "ownerAlias": "A", "title": "场景08-蓝牙耳机", "description": "用于S08双方完成评价场景。", "category": "DIGITAL", "condition": "LIKE_NEW", "price": 100, "originalPrice": 300, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M05"], "caseIds": ["T2-S08"]
+  },
+  {
+    "fixtureId": "P057", "ownerAlias": "A", "title": "场景09-瑜伽垫", "description": "用于S09取消场景。", "category": "SPORTS", "condition": "GOOD", "price": 40, "originalPrice": 80, "campusLocation": "体育馆", "imageFixtureIds": ["M06"], "caseIds": ["T2-S09"]
+  },
+  {
+    "fixtureId": "P058", "ownerAlias": "A", "title": "场景10-保温杯", "description": "用于S10举报场景。", "category": "DAILY", "condition": "NEW", "price": 30, "originalPrice": 60, "campusLocation": "图书馆门口", "imageFixtureIds": ["M07", "M08"], "caseIds": ["T2-S10"]
+  },
+  {
+    "fixtureId": "P059", "ownerAlias": "A", "title": "场景11-短袖", "description": "用于S11过去时间拒绝场景。", "category": "CLOTHING", "condition": "GOOD", "price": 20, "originalPrice": 50, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M01"], "caseIds": ["T2-S11"]
+  },
+  {
+    "fixtureId": "P060", "ownerAlias": "A", "title": "场景12-多肉植物", "description": "用于S12旧版本确认失效场景。", "category": "OTHER", "condition": "LIKE_NEW", "price": 35, "originalPrice": 70, "campusLocation": "宿舍楼下", "imageFixtureIds": ["M02"], "caseIds": ["T2-S12"]
+  }
+]
