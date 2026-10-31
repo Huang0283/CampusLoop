@@ -13,7 +13,7 @@ from app.core.security import utcnow
 from app.models import Product, User, WantedPost
 from app.services.ai_adapters import rank_payload
 from app.services.business_serializers import products
-from app.services.catalog_search import SEARCH_VERSION, refine_search, search_query
+from app.services.catalog_search import SEARCH_VERSION, candidate_query, refine_search, search_query
 
 ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
@@ -198,7 +198,8 @@ def rank_live(
 ):
     if wanted is None:
         query = search_query(query)
-    entities, payload = input_snapshot(db, query, wanted, filters)
+    baseline_query = candidate_query(query) if wanted is None else query
+    entities, payload = input_snapshot(db, baseline_query, wanted, filters)
     payload["options"] = {"mode": "semantic" if mode != "keyword" else "keyword", "sort": sort}
     result = rank_payload(payload)
     if wanted is None:

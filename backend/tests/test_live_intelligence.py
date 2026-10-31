@@ -187,7 +187,9 @@ def test_catalog_search_new_products_edits_relevance_filters_and_visibility(clie
         return response.json()["data"]
 
     computer = publish("验收台式电脑", "功能正常")
+    notebook = publish("验收二手笔记本", "适合学习")
     bag = publish("验收手提包", "购买后闲置，可装电脑")
+    camera = publish("验收数码相机", "配件支持电脑读卡器")
     quilt = publish("验收被子", "购买后闲置")
 
     def search(query, **params):
@@ -198,15 +200,20 @@ def test_catalog_search_new_products_edits_relevance_filters_and_visibility(clie
         return response.json()["data"]
 
     ids = [row["id"] for row in search("购买电脑")["items"]]
-    assert ids.index(computer["id"]) < ids.index(bag["id"])
+    assert set(ids) == {computer["id"], notebook["id"]}
+    assert ids.index(computer["id"]) < ids.index(notebook["id"])
+    assert bag["id"] not in ids
+    assert camera["id"] not in ids
     assert quilt["id"] not in ids
     assert [row["id"] for row in search("验收 电脑 台式")["items"]] == [computer["id"]]
     assert search("验收不存在的东西")["pagination"]["total"] == 0
     assert search("验收 电脑", maxPrice=50)["items"] == []
     assert search("验收 电脑", category="BEDDING")["items"] == []
     assert search("验收 电脑", condition="NEW")["items"] == []
-    assert search("验收 电脑", page=2, pageSize=1)["items"][0]["id"] == bag["id"]
-    assert search("验收 电脑", sort="newest")["items"][0]["id"] == bag["id"]
+    assert [row["id"] for row in search("验收 电脑", page=2, pageSize=1)["items"]] == [notebook["id"]]
+    assert [row["id"] for row in search("验收 电脑", sort="newest")["items"]] == [notebook["id"], computer["id"]]
+    assert [row["id"] for row in search("验收 读卡器")["items"]] == [camera["id"]]
+    assert [row["id"] for row in search("购买 手提包")["items"]] == [bag["id"]]
     changed = client.patch(
         f'/products/{bag["id"]}', headers=headers(seller),
         json={**base, "title": f"验收手提包 {marker}", "description": "可装平板"},
@@ -218,4 +225,4 @@ def test_catalog_search_new_products_edits_relevance_filters_and_visibility(clie
         f'/products/{computer["id"]}/status', headers=headers(seller), json={"status": "HIDDEN"}
     )
     assert hidden.status_code == 200, hidden.text
-    assert search("验收 电脑")["items"] == []
+    assert [row["id"] for row in search("验收 电脑")["items"]] == [notebook["id"]]
