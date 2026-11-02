@@ -1155,6 +1155,61 @@ paths:
         '404': { $ref: '#/components/responses/NotFound' }
         '409': { $ref: '#/components/responses/Conflict' }
         '422': { $ref: '#/components/responses/ValidationError' }
+  /admin/dashboard:
+    get:
+      tags: [Admin]
+      operationId: adminGetDashboard
+      x-campusloop-phase: ADMIN-CONSOLE-01
+      description: Administrator-only live aggregates for the console dashboard. Calendar days use campus time (UTC+08:00). On-sale counts use exactly the public market filter. Reads are audited.
+      parameters:
+        - { name: days, in: query, schema: { type: integer, enum: [7, 30], default: 7 } }
+      responses:
+        '200':
+          description: Audited dashboard aggregates.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminDashboardResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /admin/orders:
+    get:
+      tags: [Admin]
+      operationId: adminListOrders
+      x-campusloop-phase: ADMIN-CONSOLE-01
+      description: Administrator-only order oversight, newest first. `query` matches an order number or a product title. Read-only and audited.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/OrderStatus' } }
+        - { name: query, in: query, schema: { type: string, maxLength: 100 } }
+      responses:
+        '200':
+          description: Audited administrator order list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminOrderListResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /admin/audit-logs:
+    get:
+      tags: [Admin]
+      operationId: adminListAuditLogs
+      x-campusloop-phase: ADMIN-CONSOLE-01
+      description: Administrator decision trail from the audit table. `decisions` lists state-changing decisions only; `all` also lists audited reads and replays.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: scope, in: query, schema: { type: string, enum: [decisions, all], default: decisions } }
+        - { name: mine, in: query, description: Only entries recorded for the signed-in administrator., schema: { type: boolean, default: false } }
+      responses:
+        '200':
+          description: Audited decision trail page.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminAuditLogListResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
   /admin/users:
     get:
       tags: [Admin]
@@ -1535,6 +1590,188 @@ components:
           required: [data]
           properties:
             data: { $ref: '#/components/schemas/AdminProduct' }
+    AdminRatio:
+      type: object
+      required: [numerator, denominator]
+      properties:
+        numerator: { type: integer, minimum: 0 }
+        denominator: { type: integer, minimum: 0, description: Zero means there is no data in the window; clients must not show a percentage. }
+    AdminKeyCount:
+      type: object
+      required: [key, count]
+      properties:
+        key: { type: string }
+        count: { type: integer, minimum: 0 }
+    AdminTodoItem:
+      type: object
+      required: [kind, id, status, targetType, targetId, createdAt]
+      properties:
+        kind: { type: string, enum: [REPORT, DISPUTE] }
+        id: { type: integer, format: int64 }
+        status: { type: string }
+        reason: { oneOf: [{ $ref: '#/components/schemas/ReportReason' }, { type: 'null' }] }
+        targetType: { $ref: '#/components/schemas/ReportTargetType' }
+        targetId: { type: integer, format: int64 }
+        targetTitle: { type: [string, 'null'] }
+        submittedBy: { type: [string, 'null'] }
+        createdAt: { type: string, format: date-time }
+    AdminRecentOrder:
+      type: object
+      required: [id, status, amount, createdAt, productTitle, category, buyerNickname, sellerNickname]
+      properties:
+        id: { type: integer, format: int64 }
+        status: { $ref: '#/components/schemas/OrderStatus' }
+        amount: { type: number, minimum: 0 }
+        createdAt: { type: string, format: date-time }
+        productTitle: { type: string }
+        category: { type: string }
+        buyerNickname: { type: string }
+        sellerNickname: { type: string }
+    AdminRiskUser:
+      type: object
+      required: [id, nickname, avatar, status, reportCount, openReportCount, lastReportedAt]
+      properties:
+        id: { type: integer, format: int64 }
+        nickname: { type: string }
+        avatar: { type: [string, 'null'] }
+        status: { type: string, enum: [ACTIVE, DISABLED] }
+        reportCount: { type: integer, minimum: 1, description: Reports in the window against the user or the user's goods. }
+        openReportCount: { type: integer, minimum: 0 }
+        lastReportedAt: { type: string, format: date-time }
+    AdminAuditLog:
+      type: object
+      required: [id, event, decision, actor, targetUser, subject, reason, resultStatus, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        event: { type: string, description: Audit event code, for example admin_product_moderate. }
+        decision: { type: boolean, description: True when the event changed platform state. }
+        actor: { oneOf: [{ $ref: '#/components/schemas/AdminPersonRef' }, { type: 'null' }] }
+        targetUser: { oneOf: [{ $ref: '#/components/schemas/AdminPersonRef' }, { type: 'null' }] }
+        subject:
+          oneOf:
+            - type: object
+              required: [type, id]
+              properties:
+                type: { type: string, enum: [PRODUCT, REPORT, USER] }
+                id: { type: integer, format: int64 }
+            - type: 'null'
+        reason: { type: [string, 'null'] }
+        resultStatus: { type: [string, 'null'] }
+        createdAt: { type: string, format: date-time }
+    AdminPersonRef:
+      type: object
+      required: [id, nickname]
+      properties:
+        id: { type: integer, format: int64 }
+        nickname: { type: [string, 'null'] }
+    AdminDashboard:
+      type: object
+      required: [asOf, timezone, days, rangeStart, products, orders, users, pending, trend, categories, orderStatuses, reportReasons, postingHeatmap, health, todo, recentOrders, riskUsers, recentDecisions]
+      properties:
+        asOf: { type: string, format: date-time }
+        timezone: { type: string, const: '+08:00' }
+        days: { type: integer, enum: [7, 30] }
+        rangeStart: { type: string, format: date, description: First campus day of the window; the window ends today. }
+        products:
+          type: object
+          required: [newToday, newYesterday, newInRange, newPreviousRange, onSale, moderationHeld]
+          properties:
+            newToday: { type: integer, minimum: 0 }
+            newYesterday: { type: integer, minimum: 0 }
+            newInRange: { type: integer, minimum: 0 }
+            newPreviousRange: { type: integer, minimum: 0 }
+            onSale: { type: integer, minimum: 0, description: Same filter as the public market default listing. }
+            moderationHeld: { type: integer, minimum: 0 }
+        orders:
+          type: object
+          required: [newToday, newYesterday, newInRange, newPreviousRange, completedInRange]
+          properties:
+            newToday: { type: integer, minimum: 0 }
+            newYesterday: { type: integer, minimum: 0 }
+            newInRange: { type: integer, minimum: 0 }
+            newPreviousRange: { type: integer, minimum: 0 }
+            completedInRange: { type: integer, minimum: 0 }
+        users:
+          type: object
+          required: [total, disabled, newInRange, newPreviousRange]
+          properties:
+            total: { type: integer, minimum: 0 }
+            disabled: { type: integer, minimum: 0 }
+            newInRange: { type: integer, minimum: 0 }
+            newPreviousRange: { type: integer, minimum: 0 }
+        pending:
+          type: object
+          required: [openReports, disputedOrders, total]
+          properties:
+            openReports: { type: integer, minimum: 0 }
+            disputedOrders: { type: integer, minimum: 0 }
+            total: { type: integer, minimum: 0 }
+        trend:
+          type: array
+          items:
+            type: object
+            required: [date, newProducts, newOrders, completedOrders]
+            properties:
+              date: { type: string, format: date }
+              newProducts: { type: integer, minimum: 0 }
+              newOrders: { type: integer, minimum: 0 }
+              completedOrders: { type: integer, minimum: 0 }
+        categories: { type: array, items: { $ref: '#/components/schemas/AdminKeyCount' } }
+        orderStatuses: { type: array, items: { $ref: '#/components/schemas/AdminKeyCount' } }
+        reportReasons: { type: array, items: { $ref: '#/components/schemas/AdminKeyCount' } }
+        postingHeatmap:
+          type: object
+          required: [days, cells]
+          properties:
+            days: { type: integer, const: 28 }
+            cells:
+              type: array
+              description: Seven rows (Monday first) of 24 hourly counts in campus time.
+              minItems: 7
+              maxItems: 7
+              items: { type: array, minItems: 24, maxItems: 24, items: { type: integer, minimum: 0 } }
+        health:
+          type: object
+          required: [reportsHandled, reportsHandledWithin24h, ordersCompleted]
+          properties:
+            reportsHandled: { $ref: '#/components/schemas/AdminRatio' }
+            reportsHandledWithin24h: { $ref: '#/components/schemas/AdminRatio' }
+            ordersCompleted: { $ref: '#/components/schemas/AdminRatio' }
+        todo: { type: array, maxItems: 8, items: { $ref: '#/components/schemas/AdminTodoItem' } }
+        recentOrders: { type: array, maxItems: 6, items: { $ref: '#/components/schemas/AdminRecentOrder' } }
+        riskUsers: { type: array, maxItems: 5, items: { $ref: '#/components/schemas/AdminRiskUser' } }
+        recentDecisions: { type: array, maxItems: 5, items: { $ref: '#/components/schemas/AdminAuditLog' } }
+    AdminDashboardResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data: { $ref: '#/components/schemas/AdminDashboard' }
+    AdminOrderListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/Order' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
+    AdminAuditLogListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/AdminAuditLog' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
     AdminProductListResponse:
       allOf:
         - $ref: '#/components/schemas/ApiEnvelope'

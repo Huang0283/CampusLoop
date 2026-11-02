@@ -1,4 +1,5 @@
 import AxeBuilder from '@axe-core/playwright'
+import { adminDashboardFixture } from '../admin-dashboard-fixture'
 import { test, expect, type Page } from '@playwright/test'
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
@@ -40,6 +41,7 @@ async function setup(page: Page, guest = false) {
     else if (path === '/orders/1001') data = order
     else if (path === '/orders/1001/events') data = [{ id: 1, orderId: 1001, toStatus: 'BOOKED', description: '双方达成报价', createdAt: now }]
     else if (path === '/orders') data = { items: [order], pagination }
+    else if (path === '/admin/dashboard') data = adminDashboardFixture
     else if (path.endsWith('/read')) data = {}
     else return route.fulfill({ status: 404, json: { code: 'TEST_UNHANDLED_API', message: path } })
     return route.fulfill({ json: { code: 0, message: 'ok', data } })
@@ -239,7 +241,7 @@ test('landing page sends guests to the real market and sign-in routes', async ({
   await expect(page.getByText(/教学演示注册/)).toBeVisible()
 })
 
-test('admin keeps management tabs and tables on desktop and mobile', async ({ page }) => {
+test('admin console keeps management tables on desktop and mobile', async ({ page }) => {
   await setup(page)
   await page.route('**/auth/browser-session', (route) => route.fulfill({ json: { data: { accessToken: 'fixture-not-real', expiresIn: 600, user: { ...user, role: 'ADMIN' } } } }))
   await page.route('**/admin/users?**', (route) => route.fulfill({ json: { data: { items: [user], pagination } } }))
@@ -247,9 +249,13 @@ test('admin keeps management tabs and tables on desktop and mobile', async ({ pa
   await page.route('**/admin/products?**', (route) => route.fulfill({ json: { data: { items: [{ product, moderationBlocked: false }], pagination } } }))
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1080 })
-    await page.goto('/admin')
+    await page.goto('/admin/users')
     await expect(page.getByRole('button', { name: '详情与人工处理 #501', exact: true })).toBeVisible()
-    await page.getByRole('tab', { name: '商品治理', exact: true }).click()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+    await page.goto('/admin')
+    await expect(page.getByRole('heading', { name: /商品增长/ })).toBeVisible()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+    await page.goto('/admin/products')
     await expect(page.getByRole('button', { name: '查看并处理商品 #601', exact: true })).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
     if (process.env.CAMPUSLOOP_VISUAL_OUTPUT) await page.screenshot({ path: path.join(process.env.CAMPUSLOOP_VISUAL_OUTPUT, `${width}-admin.png`), fullPage: true })
@@ -333,13 +339,14 @@ test('M2 sampled text contrast', async ({ page }) => {
     ['/transactions/1001', '订单 #1001'],
     ['/publish/price-advice', '价格建议'],
     ['/notifications', '通知'],
-    ['/admin', '管理后台'],
+    ['/admin', '待办任务'],
+    ['/admin/users', '用户管理'],
   ]
   const violations: unknown[] = []
   const manualReview: unknown[] = []
 
   for (const [url, heading] of screens) {
-    if (url === '/admin') {
+    if (url.startsWith('/admin')) {
       await page.route('**/auth/browser-session', route => route.fulfill({
         json: { data: {
           accessToken: 'fixture-not-real', expiresIn: 600,
@@ -356,6 +363,10 @@ test('M2 sampled text contrast', async ({ page }) => {
     // Visibility occurs partway through GSAP's fade. Audit the final rendered
     // colors, rather than a transient blend while the whole card is translucent.
     if (url === '/login' || url === '/register') await expect(page.locator('.auth .card')).toHaveCSS('opacity', '1')
+    // The console's bento cards rise in with a staggered CSS fade; audit once it settles.
+    // The backdrop's slow aurora drift loops forever and never changes text colours, so it is ignored.
+    if (url.startsWith('/admin')) await page.waitForFunction(() => document.querySelector('.adm')?.getAnimations({ subtree: true })
+      .every((item) => item.playState !== 'running' || item.effect?.getTiming().iterations === Infinity) ?? false)
     await expect(page.getByText('正在处理，请稍候。', { exact: true })).toHaveCount(0)
     await expect(page.getByText('TEST_UNHANDLED_API', { exact: true })).toHaveCount(0)
 
@@ -560,8 +571,8 @@ test('M2 short text and image overlays', async ({ page }) => {
   await page.route('**/admin/users?**', route => route.fulfill({
     json: { data: { items: [user], pagination } },
   }))
-  await page.goto('/admin')
-  await expect(page.getByRole('heading', { name: '管理后台', exact: true })).toBeVisible()
+  await page.goto('/admin/users')
+  await expect(page.getByRole('heading', { name: '用户管理', exact: true })).toBeVisible()
   await check('管理员列表头像首字', '.person .ant-avatar-string', '.person .ant-avatar')
 
   console.table(measurements)

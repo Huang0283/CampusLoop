@@ -134,6 +134,346 @@ export type AdminProductResponse = ApiEnvelope & {
     data: AdminProduct;
 };
 
+export type AdminRatio = {
+    numerator: number;
+    /**
+     * Zero means there is no data in the window; clients must not show a percentage.
+     */
+    denominator: number;
+};
+
+export type AdminKeyCount = {
+    key: string;
+    count: number;
+};
+
+export type AdminTodoItem = {
+    kind: 'REPORT' | 'DISPUTE';
+    id: number;
+    status: string;
+    reason?: ReportReason | null;
+    targetType: ReportTargetType;
+    targetId: number;
+    targetTitle?: string | null;
+    submittedBy?: string | null;
+    createdAt: string;
+};
+
+export type AdminRecentOrder = {
+    id: number;
+    status: OrderStatus;
+    amount: number;
+    createdAt: string;
+    productTitle: string;
+    category: string;
+    buyerNickname: string;
+    sellerNickname: string;
+};
+
+export type AdminRiskUser = {
+    id: number;
+    nickname: string;
+    avatar: string | null;
+    status: 'ACTIVE' | 'DISABLED';
+    /**
+     * Reports in the window against the user or the user's goods.
+     */
+    reportCount: number;
+    openReportCount: number;
+    lastReportedAt: string;
+};
+
+export type AdminAuditLog = {
+    id: number;
+    /**
+     * Audit event code
+     */
+    event: string;
+    /**
+     * True when the event changed platform state.
+     */
+    decision: boolean;
+    actor: AdminPersonRef | null;
+    targetUser: AdminPersonRef | null;
+    subject: {
+        type: 'PRODUCT' | 'REPORT' | 'USER';
+        id: number;
+    } | null;
+    reason: string | null;
+    resultStatus: string | null;
+    createdAt: string;
+};
+
+export type AdminPersonRef = {
+    id: number;
+    nickname: string | null;
+};
+
+export type AdminDashboard = {
+    asOf: string;
+    timezone: '+08:00';
+    days: 7 | 30;
+    /**
+     * First campus day of the window; the window ends today.
+     */
+    rangeStart: string;
+    products: {
+        newToday: number;
+        newYesterday: number;
+        newInRange: number;
+        newPreviousRange: number;
+        /**
+         * Same filter as the public market default listing.
+         */
+        onSale: number;
+        moderationHeld: number;
+    };
+    orders: {
+        newToday: number;
+        newYesterday: number;
+        newInRange: number;
+        newPreviousRange: number;
+        completedInRange: number;
+    };
+    users: {
+        total: number;
+        disabled: number;
+        newInRange: number;
+        newPreviousRange: number;
+    };
+    pending: {
+        openReports: number;
+        disputedOrders: number;
+        total: number;
+    };
+    trend: Array<{
+        date: string;
+        newProducts: number;
+        newOrders: number;
+        completedOrders: number;
+    }>;
+    categories: Array<AdminKeyCount>;
+    orderStatuses: Array<AdminKeyCount>;
+    reportReasons: Array<AdminKeyCount>;
+    postingHeatmap: {
+        days: 28;
+        /**
+         * Seven rows (Monday first) of 24 hourly counts in campus time.
+         */
+        cells: [
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ]
+        ];
+    };
+    health: {
+        reportsHandled: AdminRatio;
+        reportsHandledWithin24h: AdminRatio;
+        ordersCompleted: AdminRatio;
+    };
+    todo: Array<AdminTodoItem>;
+    recentOrders: Array<AdminRecentOrder>;
+    riskUsers: Array<AdminRiskUser>;
+    recentDecisions: Array<AdminAuditLog>;
+};
+
+export type AdminDashboardResponse = ApiEnvelope & {
+    data: AdminDashboard;
+};
+
+export type AdminOrderListResponse = ApiEnvelope & {
+    data: {
+        items: Array<Order>;
+        pagination: Pagination;
+    };
+};
+
+export type AdminAuditLogListResponse = ApiEnvelope & {
+    data: {
+        items: Array<AdminAuditLog>;
+        pagination: Pagination;
+    };
+};
+
 export type AdminProductListResponse = ApiEnvelope & {
     data: {
         items: Array<AdminProduct>;
@@ -2551,6 +2891,112 @@ export type AdminModerateProductResponses = {
 };
 
 export type AdminModerateProductResponse = AdminModerateProductResponses[keyof AdminModerateProductResponses];
+
+export type AdminGetDashboardData = {
+    body?: never;
+    path?: never;
+    query?: {
+        days?: 7 | 30;
+    };
+    url: '/admin/dashboard';
+};
+
+export type AdminGetDashboardErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminGetDashboardError = AdminGetDashboardErrors[keyof AdminGetDashboardErrors];
+
+export type AdminGetDashboardResponses = {
+    /**
+     * Audited dashboard aggregates.
+     */
+    200: AdminDashboardResponse;
+};
+
+export type AdminGetDashboardResponse = AdminGetDashboardResponses[keyof AdminGetDashboardResponses];
+
+export type AdminListOrdersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+        status?: OrderStatus;
+        query?: string;
+    };
+    url: '/admin/orders';
+};
+
+export type AdminListOrdersErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+};
+
+export type AdminListOrdersError = AdminListOrdersErrors[keyof AdminListOrdersErrors];
+
+export type AdminListOrdersResponses = {
+    /**
+     * Audited administrator order list.
+     */
+    200: AdminOrderListResponse;
+};
+
+export type AdminListOrdersResponse = AdminListOrdersResponses[keyof AdminListOrdersResponses];
+
+export type AdminListAuditLogsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+        scope?: 'decisions' | 'all';
+        /**
+         * Only entries recorded for the signed-in administrator.
+         */
+        mine?: boolean;
+    };
+    url: '/admin/audit-logs';
+};
+
+export type AdminListAuditLogsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+};
+
+export type AdminListAuditLogsError = AdminListAuditLogsErrors[keyof AdminListAuditLogsErrors];
+
+export type AdminListAuditLogsResponses = {
+    /**
+     * Audited decision trail page.
+     */
+    200: AdminAuditLogListResponse;
+};
+
+export type AdminListAuditLogsResponse = AdminListAuditLogsResponses[keyof AdminListAuditLogsResponses];
 
 export type AdminListUsersData = {
     body?: never;

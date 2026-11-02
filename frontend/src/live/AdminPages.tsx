@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { Alert, Button, Descriptions, Drawer, Form, Image, Input, Pagination, Select, Space, Table, Tabs, Tag, Typography } from 'antd'
+import { Alert, Button, Descriptions, Form, Image, Input, Modal, Pagination, Select, Space, Table, Tabs, Tag, Typography } from 'antd'
+import type { ReactNode } from 'react'
 import * as api from '../sdk'
 import type { AdminProduct, AdminReport, ReportStatus, UserProfile } from '../sdk'
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useAttemptKey } from './idempotency'
 import { Person } from './Presentation'
-import { productStatusLabels, displayDate } from './display'
+import { reportReasonLabels } from './reportReasons'
+import { productStatusLabels, accountStatusLabels, reportStatusLabels, roleLabels, targetTypeLabels, displayDate, systemText, riskClueText } from './display'
 
 function useDrawerFocusReturn(open: boolean) {
   const triggerRef = useRef<HTMLElement>(null)
@@ -66,17 +68,23 @@ function keepDrawerFocus(event: KeyboardEvent<HTMLElement>) {
   }
 }
 
+/** Centred detail dialog for the console. The Tab trap wraps the whole panel, close button included. */
+function DetailDialog({ title, open, onClose, children }: { title: string; open: boolean; onClose: () => void; children: ReactNode }) {
+  return <Modal title={title} open={open} onCancel={onClose} footer={null} width={760} centered destroyOnHidden rootClassName="adm-detail"
+    modalRender={(node) => <div onKeyDown={keepDrawerFocus}>{node}</div>}>{children}</Modal>
+}
+
 function RiskDetail({ user }: { user: UserProfile }) {
   const remote = useRemote(`admin-risk-${user.id}`, (signal) => api.data(api.getUserRiskClues({ path: { userId: user.id }, signal })))
   return <><Alert type="info" showIcon title="风险线索仅供人工复核，不代表违规认定，也不会自动禁用账号。" />
     <Resource {...remote}>{remote.value && <Descriptions column={1} bordered style={{ marginTop: 16 }} items={[
-      { key: 'status', label: '线索状态', children: remote.value.status },
-      { key: 'version', label: '算法版本', children: remote.value.algorithmVersion || '未提供' },
-      { key: 'time', label: '事实窗口时间', children: remote.value.sourceWindowAsOf || '未提供' },
-      { key: 'missing', label: '缺少数据', children: remote.value.missingInputs?.join('、') || '无' },
-      { key: 'degraded', label: '降级说明', children: remote.value.degraded ? remote.value.degradationReason || remote.value.fallback || '服务已降级' : '未降级' },
-      { key: 'action', label: '建议', children: remote.value.recommendedAction || '人工检查当前事实' },
-      { key: 'clues', label: '内部线索', children: <pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>{JSON.stringify(remote.value.clues || [], null, 2)}</pre> },
+      { key: 'status', label: '线索状态', children: systemText(remote.value.status) },
+      { key: 'version', label: '判断依据', children: systemText(remote.value.algorithmVersion, '风险线索规则') },
+      { key: 'time', label: '数据截至', children: displayDate(remote.value.sourceWindowAsOf) },
+      { key: 'missing', label: '缺少数据', children: remote.value.missingInputs?.map((field) => systemText(field, '其他指标')).join('；') || '无' },
+      { key: 'degraded', label: '服务状态', children: remote.value.degraded ? systemText(remote.value.degradationReason || remote.value.fallback, '当前使用备用规则') : '正常' },
+      { key: 'action', label: '建议', children: systemText(remote.value.recommendedAction, '人工检查当前事实') },
+      { key: 'clues', label: '内部线索', children: remote.value.clues?.length ? remote.value.clues.map((clue, index) => <p key={index}>{riskClueText(clue)}</p>) : '暂无风险线索' },
       { key: 'disclaimer', label: '限制', children: remote.value.disclaimer || '线索不能替代人工判断。' },
     ]} />}</Resource></>
 }
@@ -90,8 +98,8 @@ function UserDetail({ user, refresh }: { user: UserProfile; refresh: () => void 
     { key: 'id', label: '用户编号', children: user.id },
     { key: 'name', label: '昵称', children: user.nickname },
     { key: 'email', label: '邮箱', children: user.email },
-    { key: 'status', label: '处理状态', children: <Tag>{current.status}</Tag> },
-    { key: 'role', label: '角色', children: user.role },
+    { key: 'status', label: '处理状态', children: <Tag>{accountStatusLabels[current.status] || '未知状态'}</Tag> },
+    { key: 'role', label: '角色', children: roleLabels[user.role] || '其他角色' },
     { key: 'trades', label: '已完成交易', children: user.transactionCount },
   ]} />
     <Failure error={mutation.error} />
@@ -108,7 +116,7 @@ function UserDetail({ user, refresh }: { user: UserProfile; refresh: () => void 
   </>
 }
 
-function UsersPanel() {
+export function UsersPanel() {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<string>()
@@ -120,7 +128,7 @@ function UsersPanel() {
     <Alert type="info" showIcon title="用户与风险线索读取、账号状态变更均由后端鉴权并审计；禁用会撤销已有会话。" />
     <Space wrap style={{ margin: '16px 0' }}>
       <Input aria-label="筛选本页用户" placeholder="本页编号、昵称或邮箱" value={query} onChange={(event) => setQuery(event.target.value)} />
-      <Select aria-label="筛选本页账号状态" placeholder="本页全部状态" allowClear value={status} onChange={setStatus} style={{ width: 180 }} options={['ACTIVE', 'DISABLED'].map((value) => ({ value, label: value }))} />
+      <Select virtual={false} aria-label="筛选本页账号状态" placeholder="本页全部状态" allowClear value={status} onChange={setStatus} style={{ width: 180 }} options={['ACTIVE', 'DISABLED'].map((value) => ({ value, label: accountStatusLabels[value] }))} />
       <Button onClick={remote.reload}>刷新用户</Button>
     </Space>
     <Typography.Paragraph type="secondary">筛选只作用于当前页，查看其他用户请翻页。服务端全文筛选尚未提供。</Typography.Paragraph>
@@ -134,9 +142,9 @@ function UsersPanel() {
       ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => { setSelected(undefined); setPage(next) }} />}
     </Resource>
-    <Drawer onKeyDown={keepDrawerFocus} title="用户详情与风险复核" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>
+    <DetailDialog title="用户详情与风险复核" open={Boolean(selected)} onClose={() => setSelected(undefined)}>
       {selected && <UserDetail key={selected.id} user={selected} refresh={remote.reload} />}
-    </Drawer>
+    </DetailDialog>
   </>
 }
 
@@ -163,11 +171,11 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
   const current = confirmed || report
   return <>
     <Descriptions column={1} bordered items={[
-      { key: 'target', label: '对象', children: `${current.targetType} #${current.targetId}` },
-      { key: 'reason', label: '举报原因', children: current.reason },
+    { key: 'target', label: '对象', children: `${targetTypeLabels[current.targetType] || '举报对象'} #${current.targetId}` },
+    { key: 'reason', label: '举报原因', children: reportReasonLabels[current.reason] || '其他举报原因' },
       { key: 'description', label: '举报说明', children: current.description || '无' },
-      { key: 'status', label: '处理状态', children: <Tag>{current.status}</Tag> },
-      { key: 'created', label: '提交时间', children: current.createdAt },
+    { key: 'status', label: '处理状态', children: <Tag>{reportStatusLabels[current.status] || '未知状态'}</Tag> },
+    { key: 'created', label: '提交时间', children: displayDate(current.createdAt) },
     ]} />
     <Failure error={mutation.error} />
     {confirmed && <Alert role="status" type="success" title="后端已确认处理结果。" />}
@@ -176,7 +184,7 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
       setConfirmed(await api.data(api.resolveReport({ path: { reportId: report.id }, body, headers: api.idempotencyHeaders(attemptKey({ reportId: report.id, body })) })))
       refresh()
     })}>
-      <Form.Item name="resolution" label="人工处理结论" rules={[{ required: true }]}><Select options={[{ value: 'RESOLVED', label: '处理完成' }, { value: 'REJECTED', label: '驳回' }]} /></Form.Item>
+      <Form.Item name="resolution" label="人工处理结论" rules={[{ required: true }]}><Select virtual={false} options={[{ value: 'RESOLVED', label: '处理完成' }, { value: 'REJECTED', label: '驳回' }]} /></Form.Item>
       <Form.Item name="note" label="处理说明" rules={[{ required: true, whitespace: true, max: 500 }]}><Input.TextArea maxLength={500} /></Form.Item>
       <Button htmlType="submit" loading={mutation.busy}>确认处理举报</Button>
     </Form>}
@@ -185,26 +193,26 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
   </>
 }
 
-function ReportsPanel() {
+export function ReportsPanel() {
   const [page, setPage] = useState(1)
   const [status, setStatus] = useState<ReportStatus>()
   const [selected, setSelected] = useState<AdminReport>()
   const drawerFocus = useDrawerFocusReturn(Boolean(selected))
   const remote = useRemote(`admin-reports-${page}-${status}`, (signal) => api.data(api.adminListReports({ signal, query: { page, pageSize: 20, status } })))
   return <>
-    <Space wrap style={{ marginBottom: 16 }}><Select aria-label="举报状态筛选" placeholder="全部举报状态" allowClear value={status} onChange={(next) => { setSelected(undefined); setPage(1); setStatus(next) }} style={{ width: 200 }} options={(['PENDING', 'PROCESSING', 'RESOLVED', 'REJECTED'] as const).map((value) => ({ value, label: value }))} /><Button onClick={remote.reload}>刷新举报</Button></Space>
+    <Space wrap style={{ marginBottom: 16 }}><Select virtual={false} aria-label="举报状态筛选" placeholder="全部举报状态" allowClear value={status} onChange={(next) => { setSelected(undefined); setPage(1); setStatus(next) }} style={{ width: 200 }} options={(['PENDING', 'PROCESSING', 'RESOLVED', 'REJECTED'] as const).map((value) => ({ value, label: reportStatusLabels[value] }))} /><Button onClick={remote.reload}>刷新举报</Button></Space>
     {remote.error instanceof api.ApiError && [404, 501].includes(remote.error.status) ? <Alert type="warning" showIcon title="举报管理接口尚未接通" description="当前服务未提供举报队列，不能读取或处理举报。请等待后端治理接口交付后刷新。" action={<Button onClick={remote.reload}>重新检查接口</Button>} /> : <Resource {...remote}>
       {remote.value?.length === 0 && <NoItems filtered={Boolean(status)} />}
       {Boolean(remote.value?.length) && <Table rowKey="id" pagination={false} scroll={{ x: 740 }} dataSource={remote.value} columns={[
         { title: '举报编号', key: 'id', render: (_, report) => `举报 #${report.id}` },
-        { title: '举报对象', key: 'target', render: (_, report) => `${report.targetType} #${report.targetId}` },
-        { title: '处理状态', key: 'status', render: (_, report) => <Tag>{report.status}</Tag> },
+        { title: '举报对象', key: 'target', render: (_, report) => `${targetTypeLabels[report.targetType] || '举报对象'} #${report.targetId}` },
+        { title: '处理状态', key: 'status', render: (_, report) => <Tag>{reportStatusLabels[report.status] || '未知状态'}</Tag> },
         { title: '提交时间', key: 'time', render: (_, report) => displayDate(report.createdAt) },
         { title: '操作', key: 'action', render: (_, report) => <Button onClick={(event) => { drawerFocus.capture(event.currentTarget); setSelected(report) }}>举报详情 #{report.id}</Button> },
       ]} />}
       {remote.value && <Space><Button disabled={page === 1} onClick={() => { setSelected(undefined); setPage(page - 1) }}>上一页</Button><span>第 {page} 页</span><Button disabled={remote.value.length < 20} onClick={() => { setSelected(undefined); setPage(page + 1) }}>下一页</Button></Space>}
     </Resource>}
-    <Drawer onKeyDown={keepDrawerFocus} title="举报详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ReportDetail key={selected.id} report={selected} refresh={remote.reload} />}</Drawer>
+    <DetailDialog title="举报详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)}>{selected && <ReportDetail key={selected.id} report={selected} refresh={remote.reload} />}</DetailDialog>
   </>
 }
 
@@ -221,7 +229,7 @@ function ProductDetail({ productId, refresh }: { productId: number; refresh: () 
       { key: 'title', label: '商品名称', children: item.title },
       { key: 'seller', label: '发布者', children: item.seller.nickname },
       { key: 'price', label: '售价', children: `¥${item.price.toFixed(2)}` },
-      { key: 'status', label: '商品状态', children: item.status },
+      { key: 'status', label: '商品状态', children: productStatusLabels[item.status] || '未知状态' },
       { key: 'description', label: '商品说明', children: item.description || '无' },
       { key: 'hold', label: '人工下架', children: current?.moderationBlocked ? '管理员已下架，发布者不能自行上架' : '无人工下架限制' },
     ]} />
@@ -239,7 +247,7 @@ function ProductDetail({ productId, refresh }: { productId: number; refresh: () 
   </>}</Resource>
 }
 
-function ProductsPanel() {
+export function ProductsPanel() {
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<api.ProductStatus>()
@@ -250,7 +258,7 @@ function ProductsPanel() {
     <Alert type="info" showIcon title="管理员人工处理商品，读取和处理均记录审计；不会自动处罚账号，也不会改变已预订或已售出的商品。" />
     <Space wrap style={{ margin: '16px 0' }}>
       <Input.Search aria-label="搜索治理商品" placeholder="搜索商品名称" onSearch={(value) => { setPage(1); setQuery(value); setSelected(undefined) }} allowClear />
-      <Select aria-label="筛选治理商品状态" placeholder="全部商品状态" allowClear style={{ width: 180 }} value={status} options={(['ON_SALE', 'HIDDEN', 'RESERVED', 'SOLD'] as const).map((value) => ({ value, label: value }))} onChange={(value) => { setStatus(value); setPage(1); setSelected(undefined) }} />
+      <Select virtual={false} aria-label="筛选治理商品状态" placeholder="全部商品状态" allowClear style={{ width: 180 }} value={status} options={(['ON_SALE', 'HIDDEN', 'RESERVED', 'SOLD'] as const).map((value) => ({ value, label: productStatusLabels[value] }))} onChange={(value) => { setStatus(value); setPage(1); setSelected(undefined) }} />
       <Button onClick={remote.reload}>刷新商品</Button>
     </Space>
     {remote.error instanceof api.ApiError && [404, 501].includes(remote.error.status) ? <Alert type="warning" title="商品治理接口尚未接通" action={<Button onClick={remote.reload}>重新检查接口</Button>} /> : <Resource {...remote}>
@@ -264,7 +272,7 @@ function ProductsPanel() {
       ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => { setPage(value); setSelected(undefined) }} />}
     </Resource>}
-    <Drawer onKeyDown={keepDrawerFocus} title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</Drawer>
+    <DetailDialog title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)}>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</DetailDialog>
   </>
 }
 

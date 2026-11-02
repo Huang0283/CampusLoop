@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { AuthPage, ProfilePage, AdminPage, CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage, ReportsPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage, ChatPage, ChatListPage } from './lazyPages'
+import { AuthPage, ProfilePage, AdminLayout, AdminDashboardPage, AdminOrdersPage, AdminAuditLogPage, AdminProfilePage, AdminReportsPage, AdminProductsPage, AdminUsersPage, CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage, ReportsPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage, ChatPage, ChatListPage } from './lazyPages'
 import { createBrowserRouter, Link, Navigate, Outlet } from 'react-router-dom'
 import { Result } from 'antd'
 import { Guard, Shell } from '../live/common'
@@ -32,6 +32,14 @@ export const router = createBrowserRouter([{ element: <Shell />, errorElement: <
   { path: '/orders/:id', element: <Guard><OrderPage /></Guard> },
   { path: '/orders/:id/review', element: <Guard><ReviewPage /></Guard> },
   { path: '/profile/transactions', element: <Navigate to="/transactions" replace /> },
-  { path: '/admin', element: <Guard admin><AdminPage /></Guard> },
+  { path: '/admin', element: <Guard admin><AdminLayout /></Guard>, children: [
+    { index: true, element: <AdminDashboardPage /> },
+    { path: 'reports', element: <AdminReportsPage /> },
+    { path: 'products', element: <AdminProductsPage /> },
+    { path: 'orders', element: <AdminOrdersPage /> },
+    { path: 'users', element: <AdminUsersPage /> },
+    { path: 'audit', element: <AdminAuditLogPage /> },
+    { path: 'profile', element: <AdminProfilePage /> },
+  ] },
   { path: '*', element: <Result status="404" title="页面不存在" extra={<Link to="/market">返回首页</Link>} /> },
 ] }] }])

@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
+import { adminDashboardFixture } from '../admin-dashboard-fixture'
 import { routeApiFixture } from '../api-fixture'
 
 async function setup(page: Page, role: 'USER' | 'ADMIN') {
@@ -46,6 +47,7 @@ async function setup(page: Page, role: 'USER' | 'ADMIN') {
     if (method !== 'GET') writes.push(`${method} ${path}`)
     if (method === 'GET') {
       if (path === '/notifications') return reply([])
+      if (path === '/admin/dashboard') return reply(adminDashboardFixture)
       if (path === '/orders/1001') return reply(order)
       if (path === '/orders/1001/events') return reply([])
       if (path === '/admin/users') {
@@ -97,7 +99,7 @@ test('transaction confirmation supports keyboard cancellation and Escape without
 
 test('admin drawer keeps keyboard focus inside and Escape returns to its opener without writes (contract fixture)', async ({ page }) => {
   const observed = await setup(page, 'ADMIN')
-  await page.goto('/admin')
+  await page.goto('/admin/users')
   const trigger = page.getByRole('button', {
     name: '详情与人工处理 #502', exact: true,
   })

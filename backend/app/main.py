@@ -19,6 +19,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routes import (
+    admin_console,
     auth,
     governance,
     intelligence,
@@ -125,6 +126,7 @@ def create_app() -> FastAPI:
     app.include_router(transactions.router)
     app.include_router(realtime.router)
     app.include_router(governance.router)
+    app.include_router(admin_console.router)
     app.include_router(intelligence.router)
     app.include_router(media.router)
 

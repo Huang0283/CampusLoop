@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
+import { adminDashboardFixture } from '../admin-dashboard-fixture'
 import { routeApiFixture } from '../api-fixture'
 
 // M4 补充：管理后台“举报处理”“商品治理”抽屉的独立 Tab 循环复核。
@@ -41,6 +42,7 @@ async function setup(page: Page) {
     if (method !== 'GET') writes.push(`${method} ${path}`)
     if (method === 'GET') {
       if (path === '/notifications') return reply([])
+      if (path === '/admin/dashboard') return reply(adminDashboardFixture)
       if (path === '/admin/users') {
         return reply({
           items: [seller],
@@ -89,8 +91,7 @@ async function assertTrapped(page: Page, drawerName: string, openerName: string)
 
 test('report drawer keeps keyboard focus inside and Escape returns to its opener (contract fixture)', async ({ page }) => {
   const observed = await setup(page)
-  await page.goto('/admin')
-  await page.getByRole('tab', { name: '举报处理' }).click()
+  await page.goto('/admin/reports')
   await assertTrapped(page, '举报详情与人工处理', '举报详情 #9001')
   expect(observed.writes).toEqual([])
   expect(observed.unexpected).toEqual([])
@@ -99,8 +100,7 @@ test('report drawer keeps keyboard focus inside and Escape returns to its opener
 
 test('product drawer keeps keyboard focus inside and Escape returns to its opener (contract fixture)', async ({ page }) => {
   const observed = await setup(page)
-  await page.goto('/admin')
-  await page.getByRole('tab', { name: '商品治理' }).click()
+  await page.goto('/admin/products')
   await assertTrapped(page, '商品详情与人工处理', '查看并处理商品 #601')
   expect(observed.writes).toEqual([])
   expect(observed.unexpected).toEqual([])

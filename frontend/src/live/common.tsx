@@ -176,8 +176,8 @@ export function Shell() {
     ...(user?.role === 'ADMIN' ? [{ key: '/admin', label: '管理后台' }] : [{ key: '/profile', label: '个人中心' }, { key: '/my-products', label: '我的发布' }, { key: '/favorites', label: '我的收藏' }, { key: '/report', label: '我的举报' }]),
     { key: 'logout', label: '退出登录', danger: true },
   ]
-  // The landing page and the sign-in views own their full-screen composition.
-  if (['/', '/login', '/register'].includes(location.pathname)) return <div className="campus-app campus-bare"><main id="main-content" className="campus-content"><Outlet /></main></div>
+  // The landing page, the sign-in views and the admin console own their full-screen composition.
+  if (['/', '/login', '/register'].includes(location.pathname) || location.pathname === '/admin' || location.pathname.startsWith('/admin/')) return <div className="campus-app campus-bare"><main id="main-content" className="campus-content"><Outlet /></main></div>
   return <div className="campus-app">
     <div className="app-sky" aria-hidden="true"><i className="b1" /><i className="b2" /><i className="b3" /></div>
     <a className="skip-link" href="#main-content">跳到主要内容</a>
