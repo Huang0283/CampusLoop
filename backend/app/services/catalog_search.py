@@ -10,7 +10,18 @@ BUY_PREFIX = re.compile(r"^(?:我想买|想购买|想买|购买|求购|买)\s*(?
 TITLE_ALIASES = {
     "电脑": ("电脑", "笔记本", "笔记本电脑", "macbook", "laptop", "台式机", "台式电脑", "主机"),
 }
-COMPUTER_ACCESSORIES = ("充电线", "数据线", "充电器", "电源", "转接头", "转换器", "扩展坞", "保护壳", "内胆包", "贴膜")
+COMPUTER_ACCESSORIES = (
+    "充电线",
+    "数据线",
+    "充电器",
+    "电源",
+    "转接头",
+    "转换器",
+    "扩展坞",
+    "保护壳",
+    "内胆包",
+    "贴膜",
+)
 COMPUTER_NON_DEVICES = ("电脑椅", "电脑桌", "电脑包", "电脑支架", "电脑键盘", "电脑鼠标")
 
 
@@ -29,8 +40,10 @@ def title_has(term, title, category=""):
         return False
     if term == "电脑" and "笔记本" in title and category != "digital":
         aliases = tuple(alias for alias in aliases if alias not in ("笔记本", "笔记本电脑"))
-    if term == "电脑" and "macbook" in title and any(
-        accessory in title for accessory in COMPUTER_ACCESSORIES
+    if (
+        term == "电脑"
+        and "macbook" in title
+        and any(accessory in title for accessory in COMPUTER_ACCESSORIES)
     ):
         aliases = tuple(alias for alias in aliases if alias != "macbook")
     return any(alias in title for alias in aliases)
@@ -50,7 +63,8 @@ def refine_search(result, snapshots, query, sort):
     by_id = {
         product["productId"]: [
             normalize(product.get(field) or "") for field in ("title", "description")
-        ] + [normalize(product.get("categoryId") or "")]
+        ]
+        + [normalize(product.get("categoryId") or "")]
         for product in snapshots
     }
 
@@ -86,6 +100,7 @@ def refine_search(result, snapshots, query, sort):
                     title_has(term, by_id[item["productId"]][0], by_id[item["productId"]][2])
                     for term in terms
                 ),
-            ), reverse=True
+            ),
+            reverse=True,
         )
     return result

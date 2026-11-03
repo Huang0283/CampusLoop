@@ -174,13 +174,18 @@ def test_catalog_search_new_products_edits_relevance_filters_and_visibility(clie
     # Publish through real upload/product APIs; assertions never depend on catalog fixture IDs.
     seed = product(client, seller)
     base = {
-        "category": "DIGITAL", "condition": "GOOD", "price": 100,
-        "campusLocation": "校内", "images": seed["images"], "description": "功能正常",
+        "category": "DIGITAL",
+        "condition": "GOOD",
+        "price": 100,
+        "campusLocation": "校内",
+        "images": seed["images"],
+        "description": "功能正常",
     }
 
     def publish(title, description):
         response = client.post(
-            "/products", headers=key_headers(seller),
+            "/products",
+            headers=key_headers(seller),
             json={**base, "title": f"{title} {marker}", "description": description},
         )
         assert response.status_code == 201, response.text
@@ -210,12 +215,18 @@ def test_catalog_search_new_products_edits_relevance_filters_and_visibility(clie
     assert search("验收 电脑", maxPrice=50)["items"] == []
     assert search("验收 电脑", category="BEDDING")["items"] == []
     assert search("验收 电脑", condition="NEW")["items"] == []
-    assert [row["id"] for row in search("验收 电脑", page=2, pageSize=1)["items"]] == [notebook["id"]]
-    assert [row["id"] for row in search("验收 电脑", sort="newest")["items"]] == [notebook["id"], computer["id"]]
+    assert [row["id"] for row in search("验收 电脑", page=2, pageSize=1)["items"]] == [
+        notebook["id"]
+    ]
+    assert [row["id"] for row in search("验收 电脑", sort="newest")["items"]] == [
+        notebook["id"],
+        computer["id"],
+    ]
     assert [row["id"] for row in search("验收 读卡器")["items"]] == [camera["id"]]
     assert [row["id"] for row in search("购买 手提包")["items"]] == [bag["id"]]
     changed = client.patch(
-        f'/products/{bag["id"]}', headers=headers(seller),
+        f'/products/{bag["id"]}',
+        headers=headers(seller),
         json={**base, "title": f"验收手提包 {marker}", "description": "可装平板"},
     )
     assert changed.status_code == 200, changed.text
