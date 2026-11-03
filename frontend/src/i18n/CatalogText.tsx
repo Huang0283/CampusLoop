@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { activeLanguage, t, useLanguage, type Language } from './language'
+import { activeLanguage, useLanguage, type Language } from './language'
+import messages from './messages.json'
 
 const cache = new Map<string, string>()
 const inFlight = new Map<string, Promise<string>>()
@@ -44,8 +45,11 @@ async function flush() {
 export function CatalogText({ text }: { text: string }) {
   useLanguage()
   const language = activeLanguage()
-  const fixed = t(text)
-  const needsTranslation = fixed === text && (language === 'en' ? /[\u3400-\u9fff]/u.test(text) : /[a-zA-Z]{3}/.test(text))
+  // Free text is not a system-message template. Mixed Chinese titles already
+  // have their source language; model names must not trigger English-to-Chinese.
+  const hasChinese = /[\u3400-\u9fff]/u.test(text)
+  const fixed = language === 'en' ? (messages as Record<string, string>)[text] ?? text : text
+  const needsTranslation = fixed === text && (language === 'en' ? hasChinese : !hasChinese && /[a-zA-Z]{3}/.test(text))
   const key = `${language}:${text}`
   const [result, setResult] = useState({ key: '', text: '', failed: false })
   useEffect(() => {

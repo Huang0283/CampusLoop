@@ -52,5 +52,7 @@ export function LanguageSelect({ className = '' }: { className?: string }) {
   const { language, setLanguage } = useLanguage()
   return <Select className={`language-select ${className}`} aria-label={language === 'zh' ? '界面语言' : 'Language'} value={language}
     onChange={setLanguage} popupMatchSelectWidth={false} virtual={false}
+    classNames={{ popup: { root: 'language-select-dropdown' } }}
+    transitionName={window.matchMedia('(prefers-reduced-motion: reduce)').matches ? '' : undefined}
     options={[{ value: 'zh', label: '简体中文' }, { value: 'en', label: 'English' }]} />
 }

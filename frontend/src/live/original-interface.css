@@ -62,9 +62,9 @@
 .product-photo { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; color: var(--ic); --fo: .16; border-bottom: 1px solid var(--hair);
   background: radial-gradient(70% 60% at 50% 45%, color-mix(in oklab, var(--ic) 8%, var(--well)), var(--well) 75%); }
 [data-theme="dark"] .product-photo { color: color-mix(in oklab, var(--ic) 60%, #fff); background: radial-gradient(70% 60% at 50% 45%, color-mix(in oklab, var(--ic) 14%, var(--well)), var(--well) 75%); }
-.product-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.16, 1, .3, 1); }
+.product-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .product-photo > svg { width: 34%; height: 34%; opacity: .85; transition: transform .6s cubic-bezier(.16, 1, .3, 1); }
-.product-card:hover .product-photo img, .product-card:hover .product-photo > svg { transform: scale(1.06); }
+.product-card:hover .product-photo > svg { transform: scale(1.06); }
 .product-photo .condition { position: absolute; left: 12px; top: 12px; display: flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--glass-line); background: var(--glass); color: var(--ink); font-size: 12px; font-weight: 600; backdrop-filter: blur(10px); }
 .product-body { flex: 1; align-content: start; display: grid; gap: 8px; padding: 14px 16px 16px; }
 .product-body h3 { display: -webkit-box; min-height: 2.9em; margin: 0; overflow: hidden; font-size: 15px; font-weight: 600; line-height: 1.45; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow-wrap: anywhere; }
@@ -85,8 +85,8 @@
 .product-detail-right { position: sticky; top: 88px; display: grid; gap: 18px; }
 .product-gallery { padding: 14px; }
 .product-gallery-main { position: relative; display: grid; place-items: center; min-height: 320px; aspect-ratio: 4 / 3; border-radius: 16px; background: var(--well); overflow: hidden; }
-.product-gallery-main > .ant-image { width: 100%; height: 100%; display: block; }
-.product-gallery-main .ant-image-img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.product-gallery-main > .ant-image { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.product-gallery-main .ant-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .product-gallery-main > button.ant-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; color: var(--ink); background: var(--glass); border: 1px solid var(--glass-line); backdrop-filter: blur(10px); }
 .product-gallery-main > button:first-of-type { left: 14px; }
 .product-gallery-main > button:last-of-type { right: 14px; }
@@ -95,7 +95,7 @@
 .product-thumbnails:empty { display: none; }
 .product-thumbnails button { flex: 0 0 92px; padding: 0; border: 0; border-radius: 12px; background: var(--well); overflow: hidden; cursor: pointer; outline: 2px solid transparent; outline-offset: 2px; }
 .product-thumbnails button[aria-pressed=true] { outline-color: var(--focus); }
-.product-thumbnails img { display: block; width: 100%; height: 69px; object-fit: cover; }
+.product-thumbnails img { display: block; width: 100%; height: 69px; object-fit: contain; }
 .product-description { margin-top: 20px; padding: 24px 26px; line-height: 1.9; overflow-wrap: anywhere; }
 .product-description .ant-typography { color: var(--muted); }
 .product-info { padding: 26px; }
@@ -206,7 +206,7 @@
 .chat-context-switch > .muted { flex-basis: 100%; }
 .chat-message-context { max-width: 100%; margin: 0 0 4px; overflow-wrap: anywhere; color: var(--muted); font-size: 12px; }
 .product-summary { display: flex; gap: 18px; align-items: center; min-width: 0; }
-.product-summary > img, .product-summary-placeholder { width: 108px; height: 94px; flex-shrink: 0; border-radius: 14px; object-fit: cover; background: var(--well); }
+.product-summary > img, .product-summary-placeholder { width: 108px; height: 94px; flex-shrink: 0; border-radius: 14px; object-fit: contain; background: var(--well); }
 .product-summary-placeholder { display: grid; place-items: center; color: var(--faint); font-size: 28px; }
 .product-summary-copy { min-width: 0; overflow-wrap: anywhere; }
 .product-summary-copy > a { color: var(--ink); font-size: 16px; font-weight: 600; }
