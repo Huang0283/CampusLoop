@@ -3,7 +3,7 @@
 import re
 import unicodedata
 
-SEARCH_VERSION = "live-catalog-phrases-v3"
+SEARCH_VERSION = "live-catalog-phrases-v4"
 WORDS = re.compile(r"[\w-]+", re.UNICODE)
 BUY_PREFIX = re.compile(r"^(?:我想买|想购买|想买|购买|求购|买)\s*(?=\w)")
 # Expansion is directional: a broad name includes its subtypes, never the reverse.
@@ -99,6 +99,7 @@ OTHER_DEVICES = (
     "行李箱",
     "背包",
     "收纳包",
+    "手提包",
     "被子",
 )
 COMPUTER_QUERIES = {"电脑", "笔记本", "笔记本电脑", "台式电脑", "台式机"}

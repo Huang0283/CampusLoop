@@ -128,6 +128,7 @@ def notebook_catalog():
         ("12", "办公笔记本", "digital", "九成新"),
         ("13", "台式电脑椅", "furniture", "配合电脑使用"),
         ("14", "电脑主机电源适配器", "digital", "可用于台式机"),
+        ("15", "手提包", "digital", "可装电脑和笔记本电脑"),
     ]
     return [
         {"productId": pid, "title": title, "categoryId": category, "description": description}
@@ -200,6 +201,6 @@ def test_rain_umbrella_rejects_studio_light_umbrella():
 
 @pytest.mark.parametrize("query", ["电脑", "笔记本电脑"])
 def test_accessories_alone_never_become_computers(query, notebook_catalog):
-    accessories = [p for p in notebook_catalog if p["productId"] in {"6", "7", "8", "14"}]
+    accessories = [p for p in notebook_catalog if p["productId"] in {"6", "7", "8", "14", "15"}]
     result = {"items": [{"productId": p["productId"]} for p in accessories]}
     assert refine_search(result, accessories, query, "relevance")["items"] == []
