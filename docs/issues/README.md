@@ -1,5 +1,15 @@
 # CampusLoop 分阶段 Issue 索引与闭环规范
 
+2026-11-03分组执行导航：各组Issue分别列每位组员任务、每个交付物的内容/用途、接收人与验收步骤。本轮分组要求覆盖旧计划中对应数量/格式；其他岗位细节沿用。
+
+| 小组 / 各自岗位 | 详细任务 Issue | 本地说明 |
+|---|---|---|
+| 文书组 R1 / R2 | [#144](https://github.com/Huang0283/CampusLoop/issues/144) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-literature.md) |
+| 测试组 T1 / T2 / T3 | [#145](https://github.com/Huang0283/CampusLoop/issues/145) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-testing.md) |
+| 用户体验组 U1 / U2 | [#146](https://github.com/Huang0283/CampusLoop/issues/146) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-ux.md) |
+| 演示组 D1 / D2 | [#147](https://github.com/Huang0283/CampusLoop/issues/147) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-presentation.md) |
+
+
 OpenAPI 契约、生成 SDK、前后端端口以及 Phase 1 至 Phase 5 的接力门禁统一见 `docs/api/openapi-sdk-stage-closure.md`。该文档只定义跨阶段交接，不替代各阶段 Issue 的成员 Review、跨组对签、M10 测试或 M1 范围验收。
 
 当前课程材料协作 Issue：[九人协作、文书测试与最终演示闭环](./nine-member-collaboration.md)。该 Issue 适用于各阶段材料同步，不替代四个技术组的阶段 Issue。

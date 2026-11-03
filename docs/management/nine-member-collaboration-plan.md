@@ -1,5 +1,15 @@
 # CampusLoop 九人协作与最终交付规划
 
+2026-11-03分组执行导航：各组Issue分别列每位组员任务、每个交付物的内容/用途、接收人与验收步骤。本轮分组要求覆盖旧计划中对应数量/格式；其他岗位细节沿用。
+
+| 小组 / 各自岗位 | 详细任务 Issue | 本地说明 |
+|---|---|---|
+| 文书组 R1 / R2 | [#144](https://github.com/Huang0283/CampusLoop/issues/144) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-literature.md) |
+| 测试组 T1 / T2 / T3 | [#145](https://github.com/Huang0283/CampusLoop/issues/145) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-testing.md) |
+| 用户体验组 U1 / U2 | [#146](https://github.com/Huang0283/CampusLoop/issues/146) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-ux.md) |
+| 演示组 D1 / D2 | [#147](https://github.com/Huang0283/CampusLoop/issues/147) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-presentation.md) |
+
+
 版本：1.4
 
 2026-11-03 补充：[后台验收、九岗位本轮交付与 LaTeX / Overleaf 要求](../issues/admin-acceptance-and-nine-role-deliveries-20261103.md)。正式报告/手册以该补充中的 LaTeX 源工程和 PDF 为准，覆盖本文原 Markdown/DOCX 正文交付方式；新增后台验收扩展为168条计划用例。原126条覆盖和岗位归属保留，T1仍负责数据与权限，T2负责业务执行，T3负责环境异常。当前阶段已收口，日常组汇总PR目标为main。
