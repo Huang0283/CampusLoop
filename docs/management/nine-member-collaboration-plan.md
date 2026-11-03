@@ -2,6 +2,8 @@
 
 版本：1.4
 
+2026-11-03 补充：[后台验收、九岗位本轮交付与 LaTeX / Overleaf 要求](../issues/admin-acceptance-and-nine-role-deliveries-20261103.md)。正式报告/手册以该补充中的 LaTeX 源工程和 PDF 为准，覆盖本文原 Markdown/DOCX 正文交付方式；新增后台验收扩展为168条计划用例。原126条覆盖和岗位归属保留，T1仍负责数据与权限，T2负责业务执行，T3负责环境异常。当前阶段已收口，日常组汇总PR目标为main。
+
 日期：2026-10-27
 
 适用对象：CampusLoop 校园二手交易系统

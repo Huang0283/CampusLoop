@@ -4,6 +4,8 @@ OpenAPI 契约、生成 SDK、前后端端口以及 Phase 1 至 Phase 5 的接�
 
 当前课程材料协作 Issue：[九人协作、文书测试与最终演示闭环](./nine-member-collaboration.md)。该 Issue 适用于各阶段材料同步，不替代四个技术组的阶段 Issue。
 
+2026-11-03本轮补充：[后台验收、九岗位交付与Overleaf/LaTeX文书要求](./admin-acceptance-and-nine-role-deliveries-20261103.md)，GitHub [#143](https://github.com/Huang0283/CampusLoop/issues/143)。T1仍负责数据与权限，T2负责业务，T3负责环境异常；42条新增覆盖按实际执行记录，正式报告/手册交LaTeX工程和PDF。
+
 ## 1. 使用范围
 
 本目录将项目拆为四个主责组、五个连续交付阶段，共 20 个可直接创建为 GitHub Issue 的任务书。每个阶段只占一个项目周；课程若按更长周期执行，只能把该周拆成日计划，不能把一个阶段的验收拖到下一周。每份 Issue 都必须能独立回答：谁负责、依赖什么、具体做什么、交付到哪里、怎样验收、失败如何记录、下一阶段接收什么。
