@@ -14,6 +14,7 @@ from app.models import Product, User, WantedPost
 from app.services.ai_adapters import rank_payload
 from app.services.business_serializers import products
 from app.services.catalog_search import SEARCH_VERSION, candidate_query, refine_search, search_query
+from app.services.catalog_semantic import semantic_search
 
 ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
@@ -196,14 +197,22 @@ def input_snapshot(db, query, wanted: WantedPost | None = None, filters=None):
 def rank_live(
     db, query, wanted=None, mode="keyword", filters=None, sort="relevance", lock_candidates=False
 ):
+    original_query = query
     if wanted is None:
         query = search_query(query)
     baseline_query = candidate_query(query) if wanted is None else query
     entities, payload = input_snapshot(db, baseline_query, wanted, filters)
-    payload["options"] = {"mode": "semantic" if mode != "keyword" else "keyword", "sort": sort}
+    payload["options"] = {"mode": "keyword", "sort": sort}
     result = rank_payload(payload)
     if wanted is None:
-        result = refine_search(result, payload["products"], query, sort)
+        if mode != "keyword":
+            try:
+                result = semantic_search(payload, result, query, mode, sort, original_query)
+            except (OSError, ValueError, KeyError, TypeError):
+                result = refine_search(result, payload["products"], query, sort)
+                result["metadata"].update(degraded=True, fallbackReason="SEMANTIC_UNAVAILABLE")
+        else:
+            result = refine_search(result, payload["products"], query, sort)
     # Re-read visibility after RPC, before public output; never return internal IDs blindly.
     ranked_ids = [int(item["productId"]) for item in result["items"]]
     fresh_query = select(Product)
@@ -238,6 +247,7 @@ def rank_live(
     }
     if wanted is None:
         stable["catalogSearchVersion"] = SEARCH_VERSION
+        stable["requestedMode"] = mode
     version = hashlib.sha256(json.dumps(stable, sort_keys=True, default=str).encode()).hexdigest()
     if wanted and (
         wanted.status != "OPEN" or wanted.expires_at is None or wanted.expires_at <= utcnow()

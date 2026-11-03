@@ -81,6 +81,32 @@ def pending_order(client, seller, buyer):
     return item, sid, accepted.json()["data"]["order"]
 
 
+@pytest.mark.parametrize("removed", [False, True])
+def test_cancel_reservation_keeps_catalog_status_consistent(client, removed):
+    seller, buyer = account(client), account(client)
+    item, _, order = pending_order(client, seller, buyer)
+    if removed:
+        # A catalog cleanup can retire a placeholder while keeping its old order.
+        with SessionLocal.begin() as db:
+            db.get(Product, item["id"]).deleted_at = datetime.now(UTC)
+    cancelled = client.post(
+        f'/orders/{order["id"]}/cancel',
+        headers=headers(buyer),
+        json={"reason": "Isolated reservation cancellation check"},
+    )
+    assert cancelled.status_code == 200, cancelled.text
+    saved = cancelled.json()["data"]
+    expected_status = "HIDDEN" if removed else "ON_SALE"
+    assert saved["status"] == "CANCELLED"
+    assert saved["product"]["status"] == expected_status
+    reloaded = client.get(f'/orders/{order["id"]}', headers=headers(seller)).json()["data"]
+    assert reloaded["product"]["status"] == expected_status
+    listings = client.get("/products", params={"pageSize": 100}).json()["data"]["items"]
+    assert (item["id"] in {entry["id"] for entry in listings}) is (not removed)
+    with SessionLocal() as db:
+        assert (db.get(Product, item["id"]).deleted_at is not None) is removed
+
+
 def test_product_price_order_rejection_is_422_and_correction_can_retry(client):
     seller = account(client)
     title = "Price validation " + uuid.uuid4().hex

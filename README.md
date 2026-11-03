@@ -40,6 +40,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 - [后端开发与检查](backend/README.md)
 - [唯一 HTTP 契约](openapi/campusloop.v1.yaml) 与 [SDK 各阶段交接要求](docs/api/openapi-sdk-stage-closure.md)
 - [界面保持与恢复规范](docs/development/interface-restoration.md)
+- [项目目录清理记录（2026-11-01）](docs/development/project-cleanup-20261101.md)：旧工作副本、临时材料和未使用示例的清理范围、备份与验证。
 - 智能服务：[M7 关键词基线](services/m7_baseline/README.md)、[M7 语义服务](services/m7_semantic/README.md)、[M8 规则基线](services/m8_baseline/README.md)、[M8 价格候选与降级](services/m8_phase4/README.md)
 
 生产路由通过真实 SDK/会话层访问接口。早期原型仍用于对照批准界面，不能用 Mock、写死身份或兜底商品替代生产接口。

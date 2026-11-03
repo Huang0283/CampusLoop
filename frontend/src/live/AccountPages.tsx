@@ -1,11 +1,13 @@
-import { Avatar, Button, Form, Input, Rate, Space, Tag } from 'antd'
+import { useState } from 'react'
+import { Avatar, Button, Form, Input, Rate, Space, Tag, message } from 'antd'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ApiError, data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
-import type { UpdateProfileRequest } from '../sdk'
+import type { UpdateProfileRequest, UserProfile } from '../sdk'
 import { Failure, Page, Resource, useMutation, useRemote } from './common'
 import { useSession } from './session'
 import { AuthScene } from '../landing/AuthScene'
+import { AvatarUpload } from './AvatarUpload'
 
 export function AuthPage({ registering = false }: { registering?: boolean }) {
   return <AuthForm key={registering ? 'register' : 'login'} registering={registering} />
@@ -39,7 +41,8 @@ function AuthForm({ registering }: { registering: boolean }) {
     useSession.getState().accept(result)
     const from: unknown = location.state?.from
     const safe = typeof from === 'string' && from.startsWith('/') && !from.startsWith('//') && !from.includes('\\') && !from.startsWith('/login') && !from.startsWith('/register')
-    navigate(safe ? from : result.user.role === 'ADMIN' ? '/admin' : '/market', { replace: true })
+    const adminReturn = safe && (from === '/admin' || from.startsWith('/admin/') || from.startsWith('/admin?'))
+    navigate(result.user.role === 'ADMIN' ? adminReturn ? from : '/admin' : safe ? from : '/market', { replace: true })
   })
   return <AuthScene registering={registering}>
     <Failure error={mutation.error} />
@@ -56,26 +59,40 @@ function AuthForm({ registering }: { registering: boolean }) {
 
 export function ProfilePage() {
   const user = useSession((state) => state.user)
-  const remote = useRemote(`profile-${user?.id}`, (signal) => data(getCurrentUser({ signal })))
-  const mutation = useMutation()
-  const profile = remote.value
+  const remote = useRemote(`profile-${user?.id}`, (signal) => data(getCurrentUser({ signal })), 0, true)
   return <Page title="个人资料"><Resource {...remote}>
-    {profile && <div className="profile-grid" key={profile.id}>
-      <section className="surface profile-summary" aria-label="个人资料概览"><Avatar size={120} src={profile.avatar}>{profile.nickname.slice(0, 1)}</Avatar><h2>{profile.nickname}</h2><p className="muted">{profile.email}</p><Tag color="blue">校园交易用户</Tag>
+    {remote.value && <ProfileEditor key={remote.value.id} profile={remote.value} refresh={remote.reload} />}
+  </Resource></Page>
+}
+
+function ProfileEditor({ profile, refresh }: { profile: UserProfile; refresh: () => void }) {
+  const mutation = useMutation()
+  const [form] = Form.useForm<UpdateProfileRequest>()
+  const avatar = Form.useWatch('avatar', form)
+  const [uploading, setUploading] = useState(false)
+  const [messageApi, contextHolder] = message.useMessage()
+  return <div className="profile-grid">
+      {contextHolder}
+      <section className="surface profile-summary" aria-label="个人资料概览"><Avatar size={120} src={avatar === undefined ? profile.avatar : avatar}>{profile.nickname.slice(0, 1)}</Avatar><h2>{profile.nickname}</h2><p className="muted">{profile.email}</p><Tag color="blue">校园交易用户</Tag>
         {([['学校', profile.school || '未填写'], ['学院', profile.college || '未填写'], ['专业', profile.major || '未填写'], ['交易次数', `${profile.transactionCount} 次`]]).map(([label, value]) => <div className="profile-info" key={label}><span className="muted">{label}</span><strong>{value}</strong></div>)}
         <div className="profile-info"><span className="muted">评分</span>{profile.rating > 0 ? <Space><Rate disabled allowHalf value={profile.rating} style={{ fontSize: 14 }} /><strong>{profile.rating.toFixed(1)}</strong></Space> : <span>暂无评价</span>}</div>
       </section>
       <section className="surface profile-editor" aria-label="编辑资料"><h2>编辑资料</h2>
       <Failure error={mutation.error} />
-      <Form layout="vertical" size="large" initialValues={profile} onFinish={(values: UpdateProfileRequest) => void mutation.run(async () => {
-        const next = await data(updateCurrentUser({ body: values })); useSession.getState().update(next); remote.reload()
-      })}>
-        <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40 }]}><Input /></Form.Item>
+      <Form form={form} layout="vertical" size="large" initialValues={profile} onFinish={(values: UpdateProfileRequest) => {
+        if (uploading) return
+        void mutation.run(async () => {
+          const next = await data(updateCurrentUser({ body: values }))
+          useSession.getState().update(next); form.setFieldsValue(next)
+          void messageApi.success('资料已保存。'); refresh()
+        })
+      }}>
+        <Form.Item name="avatar" label="头像"><AvatarUpload onBusyChange={setUploading} disabled={mutation.busy} /></Form.Item>
+        <Form.Item name="nickname" label="昵称" rules={[{ required: true, whitespace: true, max: 40, message: '请输入 1–40 个字符的昵称，不能全为空格。' }]}><Input maxLength={40} /></Form.Item>
         <Form.Item name="bio" label="简介"><Input.TextArea maxLength={500} /></Form.Item>
         {(['school', 'college', 'major'] as const).map((field) => <Form.Item key={field} name={field} label={{ school: '学校', college: '学院', major: '专业' }[field]}><Input maxLength={80} /></Form.Item>)}
-        <Button htmlType="submit" type="primary" loading={mutation.busy}>保存资料</Button>
+        <Button htmlType="submit" type="primary" aria-label="保存资料" loading={mutation.busy} disabled={uploading}>保存资料</Button>
       </Form>
-    </section></div>}
-  </Resource></Page>
+    </section></div>
 }
 

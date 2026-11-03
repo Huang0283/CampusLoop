@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Alert, App, Button, Descriptions, Drawer, Image, Input, Pagination, Select, Space, Table, Tag } from 'antd'
+import { Alert, App, Button, Descriptions, Image, Input, Pagination, Select, Space, Table, Tag } from 'antd'
 import { Link, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { Order, OrderStatus } from '../sdk'
@@ -7,6 +7,7 @@ import { errorText, NoItems, Resource, useRemote } from '../live/common'
 import { categoryLabels, orderStatusLabels } from './labels'
 import { clock, downloadCsv } from './format'
 import { Icon } from './icons'
+import { DetailDialog } from '../live/AdminPages'
 
 const STATUSES = Object.keys(orderStatusLabels) as OrderStatus[]
 const EXPORT_LIMIT = 2000
@@ -23,7 +24,8 @@ export function OrdersPage() {
   const update = (next: Record<string, string | undefined>) => {
     const merged = new URLSearchParams(params)
     Object.entries(next).forEach(([key, value]) => { if (value) merged.set(key, value); else merged.delete(key) })
-    setParams(merged, { replace: true }); setSelected(undefined)
+    // Keep URL-backed input synchronous so fast typing and Chinese input retain every character.
+    setParams(merged, { replace: true, flushSync: true }); setSelected(undefined)
   }
   const exportAll = async () => {
     setExporting(true)
@@ -45,7 +47,7 @@ export function OrdersPage() {
     <div className="adm-head"><div><h1>订单管理</h1><p>查看全平台订单。管理员在这里只读查看，订单状态由买卖双方在交易流程中推进。</p></div></div>
     <div className="adm-card adm-plain">
       <Space wrap className="adm-filters">
-        <Input.Search key={query} aria-label="搜索订单" placeholder="订单号（如 #128）或商品名称" defaultValue={query} allowClear onSearch={(value) => update({ query: value.trim() || undefined, page: undefined })} style={{ width: 280 }} />
+        <Input.Search aria-label="搜索订单" placeholder="订单号（如 #128）或商品名称" value={query} allowClear onChange={(event) => update({ query: event.target.value || undefined, page: undefined })} onSearch={(value) => update({ query: value.trim() || undefined, page: undefined })} style={{ width: 280 }} />
         <Select virtual={false} aria-label="订单状态" placeholder="全部状态" allowClear value={status} style={{ width: 160 }} onChange={(value) => update({ status: value, page: undefined })} options={STATUSES.map((value) => ({ value, label: orderStatusLabels[value] }))} />
         <Button onClick={remote.reload} icon={<Icon name="refresh" size={15} />}>刷新</Button>
         <Button onClick={() => void exportAll()} loading={exporting} icon={<Icon name="download" size={15} />}>导出 CSV（Excel 可打开）</Button>
@@ -64,7 +66,7 @@ export function OrdersPage() {
         {remote.value && remote.value.pagination.total > 20 && <Pagination className="adm-pager" current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => update({ page: String(next) })} />}
       </Resource>
     </div>
-    <Drawer title={selected ? `订单 #${selected.id}` : ''} open={Boolean(selected)} onClose={() => setSelected(undefined)} destroyOnHidden width={460}>
+    <DetailDialog title={selected ? `订单 #${selected.id}` : ''} open={Boolean(selected)} onClose={() => setSelected(undefined)}>
       {selected && <>
         {selected.status === 'DISPUTED' && <Alert type="warning" showIcon title="该订单处于争议中" description="当前版本没有管理员仲裁接口。请结合双方举报在「举报处理」中处理，并在说明里记录结论。" style={{ marginBottom: 16 }} />}
         <Descriptions column={1} bordered items={[
@@ -80,6 +82,6 @@ export function OrdersPage() {
           { key: 'updated', label: '最近更新', children: new Date(selected.updatedAt).toLocaleString('zh-CN', { hour12: false }) },
         ]} />
       </>}
-    </Drawer>
+    </DetailDialog>
   </div>
 }

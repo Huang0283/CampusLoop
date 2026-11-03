@@ -46,6 +46,7 @@ class Settings(BaseSettings):
     baseline_rpc_token: str = ""
     m7_service_url: str = "http://127.0.0.1:8787"
     m8_service_url: str = "http://127.0.0.1:8788"
+    catalog_semantic_url: str = ""  # Optional live BGE service; empty means keyword fallback.
 
     # ---- worker / advisory 运行时（BP4-07/08，M9）----
     # phase-3 兼容默认值：单进程模式（serve.py 内嵌 worker 线程与环回服务）。

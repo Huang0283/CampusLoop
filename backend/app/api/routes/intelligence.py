@@ -161,7 +161,7 @@ def search(
         {
             "items": all_items[(page - 1) * pageSize : page * pageSize],
             "pagination": {"page": page, "pageSize": pageSize, "total": len(all_items)},
-            "mode": "keyword",
+            "mode": metadata["mode"],
             "degraded": metadata["degraded"],
             "degradationReason": metadata["fallbackReason"] or "",
             "resultVersion": version,

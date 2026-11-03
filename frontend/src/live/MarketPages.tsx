@@ -10,7 +10,7 @@ import { ReportButton } from './ReportButton'
 import { ImageQueue } from './ImageQueue'
 import { useAttemptKey } from './idempotency'
 import { ProductDetail, Person } from './Presentation'
-import { categoryLabels, conditionLabels, wantedStatusLabels, displayDate } from './display'
+import { categoryLabels, conditionLabels, wantedStatusLabels, displayDate, systemText } from './display'
 import { Glyph, Logo, PriceTag, categoryOf, type GlyphName } from '../theme/brand'
 
 const categories = Object.entries(categoryLabels).map(([value, label]) => ({ value, label }))
@@ -35,7 +35,7 @@ export function ProductCards({ products, from, actions }: { products: Product[];
       <Link to={`/product/${product.id}`} state={{ from }} aria-hidden="true" tabIndex={-1}>
         <div className="product-photo">
           {product.images[0] ? <img src={product.images[0]} alt={product.title} loading="lazy" /> : <Glyph name={meta.glyph} />}
-          <span className="condition">{conditionLabels[product.condition] || product.condition}</span>
+          <span className="condition">{conditionLabels[product.condition] || '成色待确认'}</span>
         </div>
       </Link>
       <div className="product-body">
@@ -127,6 +127,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
         <div>搜索范围：商品名称和简介，新发布的商品自动参与搜索。</div>
         <div>检索说明：{searchExplanation[searchResult.mode]}</div>
       </div>}
+      {searchResult && !searchResult.items.length && (category || condition) && <Button style={{ marginBottom: 16 }} onClick={() => { const next = new URLSearchParams(params); next.delete('category'); next.delete('condition'); next.delete('page'); setParams(next) }}>清除分类与成色筛选</Button>}
       {remote.value?.items.length ? <ProductCards products={remote.value.items} from={location.pathname + location.search} actions={mode === 'mine' ? (product) => <Space wrap>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => navigate(`/product/${product.id}/edit`)}>编辑</Button>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.updateProductStatus({ path: { productId: product.id }, body: { status: product.status === 'ON_SALE' ? 'HIDDEN' : 'ON_SALE' } }); remote.reload() })}>{product.status === 'ON_SALE' ? '下架' : '上架'}</Button>
@@ -207,7 +208,7 @@ export function ProductPage() {
   const favorite = savedFavorite?.key === favoriteKey ? savedFavorite.value : favoriteState.value === true
   const from = typeof location.state?.from === 'string' && location.state.from.startsWith('/market') ? location.state.from : '/market'
   const item = remote.value
-  return <div className="campus-page"><Breadcrumb style={{ marginBottom: 20 }} items={[{ title: <Link to={from}>返回列表</Link> }, { title: item ? categoryLabels[item.category] || item.category : '商品' }, { title: '商品详情' }]} /><Resource {...remote}>
+  return <div className="campus-page"><Breadcrumb style={{ marginBottom: 20 }} items={[{ title: <Link to={from}>返回列表</Link> }, { title: item ? categoryLabels[item.category] || '其他' : '商品' }, { title: '商品详情' }]} /><Resource {...remote}>
     {item && <ProductDetail key={item.id} item={item} feedback={<><Failure error={mutation.error} /><Failure error={favoriteState.error} retry={favoriteState.reload} /></>} actions={<>
         <Button icon={favorite ? <HeartFilled aria-hidden /> : <HeartOutlined aria-hidden />} loading={mutation.busy || (user?.role === 'USER' && favoriteState.loading)} disabled={user?.role === 'USER' && Boolean(favoriteState.error)} onClick={() => void mutation.run(async () => {
           if (!requireStudent(navigate, location.pathname)) return
@@ -289,7 +290,7 @@ export function WantedListPage() {
       <div className="wanted-description">{item.description || '发布者暂未填写补充说明。'}</div>
       <div className="wanted-budget"><div className="top"><span className="muted">预算</span><span className="cl-price"><small>¥</small>{item.budgetMin}–{item.budgetMax}</span></div>
         <div className="bar" aria-hidden="true"><span style={{ left: `${item.budgetMin / scale * 100}%`, right: `${100 - item.budgetMax / scale * 100}%` }} /></div></div>
-      <div className="wanted-footer"><span className="cl-chip" style={{ ['--c' as string]: 'var(--cat-other)' }}>最低成色：{conditionLabels[item.condition] || item.condition}</span>
+      <div className="wanted-footer"><span className="cl-chip" style={{ ['--c' as string]: 'var(--cat-other)' }}>最低成色：{conditionLabels[item.condition] || '成色待确认'}</span>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Avatar size={22} src={item.owner.avatar}>{item.owner.nickname.slice(0, 1)}</Avatar>{item.owner.nickname}</span>
         <span><EnvironmentOutlined /> {item.location === 'ANY' ? '不限地点' : item.location}</span><span><ClockCircleOutlined /> {displayDate(item.createdAt)}</span>
         {user?.id === item.owner.id ? <Link className="go" to={`/wanted/${item.id}/matches`}>查看匹配</Link> : <Link className="go" to={`/wanted/${item.id}`}>查看详情 →</Link>}</div>
@@ -309,7 +310,7 @@ export function WantedDetailPage() {
   return <Page title="求购详情" extra={<Link to="/wanted">返回广场</Link>}><Resource {...remote}><Failure error={mutation.error} />{item && <div className="detail-columns"><section className="surface">
     <Typography.Title level={3}>{item.title}</Typography.Title><Tag color="blue">{wantedStatusLabels[item.status]}</Tag><p className="muted">发布于 {displayDate(item.createdAt)} · 有效期至 {displayDate(item.expireAt)}</p>
     <h2 style={{ marginTop: 28 }}><FileTextOutlined /> 需求描述</h2><Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>{item.description || '暂无补充说明。'}</Typography.Paragraph>
-    <h2 style={{ marginTop: 28 }}>需求条件</h2><div className="fact-grid"><div className="fact-tile"><span className="muted">预算范围</span><strong>¥{item.budgetMin}–{item.budgetMax}</strong></div><div className="fact-tile"><span className="muted">最低成色</span><strong>{conditionLabels[item.condition] || item.condition}</strong></div><div className="fact-tile"><span className="muted">交易地点</span><strong>{item.location === 'ANY' ? '不限地点' : item.location}</strong></div></div>
+    <h2 style={{ marginTop: 28 }}>需求条件</h2><div className="fact-grid"><div className="fact-tile"><span className="muted">预算范围</span><strong>¥{item.budgetMin}–{item.budgetMax}</strong></div><div className="fact-tile"><span className="muted">最低成色</span><strong>{conditionLabels[item.condition] || '成色待确认'}</strong></div><div className="fact-tile"><span className="muted">交易地点</span><strong>{item.location === 'ANY' ? '不限地点' : item.location}</strong></div></div>
     </section><aside className="surface"><Person person={item.owner} /><div className="form-actions">{user?.id === item.owner.id ? <><Link to={`/wanted/${item.id}/matches`}>规则匹配结果</Link><Link to={`/wanted/${item.id}/edit`}>编辑求购</Link>
       <Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => { await api.closeWanted({ path: { wantedId: item.id } }); remote.reload() })}>关闭求购</Button></> : <><Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => {
         if (!requireStudent(navigate, `/wanted/${item.id}`)) return
@@ -352,15 +353,15 @@ export function MatchesPage() {
     return () => { window.clearInterval(timer); window.removeEventListener('focus', update) }
   }, [])
   return <Page title="规则匹配结果" subtitle="结合需求条件寻找候选商品，结果仅供参考" extra={<Space><Link to={`/wanted/${wantedId}`}>返回求购详情</Link><Link to="/notifications">查看匹配通知</Link><Button onClick={remote.reload}>刷新匹配</Button></Space>}><Resource {...remote}>
-    {remote.value?.degraded && <Alert type="warning" title="正在使用关键词/规则降级结果" description={remote.value.degradationReason} style={{ marginBottom: 16 }} />}
+    {remote.value?.degraded && <Alert type="warning" title="正在使用关键词/规则降级结果" description={systemText(remote.value.degradationReason, '当前使用备用规则，结果仅供参考。')} style={{ marginBottom: 16 }} />}
     {remote.value?.items.length ? <div className="match-results"><ProductCards products={remote.value.items.map((item) => item.product)} actions={(product) => {
       const match = remote.value?.items.find((item) => item.product.id === product.id)
       const expiresAt = Date.parse(match?.expiresAt || '')
       const expiryKnown = Number.isFinite(expiresAt)
       const isExpired = expiryKnown && expiresAt <= now
       return <>
-        <Typography.Paragraph type="secondary">匹配原因：{match?.reasons.join(' · ') || '后端未提供'}<br />相关度：{Math.round((match?.relevanceScore || 0) * 100)}%（不是成交概率）</Typography.Paragraph>
-        <div>硬约束：{match?.constraints?.join(' · ') || '后端未提供约束明细'}</div>
+        <Typography.Paragraph type="secondary">匹配原因：{match?.reasons.map((value) => systemText(value, '商品内容相关')).join(' · ') || '后端未提供'}<br />相关度：{Math.round((match?.relevanceScore || 0) * 100)}%（不是成交概率）</Typography.Paragraph>
+        <div>硬约束：{match?.constraints?.map((value) => systemText(value, '已检查需求条件')).join(' · ') || '后端未提供约束明细'}</div>
         <div>结果版本：{match?.resultVersion || '后端未提供'}</div>
         {expiryKnown ? <div>有效期至：{new Date(expiresAt).toLocaleString()}</div> : <Tag color="warning">有效期未知，请刷新确认</Tag>}
         {isExpired && <><Tag color="warning">已过期</Tag><Typography.Paragraph type="warning">结果仅供历史参考，请刷新匹配确认当前商品。</Typography.Paragraph></>}
@@ -412,9 +413,9 @@ export function PricePage() {
     {result && <div className="price-advice-result"><Alert type={alertType} title={alertTitle} description={<>
       {bodyRange && <div>{rangeText}</div>}
       {result.sampleSize != null && <div>基于 {result.sampleSize} 个样本</div>}
-      {result.degraded && <div>已降级：{result.degradationReason || '智能服务不可用，当前仅供参考。'}</div>}
-      {!result.degraded && result.degradationReason && <div>{result.degradationReason}</div>}
-      <div>影响因素：{result.factors.join(' · ') || '后端未提供'}</div>
+      {result.degraded && <div>已降级：{systemText(result.degradationReason, '智能服务不可用，当前仅供参考。')}</div>}
+      {!result.degraded && result.degradationReason && <div>{systemText(result.degradationReason, '当前结果仅供参考。')}</div>}
+      <div>影响因素：{result.factors.map((value) => systemText(value, '商品基础信息')).join(' · ') || '后端未提供'}</div>
       <div>{result.disclaimer || '仅供参考，不保证成交价，请自主协商。'}</div>
       <small>结果版本：{result.resultVersion || '后端未提供'}</small>
     </>} /></div>}<h2 style={{ marginTop: 24 }}>使用建议</h2><Typography.Paragraph type="secondary">如实描述使用情况与瑕疵，结合成色、配件和同类商品调整价格。最终售价由你自主决定。</Typography.Paragraph>

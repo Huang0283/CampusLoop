@@ -12,7 +12,7 @@ import { campusToday, validateMeetupEnd, validateMeetupStart } from './meetupTim
 import { MyReports } from './ReportsPage'
 import { notifyNotificationsChanged, uniqueNotifications } from './notifications'
 import { ProductSummary, Person } from './Presentation'
-import { displayDate } from './display'
+import { displayDate, systemText } from './display'
 
 const orderLabels: Record<OrderStatus, string> = { PENDING_CONFIRM: '待约定', BOOKED: '已预订', MEETUP_ARRANGED: '见面已确认', COMPLETED: '已完成', CANCELLED: '已取消', DISPUTED: '争议中' }
 
@@ -64,8 +64,9 @@ export function OrderPage() {
       </Space></div>
       {mutable && meetupNeedsReschedule && <Alert type="warning" style={{ marginBottom: 16 }} title="见面开始时间已过且尚未完成双方确认，请修改见面约定后重新确认。" />}
       {mutable && <Alert type="info" title={`完成确认：买家${item.buyerConfirmedComplete ? '已确认' : '未确认'}，卖家${item.sellerConfirmedComplete ? '已确认' : '未确认'}；双方确认后才完成。`} />}
-      {mutable && !item.buyerConfirmedComplete && !item.sellerConfirmedComplete && <Space wrap style={{ marginTop: 16 }}><Input aria-label="取消原因" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="取消原因" maxLength={200} /><Popconfirm title="取消这笔订单？商品将恢复在售。" onConfirm={() => mutation.run(async () => { await api.cancelOrder({ path: { orderId }, body: { reason } }); remote.reload(); events.reload() })}><Button danger disabled={!reason.trim()} loading={mutation.busy}>取消订单</Button></Popconfirm></Space>}
-    </Card><Card title="订单时间线"><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: <>{event.description}<br /><Typography.Text type="secondary">{new Date(event.createdAt).toLocaleString()}</Typography.Text></> }))} /></Resource></Card></div><aside className="surface"><h2>订单信息</h2><Descriptions column={1} items={[{ key: 'price', label: '成交金额', children: <span className="price">¥{item.amount.toFixed(2)}</span> }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'created', label: '创建时间', children: displayDate(item.createdAt) }]} /><p className="muted">请核实商品和见面信息，实际完成交易后再确认。买卖双方都确认后，订单才会完成。</p></aside></div>
+      {item.status === 'CANCELLED' && item.product.status === 'HIDDEN' && <Alert type="info" title="订单已取消，该商品已删除或下架，仍不在商城展示。" />}
+      {mutable && !item.buyerConfirmedComplete && !item.sellerConfirmedComplete && <Space wrap style={{ marginTop: 16 }}><Input aria-label="取消原因" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="取消原因" maxLength={200} /><Popconfirm title="取消这笔订单？正常商品将恢复在售，已删除或下架的商品保持下架。" onConfirm={() => mutation.run(async () => { await api.cancelOrder({ path: { orderId }, body: { reason } }); remote.reload(); events.reload() })}><Button danger disabled={!reason.trim()} loading={mutation.busy}>取消订单</Button></Popconfirm></Space>}
+    </Card><Card title="订单时间线"><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: <>{systemText(event.description, '订单状态已更新')}<br /><Typography.Text type="secondary">{displayDate(event.createdAt)}</Typography.Text></> }))} /></Resource></Card></div><aside className="surface"><h2>订单信息</h2><Descriptions column={1} items={[{ key: 'price', label: '成交金额', children: <span className="price">¥{item.amount.toFixed(2)}</span> }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'created', label: '创建时间', children: displayDate(item.createdAt) }]} /><p className="muted">请核实商品和见面信息，实际完成交易后再确认。买卖双方都确认后，订单才会完成。</p></aside></div>
   </>}</Resource></Page>
 }
 
@@ -156,13 +157,13 @@ export function NotificationsPage() {
       key={item.id}
       role="listitem"
       tabIndex={0}
-      aria-label={`${item.title}，${displayDate(item.createdAt)}${item.read ? '' : '，未读'}`}
+      aria-label={`${systemText(item.title, systemText(item.type, '平台通知'))}，${displayDate(item.createdAt)}${item.read ? '' : '，未读'}`}
       className={`notification-row ${item.read ? '' : 'is-unread'}`}
       onClick={() => openNotification(item)}
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget) return
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openNotification(item) }
       }}
-    ><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {item.title}</h2><p>{item.content}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={(event) => { event.stopPropagation(); markRead(item) }}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={(event) => { event.stopPropagation(); openNotification(item) }}>查看</Button>}</div></article>)}</div> : <NoItems />}
+    ><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {systemText(item.title, systemText(item.type, '平台通知'))}</h2><p>{item.content ? systemText(item.content, '请查看详情了解更多。') : null}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={(event) => { event.stopPropagation(); markRead(item) }}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={(event) => { event.stopPropagation(); openNotification(item) }}>查看</Button>}</div></article>)}</div> : <NoItems />}
   </Resource></div><MyReports /></Page>
 }

@@ -1652,7 +1652,7 @@ export type UploadImageData = {
     };
     path?: never;
     query?: {
-        purpose?: 'product' | 'evidence' | 'chat';
+        purpose?: 'product' | 'evidence' | 'chat' | 'avatar';
     };
     url: '/uploads/images';
 };

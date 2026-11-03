@@ -69,7 +69,7 @@ function keepDrawerFocus(event: KeyboardEvent<HTMLElement>) {
 }
 
 /** Centred detail dialog for the console. The Tab trap wraps the whole panel, close button included. */
-function DetailDialog({ title, open, onClose, children }: { title: string; open: boolean; onClose: () => void; children: ReactNode }) {
+export function DetailDialog({ title, open, onClose, children }: { title: string; open: boolean; onClose: () => void; children: ReactNode }) {
   return <Modal title={title} open={open} onCancel={onClose} footer={null} width={760} centered destroyOnHidden rootClassName="adm-detail"
     modalRender={(node) => <div onKeyDown={keepDrawerFocus}>{node}</div>}>{children}</Modal>
 }
@@ -257,7 +257,7 @@ export function ProductsPanel() {
   return <>
     <Alert type="info" showIcon title="管理员人工处理商品，读取和处理均记录审计；不会自动处罚账号，也不会改变已预订或已售出的商品。" />
     <Space wrap style={{ margin: '16px 0' }}>
-      <Input.Search aria-label="搜索治理商品" placeholder="搜索商品名称" onSearch={(value) => { setPage(1); setQuery(value); setSelected(undefined) }} allowClear />
+      <Input.Search aria-label="搜索治理商品" placeholder="搜索商品名称" value={query} onChange={(event) => { setPage(1); setQuery(event.target.value); setSelected(undefined) }} onSearch={(value) => { setPage(1); setQuery(value.trim()); setSelected(undefined) }} allowClear />
       <Select virtual={false} aria-label="筛选治理商品状态" placeholder="全部商品状态" allowClear style={{ width: 180 }} value={status} options={(['ON_SALE', 'HIDDEN', 'RESERVED', 'SOLD'] as const).map((value) => ({ value, label: productStatusLabels[value] }))} onChange={(value) => { setStatus(value); setPage(1); setSelected(undefined) }} />
       <Button onClick={remote.reload}>刷新商品</Button>
     </Space>

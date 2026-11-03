@@ -163,6 +163,9 @@
 .profile-info { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--hair); text-align: left; overflow-wrap: anywhere; }
 .profile-editor { padding: 32px 36px; }
 .profile-editor h2 { margin-bottom: 28px; font-size: 24px; }
+.profile-avatar-upload .ant-avatar { flex-shrink: 0; }
+.profile-avatar-upload > .muted { margin: 12px 0 0; font-size: 12px; overflow-wrap: anywhere; }
+.profile-avatar-upload .ant-alert { margin-top: 12px; }
 
 /* ---------- Chat ---------- */
 .chat-workspace { display: grid; grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); height: min(calc(100dvh - 68px - 64px), 880px); min-height: 560px; max-width: 1240px; margin: auto; overflow: hidden;
@@ -198,6 +201,10 @@
 .chat-context .product-summary > img, .chat-context .product-summary-placeholder { width: 64px; height: 64px; border-radius: 12px; }
 .chat-context .product-summary-copy > a { font-size: 14px; }
 .chat-context .price { font-size: 17px; margin: 2px 0; }
+.chat-context-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-bottom: 10px; font-size: 12px; }
+.chat-context-switch > .ant-select { flex: 1; min-width: 120px; max-width: 100%; }
+.chat-context-switch > .muted { flex-basis: 100%; }
+.chat-message-context { max-width: 100%; margin: 0 0 4px; overflow-wrap: anywhere; color: var(--muted); font-size: 12px; }
 .product-summary { display: flex; gap: 18px; align-items: center; min-width: 0; }
 .product-summary > img, .product-summary-placeholder { width: 108px; height: 94px; flex-shrink: 0; border-radius: 14px; object-fit: cover; background: var(--well); }
 .product-summary-placeholder { display: grid; place-items: center; color: var(--faint); font-size: 28px; }
@@ -314,6 +321,12 @@
   .chat-session-pane { border-right: 0; flex: 1; }
   .chat-conversation { flex: 1; min-height: 0; }
   .chat-context { margin: 10px; }
+  .chat-context-switch { gap: 4px 8px; margin-bottom: 6px; }
+  .chat-context .product-summary { gap: 10px; }
+  .chat-context .product-summary > img, .chat-context .product-summary-placeholder { width: 44px; height: 44px; border-radius: 8px; }
+  .chat-context .product-summary-copy { display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; }
+  .chat-context .product-summary-copy > a { flex-basis: 100%; }
+  .chat-context .price { font-size: 15px; }
   .chat-conversation-header { padding: 10px 12px; }
   .chat-back { display: inline; }
   .chat-online { display: inline-block; max-width: 90px; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
@@ -479,3 +492,11 @@
 .notification-tab:hover, .notification-tab.is-active,
 .segmented-tab:hover, .segmented-tab.is-active { color: var(--link); }
 [data-theme="light"] .ant-tag.ant-tag-green.ant-tag-filled { color: #237804; }
+
+/* Keep Chinese drawer labels readable while long values wrap on small screens. */
+.ant-drawer .ant-descriptions-bordered .ant-descriptions-item-label {
+  width: 128px;
+  min-width: 112px;
+  white-space: nowrap;
+}
+.ant-drawer .ant-descriptions-item-content { overflow-wrap: anywhere; }

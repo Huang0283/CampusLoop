@@ -553,7 +553,13 @@ def cancel_order(orderId: int, body: ReasonWrite, db: Db, actor: Actor):
     ):
         raise BusinessError(409, "ORDER_STATE_CONFLICT", "Order cannot be cancelled.")
     entity.cancelled_reason = body.reason
-    db.get(Product, entity.product_id).status = "ON_SALE"
+    product = db.get(Product, entity.product_id)
+    # Cancelling a reservation must preserve catalog removal and manual takedowns.
+    product.status = (
+        "HIDDEN"
+        if product.deleted_at or product.moderation_blocked or product.status == "HIDDEN"
+        else "ON_SALE"
+    )
     arrangement = db.scalar(select(Meetup).where(Meetup.order_id == orderId).with_for_update())
     if arrangement:
         arrangement.status = "CANCELLED"

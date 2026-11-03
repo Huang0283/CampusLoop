@@ -82,7 +82,16 @@ async function transport(input: RequestInfo | URL, init?: RequestInit): Promise<
       clearTokens(); window.dispatchEvent(new Event('campusloop-session-expired'))
     }
     const messages: Record<number, string> = { 401: '请重新登录。', 403: '你无权执行此操作。', 404: '内容不存在或已不可见。', 409: '状态已变化，请刷新后重试。', 422: '请检查填写内容。', 429: '请求过于频繁，请稍后重试。', 500: '服务出错，请稍后重试。', 503: '服务暂不可用，请稍后重试。' }
-    throw new ApiError(response.status, body.code || 'HTTP_ERROR', body.message || messages[response.status] || '请求失败。', body.requestId)
+    const codeMessages: Record<string, string> = {
+      AUTH_INVALID_CREDENTIALS: '邮箱或密码错误，请检查后重试。', AUTH_EMAIL_EXISTS: '该邮箱已注册，请直接登录。',
+      PRODUCT_STATE_CONFLICT: '商品状态已变化，当前不能操作，请刷新后确认。', PRODUCT_STALE: '商品已更新，请刷新后重新处理。',
+      PRODUCT_MODERATION_HOLD: '商品已被管理员下架，请等待人工复核。', OFFER_STATE_CONFLICT: '报价状态已变化，请刷新后重试。',
+      WANTED_INACTIVE: '这条求购已关闭或已过期。', SEARCH_CAPACITY_EXCEEDED: '当前搜索繁忙，请稍后重试。',
+      IMAGE_TOO_LARGE: '图片不能超过 5MiB。', UNSUPPORTED_IMAGE: '图片无效，请选择 JPG 或 PNG 图片。',
+      STORAGE_UNAVAILABLE: '图片存储服务暂不可用，请稍后重试。', INVALID_IMAGE_REFERENCE: '图片引用无效，请重新上传。',
+    }
+    const chineseMessage = body.message && /[\u3400-\u9fff]/u.test(body.message) ? body.message : undefined
+    throw new ApiError(response.status, body.code || 'HTTP_ERROR', codeMessages[body.code || ''] || chineseMessage || messages[response.status] || '请求失败，请稍后重试。', body.requestId)
   }
   return response
 }

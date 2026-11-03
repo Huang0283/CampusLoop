@@ -437,7 +437,7 @@ paths:
       operationId: uploadImage
       x-campusloop-phase: BP2-03/FE3-05
       parameters:
-        - { name: purpose, in: query, schema: { type: string, enum: [product, evidence, chat], default: product } }
+        - { name: purpose, in: query, schema: { type: string, enum: [product, evidence, chat, avatar], default: product } }
       requestBody:
         required: true
         content:

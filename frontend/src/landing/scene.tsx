@@ -10,6 +10,7 @@ import { useSession } from '../live/session'
 /** Top bar shared by the landing page and the sign-in views. */
 export function LandingHeader({ auth }: { auth?: 'login' | 'register' }) {
   const user = useSession((state) => state.user)
+  const admin = user?.role === 'ADMIN'
   const ref = useRef<HTMLElement>(null)
   useGSAP(() => {
     const header = ref.current!
@@ -19,12 +20,12 @@ export function LandingHeader({ auth }: { auth?: 'login' | 'register' }) {
     return () => removeEventListener('scroll', onScroll)
   })
   return <header className="lp-header" ref={ref}>
-    <Link className="brand" to="/" aria-label="CampusLoop 首页"><Logo className="logo" />CampusLoop</Link>
+    <Link className="brand" to={admin ? '/admin' : '/'} aria-label={admin ? 'CampusLoop 管理后台' : 'CampusLoop 首页'}><Logo className="logo" />CampusLoop</Link>
     <nav className="lp-nav" aria-label="主导航">
-      {!auth && <><Link className="lp-link" to="/market">市场</Link><Link className="lp-link" to="/wanted">求购</Link><a className="lp-link" href="#story" onClick={(event) => { event.preventDefault(); document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' }) }}>怎么用</a></>}
+      {!auth && <><Link className="lp-link" to="/market">市场</Link>{admin ? <Link className="lp-link" to="/admin">管理后台</Link> : <><Link className="lp-link" to="/wanted">求购</Link><a className="lp-link" href="#story" onClick={(event) => { event.preventDefault(); document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' }) }}>怎么用</a></>}</>}
       <ThemeToggle />
       {auth ? <span className="auth-nav">{auth === 'register' ? <>已有账号？<Link to="/login">登录</Link></> : <>还没有账号？<Link to="/register">注册</Link></>}</span>
-        : user ? <Link className="lp-user" to="/market" aria-label={`进入市场：${user.nickname}`}><Avatar size={30} src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar>{user.nickname}</Link>
+        : user ? <Link className="lp-user" to={admin ? '/admin' : '/market'} aria-label={`${admin ? '进入管理后台' : '进入市场'}：${user.nickname}`}><Avatar size={30} src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar>{user.nickname}</Link>
           : <><Link className="lp-login" to="/login">登录</Link><Link className="pill" to="/register">注册</Link></>}
     </nav>
   </header>

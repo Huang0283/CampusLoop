@@ -234,9 +234,10 @@ def upload_image(
     file: UploadFile,
     db: Db,
     actor: Actor,
-    purpose: Literal["product", "evidence", "chat"] = "product",
+    purpose: Literal["product", "evidence", "chat", "avatar"] = "product",
 ):
-    student(actor)
+    if purpose != "avatar":
+        student(actor)
     return ok(upload(db, actor, file.file.read(5 * 1024 * 1024 + 1), purpose))
 
 

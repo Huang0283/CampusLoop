@@ -4,7 +4,7 @@ import uuid
 import boto3
 from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 from sqlalchemy import select
 
 from app.core.config import get_settings
@@ -35,12 +35,16 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
             image.verify()
         with Image.open(io.BytesIO(content)) as image:
             output = io.BytesIO()
-            image.convert("RGB").save(output, format="JPEG", quality=90)
+            prepared = ImageOps.exif_transpose(image).convert("RGB")
+            if purpose == "avatar":
+                prepared = ImageOps.fit(prepared, (512, 512), method=Image.Resampling.LANCZOS)
+            prepared.save(output, format="JPEG", quality=90)
     except (UnidentifiedImageError, OSError, Image.DecompressionBombError):
         raise BusinessError(415, "UNSUPPORTED_IMAGE", "Invalid image.") from None
     settings = get_settings()
     key = f"{purpose}/{actor.id}/{uuid.uuid4().hex}.jpg"
-    bucket = settings.minio_public_bucket if purpose == "product" else settings.minio_private_bucket
+    public = purpose in ("product", "avatar")
+    bucket = settings.minio_public_bucket if public else settings.minio_private_bucket
     client = storage_client()
     try:
         data = output.getvalue()
@@ -69,7 +73,7 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
     # This URI is a private reference, not a readable object URL.
     url = (
         "https://private.campusloop.invalid/" + key
-        if purpose != "product"
+        if not public
         else settings.s3_public_base_url.rstrip("/") + "/" + key
     )
     return {"url": url, "contentType": "image/jpeg", "size": len(data)}
@@ -78,7 +82,7 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
 def owned_keys(db, actor, urls: list[str], purpose: str) -> list[str]:
     base = (
         "https://private.campusloop.invalid"
-        if purpose != "product"
+        if purpose not in ("product", "avatar")
         else get_settings().s3_public_base_url.rstrip("/")
     )
     keys = []

@@ -45,6 +45,7 @@ from app.services.auth import (
 )
 from app.services.governance import read_audit
 from app.services.serializers import private_user, private_users, public_user
+from app.services.storage import owned_keys
 
 router = APIRouter(tags=["Auth"])
 
@@ -205,6 +206,8 @@ def get_current_user(response: Response, db: Db, actor: Actor):
 
 @router.patch("/users/me", operation_id="updateCurrentUser")
 def update_current_user(body: ProfileUpdate, response: Response, db: Db, actor: Actor):
+    if body.avatar is not None and body.avatar != actor.avatar_url:
+        owned_keys(db, actor, [body.avatar], "avatar")
     for key, value in body.model_dump(exclude_unset=True).items():
         setattr(actor, "avatar_url" if key == "avatar" else key, value)
     db.flush()

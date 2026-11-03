@@ -4,10 +4,10 @@ import { createBrowserRouter, Link, Navigate, Outlet } from 'react-router-dom'
 import { Result } from 'antd'
 import { Guard, Shell } from '../live/common'
 import { RouteFailure } from '../live/ErrorBoundary'
-import { LandingPage } from '../landing/LandingPage'
+import { HomePage } from '../landing/HomePage'
 
 export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ element: <Suspense fallback={<div role="status" style={{ padding: 24 }}>正在加载页面…</div>}><Outlet /></Suspense>, errorElement: <RouteFailure />, children: [
-  { path: '/', element: <LandingPage /> },
+  { path: '/', element: <HomePage /> },
   { path: '/login', element: <AuthPage /> }, { path: '/register', element: <AuthPage registering /> },
   { path: '/profile', element: <Guard><ProfilePage /></Guard> },
   { path: '/market', element: <CatalogPage /> }, { path: '/product/:id', element: <ProductPage /> },

@@ -28,6 +28,7 @@ services:
       CORS_ORIGINS: http://127.0.0.1:5174
       AUTH_COOKIE_NAME: campusloop-local-session
       S3_PUBLIC_BASE_URL: http://127.0.0.1:19000/campusloop-public
+      CATALOG_SEMANTIC_URL: http://host.docker.internal:18789
     ports: !override
       - "127.0.0.1:8001:8000"
 

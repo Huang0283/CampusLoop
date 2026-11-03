@@ -13,7 +13,7 @@ import { Logo } from '../theme/brand'
 import { ThemeToggle } from '../theme/AppTheme'
 import './original-interface.css'
 
-export function errorText(error: unknown) { return error instanceof Error ? error.message : '操作失败，请重试。' }
+export function errorText(error: unknown) { return error instanceof Error && /[\u3400-\u9fff]/u.test(error.message) ? error.message : '操作失败，请重试。' }
 
 export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promise<T>, interval = 0, retainOnReload = false) {
   const loaderRef = useRef(loader)
@@ -77,7 +77,7 @@ export function useMutation() {
 
 export function Failure({ error, retry }: { error?: unknown; retry?: () => void }) {
   if (!error) return null
-  const description = error instanceof ApiError ? `${error.code}${error.requestId ? ' · ' + error.requestId : ''}` : undefined
+  const description = error instanceof ApiError && error.requestId ? `问题追踪编号：${error.requestId}` : undefined
   return <Alert type="error" showIcon title={errorText(error)} description={description} action={retry && <Button onClick={retry}>重试</Button>} style={{ marginBottom: 16 }} />
 }
 
@@ -167,7 +167,7 @@ export function Shell() {
   const unread = notifications.value?.filter((item) => !item.read).length ?? 0
   const nav = [
     { key: '/market', icon: <ShopOutlined aria-hidden />, label: '市场' },
-    { key: '/wanted', icon: <FileSearchOutlined aria-hidden />, label: '求购' },
+    ...(user?.role !== 'ADMIN' ? [{ key: '/wanted', icon: <FileSearchOutlined aria-hidden />, label: '求购' }] : []),
     ...(user?.role === 'USER' ? [{ key: '/chat', icon: <MessageOutlined aria-hidden />, label: '聊天' }, { key: '/transactions', icon: <SwapOutlined aria-hidden />, label: '交易' }] : []),
     ...(user?.role === 'ADMIN' ? [{ key: '/admin', icon: <SafetyCertificateOutlined aria-hidden />, label: '管理后台' }] : []),
   ]
