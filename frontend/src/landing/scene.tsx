@@ -1,3 +1,5 @@
+import { localize, OriginalText, LanguageSelect } from '../i18n/Localize'
+import { useLanguage } from '../i18n/language'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Avatar } from 'antd'
@@ -9,6 +11,7 @@ import { useSession } from '../live/session'
 
 /** Top bar shared by the landing page and the sign-in views. */
 export function LandingHeader({ auth }: { auth?: 'login' | 'register' }) {
+  useLanguage()
   const user = useSession((state) => state.user)
   const admin = user?.role === 'ADMIN'
   const ref = useRef<HTMLElement>(null)
@@ -19,16 +22,17 @@ export function LandingHeader({ auth }: { auth?: 'login' | 'register' }) {
     addEventListener('scroll', onScroll, { passive: true })
     return () => removeEventListener('scroll', onScroll)
   })
-  return <header className="lp-header" ref={ref}>
+  return localize(<header className="lp-header" ref={ref}>
     <Link className="brand" to={admin ? '/admin' : '/'} aria-label={admin ? 'CampusLoop 管理后台' : 'CampusLoop 首页'}><Logo className="logo" />CampusLoop</Link>
     <nav className="lp-nav" aria-label="主导航">
       {!auth && <><Link className="lp-link" to="/market">市场</Link>{admin ? <Link className="lp-link" to="/admin">管理后台</Link> : <><Link className="lp-link" to="/wanted">求购</Link><a className="lp-link" href="#story" onClick={(event) => { event.preventDefault(); document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' }) }}>怎么用</a></>}</>}
       <ThemeToggle />
+      {!admin && <LanguageSelect />}
       {auth ? <span className="auth-nav">{auth === 'register' ? <>已有账号？<Link to="/login">登录</Link></> : <>还没有账号？<Link to="/register">注册</Link></>}</span>
-        : user ? <Link className="lp-user" to={admin ? '/admin' : '/market'} aria-label={`${admin ? '进入管理后台' : '进入市场'}：${user.nickname}`}><Avatar size={30} src={user.avatar}>{user.nickname.slice(0, 1)}</Avatar>{user.nickname}</Link>
+        : user ? <Link className="lp-user" to={admin ? '/admin' : '/market'} aria-label={`${admin ? '进入管理后台' : '进入市场'}：${user.nickname}`}><Avatar size={30} src={user.avatar}>{<OriginalText>{user.nickname.slice(0, 1)}</OriginalText>}</Avatar>{<OriginalText>{user.nickname}</OriginalText>}</Link>
           : <><Link className="lp-login" to="/login">登录</Link><Link className="pill" to="/register">注册</Link></>}
     </nav>
-  </header>
+  </header>)
 }
 
 // [glyph, category, ring 0 = inner / 1 = outer]
@@ -39,6 +43,7 @@ const SPARKS = ['#8F9BFF', '#4FE3C8', '#FFA48E', '#E0569E']
 
 /** Sign-in backdrop: rotating halo plus glass-planet category orbs, clipped to the viewport so nothing can push a scrollbar. */
 export function AuthBackdrop() {
+  useLanguage()
   const ref = useRef<HTMLDivElement>(null)
   useGSAP(() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -87,11 +92,11 @@ export function AuthBackdrop() {
       document.removeEventListener('focusin', focusIn); document.removeEventListener('focusout', focusOut); document.removeEventListener('input', typed)
     }
   }, { scope: ref })
-  return <div className="auth-bg" ref={ref} aria-hidden="true">
+  return localize(<div className="auth-bg" ref={ref} aria-hidden="true">
     <div className="halo"><div className="glow" /><div className="line" /></div>
     <div className="orbitals">
-      {ORBS.map(([glyph, category, ring]) => <div key={glyph} className="orb" style={{ ['--ic' as string]: categoryOf(category).color, ['--sz' as string]: `${ORB_RINGS[ring].sz}px` }}><Glyph name={glyph} /></div>)}
-      {SPARKS.map((color) => <div key={color} className="orb spark" style={{ ['--ic' as string]: color }} />)}
+      {ORBS.map(([glyph, category, ring]) => localize(<div key={glyph} className="orb" style={{ ['--ic' as string]: categoryOf(category).color, ['--sz' as string]: `${ORB_RINGS[ring].sz}px` }}><Glyph name={glyph} /></div>))}
+      {SPARKS.map((color) => localize(<div key={color} className="orb spark" style={{ ['--ic' as string]: color }} />))}
     </div>
-  </div>
+  </div>)
 }

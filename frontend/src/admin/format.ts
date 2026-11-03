@@ -1,4 +1,6 @@
-export const fmt = (value: number) => value.toLocaleString('zh-CN')
+import { dateLocale, t } from '../i18n/language'
+
+export const fmt = (value: number) => value.toLocaleString(dateLocale())
 
 /** Change against a comparison count. A zero base has no meaningful percentage, so it reports the raw difference. */
 export function change(current: number, previous: number) {
@@ -14,21 +16,20 @@ export function ratio(value: { numerator: number; denominator: number }) {
 
 export function waited(createdAt: string, now: number) {
   const minutes = Math.max(0, Math.round((now - Date.parse(createdAt)) / 60000))
-  if (minutes < 60) return { text: `${minutes} 分钟`, late: false }
+  if (minutes < 60) return { text: t(`${minutes} 分钟`), late: false }
   const hours = Math.floor(minutes / 60)
-  if (hours < 48) return { text: `${hours} 小时`, late: hours >= 24 }
-  return { text: `${Math.floor(hours / 24)} 天`, late: true }
+  if (hours < 48) return { text: t(`${hours} 小时`), late: hours >= 24 }
+  return { text: t(`${Math.floor(hours / 24)} 天`), late: true }
 }
 
 // The console speaks campus time (the dashboard's day boundaries), whatever the browser's zone.
 const campusDay = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', year: 'numeric', month: 'numeric', day: 'numeric' })
 const campusTime = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit', hour12: false })
-const campusDateTime = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
 
 export function clock(value?: string) {
   if (!value) return ''
   const date = new Date(value)
-  return campusDay.format(date) === campusDay.format(new Date()) ? campusTime.format(date) : campusDateTime.format(date)
+  return campusDay.format(date) === campusDay.format(new Date()) ? campusTime.format(date) : new Intl.DateTimeFormat(dateLocale(), { timeZone: 'Asia/Shanghai', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(date)
 }
 
 /** CSV with a BOM so Excel opens Chinese text correctly. Cells are quoted; formula prefixes are neutralised. */

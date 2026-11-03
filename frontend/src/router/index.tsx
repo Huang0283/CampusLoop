@@ -1,12 +1,12 @@
 import { Suspense } from 'react'
 import { AuthPage, ProfilePage, AdminLayout, AdminDashboardPage, AdminOrdersPage, AdminAuditLogPage, AdminProfilePage, AdminReportsPage, AdminProductsPage, AdminUsersPage, CatalogPage, ProductPage, ProductFormPage, WantedListPage, WantedDetailPage, WantedFormPage, MatchesPage, PricePage, ReportsPage, OrderListPage, OrderPage, MeetupPage, ReviewPage, NotificationsPage, ChatPage, ChatListPage } from './lazyPages'
-import { createBrowserRouter, Link, Navigate, Outlet } from 'react-router-dom'
-import { Result } from 'antd'
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
+import { LoadingPage, MissingPage } from '../i18n/RouteStates'
 import { Guard, Shell } from '../live/common'
 import { RouteFailure } from '../live/ErrorBoundary'
 import { HomePage } from '../landing/HomePage'
 
-export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ element: <Suspense fallback={<div role="status" style={{ padding: 24 }}>正在加载页面…</div>}><Outlet /></Suspense>, errorElement: <RouteFailure />, children: [
+export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ element: <Suspense fallback={<LoadingPage />}><Outlet /></Suspense>, errorElement: <RouteFailure />, children: [
   { path: '/', element: <HomePage /> },
   { path: '/login', element: <AuthPage /> }, { path: '/register', element: <AuthPage registering /> },
   { path: '/profile', element: <Guard><ProfilePage /></Guard> },
@@ -41,5 +41,5 @@ export const router = createBrowserRouter([{ element: <Shell />, errorElement: <
     { path: 'audit', element: <AdminAuditLogPage /> },
     { path: 'profile', element: <AdminProfilePage /> },
   ] },
-  { path: '*', element: <Result status="404" title="页面不存在" extra={<Link to="/market">返回首页</Link>} /> },
+  { path: '*', element: <MissingPage /> },
 ] }] }])

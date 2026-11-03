@@ -1,3 +1,5 @@
+import { localize, OriginalText } from '../i18n/Localize'
+import { useLanguage, t } from '../i18n/language'
 import { useRef, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
@@ -13,7 +15,7 @@ import './landing.css'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-const Icon = ({ d, width = 1.8, className }: { d: string; width?: number; className?: string }) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={width} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
+const Icon = ({ d, width = 1.8, className }: { d: string; width?: number; className?: string }) => { useLanguage(); return localize(<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={width} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>) }
 const ICONS = {
   market: 'M3 9 5 4h14l2 5M3 9h18v11H3zM9 13h6',
   wanted: 'M11 4a7 7 0 1 0 0 14 7 7 0 1 0 0-14zm9 16-3.5-3.5',
@@ -30,34 +32,34 @@ const ICONS = {
 type Key = 'market' | 'wanted' | 'chat' | 'meet' | 'price' | 'safety'
 
 const SAMPLE_PRODUCTS: Array<[GlyphName, string, string, string, string]> = [['book', '#6C7BFF', '线性代数教材', '¥18', '八成新'], ['bike', '#1FA88E', '通勤自行车', '¥260', '九成新'], ['bulb', '#E2603F', '护眼台灯', '¥45', '全新']]
-const MarketDemo = () => <div className="grid3">{SAMPLE_PRODUCTS.map(([glyph, color, name, price, condition]) => <div key={name} className="tile prod">
+const MarketDemo = () => { useLanguage(); return localize(<div className="grid3">{SAMPLE_PRODUCTS.map(([glyph, color, name, price, condition]) => localize(<div key={name} className="tile prod">
   <div className="ph" style={{ background: `${color}1F`, color }}><Glyph name={glyph} /></div><b>{name}</b><span><em>{price}</em> · {condition}</span>
-</div>)}</div>
-const WantedDemo = ({ big }: { big?: boolean }) => <div className="match">
+</div>))}</div>) }
+const WantedDemo = ({ big }: { big?: boolean }) => { useLanguage(); return localize(<div className="match">
   <div className="tile want"><small>我的求购</small><b>宿舍台灯</b><small>预算 ¥30–60<br />{big ? '最低成色 八成新' : '八成新以上'}</small></div>
   <svg className="link" viewBox="0 0 64 120" fill="none" preserveAspectRatio="none" aria-hidden="true"><path className="flow" d="M2 60 C 30 60, 34 18, 62 18 M2 60 H62 M2 60 C 30 60, 34 102, 62 102" stroke="var(--link)" strokeWidth="1.6" strokeDasharray="4 5" /></svg>
-  <div className="res">{([['护眼台灯 · ¥45', '92%'], ['折叠台灯 · ¥35', '78%'], ['夹式阅读灯 · ¥28', '61%']] as const).map(([text, width]) => <div key={text} className="tile">{text}<div className="bar"><span style={{ ['--w' as string]: width }} /></div></div>)}</div>
-</div>
-const ChatDemo = ({ big }: { big?: boolean }) => <div className="chat">
+  <div className="res">{([['护眼台灯 · ¥45', '92%'], ['折叠台灯 · ¥35', '78%'], ['夹式阅读灯 · ¥28', '61%']] as const).map(([text, width]) => localize(<div key={text} className="tile">{text}<div className="bar"><span style={{ ['--w' as string]: width }} /></div></div>))}</div>
+</div>) }
+const ChatDemo = ({ big }: { big?: boolean }) => { useLanguage(); return localize(<div className="chat">
   <div className="msg them">{big ? '这本线代还在吗？有笔记吗' : '这本线代还在吗？'}</div>
   <div className="msg me">{big ? '在的，前几章有少量铅笔笔记' : '在的，有少量铅笔笔记'}</div>
   <div className="tile offer"><div className="row">对方报价<strong>¥15</strong></div><div className="acts"><span>接受</span><span>还价</span><span>拒绝</span></div></div>
   {big && <div className="msg them">周三下午图书馆门口可以吗？</div>}
-</div>
-const MeetDemo = ({ big }: { big?: boolean }) => <div className="steps"><div className="line"><span /></div>
+</div>) }
+const MeetDemo = ({ big }: { big?: boolean }) => { useLanguage(); return localize(<div className="steps"><div className="line"><span /></div>
   {([...(big ? [['bag', '报价已接受，订单生成', '线性代数教材 · ¥15']] : []), ['calendar', '约定见面', '周三 15:30 · 图书馆东门'], ['check', '双方确认完成', '买家已确认 · 卖家已确认'], ['star', '互相评价', big ? '描述相符 · 沟通顺畅 · 准时守约' : '描述相符 · 准时守约']] as Array<[keyof typeof ICONS, string, string]>)
-    .map(([icon, title, detail]) => <div key={title} className="step"><div className="dot"><Icon d={ICONS[icon]} width={big ? 2 : 1.6} /></div><div className="tile"><b>{title}</b><small>{detail}</small></div></div>)}
-</div>
-const PriceDemo = ({ big }: { big?: boolean }) => <div className={`advice${big ? ' big' : ''}`}>
+    .map(([icon, title, detail]) => localize(<div key={title} className="step"><div className="dot"><Icon d={ICONS[icon]} width={big ? 2 : 1.6} /></div><div className="tile"><b>{title}</b><small>{detail}</small></div></div>))}
+</div>) }
+const PriceDemo = ({ big }: { big?: boolean }) => { useLanguage(); return localize(<div className={`advice${big ? ' big' : ''}`}>
   {big && <div className="tile adv-head"><div><small>线性代数教材</small><b>八成新 · 原价 ¥49</b></div><span className="chip">图书教材</span></div>}
   <div className="tile adv-range"><small>建议价格</small><strong>¥12 – ¥20</strong><div className="scale"><div className="band" /><i className="pin" /></div>{big && <div className="ticks"><span>¥0</span><span>¥25</span><span>¥49</span></div>}</div>
-  <div className="factors">{(big ? ['成色：八成新', '同类成交 23 件', '规则估价'] : ['八成新', '原价 ¥49', '同类 23 件']).map((text) => <span key={text} className="tile">{text}</span>)}</div>
-</div>
-const SafetyDemo = ({ big }: { big?: boolean }) => <div className={`report${big ? ' big' : ''}`}>
+  <div className="factors">{(big ? ['成色：八成新', '同类成交 23 件', '规则估价'] : ['八成新', '原价 ¥49', '同类 23 件']).map((text) => localize(<span key={text} className="tile">{text}</span>))}</div>
+</div>) }
+const SafetyDemo = ({ big }: { big?: boolean }) => { useLanguage(); return localize(<div className={`report${big ? ' big' : ''}`}>
   <div className="tile rp-card"><div className="rp-top"><Icon className="rp-ic" d={ICONS.flag} /><b>举报商品</b><span className="rp-reason">描述与实物不符</span></div>{big && <small>附图 2 张 · 仅管理员可见</small>}</div>
   <div className="rp-flow"><div className="rp-step done"><i />已提交</div><div className="rp-step done"><i />人工审核</div><div className="rp-step now"><i />已处理</div></div>
   {big && <div className="tile rp-result"><b>处理结果</b><small>商品已下架，可在「举报记录」查看</small></div>}
-</div>
+</div>) }
 const DEMOS: Record<Key, (props: { big?: boolean }) => ReactNode> = { market: MarketDemo, wanted: WantedDemo, chat: ChatDemo, meet: MeetDemo, price: PriceDemo, safety: SafetyDemo }
 
 const CHAPTERS: Array<{ key: Key; label: string; tab: string; title: string; text: string; points: string[] }> = [
@@ -81,6 +83,7 @@ const scrollToId = (id: string) => document.getElementById(id)?.scrollIntoView({
 
 /** Public landing page at "/". Every call to action leads to the real market or the real sign-in routes. */
 export function LandingPage() {
+  useLanguage()
   const root = useRef<HTMLDivElement>(null)
   const user = useSession((state) => state.user)
 
@@ -306,13 +309,13 @@ export function LandingPage() {
     return () => cleanups.forEach((run) => run())
   }, { scope: root })
 
-  const enter = user ? <Link className="go" to="/market">进入市场</Link> : <Link className="go" to="/login">登录 / 注册</Link>
-  return <div className="lp" ref={root}>
+  const enter = user ? localize(<Link className="go" to="/market">进入市场</Link>) : localize(<Link className="go" to="/login">登录 / 注册</Link>)
+  return localize(<div className="lp" ref={root}>
     <AuroraSky mode="landing" />
     <LandingHeader />
     <section className="hero">
       <div className="intro">
-        <p className="hello">{user ? `你好，${user.nickname}，欢迎回到` : '你好，欢迎来到'}</p>
+        <p className="hello">{user ? <>{t('你好，')}<OriginalText>{user.nickname}</OriginalText>{t('，欢迎回到')}</> : t('你好，欢迎来到')}</p>
         <h1 aria-label="CampusLoop">
           <svg className="wordmark" viewBox="0 0 900 140" aria-hidden="true"><defs><linearGradient id="lp-aurora" gradientUnits="userSpaceOnUse" x1="440" y1="0" x2="900" y2="0" spreadMethod="reflect"><stop offset="0" style={{ stopColor: 'var(--g1)' }} /><stop offset=".55" style={{ stopColor: 'var(--g2)' }} /><stop offset="1" style={{ stopColor: 'var(--g3)' }} /></linearGradient></defs><text x="4" y="112"><tspan className="solid">Campus</tspan><tspan className="hollow">Loop</tspan></text></svg>
         </h1>
@@ -327,15 +330,15 @@ export function LandingPage() {
           <div className="core" aria-hidden="true"><Logo className="logo" /></div>
           {CHAPTERS.map(({ key, label }) => {
             const Demo = DEMOS[key]
-            return <a key={key} className="sheet glare" href={`#lp-${key}`} data-k={key} aria-label={`${label}：查看介绍`}>
+            return localize(<a key={key} className="sheet glare" href={`#lp-${key}`} data-k={key} aria-label={`${label}：查看介绍`}>
               <div className="sheet-bar"><i><span /></i>{label}<em>查看介绍 →</em></div>
               <div className="sheet-body"><Demo /></div>
               <span className="shine" />
-            </a>
+            </a>)
           })}
         </div>
         <div className="deck-tabs" role="tablist" aria-label="切换预览">
-          {CHAPTERS.map(({ key, tab }) => <button key={key} type="button" role="tab" data-k={key} aria-selected={key === 'market'}>{tab}</button>)}
+          {CHAPTERS.map(({ key, tab }) => localize(<button key={key} type="button" role="tab" data-k={key} aria-selected={key === 'market'}>{tab}</button>))}
         </div>
         <p className="deck-note">卡片内容为示例</p>
       </div>
@@ -346,20 +349,20 @@ export function LandingPage() {
     <div className="story" id="story">
       {CHAPTERS.map(({ key, label, title, text, points }, index) => {
         const Demo = DEMOS[key]
-        return <section key={key} className={`chapter${index % 2 ? ' flip' : ''}`} id={`lp-${key}`}>
+        return localize(<section key={key} className={`chapter${index % 2 ? ' flip' : ''}`} id={`lp-${key}`}>
           <div className="copy">
             <div className="label"><Icon d={ICONS[key]} />{label}</div>
             <h3>{title}</h3>
             <p>{text}</p>
-            <ul>{points.map((point) => <li key={point}><Icon d={ICONS.check} width={2} />{point}</li>)}</ul>
+            <ul>{points.map((point) => localize(<li key={point}><Icon d={ICONS.check} width={2} />{point}</li>))}</ul>
           </div>
           <div className="frame glare" data-title={label}><div className="panel"><Demo big /><span className="demo">示例内容</span></div><span className="shine" /></div>
-        </section>
+        </section>)
       })}
     </div>
 
     <section className="bazaar" id="bazaar">
-      <div className="bz-ghosts" aria-hidden="true">{(['book', 'bike', 'headphones', 'backpack', 'ball'] as GlyphName[]).map((glyph, i) => <Glyph key={glyph} name={glyph} className={`g${i + 1}`} />)}</div>
+      <div className="bz-ghosts" aria-hidden="true">{(['book', 'bike', 'headphones', 'backpack', 'ball'] as GlyphName[]).map((glyph, i) => localize(<Glyph key={glyph} name={glyph} className={`g${i + 1}`} />))}</div>
       <div className="bz-copy">
         <h3>每一件闲置，一目了然。</h3>
         <p>图书教材、数码电子、生活用品……按分类逛市场，不用登录也能看。</p>
@@ -372,11 +375,11 @@ export function LandingPage() {
       <nav className="bz-sky" aria-label="市场分类">
         <div className="bz-ring r1" /><div className="bz-ring r2" /><div className="bz-ring r3" />
         <div className="bz-core" aria-hidden="true"><Logo className="logo" /></div>
-        {BAZAAR.map(([glyph, category, ring]) => <Link key={glyph} className="bz-item" to={`/market?category=${category}`} data-tip={categoryLabels[category]} aria-label={`逛逛${categoryLabels[category]}`}
+        {BAZAAR.map(([glyph, category, ring]) => localize(<Link key={glyph} className="bz-item" to={`/market?category=${category}`} data-tip={categoryLabels[category]} aria-label={`逛逛${categoryLabels[category]}`}
           style={{ ['--ic' as string]: categoryOf(category).color, ['--sz' as string]: `${BAZAAR_RINGS[ring].sz}px` }}>
           <svg className="tag" viewBox="0 0 40 48" aria-hidden="true" dangerouslySetInnerHTML={{ __html: tagMarkup }} />
           <svg className="glyph" viewBox="0 0 24 24" aria-hidden="true"><use href={`#g-${glyph}`} /></svg>
-        </Link>)}
+        </Link>))}
       </nav>
       <Link className="bz-cta" to="/market">打开市场</Link>
     </section>
@@ -387,5 +390,5 @@ export function LandingPage() {
       <div className="acts">{user ? <Link to="/publish">发布闲置</Link> : <Link to="/login">登录 / 注册</Link>}<Link to="/market">先逛逛市场</Link></div>
     </section>
     <footer><span>CampusLoop · 校园二手交易</span><span>教学演示项目</span></footer>
-  </div>
+  </div>)
 }

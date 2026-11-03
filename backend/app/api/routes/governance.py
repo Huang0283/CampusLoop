@@ -5,14 +5,14 @@ from typing import Annotated, Literal
 
 from fastapi import APIRouter, Header, Query
 from pydantic import AwareDatetime, Field, field_validator
-from sqlalchemy import func, select
+from sqlalchemy import String, and_, cast, func, or_, select
 
 from app.api.routes.intelligence import trust_data
 from app.api.routes.market import Page, PageSize
 from app.core.envelope import ok
 from app.core.errors import BusinessError
 from app.core.security import utcnow
-from app.models import Product, Report
+from app.models import Order, Product, Report, User
 from app.schemas.auth import StrictInput
 from app.services import business_serializers as dto
 from app.services.auth import Actor, Db, administrator, audit
@@ -222,13 +222,38 @@ def report_queue(
     pageSize: PageSize = 20,
     status: Literal["PENDING", "PROCESSING", "RESOLVED", "REJECTED"] | None = None,
     reason: ReadReason = "report_queue_review",
+    query: str = "",
 ):
     administrator(actor)
-    query = select(Report)
+    stmt = select(Report)
     if status:
-        query = query.where(Report.status == status)
+        stmt = stmt.where(Report.status == status)
+    term = query.strip()
+    if term:
+        digits = term.removeprefix("#")
+        if term.startswith("#") and digits.isascii() and digits.isdigit() and len(digits) <= 15:
+            stmt = stmt.where(Report.id == int(digits))
+        else:
+            names = select(User.id).where(User.nickname.icontains(term, autoescape=True))
+            products = select(Product.id).where(Product.title.icontains(term, autoescape=True))
+            orders = (
+                select(Order.id)
+                .join(Product, Product.id == Order.product_id)
+                .where(Product.title.icontains(term, autoescape=True))
+            )
+            stmt = stmt.where(
+                or_(
+                    cast(Report.id, String).contains(term, autoescape=True),
+                    cast(Report.target_id, String).contains(term, autoescape=True),
+                    Report.description.icontains(term, autoescape=True),
+                    Report.reporter_id.in_(names),
+                    and_(Report.target_type == "USER", Report.target_id.in_(names)),
+                    and_(Report.target_type == "PRODUCT", Report.target_id.in_(products)),
+                    and_(Report.target_type == "ORDER", Report.target_id.in_(orders)),
+                )
+            )
     reports = db.scalars(
-        query.order_by(Report.created_at.desc(), Report.id.desc())
+        stmt.order_by(Report.created_at.desc(), Report.id.desc())
         .offset((page - 1) * pageSize)
         .limit(pageSize)
     ).all()
@@ -241,6 +266,7 @@ def report_queue(
         page=page,
         pageSize=pageSize,
         status=status,
+        query=term,
     )
     result = ok([admin_report(item) for item in reports])
     db.commit()

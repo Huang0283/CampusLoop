@@ -1,3 +1,5 @@
+import { localize } from '../i18n/Localize'
+import { useLanguage } from '../i18n/language'
 import { useState } from 'react'
 import { Alert, Button, Upload } from 'antd'
 import type { UploadFile, UploadProps } from 'antd'
@@ -10,6 +12,7 @@ type Props = {
 
 // Upload status is not a URL. Failed or pending files block submission until retried/removed.
 export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'product' }: Props) {
+  useLanguage()
   const [files, setFiles] = useState<UploadFile[] | null>(null)
   const [error, setError] = useState('')
   const [expected, setExpected] = useState<string[]>(value)
@@ -27,7 +30,7 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
       onProgress?.({ percent: 100 }); onSuccess?.(result)
     }).catch((failure: Error) => { setError(failure.message); onError?.(failure) })
   }
-  return <>
+  return localize(<>
     {error && <Alert type="error" title={error} description="移除失败图片后重新上传；其余已上传图片不会丢失。" closable onClose={() => setError('')} />}
     <Upload listType="picture-card" accept="image/png,image/jpeg" fileList={current} customRequest={upload} maxCount={5}
       beforeUpload={(file) => {
@@ -51,5 +54,5 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
       )}
     </Upload>
     {current.some((file) => file.status === 'error') && <Button onClick={() => update(current.filter((file) => file.status !== 'error'))}>移除失败图片并重新上传</Button>}
-  </>
+  </>)
 }

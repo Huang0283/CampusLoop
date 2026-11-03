@@ -1,3 +1,5 @@
+import { localize } from '../i18n/Localize'
+import { useLanguage } from '../i18n/language'
 import { useEffect, useRef, useState } from 'react'
 import { Alert, Avatar, Button, Space, Upload } from 'antd'
 import type { UploadProps } from 'antd'
@@ -11,6 +13,7 @@ export function AvatarUpload({ value, onChange, onBusyChange, disabled }: {
   onBusyChange: (busy: boolean) => void
   disabled?: boolean
 }) {
+  useLanguage()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const request = useRef<AbortController | null>(null)
@@ -35,7 +38,7 @@ export function AvatarUpload({ value, onChange, onBusyChange, disabled }: {
     })
     return { abort: () => controller.abort() }
   }
-  return <div className="profile-avatar-upload">
+  return localize(<div className="profile-avatar-upload">
     <Space wrap align="center">
       <Avatar size={64} src={value} alt="待保存头像预览">头像</Avatar>
       <Upload accept="image/jpeg,image/png" showUploadList={false} maxCount={1} disabled={busy || disabled} customRequest={upload}
@@ -51,5 +54,5 @@ export function AvatarUpload({ value, onChange, onBusyChange, disabled }: {
     </Space>
     <p className="muted">支持 JPG、PNG，最大 5MiB；图片会居中裁剪为方形。上传后点击“保存资料”生效。</p>
     {error && <Alert type="error" showIcon title={error} />}
-  </div>
+  </div>)
 }

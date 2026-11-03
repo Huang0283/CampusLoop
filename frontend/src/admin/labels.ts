@@ -18,7 +18,7 @@ export const auditEventLabels: Record<string, string> = {
 }
 
 export const resultStatusLabels: Record<string, string> = {
-  ON_SALE: '恢复在售', HIDDEN: '已下架', RESOLVED: '已处理', REJECTED: '已驳回', ACTIVE: '正常', DISABLED: '已禁用',
+  ON_SALE: '恢复在售', HIDDEN: '已下架', RESERVED: '已预订', SOLD: '已售出', RESOLVED: '已处理', REJECTED: '已驳回', ACTIVE: '正常', DISABLED: '已禁用',
 }
 
 /** Order statuses folded for the dashboard: three active steps read as one "in progress" slice. */

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 
-from sqlalchemy import and_, case, func, or_, select
+from sqlalchemy import String, and_, case, cast, func, or_, select
 from sqlalchemy.orm import Session
 
 from app.core.security import utcnow
@@ -387,12 +387,18 @@ def audit_items(db, rows):
     return items
 
 
-def audit_query(scope: str, actor_id: int | None = None):
+def audit_query(scope: str, actor_id: int | None = None, days: int | None = None):
     stmt = select(AuthAudit).where(AuthAudit.event.like("admin\\_%", escape="\\"))
     if scope == "decisions":
         stmt = stmt.where(AuthAudit.event.in_(DECISION_EVENTS))
     if actor_id is not None:
         stmt = stmt.where(AuthAudit.actor_id == actor_id)
+    if days is not None:
+        today = campus_midnight(utcnow())
+        stmt = stmt.where(
+            AuthAudit.created_at >= today - timedelta(days=days - 1),
+            AuthAudit.created_at < today + timedelta(days=1),
+        )
     return stmt
 
 
@@ -485,4 +491,9 @@ def order_search(query: str):
         return None
     digits = term.removeprefix("#")
     title = Product.title.contains(term, autoescape=True)
-    return or_(Order.id == int(digits), title) if digits.isdigit() and len(digits) <= 15 else title
+    if digits.isascii() and digits.isdigit() and len(digits) <= 15:
+        # A hash means one exact order; bare digits support incremental search.
+        if term.startswith("#"):
+            return Order.id == int(digits)
+        return or_(cast(Order.id, String).contains(digits, autoescape=True), title)
+    return title

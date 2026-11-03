@@ -1,7 +1,14 @@
 """The administrator console must report the same facts students see on the market."""
 
+import uuid
+from datetime import timedelta
+
 import pytest
 
+from app.core.security import utcnow
+from app.db.session import SessionLocal
+from app.models import AuthAudit
+from app.services.admin_console import campus_midnight
 from tests.conftest import requires_postgres
 from tests.test_auth import account, headers
 from tests.test_governance_api import administrator_account, audit_rows, report_user
@@ -126,6 +133,15 @@ def test_order_oversight_matches_the_trade_and_the_dashboard(client):
         "/admin/orders", headers=headers(admin), params={"query": f'#{order["id"]}'}
     ).json()["data"]
     assert order["id"] in [row["id"] for row in by_id["items"]]
+    # Numeric typing is incremental: both a prefix and a suffix find this order.
+    digits = str(order["id"])
+    for fragment in {digits[:1], digits[-1:]}:
+        response = client.get(
+            "/admin/orders", headers=headers(admin), params={"query": fragment, "pageSize": 100}
+        )
+        assert response.status_code == 200
+        assert order["id"] in [row["id"] for row in response.json()["data"]["items"]]
+    assert [row["id"] for row in by_id["items"]] == [order["id"]]
     by_status = client.get(
         "/admin/orders",
         headers=headers(admin),
@@ -133,3 +149,84 @@ def test_order_oversight_matches_the_trade_and_the_dashboard(client):
     ).json()["data"]
     assert order["id"] not in [row["id"] for row in by_status["items"]]
     assert audit_rows(admin, "admin_orders_read")
+
+
+def test_report_search_filters_before_pagination_and_preserves_status(client):
+    admin, reporter, target = administrator_account(client), account(client), account(client)
+    token = uuid.uuid4().hex
+    nickname = f"Target {token}"
+    assert (
+        client.patch("/users/me", headers=headers(target), json={"nickname": nickname}).status_code
+        == 200
+    )
+    report = report_user(client, reporter, target)
+    endpoint = "/admin/reports"
+    for term in (token, str(report["id"])[-1:], f'#{report["id"]}', "review manually"):
+        result = client.get(
+            endpoint, headers=headers(admin), params={"query": term, "pageSize": 100}
+        )
+        assert result.status_code == 200
+        assert report["id"] in [row["id"] for row in result.json()["data"]]
+    first = client.get(
+        endpoint, headers=headers(admin), params={"query": token, "pageSize": 1}
+    ).json()["data"]
+    assert [row["id"] for row in first] == [report["id"]]
+    assert (
+        client.get(
+            endpoint, headers=headers(admin), params={"query": token, "status": "RESOLVED"}
+        ).json()["data"]
+        == []
+    )
+    assert client.get(endpoint, headers=headers(admin), params={"query": "%_"}).json()["data"] == []
+    assert (
+        client.get(endpoint, headers=headers(reporter), params={"query": token}).status_code == 403
+    )
+
+
+def test_audit_window_uses_campus_days_before_pagination_without_deleting_history(client):
+    admin = administrator_account(client)
+    today = campus_midnight(utcnow())
+    times = [
+        today,
+        today - timedelta(days=6),
+        today - timedelta(days=6, microseconds=1),
+        today - timedelta(days=29),
+        today - timedelta(days=29, microseconds=1),
+    ]
+    with SessionLocal() as db:
+        rows = [
+            AuthAudit(
+                actor_id=admin["user"]["id"],
+                event="admin_user_active",
+                request_id=str(uuid.uuid4()),
+                context={"reason": "audit-window-fixture", "after": {"status": "ACTIVE"}},
+                created_at=created_at,
+            )
+            for created_at in times
+        ]
+        db.add_all(rows)
+        db.commit()
+        ids = [row.id for row in rows]
+
+    endpoint = "/admin/audit-logs"
+    params = {"mine": True, "pageSize": 100}
+    for days, expected in ((7, ids[:2]), (30, ids[:4]), (None, ids)):
+        response = client.get(
+            endpoint,
+            headers=headers(admin),
+            params=params | ({"days": days} if days is not None else {}),
+        )
+        assert response.status_code == 200, response.text
+        data = response.json()["data"]
+        assert data["pagination"]["total"] == len(expected)
+        assert [row["id"] for row in data["items"]] == expected
+
+    page_two = client.get(
+        endpoint,
+        headers=headers(admin),
+        params=params | {"days": 7, "pageSize": 1, "page": 2},
+    ).json()["data"]
+    assert page_two["pagination"]["total"] == 2
+    assert [row["id"] for row in page_two["items"]] == ids[1:2]
+    for invalid in ({"days": 14}, {"pageSize": 101}, {"page": 0}):
+        assert client.get(endpoint, headers=headers(admin), params=invalid).status_code == 422

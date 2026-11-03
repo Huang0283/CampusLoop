@@ -1,5 +1,9 @@
+import { localize, OriginalText } from '../i18n/Localize'
+import { useLanguage, t } from '../i18n/language'
+import { CatalogText } from '../i18n/CatalogText'
 import { useEffect, useRef, useState } from 'react'
-import { Alert, Badge, Button, Card, Descriptions, Form, Input, Pagination, Popconfirm, Rate, Select, Space, Steps, Tag, Timeline, Typography } from 'antd'
+import { Alert, Badge, Button, Card, Descriptions, Input, Pagination, Popconfirm, Rate, Select, Space, Steps, Tag, Timeline, Typography } from 'antd'
+import { Form } from '../i18n/Form'
 import { AimOutlined, BellFilled, CheckCircleOutlined, MessageFilled, MessageOutlined, MoneyCollectFilled, ShopOutlined, SwapOutlined } from '@ant-design/icons'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
@@ -18,6 +22,7 @@ const orderLabels: Record<OrderStatus, string> = { PENDING_CONFIRM: '待约定',
 
 
 export function OrderListPage() {
+  useLanguage()
   const [params, setParams] = useSearchParams()
   const page = Math.max(1, Number(params.get('page')) || 1)
   const role = params.get('role') === 'buyer' ? 'buyer' : params.get('role') === 'seller' ? 'seller' : undefined
@@ -25,14 +30,15 @@ export function OrderListPage() {
   const remote = useRemote(`orders-${params}`, (signal) => api.data(api.listOrders({ signal, query: { page, pageSize: 12, role, status: status || undefined } })), 5000)
   const change = (key: string, value?: string) => { const next = new URLSearchParams(params); if (value) next.set(key, value); else next.delete(key); next.delete('page'); setParams(next) }
   const filtered = Boolean(role || status)
-  return <Page className="transaction-center" title="交易中心" subtitle="查看购买、出售进度，管理见面与评价"><div className="order-list"><TabList ariaLabel="交易角色" className="segmented-tabs order-tabs" value={role || 'all'} onChange={(value) => change('role', value === 'all' ? undefined : value)} items={[{ key: 'all', label: '全部交易' }, { key: 'buyer', label: '我买到的' }, { key: 'seller', label: '我卖出的' }]} />
-    <div className="order-toolbar"><Space wrap><Select aria-label="订单状态" placeholder="全部状态" allowClear style={{ width: 160 }} value={status || undefined} options={Object.entries(orderLabels).map(([value, label]) => ({ value, label }))} onChange={(value) => change('status', value)} /><Button onClick={remote.reload} loading={remote.loading && remote.value !== undefined}>刷新订单</Button></Space>{remote.value && <span className="muted">共 {remote.value.pagination.total} 笔{filtered ? '符合条件的' : ''}交易</span>}</div>
-    <div className="order-results"><Resource {...remote}>{remote.value?.items.length ? <div className="order-cards">{remote.value.items.map((order) => <Card className="order-card" key={order.id}><div className="order-card-header"><span className="muted">订单 #{order.id} · {displayDate(order.createdAt)}</span><Tag color={order.status === 'COMPLETED' ? 'green' : 'blue'}>{orderLabels[order.status]}</Tag></div><div className="order-card-body"><ProductSummary product={order.product}><p className="muted">买家 {order.buyer.nickname} · 卖家 {order.seller.nickname}</p></ProductSummary><div className="order-price"><span className="muted">成交金额</span><div className="price">¥{order.amount.toFixed(2)}</div><Link to={`/transactions/${order.id}`} className="order-open"><Button>查看订单</Button></Link></div></div></Card>)}</div> : <div className="order-empty"><div className="order-empty-content"><div className="order-empty-art" aria-hidden="true"><span className="order-empty-orbit" /><span className="order-empty-main"><SwapOutlined /></span><span className="order-empty-bubble"><MessageOutlined /></span><span className="order-empty-spark"><CheckCircleOutlined /></span></div><span className="order-empty-eyebrow">校园好物 · 轻松流转</span><h2>{filtered ? '暂时没有符合条件的交易' : '还没有交易记录'}</h2><p>{filtered ? '试试切换交易角色或订单状态，也可以清空筛选查看全部交易。' : '发现心仪的闲置，或为好物找到新主人。双方达成报价后，订单就会出现在这里。'}</p><Space wrap className="order-empty-actions">{filtered ? <Button type="primary" onClick={() => setParams({})}>清空筛选</Button> : <Link to="/market"><Button type="primary" icon={<ShopOutlined aria-hidden />}>去市场逛逛</Button></Link>}<Link to={role === 'seller' ? '/publish' : '/chat'}><Button>{role === 'seller' ? '发布一件闲置' : '查看我的聊天'}</Button></Link></Space></div></div>}{remote.value && remote.value.pagination.total > 0 && <Pagination className="order-pagination" current={page} pageSize={12} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => { const updated = new URLSearchParams(params); updated.set('page', String(next)); setParams(updated) }} />}</Resource></div>
+  return localize(<Page className="transaction-center" title="交易中心" subtitle="查看购买、出售进度，管理见面与评价"><div className="order-list"><TabList ariaLabel="交易角色" className="segmented-tabs order-tabs" value={role || 'all'} onChange={(value) => change('role', value === 'all' ? undefined : value)} items={[{ key: 'all', label: '全部交易' }, { key: 'buyer', label: '我买到的' }, { key: 'seller', label: '我卖出的' }]} />
+    <div className="order-toolbar"><Space wrap><Select aria-label="订单状态" placeholder="全部状态" allowClear style={{ width: 160 }} value={status || undefined} options={Object.entries(orderLabels).map(([value, label]) => ({ value, label }))} onChange={(value) => change('status', value)} /><Button onClick={remote.reload} loading={remote.loading && remote.value !== undefined}>刷新订单</Button></Space>{remote.value && <span className="muted">{t(`共 ${remote.value.pagination.total} 笔${filtered ? '符合条件的' : ''}交易`)}</span>}</div>
+    <div className="order-results"><Resource {...remote}>{remote.value?.items.length ? <div className="order-cards">{remote.value.items.map((order) => localize(<Card className="order-card" key={order.id}><div className="order-card-header"><span className="muted">订单 #{order.id} · {displayDate(order.createdAt)}</span><Tag color={order.status === 'COMPLETED' ? 'green' : 'blue'}>{orderLabels[order.status]}</Tag></div><div className="order-card-body"><ProductSummary product={order.product}><p className="muted">买家 {<OriginalText>{order.buyer.nickname}</OriginalText>} · 卖家 {<OriginalText>{order.seller.nickname}</OriginalText>}</p></ProductSummary><div className="order-price"><span className="muted">成交金额</span><div className="price">¥{order.amount.toFixed(2)}</div><Link to={`/transactions/${order.id}`} className="order-open"><Button>查看订单</Button></Link></div></div></Card>))}</div> : <div className="order-empty"><div className="order-empty-content"><div className="order-empty-art" aria-hidden="true"><span className="order-empty-orbit" /><span className="order-empty-main"><SwapOutlined /></span><span className="order-empty-bubble"><MessageOutlined /></span><span className="order-empty-spark"><CheckCircleOutlined /></span></div><span className="order-empty-eyebrow">校园好物 · 轻松流转</span><h2>{filtered ? '暂时没有符合条件的交易' : '还没有交易记录'}</h2><p>{filtered ? '试试切换交易角色或订单状态，也可以清空筛选查看全部交易。' : '发现心仪的闲置，或为好物找到新主人。双方达成报价后，订单就会出现在这里。'}</p><Space wrap className="order-empty-actions">{filtered ? <Button type="primary" onClick={() => setParams({})}>清空筛选</Button> : <Link to="/market"><Button type="primary" icon={<ShopOutlined aria-hidden />}>去市场逛逛</Button></Link>}<Link to={role === 'seller' ? '/publish' : '/chat'}><Button>{role === 'seller' ? '发布一件闲置' : '查看我的聊天'}</Button></Link></Space></div></div>}{remote.value && remote.value.pagination.total > 0 && <Pagination className="order-pagination" current={page} pageSize={12} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => { const updated = new URLSearchParams(params); updated.set('page', String(next)); setParams(updated) }} />}</Resource></div>
     <div className="order-guide" aria-label="交易流程提示"><div><span className="order-guide-icon"><MessageOutlined aria-hidden /></span><div><h3>先聊一聊</h3><p>沟通商品情况，确认报价与交易意向</p></div></div><div><span className="order-guide-icon"><AimOutlined aria-hidden /></span><div><h3>约在校内</h3><p>协商见面时间，双方确认同一份约定</p></div></div><div><span className="order-guide-icon"><CheckCircleOutlined aria-hidden /></span><div><h3>完成后再确认</h3><p>当面核实商品，双方完成后互相评价</p></div></div></div></div>
-  </Page>
+  </Page>)
 }
 
 export function OrderPage() {
+  useLanguage()
   const { id } = useParams()
   const orderId = Number(id)
   const [now, setNow] = useState(() => Date.now())
@@ -48,11 +54,11 @@ export function OrderPage() {
   const confirmedMeetup = item?.meetup && (user.id === item.buyer.id ? item.meetup.buyerConfirmed : item.meetup.sellerConfirmed)
   const meetupNeedsReschedule = Boolean(item?.meetup && !(item.meetup.buyerConfirmed && item.meetup.sellerConfirmed) && new Date(`${item.meetup.scheduledDate}T${item.meetup.timeSlotStart}+08:00`).getTime() <= now)
   const mutable = item && !['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(item.status)
-  return <Page title={`订单 #${id}`} extra={<Link to="/transactions">返回交易中心</Link>}><Resource {...remote}><Failure error={mutation.error} retry={remote.reload} />{item && <>
+  return localize(<Page title={`订单 #${id}`} extra={<Link to="/transactions">返回交易中心</Link>}><Resource {...remote}><Failure error={mutation.error} retry={remote.reload} />{item && <>
     <Card className="order-progress"><Steps size="small" status={['CANCELLED', 'DISPUTED'].includes(item.status) ? 'error' : undefined} current={item.status === 'COMPLETED' ? 3 : item.status === 'MEETUP_ARRANGED' ? 2 : 1} items={[{ title: '达成报价' }, { title: '安排见面' }, { title: '双方确认' }, { title: '完成交易' }]} /><div style={{ marginTop: 16 }}><Tag color="blue">{orderLabels[item.status]}</Tag><span className="muted">订单 #{item.id} · {displayDate(item.createdAt)}</span></div></Card>
     <div className="detail-columns"><div className="detail-sections"><Card title="商品信息"><ProductSummary product={item.product} /><div className="order-persons"><div><p className="muted">买家</p><Person person={item.buyer} /></div><div><p className="muted">卖家</p><Person person={item.seller} /></div></div></Card>
     <Card title="见面与交易操作">
-      {item.meetup && <><Typography.Title level={5}>见面约定 · 版本 {item.meetup.version}</Typography.Title><Typography.Paragraph>{item.meetup.campusLocation} · {item.meetup.scheduledDate} · {item.meetup.timeSlotStart}–{item.meetup.timeSlotEnd}<br />{item.meetup.note}</Typography.Paragraph><Space wrap><Tag color={item.meetup.buyerConfirmed ? 'success' : undefined}>买家{item.meetup.buyerConfirmed ? '已确认' : '未确认'}</Tag><Tag color={item.meetup.sellerConfirmed ? 'success' : undefined}>卖家{item.meetup.sellerConfirmed ? '已确认' : '未确认'}</Tag></Space></>}
+      {item.meetup && <><Typography.Title level={5}>见面约定 · 版本 {item.meetup.version}</Typography.Title><Typography.Paragraph>{<CatalogText text={item.meetup.campusLocation} />} · {item.meetup.scheduledDate} · {item.meetup.timeSlotStart}–{item.meetup.timeSlotEnd}<br />{item.meetup.note && <CatalogText text={item.meetup.note} />}</Typography.Paragraph><Space wrap><Tag color={item.meetup.buyerConfirmed ? 'success' : undefined}>买家{item.meetup.buyerConfirmed ? '已确认' : '未确认'}</Tag><Tag color={item.meetup.sellerConfirmed ? 'success' : undefined}>卖家{item.meetup.sellerConfirmed ? '已确认' : '未确认'}</Tag></Space></>}
       <div style={{ margin: '16px 0' }}><Space wrap>
         {mutable && <Link to={`/transactions/${item.id}/meetup`}>{item.meetup ? '修改见面约定' : '安排见面'}</Link>}
         {mutable && item.meetup && <Button disabled={confirmedMeetup || meetupNeedsReschedule} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.confirmMeetup({ path: { orderId }, body: { meetupId: item.meetup!.id, version: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}>确认当前版本</Button>}
@@ -68,11 +74,12 @@ export function OrderPage() {
       {mutable && <Alert type="info" title={`完成确认：买家${item.buyerConfirmedComplete ? '已确认' : '未确认'}，卖家${item.sellerConfirmedComplete ? '已确认' : '未确认'}；双方确认后才完成。`} />}
       {item.status === 'CANCELLED' && item.product.status === 'HIDDEN' && <Alert type="info" title="订单已取消，该商品已删除或下架，仍不在商城展示。" />}
       {mutable && !item.buyerConfirmedComplete && !item.sellerConfirmedComplete && <Space wrap style={{ marginTop: 16 }}><Input aria-label="取消原因" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="取消原因" maxLength={200} /><Popconfirm title="取消这笔订单？正常商品将恢复在售，已删除或下架的商品保持下架。" onConfirm={() => mutation.run(async () => { await api.cancelOrder({ path: { orderId }, body: { reason } }); remote.reload(); events.reload() })}><Button danger disabled={!reason.trim()} loading={mutation.busy}>取消订单</Button></Popconfirm></Space>}
-    </Card><Card title="订单时间线"><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: <>{systemText(event.description, '订单状态已更新')}<br /><Typography.Text type="secondary">{displayDate(event.createdAt)}</Typography.Text></> }))} /></Resource></Card></div><aside className="surface"><h2>订单信息</h2><Descriptions column={1} items={[{ key: 'price', label: '成交金额', children: <span className="price">¥{item.amount.toFixed(2)}</span> }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'created', label: '创建时间', children: displayDate(item.createdAt) }]} /><p className="muted">请核实商品和见面信息，实际完成交易后再确认。买卖双方都确认后，订单才会完成。</p></aside></div>
-  </>}</Resource></Page>
+    </Card><Card title="订单时间线"><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: localize(<>{<CatalogText text={systemText(event.description, '订单状态已更新')} />}<br /><Typography.Text type="secondary">{displayDate(event.createdAt)}</Typography.Text></>) }))} /></Resource></Card></div><aside className="surface"><h2>订单信息</h2><Descriptions column={1} items={[{ key: 'price', label: '成交金额', children: <span className="price">¥{item.amount.toFixed(2)}</span> }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'created', label: '创建时间', children: displayDate(item.createdAt) }]} /><p className="muted">请核实商品和见面信息，实际完成交易后再确认。买卖双方都确认后，订单才会完成。</p></aside></div>
+  </>}</Resource></Page>)
 }
 
 export function MeetupPage() {
+  useLanguage()
   const { id } = useParams()
   const remote = useRemote(`meetup-order-${id}`, (signal) => api.data(api.getOrder({ path: { orderId: Number(id) }, signal })))
   const [form] = Form.useForm<MeetupWriteRequest>()
@@ -80,42 +87,44 @@ export function MeetupPage() {
   const navigate = useNavigate()
   const attemptKey = useAttemptKey()
   useEffect(() => { if (remote.value?.meetup) form.setFieldsValue(remote.value.meetup) }, [remote.value, form])
-  return <Page title="安排见面" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><div className="detail-columns"><div className="detail-sections">
-    <Card title="当前约定">{remote.value?.meetup ? <Descriptions column={1} items={[{ key: 'location', label: '见面地点', children: remote.value.meetup.campusLocation }, { key: 'time', label: '见面时间', children: `${remote.value.meetup.scheduledDate} ${remote.value.meetup.timeSlotStart}–${remote.value.meetup.timeSlotEnd}` }, { key: 'version', label: '版本', children: remote.value.meetup.version }]} /> : <Typography.Text type="secondary">尚未安排见面，请与对方沟通后填写约定。</Typography.Text>}</Card>
+  return localize(<Page title="安排见面" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><div className="detail-columns"><div className="detail-sections">
+    <Card title="当前约定">{remote.value?.meetup ? <Descriptions column={1} items={[{ key: 'location', label: '见面地点', children: <CatalogText text={remote.value.meetup.campusLocation} /> }, { key: 'time', label: '见面时间', children: `${remote.value.meetup.scheduledDate} ${remote.value.meetup.timeSlotStart}–${remote.value.meetup.timeSlotEnd}` }, { key: 'version', label: '版本', children: remote.value.meetup.version }]} /> : <Typography.Text type="secondary">尚未安排见面，请与对方沟通后填写约定。</Typography.Text>}</Card>
     <Card title="填写 / 修改约定"><Failure error={mutation.error} /><Alert type="info" title="请使用北京时间选择未来的开始时间；每次修改生成新版本，双方需要重新确认。" style={{ marginBottom: 16 }} /><Form form={form} layout="vertical" size="large" noValidate onFinish={(body) => void mutation.run(async () => { validateMeetupStart(body.scheduledDate, body.timeSlotStart); await api.saveMeetup({ path: { orderId: Number(id) }, body, headers: api.idempotencyHeaders(attemptKey(body)) }); navigate(`/transactions/${id}`) })}>
     <Form.Item name="campusLocation" label="校内见面地点" rules={[{ required: true, whitespace: true, max: 100 }]}><Input /></Form.Item>
     <Form.Item name="scheduledDate" label="日期" rules={[{ required: true }]}><Input type="date" min={campusToday()} /></Form.Item>
     <Space wrap><Form.Item name="timeSlotStart" label="开始时间" dependencies={['scheduledDate']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupStart(form.getFieldValue('scheduledDate'), value) } }]}><Input type="time" /></Form.Item><Form.Item name="timeSlotEnd" label="结束时间" dependencies={['timeSlotStart']} rules={[{ required: true }, { validator: async (_, value) => { validateMeetupEnd(form.getFieldValue('timeSlotStart'), value) } }]}><Input type="time" /></Form.Item></Space>
     <Form.Item name="note" label="备注"><Input.TextArea maxLength={500} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy} disabled={!remote.value || ['COMPLETED', 'CANCELLED', 'DISPUTED'].includes(remote.value.status)}>保存新约定</Button>
-  </Form></Card></div><aside className="surface"><h2>交易商品</h2>{remote.value && <ProductSummary product={remote.value.product} />}<p className="muted">建议选择校内公共区域。修改约定后，请提醒对方确认最新版本。</p></aside></div></Resource></Page>
+  </Form></Card></div><aside className="surface"><h2>交易商品</h2>{remote.value && <ProductSummary product={remote.value.product} />}<p className="muted">建议选择校内公共区域。修改约定后，请提醒对方确认最新版本。</p></aside></div></Resource></Page>)
 }
 
 export function ReviewPage() {
+  useLanguage()
   const { id } = useParams()
   const remote = useRemote(`review-order-${id}`, (signal) => api.data(api.getOrder({ path: { orderId: Number(id) }, signal })))
   const mutation = useMutation()
   const [done, setDone] = useState(false)
   const attemptKey = useAttemptKey()
-  return <Page title="评价交易" subtitle="分享真实的交易体验" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card className="review-card">{remote.value && <ProductSummary product={remote.value.product} />}<Failure error={mutation.error} />{done ? <Alert type="success" title="评价已保存。" /> : remote.value?.status !== 'COMPLETED' ? <Alert type="warning" title="双方完成交易后才可评价。" /> : <Form layout="vertical" onFinish={(values: Omit<ReviewWriteRequest, 'orderId'>) => void mutation.run(async () => { await api.createReview({ body: { ...values, orderId: Number(id) }, headers: api.idempotencyHeaders(attemptKey(values)) }); setDone(true) })}>
-    {[['overall', '总体评价'], ['descriptionAccuracy', '描述准确度'], ['communication', '沟通体验'], ['punctuality', '守时情况']].map(([name, label]) => <Form.Item key={name} name={name} label={label} rules={[{ required: true, type: 'number', min: 1, max: 5 }]}><Rate aria-label={label} /></Form.Item>)}
+  return localize(<Page title="评价交易" subtitle="分享真实的交易体验" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card className="review-card">{remote.value && <ProductSummary product={remote.value.product} />}<Failure error={mutation.error} />{done ? <Alert type="success" title="评价已保存。" /> : remote.value?.status !== 'COMPLETED' ? <Alert type="warning" title="双方完成交易后才可评价。" /> : <Form layout="vertical" onFinish={(values: Omit<ReviewWriteRequest, 'orderId'>) => void mutation.run(async () => { await api.createReview({ body: { ...values, orderId: Number(id) }, headers: api.idempotencyHeaders(attemptKey(values)) }); setDone(true) })}>
+    {[['overall', '总体评价'], ['descriptionAccuracy', '描述准确度'], ['communication', '沟通体验'], ['punctuality', '守时情况']].map(([name, label]) => localize(<Form.Item key={name} name={name} label={label} rules={[{ required: true, type: 'number', min: 1, max: 5 }]}><Rate aria-label={label} /></Form.Item>))}
     <Form.Item name="comment" label="评价内容"><Input.TextArea maxLength={1000} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy}>提交评价</Button>
-  </Form>}</Card></Resource></Page>
+  </Form>}</Card></Resource></Page>)
 }
 
 const notificationGroups = ['全部', '消息', '报价', '匹配', '系统'] as const
 type NotificationGroup = typeof notificationGroups[number]
 
 function NotificationTabs({ value, onChange }: { value: NotificationGroup; onChange: (value: NotificationGroup) => void }) {
+  useLanguage()
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const focusTab = (index: number) => {
     const next = (index + notificationGroups.length) % notificationGroups.length
     onChange(notificationGroups[next])
     tabs.current[next]?.focus()
   }
-  return <div className="notification-tabs" role="tablist" aria-label="通知分类">
+  return localize(<div className="notification-tabs" role="tablist" aria-label="通知分类">
     {notificationGroups.map((label, index) => {
       const selected = label === value
-      return <button
+      return localize(<button
         key={label}
         ref={(element) => { tabs.current[index] = element }}
         type="button"
@@ -130,12 +139,13 @@ function NotificationTabs({ value, onChange }: { value: NotificationGroup; onCha
           else if (event.key === 'Home') { event.preventDefault(); focusTab(0) }
           else if (event.key === 'End') { event.preventDefault(); focusTab(notificationGroups.length - 1) }
         }}
-      >{label}</button>
+      >{label}</button>)
     })}
-  </div>
+  </div>)
 }
 
 export function NotificationsPage() {
+  useLanguage()
   const remote = useNotificationsResource()
   const mutation = useMutation()
   const navigate = useNavigate()
@@ -143,7 +153,7 @@ export function NotificationsPage() {
   const [group, setGroup] = useState<NotificationGroup>('全部')
   const groupOf = (item: Notification): Exclude<NotificationGroup, '全部'> => item.type === 'MESSAGE' ? '消息' : item.type.startsWith('OFFER_') ? '报价' : item.type === 'MATCH_FOUND' ? '匹配' : '系统'
   const visible = notifications.filter((item) => group === '全部' || groupOf(item) === group)
-  const config = { 消息: { icon: <MessageFilled />, color: '#2f6bff' }, 报价: { icon: <MoneyCollectFilled />, color: '#52c41a' }, 匹配: { icon: <AimOutlined />, color: '#fa8c16' }, 系统: { icon: <BellFilled />, color: '#722ed1' } }
+  const config = { 消息: { icon: localize(<MessageFilled />), color: '#2f6bff' }, 报价: { icon: localize(<MoneyCollectFilled />), color: '#52c41a' }, 匹配: { icon: localize(<AimOutlined />), color: '#fa8c16' }, 系统: { icon: localize(<BellFilled />), color: '#722ed1' } }
   const openNotification = (item: Notification) => {
     void mutation.run(async () => {
       if (!item.read) { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() }
@@ -154,18 +164,18 @@ export function NotificationsPage() {
     if (item.read) return
     void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() })
   }
-  return <Page title="通知" extra={<Button aria-label="全部已读" loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><NotificationTabs value={group} onChange={setGroup} /><Resource {...remote}>
-    {visible.length ? <div className="notification-rows" role="list">{visible.map((item) => <article
+  return localize(<Page title="通知" extra={<Button aria-label="全部已读" loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><NotificationTabs value={group} onChange={setGroup} /><Resource {...remote}>
+    {visible.length ? <div className="notification-rows" role="list">{visible.map((item) => localize(<article
       key={item.id}
       role="listitem"
       tabIndex={0}
-      aria-label={`${systemText(item.title, systemText(item.type, '平台通知'))}，${displayDate(item.createdAt)}${item.read ? '' : '，未读'}`}
+      aria-label={`${t(systemText(item.title, systemText(item.type, '平台通知')))}, ${displayDate(item.createdAt)}${item.read ? '' : t('，未读')}`}
       className={`notification-row ${item.read ? '' : 'is-unread'}`}
       onClick={() => openNotification(item)}
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget) return
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openNotification(item) }
       }}
-    ><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {systemText(item.title, systemText(item.type, '平台通知'))}</h2><p>{item.content ? systemText(item.content, '请查看详情了解更多。') : null}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={(event) => { event.stopPropagation(); markRead(item) }}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={(event) => { event.stopPropagation(); openNotification(item) }}>查看</Button>}</div></article>)}</div> : <NoItems />}
-  </Resource></div><MyReports /></Page>
+    ><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {<CatalogText text={systemText(item.title, systemText(item.type, '平台通知'))} />}</h2><p>{item.content ? <CatalogText text={systemText(item.content, item.content)} /> : null}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={(event) => { event.stopPropagation(); markRead(item) }}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={(event) => { event.stopPropagation(); openNotification(item) }}>查看</Button>}</div></article>))}</div> : <NoItems />}
+  </Resource></div><MyReports /></Page>)
 }

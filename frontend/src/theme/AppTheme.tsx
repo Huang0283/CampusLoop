@@ -1,6 +1,8 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { App as AntApp, Button, ConfigProvider, Tooltip, theme as antTheme } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
+import enGB from 'antd/locale/en_GB'
+import { t, useLanguage } from '../i18n/language'
 import '@fontsource/unbounded/500.css'
 import '@fontsource/unbounded/600.css'
 import '@fontsource/unbounded/700.css'
@@ -20,7 +22,9 @@ const tokens = {
 
 export function AppTheme({ children }: { children: ReactNode }) {
   const resolved = useTheme((state) => state.theme)
-  return <ConfigProvider locale={zhCN} theme={{ algorithm: resolved === 'dark' ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm, token: tokens[resolved], components: { Button: { primaryShadow: 'none', fontWeight: 600 }, Card: { borderRadiusLG: 22 }, Menu: { itemBg: 'transparent', horizontalItemSelectedColor: tokens[resolved].colorText } } }}>
+  const language = useLanguage((state) => state.language)
+  useEffect(() => { document.documentElement.lang = language === 'en' ? 'en' : 'zh-CN'; document.title = language === 'en' ? 'CampusLoop · Campus marketplace' : 'CampusLoop · 校园二手平台' }, [language])
+  return <ConfigProvider locale={language === 'en' ? enGB : zhCN} theme={{ algorithm: resolved === 'dark' ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm, token: tokens[resolved], components: { Button: { primaryShadow: 'none', fontWeight: 600 }, Card: { borderRadiusLG: 22 }, Menu: { itemBg: 'transparent', horizontalItemSelectedColor: tokens[resolved].colorText } } }}>
     <AntApp component={false}><SpriteDefs />{children}</AntApp>
   </ConfigProvider>
 }
@@ -34,9 +38,10 @@ const icons: Record<ThemeMode, ReactNode> = {
 
 /** Cycles 浅色 → 深色 → 跟随系统; the tooltip names the current mode. */
 export function ThemeToggle({ className = '' }: { className?: string }) {
+  useLanguage()
   const mode = useTheme((state) => state.mode)
-  return <Tooltip title={names[mode]}>
-    <Button type="text" className={`cl-icon-btn ${className}`} aria-label={`外观：${names[mode]}`} onClick={() => useTheme.getState().cycle()}
+  return <Tooltip title={t(names[mode])}>
+    <Button type="text" className={`cl-icon-btn ${className}`} aria-label={t(`外观：${names[mode]}`)} onClick={() => useTheme.getState().cycle()}
       icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{icons[mode]}</svg>} />
   </Tooltip>
 }

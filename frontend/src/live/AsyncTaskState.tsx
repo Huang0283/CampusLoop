@@ -1,3 +1,5 @@
+import { localize } from '../i18n/Localize'
+import { useLanguage } from '../i18n/language'
 import { Alert, Button, Space, Spin } from 'antd'
 
 // Presentation state only. Producers must map a confirmed backend task contract.
@@ -15,14 +17,15 @@ const descriptions: Record<TaskPhase, string> = {
 export function AsyncTaskState({ phase, retry, refresh, retrying = false }: {
   phase: TaskPhase; retry?: () => void; refresh?: () => void; retrying?: boolean
 }) {
+  useLanguage()
   const busy = phase === 'queued' || phase === 'running'
   const recoverable = phase === 'failed' || phase === 'timeout' || phase === 'expired'
-  return <div role="status" aria-live="polite" aria-busy={busy || retrying} data-task-phase={phase}>
+  return localize(<div role="status" aria-live="polite" aria-busy={busy || retrying} data-task-phase={phase}>
     <Alert type={phase === 'completed' ? 'success' : recoverable ? 'warning' : 'info'}
       title={descriptions[phase]} icon={busy ? <Spin size="small" /> : undefined} showIcon
       action={<Space wrap>
         {refresh && phase !== 'completed' && <Button onClick={refresh}>刷新状态</Button>}
         {recoverable && retry && <Button loading={retrying} onClick={retry}>重试任务</Button>}
       </Space>} />
-  </div>
+  </div>)
 }

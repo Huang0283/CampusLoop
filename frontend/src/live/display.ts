@@ -1,4 +1,5 @@
 import type { Product } from '../sdk'
+import { dateLocale } from '../i18n/language'
 
 export const conditionLabels: Record<string, string> = { NEW: '全新', LIKE_NEW: '九成新', GOOD: '八成新', FAIR: '七成新', POOR: '较旧', ANY: '不限成色' }
 export const categoryLabels: Record<string, string> = { BOOKS: '图书教材', STATIONERY: '文具文创', DIGITAL: '数码电子', DAILY: '生活用品', FURNITURE: '家具家电', BEDDING: '寝具床品', TRANSPORT: '交通代步', SPORTS: '运动户外', clothing: '服饰鞋包', other: '其他' }
@@ -48,5 +49,5 @@ export function riskClueText(clue: Record<string, unknown>) {
 }
 export function displayDate(value?: string) {
   if (!value || !Number.isFinite(Date.parse(value))) return '未提供'
-  return new Date(value).toLocaleString('zh-CN', { hour12: false })
+  return new Date(value).toLocaleString(dateLocale(), { hour12: false })
 }

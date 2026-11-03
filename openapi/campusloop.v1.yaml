@@ -1202,6 +1202,7 @@ paths:
         - $ref: '#/components/parameters/PageSize'
         - { name: scope, in: query, schema: { type: string, enum: [decisions, all], default: decisions } }
         - { name: mine, in: query, description: Only entries recorded for the signed-in administrator., schema: { type: boolean, default: false } }
+        - { name: days, in: query, description: 'Last 7 or 30 calendar days including today in Asia/Shanghai. Omit for all history; the console defaults to 7.', schema: { type: integer, enum: [7, 30] } }
       responses:
         '200':
           description: Audited decision trail page.
@@ -1308,6 +1309,7 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
         - { name: status, in: query, schema: { $ref: '#/components/schemas/ReportStatus' } }
+        - { name: query, in: query, description: 'Report or target ID fragment, reporter/target nickname, product title or report description; prefix a full report ID with # for an exact match. Filtering precedes pagination.', schema: { type: string } }
         - { name: reason, in: query, schema: { type: string, minLength: 1, maxLength: 500, pattern: '\S', default: report_queue_review } }
       responses:
         '200':

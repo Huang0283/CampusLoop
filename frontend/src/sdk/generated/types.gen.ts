@@ -2972,6 +2972,10 @@ export type AdminListAuditLogsData = {
          * Only entries recorded for the signed-in administrator.
          */
         mine?: boolean;
+        /**
+         * Last 7 or 30 calendar days including today in Asia/Shanghai. Omit for all history; the console defaults to 7.
+         */
+        days?: 7 | 30;
     };
     url: '/admin/audit-logs';
 };
@@ -3143,6 +3147,10 @@ export type AdminListReportsData = {
         page?: number;
         pageSize?: number;
         status?: ReportStatus;
+        /**
+         * Report or target ID fragment, reporter/target nickname, product title or report description; prefix a full report ID with # for an exact match. Filtering precedes pagination.
+         */
+        query?: string;
         reason?: string;
     };
     url: '/admin/reports';

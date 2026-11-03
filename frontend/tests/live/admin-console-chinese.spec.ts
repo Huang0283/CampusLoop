@@ -50,3 +50,73 @@ for (const width of [1440, 390]) {
     await expect(page.getByText('求购', { exact: true })).toHaveCount(0)
   })
 }
+
+test('report search sends live keywords and combines them with status', async ({ page }) => {
+  const queries: URL[] = []
+  await page.route('**/admin/reports?**', route => {
+    const url = new URL(route.request().url())
+    queries.push(url)
+    const items = url.searchParams.get('query') === '没有这条举报' ? [] : [report]
+    return route.fulfill({ json: { data: items } })
+  })
+  await page.setViewportSize({ width: 390, height: 900 })
+  await page.goto('/admin/reports')
+  await page.getByLabel('搜索举报', { exact: true }).fill('自行车')
+  await expect.poll(() => queries.at(-1)?.searchParams.get('query')).toBe('自行车')
+  await page.getByLabel('举报状态筛选').click()
+  await page.getByRole('option', { name: '待处理', exact: true }).click()
+  await expect.poll(() => queries.at(-1)?.searchParams.get('status')).toBe('PENDING')
+  expect(queries.at(-1)?.searchParams.get('query')).toBe('自行车')
+  expect(queries.at(-1)?.searchParams.get('page')).toBe('1')
+  await page.getByLabel('搜索举报', { exact: true }).fill('没有这条举报')
+  await expect(page.getByRole('button', { name: '举报详情 #701' })).toHaveCount(0)
+  await page.getByLabel('搜索举报', { exact: true }).fill('')
+  await expect(page.getByRole('button', { name: '举报详情 #701' })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
+for (const width of [1440, 390]) {
+  test(`audit log defaults to seven days and paginates each selected window at ${width}px`, async ({ page }) => {
+    const queries: URL[] = []
+    await page.route('**/admin/audit-logs?**', route => {
+      const url = new URL(route.request().url())
+      queries.push(url)
+      const current = Number(url.searchParams.get('page'))
+      return route.fulfill({ json: { data: {
+        items: [{ id: current, event: 'admin_product_read', decision: false, actor: { id: 501, nickname: '验收同学' }, subject: { type: 'PRODUCT', id: 601 }, resultStatus: 'RESERVED', reason: 'product_detail_review', createdAt: '2026-11-03T02:00:00+00:00' }],
+        pagination: { page: current, pageSize: 20, total: 41 },
+      } } })
+    })
+    await page.emulateMedia({ reducedMotion: width === 390 ? 'reduce' : 'no-preference' })
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/admin/audit')
+    await expect(page.getByText('已预订', { exact: true })).toBeVisible()
+    expect(queries.at(-1)?.searchParams.get('days')).toBe('7')
+    expect(queries.at(-1)?.searchParams.get('pageSize')).toBe('20')
+    await page.locator('.ant-pagination-item-2').click()
+    await expect.poll(() => queries.at(-1)?.searchParams.get('page')).toBe('2')
+    await page.getByLabel('日志时间范围', { exact: true }).click()
+    await page.getByRole('option', { name: '近 30 天', exact: true }).click()
+    await expect.poll(() => queries.at(-1)?.searchParams.get('days')).toBe('30')
+    expect(queries.at(-1)?.searchParams.get('page')).toBe('1')
+    await page.locator('.ant-pagination-item-2').click()
+    await expect.poll(() => queries.at(-1)?.searchParams.get('page')).toBe('2')
+    await page.getByLabel('日志时间范围', { exact: true }).click()
+    await page.getByRole('option', { name: '全部时间', exact: true }).click()
+    await expect.poll(() => queries.at(-1)?.searchParams.has('days')).toBe(false)
+    expect(queries.at(-1)?.searchParams.get('page')).toBe('1')
+    await page.locator('.ant-pagination-item-2').click()
+    await expect.poll(() => queries.at(-1)?.searchParams.get('page')).toBe('2')
+    await page.getByRole('radio', { name: '含查看记录' }).click()
+    await expect.poll(() => queries.at(-1)?.searchParams.get('scope')).toBe('all')
+    expect(queries.at(-1)?.searchParams.get('page')).toBe('1')
+    const beforeRefresh = queries.length
+    await page.getByRole('button', { name: '刷新', exact: true }).click()
+    await expect.poll(() => queries.length).toBeGreaterThan(beforeRefresh)
+    await expect(page.locator('.adm-filters')).toContainText('共 41 条记录')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+    await page.reload()
+    await expect(page.getByText('已预订', { exact: true })).toBeVisible()
+    expect(queries.at(-1)?.searchParams.get('days')).toBe('7')
+  })
+}

@@ -91,9 +91,12 @@ def audit_logs(
     pageSize: PageSize = 20,
     scope: Literal["decisions", "all"] = "decisions",
     mine: bool = False,
+    days: int | None = None,
 ):
     administrator(actor)
-    stmt = admin_console.audit_query(scope, actor.id if mine else None)
+    if days is not None and days not in (7, 30):
+        raise BusinessError(422, "VALIDATION_ERROR", "days must be 7 or 30.")
+    stmt = admin_console.audit_query(scope, actor.id if mine else None, days)
     total = db.scalar(select(func.count()).select_from(stmt.subquery()))
     rows = db.scalars(
         stmt.order_by(AuthAudit.created_at.desc(), AuthAudit.id.desc())
@@ -112,6 +115,7 @@ def audit_logs(
         actor.id,
         reason="decision_trail_review",
         snapshot={"scope": scope, "ids": [row.id for row in rows]},
+        days=days,
         page=page,
         pageSize=pageSize,
     )

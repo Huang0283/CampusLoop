@@ -1,3 +1,5 @@
+import { localize } from '../i18n/Localize'
+import { useLanguage } from '../i18n/language'
 import { useRef, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
@@ -9,6 +11,7 @@ import './landing.css'
 
 /** Sign-in / registration layout: aurora + halo backdrop, the form card tilts towards the pointer but never moves. */
 export function AuthScene({ registering, children }: { registering: boolean; children: ReactNode }) {
+  useLanguage()
   const root = useRef<HTMLDivElement>(null)
   useGSAP(() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -36,7 +39,7 @@ export function AuthScene({ registering, children }: { registering: boolean; chi
     gsap.fromTo('.auth-head > *, .auth .card .ant-form-item, .auth .card .note', { autoAlpha: 0.2, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.04, ease: 'power2.out' })
   }, { scope: root, dependencies: [registering], revertOnUpdate: false })
 
-  return <div className="lp lp-auth" ref={root}>
+  return localize(<div className="lp lp-auth" ref={root}>
     <AuroraSky mode="auth" />
     <LandingHeader auth={registering ? 'register' : 'login'} />
     <section className="auth" aria-labelledby="auth-title">
@@ -48,5 +51,5 @@ export function AuthScene({ registering, children }: { registering: boolean; chi
         <Link className="back" to="/">← 返回首页</Link>
       </div>
     </section>
-  </div>
+  </div>)
 }
