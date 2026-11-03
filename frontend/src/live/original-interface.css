@@ -246,6 +246,40 @@
 
 /* ---------- Orders, notifications, misc ---------- */
 .order-list { padding: 4px 24px 24px; border: 1px solid var(--card-line); border-radius: 22px; background: var(--card); box-shadow: var(--card-shadow); }
+.transaction-center { max-width: 1440px; min-height: calc(100svh - 180px); display: flex; flex-direction: column; }
+.transaction-center .order-list { flex: 1; min-height: 560px; display: flex; flex-direction: column; }
+.order-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.order-toolbar > .muted { font-size: 13px; }
+.order-results { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.order-empty { position: relative; isolation: isolate; display: grid; place-items: center; flex: 1; min-height: 350px; padding: 36px 24px 44px; overflow: hidden; border: 1px solid var(--hair); border-radius: 20px; background: radial-gradient(ellipse at 50% 40%, color-mix(in oklab, var(--g1) 9%, transparent), transparent 65%), var(--well); }
+.order-empty::before, .order-empty::after { content: ''; position: absolute; z-index: -1; width: 280px; height: 280px; border: 1px solid color-mix(in oklab, var(--g1) 10%, transparent); border-radius: 50%; pointer-events: none; }
+.order-empty::before { left: -160px; bottom: -180px; }
+.order-empty::after { right: -150px; top: -190px; }
+.order-empty-content { max-width: 490px; text-align: center; }
+.order-empty-art { position: relative; width: 152px; height: 120px; margin: 0 auto 14px; color: var(--g1); }
+.order-empty-orbit { position: absolute; inset: 8px 8px 0; border: 1px dashed color-mix(in oklab, var(--g1) 24%, transparent); border-radius: 50%; transform: rotate(-20deg); }
+.order-empty-main { position: absolute; left: 34px; top: 19px; display: grid; place-items: center; width: 84px; height: 84px; border: 1px solid color-mix(in oklab, var(--g1) 25%, transparent); border-radius: 27px; background: linear-gradient(145deg, color-mix(in oklab, var(--g1) 15%, var(--card)), var(--card)); font-size: 40px; transform: rotate(-9deg); box-shadow: 0 12px 32px color-mix(in oklab, var(--g1) 12%, transparent); }
+.order-empty-bubble, .order-empty-spark { position: absolute; display: grid; place-items: center; border: 1px solid var(--hair); background: var(--card); box-shadow: var(--card-shadow); }
+.order-empty-bubble { top: 7px; right: 2px; width: 38px; height: 34px; border-radius: 12px; font-size: 18px; transform: rotate(8deg); }
+.order-empty-spark { bottom: 4px; left: 7px; width: 30px; height: 30px; border-radius: 50%; color: var(--ink); font-size: 15px; }
+.order-empty-eyebrow { color: var(--muted); font-size: 12px; letter-spacing: .12em; }
+.order-empty h2 { margin: 10px 0; color: var(--ink); font-size: clamp(21px, 2vw, 27px); font-weight: 700; line-height: 1.4; }
+.order-empty p { margin: 0 auto 24px; color: var(--muted); font-size: 14px; line-height: 1.9; text-wrap: balance; }
+.order-empty-actions { justify-content: center; }
+.order-empty-actions .ant-btn { height: 40px; padding-inline: 22px; border-radius: 999px; }
+.order-pagination { margin-top: 20px; }
+.order-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px; padding: 22px 8px 0; border-top: 1px solid var(--hair); }
+.order-guide > div { display: flex; align-items: flex-start; gap: 12px; }
+.order-guide-icon { display: grid; place-items: center; flex: 0 0 36px; height: 36px; border-radius: 12px; color: var(--g1); background: color-mix(in oklab, var(--g1) 8%, transparent); font-size: 18px; }
+.order-guide h3 { margin: 0 0 6px; color: var(--ink); font-size: 14px; font-weight: 600; }
+.order-guide p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+@media (max-width: 700px) {
+  .transaction-center { min-height: calc(100svh - 170px); }
+  .transaction-center .order-list { min-height: 580px; }
+  .transaction-center .order-tabs { margin-inline: -12px; padding-inline: 12px; }
+  .order-empty { min-height: 330px; padding: 28px 16px 32px; }
+  .order-guide { grid-template-columns: 1fr; gap: 18px; padding-inline: 4px; margin-top: 20px; }
+}
 .order-card.ant-card { margin: 16px 0; border-radius: 18px; box-shadow: none; background: var(--well); }
 .order-card-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--hair); }
 .order-card-body { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
