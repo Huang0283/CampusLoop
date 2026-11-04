@@ -21,6 +21,9 @@ test('empty next report page keeps a working previous-page action (contract fixt
     if (url.pathname === '/notifications' && request.method() === 'GET') {
       return route.fulfill({ json: { data: [] } })
     }
+    if (url.pathname === '/display-translation/translate' && request.method() === 'POST') {
+      return route.fulfill({ json: { translations: request.postDataJSON().texts } })
+    }
     if (url.pathname === '/reports/mine' && request.method() === 'GET') {
       return route.fulfill({ json: { data: url.searchParams.get('page') === '1' ? reports : [] } })
     }

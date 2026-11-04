@@ -11,7 +11,7 @@ test('real admin product hide and restore preserve owner access and public visib
   await seller.getByRole('button', { name: '注册并登录', exact: true }).click()
   await expect(seller).toHaveURL(/\/market$/)
   await seller.getByRole('button', { name: '发布商品', exact: true }).click()
-  const title = `Moderation ${randomUUID().slice(0, 8)}`
+  const title = `治理用例 ${randomUUID().slice(0, 8)}`
   await seller.getByLabel('商品名称', { exact: true }).fill(title)
   const uploaded = seller.waitForResponse((response) => response.url().includes('/uploads/images') && response.status() === 201)
   await seller.locator('input[type=file]').setInputFiles({ name: 'test.png', mimeType: 'image/png', buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNkYPjPwMDAxMDAwMDAAAALHwEDmIWXfgAAAABJRU5ErkJggg==', 'base64') })
@@ -39,7 +39,7 @@ test('real admin product hide and restore preserve owner access and public visib
   await expect(seller.getByRole('heading', { name: title, exact: true })).toBeVisible()
   await seller.goto('/my-products')
   await seller.getByRole('button', { name: /^上\s*架$/ }).click()
-  await expect(seller.getByText('该商品已被管理员下架，请等待人工复核，不能自行上架。', { exact: true })).toBeVisible()
+  await expect(seller.getByText('商品已被管理员下架，请等待人工复核。', { exact: true })).toBeVisible()
   await admin.getByLabel('商品处理原因', { exact: true }).fill('Manual review complete')
   await admin.getByRole('button', { name: '解除人工下架', exact: true }).click()
   await expect(admin.getByRole('button', { name: '人工下架商品', exact: true })).toBeEnabled()

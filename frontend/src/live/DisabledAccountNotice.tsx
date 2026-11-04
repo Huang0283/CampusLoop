@@ -23,7 +23,7 @@ export function DisabledAccountNotice() {
     }).catch(() => undefined)
     return () => controller.abort()
   }, [open, token])
-  return localize(<Modal title="账号已被禁用" open={open} closable={false} maskClosable={false} keyboard={false} centered footer={null} width={540}>
+  return localize(<Modal title="账号已被禁用" open={open} closable={false} mask={{ closable: false }} keyboard={false} centered footer={null} width={540}>
     <Alert type="warning" showIcon title="当前账号暂时无法使用交易功能。" description="你可以查看处理时间、原因和证据，并提交申诉；申诉不会恢复交易权限。" />
     {decision?.action === 'DISABLE' && <><p>禁用时间：{displayDate(decision.createdAt)}</p><p style={{ overflowWrap: 'anywhere' }}>禁用原因：<CatalogText text={decision.reason} /></p></>}
     <Space wrap style={{ marginTop: 24 }}>
