@@ -230,6 +230,7 @@ test('order confirmation popovers and calculated pricing panels follow the selec
   await page.getByLabel('Original price (CNY)', { exact: true }).fill('100')
   await page.getByRole('button', { name: 'Calculate range', exact: true }).click()
   await expect(page.locator('.price-advice-result')).toContainText('Rules reference range: ¥20–¥30')
+  await page.getByText('View estimate details', { exact: true }).click()
   await expect(page.locator('.price-advice-result')).toContainText('Matching category · Meets condition requirements')
   await switchTo(page, 'zh')
   await expect(page.locator('.price-advice-result')).toContainText('规则参考区间：¥20–¥30')

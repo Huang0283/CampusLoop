@@ -316,6 +316,9 @@
 .price-advice-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; align-items: start; }
 .price-advice-result { margin-top: 24px; }
 .price-advice-result .ant-alert { padding: 24px; border-radius: 18px; }
+.price-advice-details { margin-top: 16px; overflow-wrap: anywhere; }
+.price-advice-details summary { cursor: pointer; color: var(--text-muted, #667085); }
+.price-advice-details[open] summary { margin-bottom: 12px; }
 .review-card { max-width: 840px; margin: auto; }
 .review-card .product-summary { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--hair); }
 .admin-panel { padding: 24px; border: 1px solid var(--card-line); border-radius: 22px; background: var(--card); box-shadow: var(--card-shadow); }
