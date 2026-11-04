@@ -17,6 +17,30 @@ from admin_fixtures import products_for_run, verify_execution_log
 
 
 class PackageTests(unittest.TestCase):
+    def test_manifest_replace_retries_transient_windows_lock_only(self):
+        locked = PermissionError("temporary Windows file lock")
+        locked.winerror = 32
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "state.json"
+            with patch.object(Path, "replace", side_effect=[locked, path]) as replace:
+                with patch("runtime.time.sleep") as sleep:
+                    runtime.save(path, {"version": 1})
+                    self.assertEqual(replace.call_count, 2)
+                    sleep.assert_called_once_with(0.1)
+            with patch.object(Path, "replace", side_effect=locked) as replace:
+                with patch("runtime.time.sleep"), self.assertRaises(PermissionError):
+                    runtime.save(path, {})
+                self.assertEqual(replace.call_count, 5)
+            with patch.object(
+                Path, "replace", side_effect=PermissionError("permanent")
+            ):
+                with (
+                    patch("runtime.time.sleep") as sleep,
+                    self.assertRaises(PermissionError),
+                ):
+                    runtime.save(path, {})
+                sleep.assert_not_called()
+
     def test_all_fixture_families_validate(self):
         report = verify_data.verify_static()
         self.assertEqual(report["mockSchemas"], 20)
@@ -35,7 +59,9 @@ class PackageTests(unittest.TestCase):
     def test_existing_run_cannot_switch_optional_dataset(self):
         for old, new in ((False, True), (True, False)):
             state = {"products": {"P001": {"id": 1}}, "adminSearch": old}
-            with patch("setup_data.open_state", return_value=(Path("unused"), state, None)):
+            with patch(
+                "setup_data.open_state", return_value=(Path("unused"), state, None)
+            ):
                 with patch("setup_data.save") as save:
                     with self.assertRaisesRegex(ValueError, "use a new run ID"):
                         setup_data.setup(Namespace(admin_search=new))
@@ -72,7 +98,8 @@ class PackageTests(unittest.TestCase):
 
     def test_execution_log_missing_column_is_rejected(self):
         path = (
-            runtime.ROOT / "docs/collaboration/phase-5/testing/data-permissions/execution-log.csv"
+            runtime.ROOT
+            / "docs/collaboration/phase-5/testing/data-permissions/execution-log.csv"
         )
         with path.open(encoding="utf-8", newline="") as stream:
             rows = list(csv.reader(stream))
@@ -101,7 +128,9 @@ class PackageTests(unittest.TestCase):
         self.corrupt("media/M01.jpg", lambda p: p.unlink())
 
     def test_changed_image_fails(self):
-        self.corrupt("media/M01.jpg", lambda p: p.write_bytes(p.read_bytes() + b"changed"))
+        self.corrupt(
+            "media/M01.jpg", lambda p: p.write_bytes(p.read_bytes() + b"changed")
+        )
 
     def test_invalid_category_fails(self):
         def change(path):
@@ -112,7 +141,9 @@ class PackageTests(unittest.TestCase):
         self.corrupt("products.json", change)
 
     def test_omitted_fixture_family_fails(self):
-        self.corrupt("price-checks.json", lambda p: p.write_text("[]", encoding="utf-8"))
+        self.corrupt(
+            "price-checks.json", lambda p: p.write_text("[]", encoding="utf-8")
+        )
 
 
 class BoundaryTests(unittest.TestCase):
@@ -146,7 +177,9 @@ class BoundaryTests(unittest.TestCase):
         }
 
     def inspect(self, info):
-        return patch("runtime.subprocess.check_output", return_value=json.dumps([info]).encode())
+        return patch(
+            "runtime.subprocess.check_output", return_value=json.dumps([info]).encode()
+        )
 
     def test_daily_api_refused_before_docker_or_http(self):
         self.args.api = "http://127.0.0.1:8001"

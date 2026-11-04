@@ -7,6 +7,7 @@ import hashlib
 import json
 import re
 import subprocess
+import time
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import urlsplit
@@ -24,8 +25,18 @@ def read(name):
 def save(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(".pending")
-    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    temporary.write_text(
+        json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    # Windows file scanners can briefly lock the manifest between rapid API writes.
+    for attempt in range(5):
+        try:
+            temporary.replace(path)
+            return
+        except OSError as error:
+            if getattr(error, "winerror", None) not in {5, 32, 33} or attempt == 4:
+                raise
+            time.sleep(0.1 * 2**attempt)
 
 
 def arguments(description):
@@ -33,9 +44,13 @@ def arguments(description):
     parser.add_argument(
         "--api", required=True, help="Explicit loopback audit API; no daily default"
     )
-    parser.add_argument("--container", required=True, help="Docker audit API container to inspect")
+    parser.add_argument(
+        "--container", required=True, help="Docker audit API container to inspect"
+    )
     parser.add_argument("--namespace", choices=NAMESPACES, required=True)
-    parser.add_argument("--run-id", required=True, help="Lowercase letters/digits/hyphens, max 20")
+    parser.add_argument(
+        "--run-id", required=True, help="Lowercase letters/digits/hyphens, max 20"
+    )
     parser.add_argument(
         "--state-dir",
         required=True,
@@ -62,7 +77,9 @@ def guard(args):
     ):
         raise ValueError("Use a dedicated loopback API port (not daily 8001)")
     if ".codex-tmp" not in args.state_dir.resolve().parts:
-        raise ValueError("Private state must be stored under an ignored .codex-tmp directory")
+        raise ValueError(
+            "Private state must be stored under an ignored .codex-tmp directory"
+        )
     info = json.loads(subprocess.check_output(["docker", "inspect", args.container]))[0]
     env = dict(item.split("=", 1) for item in info["Config"]["Env"])
     bindings = info["NetworkSettings"]["Ports"].get("8000/tcp") or []
@@ -72,7 +89,9 @@ def guard(args):
         raise ValueError("API does not match the running loopback audit container")
     database = urlsplit(env.get("DATABASE_URL", "")).path.lstrip("/")
     redis_db = urlsplit(env.get("REDIS_URL", "")).path
-    buckets = [env.get(key, "") for key in ("MINIO_PUBLIC_BUCKET", "MINIO_PRIVATE_BUCKET")]
+    buckets = [
+        env.get(key, "") for key in ("MINIO_PUBLIC_BUCKET", "MINIO_PRIVATE_BUCKET")
+    ]
     sha = (info["Config"].get("Labels") or {}).get("campusloop.audit.software-sha", "")
     if (
         env.get("APP_ENV") not in {"test", "ci"}
@@ -88,7 +107,9 @@ def guard(args):
     media_base = env.get("S3_PUBLIC_BASE_URL", "").rstrip("/")
     if urlsplit(media_base).path.strip("/") != buckets[0]:
         raise ValueError("Public media URL does not match the audit bucket")
-    domains = env.get("AUTH_REGISTRATION_DOMAINS", "example.com,example.invalid").split(",")
+    domains = env.get("AUTH_REGISTRATION_DOMAINS", "example.com,example.invalid").split(
+        ","
+    )
     if "example.invalid" not in [d.strip().lower() for d in domains]:
         raise ValueError("Audit API must allow reserved example.invalid test addresses")
     return {
@@ -174,7 +195,9 @@ def open_state(args, create=False):
             or state.get("datasetSha256") != dataset_sha
             or state.get("lifecycle") != "active"
         ):
-            raise ValueError("Manifest/environment mismatch or reset run; use a new run ID")
+            raise ValueError(
+                "Manifest/environment mismatch or reset run; use a new run ID"
+            )
     elif create:
         state = {
             "version": 1,
@@ -198,14 +221,18 @@ def open_state(args, create=False):
 
 def token_for(client, account):
     if not account.get("accessToken"):
-        result = client.call("POST", "/auth/login", {k: account[k] for k in ("email", "password")})
+        result = client.call(
+            "POST", "/auth/login", {k: account[k] for k in ("email", "password")}
+        )
         account["accessToken"] = result["accessToken"]
     try:
         profile = client.call("GET", "/users/me", token=account["accessToken"])
     except ApiError as exc:
         if exc.status != 401:
             raise
-        result = client.call("POST", "/auth/login", {k: account[k] for k in ("email", "password")})
+        result = client.call(
+            "POST", "/auth/login", {k: account[k] for k in ("email", "password")}
+        )
         account["accessToken"] = result["accessToken"]
         profile = result["user"]
     if account.get("id") and account["id"] != profile["id"]:
@@ -225,7 +252,10 @@ def public_media_hash(url):
 
     with urlopen(url, timeout=15) as response:
         content = response.read(5 * 1024 * 1024 + 1)
-        if response.headers.get_content_type() != "image/jpeg" or len(content) > 5 * 1024 * 1024:
+        if (
+            response.headers.get_content_type() != "image/jpeg"
+            or len(content) > 5 * 1024 * 1024
+        ):
             raise ValueError("Stored audit image type/size mismatch")
     with Image.open(io.BytesIO(content)) as image:
         if image.format != "JPEG":
