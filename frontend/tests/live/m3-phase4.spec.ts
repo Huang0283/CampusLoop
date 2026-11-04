@@ -109,6 +109,33 @@ test('matching owner permission rejection does not expose results', async ({ pag
   await expect(page.getByText(/结果版本：/)).not.toBeVisible()
 })
 
+test('price advice blocks missing original price and explains an estimate with no transaction samples', async ({ page }) => {
+  const payloads: unknown[] = []
+  await routeApi(page, '/price-advice', route => {
+    payloads.push(route.request().postDataJSON())
+    return route.fulfill({ json: { data: { lower: 20, upper: 40, currency: 'CNY', status: 'INSUFFICIENT_DATA', method: 'rule', sampleSize: 0, factors: ['成色因素'], degraded: true, degradationReason: 'NO_ELIGIBLE_L3_LABELS', disclaimer: '仅供参考，不保证成交价。', resultVersion: 'rule-fixture' } } })
+  })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/publish/price-advice')
+  await page.getByRole('button', { name: '计算区间', exact: true }).click()
+  await expect(page.getByText('请先填写商品原价，再计算参考区间。', { exact: true })).toBeVisible()
+  expect(payloads).toEqual([])
+  await page.getByLabel('界面语言', { exact: true }).click()
+  await page.getByRole('option', { name: 'English', exact: true }).click()
+  await expect(page.getByText('Enter the original purchase price before calculating a range.', { exact: true })).toBeVisible()
+  await page.getByLabel('Original price (CNY)', { exact: true }).fill('100')
+  await page.getByRole('button', { name: 'Calculate range', exact: true }).click()
+  await expect(page.locator('.price-advice-result')).toContainText('Rules reference range: ¥20–¥40')
+  await expect(page.locator('.price-advice-result')).toContainText('No transaction samples are available for this estimate.')
+  expect(payloads).toEqual([{ category: 'BOOKS', condition: 'GOOD', originalPrice: 100 }])
+  await page.getByLabel('Language', { exact: true }).click()
+  await page.getByRole('option', { name: '简体中文', exact: true }).click()
+  await expect(page.locator('.price-advice-result')).toContainText('当前没有可用于估价的成交样本，参考区间按原价和成色估算。')
+  await page.getByLabel('原价（元）', { exact: true }).fill('')
+  await expect(page.locator('.price-advice-result')).toHaveCount(0)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
 test('price advice distinguishes model and low confidence, and clears stale success on failure', async ({ page }) => {
   let attempt = 0
   await routeApi(page, '/price-advice', (route) => {
@@ -117,6 +144,7 @@ test('price advice distinguishes model and low confidence, and clears stale succ
     return route.fulfill({ json: { data: { lower: 20, upper: 40, currency: 'CNY', status: attempt === 1 ? 'AVAILABLE' : 'LOW_CONFIDENCE', factors: ['成色因素'], method: 'model', sampleSize: 3, degraded: false, disclaimer: '仅供参考，不保证成交价。', resultVersion: 'price-model-v4' } } })
   })
   await page.goto('/publish/price-advice')
+  await page.getByLabel('原价（元）', { exact: true }).fill('100')
   const submit = page.locator('form button[type="submit"]')
   await submit.click()
   await expect(page.getByText('模型参考区间：¥20–¥40', { exact: true })).toBeVisible()
@@ -126,7 +154,7 @@ test('price advice distinguishes model and low confidence, and clears stale succ
   await submit.click()
   await expect(page.getByText('服务暂不可用，请稍后重试。', { exact: true })).toBeVisible()
   await expect(page.getByText(/¥20–¥40/)).not.toBeVisible()
-  await expect(page.getByText(/手动定价/)).toBeVisible()
+  await expect(page.getByText('价格建议获取失败，请重试或手动定价。', { exact: true })).toBeVisible()
 })
 
 test('sample shortage, unavailable and degraded price results remain explicit', async ({ page }) => {
@@ -138,6 +166,7 @@ test('sample shortage, unavailable and degraded price results remain explicit', 
   ]
   await routeApi(page, '/price-advice', (route) => route.fulfill({ json: { data: { ...states.shift(), currency: 'CNY', factors: ['成色因素'], degraded: true, degradationReason: 'SERVICE_DISABLED', disclaimer: '仅供参考，不保证成交价。', resultVersion: 'rule-v4' } } }))
   await page.goto('/publish/price-advice')
+  await page.getByLabel('原价（元）', { exact: true }).fill('100')
   const submit = page.locator('form button[type="submit"]')
   await submit.click()
   await expect(page.getByText('样本不足，以下为规则区间参考', { exact: true })).toBeVisible()

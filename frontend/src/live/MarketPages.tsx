@@ -420,13 +420,14 @@ export function PricePage() {
     })}>
       <Form.Item name="category" label="分类" rules={[{ required: true }]}><Select options={categories} /></Form.Item>
       <Form.Item name="condition" label="成色" rules={[{ required: true }]}><Select options={conditions} /></Form.Item>
-      <Form.Item name="originalPrice" label="原价（元）" rules={[{ type: 'number', min: 0.01, max: 99999999.99 }]}><InputNumber min={0.01} max={99999999.99} precision={2} /></Form.Item>
+      <Form.Item name="originalPrice" label="原价（元）" extra="填写购买时的原价，用于按成色估算；不知道原价时，可返回发布页手动定价。" rules={[{ required: true, message: '请先填写商品原价，再计算参考区间。' }, { type: 'number', min: 0.01, max: 99999999.99 }]}><InputNumber aria-label="原价（元）" min={0.01} max={99999999.99} precision={2} placeholder="请输入购买时的原价" style={{ width: '100%' }} /></Form.Item>
       <Button type="primary" htmlType="submit" loading={mutation.busy}>计算区间</Button>
     </Form>
-  </Card><section className="surface"><h2>建议发布区间</h2>{!result && <Typography.Paragraph type="secondary">填写商品信息并计算后，这里会显示实际返回的参考区间与影响因素。</Typography.Paragraph>}
+  </Card><section className="surface"><h2>建议发布区间</h2>{!result && <Typography.Paragraph type="secondary">填写分类、成色和原价后计算。暂无成交样本时，将展示按原价与成色估算的规则区间。</Typography.Paragraph>}
     {result && <div className="price-advice-result"><Alert type={alertType} title={alertTitle} description={<>
       {bodyRange && <div>{rangeText}</div>}
       {result.sampleSize != null && <div>基于 {result.sampleSize} 个样本</div>}
+      {result.sampleSize === 0 && result.method === 'rule' && <div>当前没有可用于估价的成交样本，参考区间按原价和成色估算。</div>}
       {result.degraded && <div>已降级：{systemText(result.degradationReason, '智能服务不可用，当前仅供参考。')}</div>}
       {!result.degraded && result.degradationReason && <div>{systemText(result.degradationReason, '当前结果仅供参考。')}</div>}
       <div>影响因素：{result.factors.map((value) => t(systemText(value, '商品基础信息'))).join(' · ') || '后端未提供'}</div>
