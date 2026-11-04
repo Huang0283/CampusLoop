@@ -74,19 +74,27 @@ def source_sha():
     return manifest["sourceCommit"]
 
 
-def initialize(namespace, run_id):
+def initialize(namespace, run_id, *, existing_only=False):
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,19}", run_id):
         raise ValueError("Run ID must be 1-20 lowercase letters, digits or hyphens")
     folder = ROOT / ".codex-tmp" / "audit" / namespace / run_id
     config_path = folder / "private-config.json"
-    sha = source_sha()
     if config_path.exists():
         config = json.loads(config_path.read_text(encoding="utf-8"))
-        if config["AUDIT_SOFTWARE_SHA"] != sha:
+        if (
+            config["AUDIT_NAMESPACE"] != namespace
+            or config["AUDIT_RUN_ID"] != run_id
+            or config["AUDIT_PROJECT"] != f"campusloop-{namespace}-{run_id}-audit"
+        ):
+            raise ValueError("Stored configuration does not match this audit batch")
+        if not existing_only and config["AUDIT_SOFTWARE_SHA"] != source_sha():
             raise ValueError(
                 "Software SHA changed; preserve this batch and use a new --run-id"
             )
         return folder, config
+    if existing_only:
+        raise ValueError("This audit batch has not been initialized")
+    sha = source_sha()
     api, ui, storage = PORTS[namespace]
     project = f"campusloop-{namespace}-{run_id}-audit"
     config = dict(
@@ -292,7 +300,9 @@ def main():
     parser.add_argument("--namespace", choices=tuple(PORTS), required=True)
     parser.add_argument("--run-id", default="run1")
     args = parser.parse_args()
-    folder, config = initialize(args.namespace, args.run_id)
+    folder, config = initialize(
+        args.namespace, args.run_id, existing_only=args.action in {"stop", "status"}
+    )
     if args.action == "start":
         check_configuration(folder, config)
         compose(folder, config, "build", "api")

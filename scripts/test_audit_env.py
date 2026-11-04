@@ -32,9 +32,15 @@ class AuditConfigTests(unittest.TestCase):
             self.assertNotEqual(config["AUDIT_DATABASE"], original["AUDIT_DATABASE"])
             with (
                 patch.object(audit_env, "source_sha", return_value="b" * 40),
-                self.assertRaises(ValueError),
             ):
-                audit_env.initialize("business", "run1")
+                self.assertEqual(
+                    audit_env.initialize("business", "run1", existing_only=True),
+                    (folder, original),
+                )
+                with self.assertRaises(ValueError):
+                    audit_env.initialize("business", "run1")
+                with self.assertRaises(ValueError):
+                    audit_env.initialize("business", "missing", existing_only=True)
 
     def test_run_id_cannot_escape_private_directory(self):
         for value in ("../daily", "RUN1", "", "a" * 21, "run/1"):
