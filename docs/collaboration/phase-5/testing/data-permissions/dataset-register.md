@@ -13,8 +13,14 @@
 | price-checks.json | 24 | 每类正常/边界/不足/非法；映射 M8 分类、成色、整数分 |
 | trust-risk-checks.json | 12 | 四组各 3；M8 events/risk 输入；无有效交易中立 3.5 |
 | scenario-inputs.json | 12 | S01–S12 对应 P049–P060；T2 创建真实业务前置 |
+| admin-search-products.json | 10（可选） | AP001–AP010 搜索对照样例；不替换原 60 件；setup --admin-search 后共 70 件 |
+| search-checks-admin-v2.json | 12 | Q31–Q42 实际是市场关键词定义，包含完整词、简介、分类、跨页和清空 |
+| admin-list-checks.json | 8 | AL01–AL08 用户管理、商品治理、举报后台搜索步骤，未执行 |
+| admin-scenario-inputs.json | 8 | AS01–AS08 四类举报及禁用/恢复、下架/恢复配方，未执行 |
 | media-manifest.csv | 12 | 8 张 CC0 自制图（4 JPEG/4 PNG）；4 个本地生成拒绝文件定义 |
 
 图片源代码与许可见测试目录 `generate_media.py`、`media/LICENSE.md`；不是外部照片。源图 SHA256/MIME/字节数逐个登记；API 归一化后的 JPEG 哈希另存私有运行清单。地点统一为“校内”。
 
 软件 SHA：`3b0b333af6ae5a26272ef62b3954f14e293b56d6`。实际导入/拒绝/阻塞数量以 `runtime-evidence.json` 为准，静态行数不代表执行成功数。对应 PR #142，目标 `team/testing`，未合并 main。
+
+以上 SHA/运行证据属于原始包的历史验证。PR #148 的新增材料不沿用旧证据声称业务通过；当前软件、数据 commit、可选扩展和接收步骤见 [admin-search-handoff.md](admin-search-handoff.md)。

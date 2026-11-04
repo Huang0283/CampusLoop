@@ -5,6 +5,13 @@ accounts, uploaded images, products and wanted posts through the real API. It
 does not seed transactions, reviews or reports, modify production roles, or
 install mocked responses in application routes. T2 builds business scenarios.
 
+PR #148 adds an optional ten-product search set (70 products with `setup_data.py
+--admin-search`, otherwise the original 60), 12 market keyword recipes, eight
+admin list-search recipes and eight governance scenarios. See
+[the T1 → T2 handoff](../../../../docs/collaboration/phase-5/testing/data-permissions/admin-search-handoff.md)
+for exact commands, software prerequisites, ID mapping and pending execution.
+Repeat setup with the same option and a fresh run ID for this dataset revision.
+
 ## Install and validate
 
 Use Python 3.12 with the repository's locked backend dependencies. From the
@@ -25,6 +32,11 @@ explicitly. File-format/size rejection inputs are generated locally under
 ignored `media/generated/`; the >5 MiB file is never committed. No generator
 uploads files. Eight original geometric JPEG/PNG files are committed, with a
 CC0 source statement in `media/LICENSE.md` and a 12-definition manifest.
+
+It also checks the four added JSON families, search expectations against their
+actual product text, governance status values/dependencies, admin routes and
+the ten-column C01-C48 execution CSV. These are definition checks; they do not
+execute the new UI, search or governance recipes or confirm earlier human results.
 
 `mock-responses.json` is labelled `MOCK_RESPONSE`, only for isolated UI fixture
 injection; a public route's artificial 401 is not an expected guest response.

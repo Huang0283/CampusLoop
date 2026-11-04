@@ -1,0 +1,326 @@
+[
+  {
+    "id": "Q31",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "笔记本",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP001",
+      "AP002",
+      "AP010"
+    ],
+    "expectedExclude": [
+      "P001",
+      "P010",
+      "P016",
+      "AP003"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "同一关键词覆盖电子电脑和纸质本，不把Kindle或教材冒充笔记本。"
+  },
+  {
+    "id": "Q32",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "笔记本电脑",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP001",
+      "AP010"
+    ],
+    "expectedExclude": [
+      "AP002",
+      "AP003",
+      "P010",
+      "P016"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "完整关键词区分电脑、纸本、Kindle 和 iPad。"
+  },
+  {
+    "id": "Q33",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "电脑",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP001",
+      "AP003",
+      "AP009",
+      "AP010"
+    ],
+    "expectedExclude": [
+      "P010",
+      "P016"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "关键词按名称及简介匹配，包的简介命中也应返回；不是整机意图评估。"
+  },
+  {
+    "id": "Q34",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "台式电脑",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP003"
+    ],
+    "expectedExclude": [
+      "AP001",
+      "AP010"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "精确商品词。"
+  },
+  {
+    "id": "Q35",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "自行车",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP004",
+      "AP005",
+      "P032"
+    ],
+    "expectedExclude": [],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "山地与公路自行车都含该词。"
+  },
+  {
+    "id": "Q36",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "山地车",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP004"
+    ],
+    "expectedExclude": [
+      "AP005",
+      "P032"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "山地车本体匹配，排除公路车；原P032不是山地车。"
+  },
+  {
+    "id": "Q37",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "雨伞",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP006"
+    ],
+    "expectedExclude": [
+      "AP007"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "摄影柔光伞标题/简介不含完整关键词雨伞。"
+  },
+  {
+    "id": "Q38",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "充电宝",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP008"
+    ],
+    "expectedExclude": [],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "明确商品词；不把空格拼接词当作已实现的同义词合并。"
+  },
+  {
+    "id": "Q39",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "可以装电脑",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [
+      "AP009"
+    ],
+    "expectedExclude": [
+      "AP001",
+      "AP003",
+      "AP010"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "简介短语匹配，不能返回笔记本整机。"
+  },
+  {
+    "id": "Q40",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [],
+    "expectedExclude": [],
+    "assertion": "all_namespace_products",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "pageSize=20，遍历全部页核对70件命名空间商品无重复遗漏。"
+  },
+  {
+    "id": "Q41",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "笔记本",
+    "mode": "keyword",
+    "filters": {
+      "category": "BOOKS"
+    },
+    "expectedInclude": [
+      "AP002"
+    ],
+    "expectedExclude": [
+      "AP001",
+      "AP003",
+      "AP010"
+    ],
+    "assertion": "include_exclude",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
+    ],
+    "reason": "BOOKS 分类过滤；不使用接口未支持的 maxPrice。"
+  },
+  {
+    "id": "Q42",
+    "scope": "market",
+    "route": "/market",
+    "endpoint": "/products",
+    "query": "",
+    "mode": "keyword",
+    "filters": {},
+    "expectedInclude": [],
+    "expectedExclude": [],
+    "assertion": "all_namespace_products",
+    "pageSize": 20,
+    "caseIds": [
+      "T2-C04"
+    ],
+    "steps": [
+      "在独立 audit 环境导入基础60件和可选10件；使用私有 manifest 将别名解析为实际ID。",
+      "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
+      "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。",
+      "从第2页输入“笔记本”，再清空；检查页码回到1及全部70件。"
+    ],
+    "reason": "输入关键词后清空，页码恢复1；遍历确认全量。"
+  }
+]

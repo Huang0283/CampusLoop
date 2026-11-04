@@ -6,6 +6,7 @@ import secrets
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
+from admin_fixtures import products_for_run
 from runtime import (
     BASE,
     ApiError,
@@ -21,6 +22,10 @@ from runtime import (
 
 def setup(args):
     path, state, client = open_state(args, create=True)
+    if state.get("products") and state.get("adminSearch", False) != args.admin_search:
+        raise ValueError("Do not change --admin-search within an existing run; use a new run ID")
+    state["adminSearch"] = args.admin_search
+    save(path, state)
     state["blocked"] = []
     if args.admins:
         admins = json.loads(args.admins.read_text(encoding="utf-8"))
@@ -78,7 +83,7 @@ def setup(args):
 
     with (BASE / "media-manifest.csv").open(encoding="utf-8", newline="") as stream:
         media = {row["fixtureId"]: row for row in csv.DictReader(stream) if row["valid"] == "true"}
-    for fixture in read("products.json"):
+    for fixture in products_for_run(admin_search=args.admin_search):
         fid = fixture["fixtureId"]
         owner = state["accounts"][fixture["ownerAlias"]]
         token, _ = token_for(client, owner)
@@ -204,6 +209,9 @@ if __name__ == "__main__":
     parser = arguments(__doc__)
     parser.add_argument(
         "--admins", type=Path, help="Private R/S email/password JSON; no role creation"
+    )
+    parser.add_argument(
+        "--admin-search", action="store_true", help="Add ten isolated search products (70 total)"
     )
     try:
         from verify_data import verify_static

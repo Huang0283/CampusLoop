@@ -1,0 +1,122 @@
+[
+  {
+    "scenarioId": "AS01",
+    "type": "report",
+    "targetType": "USER",
+    "reporterAlias": "B",
+    "targetAlias": "A",
+    "expectedStatus": "PENDING",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "创建举报；ORDER必须记录S08生成的真实订单ID；CHAT_MESSAGE必须记录S01中具体消息ID，不能使用会话ID。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ],
+    "reason": "VIOLATION",
+    "description": "T1 AS01 虚构后台举报测试"
+  },
+  {
+    "scenarioId": "AS02",
+    "type": "report",
+    "targetType": "PRODUCT",
+    "reporterAlias": "C",
+    "targetFixtureId": "P001",
+    "expectedStatus": "PENDING",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "创建举报；ORDER必须记录S08生成的真实订单ID；CHAT_MESSAGE必须记录S01中具体消息ID，不能使用会话ID。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ],
+    "reason": "DESCRIPTION_MISMATCH",
+    "description": "T1 AS02 虚构后台举报测试"
+  },
+  {
+    "scenarioId": "AS03",
+    "type": "report",
+    "targetType": "ORDER",
+    "reporterAlias": "B",
+    "targetScenario": "S08",
+    "expectedStatus": "PENDING",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "创建举报；ORDER必须记录S08生成的真实订单ID；CHAT_MESSAGE必须记录S01中具体消息ID，不能使用会话ID。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ],
+    "reason": "VIOLATION",
+    "description": "T1 AS03 虚构后台举报测试"
+  },
+  {
+    "scenarioId": "AS04",
+    "type": "report",
+    "targetType": "CHAT_MESSAGE",
+    "reporterAlias": "B",
+    "targetScenario": "S01",
+    "expectedStatus": "PENDING",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "选择S01中由A发送给B的消息作为举报目标，不举报B自己发的消息。",
+      "创建举报；ORDER必须记录S08生成的真实订单ID；CHAT_MESSAGE必须记录S01中具体消息ID，不能使用会话ID。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ],
+    "reason": "VIOLATION",
+    "description": "T1 AS04 虚构后台举报测试",
+    "targetMessageAuthorAlias": "A"
+  },
+  {
+    "scenarioId": "AS05",
+    "type": "user_ban",
+    "adminAlias": "R",
+    "targetAlias": "E",
+    "expectedStatus": "DISABLED",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ]
+  },
+  {
+    "scenarioId": "AS06",
+    "type": "user_unban",
+    "adminAlias": "R",
+    "targetAlias": "E",
+    "expectedStatus": "ACTIVE",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ],
+    "dependsOn": "AS05"
+  },
+  {
+    "scenarioId": "AS07",
+    "type": "product_hide",
+    "adminAlias": "R",
+    "targetFixtureId": "P002",
+    "expectedStatus": "HIDDEN",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "读取商品最新updatedAt，提交hidden、非空reason、expectedUpdatedAt；恢复前重新读取时间戳，不复用下架前快照。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ],
+    "expectedModerationBlocked": true
+  },
+  {
+    "scenarioId": "AS08",
+    "type": "product_restore",
+    "adminAlias": "R",
+    "targetFixtureId": "P002",
+    "expectedStatus": "ON_SALE",
+    "status": "未执行",
+    "steps": [
+      "用私有manifest解析角色和资源ID；前置由T2通过真实API创建，不把场景别名当ID。",
+      "读取商品最新updatedAt，提交hidden、非空reason、expectedUpdatedAt；恢复前重新读取时间戳，不复用下架前快照。",
+      "记录操作、HTTP响应、状态刷新、审计和脱敏证据；缺前置记阻塞。"
+    ],
+    "dependsOn": "AS07",
+    "expectedModerationBlocked": false
+  }
+]
