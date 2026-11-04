@@ -1,10 +1,13 @@
 # 给 T1 / T2 / T3 的独立测试环境
 
-这是各组员在自己电脑启动的环境，不是让别人访问 M10 电脑的 `127.0.0.1`。每人需要 Docker Desktop/Engine、Compose 2.24.4+、Python 3.10+；网页另需 Node.js 22+。第一次构建需联网获取镜像/依赖。Windows 使用 PowerShell，命令在源码根目录执行。
+这是各组员在自己电脑启动的环境，不是让别人访问 M10 电脑的 `127.0.0.1`。每人需要 Docker Desktop/Engine、Compose 2.24.4+、Python 3.12；网页另需 Node.js 22+。第一次构建需联网获取镜像/依赖。Windows 使用 PowerShell，命令在源码根目录执行；收到压缩包先完整解压，进入 `source/`。
 
 ## T2 先这样开始
 
 ```powershell
+py -3.12 -m venv .codex-tmp/runner
+& ./.codex-tmp/runner/Scripts/Activate.ps1
+python -m pip install -r backend/requirements.txt
 python scripts/audit_env.py start --namespace business --run-id run1
 npm ci --prefix frontend
 python scripts/audit_env.py ui --namespace business --run-id run1
@@ -48,7 +51,9 @@ python "$t1/setup_data.py" @target --admin-search
 python "$t1/verify_data.py" --live @target
 ```
 
-数据脚本需要 Python 3.12 及 `backend/requirements.txt` 中的依赖。建议先在自己的 Python 3.12 虚拟环境安装：`python -m pip install -r backend/requirements.txt`。`--admin-search` 使用 PR #148 增补版；该版本为 70 件商品（原 60 + 10 件搜索边界商品），仍为 8 个账号和 12 条求购。不用该参数则为 60 件；同一批次不能中途切换该参数。随包 `response-contract.json` 已对新增通知枚举的 OpenAPI 重新生成并校验，数据来源与适配差异见包清单。
+数据脚本需要 Python 3.12 及 `backend/requirements.txt` 中的依赖。新终端要再次激活上述虚拟环境。若 PowerShell 不允许激活，可直接用 `./.codex-tmp/runner/Scripts/python.exe` 替代命令中的 `python`，不需要修改执行策略。Linux/macOS 用 `python3.12 -m venv .codex-tmp/runner` 和 `source .codex-tmp/runner/bin/activate`。
+
+`--admin-search` 使用 PR #148 增补版；该版本为 70 件商品（原 60 + 10 件搜索边界商品），仍为 8 个账号和 12 条求购。不用该参数则为 60 件；同一批次不能中途切换该参数。随包 `response-contract.json` 按 main 的 OpenAPI 重新生成并校验；已核对的字段变化是面交时间从通用 `time` 改为校内本地时间 `HH:MM` 格式约束。T1 脚本另补 Windows 状态文件短暂占用时的有限重试，不改变业务数据和预期结果；准确提交和适配差异见包清单。
 
 首次导入应无 R/S 或 Z 禁用阻塞。第二次导入应保持实际 ID 和数量不变，验证写明真实结果。T1 的静态校验要在包含源码和材料的完整检出目录执行；不要把移动目录造成的找不到源码当成应用缺陷。随包材料保留原提交和目录，具体来源见包的交接清单。
 
@@ -63,6 +68,8 @@ python scripts/audit_env.py start --namespace business --run-id run1
 ```
 
 `stop` 只停止本批次容器，保留所有卷。启动脚本没有删卷、清库或“重置全部”选项；日常 `campusloop-local` 项目不受影响。T3 的破坏性恢复测试使用自己的 `environment`，不要停别人的服务。
+
+`status` 会检查容器、初始化缺失的 R/S，并实际登录/退出确认权限，因此会产生本测试环境的认证记录。它不会重置既有账号或重建商品。
 
 代码版本改变、数据被交易流程修改、或已执行过有状态清理时，保留旧记录并用新的 `--run-id run2`；同 namespace 默认端口相同，先停止旧批次和旧网页终端。新批次会生成新的 R/S，不能继续借用 run1 的凭据。启动脚本拒绝用脏工作目录冒充原 SHA；源码包则核验清单哈希后启动。
 
