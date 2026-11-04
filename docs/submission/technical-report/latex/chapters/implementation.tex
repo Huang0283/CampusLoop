@@ -1,0 +1,54 @@
+\chapter{Implementation}
+\label{chap:implementation}
+
+\section{Client and API Layers}
+
+The browser application is implemented in React and TypeScript. Feature pages call a generated SDK through a small handwritten adapter rather than constructing endpoint URLs throughout the UI. The adapter restores identity on startup, attaches the bearer access token to protected requests, and uses the browser-session header for cookie-backed restoration. Market pages publish products, search the catalog, request wanted matches, obtain price advice, and start chat sessions. Chat pages send messages and offers and navigate to the newly created order after acceptance. Transaction pages expose meetup proposal, meetup confirmation, and completion confirmation. Administrator pages load risk clues and submit report decisions.
+
+FastAPI route modules separate authentication, market, transaction, intelligence, media, and governance concerns. Pydantic input models reject invalid shapes and bounds before domain logic is executed. A common response envelope and structured business errors keep client handling consistent. SQLAlchemy sessions delimit each business transaction; commits occur only after all related records, events, notifications, and audit data have been staged.
+
+\section{Six End-to-End Source Chains}
+
+\subsection{Browser Session Restoration}
+
+The client method \texttt{restoreIdentity} calls \texttt{POST /auth/browser-session}. The route obtains the session family from the secure browser cookie, validates the request origin, applies a bounded refresh window, creates a fresh access token, serializes the current user, appends \texttt{browser\_session\_restored}, and commits. The response is marked \texttt{no-store}. A separate refresh route rotates one-time refresh sessions; reusing a consumed token commits family revocation before returning an error.
+
+\subsection{Product Publication}
+
+The market page uploads selected images and calls \texttt{createProduct}. The API confirms that every supplied object key belongs to the actor and to the product-media purpose. It then inserts a product in \texttt{ON\_SALE}, persists ordered image references, and returns the public product representation. An idempotency key scopes retries to \texttt{create-product}, so a transient client retry cannot create an uncontrolled duplicate.
+
+\subsection{Chat and Offer Negotiation}
+
+Creating a chat session locks and validates its product or wanted-post context, derives buyer and seller roles, prevents contacting one's own listing, and reuses an existing session for the same parties and context. Messages carry a client-generated identifier. Reusing that identifier with different content produces a conflict, while an exact replay returns the original record. Offer creation validates the listing again and persists a pending amount through the shared idempotency service.
+
+\subsection{Unique Order Creation}
+
+Offer acceptance follows the global lock order documented in the transaction service: authorization context, product, offer, order, then meetup. Only the participant who did not propose a still-pending, unexpired offer can accept it. Under those locks the service marks the offer accepted, changes the product to \texttt{RESERVED}, inserts the order, appends its initial event, and creates a notification. The accepted offer is the one-to-one origin of the order at the data-model level, while the idempotency scope \texttt{accept:\{offerId\}} protects request replay.
+
+\subsection{Meetup and Dual Completion}
+
+A participant can propose a future campus location and time. Updating the proposal increments its version and resets all confirmations. Each confirmation includes the meetup identifier and version; stale clients receive \texttt{MEETUP\_VERSION\_CONFLICT}. Both roles must confirm the same version before the order becomes \texttt{MEETUP\_ARRANGED}. Completion requests repeat the version check and store separate buyer and seller flags. Only the second valid confirmation moves the order to \texttt{COMPLETED}, marks the product \texttt{SOLD}, and sends review requests to both parties.
+
+\subsection{Report Resolution and Audit}
+
+The user route creates a \texttt{PENDING} report only after target-specific authorization and evidence ownership checks. The administrator route locks the report, requires a non-blank decision note, updates the handler and timestamp, notifies the reporter, and writes a governance audit record with before and after snapshots. Reconsidering an already handled report uses a separate override endpoint and a compare-and-set precondition, making the exceptional action both explicit and conflict-aware.
+
+\section{Persistence, Concurrency, and Idempotency}
+
+PostgreSQL is the source of truth for user-visible and audit-relevant state. Row locks serialize competing offer, order, meetup, and report mutations. Database uniqueness constraints complement route checks for one-per-context records, and domain-level version fields reject stale meetup and report actions. Idempotency records bind an actor, operation scope, key, and request payload to a stored response. Consequently, a byte-for-byte retry is safe while reuse of the key for another payload is rejected.
+
+The matching worker uses the same PostgreSQL database as a durable queue. It claims matching jobs without moving authoritative data into Redis, persists outputs and run observations, and exposes a separate health endpoint. The worker records a runtime version independently from the algorithm and result versions, so an operator can distinguish deployment provenance from advisory logic provenance.
+
+\section{Media Isolation}
+
+MinIO uses two buckets with different exposure. Product images are public-read because they are part of the catalog. Chat images, report evidence, and other sensitive objects are private and require an authorized API read. Object keys are not accepted merely because they have a plausible prefix: the storage service verifies ownership and intended purpose before another record can reference them. This avoids treating an object-store URL as proof of authorization.
+
+\section{Runtime Topology and Operations}
+
+The Compose definition pins PostgreSQL with pgvector and Redis versions, builds MinIO from a fixed source tag, and builds API, worker, and baseline service images from the repository. The API waits for database, Redis, storage, and bucket initialization. The worker waits for database and API readiness. The advisory service listens only on the Compose network and requires a sufficiently long shared RPC token. Container health probes and bounded JSON log rotation provide operational signals without exposing the advisory ports to the host.
+
+For daily development, \texttt{scripts/start-local.ps1} applies \texttt{compose.local.yml}, binds infrastructure ports to loopback, and uses stable named volumes. Acceptance exercises use isolated database and Redis instances so verification cannot destroy or contaminate the daily environment. These operational rules are part of reproducibility, not optional developer convenience.
+
+\section{Verification Boundary}
+
+The implementation supports deterministic route, contract, concurrency, and fallback tests. However, passing those tests does not establish production model quality. Search and matching metrics require an independently reviewed relevance set; price evaluation requires authorized real completed transactions; trust and risk behavior require representative, privacy-approved observations and human review. The current report therefore distinguishes code-path correctness from model-readiness evidence.

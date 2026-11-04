@@ -1,0 +1,53 @@
+erDiagram
+    USER ||--o{ AUTH_SESSION_FAMILY : owns
+    AUTH_SESSION_FAMILY ||--o{ REFRESH_SESSION : rotates
+    USER ||--o{ PRODUCT : publishes
+    PRODUCT ||--o{ PRODUCT_IMAGE : has
+    USER ||--o{ WANTED_POST : creates
+    PRODUCT ||--o{ CHAT_SESSION : contextualizes
+    WANTED_POST ||--o{ CHAT_SESSION : contextualizes
+    USER ||--o{ CHAT_SESSION : buyer
+    USER ||--o{ CHAT_SESSION : seller
+    CHAT_SESSION ||--o{ CHAT_MESSAGE : contains
+    CHAT_SESSION ||--o{ OFFER : negotiates
+    OFFER ||--o| ORDER : accepted_as
+    PRODUCT ||--o| ORDER : reserved_for
+    ORDER ||--o| MEETUP : schedules
+    ORDER ||--o{ ORDER_EVENT : audits_state
+    ORDER ||--o{ REVIEW : permits
+    USER ||--o{ REPORT : files
+    USER ||--o{ NOTIFICATION : receives
+    WANTED_POST ||--o{ MATCHING_JOB : enqueues
+    MATCHING_JOB ||--o{ MATCHING_RESULT : produces
+    MATCHING_JOB ||--o{ AI_TASK_RUN : observes
+
+    USER {
+      bigint id PK
+      string role
+      string status
+    }
+    PRODUCT {
+      bigint id PK
+      bigint owner_id FK
+      string status
+      decimal price
+    }
+    OFFER {
+      bigint id PK
+      bigint session_id FK
+      string status
+      decimal amount
+    }
+    ORDER {
+      bigint id PK
+      bigint offer_id FK
+      bigint product_id FK
+      string status
+      int version
+    }
+    REPORT {
+      bigint id PK
+      bigint reporter_id FK
+      string target_type
+      string status
+    }

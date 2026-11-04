@@ -1,0 +1,74 @@
+\chapter{Technical Decisions and Trade-offs}
+\label{chap:decisions}
+
+\section{Authoritative Modular API with Isolated Advisory Processes}
+
+\textbf{Decision.} Keep business mutations in one FastAPI application and run the worker and M7/M8 advisory service as separate processes.
+
+\textbf{Alternatives.} A single process would simplify local startup; fully independent domain microservices would maximize deployment separation.
+
+\textbf{Rationale and trade-off.} The selected design preserves one transactional boundary for offers, orders, meetups, reports, notifications, and audit records while preventing slow advisory work from occupying the API process. It avoids distributed transaction complexity, but the API remains a scaling unit and internal module boundaries require discipline. The Compose definitions and \texttt{backend/app/worker/runner.py} are the executable evidence.
+
+\section{PostgreSQL as the Business and Queue Authority}
+
+\textbf{Decision.} Store durable business state and matching jobs in PostgreSQL; use Redis only for bounded operational state.
+
+\textbf{Alternatives.} Redis could hold sessions or the matching queue, and a dedicated broker could provide richer delivery semantics.
+
+\textbf{Rationale and trade-off.} PostgreSQL row locks, constraints, and atomic commits allow a state transition, its event, and its notification to succeed or fail together. The worker can claim durable jobs with database locking semantics. This reduces infrastructure and split-brain risk, at the cost of additional database load and less sophisticated queue routing.
+
+\section{Explicit State Machines, Lock Ordering, and Idempotency}
+
+\textbf{Decision.} Implement offer, order, meetup, and report changes as guarded state transitions under a global lock order and idempotency scopes.
+
+\textbf{Alternatives.} Optimistic last-write-wins updates or frontend-only button disabling would be simpler.
+
+\textbf{Rationale and trade-off.} Concurrent acceptance, cancellation, and completion requests can otherwise create two orders, release a reserved listing, or complete against a stale meetup. Row locks and version checks serialize the critical path; idempotency protects network retries. The trade-off is more code and potential lock contention, mitigated by a consistent authorization--product--offer--order--meetup lock order and short transactions.
+
+\section{Cookie-backed Browser Restoration with Rotating Session Families}
+
+\textbf{Decision.} Restore browser identity through an opaque HttpOnly cookie and a server-side session family, while issuing short-lived access tokens for API calls.
+
+\textbf{Alternatives.} Persist refresh tokens in browser local storage or require login after every page reload.
+
+\textbf{Rationale and trade-off.} The cookie reduces script access to long-lived credentials, while family revocation and one-time refresh rotation limit replay. Origin checks and secure-cookie configuration are still required to manage cross-site request risks. Server-side session records add storage and cleanup work but provide auditable revocation.
+
+\section{Purpose-bound Dual-bucket Media Storage}
+
+\textbf{Decision.} Store catalog media in a public-read bucket and sensitive chat/report media in a private bucket, verifying key ownership and purpose before reference.
+
+\textbf{Alternatives.} One public bucket is operationally simple; one private bucket with signed URLs gives uniform access control.
+
+\textbf{Rationale and trade-off.} Public product images can be cached and displayed without an API proxy, while evidence and private messages never inherit public-read policy. Two policies and object-purpose checks increase configuration complexity, but materially reduce accidental disclosure.
+
+\section{Frozen Local Baseline Before Remote Advisory Acceptance}
+
+\textbf{Decision.} Validate inputs and compute the checked-in rule baseline locally before accepting an advisory RPC result; enforce a 1.5-second timeout and explicit fallback metadata.
+
+\textbf{Alternatives.} Trust the remote response, fail the request when the service is down, or silently return the baseline.
+
+\textbf{Rationale and trade-off.} Local validation prevents transport failure from bypassing hard constraints. Comparing schema, version, identities, bounds, and explanations prevents an incompatible service from expanding eligibility. Explicit degradation makes operational failure visible without blocking trading. The cost is duplicate computation and strict coupling to the frozen contract, which is appropriate until a separately reviewed version is approved.
+
+\section{Post-ranking Visibility Recheck}
+
+\textbf{Decision.} Re-read ranked products and owners from PostgreSQL and compare entity versions immediately before serialization.
+
+\textbf{Alternatives.} Return the advisory service's product snapshot directly.
+
+\textbf{Rationale and trade-off.} A listing can be sold, hidden, deleted, or associated with a disabled user while ranking is in progress. The final read prevents stale advisory data from bypassing current visibility. It adds one database query per request but avoids exposing unavailable records or internal fields.
+
+\section{Human Decision for Risk and Governance}
+
+\textbf{Decision.} Treat risk output as clues and report resolution as an explicit administrator action with a reason and audit record.
+
+\textbf{Alternatives.} Automatically suspend accounts or remove listings when a score crosses a threshold.
+
+\textbf{Rationale and trade-off.} Current signals are incomplete: there is no payment or device-fingerprint input, reports can be malicious, and evaluation is not sufficient for automated enforcement. Human review limits irreversible false positives and creates accountability, at the cost of review latency and staffing. The audit record deliberately states that enforcement was not executed.
+
+\section{Honest Missingness and No-go Gates}
+
+\textbf{Decision.} Represent absent evidence as \texttt{null}, \texttt{UNAVAILABLE}, \texttt{INSUFFICIENT\_DATA}, or \texttt{degraded}; do not infer successful model readiness from contract tests.
+
+\textbf{Alternatives.} Substitute zeroes for missing risk signals, derive price accuracy from synthetic records, or present demo plausibility as evaluation.
+
+\textbf{Rationale and trade-off.} Explicit missingness can make the UI less impressive and delays a go-live claim, but it prevents unsupported decisions. The resulting gates are actionable: collect authorized real transactions, freeze and independently review evaluation sets, retain baseline comparisons, and require accountable approval before changing the deployment claim.

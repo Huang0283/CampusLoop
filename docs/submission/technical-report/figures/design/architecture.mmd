@@ -1,0 +1,23 @@
+flowchart LR
+    Browser["React browser client"] -->|"HTTPS / JSON"| API["FastAPI API"]
+    Browser -->|"public product media"| Public["MinIO public bucket"]
+    API -->|"SQL transactions"| DB[("PostgreSQL + pgvector")]
+    API -->|"rate limits / cache"| Redis[("Redis")]
+    API -->|"signed private reads\nand object writes"| MinIO["MinIO private bucket"]
+    API -->|"bounded RPC, 1.5 s"| Advisory["M7/M8 advisory service"]
+    Worker["Matching worker"] -->|"claim jobs / persist results"| DB
+    Worker -->|"bounded RPC"| Advisory
+    Worker -->|"health and run telemetry"| DB
+    API -->|"enqueue matching jobs"| DB
+
+    subgraph TrustBoundary["CampusLoop server trust boundary"]
+        API
+        Worker
+        Advisory
+        DB
+        Redis
+        MinIO
+        Public
+    end
+
+    note["PostgreSQL remains authoritative;\nadvisory failure does not block trading"] -.-> API
