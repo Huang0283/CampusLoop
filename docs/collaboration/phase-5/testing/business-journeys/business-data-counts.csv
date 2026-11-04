@@ -1,0 +1,13 @@
+metric,expected_min,actual_count,ids,generated_by,evidence_path
+sessions,6,,,,
+messages,24,,,,
+favorites,8,,,,
+completed_trade,1,,,,
+reviews,2,,,,
+reports_user,1,,,,
+reports_product,1,,,,
+reports_order,1,,,,
+reports_chat_message,1,,,,
+offers,,,,,
+orders,,,,,
+notifications,,,,,
