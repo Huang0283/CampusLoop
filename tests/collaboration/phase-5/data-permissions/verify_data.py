@@ -9,6 +9,7 @@ from collections import Counter
 from datetime import UTC, datetime, timedelta
 from urllib.parse import urlencode
 
+from admin_fixtures import products_for_run, verify_admin_fixtures
 from jsonschema import Draft202012Validator, FormatChecker
 from PIL import Image
 from runtime import (
@@ -347,15 +348,18 @@ def verify_static(base=BASE):
             row["labelLevel"] == "L0_SYNTHETIC" and row["basis"],
             "Synthetic fact provenance",
         )
+    extensions = verify_admin_fixtures(base, data)
     return {
         "inputs": counts,
+        "additionalInputs": extensions,
         "media": 12,
         "schemaRejected": rejected,
         "semanticNegativesNotExecuted": 2,
         "mockSchemas": 20,
         "ruleChecks": 36,
         "transportUnavailableNotExecuted": 3,
-        "permissionCasesNotExecuted": 36,
+        "permissionCasesDefined": 48,
+        "permissionCasesNotExecutedByThisCheck": 48,
     }
 
 
@@ -370,7 +374,8 @@ def verify_live(args):
     if missing_admins:
         require(bool(state["blocked"]), "Missing admins must be reported as blockers")
     require(
-        set(state["products"]) == {r["fixtureId"] for r in read("products.json")},
+        set(state["products"])
+        == {r["fixtureId"] for r in products_for_run(admin_search=state.get("adminSearch", False))},
         "Product manifest coverage",
     )
     require(
@@ -457,7 +462,9 @@ def verify_live(args):
             public_media_hash(record["url"]) == record["storedSha256"],
             "Stored media hash mismatch",
         )
-    real_to_fixture = {r["id"]: fid for fid, r in state["products"].items()}
+    # The original 30 oracles cover only the unchanged 60-product foundation.
+    foundation = {r["fixtureId"] for r in read("products.json")}
+    real_to_fixture = {r["id"]: fid for fid, r in state["products"].items() if fid in foundation}
     for row in read("search-checks.json"):
         # Compare only this namespace while traversing every API page.
         actual, page = set(), 1
@@ -486,6 +493,7 @@ def verify_live(args):
         "rejected": 0,
         "blocked": state["blocked"],
         "liveSearchChecks": 30,
+        "additionalSearchChecksNotExecuted": 20,
         "softwareSha": state["environment"]["softwareSha"],
     }
 

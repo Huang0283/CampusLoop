@@ -1,6 +1,7 @@
 """Package integrity and local audit boundaries, with no network writes."""
 
 import copy
+import csv
 import json
 import shutil
 import tempfile
@@ -10,7 +11,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 import runtime
+import setup_data
 import verify_data
+from admin_fixtures import products_for_run, verify_execution_log
 
 
 class PackageTests(unittest.TestCase):
@@ -18,7 +21,68 @@ class PackageTests(unittest.TestCase):
         report = verify_data.verify_static()
         self.assertEqual(report["mockSchemas"], 20)
         self.assertEqual(report["schemaRejected"], 22)
-        self.assertEqual(report["permissionCasesNotExecuted"], 36)
+        self.assertEqual(report["permissionCasesDefined"], 48)
+        self.assertEqual(report["permissionCasesNotExecutedByThisCheck"], 48)
+        self.assertEqual(report["additionalInputs"]["admin-list-checks"], 8)
+
+    def test_optional_search_data_does_not_replace_foundation(self):
+        foundation = products_for_run()
+        extended = products_for_run(admin_search=True)
+        self.assertEqual(len(foundation), 60)
+        self.assertEqual(extended[:60], foundation)
+        self.assertEqual(len(extended), 70)
+
+    def test_existing_run_cannot_switch_optional_dataset(self):
+        for old, new in ((False, True), (True, False)):
+            state = {"products": {"P001": {"id": 1}}, "adminSearch": old}
+            with patch("setup_data.open_state", return_value=(Path("unused"), state, None)):
+                with patch("setup_data.save") as save:
+                    with self.assertRaisesRegex(ValueError, "use a new run ID"):
+                        setup_data.setup(Namespace(admin_search=new))
+                    save.assert_not_called()
+
+    def test_new_fixture_families_are_required(self):
+        for name in (
+            "admin-search-products",
+            "search-checks-admin-v2",
+            "admin-list-checks",
+            "admin-scenario-inputs",
+        ):
+            with self.subTest(name=name):
+                self.corrupt(name + ".json", lambda p: p.unlink())
+
+    def test_search_and_governance_corruption_is_rejected(self):
+        for name, index, field, value in (
+            ("search-checks-admin-v2", 1, "expectedInclude", ["P010", "P016"]),
+            ("admin-search-products", 0, "fixtureId", "P001"),
+            ("admin-scenario-inputs", 4, "expectedStatus", "BANNED"),
+            ("admin-scenario-inputs", 6, "expectedStatus", "HIDDEN_BY_ADMIN"),
+            ("admin-scenario-inputs", 7, "dependsOn", "missing"),
+            ("admin-scenario-inputs", 3, "targetMessageAuthorAlias", "B"),
+            ("admin-list-checks", 0, "endpoint", "/products"),
+        ):
+
+            def change(path, index=index, field=field, value=value):
+                data = json.loads(path.read_text(encoding="utf-8"))
+                data[index][field] = value
+                path.write_text(json.dumps(data), encoding="utf-8")
+
+            with self.subTest(name=name, field=field):
+                self.corrupt(name + ".json", change)
+
+    def test_execution_log_missing_column_is_rejected(self):
+        path = (
+            runtime.ROOT / "docs/collaboration/phase-5/testing/data-permissions/execution-log.csv"
+        )
+        with path.open(encoding="utf-8", newline="") as stream:
+            rows = list(csv.reader(stream))
+        rows[-1].pop()
+        with tempfile.TemporaryDirectory() as folder:
+            broken = Path(folder) / "execution-log.csv"
+            with broken.open("w", encoding="utf-8", newline="") as stream:
+                csv.writer(stream).writerows(rows)
+            with self.assertRaisesRegex(ValueError, "ten named columns"):
+                verify_execution_log(broken)
 
     def corrupt(self, filename, change):
         with tempfile.TemporaryDirectory() as folder:
