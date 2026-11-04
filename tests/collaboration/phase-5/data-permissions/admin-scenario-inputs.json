@@ -1,0 +1,62 @@
+[
+  {
+    "scenarioId": "AS01",
+    "type": "report",
+    "targetType": "USER",
+    "reporterAlias": "B",
+    "targetAlias": "A",
+    "expectedStatus": "PENDING"
+  },
+  {
+    "scenarioId": "AS02",
+    "type": "report",
+    "targetType": "PRODUCT",
+    "reporterAlias": "C",
+    "targetFixtureId": "P001",
+    "expectedStatus": "PENDING"
+  },
+  {
+    "scenarioId": "AS03",
+    "type": "report",
+    "targetType": "ORDER",
+    "reporterAlias": "B",
+    "targetScenario": "S08",
+    "expectedStatus": "PENDING"
+  },
+  {
+    "scenarioId": "AS04",
+    "type": "report",
+    "targetType": "CHAT_MESSAGE",
+    "reporterAlias": "B",
+    "targetScenario": "S01",
+    "expectedStatus": "PENDING"
+  },
+  {
+    "scenarioId": "AS05",
+    "type": "user_ban",
+    "adminAlias": "R",
+    "targetAlias": "E",
+    "expectedStatus": "BANNED"
+  },
+  {
+    "scenarioId": "AS06",
+    "type": "user_unban",
+    "adminAlias": "R",
+    "targetAlias": "E",
+    "expectedStatus": "ACTIVE"
+  },
+  {
+    "scenarioId": "AS07",
+    "type": "product_hide",
+    "adminAlias": "R",
+    "targetFixtureId": "P002",
+    "expectedStatus": "HIDDEN_BY_ADMIN"
+  },
+  {
+    "scenarioId": "AS08",
+    "type": "product_restore",
+    "adminAlias": "R",
+    "targetFixtureId": "P002",
+    "expectedStatus": "ON_SALE"
+  }
+]

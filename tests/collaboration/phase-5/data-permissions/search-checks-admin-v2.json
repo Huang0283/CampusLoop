@@ -1,0 +1,14 @@
+[
+  { "id": "Q31", "query": "笔记本", "mode": "hybrid", "expectedInclude": ["P010", "P001"], "expectedExclude": [], "reason": "包含电子笔记本与纸质笔记本" },
+  { "id": "Q32", "query": "笔记本电脑", "mode": "hybrid", "expectedInclude": ["P010", "P016"], "expectedExclude": ["P001"], "reason": "排除纸质笔记本" },
+  { "id": "Q33", "query": "电脑", "mode": "hybrid", "expectedInclude": ["P010", "P016"], "expectedExclude": [], "reason": "广词包含相关子类" },
+  { "id": "Q34", "query": "台式电脑", "mode": "hybrid", "expectedInclude": [], "expectedExclude": ["P010"], "reason": "区分台式与笔记本" },
+  { "id": "Q35", "query": "自行车", "mode": "hybrid", "expectedInclude": ["P032"], "expectedExclude": [], "reason": "包含自行车本体" },
+  { "id": "Q36", "query": "山地车", "mode": "hybrid", "expectedInclude": ["P032"], "expectedExclude": [], "reason": "同义词匹配" },
+  { "id": "Q37", "query": "雨伞", "mode": "hybrid", "expectedInclude": [], "expectedExclude": ["P041"], "reason": "区分生活雨伞与摄影柔光伞" },
+  { "id": "Q38", "query": "移动电源 充电宝", "mode": "hybrid", "expectedInclude": [], "expectedExclude": [], "reason": "同义词合并" },
+  { "id": "Q39", "query": "可以装电脑", "mode": "hybrid", "expectedInclude": [], "expectedExclude": ["P010"], "reason": "仅简介命中，不能把包当成电脑整机" },
+  { "id": "Q40", "query": "超过一页", "mode": "keyword", "expectedInclude": [], "reason": "分页测试占位" },
+  { "id": "Q41", "query": "笔记本", "filter": { "category": "BOOKS", "maxPrice": 50 }, "mode": "hybrid", "expectedInclude": ["P001"], "reason": "分类与价格过滤" },
+  { "id": "Q42", "query": "", "mode": "keyword", "expectedInclude": [], "reason": "清空关键词恢复全量" }
+]
