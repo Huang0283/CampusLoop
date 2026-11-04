@@ -8,6 +8,7 @@ import { BellOutlined, DownOutlined, FileSearchOutlined, MessageOutlined, Safety
 import { Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ApiError, data, listNotifications, logout } from '../sdk'
 import { useSession } from './session'
+import { DisabledAccountNotice } from './DisabledAccountNotice'
 import type { Notification } from '../sdk'
 import { AsyncTaskState } from './AsyncTaskState'
 import { NOTIFICATIONS_CHANGED_EVENT } from './notifications'
@@ -165,7 +166,7 @@ export function Shell() {
   }, [])
   useEffect(() => { mainRef.current?.focus({ preventScroll: true }) }, [location.pathname])
   const mutation = useMutation()
-  const notifications = useRemote<Notification[]>(`shell-notifications-${user?.id}`, (signal) => user?.role === 'USER' ? data(listNotifications({ signal })) : Promise.resolve([]), 5000)
+  const notifications = useRemote<Notification[]>(`shell-notifications-${user?.id}`, (signal) => user ? data(listNotifications({ signal })) : Promise.resolve([]), 5000)
   const reloadNotifications = notifications.reload
   useEffect(() => {
     const refreshNotifications = () => reloadNotifications()
@@ -181,12 +182,13 @@ export function Shell() {
   ]
   const selected = location.pathname.startsWith('/admin') ? '/admin' : location.pathname.startsWith('/chat') ? '/chat' : location.pathname.startsWith('/transactions') ? '/transactions' : location.pathname.startsWith('/wanted') ? '/wanted' : location.pathname.startsWith('/market') || location.pathname.startsWith('/product') ? '/market' : ''
   const menu = [
-    ...(user?.role === 'ADMIN' ? [{ key: '/admin', label: '管理后台' }] : [{ key: '/profile', label: '个人中心' }, { key: '/my-products', label: '我的发布' }, { key: '/favorites', label: '我的收藏' }, { key: '/report', label: '我的举报' }]),
+    ...(user?.role === 'ADMIN' ? [{ key: '/admin', label: '管理后台' }] : [{ key: '/profile', label: '个人中心' }, { key: '/my-products', label: '我的发布' }, { key: '/favorites', label: '我的收藏' }, { key: '/report', label: '我的举报' }, { key: '/account/decisions', label: '账号处理记录' }]),
     { key: 'logout', label: '退出登录', danger: true },
   ]
   // The landing page, the sign-in views and the admin console own their full-screen composition.
-  if (['/', '/login', '/register'].includes(location.pathname) || location.pathname === '/admin' || location.pathname.startsWith('/admin/')) return localize(<div className="campus-app campus-bare"><main id="main-content" className="campus-content"><Outlet /></main></div>)
+  if (['/', '/login', '/register'].includes(location.pathname) || location.pathname === '/admin' || location.pathname.startsWith('/admin/')) return localize(<NotificationsContext.Provider value={notifications}><DisabledAccountNotice /><div className="campus-app campus-bare"><main id="main-content" className="campus-content"><Outlet /></main></div></NotificationsContext.Provider>)
   return localize(<div className="campus-app">
+    <DisabledAccountNotice />
     <div className="app-sky" aria-hidden="true"><i className="b1" /><i className="b2" /><i className="b3" /></div>
     <a className="skip-link" href="#main-content">跳到主要内容</a>
     <header className="app-topbar">

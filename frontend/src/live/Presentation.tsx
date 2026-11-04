@@ -55,7 +55,7 @@ export function ProductDetail({ item, actions, feedback }: { item: Product; acti
           <span className="original-price">原价 {item.originalPrice != null ? <s>¥{item.originalPrice.toFixed(2)}</s> : '未填写'}</span></div>
         <div className="product-specs">{specs.map((spec) => localize(<div className="product-spec" key={spec.label}><span className="spec-icon" style={{ ['--c' as string]: spec.color }}>{spec.icon}</span><div><div className="muted">{spec.label}</div><strong>{spec.value}</strong></div></div>))}</div>
       </section>
-      <section aria-label="卖家信息" className="surface seller-card"><Person person={item.seller} />{feedback}<div className="seller-actions">{actions}</div></section>
+      <section aria-label="卖家信息" className="surface seller-card"><Person person={item.seller} />{feedback}{actions && <div className="seller-actions">{actions}</div>}</section>
       <section className="surface location-card"><h2><EnvironmentOutlined aria-hidden /> 交易地点</h2><div className="location-detail"><span className="location-icon"><EnvironmentOutlined aria-hidden /></span><div><strong>{<CatalogText text={item.campusLocation || '地点未填写'} />}</strong><p className="muted">具体时间与交易方式请与卖家协商，见面时当面验货。</p></div></div></section>
     </div>
   </div>)

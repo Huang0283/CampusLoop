@@ -236,7 +236,7 @@ def upload_image(
     actor: Actor,
     purpose: Literal["product", "evidence", "chat", "avatar"] = "product",
 ):
-    if purpose != "avatar":
+    if purpose not in ("avatar", "evidence"):
         student(actor)
     return ok(upload(db, actor, file.file.read(5 * 1024 * 1024 + 1), purpose))
 

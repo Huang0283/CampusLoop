@@ -22,6 +22,8 @@ OPEN_REPORT = ("PENDING", "PROCESSING")
 HANDLED_REPORT = ("RESOLVED", "REJECTED")
 # Administrator decisions that change platform state; reads and replays are excluded.
 DECISION_EVENTS = (
+    "admin_account_decision",
+    "admin_account_appeal_review",
     "admin_product_moderate",
     "admin_report_resolve",
     "admin_report_override",

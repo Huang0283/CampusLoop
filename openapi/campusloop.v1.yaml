@@ -30,6 +30,357 @@ tags:
 security:
   - bearerAuth: []
 paths:
+  /account/decisions:
+    get:
+      tags: [Governance]
+      operationId: listAccountDecisions
+      summary: listAccountDecisions
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionListResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: query
+        name: page
+        schema: {type: integer, minimum: 1, default: 1}
+      - in: query
+        name: pageSize
+        schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+  /account/decisions/{decisionId}:
+    get:
+      tags: [Governance]
+      operationId: getAccountDecision
+      summary: getAccountDecision
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: decisionId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+  /account/decisions/{decisionId}/appeal:
+    post:
+      tags: [Governance]
+      operationId: submitAccountAppeal
+      summary: submitAccountAppeal
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountAppealResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: decisionId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AccountAppealWrite'}
+  /account/appeals/images:
+    post:
+      tags: [Governance]
+      operationId: uploadAppealImage
+      summary: uploadAppealImage
+      responses:
+        '201':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/UploadResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [file]
+              properties:
+                file: {type: string, format: binary}
+  /account/decisions/{decisionId}/evidence/{imageIndex}:
+    get:
+      tags: [Governance]
+      operationId: getDecisionEvidence
+      summary: getDecisionEvidence
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: decisionId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: path
+        name: imageIndex
+        required: true
+        schema: {type: integer, minimum: 0, maximum: 9007199254740991}
+  /account/appeals/{appealId}/evidence/{imageIndex}:
+    get:
+      tags: [Governance]
+      operationId: getOwnAppealEvidence
+      summary: getOwnAppealEvidence
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: path
+        name: imageIndex
+        required: true
+        schema: {type: integer, minimum: 0, maximum: 9007199254740991}
+  /admin/appeals/{appealId}/evidence/{imageIndex}:
+    get:
+      tags: [Governance]
+      operationId: adminGetAppealEvidence
+      summary: adminGetAppealEvidence
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: path
+        name: imageIndex
+        required: true
+        schema: {type: integer, minimum: 0, maximum: 9007199254740991}
+      - in: query
+        name: source
+        schema: {type: string, enum: [appeal, decision], default: appeal}
+  /admin/users/{userId}/decisions:
+    get:
+      tags: [Governance]
+      operationId: adminListAccountDecisions
+      summary: adminListAccountDecisions
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionListResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: query
+        name: page
+        schema: {type: integer, minimum: 1, default: 1}
+      - in: query
+        name: pageSize
+        schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+    post:
+      tags: [Governance]
+      operationId: adminCreateAccountDecision
+      summary: adminCreateAccountDecision
+      responses:
+        '201':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: header
+        name: Idempotency-Key
+        required: true
+        schema: {type: string, minLength: 1, maxLength: 64}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AccountDecisionWrite'}
+  /admin/appeals:
+    get:
+      tags: [Governance]
+      operationId: adminListAccountAppeals
+      summary: adminListAccountAppeals
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AdminAppealListResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: query
+        name: page
+        schema: {type: integer, minimum: 1, default: 1}
+      - in: query
+        name: pageSize
+        schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+      - in: query
+        name: status
+        schema: {type: string, enum: [PENDING, UPHELD, REVOKED]}
+  /admin/appeals/{appealId}:
+    get:
+      tags: [Governance]
+      operationId: adminGetAccountAppeal
+      summary: adminGetAccountAppeal
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AdminAppealResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+  /admin/appeals/{appealId}/review:
+    post:
+      tags: [Governance]
+      operationId: adminReviewAccountAppeal
+      summary: adminReviewAccountAppeal
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AdminAppealResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AccountAppealReview'}
   /chat/messages/{messageId}/image:
     get:
       tags: [Chat]
@@ -1455,6 +1806,153 @@ components:
           schema: { $ref: '#/components/schemas/ErrorResponse' }
           example: { code: AI_UNAVAILABLE, message: Intelligent service unavailable, details: { fallback: keyword }, requestId: req_01 }
   schemas:
+    AccountDecisionWrite:
+      type: object
+      additionalProperties: false
+      required: [action, reason, facts, basis, occurredAt]
+      properties:
+        action: {type: string, enum: [WARNING, DISABLE]}
+        reason: {type: string, minLength: 1, maxLength: 500, pattern: \S}
+        facts: {type: string, minLength: 1, maxLength: 2000, pattern: \S}
+        basis: {type: string, minLength: 1, maxLength: 500, pattern: \S}
+        occurredAt: {type: string, format: date-time}
+        productId: {type: [integer, 'null'], minimum: 1, maximum: 9007199254740991}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+    AccountAppealWrite:
+      type: object
+      additionalProperties: false
+      required: [explanation]
+      properties:
+        explanation: {type: string, minLength: 1, maxLength: 2000, pattern: \S}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+    AccountAppealReview:
+      type: object
+      additionalProperties: false
+      required: [outcome, reason]
+      properties:
+        outcome: {type: string, enum: [UPHELD, REVOKED]}
+        reason: {type: string, minLength: 1, maxLength: 1000, pattern: \S}
+    AccountAppealRecord:
+      type: object
+      additionalProperties: false
+      required: [id, decisionId, explanation, evidence, status, createdAt, reviewedAt, reviewReason]
+      properties:
+        id: {type: integer, minimum: 1, maximum: 9007199254740991}
+        decisionId: {type: integer, minimum: 1, maximum: 9007199254740991}
+        explanation: {type: string}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+        status: {type: string, enum: [PENDING, UPHELD, REVOKED]}
+        createdAt: {type: string, format: date-time}
+        reviewedAt: {type: [string, 'null'], format: date-time}
+        reviewReason: {type: [string, 'null']}
+    AccountDecisionRecord:
+      type: object
+      additionalProperties: false
+      required: [id, userId, action, reason, facts, basis, occurredAt, createdAt, reference, evidence, revokedAt, revocationReason,
+        appeal]
+      properties:
+        id: {type: integer, minimum: 1, maximum: 9007199254740991}
+        userId: {type: integer, minimum: 1, maximum: 9007199254740991}
+        action: {type: string, enum: [WARNING, DISABLE]}
+        reason: {type: string}
+        facts: {type: string}
+        basis: {type: string}
+        occurredAt: {type: [string, 'null'], format: date-time}
+        createdAt: {type: string, format: date-time}
+        reference:
+          oneOf:
+          - type: object
+            additionalProperties: false
+            required: [productId, title]
+            properties:
+              productId: {type: integer, minimum: 1, maximum: 9007199254740991}
+              title: {type: string}
+          - {type: 'null'}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+        revokedAt: {type: [string, 'null'], format: date-time}
+        revocationReason: {type: [string, 'null']}
+        appeal:
+          oneOf:
+          - {$ref: '#/components/schemas/AccountAppealRecord'}
+          - {type: 'null'}
+    AdminAppealCase:
+      type: object
+      additionalProperties: false
+      required: [appeal, decision, user]
+      properties:
+        appeal: {$ref: '#/components/schemas/AccountAppealRecord'}
+        decision: {$ref: '#/components/schemas/AccountDecisionRecord'}
+        user:
+          type: object
+          additionalProperties: false
+          required: [id, nickname, status]
+          properties:
+            id: {type: integer, minimum: 1, maximum: 9007199254740991}
+            nickname: {type: string}
+            status: {type: string, enum: [ACTIVE, DISABLED]}
+    AccountDecisionResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data: {$ref: '#/components/schemas/AccountDecisionRecord'}
+    AccountDecisionListResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data:
+            type: object
+            additionalProperties: false
+            required: [items, pagination]
+            properties:
+              items:
+                type: array
+                items: {$ref: '#/components/schemas/AccountDecisionRecord'}
+              pagination: {$ref: '#/components/schemas/Pagination'}
+    AccountAppealResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data: {$ref: '#/components/schemas/AccountAppealRecord'}
+    AdminAppealResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data: {$ref: '#/components/schemas/AdminAppealCase'}
+    AdminAppealListResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data:
+            type: object
+            additionalProperties: false
+            required: [items, pagination]
+            properties:
+              items:
+                type: array
+                items: {$ref: '#/components/schemas/AdminAppealCase'}
+              pagination: {$ref: '#/components/schemas/Pagination'}
     ApiEnvelope:
       type: object
       required: [code, message]
@@ -2094,7 +2592,7 @@ components:
     TrustSummaryResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/TrustSummary' } } }] }
     AdminReportResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/AdminReport' } } }] }
     AdminReportListResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { type: array, items: { $ref: '#/components/schemas/AdminReport' } } } }] }
-    NotificationType: { type: string, enum: [MESSAGE, OFFER_RECEIVED, OFFER_ACCEPTED, OFFER_REJECTED, MATCH_FOUND, ORDER_STATUS_CHANGED, MEETUP_REMINDER, REVIEW_REQUEST, REPORT_RESULT] }
+    NotificationType: { type: string, enum: [MESSAGE, OFFER_RECEIVED, OFFER_ACCEPTED, OFFER_REJECTED, MATCH_FOUND, ORDER_STATUS_CHANGED, MEETUP_REMINDER, REVIEW_REQUEST, REPORT_RESULT, ACCOUNT_ACTION, APPEAL_RECEIVED, APPEAL_RESULT] }
     Notification:
       type: object
       required: [id, type, title, content, read, createdAt]

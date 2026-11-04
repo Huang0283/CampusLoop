@@ -23,7 +23,7 @@ function authError(error: unknown, registering: boolean) {
     const messages: Record<string, string> = {
       AUTH_INVALID_CREDENTIALS: '邮箱或密码错误，请检查后重试。',
       EMAIL_ALREADY_REGISTERED: '该邮箱已注册，请直接登录或使用其他邮箱。',
-      ACCOUNT_DISABLED: '该账号已被禁用，请联系管理员处理。',
+      ACCOUNT_DISABLED: '账号已被禁用，请查看处理记录或提交申诉。',
       RATE_LIMITED: '操作过于频繁，请稍后再试。',
       AUTH_SERVICE_UNAVAILABLE: '登录服务暂不可用，请稍后重试。',
       NETWORK_ERROR: '网络连接失败，请检查网络后重试。',

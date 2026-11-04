@@ -8,10 +8,11 @@ import * as api from '../sdk'
 type Props = {
   value?: string[]; onChange?: (urls: string[]) => void
   onBusyChange?: (blocked: boolean) => void; purpose?: 'product' | 'evidence' | 'chat'
+  uploadImage?: (file: Blob) => Promise<{ url: string }>
 }
 
 // Upload status is not a URL. Failed or pending files block submission until retried/removed.
-export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'product' }: Props) {
+export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'product', uploadImage }: Props) {
   useLanguage()
   const [files, setFiles] = useState<UploadFile[] | null>(null)
   const [error, setError] = useState('')
@@ -26,7 +27,7 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
   const upload: UploadProps['customRequest'] = ({ file, onSuccess, onError, onProgress }) => {
     if (typeof file === 'string') { onError?.(new Error('无效图片')); return }
     onProgress?.({ percent: 10 })
-    void api.data(api.uploadImage({ body: { file }, query: { purpose } })).then((result) => {
+    void (uploadImage ? uploadImage(file) : api.data(api.uploadImage({ body: { file }, query: { purpose } }))).then((result) => {
       onProgress?.({ percent: 100 }); onSuccess?.(result)
     }).catch((failure: Error) => { setError(failure.message); onError?.(failure) })
   }

@@ -4,6 +4,92 @@ export type ClientOptions = {
     baseUrl: 'http://localhost:8001' | (string & {});
 };
 
+export type AccountDecisionWrite = {
+    action: 'WARNING' | 'DISABLE';
+    reason: string;
+    facts: string;
+    basis: string;
+    occurredAt: string;
+    productId?: number | null;
+    evidence?: Array<string>;
+};
+
+export type AccountAppealWrite = {
+    explanation: string;
+    evidence?: Array<string>;
+};
+
+export type AccountAppealReview = {
+    outcome: 'UPHELD' | 'REVOKED';
+    reason: string;
+};
+
+export type AccountAppealRecord = {
+    id: number;
+    decisionId: number;
+    explanation: string;
+    evidence: Array<string>;
+    status: 'PENDING' | 'UPHELD' | 'REVOKED';
+    createdAt: string;
+    reviewedAt: string | null;
+    reviewReason: string | null;
+};
+
+export type AccountDecisionRecord = {
+    id: number;
+    userId: number;
+    action: 'WARNING' | 'DISABLE';
+    reason: string;
+    facts: string;
+    basis: string;
+    occurredAt: string | null;
+    createdAt: string;
+    reference: {
+        productId: number;
+        title: string;
+    } | null;
+    evidence: Array<string>;
+    revokedAt: string | null;
+    revocationReason: string | null;
+    appeal: AccountAppealRecord | null;
+};
+
+export type AdminAppealCase = {
+    appeal: AccountAppealRecord;
+    decision: AccountDecisionRecord;
+    user: {
+        id: number;
+        nickname: string;
+        status: 'ACTIVE' | 'DISABLED';
+    };
+};
+
+export type AccountDecisionResponse = ApiEnvelope & {
+    data: AccountDecisionRecord;
+};
+
+export type AccountDecisionListResponse = ApiEnvelope & {
+    data: {
+        items: Array<AccountDecisionRecord>;
+        pagination: Pagination;
+    };
+};
+
+export type AccountAppealResponse = ApiEnvelope & {
+    data: AccountAppealRecord;
+};
+
+export type AdminAppealResponse = ApiEnvelope & {
+    data: AdminAppealCase;
+};
+
+export type AdminAppealListResponse = ApiEnvelope & {
+    data: {
+        items: Array<AdminAppealCase>;
+        pagination: Pagination;
+    };
+};
+
 export type ApiEnvelope = {
     code: number;
     message: string;
@@ -812,7 +898,7 @@ export type AdminReportListResponse = ApiEnvelope & {
     data: Array<AdminReport>;
 };
 
-export type NotificationType = 'MESSAGE' | 'OFFER_RECEIVED' | 'OFFER_ACCEPTED' | 'OFFER_REJECTED' | 'MATCH_FOUND' | 'ORDER_STATUS_CHANGED' | 'MEETUP_REMINDER' | 'REVIEW_REQUEST' | 'REPORT_RESULT';
+export type NotificationType = 'MESSAGE' | 'OFFER_RECEIVED' | 'OFFER_ACCEPTED' | 'OFFER_REJECTED' | 'MATCH_FOUND' | 'ORDER_STATUS_CHANGED' | 'MEETUP_REMINDER' | 'REVIEW_REQUEST' | 'REPORT_RESULT' | 'ACCOUNT_ACTION' | 'APPEAL_RECEIVED' | 'APPEAL_RESULT';
 
 export type Notification = {
     id: number;
@@ -1004,6 +1090,536 @@ export type OrderId = number;
 export type NotificationId = number;
 
 export type ReportId = number;
+
+export type ListAccountDecisionsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/account/decisions';
+};
+
+export type ListAccountDecisionsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type ListAccountDecisionsError = ListAccountDecisionsErrors[keyof ListAccountDecisionsErrors];
+
+export type ListAccountDecisionsResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountDecisionListResponse;
+};
+
+export type ListAccountDecisionsResponse = ListAccountDecisionsResponses[keyof ListAccountDecisionsResponses];
+
+export type GetAccountDecisionData = {
+    body?: never;
+    path: {
+        decisionId: number;
+    };
+    query?: never;
+    url: '/account/decisions/{decisionId}';
+};
+
+export type GetAccountDecisionErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type GetAccountDecisionError = GetAccountDecisionErrors[keyof GetAccountDecisionErrors];
+
+export type GetAccountDecisionResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountDecisionResponse;
+};
+
+export type GetAccountDecisionResponse = GetAccountDecisionResponses[keyof GetAccountDecisionResponses];
+
+export type SubmitAccountAppealData = {
+    body: AccountAppealWrite;
+    path: {
+        decisionId: number;
+    };
+    query?: never;
+    url: '/account/decisions/{decisionId}/appeal';
+};
+
+export type SubmitAccountAppealErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type SubmitAccountAppealError = SubmitAccountAppealErrors[keyof SubmitAccountAppealErrors];
+
+export type SubmitAccountAppealResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountAppealResponse;
+};
+
+export type SubmitAccountAppealResponse = SubmitAccountAppealResponses[keyof SubmitAccountAppealResponses];
+
+export type UploadAppealImageData = {
+    body: {
+        file: Blob | File;
+    };
+    path?: never;
+    query?: never;
+    url: '/account/appeals/images';
+};
+
+export type UploadAppealImageErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type UploadAppealImageError = UploadAppealImageErrors[keyof UploadAppealImageErrors];
+
+export type UploadAppealImageResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    201: UploadResponse;
+};
+
+export type UploadAppealImageResponse = UploadAppealImageResponses[keyof UploadAppealImageResponses];
+
+export type GetDecisionEvidenceData = {
+    body?: never;
+    path: {
+        decisionId: number;
+        imageIndex: number;
+    };
+    query?: never;
+    url: '/account/decisions/{decisionId}/evidence/{imageIndex}';
+};
+
+export type GetDecisionEvidenceErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type GetDecisionEvidenceError = GetDecisionEvidenceErrors[keyof GetDecisionEvidenceErrors];
+
+export type GetDecisionEvidenceResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: Blob | File;
+};
+
+export type GetDecisionEvidenceResponse = GetDecisionEvidenceResponses[keyof GetDecisionEvidenceResponses];
+
+export type GetOwnAppealEvidenceData = {
+    body?: never;
+    path: {
+        appealId: number;
+        imageIndex: number;
+    };
+    query?: never;
+    url: '/account/appeals/{appealId}/evidence/{imageIndex}';
+};
+
+export type GetOwnAppealEvidenceErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type GetOwnAppealEvidenceError = GetOwnAppealEvidenceErrors[keyof GetOwnAppealEvidenceErrors];
+
+export type GetOwnAppealEvidenceResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: Blob | File;
+};
+
+export type GetOwnAppealEvidenceResponse = GetOwnAppealEvidenceResponses[keyof GetOwnAppealEvidenceResponses];
+
+export type AdminGetAppealEvidenceData = {
+    body?: never;
+    path: {
+        appealId: number;
+        imageIndex: number;
+    };
+    query?: {
+        source?: 'appeal' | 'decision';
+    };
+    url: '/admin/appeals/{appealId}/evidence/{imageIndex}';
+};
+
+export type AdminGetAppealEvidenceErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminGetAppealEvidenceError = AdminGetAppealEvidenceErrors[keyof AdminGetAppealEvidenceErrors];
+
+export type AdminGetAppealEvidenceResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: Blob | File;
+};
+
+export type AdminGetAppealEvidenceResponse = AdminGetAppealEvidenceResponses[keyof AdminGetAppealEvidenceResponses];
+
+export type AdminListAccountDecisionsData = {
+    body?: never;
+    path: {
+        userId: number;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/admin/users/{userId}/decisions';
+};
+
+export type AdminListAccountDecisionsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminListAccountDecisionsError = AdminListAccountDecisionsErrors[keyof AdminListAccountDecisionsErrors];
+
+export type AdminListAccountDecisionsResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountDecisionListResponse;
+};
+
+export type AdminListAccountDecisionsResponse = AdminListAccountDecisionsResponses[keyof AdminListAccountDecisionsResponses];
+
+export type AdminCreateAccountDecisionData = {
+    body: AccountDecisionWrite;
+    headers: {
+        'Idempotency-Key': string;
+    };
+    path: {
+        userId: number;
+    };
+    query?: never;
+    url: '/admin/users/{userId}/decisions';
+};
+
+export type AdminCreateAccountDecisionErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminCreateAccountDecisionError = AdminCreateAccountDecisionErrors[keyof AdminCreateAccountDecisionErrors];
+
+export type AdminCreateAccountDecisionResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    201: AccountDecisionResponse;
+};
+
+export type AdminCreateAccountDecisionResponse = AdminCreateAccountDecisionResponses[keyof AdminCreateAccountDecisionResponses];
+
+export type AdminListAccountAppealsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+        status?: 'PENDING' | 'UPHELD' | 'REVOKED';
+    };
+    url: '/admin/appeals';
+};
+
+export type AdminListAccountAppealsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminListAccountAppealsError = AdminListAccountAppealsErrors[keyof AdminListAccountAppealsErrors];
+
+export type AdminListAccountAppealsResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AdminAppealListResponse;
+};
+
+export type AdminListAccountAppealsResponse = AdminListAccountAppealsResponses[keyof AdminListAccountAppealsResponses];
+
+export type AdminGetAccountAppealData = {
+    body?: never;
+    path: {
+        appealId: number;
+    };
+    query?: never;
+    url: '/admin/appeals/{appealId}';
+};
+
+export type AdminGetAccountAppealErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminGetAccountAppealError = AdminGetAccountAppealErrors[keyof AdminGetAccountAppealErrors];
+
+export type AdminGetAccountAppealResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AdminAppealResponse;
+};
+
+export type AdminGetAccountAppealResponse = AdminGetAccountAppealResponses[keyof AdminGetAccountAppealResponses];
+
+export type AdminReviewAccountAppealData = {
+    body: AccountAppealReview;
+    path: {
+        appealId: number;
+    };
+    query?: never;
+    url: '/admin/appeals/{appealId}/review';
+};
+
+export type AdminReviewAccountAppealErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminReviewAccountAppealError = AdminReviewAccountAppealErrors[keyof AdminReviewAccountAppealErrors];
+
+export type AdminReviewAccountAppealResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AdminAppealResponse;
+};
+
+export type AdminReviewAccountAppealResponse = AdminReviewAccountAppealResponses[keyof AdminReviewAccountAppealResponses];
 
 export type GetChatMessageImageData = {
     body?: never;

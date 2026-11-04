@@ -2,7 +2,7 @@
 
 import { type Client, type ClientMeta, formDataBodySerializer, type Options as Options2, type RequestResult, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminGetDashboardData, AdminGetDashboardErrors, AdminGetDashboardResponses, AdminGetProductData, AdminGetProductErrors, AdminGetProductResponses, AdminGetUserTrustData, AdminGetUserTrustErrors, AdminGetUserTrustResponses, AdminListAuditLogsData, AdminListAuditLogsErrors, AdminListAuditLogsResponses, AdminListOrdersData, AdminListOrdersErrors, AdminListOrdersResponses, AdminListProductsData, AdminListProductsErrors, AdminListProductsResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, AdminModerateProductData, AdminModerateProductErrors, AdminModerateProductResponses, AdminUpdateUserStatusData, AdminUpdateUserStatusErrors, AdminUpdateUserStatusResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateChatSessionData, CreateChatSessionErrors, CreateChatSessionResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetChatMessageImageData, GetChatMessageImageErrors, GetChatMessageImageResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetHealthData, GetHealthResponses, GetMyTrustData, GetMyTrustErrors, GetMyTrustResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetReadinessData, GetReadinessErrors, GetReadinessResponses, GetReportEvidenceData, GetReportEvidenceErrors, GetReportEvidenceResponses, GetUserRiskCluesData, GetUserRiskCluesErrors, GetUserRiskCluesResponses, GetUserTrustData, GetUserTrustErrors, GetUserTrustResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyProductsData, ListMyProductsErrors, ListMyProductsResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListSessionOffersData, ListSessionOffersErrors, ListSessionOffersResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, OverrideReportData, OverrideReportErrors, OverrideReportResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, RestoreBrowserSessionData, RestoreBrowserSessionErrors, RestoreBrowserSessionResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
+import type { AcceptOfferData, AcceptOfferErrors, AcceptOfferResponses, AddFavoriteData, AddFavoriteErrors, AddFavoriteResponses, AdminCreateAccountDecisionData, AdminCreateAccountDecisionErrors, AdminCreateAccountDecisionResponses, AdminGetAccountAppealData, AdminGetAccountAppealErrors, AdminGetAccountAppealResponses, AdminGetAppealEvidenceData, AdminGetAppealEvidenceErrors, AdminGetAppealEvidenceResponses, AdminGetDashboardData, AdminGetDashboardErrors, AdminGetDashboardResponses, AdminGetProductData, AdminGetProductErrors, AdminGetProductResponses, AdminGetUserTrustData, AdminGetUserTrustErrors, AdminGetUserTrustResponses, AdminListAccountAppealsData, AdminListAccountAppealsErrors, AdminListAccountAppealsResponses, AdminListAccountDecisionsData, AdminListAccountDecisionsErrors, AdminListAccountDecisionsResponses, AdminListAuditLogsData, AdminListAuditLogsErrors, AdminListAuditLogsResponses, AdminListOrdersData, AdminListOrdersErrors, AdminListOrdersResponses, AdminListProductsData, AdminListProductsErrors, AdminListProductsResponses, AdminListReportsData, AdminListReportsErrors, AdminListReportsResponses, AdminListUsersData, AdminListUsersErrors, AdminListUsersResponses, AdminModerateProductData, AdminModerateProductErrors, AdminModerateProductResponses, AdminReviewAccountAppealData, AdminReviewAccountAppealErrors, AdminReviewAccountAppealResponses, AdminUpdateUserStatusData, AdminUpdateUserStatusErrors, AdminUpdateUserStatusResponses, CancelOfferData, CancelOfferErrors, CancelOfferResponses, CancelOrderData, CancelOrderErrors, CancelOrderResponses, CloseWantedData, CloseWantedErrors, CloseWantedResponses, ConfirmMeetupData, ConfirmMeetupErrors, ConfirmMeetupResponses, ConfirmOrderCompleteData, ConfirmOrderCompleteErrors, ConfirmOrderCompleteResponses, CounterOfferData, CounterOfferErrors, CounterOfferResponses, CreateChatSessionData, CreateChatSessionErrors, CreateChatSessionResponses, CreateOfferData, CreateOfferErrors, CreateOfferResponses, CreateProductData, CreateProductErrors, CreateProductResponses, CreateReportData, CreateReportErrors, CreateReportResponses, CreateReviewData, CreateReviewErrors, CreateReviewResponses, CreateWantedData, CreateWantedErrors, CreateWantedResponses, DeleteProductData, DeleteProductErrors, DeleteProductResponses, GetAccountDecisionData, GetAccountDecisionErrors, GetAccountDecisionResponses, GetChatMessageImageData, GetChatMessageImageErrors, GetChatMessageImageResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetDecisionEvidenceData, GetDecisionEvidenceErrors, GetDecisionEvidenceResponses, GetHealthData, GetHealthResponses, GetMyTrustData, GetMyTrustErrors, GetMyTrustResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetOwnAppealEvidenceData, GetOwnAppealEvidenceErrors, GetOwnAppealEvidenceResponses, GetPriceAdviceData, GetPriceAdviceErrors, GetPriceAdviceResponses, GetProductData, GetProductErrors, GetProductResponses, GetPublicUserData, GetPublicUserErrors, GetPublicUserResponses, GetReadinessData, GetReadinessErrors, GetReadinessResponses, GetReportEvidenceData, GetReportEvidenceErrors, GetReportEvidenceResponses, GetUserRiskCluesData, GetUserRiskCluesErrors, GetUserRiskCluesResponses, GetUserTrustData, GetUserTrustErrors, GetUserTrustResponses, GetWantedData, GetWantedErrors, GetWantedResponses, ListAccountDecisionsData, ListAccountDecisionsErrors, ListAccountDecisionsResponses, ListChatSessionsData, ListChatSessionsResponses, ListFavoritesData, ListFavoritesResponses, ListMessagesData, ListMessagesErrors, ListMessagesResponses, ListMyProductsData, ListMyProductsErrors, ListMyProductsResponses, ListMyReportsData, ListMyReportsResponses, ListNotificationsData, ListNotificationsResponses, ListOrderEventsData, ListOrderEventsErrors, ListOrderEventsResponses, ListOrdersData, ListOrdersResponses, ListProductsData, ListProductsResponses, ListSessionOffersData, ListSessionOffersErrors, ListSessionOffersResponses, ListWantedData, ListWantedMatchesData, ListWantedMatchesErrors, ListWantedMatchesResponses, ListWantedResponses, LoginData, LoginErrors, LoginResponses, LogoutData, LogoutErrors, LogoutResponses, MarkAllNotificationsReadData, MarkAllNotificationsReadResponses, MarkNotificationReadData, MarkNotificationReadErrors, MarkNotificationReadResponses, MarkSessionReadData, MarkSessionReadErrors, MarkSessionReadResponses, OverrideReportData, OverrideReportErrors, OverrideReportResponses, RefreshSessionData, RefreshSessionErrors, RefreshSessionResponses, RegisterData, RegisterErrors, RegisterResponses, RejectOfferData, RejectOfferErrors, RejectOfferResponses, RemoveFavoriteData, RemoveFavoriteResponses, ResolveReportData, ResolveReportErrors, ResolveReportResponses, RestoreBrowserSessionData, RestoreBrowserSessionErrors, RestoreBrowserSessionResponses, SaveMeetupData, SaveMeetupErrors, SaveMeetupResponses, SearchProductsData, SearchProductsErrors, SearchProductsResponses, SendMessageData, SendMessageErrors, SendMessageResponses, SubmitAccountAppealData, SubmitAccountAppealErrors, SubmitAccountAppealResponses, UpdateCurrentUserData, UpdateCurrentUserErrors, UpdateCurrentUserResponses, UpdateProductData, UpdateProductErrors, UpdateProductResponses, UpdateProductStatusData, UpdateProductStatusErrors, UpdateProductStatusResponses, UpdateWantedData, UpdateWantedErrors, UpdateWantedResponses, UploadAppealImageData, UploadAppealImageErrors, UploadAppealImageResponses, UploadImageData, UploadImageErrors, UploadImageResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -17,6 +17,143 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
+
+/**
+ * listAccountDecisions
+ */
+export const listAccountDecisions = <ThrowOnError extends boolean = false>(options?: Options<ListAccountDecisionsData, ThrowOnError>): RequestResult<ListAccountDecisionsResponses, ListAccountDecisionsErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<ListAccountDecisionsResponses, ListAccountDecisionsErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account/decisions',
+    ...options
+});
+
+/**
+ * getAccountDecision
+ */
+export const getAccountDecision = <ThrowOnError extends boolean = false>(options: Options<GetAccountDecisionData, ThrowOnError>): RequestResult<GetAccountDecisionResponses, GetAccountDecisionErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetAccountDecisionResponses, GetAccountDecisionErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account/decisions/{decisionId}',
+    ...options
+});
+
+/**
+ * submitAccountAppeal
+ */
+export const submitAccountAppeal = <ThrowOnError extends boolean = false>(options: Options<SubmitAccountAppealData, ThrowOnError>): RequestResult<SubmitAccountAppealResponses, SubmitAccountAppealErrors, ThrowOnError, 'data'> => (options.client ?? client).post<SubmitAccountAppealResponses, SubmitAccountAppealErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account/decisions/{decisionId}/appeal',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * uploadAppealImage
+ */
+export const uploadAppealImage = <ThrowOnError extends boolean = false>(options: Options<UploadAppealImageData, ThrowOnError>): RequestResult<UploadAppealImageResponses, UploadAppealImageErrors, ThrowOnError, 'data'> => (options.client ?? client).post<UploadAppealImageResponses, UploadAppealImageErrors, ThrowOnError, 'data'>({
+    ...formDataBodySerializer,
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account/appeals/images',
+    ...options,
+    headers: {
+        'Content-Type': null,
+        ...options.headers
+    }
+});
+
+/**
+ * getDecisionEvidence
+ */
+export const getDecisionEvidence = <ThrowOnError extends boolean = false>(options: Options<GetDecisionEvidenceData, ThrowOnError>): RequestResult<GetDecisionEvidenceResponses, GetDecisionEvidenceErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetDecisionEvidenceResponses, GetDecisionEvidenceErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account/decisions/{decisionId}/evidence/{imageIndex}',
+    ...options
+});
+
+/**
+ * getOwnAppealEvidence
+ */
+export const getOwnAppealEvidence = <ThrowOnError extends boolean = false>(options: Options<GetOwnAppealEvidenceData, ThrowOnError>): RequestResult<GetOwnAppealEvidenceResponses, GetOwnAppealEvidenceErrors, ThrowOnError, 'data'> => (options.client ?? client).get<GetOwnAppealEvidenceResponses, GetOwnAppealEvidenceErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account/appeals/{appealId}/evidence/{imageIndex}',
+    ...options
+});
+
+/**
+ * adminGetAppealEvidence
+ */
+export const adminGetAppealEvidence = <ThrowOnError extends boolean = false>(options: Options<AdminGetAppealEvidenceData, ThrowOnError>): RequestResult<AdminGetAppealEvidenceResponses, AdminGetAppealEvidenceErrors, ThrowOnError, 'data'> => (options.client ?? client).get<AdminGetAppealEvidenceResponses, AdminGetAppealEvidenceErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/appeals/{appealId}/evidence/{imageIndex}',
+    ...options
+});
+
+/**
+ * adminListAccountDecisions
+ */
+export const adminListAccountDecisions = <ThrowOnError extends boolean = false>(options: Options<AdminListAccountDecisionsData, ThrowOnError>): RequestResult<AdminListAccountDecisionsResponses, AdminListAccountDecisionsErrors, ThrowOnError, 'data'> => (options.client ?? client).get<AdminListAccountDecisionsResponses, AdminListAccountDecisionsErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/users/{userId}/decisions',
+    ...options
+});
+
+/**
+ * adminCreateAccountDecision
+ */
+export const adminCreateAccountDecision = <ThrowOnError extends boolean = false>(options: Options<AdminCreateAccountDecisionData, ThrowOnError>): RequestResult<AdminCreateAccountDecisionResponses, AdminCreateAccountDecisionErrors, ThrowOnError, 'data'> => (options.client ?? client).post<AdminCreateAccountDecisionResponses, AdminCreateAccountDecisionErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/users/{userId}/decisions',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * adminListAccountAppeals
+ */
+export const adminListAccountAppeals = <ThrowOnError extends boolean = false>(options?: Options<AdminListAccountAppealsData, ThrowOnError>): RequestResult<AdminListAccountAppealsResponses, AdminListAccountAppealsErrors, ThrowOnError, 'data'> => (options?.client ?? client).get<AdminListAccountAppealsResponses, AdminListAccountAppealsErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/appeals',
+    ...options
+});
+
+/**
+ * adminGetAccountAppeal
+ */
+export const adminGetAccountAppeal = <ThrowOnError extends boolean = false>(options: Options<AdminGetAccountAppealData, ThrowOnError>): RequestResult<AdminGetAccountAppealResponses, AdminGetAccountAppealErrors, ThrowOnError, 'data'> => (options.client ?? client).get<AdminGetAccountAppealResponses, AdminGetAccountAppealErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/appeals/{appealId}',
+    ...options
+});
+
+/**
+ * adminReviewAccountAppeal
+ */
+export const adminReviewAccountAppeal = <ThrowOnError extends boolean = false>(options: Options<AdminReviewAccountAppealData, ThrowOnError>): RequestResult<AdminReviewAccountAppealResponses, AdminReviewAccountAppealErrors, ThrowOnError, 'data'> => (options.client ?? client).post<AdminReviewAccountAppealResponses, AdminReviewAccountAppealErrors, ThrowOnError, 'data'>({
+    responseStyle: 'data',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/admin/appeals/{appealId}/review',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Read a private chat image as a participant; bearer authentication required

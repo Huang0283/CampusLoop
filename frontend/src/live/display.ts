@@ -51,3 +51,4 @@ export function displayDate(value?: string) {
   if (!value || !Number.isFinite(Date.parse(value))) return '未提供'
   return new Date(value).toLocaleString(dateLocale(), { hour12: false })
 }
+export const appealStatusLabels = { PENDING: '待复核', UPHELD: '维持原处理', REVOKED: '已撤销原处理' }

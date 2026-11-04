@@ -144,7 +144,7 @@ function NotificationTabs({ value, onChange }: { value: NotificationGroup; onCha
   </div>)
 }
 
-export function NotificationsPage() {
+export function NotificationsPage({ admin = false }: { admin?: boolean }) {
   useLanguage()
   const remote = useNotificationsResource()
   const mutation = useMutation()
@@ -177,5 +177,5 @@ export function NotificationsPage() {
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openNotification(item) }
       }}
     ><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {<CatalogText text={systemText(item.title, systemText(item.type, '平台通知'))} />}</h2><p>{item.content ? <CatalogText text={systemText(item.content, item.content)} /> : null}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={(event) => { event.stopPropagation(); markRead(item) }}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={(event) => { event.stopPropagation(); openNotification(item) }}>查看</Button>}</div></article>))}</div> : <NoItems />}
-  </Resource></div><MyReports /></Page>)
+  </Resource></div>{admin ? null : <><p><Link to="/account/decisions">查看全部账号处理记录与申诉</Link></p><MyReports /></>}</Page>)
 }

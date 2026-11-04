@@ -6,6 +6,9 @@ interface SessionState {
   user: UserProfile | null
   ready: boolean
   bootstrapError: unknown
+  appealToken: string | null
+  disabledNotice: boolean
+  dismissDisabledNotice: () => void
   bootstrap: () => Promise<void>
   accept: (result: AuthResult | BrowserAuthResult) => void
   update: (user: UserProfile) => void
@@ -17,6 +20,9 @@ export const useSession = create<SessionState>((set, get) => ({
   user: null,
   ready: false,
   bootstrapError: null,
+  appealToken: null,
+  disabledNotice: false,
+  dismissDisabledNotice: () => set({ disabledNotice: false }),
   bootstrap: () => {
     if (get().ready) return Promise.resolve()
     if (bootstrapFlight) return bootstrapFlight
@@ -30,12 +36,16 @@ export const useSession = create<SessionState>((set, get) => ({
     })()
     return bootstrapFlight
   },
-  accept: (result) => { setTokens(result); set({ user: result.user }) },
+  accept: (result) => { setTokens(result); set({ user: result.user, appealToken: null, disabledNotice: false }) },
   update: (user) => set({ user }),
-  clear: () => { clearTokens(); set({ user: null }) },
+  clear: () => { clearTokens(); set({ user: null, appealToken: null, disabledNotice: false }) },
 }))
 
 if (typeof window !== 'undefined') {
+  window.addEventListener('campusloop-account-disabled', (event) => {
+    const details = (event as CustomEvent<{ appealToken: string }>).detail
+    useSession.setState({ user: null, appealToken: details.appealToken, disabledNotice: true })
+  })
   window.addEventListener('campusloop-session-expired', () => useSession.getState().clear())
   for (const key of ['token', 'role', 'userId', 'nickname', 'avatar', 'campusVerified', 'school', 'college', 'major', 'bio']) {
     localStorage.removeItem(key)

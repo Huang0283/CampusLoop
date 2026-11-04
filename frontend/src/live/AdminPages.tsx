@@ -11,6 +11,7 @@ import type { AdminProduct, AdminReport, ReportStatus, UserProfile } from '../sd
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useAttemptKey } from './idempotency'
 import { Person } from './Presentation'
+import { AccountDecisionControls } from '../admin/AccountDecisionControls'
 import { reportReasonLabels } from './reportReasons'
 import { productStatusLabels, accountStatusLabels, reportStatusLabels, roleLabels, targetTypeLabels, displayDate, systemText, riskClueText } from './display'
 
@@ -97,7 +98,6 @@ function RiskDetail({ user }: { user: UserProfile }) {
 
 function UserDetail({ user, refresh }: { user: UserProfile; refresh: () => void }) {
   useLanguage()
-  const mutation = useMutation()
   const [showRisk, setShowRisk] = useState(false)
   const [confirmed, setConfirmed] = useState<UserProfile>()
   const current = confirmed || user
@@ -109,16 +109,9 @@ function UserDetail({ user, refresh }: { user: UserProfile; refresh: () => void 
     { key: 'role', label: '角色', children: roleLabels[user.role] || '其他角色' },
     { key: 'trades', label: '已完成交易', children: user.transactionCount },
   ]} />
-    <Failure error={mutation.error} />
-    {confirmed && <Alert role="status" type="success" title="后端已确认状态变更。操作已记录审计。" />}
-    {user.role === 'USER' && <Form layout="vertical" onFinish={(values: { reason: string }) => void mutation.run(async () => {
-      setConfirmed(await api.data(api.adminUpdateUserStatus({ path: { userId: user.id }, body: { status: current.status === 'ACTIVE' ? 'DISABLED' : 'ACTIVE', reason: values.reason.trim() } })))
-      refresh()
-    })}>
-      <Form.Item name="reason" label="状态变更原因" rules={[{ required: true, whitespace: true, max: 200 }]}><Input.TextArea maxLength={200} /></Form.Item>
-      <Button htmlType="submit" danger={current.status === 'ACTIVE'} loading={mutation.busy}>{current.status === 'ACTIVE' ? '禁用账号并撤销会话' : '恢复账号'}</Button>
-    </Form>}
-    <Button style={{ margin: '16px 0' }} onClick={() => setShowRisk(true)}>读取风险线索（记录访问审计）</Button>
+    {user.role === 'USER' && <AccountDecisionControls user={current} onChanged={next => { setConfirmed(next); refresh() }} />}
+    {user.role === 'ADMIN' ? <Alert style={{ marginTop: 16 }} type="info" showIcon title="管理员账号受保护，不能在用户管理中禁用自己或其他管理员。" />
+      : <Button style={{ margin: '16px 0' }} onClick={() => setShowRisk(true)}>读取风险线索（记录访问审计）</Button>}
     {showRisk && <RiskDetail user={user} />}
   </>)
 }
@@ -146,11 +139,11 @@ export function UsersPanel() {
         { title: '用户', key: 'user', render: (_, user) => localize(<Person person={user} detail={user.email} />) },
         { title: '编号', dataIndex: 'id' }, { title: '状态', key: 'status', render: (_, user) => localize(<Tag color={user.status === 'ACTIVE' ? 'green' : 'red'}>{user.status === 'ACTIVE' ? '正常' : '已禁用'}</Tag>) },
         { title: '角色', key: 'role', render: (_, user) => t(user.role === 'ADMIN' ? '管理员' : '普通用户') },
-        { title: '操作', key: 'action', render: (_, user) => localize(<Button onClick={(event) => { drawerFocus.capture(event.currentTarget); setSelected(user) }}>详情与人工处理 #{user.id}</Button>) },
+        { title: '操作', key: 'action', render: (_, user) => localize(<Button onClick={(event) => { drawerFocus.capture(event.currentTarget); setSelected(user) }}>{user.role === 'ADMIN' ? '查看资料 #' : '详情与人工处理 #'}{user.id}</Button>) },
       ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => { setSelected(undefined); setPage(next) }} />}
     </Resource>
-    <DetailDialog title="用户详情与风险复核" open={Boolean(selected)} onClose={() => setSelected(undefined)}>
+    <DetailDialog title={selected?.role === 'ADMIN' ? '管理员资料' : '用户详情与风险复核'} open={Boolean(selected)} onClose={() => setSelected(undefined)}>
       {selected && <UserDetail key={selected.id} user={selected} refresh={remote.reload} />}
     </DetailDialog>
   </>)

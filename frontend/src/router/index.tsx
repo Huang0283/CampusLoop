@@ -5,6 +5,7 @@ import { LoadingPage, MissingPage } from '../i18n/RouteStates'
 import { Guard, Shell } from '../live/common'
 import { RouteFailure } from '../live/ErrorBoundary'
 import { HomePage } from '../landing/HomePage'
+import { AccountDecisionsPage, AdminAppealsPage } from './lazyPages'
 
 export const router = createBrowserRouter([{ element: <Shell />, errorElement: <RouteFailure />, children: [{ element: <Suspense fallback={<LoadingPage />}><Outlet /></Suspense>, errorElement: <RouteFailure />, children: [
   { path: '/', element: <HomePage /> },
@@ -27,6 +28,8 @@ export const router = createBrowserRouter([{ element: <Shell />, errorElement: <
   { path: '/transactions/:id/meetup', element: <Guard><MeetupPage /></Guard> },
   { path: '/transactions/:id/review', element: <Guard><ReviewPage /></Guard> },
   { path: '/notifications', element: <Guard><NotificationsPage /></Guard> },
+  { path: '/account/decisions', element: <AccountDecisionsPage /> },
+  { path: '/account/decisions/:decisionId', element: <AccountDecisionsPage /> },
   { path: '/report', element: <Guard><ReportsPage /></Guard> },
   { path: '/orders', element: <Navigate to="/transactions" replace /> },
   { path: '/orders/:id', element: <Guard><OrderPage /></Guard> },
@@ -38,6 +41,8 @@ export const router = createBrowserRouter([{ element: <Shell />, errorElement: <
     { path: 'products', element: <AdminProductsPage /> },
     { path: 'orders', element: <AdminOrdersPage /> },
     { path: 'users', element: <AdminUsersPage /> },
+    { path: 'appeals', element: <AdminAppealsPage /> },
+    { path: 'notifications', element: <NotificationsPage admin /> },
     { path: 'audit', element: <AdminAuditLogPage /> },
     { path: 'profile', element: <AdminProfilePage /> },
   ] },

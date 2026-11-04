@@ -217,7 +217,7 @@ export function ProductPage() {
   const from = typeof location.state?.from === 'string' && location.state.from.startsWith('/market') ? location.state.from : '/market'
   const item = remote.value
   return localize(<div className="campus-page"><Breadcrumb style={{ marginBottom: 20 }} items={[{ title: <Link to={from}>返回列表</Link> }, { title: item ? categoryLabels[item.category] || '其他' : '商品' }, { title: '商品详情' }]} /><Resource {...remote}>
-    {item && <ProductDetail key={item.id} item={item} feedback={<><Failure error={mutation.error} /><Failure error={favoriteState.error} retry={favoriteState.reload} /></>} actions={<>
+    {item && <ProductDetail key={item.id} item={item} feedback={<><Failure error={mutation.error} /><Failure error={favoriteState.error} retry={favoriteState.reload} /></>} actions={user?.role !== 'ADMIN' && <>
         <Button icon={favorite ? <HeartFilled aria-hidden /> : <HeartOutlined aria-hidden />} loading={mutation.busy || (user?.role === 'USER' && favoriteState.loading)} disabled={user?.role === 'USER' && Boolean(favoriteState.error)} onClick={() => void mutation.run(async () => {
           if (!requireStudent(navigate, location.pathname)) return
           if (favorite) await api.removeFavorite({ path: { productId: item.id } })

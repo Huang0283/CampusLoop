@@ -7,6 +7,7 @@ const report = { id: 701, targetType: 'PRODUCT', targetId: 601, reason: 'FAKE_PR
 const pagination = { page: 1, pageSize: 20, total: 1 }
 
 test.beforeEach(async ({ page }) => {
+  await page.route('**/notifications', route => route.fulfill({ json: { data: [] } }))
   await page.route('**/auth/browser-session', route => route.fulfill({ json: { data: { accessToken: 'fixture-not-real', expiresIn: 600, user: { ...user, role: 'ADMIN' } } } }))
   await page.route('**/admin/users?**', route => route.fulfill({ json: { data: { items: [user], pagination } } }))
   await page.route('**/admin/users/501/risk-clues*', route => route.fulfill({ json: { data: { status: 'INSUFFICIENT_DATA', algorithmVersion: 'm8-risk-clue-rule-v1', sourceWindowAsOf: '2026-11-01T00:00:00+00:00', missingInputs: ['failedPaymentCount24h', 'sameDeviceAccountCount7d'], recommendedAction: 'NONE', clues: [], degraded: false } } }))

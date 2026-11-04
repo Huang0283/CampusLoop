@@ -67,7 +67,11 @@ def authenticate(
     if not user or not family or family.user_id != user.id or family.expires_at <= utcnow():
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session unavailable.")
     if user.status != "ACTIVE":
-        raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
+        from app.services.appeal_access import disabled_error
+
+        if family.revoked_at and family.revocation_reason != "disabled":
+            raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session revoked.")
+        raise disabled_error(user)
     if family.revoked_at and not (allow_logout_replay and family.revocation_reason == "logout"):
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session revoked.")
     return user, family
@@ -143,11 +147,15 @@ def browser_session(db: Session, request: Request, *, allow_revoked=False):
         not user
         or not family
         or family.expires_at <= utcnow()
-        or (family.revoked_at and not allow_revoked)
+        or (family.revoked_at and family.revocation_reason != "disabled" and not allow_revoked)
     ):
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session expired or revoked.")
     if user.status != "ACTIVE" and not allow_revoked:
-        raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
+        from app.services.appeal_access import disabled_error
+
+        raise disabled_error(user)
+    if family.revoked_at and not allow_revoked:
+        raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session expired or revoked.")
     return user, family
 
 

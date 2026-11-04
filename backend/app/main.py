@@ -25,6 +25,7 @@ from app.api.routes import (
     intelligence,
     market,
     media,
+    moderation,
     realtime,
     system,
     transactions,
@@ -129,6 +130,7 @@ def create_app() -> FastAPI:
     app.include_router(admin_console.router)
     app.include_router(intelligence.router)
     app.include_router(media.router)
+    app.include_router(moderation.router)
 
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(Exception, unhandled_exception_handler)

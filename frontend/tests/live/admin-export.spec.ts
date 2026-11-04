@@ -13,6 +13,7 @@ for (const language of ['zh', 'en'] as const) {
     await page.route('**/*', async route => {
       const req = route.request(), url = new URL(req.url())
       if (!['xhr', 'fetch'].includes(req.resourceType())) return route.continue()
+      if (url.pathname === '/notifications') return route.fulfill({ json: { data: [] } })
       if (url.pathname === '/auth/browser-session') return route.fulfill({ json: { data: { accessToken: 'export-fixture', expiresIn: 600, user } } })
       if (url.pathname === '/admin/dashboard') return route.fulfill({ json: { data: dashboard } })
       if (url.pathname === '/admin/orders') {

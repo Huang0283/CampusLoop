@@ -35,6 +35,7 @@ async function setup(page: Page) {
     const path = new URL(request.url()).pathname
     const method = request.method()
     const reply = (data: unknown) => route.fulfill({ json: { data } })
+    if (path === '/display-translation/translate') return route.fulfill({ json: { translations: request.postDataJSON().texts } })
 
     if (path === '/auth/browser-session' && method === 'POST') {
       return reply({ accessToken: 'fixture-not-real', expiresIn: 600, user: admin })

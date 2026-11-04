@@ -9,6 +9,10 @@ export const reportStatusLabels: Record<ReportStatus, string> = { PENDING: '待�
 export const targetTypeLabels: Record<ReportTargetType, string> = { USER: '用户', PRODUCT: '商品', ORDER: '订单', CHAT_MESSAGE: '聊天消息' }
 
 export const auditEventLabels: Record<string, string> = {
+  admin_account_decision: '账号警告或禁用', admin_account_appeal_review: '账号申诉复核',
+  admin_account_decisions_read: '查看账号处理记录', admin_account_appeals_read: '查看申诉队列',
+  admin_account_appeal_read: '查看申诉详情', admin_account_evidence_read: '查看处理或申诉证据',
+  admin_account_decision_replay: '重复提交（未重复执行）',
   admin_product_moderate: '商品人工处理', admin_report_resolve: '处理举报', admin_report_override: '改判举报',
   admin_user_disabled: '禁用账号', admin_user_active: '恢复账号', admin_user_status_unchanged: '账号状态未变化',
   admin_dashboard_read: '查看仪表盘', admin_orders_read: '查看订单', admin_audit_logs_read: '查看操作日志',
@@ -18,6 +22,7 @@ export const auditEventLabels: Record<string, string> = {
 }
 
 export const resultStatusLabels: Record<string, string> = {
+  WARNING: '违规警告', DISABLE: '禁用账号', UPHELD: '维持原处理', REVOKED: '已撤销原处理',
   ON_SALE: '恢复在售', HIDDEN: '已下架', RESERVED: '已预订', SOLD: '已售出', RESOLVED: '已处理', REJECTED: '已驳回', ACTIVE: '正常', DISABLED: '已禁用',
 }
 

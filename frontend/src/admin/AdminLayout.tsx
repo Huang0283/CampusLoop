@@ -6,7 +6,7 @@ import { Alert, Avatar, Badge, Button, Dropdown, Tooltip } from 'antd'
 import { Link, NavLink, Outlet, useLocation, useNavigate, useOutletContext } from 'react-router-dom'
 import * as api from '../sdk'
 import type { AdminDashboard } from '../sdk'
-import { useRemote } from '../live/common'
+import { useNotificationsResource, useRemote } from '../live/common'
 import { useSession } from '../live/session'
 import { Logo } from '../theme/brand'
 import { ThemeToggle } from '../theme/AppTheme'
@@ -27,6 +27,7 @@ const MENU: { group: string; items: Entry[] }[] = [
   { group: '概览', items: [{ to: '/admin', label: '仪表盘', icon: 'dashboard', color: '#3D6BFF', end: true }] },
   { group: '审核中心', items: [
     { to: '/admin/reports', label: '举报处理', icon: 'flag', color: '#FF7A2F', badge: (data) => data?.pending.openReports ?? 0 },
+    { to: '/admin/appeals', label: '申诉复核', icon: 'shield', color: '#8B5CF6' },
     { to: '/admin/products', label: '商品治理', icon: 'shield', color: '#12A877' },
   ] },
   { group: '运营管理', items: [
@@ -38,7 +39,7 @@ const MENU: { group: string; items: Entry[] }[] = [
     { to: '/admin/profile', label: '个人中心', icon: 'heart', color: '#F5A524' },
   ] },
 ]
-const TITLES: Record<string, string> = { '/admin': '仪表盘', '/admin/reports': '举报处理', '/admin/products': '商品治理', '/admin/orders': '订单管理', '/admin/users': '用户管理', '/admin/audit': '操作日志', '/admin/profile': '个人中心' }
+const TITLES: Record<string, string> = { '/admin': '仪表盘', '/admin/reports': '举报处理', '/admin/appeals': '申诉复核', '/admin/notifications': '通知', '/admin/products': '商品治理', '/admin/orders': '订单管理', '/admin/users': '用户管理', '/admin/audit': '操作日志', '/admin/profile': '个人中心' }
 const COLLAPSE_KEY = 'campusloop-admin-sidebar'
 
 export function AdminLayout() {
@@ -69,7 +70,8 @@ export function AdminLayout() {
     navigate('/market', { flushSync: true })
     useSession.getState().clear()
   }
-  const pending = dashboard.value?.pending.total ?? 0
+  const notifications = useNotificationsResource()
+  const unread = notifications.value?.filter(item => !item.read).length ?? 0
   const title = TITLES[location.pathname] ?? '管理后台'
   const context: ConsoleContext = { dashboard, days, setDays }
   return localize(<div className={`adm ${collapsed ? 'is-collapsed' : ''} ${drawer ? 'is-drawer' : ''}`}>
@@ -99,8 +101,8 @@ export function AdminLayout() {
         <button type="button" className="adm-search" onClick={() => setPalette(true)}><Icon name="search" /><span>搜索订单号或跳转页面</span><kbd>Ctrl K</kbd></button>
         <ThemeToggle className="adm-theme" />
         <LanguageSelect className="adm-language" />
-        <Tooltip title={pending ? `待处理 ${pending} 项：举报 ${dashboard.value?.pending.openReports ?? 0}，争议订单 ${dashboard.value?.pending.disputedOrders ?? 0}` : '暂无待处理事项'}>
-          <Badge count={pending} size="small" offset={[-4, 4]}><Button type="text" className="adm-icon-btn" aria-label={`待处理 ${pending} 项`} icon={<Icon name="bell" />} onClick={() => navigate('/admin/reports')} /></Badge>
+        <Tooltip title="通知与申诉提醒">
+          <Badge count={unread} size="small" offset={[-4, 4]}><Button type="text" className="adm-icon-btn" aria-label="通知" icon={<Icon name="bell" />} onClick={() => navigate('/admin/notifications')} /></Badge>
         </Tooltip>
         <Dropdown trigger={['click']} placement="bottomRight" getPopupContainer={(trigger) => trigger.parentElement ?? document.body}
           // Keep positioning relative to the sticky header; reduced motion must

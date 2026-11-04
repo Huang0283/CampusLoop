@@ -5,6 +5,44 @@ const seller = { id: 502, nickname: 'Cosplay晚风 Report', avatar: null, rating
 const titles = ['浅紫色缠花Cosplay发饰一组', '蓝金色Cosplay道具剑（柄部有瑕疵）', '捷安特 ATX660 山地车 26 寸 24 速', 'Report']
 const products = titles.map((title, index) => ({ id: 601 + index, title, description: `Cosplay / ATX660 原文说明\n- 26 寸，24 速\n- 包含配件，¥520。`, images: [picture(400, 1600), picture(1600, 400), picture(800, 800)], seller, price: 49, category: 'other', condition: 'GOOD', campusLocation: '校内', status: 'ON_SALE', createdAt: '2026-10-30T10:00:00Z', updatedAt: '2026-10-30T10:00:00Z' }))
 
+test('product buying actions are hidden for administrators and retained for students and guests', async ({ page }) => {
+  let role: 'ADMIN' | 'USER' | 'GUEST' = 'ADMIN'
+  const favorites: string[] = []
+  await page.route('**/*', route => {
+    const request = route.request(), url = new URL(request.url())
+    if (!['fetch', 'xhr'].includes(request.resourceType())) return route.continue()
+    if (url.pathname === '/auth/browser-session') return role === 'GUEST'
+      ? route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED' } })
+      : route.fulfill({ json: { data: { accessToken: 'role-display-fixture', expiresIn: 600, user: { id: 501, nickname: '查看者', role, status: 'ACTIVE', email: 'role@example.invalid' } } } })
+    if (url.pathname === '/products/601') return route.fulfill({ json: { data: products[0] } })
+    if (url.pathname === '/favorites') {
+      favorites.push(role)
+      return route.fulfill({ json: { data: { items: [], pagination: { page: 1, pageSize: 100, total: 0 } } } })
+    }
+    if (url.pathname === '/notifications') return route.fulfill({ json: { data: [] } })
+    return route.fulfill({ status: 404, json: { code: 'NOT_FOUND' } })
+  })
+  for (const nextRole of ['ADMIN', 'USER', 'GUEST'] as const) {
+    role = nextRole
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/product/601')
+      await page.reload()
+      await expect(page.locator('.product-info h1')).toHaveText(products[0].title)
+      await expect(page.locator('.seller-card')).toContainText(seller.nickname)
+      for (const name of ['收藏', '联系卖家']) {
+        const button = page.getByRole('button', { name, exact: true })
+        if (role === 'ADMIN') await expect(button).toHaveCount(0)
+        else await expect(button).toBeVisible()
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+    }
+  }
+  expect(favorites.every(requestRole => requestRole === 'USER')).toBe(true)
+  await page.getByRole('button', { name: '联系卖家', exact: true }).click()
+  await expect(page).toHaveURL(/\/login$/)
+})
+
 for (const width of [1440, 390]) {
   test(`catalog preserves source names and complete photos across languages at ${width}px`, async ({ page }) => {
     const translated: Array<{ target: string; texts: string[] }> = []

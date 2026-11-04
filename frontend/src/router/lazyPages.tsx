@@ -2,6 +2,8 @@ import { lazy } from 'react'
 
 export const AuthPage = lazy(() => import('../live/AccountPages').then((module) => ({ default: module.AuthPage })))
 export const ProfilePage = lazy(() => import('../live/AccountPages').then((module) => ({ default: module.ProfilePage })))
+export const AccountDecisionsPage = lazy(() => import('../live/ModerationPages').then(module => ({ default: module.AccountDecisionsPage })))
+export const AdminAppealsPage = lazy(() => import('../admin/AppealsPage').then(module => ({ default: module.AppealsPage })))
 const console = () => import('../admin')
 export const AdminLayout = lazy(() => console().then((module) => ({ default: module.AdminLayout })))
 export const AdminDashboardPage = lazy(() => console().then((module) => ({ default: module.DashboardPage })))
