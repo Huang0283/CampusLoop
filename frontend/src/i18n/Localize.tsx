@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components -- Display localization helpers are shared with the language control. */
-import { cloneElement, isValidElement, type ReactNode } from 'react'
+import { Children, cloneElement, isValidElement, type ReactNode } from 'react'
 import { Select } from 'antd'
 import { activeLanguage, t, useLanguage } from './language'
 import './language.css'
@@ -26,7 +26,7 @@ export function localize(node: ReactNode): ReactNode {
     if (typeof node === 'string') return t(node)
   }
   if (typeof node === 'string') return t(node)
-  if (Array.isArray(node)) return node.map(localize)
+  if (Array.isArray(node)) return Children.map(node, child => localize(child))
   if (!isValidElement<Record<string, unknown>>(node)) return node
   if (node.type === OriginalText) return node
   if (node.props.translate === 'no' || node.props['data-original-text']) return node

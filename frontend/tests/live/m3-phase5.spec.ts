@@ -9,6 +9,7 @@ const wanted = { id: 701, title, owner: peer, description: 'D'.repeat(3000), bud
 const pagination = { page: 1, pageSize: 12, total: 30 }
 
 test.beforeEach(async ({ page }) => {
+  await page.route('**/display-translation/translate', route => route.fulfill({ json: { translations: route.request().postDataJSON().texts } }))
   await page.route('**/auth/browser-session', route => route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED' } }))
   await page.route('**/products?**', route => route.fulfill({ json: { data: { items: [product], pagination } } }))
   await page.route('**/wanted?**', route => route.fulfill({ json: { data: { items: [wanted], pagination } } }))
@@ -40,12 +41,12 @@ test('search length and failed network retry preserve the draft', async ({ page 
   await input.fill('not submitted draft')
   await page.route('**/products?**', route => route.abort('internetdisconnected'))
   await page.getByRole('button', { name: /^刷\s*新$/ }).click()
-  await expect(page.getByText('NETWORK_ERROR', { exact: true })).toBeVisible()
+  await expect(page.getByText('无法连接服务，请检查网络后重试。', { exact: true })).toBeVisible()
   await expect(input).toHaveValue('not submitted draft')
   await page.route('**/products?**', route => route.fulfill({ json: { data: { items: [product], pagination } } }))
   await page.getByRole('button', { name: /^重\s*试$/ }).click()
   await expect(page.getByRole('link', { name: title, exact: true })).toBeVisible()
-  await expect(page.getByText('NETWORK_ERROR', { exact: true })).toHaveCount(0)
+  await expect(page.getByText('无法连接服务，请检查网络后重试。', { exact: true })).toHaveCount(0)
   await expect(input).toHaveValue('not submitted draft')
 })
 
@@ -102,7 +103,7 @@ test('failed image upload can recover and a slow failed save keeps the complete 
     await expect(page.getByLabel('商品名称', { exact: true })).toHaveValue('Retained draft')
     await expect(page.locator('form button[type="submit"]')).toHaveClass(/ant-btn-loading/)
   } finally { release() }
-  await expect(page.getByText('SERVICE_UNAVAILABLE', { exact: true })).toBeVisible()
+  await expect(page.getByText('服务暂不可用，请稍后重试。', { exact: true })).toBeVisible()
   await expect(page.getByLabel('商品名称', { exact: true })).toHaveValue('Retained draft')
   await expect(page.getByLabel('出售价格（元）', { exact: true })).toHaveValue('30.00')
   await expect(page.getByLabel('校内交易地点', { exact: true })).toHaveValue('Library')

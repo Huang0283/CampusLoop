@@ -57,12 +57,12 @@ for (const key of ['Enter', 'Space']) {
     await page.keyboard.press(key)
     await expect(item('个人中心')).toBeFocused()
 
-    for (const name of ['我的发布', '我的收藏', '我的举报', '退出登录']) {
+    for (const name of ['我的发布', '我的收藏', '我的举报', '账号处理记录', '退出登录']) {
       await page.keyboard.press('ArrowDown')
       await expect(item(name)).toBeFocused()
     }
     await page.keyboard.press('ArrowUp')
-    await expect(item('我的举报')).toBeFocused()
+    await expect(item('账号处理记录')).toBeFocused()
 
     await page.keyboard.press('Escape')
     await expect(item('个人中心')).toBeHidden()

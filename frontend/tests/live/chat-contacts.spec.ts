@@ -101,6 +101,7 @@ for (const width of [1440, 390]) test(`one contact keeps multiple products, mess
   expect(fixture.sockets).toHaveLength(connectionsBeforeSwitch)
   await page.getByRole('combobox', { name: '选择沟通商品或求购' }).click()
   await page.getByRole('option', { name: '雨伞', exact: true }).click()
+  await expect(page).toHaveURL(/\/chat\/802$/)
   await page.getByRole('button', { name: '报价', exact: true }).click()
   await page.getByRole('spinbutton', { name: '报价金额', exact: true }).fill('42')
   await page.getByRole('button', { name: '提交报价', exact: true }).click()
