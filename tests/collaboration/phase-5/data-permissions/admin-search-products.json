@@ -1,0 +1,172 @@
+[
+  {
+    "fixtureId": "AP001",
+    "ownerAlias": "A",
+    "title": "联想测试笔记本电脑",
+    "description": "测试电脑，附电源。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "DIGITAL",
+    "condition": "GOOD",
+    "price": 1800,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP002",
+    "ownerAlias": "A",
+    "title": "测试纸质笔记本",
+    "description": "空白纸页，用于课堂记录。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "BOOKS",
+    "condition": "GOOD",
+    "price": 20,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP003",
+    "ownerAlias": "A",
+    "title": "测试台式电脑",
+    "description": "测试电脑主机，附电源。纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "DIGITAL",
+    "condition": "GOOD",
+    "price": 1200,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP004",
+    "ownerAlias": "A",
+    "title": "测试山地自行车",
+    "description": "山地车，测试样例。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "SPORTS",
+    "condition": "GOOD",
+    "price": 800,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP005",
+    "ownerAlias": "A",
+    "title": "测试公路自行车",
+    "description": "测试公路车，附车铃。纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "SPORTS",
+    "condition": "GOOD",
+    "price": 600,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP006",
+    "ownerAlias": "A",
+    "title": "测试折叠雨伞",
+    "description": "下雨使用的生活用品。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "DAILY",
+    "condition": "GOOD",
+    "price": 25,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP007",
+    "ownerAlias": "A",
+    "title": "测试摄影柔光伞",
+    "description": "摄影照明附件，不能用于遮雨。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "other",
+    "condition": "GOOD",
+    "price": 40,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP008",
+    "ownerAlias": "A",
+    "title": "测试移动电源充电宝",
+    "description": "便携电池。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "DIGITAL",
+    "condition": "GOOD",
+    "price": 60,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP009",
+    "ownerAlias": "A",
+    "title": "测试双肩包",
+    "description": "可以装电脑，出售的是包。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "clothing",
+    "condition": "GOOD",
+    "price": 80,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  },
+  {
+    "fixtureId": "AP010",
+    "ownerAlias": "A",
+    "title": "华硕测试笔记本电脑",
+    "description": "测试电脑，附充电器。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "category": "DIGITAL",
+    "condition": "GOOD",
+    "price": 2100,
+    "originalPrice": null,
+    "campusLocation": "校内",
+    "imageFixtureIds": [
+      "M01"
+    ],
+    "caseIds": [
+      "T2-C04"
+    ]
+  }
+]
