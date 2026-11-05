@@ -14,11 +14,16 @@ import uvicorn
 
 from app.core.config import get_settings
 from app.core.security import signing_key
+from app.db.session import SessionLocal
+from scripts.privatize_media import privatize_media
 
 
 def main():
     settings = get_settings()
     signing_key()  # Refuse to start a login-capable service without its secret.
+    # Revoke old raw links before serving; verified copies retain the existing DB references.
+    with SessionLocal() as db:
+        privatize_media(db)
     servers = []
     threads = []
     stop = threading.Event()

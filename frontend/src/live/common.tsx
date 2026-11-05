@@ -1,9 +1,10 @@
+import { UserAvatar as Avatar } from './UserAvatar'
 import { localize, OriginalText, LanguageSelect } from '../i18n/Localize'
 import { useLanguage, t } from '../i18n/language'
 /* eslint-disable react-refresh/only-export-components -- Shared live-page hooks and components. */
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Alert, Avatar, Badge, Button, Card, Dropdown, Empty, Input, Menu, Result } from 'antd'
+import { Alert, Badge, Button, Card, Dropdown, Empty, Input, Menu, Result } from 'antd'
 import { BellOutlined, DownOutlined, FileSearchOutlined, MessageOutlined, SafetyCertificateOutlined, SearchOutlined, ShopOutlined, SwapOutlined } from '@ant-design/icons'
 import { Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ApiError, data, listNotifications, logout } from '../sdk'

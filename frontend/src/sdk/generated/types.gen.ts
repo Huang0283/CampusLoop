@@ -1634,6 +1634,41 @@ export type AdminReviewAccountAppealResponses = {
 
 export type AdminReviewAccountAppealResponse = AdminReviewAccountAppealResponses[keyof AdminReviewAccountAppealResponses];
 
+export type GetAvatarImageData = {
+    body?: never;
+    path?: never;
+    query: {
+        reference: string;
+    };
+    url: '/avatars/image';
+};
+
+export type GetAvatarImageErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * AI dependency unavailable; response identifies the allowed fallback.
+     */
+    503: ErrorResponse;
+};
+
+export type GetAvatarImageError = GetAvatarImageErrors[keyof GetAvatarImageErrors];
+
+export type GetAvatarImageResponses = {
+    /**
+     * Authenticated avatar bytes; no-store
+     */
+    200: Blob | File;
+};
+
+export type GetAvatarImageResponse = GetAvatarImageResponses[keyof GetAvatarImageResponses];
+
 export type GetChatMessageImageData = {
     body?: never;
     path: {

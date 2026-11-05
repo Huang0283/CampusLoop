@@ -4,15 +4,15 @@ from sqlalchemy import select
 
 from app.core.config import get_settings
 from app.core.errors import BusinessError
-from app.models import ChatMessage, ChatSession, Report, UploadedObject
+from app.models import ChatMessage, ChatSession, Report, UploadedObject, User
 from app.services.auth import Actor, Db, administrator
 from app.services.governance import read_audit
-from app.services.storage import storage_client
+from app.services.storage import reference_key, storage_client
 
 router = APIRouter(tags=["Media"])
 
 
-def image_response(key):
+def image_response(key, content_type="image/jpeg"):
     try:
         stream = storage_client().get_object(Bucket=get_settings().minio_private_bucket, Key=key)[
             "Body"
@@ -27,7 +27,7 @@ def image_response(key):
         ) from None
     return Response(
         content,
-        media_type="image/jpeg",
+        media_type=content_type,
         headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
     )
 
@@ -45,10 +45,10 @@ def chat_image(messageId: int, db: Db, actor: Actor):
     )
     if entity is None:
         raise BusinessError(404, "NOT_FOUND", "Private image not found.")
-    prefix = "https://private.campusloop.invalid/"
-    if not (entity.content or "").startswith(prefix):
-        raise BusinessError(404, "NOT_FOUND", "Private image not found.")
-    key = entity.content[len(prefix) :]
+    try:
+        key = reference_key(entity.content or "", "chat", legacy=True)
+    except BusinessError:
+        raise BusinessError(404, "NOT_FOUND", "Private image not found.") from None
     if not db.scalar(
         select(UploadedObject.id).where(
             UploadedObject.object_key == key,
@@ -58,6 +58,26 @@ def chat_image(messageId: int, db: Db, actor: Actor):
     ):
         raise BusinessError(404, "NOT_FOUND", "Private image not found.")
     return image_response(key)
+
+
+@router.get("/avatars/image", operation_id="getAvatarImage")
+def avatar_image(db: Db, actor: Actor, reference: str = Query(min_length=1, max_length=512)):
+    try:
+        key = reference_key(reference, "avatar")
+    except BusinessError:
+        raise BusinessError(404, "NOT_FOUND", "Avatar not found.") from None
+    image = db.scalar(
+        select(UploadedObject).where(
+            UploadedObject.object_key == key, UploadedObject.purpose == "avatar"
+        )
+    )
+    owner = db.get(User, image.owner_id) if image else None
+    if not owner or (
+        owner.id != actor.id
+        and (owner.avatar_url != reference or (owner.status != "ACTIVE" and actor.role != "ADMIN"))
+    ):
+        raise BusinessError(404, "NOT_FOUND", "Avatar not found.")
+    return image_response(key, image.content_type)
 
 
 @router.get("/admin/reports/{reportId}/evidence/{imageIndex}", operation_id="getReportEvidence")

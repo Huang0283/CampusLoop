@@ -43,7 +43,7 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
         raise BusinessError(415, "UNSUPPORTED_IMAGE", "Invalid image.") from None
     settings = get_settings()
     key = f"{purpose}/{actor.id}/{uuid.uuid4().hex}.jpg"
-    public = purpose in ("product", "avatar")
+    public = purpose == "product"
     bucket = settings.minio_public_bucket if public else settings.minio_private_bucket
     client = storage_client()
     try:
@@ -79,17 +79,21 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
     return {"url": url, "contentType": "image/jpeg", "size": len(data)}
 
 
+def reference_key(url: str, purpose: str, *, legacy=False) -> str:
+    public_base = get_settings().s3_public_base_url.rstrip("/")
+    bases = [public_base] if purpose == "product" else ["https://private.campusloop.invalid"]
+    if purpose == "avatar" or legacy:
+        bases.append(public_base)
+    for base in bases:
+        if url.startswith(base + "/"):
+            return url[len(base) + 1 :]
+    raise BusinessError(422, "INVALID_IMAGE_REFERENCE", "Use an uploaded image reference.")
+
+
 def owned_keys(db, actor, urls: list[str], purpose: str) -> list[str]:
-    base = (
-        "https://private.campusloop.invalid"
-        if purpose not in ("product", "avatar")
-        else get_settings().s3_public_base_url.rstrip("/")
-    )
     keys = []
     for url in urls:
-        if not url.startswith(base + "/"):
-            raise BusinessError(422, "INVALID_IMAGE_REFERENCE", "Use an uploaded image reference.")
-        key = url[len(base) + 1 :]
+        key = reference_key(url, purpose)
         row = db.scalar(
             select(UploadedObject).where(
                 UploadedObject.object_key == key,
