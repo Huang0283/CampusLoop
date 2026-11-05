@@ -22,6 +22,6 @@
 
 ## 运行环境
 
-工作目录为桌面 `CampusLoop`，开发分支为 `fix/price-advice-guidance`，合并状态以 GitHub PR 为准。日常网站 `http://127.0.0.1:5174`，API `http://127.0.0.1:8001`；已通过 `scripts/start-local.ps1 -NoBrowser` 更新。独立审计页面为 5197，API 为 18016，不与日常账号混用。可随仓库复现的虚拟账号和标价参考场景见[演示数据说明](demo-dataset.md)，其页面为 5198、API 为 18026。
+工作目录为桌面 `CampusLoop`，开发分支为 `fix/price-advice-guidance`，合并状态以 GitHub PR 为准。日常网站 `http://127.0.0.1:5174`，API `http://127.0.0.1:8001`；已通过 `scripts/start-local.ps1 -NoBrowser` 更新。独立审计页面为 5197，API 为 18016，不与日常账号混用。可随仓库复现的虚拟账号和标价参考场景见[演示数据说明](demo-dataset.md)，现与原商城共用 5174 / 8001 及原后台，5198 仅为可选隔离环境。
 
 日常启动现在传入 `seed.py --if-empty --check`：已有用户时跳过演示商品和图片同步，避免重启覆盖人工修改。空库仍正常初始化，其他环境的种子默认行为保留。更新前后核对日常库的 32 个用户、422 件商品、735 条商品图片记录，数量及内容摘要一致。

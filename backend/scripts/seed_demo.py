@@ -1,5 +1,6 @@
-"""Create a labeled synthetic journey only in the dedicated demo database."""
+"""Create labeled synthetic records in a demo database or the opted-in local marketplace."""
 
+import argparse
 import hashlib
 import io
 import json
@@ -44,12 +45,23 @@ from app.services.storage import storage_client
 
 ASSETS = Path(__file__).resolve().parents[1] / "demo_assets"
 VERSION = "campusloop-demo-v1"
-PASSWORD = "CampusDemo@2026"  # Public synthetic accounts; never used by the daily database.
+PASSWORD = "CampusDemo@2026"  # Public synthetic accounts only.
 EMAILS = ("demo.seller@example.invalid", "demo.buyer@example.invalid", "demo.admin@example.invalid")
 
 
-def guard(settings):
+def guard(settings, *, into_local=False):
     database = urlsplit(settings.database_url).path.lstrip("/")
+    if into_local:
+        if (
+            os.environ.get("CAMPUSLOOP_LOCAL_DEMO_IMPORT") != VERSION
+            or settings.app_env != "dev"
+            or database != "campusloop"
+            or urlsplit(settings.redis_url).path != "/0"
+        ):
+            raise RuntimeError(
+                "Shared demo import requires the explicitly opted-in local marketplace."
+            )
+        return
     if (
         os.environ.get("CAMPUSLOOP_DEMO_DATASET") != VERSION
         or settings.app_env == "prod"
@@ -79,13 +91,15 @@ def catalog():
     return data["products"]
 
 
-def create_demo(db, items):
+def create_demo(db, items, *, administrator=None):
     now = utcnow().replace(microsecond=0)
     users = []
     for email, name, role in zip(
-        EMAILS,
-        ("演示卖家·小林", "演示买家·小周", "演示管理员"),
-        ("USER", "USER", "ADMIN"),
+        EMAILS[:2] if administrator else EMAILS,
+        ("演示卖家·小林", "演示买家·小周")
+        if administrator
+        else ("演示卖家·小林", "演示买家·小周", "演示管理员"),
+        ("USER", "USER") if administrator else ("USER", "USER", "ADMIN"),
         strict=True,
     ):
         user = User(
@@ -101,6 +115,9 @@ def create_demo(db, items):
         db.add(user)
         db.flush()
         users.append(user)
+    created_users = users.copy()
+    if administrator:
+        users.append(administrator)
     seller, buyer, admin = users
     settings = get_settings()
     client = storage_client()
@@ -127,7 +144,9 @@ def create_demo(db, items):
         return key
 
     for user, avatar in zip(
-        users, ("seller-avatar.png", "buyer-avatar.png", "admin-avatar.png"), strict=True
+        created_users,
+        ("seller-avatar.png", "buyer-avatar.png", "admin-avatar.png")[: len(created_users)],
+        strict=True,
     ):
         user.avatar_url = (
             settings.s3_public_base_url.rstrip("/") + "/" + store(user, avatar, "avatar")
@@ -573,26 +592,67 @@ def create_demo(db, items):
             select(func.max(ChatMessage.created_at)).where(ChatMessage.session_id == session.id)
         )
         session.updated_at = session.last_message_at
-    return {"products": len(products), "completedOrders": len(orders), "accounts": EMAILS}
+    return {
+        "products": len(products),
+        "completedOrders": len(orders),
+        "accounts": [user.email for user in created_users],
+    }
+
+
+def initialize(db, items, *, into_local=False):
+    db.execute(text("SELECT pg_advisory_xact_lock(68110351)"))
+    emails = EMAILS[:2] if into_local else EMAILS
+    accounts = db.scalars(select(User).where(User.email.in_(emails))).all()
+    if accounts:
+        seller = next((user for user in accounts if user.email == EMAILS[0]), None)
+        count = db.scalar(
+            select(func.count())
+            .select_from(Product)
+            .where(
+                Product.owner_id == seller.id if seller else False,
+                Product.attributes["syntheticDemo"].astext == VERSION,
+            )
+        )
+        if (
+            len(accounts) != len(emails)
+            or count != 25
+            or any(
+                user.role != ("ADMIN" if user.email == EMAILS[2] else "USER") for user in accounts
+            )
+        ):
+            raise RuntimeError(
+                "Demo account collision or incomplete dataset; existing records preserved."
+            )
+        return {"alreadyInitialized": True}
+    administrator = None
+    if into_local:
+        administrator = db.scalar(
+            select(User)
+            .where(User.role == "ADMIN", User.status == "ACTIVE")
+            .order_by(User.id)
+            .limit(1)
+        )
+        if administrator is None:
+            raise RuntimeError(
+                "Initialize the local marketplace administrator before importing demo accounts."
+            )
+    elif db.scalar(select(User.id).limit(1)) is not None:
+        raise RuntimeError("Existing database is not this demo dataset; no records changed.")
+    return create_demo(db, items, administrator=administrator)
 
 
 def main():
-    guard(get_settings())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--into-local",
+        action="store_true",
+        help="Add the two demo users to the existing local marketplace without replacing its data.",
+    )
+    args = parser.parse_args()
+    guard(get_settings(), into_local=args.into_local)
     items = catalog()
     with session_scope() as db:
-        db.execute(text("SELECT pg_advisory_xact_lock(68110351)"))
-        existing = db.scalars(select(User)).all()
-        if existing:
-            if not all(
-                any(user.email == email and VERSION in (user.bio or "") for user in existing)
-                for email in EMAILS
-            ):
-                raise RuntimeError(
-                    "Existing database is not this demo dataset; no records changed."
-                )
-            print("Demo dataset already initialized; existing records and passwords preserved.")
-            return
-        print(json.dumps(create_demo(db, items), ensure_ascii=False))
+        print(json.dumps(initialize(db, items, into_local=args.into_local), ensure_ascii=False))
 
 
 if __name__ == "__main__":

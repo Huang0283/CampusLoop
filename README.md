@@ -25,7 +25,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 
 ## 虚拟账号与完整演示
 
-需要带交易、聊天、举报、警告和申诉记录的账号时，运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-demo.ps1`，打开 http://127.0.0.1:5198 。它使用独立数据库和图片卷，保留日常网站数据。两个普通账号、专用管理员的公开登录信息、25 件商品与 15 笔成交的查看步骤见[演示数据说明](docs/development/demo-dataset.md)。组员拉取仓库后可在自己电脑初始化相同场景。
+正常运行 `scripts/start-local.ps1` 后，两个虚拟买卖账号及其商品、15 笔已完成交易、聊天、举报、警告和申诉记录会新增到原商城 http://127.0.0.1:5174 ，原有账号和商品保留，管理员在原后台查看。公开登录信息和查看步骤见[演示数据说明](docs/development/demo-dataset.md)。组员拉取该版本并启动后，可在自己本地商城生成同一套场景。
 
 ## 当前协作
 
