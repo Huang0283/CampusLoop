@@ -18,7 +18,7 @@ test('ordinary account records renew an expired login session (contract fixture)
     }
     if (path === '/notifications') return route.fulfill({ json: { data: [] } })
     if (path === '/account/decisions') {
-      if (request.headers().authorization === 'Bearer expired-login') return route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED' } })
+      if (request.headers().authorization === 'Bearer expired-login') return route.fulfill({ status: 401, json: { code: 'AUTH_ACCESS_EXPIRED' } })
       expect(request.headers().authorization).toBe('Bearer renewed-login')
       return route.fulfill({ json: { data: { items: [initial], pagination: { page: 1, pageSize: 10, total: 1 } } } })
     }

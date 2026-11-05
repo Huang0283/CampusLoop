@@ -67,24 +67,41 @@ def issue_pair(user_id: int, family_id: str, deadline: datetime) -> dict:
     return {"accessToken": access, "refreshToken": secrets.token_urlsafe(32), "expiresIn": ttl}
 
 
-def decode_access(token: str) -> dict:
+def decode_access(token: str, *, allow_expired: bool = False) -> dict:
     key = signing_key()
     try:
         header = jwt.get_unverified_header(token)
         if header.get("kid") != get_settings().auth_signing_kid or header.get("alg") != "HS256":
             raise ValueError("invalid header")
-        claims = jwt.decode(
-            token,
-            key,
-            algorithms=["HS256"],
-            audience="campusloop-web",
-            issuer="campusloop-api",
-            leeway=0,
-            options={"require": ["iss", "aud", "sub", "sid", "jti", "iat", "exp"]},
-        )
+        options = {"require": ["iss", "aud", "sub", "sid", "jti", "iat", "exp"]}
+        expired = False
+        try:
+            claims = jwt.decode(
+                token,
+                key,
+                algorithms=["HS256"],
+                audience="campusloop-web",
+                issuer="campusloop-api",
+                leeway=0,
+                options=options,
+            )
+        except jwt.ExpiredSignatureError:
+            # Expiry can precede other claim checks; verify everything else before renewal.
+            claims = jwt.decode(
+                token,
+                key,
+                algorithms=["HS256"],
+                audience="campusloop-web",
+                issuer="campusloop-api",
+                leeway=0,
+                options=options | {"verify_exp": False},
+            )
+            expired = True
         if not isinstance(claims["sub"], str) or not 0 < int(claims["sub"]) <= 9007199254740991:
             raise ValueError("invalid subject")
         uuid.UUID(claims["sid"])
+        if expired and not allow_expired:
+            raise BusinessError(401, "AUTH_ACCESS_EXPIRED", "Access token expired.")
         return claims
     except (jwt.PyJWTError, ValueError, TypeError, KeyError):
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Invalid or expired session.") from None
