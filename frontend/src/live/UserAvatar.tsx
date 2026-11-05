@@ -19,5 +19,6 @@ export function UserAvatar({ src, ...props }: Omit<AvatarProps, 'src'> & { src?:
     }).catch(() => { /* Missing or unavailable avatars retain the existing initials. */ })
     return () => { controller.abort(); if (url) URL.revokeObjectURL(url) }
   }, [key, src])
-  return <Avatar {...props} src={key && image?.key === key ? image.url : undefined} />
+  return <Avatar {...props} src={key && image?.key === key ? <img key={image.url} src={image.url} alt={props.alt} draggable={props.draggable}
+    onLoad={() => URL.revokeObjectURL(image.url)} onError={() => setImage(undefined)} /> : undefined} />
 }

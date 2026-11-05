@@ -123,6 +123,25 @@ for (const width of [1440, 390]) test(`private avatar and chat image persist wit
   await expect.poll(() => page.locator('.chat-context img').evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
   await page.reload()
   await expect(page.locator('.message-bubble img')).toHaveAttribute('src', /^blob:/)
+  const copiedUrls: string[] = []
+  for (let attempt = 0; attempt < 2; attempt++) {
+    await page.locator('.message-bubble .ant-image').click()
+    const preview = page.getByRole('dialog', { name: '聊天图片', exact: true })
+    await expect(preview).toBeVisible()
+    const fullImage = preview.locator('img')
+    await expect.poll(() => fullImage.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
+    const copied = (await fullImage.getAttribute('src'))!
+    copiedUrls.push(copied)
+    await expect.poll(() => page.evaluate(async url => {
+      try { await fetch(url); return true } catch { return false }
+    }, copied)).toBe(false)
+    const sameBrowserTab = await page.context().newPage()
+    await expect(sameBrowserTab.goto(copied)).rejects.toThrow()
+    await sameBrowserTab.close()
+    await page.keyboard.press('Escape')
+    await expect(preview).not.toBeVisible()
+  }
+  expect(copiedUrls[0]).not.toBe(copiedUrls[1])
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false)
   if (process.env.CAMPUSLOOP_VISUAL_OUTPUT) {
     await mkdir(process.env.CAMPUSLOOP_VISUAL_OUTPUT, { recursive: true })
@@ -133,6 +152,12 @@ for (const width of [1440, 390]) test(`private avatar and chat image persist wit
     for (const image of [page.getByRole('button', { name: '账号菜单：隐私测试卖家', exact: true }).locator('img'), page.locator('.message-bubble img')]) {
       await expect(image).toHaveAttribute('src', /^blob:/)
       const copied = await image.getAttribute('src')
+      await expect.poll(() => page.evaluate(async url => {
+        try { await fetch(url!); return true } catch { return false }
+      }, copied)).toBe(false)
+      const sameBrowserTab = await page.context().newPage()
+      await expect(sameBrowserTab.goto(copied!)).rejects.toThrow()
+      await sameBrowserTab.close()
       const copiedPage = await guest.newPage()
       await expect(copiedPage.goto(copied!)).rejects.toThrow()
       await copiedPage.close()

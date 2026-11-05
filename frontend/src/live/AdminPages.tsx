@@ -11,6 +11,7 @@ import type { AdminProduct, AdminReport, ReportStatus, UserProfile } from '../sd
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useAttemptKey } from './idempotency'
 import { Person } from './Presentation'
+import { PrivateMediaImage } from './PrivateMediaImage'
 import { AccountDecisionControls } from '../admin/AccountDecisionControls'
 import { reportReasonLabels } from './reportReasons'
 import { productStatusLabels, accountStatusLabels, reportStatusLabels, roleLabels, targetTypeLabels, displayDate, systemText, riskClueText } from './display'
@@ -152,17 +153,17 @@ export function UsersPanel() {
 function Evidence({ reportId, index }: { reportId: number; index: number }) {
   useLanguage()
   const [attempt, setAttempt] = useState(0)
-  const [image, setImage] = useState<{ url?: string; error?: unknown }>({})
+  const [image, setImage] = useState<{ blob?: Blob; url?: string; error?: unknown }>({})
   useEffect(() => {
     const controller = new AbortController()
     let disposed = false
     let url: string | undefined
     void api.getReportEvidence({ path: { reportId, imageIndex: index }, signal: controller.signal, parseAs: 'blob' }).then((blob) => {
-      if (!disposed) { url = URL.createObjectURL(blob as unknown as Blob); setImage({ url }) }
+      if (!disposed) { url = URL.createObjectURL(blob as unknown as Blob); setImage({ blob: blob as unknown as Blob, url }) }
     }).catch((error) => { if (!disposed) setImage({ error }) })
     return () => { disposed = true; controller.abort(); if (url) URL.revokeObjectURL(url) }
   }, [reportId, index, attempt])
-  return image.url ? localize(<Image src={image.url} alt={`举报私密证据 ${index + 1}`} width={160} />) : image.error ? localize(<Failure error={image.error} retry={() => { setImage({}); setAttempt((value) => value + 1) }} />) : localize(<Typography.Text role="status">正在读取私密证据…</Typography.Text>)
+  return image.url && image.blob ? localize(<PrivateMediaImage key={image.url} url={image.url} blob={image.blob} alt={`举报私密证据 ${index + 1}`} width={160} />) : image.error ? localize(<Failure error={image.error} retry={() => { setImage({}); setAttempt((value) => value + 1) }} />) : localize(<Typography.Text role="status">正在读取私密证据…</Typography.Text>)
 }
 
 function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () => void }) {
