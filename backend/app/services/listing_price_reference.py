@@ -39,5 +39,7 @@ def listing_price_reference(db, *, category, condition, keyword, user_id):
         "count": count,
         "lower": float(lower) if lower is not None else None,
         "upper": float(upper) if upper is not None else None,
-        "listings": [{"id": row.id, "title": row.title, "price": float(row.price)} for row in rows[:5]],
+        "listings": [
+            {"id": row.id, "title": row.title, "price": float(row.price)} for row in rows[:5]
+        ],
     }

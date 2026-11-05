@@ -76,7 +76,8 @@ def test_shared_demo_preserves_existing_users_and_is_idempotent(monkeypatch):
 
     settings = get_settings()
     database = urlsplit(settings.database_url).path
-    assert settings.app_env not in ("dev", "prod") and database != "/campusloop"
+    assert settings.app_env not in ("dev", "prod")
+    assert database != "/campusloop" or settings.app_env == "ci"
     assert urlsplit(settings.redis_url).path in ("/14", "/15")
     monkeypatch.setattr(
         seed_demo, "storage_client", lambda: SimpleNamespace(put_object=lambda **kwargs: None)

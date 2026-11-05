@@ -240,7 +240,10 @@ def price_advice(body: PriceInput, db: Db, actor: Actor):
             ),
             "resultVersion": result.get("algorithmVersion", "m8-unavailable-v1"),
             "marketReference": listing_price_reference(
-                db, category=body.category, condition=body.condition, keyword=body.title,
+                db,
+                category=body.category,
+                condition=body.condition,
+                keyword=body.title,
                 user_id=actor.id,
             ),
         }

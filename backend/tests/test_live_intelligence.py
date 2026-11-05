@@ -103,9 +103,13 @@ def test_price_reference_only_uses_recent_visible_matching_listing_prices(client
 
         def listing(price, **changes):
             values = {
-                "owner_id": seller["user"]["id"], "title": keyword + " model",
-                "category": "BOOKS", "condition": "GOOD", "price": price,
-                "status": "ON_SALE", "description": "isolated synthetic test listing",
+                "owner_id": seller["user"]["id"],
+                "title": keyword + " model",
+                "category": "BOOKS",
+                "condition": "GOOD",
+                "price": price,
+                "status": "ON_SALE",
+                "description": "isolated synthetic test listing",
             }
             values.update(changes)
             db.add(Product(**values))
@@ -134,16 +138,29 @@ def test_price_reference_only_uses_recent_visible_matching_listing_prices(client
     assert market["count"] == 4
     assert (market["lower"], market["upper"]) == (20, 80)
     assert sorted(item["price"] for item in market["listings"]) == [20, 40, 80, 8000]
-    assert client.post("/price-advice", headers=headers(requester), json={**body, "title": "x"}).json()["data"]["marketReference"] is None
-    missing = client.post("/price-advice", headers=headers(requester), json={**body, "title": keyword + "-missing"}).json()["data"]["marketReference"]
+    assert (
+        client.post(
+            "/price-advice", headers=headers(requester), json={**body, "title": "x"}
+        ).json()["data"]["marketReference"]
+        is None
+    )
+    missing = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "title": keyword + "-missing"}
+    ).json()["data"]["marketReference"]
     assert missing == {"count": 0, "lower": None, "upper": None, "listings": []}
-    sparse = client.post("/price-advice", headers=headers(requester), json={**body, "title": sparse_keyword}).json()["data"]["marketReference"]
+    sparse = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "title": sparse_keyword}
+    ).json()["data"]["marketReference"]
     assert sparse["count"] == 2 and sparse["lower"] is None and sparse["upper"] is None
-    escaped = client.post("/price-advice", headers=headers(requester), json={**body, "title": sparse_keyword + "%_"}).json()["data"]["marketReference"]
+    escaped = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "title": sparse_keyword + "%_"}
+    ).json()["data"]["marketReference"]
     assert escaped["count"] == 1 and escaped["listings"][0]["price"] == 11
     monkeypatch.setenv("BASELINE_SERVICES_ENABLED", "false")
     get_settings.cache_clear()
-    degraded = client.post("/price-advice", headers=headers(requester), json={**body, "originalPrice": 100}).json()["data"]
+    degraded = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "originalPrice": 100}
+    ).json()["data"]
     assert degraded["status"] == "UNAVAILABLE" and degraded["marketReference"]["count"] == 4
 
 
