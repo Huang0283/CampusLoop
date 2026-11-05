@@ -23,6 +23,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 
 启动脚本打印当前目录、分支和提交；页面展示的是当前检出版本。日常数据库和图片使用固定持久卷，不要删除卷来处理登录问题。完整依赖、停止/状态命令与账号数据说明见[本机启动说明](docs/development/local-startup.md)。写入验收使用独立审计数据库、测试媒体卷与 Redis DB14/15。
 
+## 虚拟账号与完整演示
+
+需要带交易、聊天、举报、警告和申诉记录的账号时，运行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-demo.ps1`，打开 http://127.0.0.1:5198 。它使用独立数据库和图片卷，保留日常网站数据。两个普通账号、专用管理员的公开登录信息、25 件商品与 15 笔成交的查看步骤见[演示数据说明](docs/development/demo-dataset.md)。组员拉取仓库后可在自己电脑初始化相同场景。
+
 ## 当前协作
 
 - [九人协作总任务书](docs/management/nine-member-collaboration-plan.md)：成员自选岗位、交付文件、边界及验收要求。

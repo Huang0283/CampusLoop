@@ -1,0 +1,17 @@
+.demo-environment-notice {
+  position: fixed;
+  z-index: 2000;
+  right: 12px;
+  bottom: 12px;
+  max-width: min(440px, calc(100vw - 24px));
+  padding: 7px 12px;
+  border: 1px solid #e8c86e;
+  border-radius: 10px;
+  background: #fffbeb;
+  color: #765b16;
+  font-size: 12px;
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .demo-environment-notice { bottom: 76px; font-size: 10px; }
+}

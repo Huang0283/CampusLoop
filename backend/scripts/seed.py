@@ -523,9 +523,15 @@ def main() -> int:
     parser.add_argument(
         "--check", action="store_true", help="连跑两遍并比对行数快照，验证幂等性（退出码 0=通过）"
     )
+    parser.add_argument(
+        "--if-empty", action="store_true", help="已有用户时跳过初始化，保留日常商品和图片"
+    )
     args = parser.parse_args()
 
     with session_scope() as session:
+        if args.if_empty and session.scalar(select(User.id).limit(1)) is not None:
+            print("[seed] 已有用户，跳过演示数据同步。")
+            return 0
         print("[seed] 第一遍写入：")
         run_seed(session)
         seed_images(session)

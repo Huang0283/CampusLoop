@@ -118,11 +118,11 @@ test('price advice blocks missing original price and explains an estimate with n
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/publish/price-advice')
   await page.getByRole('button', { name: '计算区间', exact: true }).click()
-  await expect(page.getByText('请先填写商品原价，再计算参考区间。', { exact: true })).toBeVisible()
+  await expect(page.getByText('请填写原价或商品关键词。', { exact: true })).toBeVisible()
   expect(payloads).toEqual([])
   await page.getByLabel('界面语言', { exact: true }).click()
   await page.getByRole('option', { name: 'English', exact: true }).click()
-  await expect(page.getByText('Enter the original purchase price before calculating a range.', { exact: true })).toBeVisible()
+  await expect(page.getByText('Enter the original price or an item keyword.', { exact: true })).toBeVisible()
   await page.getByLabel('Original price (CNY)', { exact: true }).fill('100')
   await page.getByRole('button', { name: 'Calculate range', exact: true }).click()
   await expect(page.locator('.price-advice-result')).toContainText('Rules reference range: ¥20–¥40')
@@ -140,6 +140,35 @@ test('price advice blocks missing original price and explains an estimate with n
   await expect(page.getByText('基于 0 个样本', { exact: true })).toBeVisible()
   await page.getByLabel('原价（元）', { exact: true }).fill('')
   await expect(page.locator('.price-advice-result')).toHaveCount(0)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
+test('price advice compares current asking prices separately from transaction samples', async ({ page }) => {
+  let calls = 0
+  await routeApi(page, '/price-advice', route => {
+    calls += 1
+    const marketReference = calls === 1
+      ? { count: 4, lower: 20, upper: 80, listings: [{ id: 601, title: '验收自行车', price: 40 }] }
+      : { count: 1, lower: null, upper: null, listings: [{ id: 601, title: '验收自行车', price: 40 }] }
+    return route.fulfill({ json: { data: { lower: null, upper: null, currency: 'CNY', status: 'UNAVAILABLE', method: 'unavailable', sampleSize: 0, factors: [], degraded: true, disclaimer: '仅供参考', resultVersion: 'fixture', marketReference } } })
+  })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/publish/price-advice')
+  await page.getByLabel('商品关键词（可选）').fill('自行车')
+  await page.getByRole('button', { name: '计算区间', exact: true }).click()
+  await expect(page.getByText('在售标价参考区间：¥20–¥80', { exact: true })).toBeVisible()
+  await expect(page.getByText('已参考 4 件在售商品', { exact: true })).toBeVisible()
+  await expect(page.getByText('这是卖家标价，不代表成交价；匹配商品可能不是同款，请核对型号与成色。', { exact: true })).toBeVisible()
+  await page.getByText('查看参考商品', { exact: true }).click()
+  await expect(page.getByRole('link', { name: '验收自行车' })).toHaveAttribute('href', '/product/601')
+  await page.getByLabel('界面语言').click()
+  await page.getByRole('option', { name: 'English', exact: true }).click()
+  await expect(page.getByText('Listing price reference range: ¥20–¥80', { exact: true })).toBeVisible()
+  const submit = page.locator('form button[type="submit"]')
+  await expect(submit).not.toHaveClass(/ant-btn-loading/)
+  await submit.click()
+  await expect(page.getByText('Fewer than three listings match; no listing range is available.', { exact: true })).toBeVisible()
+  await expect(page.getByText('Unavailable. Set your own price.', { exact: true })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 })
 

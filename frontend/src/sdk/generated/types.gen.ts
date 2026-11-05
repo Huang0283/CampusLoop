@@ -674,6 +674,9 @@ export type RiskClues = {
 export type PriceAdviceRequest = {
     category: string;
     condition: string;
+    /**
+     * Optional marketplace listing keyword; at least two characters to obtain listing comparisons.
+     */
     title?: string;
     description?: string;
     originalPrice?: number | null;
@@ -691,6 +694,16 @@ export type PriceAdvice = {
     degraded?: boolean;
     disclaimer: string;
     resultVersion: string;
+    marketReference?: null | {
+        count: number;
+        lower: number | null;
+        upper: number | null;
+        listings: Array<{
+            id: number;
+            title: string;
+            price: number;
+        }>;
+    };
 };
 
 export type ChatSessionType = 'PRODUCT' | 'WANTED';
