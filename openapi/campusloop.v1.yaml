@@ -381,6 +381,27 @@ paths:
         content:
           application/json:
             schema: {$ref: '#/components/schemas/AccountAppealReview'}
+  /avatars/image:
+    get:
+      tags: [Media]
+      operationId: getAvatarImage
+      summary: Read an uploaded avatar while signed in; no public storage redirect
+      parameters:
+        - name: reference
+          in: query
+          required: true
+          schema: {type: string, minLength: 1, maxLength: 512}
+      responses:
+        '200':
+          description: Authenticated avatar bytes; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+            image/png:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '503': {$ref: '#/components/responses/DependencyUnavailable'}
   /chat/messages/{messageId}/image:
     get:
       tags: [Chat]
