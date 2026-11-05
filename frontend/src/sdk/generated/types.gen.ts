@@ -1116,7 +1116,7 @@ export type ListAccountDecisionsData = {
 
 export type ListAccountDecisionsErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1159,7 +1159,7 @@ export type GetAccountDecisionData = {
 
 export type GetAccountDecisionErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1202,7 +1202,7 @@ export type SubmitAccountAppealData = {
 
 export type SubmitAccountAppealErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1245,7 +1245,7 @@ export type UploadAppealImageData = {
 
 export type UploadAppealImageErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1289,7 +1289,7 @@ export type GetDecisionEvidenceData = {
 
 export type GetDecisionEvidenceErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1333,7 +1333,7 @@ export type GetOwnAppealEvidenceData = {
 
 export type GetOwnAppealEvidenceErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1379,7 +1379,7 @@ export type AdminGetAppealEvidenceData = {
 
 export type AdminGetAppealEvidenceErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1425,7 +1425,7 @@ export type AdminListAccountDecisionsData = {
 
 export type AdminListAccountDecisionsErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1471,7 +1471,7 @@ export type AdminCreateAccountDecisionData = {
 
 export type AdminCreateAccountDecisionErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1516,7 +1516,7 @@ export type AdminListAccountAppealsData = {
 
 export type AdminListAccountAppealsErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1559,7 +1559,7 @@ export type AdminGetAccountAppealData = {
 
 export type AdminGetAccountAppealErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1602,7 +1602,7 @@ export type AdminReviewAccountAppealData = {
 
 export type AdminReviewAccountAppealErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1645,7 +1645,7 @@ export type GetChatMessageImageData = {
 
 export type GetChatMessageImageErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1679,7 +1679,7 @@ export type GetReportEvidenceData = {
 
 export type GetReportEvidenceErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1788,7 +1788,7 @@ export type LoginData = {
 
 export type LoginErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1817,7 +1817,7 @@ export type RefreshSessionData = {
 
 export type RefreshSessionErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
 };
@@ -1847,7 +1847,7 @@ export type RestoreBrowserSessionData = {
 
 export type RestoreBrowserSessionErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -1887,7 +1887,7 @@ export type LogoutData = {
 
 export type LogoutErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
 };
@@ -1912,7 +1912,7 @@ export type GetCurrentUserData = {
 
 export type GetCurrentUserErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
 };
@@ -1937,7 +1937,7 @@ export type UpdateCurrentUserData = {
 
 export type UpdateCurrentUserErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -2023,7 +2023,7 @@ export type CreateProductData = {
 
 export type CreateProductErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -2061,7 +2061,7 @@ export type ListMyProductsData = {
 
 export type ListMyProductsErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -2462,7 +2462,7 @@ export type GetMyTrustData = {
 
 export type GetMyTrustErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -2499,7 +2499,7 @@ export type AdminGetUserTrustData = {
 
 export type AdminGetUserTrustErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -2581,7 +2581,7 @@ export type GetUserRiskCluesData = {
 
 export type GetUserRiskCluesErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -2741,7 +2741,7 @@ export type CreateChatSessionData = {
 
 export type CreateChatSessionErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3411,7 +3411,7 @@ export type AdminListProductsData = {
 
 export type AdminListProductsErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3444,7 +3444,7 @@ export type AdminGetProductData = {
 
 export type AdminGetProductErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3489,7 +3489,7 @@ export type AdminModerateProductData = {
 
 export type AdminModerateProductErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3532,7 +3532,7 @@ export type AdminGetDashboardData = {
 
 export type AdminGetDashboardErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3570,7 +3570,7 @@ export type AdminListOrdersData = {
 
 export type AdminListOrdersErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3611,7 +3611,7 @@ export type AdminListAuditLogsData = {
 
 export type AdminListAuditLogsErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3787,7 +3787,7 @@ export type AdminListReportsData = {
 
 export type AdminListReportsErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3836,7 +3836,7 @@ export type ResolveReportData = {
 
 export type ResolveReportErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3893,7 +3893,7 @@ export type OverrideReportData = {
 
 export type OverrideReportErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
