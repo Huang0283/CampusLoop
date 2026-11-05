@@ -8,14 +8,15 @@
 
 ```powershell
 git fetch origin
-git switch fix/price-advice-guidance
+git switch main
+git pull --ff-only
 cd frontend
 npm ci
 cd ..
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 ```
 
-如果本地已有同名分支，再执行 `git pull --ff-only`。有未提交修改时先保留自己的工作，不要强制切换或覆盖。首次运行需要下载依赖和构建镜像。
+有未提交修改时先保留自己的工作，不要强制切换或覆盖。首次运行需要下载依赖和构建镜像。
 
 商城网址：**http://127.0.0.1:5174/market**，登录为 **http://127.0.0.1:5174/login**。使用原管理员账号进入 **http://127.0.0.1:5174/admin** 查看这两个用户、商品、订单、举报和申诉。API 为 8001，图片服务为 19000；不用再打开 5198，也不用切换数据库。
 
@@ -25,6 +26,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 | 买家·小周 | `demo.buyer@example.invalid` | `CampusDemo@2026` |
 
 原管理员沿用自己的账号密码；不会创建或替换管理员。初始化记录归属本地现有的第一个正常管理员账号，后台中的全部管理员仍按原权限查看这些记录。
+
+**最终提交和课堂演示统一使用 5174 原商城。** 两个演示买卖账号、历史订单、商品、聊天、举报及价格建议在同一环境。新空库默认管理员为 `admin.demo@example.com` / `Demo@12345`，旧库保留已有密码。`demo.admin@example.invalid` 是已停用独立副本的管理员，不能拿到 5174 登录。
+
+多余的 5198 副本及其启动脚本、Compose 入口已移除，旧数据卷保留以免丢失手工记录。T2 的 `business` 隔离审计环境独立保留，用来执行举报、封禁、商品治理及异常测试；它不是这个已移除的副本。T2 已在 [测试组 Issue #145](https://github.com/Huang0283/CampusLoop/issues/145) 确认 `business / run1`、R/S 两位管理员可登录，以及 8 个账号、70 件商品、12 条求购的首次和重复导入。其管理员凭据取本机私有交接文件，不使用本页演示密码；环境操作见 [PR #151 的交接说明](https://github.com/Huang0283/CampusLoop/blob/refs/pull/151/head/docs/development/testing-audit-handoff.md)。各人的 localhost 和数据库互相独立。
+
+| 用途 | 网页 / API | 管理员凭据 |
+| --- | --- | --- |
+| 日常与最终展示 | 5174 / 8001 | 本页原商城管理员，两个演示普通账号也在这里 |
+| T2 业务测试 | 默认 5184 / 18024 | `.codex-tmp/audit/business/run1/admins.json` 中的 R/S；实际地址以同目录 `connection.json` 为准 |
 
 以上是公开的虚拟登录信息，只用于本机演示，不要复用为真实账户密码。邮箱不接收邮件；演示账号通过初始化创建，不需要注册或收验证码。需要同时操作买卖双方时使用两个浏览器或无痕窗口，避免同一浏览器会话互相切换身份。
 
@@ -86,10 +96,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1 -A
 - 举报和申诉证据为专门生成、明确标有 `SYNTHETIC DEMO EVIDENCE` 的说明图；放在原商城私有桶的演示命名空间，由现有权限接口读取。
 - 日常启动先运行原种子 `--if-empty`，保留原商品；然后运行 `seed_demo.py --into-local`，以事务和锁只新增两个普通用户及关联记录。共享导入须在 `dev`、固定本地数据库 `campusloop`、Redis DB0 且显式设置 `CAMPUSLOOP_LOCAL_DEMO_IMPORT` 时才允许，生产环境拒绝运行。
 - 同名账号冲突或记录不完整时会停止并提示，不接管原账号。已完整导入时跳过，不强制恢复密码或覆盖手工修改。
-- 原 `start-demo.ps1` / 5198 独立环境保留作可选隔离演示与写入验收，它与原商城不共用数据；日常使用按本页的 `start-local.ps1`。自动化写入验收仍只使用审计数据库和 Redis DB14/15。
+- 日常使用和最终展示只通过 `start-local.ps1` 启动 5174；自动化写入验收仍只使用审计数据库和 Redis DB14/15，不向原商城执行测试复位。
 
 ## 验证范围
 
 后端检查初始化限制、25 件商品与 81 张图片的内容清单及哈希。共享导入在独立审计数据库验证：保留原用户、管理员头像和密码，仅新增两个普通用户；复用原管理员建立治理记录；重复导入不新增、不重置已修改的资料和密码。原商城导入前备份数据库，导入后核对原用户、商品和图片内容摘要不变。
 
-隔离演示浏览器通过真实接口验证双方 15 笔完成订单、19 笔总订单、会话、商品图片、账号处理证据、后台举报与申诉证据，以及价格建议，另检查桌面和手机。测试入口为 `backend/tests/test_demo_dataset.py` 和 `frontend/tests/live/demo-dataset.spec.ts`；后者仍只允许在 5198 隔离站运行，避免向日常账号库执行验收写入。
+原隔离演示浏览器曾通过真实接口验证双方 15 笔完成订单、19 笔总订单、会话、商品图片、账号处理证据、后台举报与申诉证据，以及价格建议，另检查桌面和手机。这是历史验证记录，不代表移除入口后又执行了全量业务测试。
+
+测试入口保留为 `backend/tests/test_demo_dataset.py` 和 `frontend/tests/live/demo-dataset.spec.ts`。后者不再固定 5198，默认跳过；只有在专门准备了完整合成数据的独立审计副本中，显式设置 `CAMPUSLOOP_DEMO_AUDIT_UI`、`CAMPUSLOOP_DEMO_AUDIT_API`、`CAMPUSLOOP_UI_URL`、`CAMPUSLOOP_TEST_API_CONTAINER`、`CAMPUSLOOP_DEMO_AUDIT_ADMIN_EMAIL`、`CAMPUSLOOP_DEMO_AUDIT_ADMIN_PASSWORD` 才执行。容器须符合现有 audit 命名及测试数据库/Redis 隔离检查，拒绝 5174 / 8001；管理员凭据仅保存在本机。该用例要求专门初始化的精确数据集，不能直接对 T2 已接收的业务数据执行。

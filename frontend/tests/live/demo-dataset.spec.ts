@@ -1,8 +1,10 @@
 import { type Page } from '@playwright/test'
 import { test, expect } from './fixtures'
 
-const site = 'http://127.0.0.1:5198'
-const api = 'http://127.0.0.1:18026'
+const site = process.env.CAMPUSLOOP_DEMO_AUDIT_UI || ''
+const api = process.env.CAMPUSLOOP_DEMO_AUDIT_API || ''
+const adminEmail = process.env.CAMPUSLOOP_DEMO_AUDIT_ADMIN_EMAIL || ''
+const adminPassword = process.env.CAMPUSLOOP_DEMO_AUDIT_ADMIN_PASSWORD || ''
 const password = 'CampusDemo@2026'
 
 async function login(page: Page, role: 'buyer' | 'seller' | 'admin') {
@@ -10,19 +12,21 @@ async function login(page: Page, role: 'buyer' | 'seller' | 'admin') {
   await page.goto(site)
   await page.evaluate(() => { localStorage.clear(); sessionStorage.clear() })
   await page.goto(`${site}/login`)
-  await page.getByLabel('校园邮箱', { exact: true }).fill(`demo.${role}@example.invalid`)
-  await page.getByLabel('密码', { exact: true }).fill(password)
+  await page.getByLabel('校园邮箱', { exact: true }).fill(role === 'admin' ? adminEmail : `demo.${role}@example.invalid`)
+  await page.getByLabel('密码', { exact: true }).fill(role === 'admin' ? adminPassword : password)
   const signedIn = page.waitForResponse(response => response.url() === `${api}/auth/login` && response.request().method() === 'POST')
   await page.getByRole('button', { name: '登录', exact: true }).click()
   const response = await signedIn
   expect(response.status()).toBe(200)
   await expect(page).not.toHaveURL(/\/login$/)
-  await expect(page.locator('.demo-environment-notice')).toContainText('合成数据')
   return (await response.json()).data
 }
 
 test('demo dataset exposes buyer, seller and administrator journeys through real APIs', async ({ browser, request }, testInfo) => {
-  test.skip(process.env.CAMPUSLOOP_UI_URL !== site, 'Only run against the dedicated demo site')
+  test.skip(!site || !api || !adminEmail || !adminPassword || !process.env.CAMPUSLOOP_TEST_API_CONTAINER, 'Requires an explicitly configured audit environment with the complete synthetic dataset')
+  expect(process.env.CAMPUSLOOP_UI_URL).toBe(site)
+  expect(new URL(site).port).not.toBe('5174')
+  expect(new URL(api).port).not.toBe('8001')
   const contexts = []
   for (const role of ['buyer', 'seller', 'admin'] as const) {
     const context = await browser.newContext()
@@ -126,7 +130,6 @@ test('demo dataset exposes buyer, seller and administrator journeys through real
     await page.setViewportSize({ width: 390, height: 844 })
     await page.evaluate(() => { localStorage.setItem('campusloop-language', 'en') })
     await page.reload()
-    await expect(page.locator('.demo-environment-notice')).toContainText('synthetic')
     await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible()
     if (role !== 'admin') await expect(page.getByText('[Demo] White badminton racket pair', { exact: true }).first()).toBeVisible()
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
