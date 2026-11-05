@@ -2384,7 +2384,7 @@ components:
       properties:
         category: { type: string }
         condition: { type: string }
-        title: { type: string }
+        title: { type: string, maxLength: 100, description: Optional marketplace listing keyword; at least two characters to obtain listing comparisons. }
         description: { type: string }
         originalPrice: { type: [number, 'null'], exclusiveMinimum: 0, maximum: 99999999.99 }
     PriceAdvice:
@@ -2402,6 +2402,26 @@ components:
         degraded: { type: boolean }
         disclaimer: { type: string }
         resultVersion: { type: string }
+        marketReference:
+          anyOf:
+            - type: 'null'
+            - type: object
+              required: [count, lower, upper, listings]
+              description: At most 100 current on-sale matching listings created in the last 90 days, excluding the caller's own listings. These are asking prices, not transactions.
+              properties:
+                count: { type: integer, minimum: 0, maximum: 100 }
+                lower: { type: [number, 'null'], minimum: 0 }
+                upper: { type: [number, 'null'], minimum: 0 }
+                listings:
+                  type: array
+                  maxItems: 5
+                  items:
+                    type: object
+                    required: [id, title, price]
+                    properties:
+                      id: { type: integer, format: int64 }
+                      title: { type: string }
+                      price: { type: number, minimum: 0 }
     ChatSessionType: { type: string, enum: [PRODUCT, WANTED] }
     MessageKind: { type: string, enum: [TEXT, IMAGE, OFFER, ORDER_EVENT, SYSTEM] }
     ChatSession:

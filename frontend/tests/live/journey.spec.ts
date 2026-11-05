@@ -198,6 +198,7 @@ test('guest browse, failure recovery, secure reload restoration, logout and fixe
   const side = await page.locator('.app-topbar').boundingBox()
   await page.getByRole('menuitem', { name: '求购' }).click()
   await expect(page).toHaveURL(/\/wanted$/)
+  await expect(page.getByRole('heading', { name: '求购广场', exact: true })).toBeVisible()
   expect(await page.locator('.app-topbar').boundingBox()).toEqual(side)
   await page.route('**/products**', (route) => route.abort())
   await page.getByRole('menuitem', { name: '市场' }).click()

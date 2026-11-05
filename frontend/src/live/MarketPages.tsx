@@ -387,6 +387,7 @@ export function PricePage() {
   useLanguage()
   const mutation = useMutation()
   const [result, setResult] = useState<api.PriceAdvice>()
+  const [usedOriginalPrice, setUsedOriginalPrice] = useState(false)
   // Read LOW_CONFIDENCE defensively until M6's updated generated SDK reaches this branch.
   let alertType: 'info' | 'warning' = 'info'
   let alertTitle = ''
@@ -401,8 +402,7 @@ export function PricePage() {
       alertTitle = '暂不可用，请手动定价'
     } else if (result.status === 'INSUFFICIENT_DATA') {
       alertType = 'warning'
-      bodyRange = hasRange && result.method === 'rule'
-      alertTitle = bodyRange ? '样本不足，以下为规则区间参考' : '样本不足，请手动定价'
+      alertTitle = hasRange && result.method === 'rule' ? rangeText : '样本不足，请手动定价'
     } else if (String(result.status) === 'LOW_CONFIDENCE') {
       alertType = 'warning'
       alertTitle = hasRange ? '置信度较低，请结合实际情况手动定价' : '置信度较低，暂无法给出区间，请手动定价'
@@ -412,26 +412,41 @@ export function PricePage() {
       alertTitle = hasRange ? rangeText : '数据不足或服务不可用，请手动定价。'
     }
   }
-  return localize(<Page title="价格建议" extra={<Link to="/publish">返回发布</Link>}><Alert type="info" showIcon title="价格建议仅供参考" description="平台不会自动定价。请结合商品实际情况和线下验货结果调整，最终价格由买卖双方协商。" style={{ marginBottom: 24 }} /><div className="price-advice-grid"><Card title={<Space><RobotOutlined />商品信息</Space>}><Failure error={mutation.error} />
+  const market = result?.marketReference
+  const hasMarketRange = market?.lower != null && market.upper != null
+  return localize(<Page title="价格建议" extra={<Link to="/publish">返回发布</Link>}><Alert type="info" showIcon title="价格建议仅供参考" style={{ marginBottom: 24 }} /><div className="price-advice-grid"><Card title={<Space><RobotOutlined />商品信息</Space>}><Failure error={mutation.error} />
     {mutation.error != null && !result && <Alert type="warning" title="价格建议获取失败，请重试或手动定价。" style={{ marginBottom: 16 }} />}
     <Form layout="vertical" disabled={mutation.busy} initialValues={{ category: 'BOOKS', condition: 'GOOD' }} onValuesChange={() => setResult(undefined)} onFinish={(body: PriceAdviceRequest) => void mutation.run(async () => {
       setResult(undefined)
-      setResult(await api.data(api.getPriceAdvice({ body })))
+      setUsedOriginalPrice(body.originalPrice != null)
+      setResult(await api.data(api.getPriceAdvice({ body: { ...body, title: body.title?.trim() || undefined } })))
     })}>
       <Form.Item name="category" label="分类" rules={[{ required: true }]}><Select options={categories} /></Form.Item>
       <Form.Item name="condition" label="成色" rules={[{ required: true }]}><Select options={conditions} /></Form.Item>
-      <Form.Item name="originalPrice" label="原价（元）" rules={[{ type: 'number', min: 0.01, max: 99999999.99 }]}><InputNumber min={0.01} max={99999999.99} precision={2} /></Form.Item>
+      <Form.Item name="title" label="商品关键词（可选）" extra="输入品牌、型号或商品名称，至少两个字。" rules={[{ max: 100 }, { validator: (_, value: string | undefined) => !value?.trim() || Array.from(value.trim()).length >= 2 ? Promise.resolve() : Promise.reject(new Error(t('商品关键词至少输入两个字。'))) }]}><Input maxLength={100} placeholder="例如：自行车或具体型号" /></Form.Item>
+      <Form.Item name="originalPrice" label="原价（元）" dependencies={['title']} extra="没有足够的在售标价时，使用原价与成色估算。" rules={[({ getFieldValue }) => ({ validator: (_, value: number | undefined) => value != null || Array.from((getFieldValue('title') || '').trim()).length >= 2 ? Promise.resolve() : Promise.reject(new Error(t('请填写原价或商品关键词。'))) }), { type: 'number', min: 0.01, max: 99999999.99 }]}><InputNumber aria-label="原价（元）" min={0.01} max={99999999.99} precision={2} placeholder="请输入购买时的原价" style={{ width: '100%' }} /></Form.Item>
       <Button type="primary" htmlType="submit" loading={mutation.busy}>计算区间</Button>
     </Form>
-  </Card><section className="surface"><h2>建议发布区间</h2>{!result && <Typography.Paragraph type="secondary">填写商品信息并计算后，这里会显示实际返回的参考区间与影响因素。</Typography.Paragraph>}
-    {result && <div className="price-advice-result"><Alert type={alertType} title={alertTitle} description={<>
+  </Card><section className="surface"><h2>建议发布区间</h2>{!result && <Typography.Paragraph type="secondary">填写商品信息后，点击“计算区间”。</Typography.Paragraph>}
+    {result && <div className="price-advice-result">
+      {market && <Alert type={hasMarketRange ? 'info' : 'warning'} title={hasMarketRange ? `在售标价参考区间：¥${market.lower}–¥${market.upper}` : '匹配商品不足三件，暂不生成标价区间。'} description={<>
+        <div>已参考 {market.count} 件在售商品</div>
+        <div>近90天上架，同分类、同成色、名称含关键词；最多参考100件，不含自己的商品。</div>
+        <div>这是卖家标价，不代表成交价；匹配商品可能不是同款，请核对型号与成色。</div>
+        {market.listings.length > 0 && <details className="price-advice-details"><summary>查看参考商品</summary><ul>{market.listings.map(item => <li key={item.id}><Link to={`/product/${item.id}`}><CatalogText text={item.title} /></Link> · ¥{item.price}</li>)}</ul></details>}
+      </>} />}
+      {(!hasMarketRange || (usedOriginalPrice && result.method === 'unavailable')) && <Alert type={alertType} title={hasMarketRange && usedOriginalPrice && result.method === 'unavailable' ? '原价规则暂不可用，当前显示在售标价。' : alertTitle} description={<>
       {bodyRange && <div>{rangeText}</div>}
+      {rangeText && result.status !== 'UNAVAILABLE' && (result.method === 'rule' || (result.method === 'model' && result.status !== 'INSUFFICIENT_DATA')) && <div>{result.method === 'rule' ? '按原价与成色估算，仅供参考。' : '模型估算，仅供参考。'}</div>}
+      <details className="price-advice-details"><summary>查看估价依据</summary>
       {result.sampleSize != null && <div>基于 {result.sampleSize} 个样本</div>}
+      {result.sampleSize === 0 && result.method === 'rule' && <div>当前没有可用于估价的成交样本，参考区间按原价和成色估算。</div>}
       {result.degraded && <div>已降级：{systemText(result.degradationReason, '智能服务不可用，当前仅供参考。')}</div>}
       {!result.degraded && result.degradationReason && <div>{systemText(result.degradationReason, '当前结果仅供参考。')}</div>}
       <div>影响因素：{result.factors.map((value) => t(systemText(value, '商品基础信息'))).join(' · ') || '后端未提供'}</div>
       <div>{<CatalogText text={result.disclaimer || '仅供参考，不保证成交价，请自主协商。'} />}</div>
       <small>结果版本：{result.resultVersion || '后端未提供'}</small>
-    </>} /></div>}<h2 style={{ marginTop: 24 }}>使用建议</h2><Typography.Paragraph type="secondary">如实描述使用情况与瑕疵，结合成色、配件和同类商品调整价格。最终售价由你自主决定。</Typography.Paragraph>
+      </details>
+    </>} />}</div>}
   </section></div></Page>)
 }

@@ -91,6 +91,79 @@ def test_live_search_matches_price_and_service_degradation(client, monkeypatch):
     assert client.get("/products").status_code == 200
 
 
+def test_price_reference_only_uses_recent_visible_matching_listing_prices(client, monkeypatch):
+    from app.db.session import SessionLocal
+    from app.models import Product, User
+
+    seller, requester, disabled = account(client), account(client), account(client)
+    keyword = "pricing-" + uuid4().hex
+    sparse_keyword = "sparse-" + uuid4().hex
+    with SessionLocal.begin() as db:
+        db.get(User, disabled["user"]["id"]).status = "DISABLED"
+
+        def listing(price, **changes):
+            values = {
+                "owner_id": seller["user"]["id"],
+                "title": keyword + " model",
+                "category": "BOOKS",
+                "condition": "GOOD",
+                "price": price,
+                "status": "ON_SALE",
+                "description": "isolated synthetic test listing",
+            }
+            values.update(changes)
+            db.add(Product(**values))
+
+        for amount in (20, 40, 80, 8000):
+            listing(amount)
+        listing(1, owner_id=requester["user"]["id"])
+        listing(1, owner_id=disabled["user"]["id"])
+        listing(1, status="HIDDEN")
+        listing(1, status="RESERVED")
+        listing(1, deleted_at=utcnow())
+        listing(1, moderation_blocked=True)
+        listing(1, created_at=utcnow() - timedelta(days=91))
+        listing(0)
+        listing(1, category="DIGITAL")
+        listing(1, condition="NEW")
+        listing(11, title=sparse_keyword + "%_ literal")
+        listing(12, title=sparse_keyword + "xy literal")
+
+    body = {"category": "BOOKS", "condition": "GOOD", "title": keyword}
+    response = client.post("/price-advice", headers=headers(requester), json=body)
+    assert response.status_code == 200, response.text
+    data = response.json()["data"]
+    assert data["sampleSize"] == 0  # Listing prices must not become transaction samples.
+    market = data["marketReference"]
+    assert market["count"] == 4
+    assert (market["lower"], market["upper"]) == (20, 80)
+    assert sorted(item["price"] for item in market["listings"]) == [20, 40, 80, 8000]
+    assert (
+        client.post(
+            "/price-advice", headers=headers(requester), json={**body, "title": "x"}
+        ).json()["data"]["marketReference"]
+        is None
+    )
+    missing = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "title": keyword + "-missing"}
+    ).json()["data"]["marketReference"]
+    assert missing == {"count": 0, "lower": None, "upper": None, "listings": []}
+    sparse = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "title": sparse_keyword}
+    ).json()["data"]["marketReference"]
+    assert sparse["count"] == 2 and sparse["lower"] is None and sparse["upper"] is None
+    escaped = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "title": sparse_keyword + "%_"}
+    ).json()["data"]["marketReference"]
+    assert escaped["count"] == 1 and escaped["listings"][0]["price"] == 11
+    monkeypatch.setenv("BASELINE_SERVICES_ENABLED", "false")
+    get_settings.cache_clear()
+    degraded = client.post(
+        "/price-advice", headers=headers(requester), json={**body, "originalPrice": 100}
+    ).json()["data"]
+    assert degraded["status"] == "UNAVAILABLE" and degraded["marketReference"]["count"] == 4
+
+
 def test_trust_and_risk_use_current_facts_no_enforcement(client):
     from app.db.session import SessionLocal
     from app.models import User

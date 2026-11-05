@@ -17,6 +17,7 @@ from app.services.auth import Actor, Db, administrator
 from app.services.business import load
 from app.services.governance import read_audit, trust_view
 from app.services.intelligence import CATEGORIES, CONDITIONS, PRICE_CATEGORIES, rank_live
+from app.services.listing_price_reference import listing_price_reference
 
 router = APIRouter(tags=["Intelligence"])
 
@@ -202,7 +203,7 @@ def matches(wantedId: int, db: Db, actor: Actor):
 class PriceInput(StrictInput):
     category: str
     condition: str
-    title: str = ""
+    title: str = Field(default="", max_length=100)
     description: str = ""
     originalPrice: float | int | None = Field(default=None, gt=0, le=99999999.99)
 
@@ -238,5 +239,12 @@ def price_advice(body: PriceInput, db: Db, actor: Actor):
                 "Unavailable; enter a price manually. No guaranteed transaction price.",
             ),
             "resultVersion": result.get("algorithmVersion", "m8-unavailable-v1"),
+            "marketReference": listing_price_reference(
+                db,
+                category=body.category,
+                condition=body.condition,
+                keyword=body.title,
+                user_id=actor.id,
+            ),
         }
     )

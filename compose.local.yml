@@ -24,7 +24,9 @@ services:
       - "127.0.0.1:8002:8000"
   api:
     image: campusloop-local-api:dev
+    command: ["sh", "-c", "alembic upgrade head && python scripts/seed.py --if-empty --check && python scripts/seed_demo.py --into-local && python scripts/serve.py"]
     environment:
+      CAMPUSLOOP_LOCAL_DEMO_IMPORT: campusloop-demo-v1
       CORS_ORIGINS: http://127.0.0.1:5174
       AUTH_COOKIE_NAME: campusloop-local-session
       S3_PUBLIC_BASE_URL: http://127.0.0.1:19000/campusloop-public

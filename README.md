@@ -23,6 +23,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 
 启动脚本打印当前目录、分支和提交；页面展示的是当前检出版本。日常数据库和图片使用固定持久卷，不要删除卷来处理登录问题。完整依赖、停止/状态命令与账号数据说明见[本机启动说明](docs/development/local-startup.md)。写入验收使用独立审计数据库、测试媒体卷与 Redis DB14/15。
 
+## 虚拟账号与完整演示
+
+正常运行 `scripts/start-local.ps1` 后，两个虚拟买卖账号及其商品、15 笔已完成交易、聊天、举报、警告和申诉记录会新增到原商城 http://127.0.0.1:5174 ，原有账号和商品保留，管理员在原后台查看。公开登录信息和查看步骤见[演示数据说明](docs/development/demo-dataset.md)。组员拉取该版本并启动后，可在自己本地商城生成同一套场景。
+
 ## 当前协作
 
 - [九人协作总任务书](docs/management/nine-member-collaboration-plan.md)：成员自选岗位、交付文件、边界及验收要求。
