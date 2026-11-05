@@ -11,3 +11,5 @@
 | Final release status | `docs/evidence/phase-5/management-quality/release-status.json`; `handoff.md` | Shows outstanding gates; not a final submission receipt |
 
 Every final number must add the full software SHA, environment/data version, original output path and owner confirmation. A document commit is not a software test SHA.
+
+The personal branch is based on 	eam/reporting, which predates the current software candidate. Code and evidence paths that are not present on this documentation branch refer to the same path on main@89bca6a6fbcbb19c1a5dd5681954dd148c9b56b5; the final group branch must carry or link those source files before report freeze.
