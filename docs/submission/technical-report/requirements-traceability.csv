@@ -29,4 +29,3 @@ ADMIN-003,#35,backend/app/services/business.py,,Requirements,review,backend/test
 ADMIN-004,#35,backend/app/api/routes/admin_console.py,,Requirements,review,backend/tests/test_admin_console.py,89bca6a6fbcbb19c1a5dd5681954dd148c9b56b5
 QUALITY-001,#37,docker-compose.yml,,Requirements,review,docs/evidence/phase-5/backend-platform/deployment-guide.md,89bca6a6fbcbb19c1a5dd5681954dd148c9b56b5
 QUALITY-002,#37,.github/workflows/ci.yml,,Requirements,review,docs/evidence/phase-5/management-quality/final-regression-report.md,89bca6a6fbcbb19c1a5dd5681954dd148c9b56b5
-
