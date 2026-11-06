@@ -1,0 +1,14 @@
+metric,expected_min,actual_count,ids,generated_by,evidence_path
+sessions,6,8,,S01-S05/S09/S11/S12 共8个会话,待补截图
+messages,24,4,,S01双方各2条；其余会话以报价/系统动态为主，待核对,待补截图
+favorites,8,0,,未执行（C13-C14待补）,
+completed_trade,1,1,P053订单号待回填,S05-S08双边完成,待补截图
+reviews,2,2,待回填,A评B、B评A各1条,待补截图
+reports_user,1,1,待回填,举报卖家A，已处理,待补截图
+reports_product,1,1,待回填,举报P049，已处理,待补截图
+reports_order,1,1,待回填,举报P053，已驳回,待补截图
+reports_chat_message,1,1,待回填,举报S01消息，已驳回,待补截图
+appeals,,1,待回填,A申诉，复核撤销（新增申诉流程）,待补截图
+offers,,8,,另计，待核对,
+orders,,4,,P053完成/P057取消/P059/P060，另计,
+notifications,,,,报价/见面/完成/评价/举报结果/复核结果，另计,
