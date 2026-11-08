@@ -1,0 +1,11 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts m2-notification-sync.spec.ts
+
+
+Running 2 tests using 1 worker
+
+  ✓  1 [edge] › tests\live\m2-notification-sync.spec.ts:3:1 › notifications share one poller and synchronize read actions with the header (contract fixture) (6.3s)
+  ✓  2 [chrome] › tests\live\m2-notification-sync.spec.ts:3:1 › notifications share one poller and synchronize read actions with the header (contract fixture) (6.3s)
+
+  2 passed (14.0s)

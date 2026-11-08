@@ -1,0 +1,12 @@
+{
+  "exitCode": 1,
+  "expectedFailureObserved": true,
+  "failedChecks": [
+    "allEvidenceHashes"
+  ],
+  "formalAcceptance": false,
+  "operation": "Append newline to copied freeze evidence only",
+  "sourceUnmodified": true,
+  "status": "PASS",
+  "validatorSha256": "2cb37940c8e2b8cf4fdb589d9f808e1d05d3d790064eb383fcd6f321d87a1815"
+}

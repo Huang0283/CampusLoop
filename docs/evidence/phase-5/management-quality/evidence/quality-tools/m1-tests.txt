@@ -1,0 +1,13 @@
+test_evidence_cannot_escape_root (test_release_tools.ReleaseToolsTests.test_evidence_cannot_escape_root) ... ok
+test_final_requires_all_real_gates (test_release_tools.ReleaseToolsTests.test_final_requires_all_real_gates) ... ok
+test_missing_or_tampered_evidence_blocks_release (test_release_tools.ReleaseToolsTests.test_missing_or_tampered_evidence_blocks_release) ... ok
+test_real_package_is_deterministic_and_reads_committed_bytes (test_release_tools.ReleaseToolsTests.test_real_package_is_deterministic_and_reads_committed_bytes) ... warning: in the working copy of '.env', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app.py', LF will be replaced by CRLF the next time Git touches it
+ok
+test_secret_scan_does_not_treat_placeholder_as_live_secret (test_release_tools.ReleaseToolsTests.test_secret_scan_does_not_treat_placeholder_as_live_secret) ... ok
+test_secrets_caches_dumps_and_symlinks_are_excluded (test_release_tools.ReleaseToolsTests.test_secrets_caches_dumps_and_symlinks_are_excluded) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.349s
+
+OK

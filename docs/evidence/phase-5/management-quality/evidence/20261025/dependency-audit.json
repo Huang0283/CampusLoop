@@ -1,0 +1,16 @@
+{
+  "label": "dependency-audit",
+  "command": [
+    "cmd",
+    "/c",
+    "npm",
+    "audit",
+    "--registry=https://registry.npmjs.org"
+  ],
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "startedAt": "2026-10-25T04:58:59.698658+00:00",
+  "elapsedSeconds": 1.858,
+  "exitCode": 0,
+  "output": "dependency-audit.txt",
+  "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+}

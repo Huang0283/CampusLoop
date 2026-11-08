@@ -4,6 +4,92 @@ export type ClientOptions = {
     baseUrl: 'http://localhost:8001' | (string & {});
 };
 
+export type AccountDecisionWrite = {
+    action: 'WARNING' | 'DISABLE';
+    reason: string;
+    facts: string;
+    basis: string;
+    occurredAt: string;
+    productId?: number | null;
+    evidence?: Array<string>;
+};
+
+export type AccountAppealWrite = {
+    explanation: string;
+    evidence?: Array<string>;
+};
+
+export type AccountAppealReview = {
+    outcome: 'UPHELD' | 'REVOKED';
+    reason: string;
+};
+
+export type AccountAppealRecord = {
+    id: number;
+    decisionId: number;
+    explanation: string;
+    evidence: Array<string>;
+    status: 'PENDING' | 'UPHELD' | 'REVOKED';
+    createdAt: string;
+    reviewedAt: string | null;
+    reviewReason: string | null;
+};
+
+export type AccountDecisionRecord = {
+    id: number;
+    userId: number;
+    action: 'WARNING' | 'DISABLE';
+    reason: string;
+    facts: string;
+    basis: string;
+    occurredAt: string | null;
+    createdAt: string;
+    reference: {
+        productId: number;
+        title: string;
+    } | null;
+    evidence: Array<string>;
+    revokedAt: string | null;
+    revocationReason: string | null;
+    appeal: AccountAppealRecord | null;
+};
+
+export type AdminAppealCase = {
+    appeal: AccountAppealRecord;
+    decision: AccountDecisionRecord;
+    user: {
+        id: number;
+        nickname: string;
+        status: 'ACTIVE' | 'DISABLED';
+    };
+};
+
+export type AccountDecisionResponse = ApiEnvelope & {
+    data: AccountDecisionRecord;
+};
+
+export type AccountDecisionListResponse = ApiEnvelope & {
+    data: {
+        items: Array<AccountDecisionRecord>;
+        pagination: Pagination;
+    };
+};
+
+export type AccountAppealResponse = ApiEnvelope & {
+    data: AccountAppealRecord;
+};
+
+export type AdminAppealResponse = ApiEnvelope & {
+    data: AdminAppealCase;
+};
+
+export type AdminAppealListResponse = ApiEnvelope & {
+    data: {
+        items: Array<AdminAppealCase>;
+        pagination: Pagination;
+    };
+};
+
 export type ApiEnvelope = {
     code: number;
     message: string;
@@ -134,6 +220,346 @@ export type AdminProductResponse = ApiEnvelope & {
     data: AdminProduct;
 };
 
+export type AdminRatio = {
+    numerator: number;
+    /**
+     * Zero means there is no data in the window; clients must not show a percentage.
+     */
+    denominator: number;
+};
+
+export type AdminKeyCount = {
+    key: string;
+    count: number;
+};
+
+export type AdminTodoItem = {
+    kind: 'REPORT' | 'DISPUTE';
+    id: number;
+    status: string;
+    reason?: ReportReason | null;
+    targetType: ReportTargetType;
+    targetId: number;
+    targetTitle?: string | null;
+    submittedBy?: string | null;
+    createdAt: string;
+};
+
+export type AdminRecentOrder = {
+    id: number;
+    status: OrderStatus;
+    amount: number;
+    createdAt: string;
+    productTitle: string;
+    category: string;
+    buyerNickname: string;
+    sellerNickname: string;
+};
+
+export type AdminRiskUser = {
+    id: number;
+    nickname: string;
+    avatar: string | null;
+    status: 'ACTIVE' | 'DISABLED';
+    /**
+     * Reports in the window against the user or the user's goods.
+     */
+    reportCount: number;
+    openReportCount: number;
+    lastReportedAt: string;
+};
+
+export type AdminAuditLog = {
+    id: number;
+    /**
+     * Audit event code
+     */
+    event: string;
+    /**
+     * True when the event changed platform state.
+     */
+    decision: boolean;
+    actor: AdminPersonRef | null;
+    targetUser: AdminPersonRef | null;
+    subject: {
+        type: 'PRODUCT' | 'REPORT' | 'USER';
+        id: number;
+    } | null;
+    reason: string | null;
+    resultStatus: string | null;
+    createdAt: string;
+};
+
+export type AdminPersonRef = {
+    id: number;
+    nickname: string | null;
+};
+
+export type AdminDashboard = {
+    asOf: string;
+    timezone: '+08:00';
+    days: 7 | 30;
+    /**
+     * First campus day of the window; the window ends today.
+     */
+    rangeStart: string;
+    products: {
+        newToday: number;
+        newYesterday: number;
+        newInRange: number;
+        newPreviousRange: number;
+        /**
+         * Same filter as the public market default listing.
+         */
+        onSale: number;
+        moderationHeld: number;
+    };
+    orders: {
+        newToday: number;
+        newYesterday: number;
+        newInRange: number;
+        newPreviousRange: number;
+        completedInRange: number;
+    };
+    users: {
+        total: number;
+        disabled: number;
+        newInRange: number;
+        newPreviousRange: number;
+    };
+    pending: {
+        openReports: number;
+        disputedOrders: number;
+        total: number;
+    };
+    trend: Array<{
+        date: string;
+        newProducts: number;
+        newOrders: number;
+        completedOrders: number;
+    }>;
+    categories: Array<AdminKeyCount>;
+    orderStatuses: Array<AdminKeyCount>;
+    reportReasons: Array<AdminKeyCount>;
+    postingHeatmap: {
+        days: 28;
+        /**
+         * Seven rows (Monday first) of 24 hourly counts in campus time.
+         */
+        cells: [
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ],
+            [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ]
+        ];
+    };
+    health: {
+        reportsHandled: AdminRatio;
+        reportsHandledWithin24h: AdminRatio;
+        ordersCompleted: AdminRatio;
+    };
+    todo: Array<AdminTodoItem>;
+    recentOrders: Array<AdminRecentOrder>;
+    riskUsers: Array<AdminRiskUser>;
+    recentDecisions: Array<AdminAuditLog>;
+};
+
+export type AdminDashboardResponse = ApiEnvelope & {
+    data: AdminDashboard;
+};
+
+export type AdminOrderListResponse = ApiEnvelope & {
+    data: {
+        items: Array<Order>;
+        pagination: Pagination;
+    };
+};
+
+export type AdminAuditLogListResponse = ApiEnvelope & {
+    data: {
+        items: Array<AdminAuditLog>;
+        pagination: Pagination;
+    };
+};
+
 export type AdminProductListResponse = ApiEnvelope & {
     data: {
         items: Array<AdminProduct>;
@@ -143,7 +569,7 @@ export type AdminProductListResponse = ApiEnvelope & {
 
 export type ProductWriteRequest = {
     title: string;
-    category: 'BOOKS' | 'DIGITAL' | 'DAILY' | 'SPORTS' | 'clothing' | 'other';
+    category: 'BOOKS' | 'STATIONERY' | 'DIGITAL' | 'DAILY' | 'FURNITURE' | 'BEDDING' | 'TRANSPORT' | 'SPORTS' | 'clothing' | 'other';
     condition: 'NEW' | 'LIKE_NEW' | 'GOOD' | 'FAIR';
     description?: string;
     /**
@@ -248,6 +674,9 @@ export type RiskClues = {
 export type PriceAdviceRequest = {
     category: string;
     condition: string;
+    /**
+     * Optional marketplace listing keyword; at least two characters to obtain listing comparisons.
+     */
     title?: string;
     description?: string;
     originalPrice?: number | null;
@@ -265,6 +694,16 @@ export type PriceAdvice = {
     degraded?: boolean;
     disclaimer: string;
     resultVersion: string;
+    marketReference?: null | {
+        count: number;
+        lower: number | null;
+        upper: number | null;
+        listings: Array<{
+            id: number;
+            title: string;
+            price: number;
+        }>;
+    };
 };
 
 export type ChatSessionType = 'PRODUCT' | 'WANTED';
@@ -332,7 +771,13 @@ export type Meetup = {
     version: number;
     campusLocation: string;
     scheduledDate: string;
+    /**
+     * Campus local time without UTC offset; HH:MM or HH:MM:SS
+     */
     timeSlotStart: string;
+    /**
+     * Later than start on the same campus-local date
+     */
     timeSlotEnd: string;
     note?: string;
     buyerConfirmed: boolean;
@@ -343,7 +788,13 @@ export type Meetup = {
 export type MeetupWriteRequest = {
     campusLocation: string;
     scheduledDate: string;
+    /**
+     * Campus local time without UTC offset
+     */
     timeSlotStart: string;
+    /**
+     * Later than start on the same campus-local date
+     */
     timeSlotEnd: string;
     note?: string;
 };
@@ -410,6 +861,14 @@ export type Report = {
     description: string;
     status: ReportStatus;
     createdAt: string;
+    /**
+     * Set when an administrator resolves or rejects the report
+     */
+    handledAt: string | null;
+    /**
+     * Human decision visible to the reporter; internal audit records stay private
+     */
+    resolutionNote: string | null;
 };
 
 export type ReportResolutionRequest = {
@@ -452,7 +911,7 @@ export type AdminReportListResponse = ApiEnvelope & {
     data: Array<AdminReport>;
 };
 
-export type NotificationType = 'MESSAGE' | 'OFFER_RECEIVED' | 'OFFER_ACCEPTED' | 'OFFER_REJECTED' | 'MATCH_FOUND' | 'ORDER_STATUS_CHANGED' | 'MEETUP_REMINDER' | 'REVIEW_REQUEST' | 'REPORT_RESULT';
+export type NotificationType = 'MESSAGE' | 'OFFER_RECEIVED' | 'OFFER_ACCEPTED' | 'OFFER_REJECTED' | 'MATCH_FOUND' | 'ORDER_STATUS_CHANGED' | 'MEETUP_REMINDER' | 'REVIEW_REQUEST' | 'REPORT_RESULT' | 'ACCOUNT_ACTION' | 'APPEAL_RECEIVED' | 'APPEAL_RESULT';
 
 export type Notification = {
     id: number;
@@ -625,7 +1084,7 @@ export type Page = number;
 export type PageSize = number;
 
 /**
- * Client-generated UUID. Replays return the original successful result.
+ * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
  */
 export type IdempotencyKey = string;
 
@@ -644,6 +1103,536 @@ export type OrderId = number;
 export type NotificationId = number;
 
 export type ReportId = number;
+
+export type ListAccountDecisionsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/account/decisions';
+};
+
+export type ListAccountDecisionsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type ListAccountDecisionsError = ListAccountDecisionsErrors[keyof ListAccountDecisionsErrors];
+
+export type ListAccountDecisionsResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountDecisionListResponse;
+};
+
+export type ListAccountDecisionsResponse = ListAccountDecisionsResponses[keyof ListAccountDecisionsResponses];
+
+export type GetAccountDecisionData = {
+    body?: never;
+    path: {
+        decisionId: number;
+    };
+    query?: never;
+    url: '/account/decisions/{decisionId}';
+};
+
+export type GetAccountDecisionErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type GetAccountDecisionError = GetAccountDecisionErrors[keyof GetAccountDecisionErrors];
+
+export type GetAccountDecisionResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountDecisionResponse;
+};
+
+export type GetAccountDecisionResponse = GetAccountDecisionResponses[keyof GetAccountDecisionResponses];
+
+export type SubmitAccountAppealData = {
+    body: AccountAppealWrite;
+    path: {
+        decisionId: number;
+    };
+    query?: never;
+    url: '/account/decisions/{decisionId}/appeal';
+};
+
+export type SubmitAccountAppealErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type SubmitAccountAppealError = SubmitAccountAppealErrors[keyof SubmitAccountAppealErrors];
+
+export type SubmitAccountAppealResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountAppealResponse;
+};
+
+export type SubmitAccountAppealResponse = SubmitAccountAppealResponses[keyof SubmitAccountAppealResponses];
+
+export type UploadAppealImageData = {
+    body: {
+        file: Blob | File;
+    };
+    path?: never;
+    query?: never;
+    url: '/account/appeals/images';
+};
+
+export type UploadAppealImageErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type UploadAppealImageError = UploadAppealImageErrors[keyof UploadAppealImageErrors];
+
+export type UploadAppealImageResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    201: UploadResponse;
+};
+
+export type UploadAppealImageResponse = UploadAppealImageResponses[keyof UploadAppealImageResponses];
+
+export type GetDecisionEvidenceData = {
+    body?: never;
+    path: {
+        decisionId: number;
+        imageIndex: number;
+    };
+    query?: never;
+    url: '/account/decisions/{decisionId}/evidence/{imageIndex}';
+};
+
+export type GetDecisionEvidenceErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type GetDecisionEvidenceError = GetDecisionEvidenceErrors[keyof GetDecisionEvidenceErrors];
+
+export type GetDecisionEvidenceResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: Blob | File;
+};
+
+export type GetDecisionEvidenceResponse = GetDecisionEvidenceResponses[keyof GetDecisionEvidenceResponses];
+
+export type GetOwnAppealEvidenceData = {
+    body?: never;
+    path: {
+        appealId: number;
+        imageIndex: number;
+    };
+    query?: never;
+    url: '/account/appeals/{appealId}/evidence/{imageIndex}';
+};
+
+export type GetOwnAppealEvidenceErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type GetOwnAppealEvidenceError = GetOwnAppealEvidenceErrors[keyof GetOwnAppealEvidenceErrors];
+
+export type GetOwnAppealEvidenceResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: Blob | File;
+};
+
+export type GetOwnAppealEvidenceResponse = GetOwnAppealEvidenceResponses[keyof GetOwnAppealEvidenceResponses];
+
+export type AdminGetAppealEvidenceData = {
+    body?: never;
+    path: {
+        appealId: number;
+        imageIndex: number;
+    };
+    query?: {
+        source?: 'appeal' | 'decision';
+    };
+    url: '/admin/appeals/{appealId}/evidence/{imageIndex}';
+};
+
+export type AdminGetAppealEvidenceErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminGetAppealEvidenceError = AdminGetAppealEvidenceErrors[keyof AdminGetAppealEvidenceErrors];
+
+export type AdminGetAppealEvidenceResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: Blob | File;
+};
+
+export type AdminGetAppealEvidenceResponse = AdminGetAppealEvidenceResponses[keyof AdminGetAppealEvidenceResponses];
+
+export type AdminListAccountDecisionsData = {
+    body?: never;
+    path: {
+        userId: number;
+    };
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
+    url: '/admin/users/{userId}/decisions';
+};
+
+export type AdminListAccountDecisionsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminListAccountDecisionsError = AdminListAccountDecisionsErrors[keyof AdminListAccountDecisionsErrors];
+
+export type AdminListAccountDecisionsResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AccountDecisionListResponse;
+};
+
+export type AdminListAccountDecisionsResponse = AdminListAccountDecisionsResponses[keyof AdminListAccountDecisionsResponses];
+
+export type AdminCreateAccountDecisionData = {
+    body: AccountDecisionWrite;
+    headers: {
+        'Idempotency-Key': string;
+    };
+    path: {
+        userId: number;
+    };
+    query?: never;
+    url: '/admin/users/{userId}/decisions';
+};
+
+export type AdminCreateAccountDecisionErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminCreateAccountDecisionError = AdminCreateAccountDecisionErrors[keyof AdminCreateAccountDecisionErrors];
+
+export type AdminCreateAccountDecisionResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    201: AccountDecisionResponse;
+};
+
+export type AdminCreateAccountDecisionResponse = AdminCreateAccountDecisionResponses[keyof AdminCreateAccountDecisionResponses];
+
+export type AdminListAccountAppealsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+        status?: 'PENDING' | 'UPHELD' | 'REVOKED';
+    };
+    url: '/admin/appeals';
+};
+
+export type AdminListAccountAppealsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminListAccountAppealsError = AdminListAccountAppealsErrors[keyof AdminListAccountAppealsErrors];
+
+export type AdminListAccountAppealsResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AdminAppealListResponse;
+};
+
+export type AdminListAccountAppealsResponse = AdminListAccountAppealsResponses[keyof AdminListAccountAppealsResponses];
+
+export type AdminGetAccountAppealData = {
+    body?: never;
+    path: {
+        appealId: number;
+    };
+    query?: never;
+    url: '/admin/appeals/{appealId}';
+};
+
+export type AdminGetAccountAppealErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminGetAccountAppealError = AdminGetAccountAppealErrors[keyof AdminGetAccountAppealErrors];
+
+export type AdminGetAccountAppealResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AdminAppealResponse;
+};
+
+export type AdminGetAccountAppealResponse = AdminGetAccountAppealResponses[keyof AdminGetAccountAppealResponses];
+
+export type AdminReviewAccountAppealData = {
+    body: AccountAppealReview;
+    path: {
+        appealId: number;
+    };
+    query?: never;
+    url: '/admin/appeals/{appealId}/review';
+};
+
+export type AdminReviewAccountAppealErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Decision or appeal state changed
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminReviewAccountAppealError = AdminReviewAccountAppealErrors[keyof AdminReviewAccountAppealErrors];
+
+export type AdminReviewAccountAppealResponses = {
+    /**
+     * Private account governance response; no-store
+     */
+    200: AdminAppealResponse;
+};
+
+export type AdminReviewAccountAppealResponse = AdminReviewAccountAppealResponses[keyof AdminReviewAccountAppealResponses];
 
 export type GetChatMessageImageData = {
     body?: never;
@@ -1023,7 +2012,7 @@ export type CreateProductData = {
     body: ProductWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1292,7 +2281,7 @@ export type UploadImageData = {
     };
     path?: never;
     query?: {
-        purpose?: 'product' | 'evidence' | 'chat';
+        purpose?: 'product' | 'evidence' | 'chat' | 'avatar';
     };
     url: '/uploads/images';
 };
@@ -1344,7 +2333,7 @@ export type CreateWantedData = {
     body: WantedWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1741,7 +2730,7 @@ export type CreateChatSessionData = {
     body: CreateChatSessionRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1883,7 +2872,7 @@ export type AcceptOfferData = {
     body?: never;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -1955,7 +2944,7 @@ export type CounterOfferData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2102,7 +3091,7 @@ export type SaveMeetupData = {
     body: MeetupWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2146,7 +3135,7 @@ export type ConfirmMeetupData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2185,7 +3174,7 @@ export type ConfirmOrderCompleteData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2255,7 +3244,7 @@ export type CreateReviewData = {
     body: ReviewWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2294,7 +3283,7 @@ export type CreateReportData = {
     body: ReportWriteRequest;
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2332,13 +3321,16 @@ export type CreateReportResponse = CreateReportResponses[keyof CreateReportRespo
 export type ListMyReportsData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+    };
     url: '/reports/mine';
 };
 
 export type ListMyReportsResponses = {
     /**
-     * Reports created by the current user; no internal moderation notes.
+     * Reports created by the current user, newest first; no evidence keys or internal audit fields.
      */
     200: ReportListResponse;
 };
@@ -2484,7 +3476,7 @@ export type AdminModerateProductData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2528,6 +3520,116 @@ export type AdminModerateProductResponses = {
 };
 
 export type AdminModerateProductResponse = AdminModerateProductResponses[keyof AdminModerateProductResponses];
+
+export type AdminGetDashboardData = {
+    body?: never;
+    path?: never;
+    query?: {
+        days?: 7 | 30;
+    };
+    url: '/admin/dashboard';
+};
+
+export type AdminGetDashboardErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminGetDashboardError = AdminGetDashboardErrors[keyof AdminGetDashboardErrors];
+
+export type AdminGetDashboardResponses = {
+    /**
+     * Audited dashboard aggregates.
+     */
+    200: AdminDashboardResponse;
+};
+
+export type AdminGetDashboardResponse = AdminGetDashboardResponses[keyof AdminGetDashboardResponses];
+
+export type AdminListOrdersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+        status?: OrderStatus;
+        query?: string;
+    };
+    url: '/admin/orders';
+};
+
+export type AdminListOrdersErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+};
+
+export type AdminListOrdersError = AdminListOrdersErrors[keyof AdminListOrdersErrors];
+
+export type AdminListOrdersResponses = {
+    /**
+     * Audited administrator order list.
+     */
+    200: AdminOrderListResponse;
+};
+
+export type AdminListOrdersResponse = AdminListOrdersResponses[keyof AdminListOrdersResponses];
+
+export type AdminListAuditLogsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        page?: number;
+        pageSize?: number;
+        scope?: 'decisions' | 'all';
+        /**
+         * Only entries recorded for the signed-in administrator.
+         */
+        mine?: boolean;
+        /**
+         * Last 7 or 30 calendar days including today in Asia/Shanghai. Omit for all history; the console defaults to 7.
+         */
+        days?: 7 | 30;
+    };
+    url: '/admin/audit-logs';
+};
+
+export type AdminListAuditLogsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+};
+
+export type AdminListAuditLogsError = AdminListAuditLogsErrors[keyof AdminListAuditLogsErrors];
+
+export type AdminListAuditLogsResponses = {
+    /**
+     * Audited decision trail page.
+     */
+    200: AdminAuditLogListResponse;
+};
+
+export type AdminListAuditLogsResponse = AdminListAuditLogsResponses[keyof AdminListAuditLogsResponses];
 
 export type AdminListUsersData = {
     body?: never;
@@ -2630,7 +3732,7 @@ export type CreateOfferData = {
     };
     headers: {
         /**
-         * Client-generated UUID. Replays return the original successful result.
+         * Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
          */
         'Idempotency-Key': string;
     };
@@ -2674,6 +3776,10 @@ export type AdminListReportsData = {
         page?: number;
         pageSize?: number;
         status?: ReportStatus;
+        /**
+         * Report or target ID fragment, reporter/target nickname, product title or report description; prefix a full report ID with # for an exact match. Filtering precedes pagination.
+         */
+        query?: string;
         reason?: string;
     };
     url: '/admin/reports';

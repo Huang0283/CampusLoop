@@ -107,6 +107,10 @@ def list_messages(
     beforeId: int | None = None,
     limit: PageSize = 30,
 ):
+    if (afterId is not None and afterId < 0) or (beforeId is not None and beforeId < 1):
+        raise BusinessError(422, "VALIDATION_ERROR", "Invalid cursor.")
+    if afterId is not None and beforeId is not None:
+        raise BusinessError(422, "VALIDATION_ERROR", "Use only one history cursor.")
     chat(db, sessionId, actor)
     stmt = select(ChatMessage).where(ChatMessage.session_id == sessionId)
     if afterId is not None:
@@ -549,7 +553,13 @@ def cancel_order(orderId: int, body: ReasonWrite, db: Db, actor: Actor):
     ):
         raise BusinessError(409, "ORDER_STATE_CONFLICT", "Order cannot be cancelled.")
     entity.cancelled_reason = body.reason
-    db.get(Product, entity.product_id).status = "ON_SALE"
+    product = db.get(Product, entity.product_id)
+    # Cancelling a reservation must preserve catalog removal and manual takedowns.
+    product.status = (
+        "HIDDEN"
+        if product.deleted_at or product.moderation_blocked or product.status == "HIDDEN"
+        else "ON_SALE"
+    )
     arrangement = db.scalar(select(Meetup).where(Meetup.order_id == orderId).with_for_update())
     if arrangement:
         arrangement.status = "CANCELLED"
@@ -607,12 +617,16 @@ def report_dto(entity):
         "description": entity.description or "",
         "status": entity.status,
         "createdAt": dto.iso(entity.created_at),
+        "handledAt": dto.iso(entity.handled_at) if entity.handled_at else None,
+        "resolutionNote": entity.resolution_note,
     }
 
 
 @router.post("/reports", status_code=201, operation_id="createReport")
 def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key = None):
     def action():
+        if body.targetType == "USER" and body.targetId == actor.id:
+            raise BusinessError(400, "SELF_REPORT_FORBIDDEN", "You cannot report yourself.")
         model = {"USER": User, "PRODUCT": Product, "ORDER": Order, "CHAT_MESSAGE": ChatMessage}[
             body.targetType
         ]
@@ -621,8 +635,15 @@ def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key 
             require_participant(target, actor)
         elif body.targetType == "CHAT_MESSAGE":
             chat(db, target.session_id, actor)
-        elif body.targetType == "PRODUCT" and (target.deleted_at or target.status == "HIDDEN"):
-            raise BusinessError(404, "NOT_FOUND", "Product not found.")
+        elif body.targetType == "PRODUCT":
+            if target.owner_id == actor.id:
+                raise BusinessError(
+                    400,
+                    "SELF_REPORT_FORBIDDEN",
+                    "You cannot report your own product.",
+                )
+            if target.deleted_at or target.status == "HIDDEN":
+                raise BusinessError(404, "NOT_FOUND", "Product not found.")
         if db.scalar(
             select(Report).where(
                 Report.reporter_id == actor.id,
@@ -652,7 +673,7 @@ def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key 
 
 
 @router.get("/reports/mine", operation_id="listMyReports")
-def my_reports(db: Db, actor: Actor):
+def my_reports(db: Db, actor: Actor, page: Page = 1, pageSize: PageSize = 20):
     return ok(
         [
             report_dto(entity)
@@ -660,7 +681,8 @@ def my_reports(db: Db, actor: Actor):
                 select(Report)
                 .where(Report.reporter_id == actor.id)
                 .order_by(Report.id.desc())
-                .limit(100)
+                .offset((page - 1) * pageSize)
+                .limit(pageSize)
             )
         ]
     )

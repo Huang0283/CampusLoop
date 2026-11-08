@@ -1,0 +1,29 @@
+services:
+  db:
+    ports: !reset []
+  redis:
+    ports: !reset []
+  minio:
+    ports: !reset []
+    image: campusloop-local-minio:dev
+    pull_policy: never
+  worker:
+    ports: !reset []
+    image: campusloop-pr122-api:audit
+    pull_policy: never
+    environment:
+      REDIS_URL: redis://redis:6379/15
+      PYTHONDONTWRITEBYTECODE: "1"
+  api:
+    ports: !reset []
+    image: campusloop-pr122-api:audit
+    pull_policy: never
+    environment:
+      REDIS_URL: redis://redis:6379/15
+      PYTHONDONTWRITEBYTECODE: "1"
+  minio-init:
+    image: campusloop-local-minio:dev
+    pull_policy: never
+  baseline:
+    image: campusloop-pr122-api:audit
+    pull_policy: never

@@ -1,0 +1,169 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts interface-restoration.spec.ts --grep M2 (short text|sampled text contrast)
+
+
+Running 4 tests using 1 worker
+
+Contrast violations: []
+Contrast requires manual review: [
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-alert-description"
+      ]
+    ]
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-btn-text.ant-btn-variant-text.ant-btn-lg > span"
+      ],
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-select-content"
+      ]
+    ]
+  },
+  {
+    "page": "/product/601",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".gallery-count"
+      ]
+    ]
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/admin",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "#_r_a_"
+      ]
+    ]
+  }
+]
+  ✓  1 [edge] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast (10.3s)
+┌─────────┬────────────────────────────────┬───────┐
+│ (index) │ name                           │ ratio │
+├─────────┼────────────────────────────────┼───────┤
+│ 0       │ '卖家头像首字'                 │ 5.01  │
+│ 1       │ '图片计数：白色图片最不利背景' │ 10.41 │
+│ 2       │ '会话头像首字'                 │ 4.97  │
+│ 3       │ '消息头像首字'                 │ 4.97  │
+│ 4       │ '未读数字'                     │ 6.57  │
+│ 5       │ '订单参与者头像 1'             │ 5.01  │
+│ 6       │ '订单参与者头像 2'             │ 5.01  │
+│ 7       │ '管理员列表头像首字'           │ 5.01  │
+└─────────┴────────────────────────────────┴───────┘
+  ✓  2 [edge] › tests\live\interface-restoration.spec.ts:431:1 › M2 short text and image overlays (3.0s)
+Contrast violations: []
+Contrast requires manual review: [
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-alert-description"
+      ]
+    ]
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-btn-text.ant-btn-variant-text.ant-btn-lg > span"
+      ],
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-select-content"
+      ]
+    ]
+  },
+  {
+    "page": "/product/601",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".gallery-count"
+      ]
+    ]
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/admin",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "#_r_a_"
+      ]
+    ]
+  }
+]
+  ✓  3 [chrome] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast (9.8s)
+┌─────────┬────────────────────────────────┬───────┐
+│ (index) │ name                           │ ratio │
+├─────────┼────────────────────────────────┼───────┤
+│ 0       │ '卖家头像首字'                 │ 5.01  │
+│ 1       │ '图片计数：白色图片最不利背景' │ 10.41 │
+│ 2       │ '会话头像首字'                 │ 4.97  │
+│ 3       │ '消息头像首字'                 │ 4.97  │
+│ 4       │ '未读数字'                     │ 6.57  │
+│ 5       │ '订单参与者头像 1'             │ 5.01  │
+│ 6       │ '订单参与者头像 2'             │ 5.01  │
+│ 7       │ '管理员列表头像首字'           │ 5.01  │
+└─────────┴────────────────────────────────┴───────┘
+  ✓  4 [chrome] › tests\live\interface-restoration.spec.ts:431:1 › M2 short text and image overlays (3.4s)
+
+  4 passed (28.3s)

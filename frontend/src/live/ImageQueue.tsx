@@ -1,3 +1,5 @@
+import { localize } from '../i18n/Localize'
+import { useLanguage } from '../i18n/language'
 import { useState } from 'react'
 import { Alert, Button, Upload } from 'antd'
 import type { UploadFile, UploadProps } from 'antd'
@@ -6,10 +8,12 @@ import * as api from '../sdk'
 type Props = {
   value?: string[]; onChange?: (urls: string[]) => void
   onBusyChange?: (blocked: boolean) => void; purpose?: 'product' | 'evidence' | 'chat'
+  uploadImage?: (file: Blob) => Promise<{ url: string }>
 }
 
 // Upload status is not a URL. Failed or pending files block submission until retried/removed.
-export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'product' }: Props) {
+export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'product', uploadImage }: Props) {
+  useLanguage()
   const [files, setFiles] = useState<UploadFile[] | null>(null)
   const [error, setError] = useState('')
   const [expected, setExpected] = useState<string[]>(value)
@@ -23,11 +27,11 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
   const upload: UploadProps['customRequest'] = ({ file, onSuccess, onError, onProgress }) => {
     if (typeof file === 'string') { onError?.(new Error('无效图片')); return }
     onProgress?.({ percent: 10 })
-    void api.data(api.uploadImage({ body: { file }, query: { purpose } })).then((result) => {
+    void (uploadImage ? uploadImage(file) : api.data(api.uploadImage({ body: { file }, query: { purpose } }))).then((result) => {
       onProgress?.({ percent: 100 }); onSuccess?.(result)
     }).catch((failure: Error) => { setError(failure.message); onError?.(failure) })
   }
-  return <>
+  return localize(<>
     {error && <Alert type="error" title={error} description="移除失败图片后重新上传；其余已上传图片不会丢失。" closable onClose={() => setError('')} />}
     <Upload listType="picture-card" accept="image/png,image/jpeg" fileList={current} customRequest={upload} maxCount={5}
       beforeUpload={(file) => {
@@ -37,8 +41,19 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
         setError(''); return true
       }}
       onChange={({ fileList }) => update(fileList)}>
-      {current.length < 5 && <span>上传图片<br />JPG / PNG ≤5MiB</span>}
+      {current.length < 5 && (
+        <Button
+          type="text"
+          htmlType="button"
+          style={{ width: '100%', height: '100%' }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') event.stopPropagation()
+          }}
+        >
+          <span>上传图片<br />JPG / PNG ≤5MiB</span>
+        </Button>
+      )}
     </Upload>
     {current.some((file) => file.status === 'error') && <Button onClick={() => update(current.filter((file) => file.status !== 'error'))}>移除失败图片并重新上传</Button>}
-  </>
+  </>)
 }

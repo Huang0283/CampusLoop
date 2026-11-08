@@ -1,0 +1,9 @@
+.moderation-stack { display: grid; gap: 20px; min-width: 0; }
+.moderation-stack .ant-card, .moderation-stack .ant-descriptions { min-width: 0; }
+.moderation-stack .ant-descriptions-item-content, .moderation-stack p { white-space: pre-wrap; overflow-wrap: anywhere; word-break: normal; }
+.moderation-stack .ant-card-head { flex-wrap: wrap; gap: 12px; }
+.moderation-stack .ant-card-head-title { white-space: normal; }
+@media (max-width: 600px) {
+  .moderation-stack .ant-descriptions-item-label { width: 100px; }
+  .moderation-stack .ant-card-body { padding: 16px; }
+}

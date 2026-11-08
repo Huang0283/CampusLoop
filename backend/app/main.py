@@ -19,11 +19,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routes import (
+    admin_console,
     auth,
     governance,
     intelligence,
     market,
     media,
+    moderation,
     realtime,
     system,
     transactions,
@@ -50,7 +52,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI(
         title=settings.app_name,
-        version="0.3.0",
+        version="0.5.0-rc.1",
         # /docs 仅本地调试用；生产由 APP_ENV 控制
         docs_url="/docs" if settings.app_env != "prod" else None,
         lifespan=lifespan,
@@ -125,8 +127,10 @@ def create_app() -> FastAPI:
     app.include_router(transactions.router)
     app.include_router(realtime.router)
     app.include_router(governance.router)
+    app.include_router(admin_console.router)
     app.include_router(intelligence.router)
     app.include_router(media.router)
+    app.include_router(moderation.router)
 
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(Exception, unhandled_exception_handler)

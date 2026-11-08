@@ -1,0 +1,27 @@
+{
+  "label": "m7-final",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\mq-p5-candidate,target=/workspace,readonly",
+    "-w",
+    "/workspace",
+    "campusloop-mq5-api:50108a3",
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m7_baseline/tests",
+    "-v"
+  ],
+  "startedAt": "2026-10-25T05:03:18.762783+00:00",
+  "endedAt": "2026-10-25T05:03:24.282686+00:00",
+  "elapsedSeconds": 5.52,
+  "exitCode": 0,
+  "output": "m7-final.txt",
+  "sha256": "939da9c172625bf986f45c333169fc7f856a6ed8972d5b8c138b4eeabb2040ff"
+}

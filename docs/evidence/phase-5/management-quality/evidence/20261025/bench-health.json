@@ -1,0 +1,20 @@
+{
+  "label": "bench-health",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "python",
+    "backend/scripts/api_bench.py",
+    "--url",
+    "http://127.0.0.1:8025/health",
+    "--requests",
+    "100",
+    "--concurrency",
+    "10"
+  ],
+  "startedAt": "2026-10-25T05:02:51.923014+00:00",
+  "endedAt": "2026-10-25T05:02:52.435794+00:00",
+  "elapsedSeconds": 0.513,
+  "exitCode": 0,
+  "output": "bench-health.txt",
+  "sha256": "005a805192817ec15edbbc4b5031ed152cd24163676153de45ad68c40b971a52"
+}

@@ -10,6 +10,7 @@ from __future__ import annotations
 import contextvars
 import json
 import logging
+import re
 import sys
 from datetime import UTC, datetime
 from typing import Any
@@ -27,16 +28,43 @@ _SENSITIVE_KEYS = {
     "email",
     "content",
     "evidence",
+    # Cookies and derived browser/session credentials are bearer secrets too.
+    "cookie",
+    "setcookie",
+    "browsercookie",
+    "browsertoken",
+    "sessiontoken",
+    "tokenhash",
+    "apikey",
 }
+_SENSITIVE_SUFFIXES = (
+    "token",
+    "tokenhash",
+    "password",
+    "passwordhash",
+    "secret",
+    "secretkey",
+    "accesskey",
+    "authorization",
+    "privatekey",
+    "cookie",
+    "apikey",
+    "email",
+    "content",
+    "evidence",
+    "evidenceurl",
+)
+
+
+def _is_sensitive_key(key: Any) -> bool:
+    normalized = re.sub(r"[^a-z0-9]", "", str(key).casefold())
+    return normalized in _SENSITIVE_KEYS or normalized.endswith(_SENSITIVE_SUFFIXES)
 
 
 def _scrub(value: Any) -> Any:
     """递归打码敏感键，防止日志泄漏。"""
     if isinstance(value, dict):
-        return {
-            k: ("***" if k.lower().replace("_", "") in _SENSITIVE_KEYS else _scrub(v))
-            for k, v in value.items()
-        }
+        return {k: ("***" if _is_sensitive_key(k) else _scrub(v)) for k, v in value.items()}
     if isinstance(value, list):
         return [_scrub(v) for v in value]
     return value

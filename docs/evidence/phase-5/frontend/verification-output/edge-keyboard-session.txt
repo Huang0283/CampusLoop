@@ -1,0 +1,15 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts --project=edge m2-shell-phase5.spec.ts m2-upload-keyboard.spec.ts m2-account-menu-keyboard.spec.ts
+
+
+Running 6 tests using 1 worker
+
+  ✓  1 [edge] › tests\live\m2-account-menu-keyboard.spec.ts:4:3 › account menu supports Tab, Enter, arrows, Escape and navigation (session fixture) (2.4s)
+  ✓  2 [edge] › tests\live\m2-account-menu-keyboard.spec.ts:4:3 › account menu supports Tab, Space, arrows, Escape and navigation (session fixture) (1.9s)
+  ✓  3 [edge] › tests\live\m2-shell-phase5.spec.ts:51:1 › guest login returns to the protected deep link and preserves its query (session fixture) (2.1s)
+  ✓  4 [edge] › tests\live\m2-shell-phase5.spec.ts:74:1 › session restoration failure can retry at the original deep link (session fixture) (979ms)
+  ✓  5 [edge] › tests\live\m2-upload-keyboard.spec.ts:4:3 › image upload supports Tab and Enter without submitting the form (session fixture) (920ms)
+  ✓  6 [edge] › tests\live\m2-upload-keyboard.spec.ts:4:3 › image upload supports Tab and Space without submitting the form (session fixture) (942ms)
+
+  6 passed (10.9s)

@@ -1,0 +1,96 @@
+{
+  "checkedDate": "2026-10-11",
+  "codeCommit": "217d0e4f12ed7f21d55e5c4cff86d08efe6f6e2b",
+  "conclusion": "Current fixed evaluation cannot meet these candidate gates; add representative independent data and seal before formal comparison. Do not tune on the test set or loosen gates.",
+  "formalDecision": "NO_GO",
+  "humanReviewSheet": {
+    "filledFieldCounts": {
+      "adjudicatedAt": 0,
+      "adjudicator": 0,
+      "dispute": 0,
+      "finalLabel": 0,
+      "reviewLabel(2/1/0/U)": 0,
+      "reviewReason": 0,
+      "reviewedAt": 0,
+      "reviewer": 0
+    },
+    "rows": 228,
+    "sha256": "55499ad827fd33e40c0240f1fbaf486a2e501bc3f3b2a79de04c63e2700171c6",
+    "structuredRecordsStillPending": true,
+    "userConfirmedAllCorrect": true
+  },
+  "independentAcceptance": false,
+  "inputHashes": {
+    "contracts/intelligence-phase2/model-gates.candidate.json": "a5ff97b6143da26100f410581eee6388f6752d7c193bb206bec32ee55828cfbc",
+    "docs/evidence/phase-4/intelligence/evidence/m7-v1/evaluation/evaluation-input-test_candidate.json": "60f8ba8f7c68e02d798bc6cf231b3294968a3639fccda8e2346f40695b72f817",
+    "docs/evidence/phase-4/intelligence/evidence/m7-v1/evaluation/metrics-test_candidate.json": "2aa19e263ac126e2b1f847e447df449b5c203a0723721f0c549c80e247f0650e"
+  },
+  "kind": "DOCUMENTATION_AND_EXISTING_EVIDENCE_CHECK",
+  "labelThreshold": 2,
+  "mrr": {
+    "attainableOnCurrentFixedEvaluation": false,
+    "baselineMatching": 1.0,
+    "baselineSearch": 1.0,
+    "requiredCandidateMrr": 1.1,
+    "requiredRelativeImprovement": 0.1,
+    "upperBound": 1.0
+  },
+  "precisionAt5": {
+    "attainableOnCurrentFixedEvaluation": false,
+    "fixedDenominator": 5,
+    "requiredMinimum": 0.7,
+    "upperBound": 0.5
+  },
+  "preserved": {
+    "code": true,
+    "dataset": true,
+    "gateThresholds": true,
+    "labels": true,
+    "modelParameters": true,
+    "originalRunRecords": true,
+    "splits": true
+  },
+  "regressionTestsRerun": false,
+  "searchRequests": [
+    {
+      "maximumPrecisionAt5": 0.4,
+      "requestId": "bicycle-search-exact",
+      "strictPositiveCount": 2
+    },
+    {
+      "maximumPrecisionAt5": 0.4,
+      "requestId": "bicycle-search-natural",
+      "strictPositiveCount": 2
+    },
+    {
+      "maximumPrecisionAt5": 0.4,
+      "requestId": "calculus-search-exact",
+      "strictPositiveCount": 2
+    },
+    {
+      "maximumPrecisionAt5": 0.4,
+      "requestId": "calculus-search-natural",
+      "strictPositiveCount": 2
+    },
+    {
+      "maximumPrecisionAt5": 0.6,
+      "requestId": "keyboard-search-exact",
+      "strictPositiveCount": 3
+    },
+    {
+      "maximumPrecisionAt5": 0.6,
+      "requestId": "keyboard-search-natural",
+      "strictPositiveCount": 3
+    },
+    {
+      "maximumPrecisionAt5": 0.6,
+      "requestId": "tablet-search-exact",
+      "strictPositiveCount": 3
+    },
+    {
+      "maximumPrecisionAt5": 0.6,
+      "requestId": "tablet-search-natural",
+      "strictPositiveCount": 3
+    }
+  ]
+}

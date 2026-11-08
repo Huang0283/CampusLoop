@@ -1,0 +1,1994 @@
+{
+  "before": [
+    [
+      [
+        "ai_task_runs",
+        "pk_ai_task_runs",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "alembic_version",
+        "alembic_version_pkc",
+        "PRIMARY KEY (version_num)"
+      ],
+      [
+        "auth_audits",
+        "fk_auth_audits_actor_id_users",
+        "FOREIGN KEY (actor_id) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "auth_audits",
+        "fk_auth_audits_target_id_users",
+        "FOREIGN KEY (target_id) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "auth_audits",
+        "pk_auth_audits",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "auth_session_families",
+        "fk_auth_session_families_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id)"
+      ],
+      [
+        "auth_session_families",
+        "pk_auth_session_families",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_auth_family_user",
+        "UNIQUE (id, user_id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_browser_session_token",
+        "UNIQUE (browser_token_hash)"
+      ],
+      [
+        "chat_messages",
+        "ck_chat_messages_kind_enum",
+        "CHECK (((kind)::text = ANY (ARRAY[('TEXT'::character varying)::text, ('IMAGE'::character varying)::text, ('OFFER'::character varying)::text, ('ORDER_EVENT'::character varying)::text, ('SYSTEM'::character varying)::text])))"
+      ],
+      [
+        "chat_messages",
+        "fk_chat_messages_sender_id_users",
+        "FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "chat_messages",
+        "fk_chat_messages_session_id_chat_sessions",
+        "FOREIGN KEY (session_id) REFERENCES chat_sessions(id) ON DELETE CASCADE"
+      ],
+      [
+        "chat_messages",
+        "pk_chat_messages",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "chat_messages",
+        "uq_message_client_id",
+        "UNIQUE (sender_id, client_msg_id)"
+      ],
+      [
+        "chat_read_cursors",
+        "fk_chat_read_cursors_session_id_chat_sessions",
+        "FOREIGN KEY (session_id) REFERENCES chat_sessions(id)"
+      ],
+      [
+        "chat_read_cursors",
+        "fk_chat_read_cursors_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id)"
+      ],
+      [
+        "chat_read_cursors",
+        "pk_chat_read_cursors",
+        "PRIMARY KEY (session_id, user_id)"
+      ],
+      [
+        "chat_sessions",
+        "ck_chat_sessions_not_self",
+        "CHECK ((buyer_id <> seller_id))"
+      ],
+      [
+        "chat_sessions",
+        "ck_chat_sessions_type_enum",
+        "CHECK (((session_type)::text = ANY (ARRAY[('PRODUCT'::character varying)::text, ('WANTED'::character varying)::text])))"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_buyer_id_users",
+        "FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_seller_id_users",
+        "FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id) ON DELETE SET NULL"
+      ],
+      [
+        "chat_sessions",
+        "pk_chat_sessions",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_product_scope",
+        "UNIQUE (session_type, product_id, buyer_id, seller_id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_wanted_scope",
+        "UNIQUE (session_type, wanted_id, buyer_id, seller_id)"
+      ],
+      [
+        "favorites",
+        "fk_favorites_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE"
+      ],
+      [
+        "favorites",
+        "fk_favorites_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      ],
+      [
+        "favorites",
+        "pk_favorites",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "favorites",
+        "uq_favorites_user_product",
+        "UNIQUE (user_id, product_id)"
+      ],
+      [
+        "idempotency_records",
+        "fk_idempotency_records_actor_id_users",
+        "FOREIGN KEY (actor_id) REFERENCES users(id)"
+      ],
+      [
+        "idempotency_records",
+        "pk_idempotency_records",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "idempotency_records",
+        "uq_idempotency_records_actor_id",
+        "UNIQUE (actor_id, scope, key)"
+      ],
+      [
+        "matching_jobs",
+        "ck_matching_jobs_matching_job_status",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('DONE'::character varying)::text, ('SKIPPED'::character varying)::text, ('FAILED'::character varying)::text])))"
+      ],
+      [
+        "matching_jobs",
+        "fk_matching_jobs_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id)"
+      ],
+      [
+        "matching_jobs",
+        "pk_matching_jobs",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "matching_jobs",
+        "uq_matching_jobs_event_key",
+        "UNIQUE (event_key, wanted_id)"
+      ],
+      [
+        "matching_notifications",
+        "fk_matching_notifications_notification_id_notifications",
+        "FOREIGN KEY (notification_id) REFERENCES notifications(id)"
+      ],
+      [
+        "matching_notifications",
+        "fk_matching_notifications_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id)"
+      ],
+      [
+        "matching_notifications",
+        "fk_matching_notifications_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id)"
+      ],
+      [
+        "matching_notifications",
+        "pk_matching_notifications",
+        "PRIMARY KEY (wanted_id, product_id)"
+      ],
+      [
+        "matching_results",
+        "fk_matching_results_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id)"
+      ],
+      [
+        "matching_results",
+        "pk_matching_results",
+        "PRIMARY KEY (wanted_id)"
+      ],
+      [
+        "matching_revision",
+        "pk_matching_revision",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "meetups",
+        "ck_meetups_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PROPOSED'::character varying)::text, ('CONFIRMED'::character varying)::text, ('COMPLETED'::character varying)::text, ('CANCELLED'::character varying)::text])))"
+      ],
+      [
+        "meetups",
+        "fk_meetups_order_id_orders",
+        "FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE"
+      ],
+      [
+        "meetups",
+        "pk_meetups",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "meetups",
+        "uq_meetups_order",
+        "UNIQUE (order_id)"
+      ],
+      [
+        "notifications",
+        "ck_notifications_type_enum",
+        "CHECK (((type)::text = ANY (ARRAY[('MESSAGE'::character varying)::text, ('OFFER_RECEIVED'::character varying)::text, ('OFFER_ACCEPTED'::character varying)::text, ('OFFER_REJECTED'::character varying)::text, ('MATCH_FOUND'::character varying)::text, ('ORDER_STATUS_CHANGED'::character varying)::text, ('MEETUP_REMINDER'::character varying)::text, ('REVIEW_REQUEST'::character varying)::text, ('REPORT_RESULT'::character varying)::text])))"
+      ],
+      [
+        "notifications",
+        "fk_notifications_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      ],
+      [
+        "notifications",
+        "pk_notifications",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "offers",
+        "ck_offers_amount_non_negative",
+        "CHECK ((amount >= (0)::numeric))"
+      ],
+      [
+        "offers",
+        "ck_offers_ck_offer_proposer_participant",
+        "CHECK (((proposer_id = buyer_id) OR (proposer_id = seller_id)))"
+      ],
+      [
+        "offers",
+        "ck_offers_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('ACCEPTED'::character varying)::text, ('REJECTED'::character varying)::text, ('COUNTERED'::character varying)::text, ('EXPIRED'::character varying)::text, ('CANCELLED'::character varying)::text])))"
+      ],
+      [
+        "offers",
+        "fk_offers_buyer_id_users",
+        "FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "offers",
+        "fk_offers_countered_by_offer_id_offers",
+        "FOREIGN KEY (countered_by_offer_id) REFERENCES offers(id)"
+      ],
+      [
+        "offers",
+        "fk_offers_proposer_id_users",
+        "FOREIGN KEY (proposer_id) REFERENCES users(id)"
+      ],
+      [
+        "offers",
+        "fk_offers_seller_id_users",
+        "FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "offers",
+        "fk_offers_session_id_chat_sessions",
+        "FOREIGN KEY (session_id) REFERENCES chat_sessions(id) ON DELETE CASCADE"
+      ],
+      [
+        "offers",
+        "pk_offers",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "offers",
+        "uq_offers_idempotency",
+        "UNIQUE (session_id, buyer_id, idempotency_key)"
+      ],
+      [
+        "order_events",
+        "fk_order_events_operator_id_users",
+        "FOREIGN KEY (operator_id) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "order_events",
+        "fk_order_events_order_id_orders",
+        "FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE"
+      ],
+      [
+        "order_events",
+        "pk_order_events",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "orders",
+        "ck_orders_amount_non_negative",
+        "CHECK ((amount >= (0)::numeric))"
+      ],
+      [
+        "orders",
+        "ck_orders_not_self_trade",
+        "CHECK ((buyer_id <> seller_id))"
+      ],
+      [
+        "orders",
+        "ck_orders_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING_CONFIRM'::character varying)::text, ('BOOKED'::character varying)::text, ('MEETUP_ARRANGED'::character varying)::text, ('COMPLETED'::character varying)::text, ('CANCELLED'::character varying)::text, ('DISPUTED'::character varying)::text])))"
+      ],
+      [
+        "orders",
+        "fk_orders_buyer_id_users",
+        "FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "fk_orders_offer_id_offers",
+        "FOREIGN KEY (offer_id) REFERENCES offers(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "fk_orders_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "fk_orders_seller_id_users",
+        "FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "pk_orders",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "orders",
+        "uq_order_offer",
+        "UNIQUE (offer_id)"
+      ],
+      [
+        "product_images",
+        "fk_product_images_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE"
+      ],
+      [
+        "product_images",
+        "pk_product_images",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "product_images",
+        "uq_product_images_sort",
+        "UNIQUE (product_id, sort_order)"
+      ],
+      [
+        "products",
+        "ck_products_condition_enum",
+        "CHECK (((condition)::text = ANY (ARRAY[('NEW'::character varying)::text, ('LIKE_NEW'::character varying)::text, ('GOOD'::character varying)::text, ('FAIR'::character varying)::text, ('POOR'::character varying)::text])))"
+      ],
+      [
+        "products",
+        "ck_products_original_price_order",
+        "CHECK (((original_price IS NULL) OR (original_price >= price)))"
+      ],
+      [
+        "products",
+        "ck_products_price_non_negative",
+        "CHECK ((price >= (0)::numeric))"
+      ],
+      [
+        "products",
+        "ck_products_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('ON_SALE'::character varying)::text, ('RESERVED'::character varying)::text, ('SOLD'::character varying)::text, ('HIDDEN'::character varying)::text])))"
+      ],
+      [
+        "products",
+        "fk_products_owner_id_users",
+        "FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "products",
+        "pk_products",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "refresh_sessions",
+        "ck_refresh_sessions_ck_refresh_family_or_revoked",
+        "CHECK (((family_id IS NOT NULL) OR (revoked_at IS NOT NULL)))"
+      ],
+      [
+        "refresh_sessions",
+        "fk_refresh_family_user",
+        "FOREIGN KEY (family_id, user_id) REFERENCES auth_session_families(id, user_id)"
+      ],
+      [
+        "refresh_sessions",
+        "fk_refresh_parent",
+        "FOREIGN KEY (parent_id) REFERENCES refresh_sessions(id)"
+      ],
+      [
+        "refresh_sessions",
+        "fk_refresh_sessions_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      ],
+      [
+        "refresh_sessions",
+        "pk_refresh_sessions",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_parent",
+        "UNIQUE (parent_id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_sessions_token_hash",
+        "UNIQUE (token_hash)"
+      ],
+      [
+        "reports",
+        "ck_reports_reason_enum",
+        "CHECK (((reason)::text = ANY (ARRAY[('FAKE_PRODUCT'::character varying)::text, ('DESCRIPTION_MISMATCH'::character varying)::text, ('SPAM'::character varying)::text, ('ABNORMAL_PRICE'::character varying)::text, ('HARASSMENT'::character varying)::text, ('VIOLATION'::character varying)::text])))"
+      ],
+      [
+        "reports",
+        "ck_reports_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('PROCESSING'::character varying)::text, ('RESOLVED'::character varying)::text, ('REJECTED'::character varying)::text])))"
+      ],
+      [
+        "reports",
+        "ck_reports_target_type_enum",
+        "CHECK (((target_type)::text = ANY (ARRAY[('USER'::character varying)::text, ('PRODUCT'::character varying)::text, ('ORDER'::character varying)::text, ('CHAT_MESSAGE'::character varying)::text])))"
+      ],
+      [
+        "reports",
+        "fk_reports_handled_by_users",
+        "FOREIGN KEY (handled_by) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "reports",
+        "fk_reports_reporter_id_users",
+        "FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reports",
+        "pk_reports",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "reports",
+        "uq_reports_no_duplicate",
+        "UNIQUE (reporter_id, target_type, target_id, reason)"
+      ],
+      [
+        "reviews",
+        "ck_reviews_ck_review_communication",
+        "CHECK (((communication >= 1) AND (communication <= 5)))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_ck_review_description_accuracy",
+        "CHECK (((description_accuracy >= 1) AND (description_accuracy <= 5)))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_ck_review_punctuality",
+        "CHECK (((punctuality >= 1) AND (punctuality <= 5)))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_not_self_review",
+        "CHECK ((reviewer_id <> reviewee_id))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_rating_range",
+        "CHECK (((rating >= 1) AND (rating <= 5)))"
+      ],
+      [
+        "reviews",
+        "fk_reviews_order_id_orders",
+        "FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reviews",
+        "fk_reviews_reviewee_id_users",
+        "FOREIGN KEY (reviewee_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reviews",
+        "fk_reviews_reviewer_id_users",
+        "FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reviews",
+        "pk_reviews",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "reviews",
+        "uq_reviews_order_reviewer",
+        "UNIQUE (order_id, reviewer_id)"
+      ],
+      [
+        "uploaded_objects",
+        "fk_uploaded_objects_owner_id_users",
+        "FOREIGN KEY (owner_id) REFERENCES users(id)"
+      ],
+      [
+        "uploaded_objects",
+        "pk_uploaded_objects",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "uploaded_objects",
+        "uq_uploaded_objects_object_key",
+        "UNIQUE (object_key)"
+      ],
+      [
+        "users",
+        "ck_users_rating_range",
+        "CHECK (((rating_avg >= (0)::numeric) AND (rating_avg <= (5)::numeric)))"
+      ],
+      [
+        "users",
+        "ck_users_role_enum",
+        "CHECK (((role)::text = ANY (ARRAY[('USER'::character varying)::text, ('ADMIN'::character varying)::text])))"
+      ],
+      [
+        "users",
+        "ck_users_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('ACTIVE'::character varying)::text, ('DISABLED'::character varying)::text])))"
+      ],
+      [
+        "users",
+        "pk_users",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "users",
+        "uq_users_email",
+        "UNIQUE (email)"
+      ],
+      [
+        "wanted_posts",
+        "ck_wanted_posts_budget_min_non_negative",
+        "CHECK (((budget_min IS NULL) OR (budget_min >= (0)::numeric)))"
+      ],
+      [
+        "wanted_posts",
+        "ck_wanted_posts_budget_order",
+        "CHECK (((budget_min IS NULL) OR (budget_max IS NULL) OR (budget_min <= budget_max)))"
+      ],
+      [
+        "wanted_posts",
+        "ck_wanted_posts_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('OPEN'::character varying)::text, ('MATCHED'::character varying)::text, ('CLOSED'::character varying)::text, ('EXPIRED'::character varying)::text])))"
+      ],
+      [
+        "wanted_posts",
+        "fk_wanted_posts_owner_id_users",
+        "FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "wanted_posts",
+        "pk_wanted_posts",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "worker_heartbeats",
+        "pk_worker_heartbeats",
+        "PRIMARY KEY (worker_id)"
+      ]
+    ],
+    [
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_event_key",
+        "CREATE INDEX ix_ai_task_runs_event_key ON public.ai_task_runs USING btree (event_key)"
+      ],
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_outcome",
+        "CREATE INDEX ix_ai_task_runs_outcome ON public.ai_task_runs USING btree (outcome)"
+      ],
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_task_id",
+        "CREATE INDEX ix_ai_task_runs_task_id ON public.ai_task_runs USING btree (task_id)"
+      ],
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_type_created",
+        "CREATE INDEX ix_ai_task_runs_type_created ON public.ai_task_runs USING btree (task_type, created_at)"
+      ],
+      [
+        "ai_task_runs",
+        "pk_ai_task_runs",
+        "CREATE UNIQUE INDEX pk_ai_task_runs ON public.ai_task_runs USING btree (id)"
+      ],
+      [
+        "alembic_version",
+        "alembic_version_pkc",
+        "CREATE UNIQUE INDEX alembic_version_pkc ON public.alembic_version USING btree (version_num)"
+      ],
+      [
+        "auth_audits",
+        "ix_auth_audit_created",
+        "CREATE INDEX ix_auth_audit_created ON public.auth_audits USING btree (created_at)"
+      ],
+      [
+        "auth_audits",
+        "pk_auth_audits",
+        "CREATE UNIQUE INDEX pk_auth_audits ON public.auth_audits USING btree (id)"
+      ],
+      [
+        "auth_session_families",
+        "ix_auth_families_user_active",
+        "CREATE INDEX ix_auth_families_user_active ON public.auth_session_families USING btree (user_id, revoked_at)"
+      ],
+      [
+        "auth_session_families",
+        "pk_auth_session_families",
+        "CREATE UNIQUE INDEX pk_auth_session_families ON public.auth_session_families USING btree (id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_auth_family_user",
+        "CREATE UNIQUE INDEX uq_auth_family_user ON public.auth_session_families USING btree (id, user_id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_browser_session_token",
+        "CREATE UNIQUE INDEX uq_browser_session_token ON public.auth_session_families USING btree (browser_token_hash)"
+      ],
+      [
+        "chat_messages",
+        "ix_chat_messages_session_cursor",
+        "CREATE INDEX ix_chat_messages_session_cursor ON public.chat_messages USING btree (session_id, id)"
+      ],
+      [
+        "chat_messages",
+        "ix_chat_messages_session_id",
+        "CREATE INDEX ix_chat_messages_session_id ON public.chat_messages USING btree (session_id, id)"
+      ],
+      [
+        "chat_messages",
+        "pk_chat_messages",
+        "CREATE UNIQUE INDEX pk_chat_messages ON public.chat_messages USING btree (id)"
+      ],
+      [
+        "chat_messages",
+        "uq_message_client_id",
+        "CREATE UNIQUE INDEX uq_message_client_id ON public.chat_messages USING btree (sender_id, client_msg_id)"
+      ],
+      [
+        "chat_read_cursors",
+        "pk_chat_read_cursors",
+        "CREATE UNIQUE INDEX pk_chat_read_cursors ON public.chat_read_cursors USING btree (session_id, user_id)"
+      ],
+      [
+        "chat_sessions",
+        "ix_chat_sessions_buyer_last",
+        "CREATE INDEX ix_chat_sessions_buyer_last ON public.chat_sessions USING btree (buyer_id, last_message_at)"
+      ],
+      [
+        "chat_sessions",
+        "ix_chat_sessions_seller_last",
+        "CREATE INDEX ix_chat_sessions_seller_last ON public.chat_sessions USING btree (seller_id, last_message_at)"
+      ],
+      [
+        "chat_sessions",
+        "pk_chat_sessions",
+        "CREATE UNIQUE INDEX pk_chat_sessions ON public.chat_sessions USING btree (id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_product_scope",
+        "CREATE UNIQUE INDEX uq_chat_sessions_product_scope ON public.chat_sessions USING btree (session_type, product_id, buyer_id, seller_id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_wanted_scope",
+        "CREATE UNIQUE INDEX uq_chat_sessions_wanted_scope ON public.chat_sessions USING btree (session_type, wanted_id, buyer_id, seller_id)"
+      ],
+      [
+        "favorites",
+        "pk_favorites",
+        "CREATE UNIQUE INDEX pk_favorites ON public.favorites USING btree (id)"
+      ],
+      [
+        "favorites",
+        "uq_favorites_user_product",
+        "CREATE UNIQUE INDEX uq_favorites_user_product ON public.favorites USING btree (user_id, product_id)"
+      ],
+      [
+        "idempotency_records",
+        "pk_idempotency_records",
+        "CREATE UNIQUE INDEX pk_idempotency_records ON public.idempotency_records USING btree (id)"
+      ],
+      [
+        "idempotency_records",
+        "uq_idempotency_records_actor_id",
+        "CREATE UNIQUE INDEX uq_idempotency_records_actor_id ON public.idempotency_records USING btree (actor_id, scope, key)"
+      ],
+      [
+        "matching_jobs",
+        "ix_matching_jobs_ready",
+        "CREATE INDEX ix_matching_jobs_ready ON public.matching_jobs USING btree (status, available_at, id)"
+      ],
+      [
+        "matching_jobs",
+        "pk_matching_jobs",
+        "CREATE UNIQUE INDEX pk_matching_jobs ON public.matching_jobs USING btree (id)"
+      ],
+      [
+        "matching_jobs",
+        "uq_matching_jobs_event_key",
+        "CREATE UNIQUE INDEX uq_matching_jobs_event_key ON public.matching_jobs USING btree (event_key, wanted_id)"
+      ],
+      [
+        "matching_notifications",
+        "pk_matching_notifications",
+        "CREATE UNIQUE INDEX pk_matching_notifications ON public.matching_notifications USING btree (wanted_id, product_id)"
+      ],
+      [
+        "matching_results",
+        "pk_matching_results",
+        "CREATE UNIQUE INDEX pk_matching_results ON public.matching_results USING btree (wanted_id)"
+      ],
+      [
+        "matching_revision",
+        "pk_matching_revision",
+        "CREATE UNIQUE INDEX pk_matching_revision ON public.matching_revision USING btree (id)"
+      ],
+      [
+        "meetups",
+        "pk_meetups",
+        "CREATE UNIQUE INDEX pk_meetups ON public.meetups USING btree (id)"
+      ],
+      [
+        "meetups",
+        "uq_meetups_order",
+        "CREATE UNIQUE INDEX uq_meetups_order ON public.meetups USING btree (order_id)"
+      ],
+      [
+        "notifications",
+        "ix_notifications_user_created",
+        "CREATE INDEX ix_notifications_user_created ON public.notifications USING btree (user_id, created_at)"
+      ],
+      [
+        "notifications",
+        "ix_notifications_user_cursor",
+        "CREATE INDEX ix_notifications_user_cursor ON public.notifications USING btree (user_id, id)"
+      ],
+      [
+        "notifications",
+        "ix_notifications_user_read",
+        "CREATE INDEX ix_notifications_user_read ON public.notifications USING btree (user_id, read_at)"
+      ],
+      [
+        "notifications",
+        "pk_notifications",
+        "CREATE UNIQUE INDEX pk_notifications ON public.notifications USING btree (id)"
+      ],
+      [
+        "offers",
+        "ix_offers_session_status",
+        "CREATE INDEX ix_offers_session_status ON public.offers USING btree (session_id, status)"
+      ],
+      [
+        "offers",
+        "pk_offers",
+        "CREATE UNIQUE INDEX pk_offers ON public.offers USING btree (id)"
+      ],
+      [
+        "offers",
+        "uq_offers_idempotency",
+        "CREATE UNIQUE INDEX uq_offers_idempotency ON public.offers USING btree (session_id, buyer_id, idempotency_key)"
+      ],
+      [
+        "order_events",
+        "ix_order_events_order_id",
+        "CREATE INDEX ix_order_events_order_id ON public.order_events USING btree (order_id, id)"
+      ],
+      [
+        "order_events",
+        "pk_order_events",
+        "CREATE UNIQUE INDEX pk_order_events ON public.order_events USING btree (id)"
+      ],
+      [
+        "orders",
+        "ix_orders_buyer_created",
+        "CREATE INDEX ix_orders_buyer_created ON public.orders USING btree (buyer_id, created_at)"
+      ],
+      [
+        "orders",
+        "ix_orders_product_status",
+        "CREATE INDEX ix_orders_product_status ON public.orders USING btree (product_id, status)"
+      ],
+      [
+        "orders",
+        "ix_orders_seller_created",
+        "CREATE INDEX ix_orders_seller_created ON public.orders USING btree (seller_id, created_at)"
+      ],
+      [
+        "orders",
+        "pk_orders",
+        "CREATE UNIQUE INDEX pk_orders ON public.orders USING btree (id)"
+      ],
+      [
+        "orders",
+        "uq_order_active_product",
+        "CREATE UNIQUE INDEX uq_order_active_product ON public.orders USING btree (product_id) WHERE ((status)::text <> ALL (ARRAY[('CANCELLED'::character varying)::text, ('DISPUTED'::character varying)::text]))"
+      ],
+      [
+        "orders",
+        "uq_order_offer",
+        "CREATE UNIQUE INDEX uq_order_offer ON public.orders USING btree (offer_id)"
+      ],
+      [
+        "product_images",
+        "ix_product_images_product",
+        "CREATE INDEX ix_product_images_product ON public.product_images USING btree (product_id)"
+      ],
+      [
+        "product_images",
+        "pk_product_images",
+        "CREATE UNIQUE INDEX pk_product_images ON public.product_images USING btree (id)"
+      ],
+      [
+        "product_images",
+        "uq_product_images_sort",
+        "CREATE UNIQUE INDEX uq_product_images_sort ON public.product_images USING btree (product_id, sort_order)"
+      ],
+      [
+        "products",
+        "ix_products_embedding_hnsw",
+        "CREATE INDEX ix_products_embedding_hnsw ON public.products USING hnsw (embedding vector_cosine_ops) WITH (m='16', ef_construction='64')"
+      ],
+      [
+        "products",
+        "ix_products_owner_created",
+        "CREATE INDEX ix_products_owner_created ON public.products USING btree (owner_id, created_at)"
+      ],
+      [
+        "products",
+        "ix_products_status_category",
+        "CREATE INDEX ix_products_status_category ON public.products USING btree (status, category)"
+      ],
+      [
+        "products",
+        "pk_products",
+        "CREATE UNIQUE INDEX pk_products ON public.products USING btree (id)"
+      ],
+      [
+        "refresh_sessions",
+        "ix_refresh_sessions_user_active",
+        "CREATE INDEX ix_refresh_sessions_user_active ON public.refresh_sessions USING btree (user_id, revoked_at)"
+      ],
+      [
+        "refresh_sessions",
+        "pk_refresh_sessions",
+        "CREATE UNIQUE INDEX pk_refresh_sessions ON public.refresh_sessions USING btree (id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_active_family",
+        "CREATE UNIQUE INDEX uq_refresh_active_family ON public.refresh_sessions USING btree (family_id) WHERE ((consumed_at IS NULL) AND (revoked_at IS NULL))"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_parent",
+        "CREATE UNIQUE INDEX uq_refresh_parent ON public.refresh_sessions USING btree (parent_id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_sessions_token_hash",
+        "CREATE UNIQUE INDEX uq_refresh_sessions_token_hash ON public.refresh_sessions USING btree (token_hash)"
+      ],
+      [
+        "reports",
+        "ix_reports_status_created",
+        "CREATE INDEX ix_reports_status_created ON public.reports USING btree (status, created_at)"
+      ],
+      [
+        "reports",
+        "pk_reports",
+        "CREATE UNIQUE INDEX pk_reports ON public.reports USING btree (id)"
+      ],
+      [
+        "reports",
+        "uq_reports_no_duplicate",
+        "CREATE UNIQUE INDEX uq_reports_no_duplicate ON public.reports USING btree (reporter_id, target_type, target_id, reason)"
+      ],
+      [
+        "reviews",
+        "ix_reviews_reviewee_created",
+        "CREATE INDEX ix_reviews_reviewee_created ON public.reviews USING btree (reviewee_id, created_at)"
+      ],
+      [
+        "reviews",
+        "pk_reviews",
+        "CREATE UNIQUE INDEX pk_reviews ON public.reviews USING btree (id)"
+      ],
+      [
+        "reviews",
+        "uq_reviews_order_reviewer",
+        "CREATE UNIQUE INDEX uq_reviews_order_reviewer ON public.reviews USING btree (order_id, reviewer_id)"
+      ],
+      [
+        "uploaded_objects",
+        "ix_uploaded_objects_orphans",
+        "CREATE INDEX ix_uploaded_objects_orphans ON public.uploaded_objects USING btree (purpose, created_at)"
+      ],
+      [
+        "uploaded_objects",
+        "pk_uploaded_objects",
+        "CREATE UNIQUE INDEX pk_uploaded_objects ON public.uploaded_objects USING btree (id)"
+      ],
+      [
+        "uploaded_objects",
+        "uq_uploaded_objects_object_key",
+        "CREATE UNIQUE INDEX uq_uploaded_objects_object_key ON public.uploaded_objects USING btree (object_key)"
+      ],
+      [
+        "users",
+        "ix_users_role_status",
+        "CREATE INDEX ix_users_role_status ON public.users USING btree (role, status)"
+      ],
+      [
+        "users",
+        "pk_users",
+        "CREATE UNIQUE INDEX pk_users ON public.users USING btree (id)"
+      ],
+      [
+        "users",
+        "uq_users_email",
+        "CREATE UNIQUE INDEX uq_users_email ON public.users USING btree (email)"
+      ],
+      [
+        "users",
+        "uq_users_normalized_email",
+        "CREATE UNIQUE INDEX uq_users_normalized_email ON public.users USING btree (lower(TRIM(BOTH FROM email)))"
+      ],
+      [
+        "wanted_posts",
+        "ix_wanted_posts_owner_created",
+        "CREATE INDEX ix_wanted_posts_owner_created ON public.wanted_posts USING btree (owner_id, created_at)"
+      ],
+      [
+        "wanted_posts",
+        "ix_wanted_posts_status_category",
+        "CREATE INDEX ix_wanted_posts_status_category ON public.wanted_posts USING btree (status, category)"
+      ],
+      [
+        "wanted_posts",
+        "pk_wanted_posts",
+        "CREATE UNIQUE INDEX pk_wanted_posts ON public.wanted_posts USING btree (id)"
+      ],
+      [
+        "worker_heartbeats",
+        "pk_worker_heartbeats",
+        "CREATE UNIQUE INDEX pk_worker_heartbeats ON public.worker_heartbeats USING btree (worker_id)"
+      ]
+    ]
+  ],
+  "after": [
+    [
+      [
+        "ai_task_runs",
+        "pk_ai_task_runs",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "alembic_version",
+        "alembic_version_pkc",
+        "PRIMARY KEY (version_num)"
+      ],
+      [
+        "auth_audits",
+        "fk_auth_audits_actor_id_users",
+        "FOREIGN KEY (actor_id) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "auth_audits",
+        "fk_auth_audits_target_id_users",
+        "FOREIGN KEY (target_id) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "auth_audits",
+        "pk_auth_audits",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "auth_session_families",
+        "fk_auth_session_families_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id)"
+      ],
+      [
+        "auth_session_families",
+        "pk_auth_session_families",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_auth_family_user",
+        "UNIQUE (id, user_id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_browser_session_token",
+        "UNIQUE (browser_token_hash)"
+      ],
+      [
+        "chat_messages",
+        "ck_chat_messages_kind_enum",
+        "CHECK (((kind)::text = ANY (ARRAY[('TEXT'::character varying)::text, ('IMAGE'::character varying)::text, ('OFFER'::character varying)::text, ('ORDER_EVENT'::character varying)::text, ('SYSTEM'::character varying)::text])))"
+      ],
+      [
+        "chat_messages",
+        "fk_chat_messages_sender_id_users",
+        "FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "chat_messages",
+        "fk_chat_messages_session_id_chat_sessions",
+        "FOREIGN KEY (session_id) REFERENCES chat_sessions(id) ON DELETE CASCADE"
+      ],
+      [
+        "chat_messages",
+        "pk_chat_messages",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "chat_messages",
+        "uq_message_client_id",
+        "UNIQUE (sender_id, client_msg_id)"
+      ],
+      [
+        "chat_read_cursors",
+        "fk_chat_read_cursors_session_id_chat_sessions",
+        "FOREIGN KEY (session_id) REFERENCES chat_sessions(id)"
+      ],
+      [
+        "chat_read_cursors",
+        "fk_chat_read_cursors_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id)"
+      ],
+      [
+        "chat_read_cursors",
+        "pk_chat_read_cursors",
+        "PRIMARY KEY (session_id, user_id)"
+      ],
+      [
+        "chat_sessions",
+        "ck_chat_sessions_not_self",
+        "CHECK ((buyer_id <> seller_id))"
+      ],
+      [
+        "chat_sessions",
+        "ck_chat_sessions_type_enum",
+        "CHECK (((session_type)::text = ANY (ARRAY[('PRODUCT'::character varying)::text, ('WANTED'::character varying)::text])))"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_buyer_id_users",
+        "FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_seller_id_users",
+        "FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "chat_sessions",
+        "fk_chat_sessions_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id) ON DELETE SET NULL"
+      ],
+      [
+        "chat_sessions",
+        "pk_chat_sessions",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_product_scope",
+        "UNIQUE (session_type, product_id, buyer_id, seller_id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_wanted_scope",
+        "UNIQUE (session_type, wanted_id, buyer_id, seller_id)"
+      ],
+      [
+        "favorites",
+        "fk_favorites_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE"
+      ],
+      [
+        "favorites",
+        "fk_favorites_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      ],
+      [
+        "favorites",
+        "pk_favorites",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "favorites",
+        "uq_favorites_user_product",
+        "UNIQUE (user_id, product_id)"
+      ],
+      [
+        "idempotency_records",
+        "fk_idempotency_records_actor_id_users",
+        "FOREIGN KEY (actor_id) REFERENCES users(id)"
+      ],
+      [
+        "idempotency_records",
+        "pk_idempotency_records",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "idempotency_records",
+        "uq_idempotency_records_actor_id",
+        "UNIQUE (actor_id, scope, key)"
+      ],
+      [
+        "matching_jobs",
+        "ck_matching_jobs_matching_job_status",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('DONE'::character varying)::text, ('SKIPPED'::character varying)::text, ('FAILED'::character varying)::text])))"
+      ],
+      [
+        "matching_jobs",
+        "fk_matching_jobs_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id)"
+      ],
+      [
+        "matching_jobs",
+        "pk_matching_jobs",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "matching_jobs",
+        "uq_matching_jobs_event_key",
+        "UNIQUE (event_key, wanted_id)"
+      ],
+      [
+        "matching_notifications",
+        "fk_matching_notifications_notification_id_notifications",
+        "FOREIGN KEY (notification_id) REFERENCES notifications(id)"
+      ],
+      [
+        "matching_notifications",
+        "fk_matching_notifications_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id)"
+      ],
+      [
+        "matching_notifications",
+        "fk_matching_notifications_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id)"
+      ],
+      [
+        "matching_notifications",
+        "pk_matching_notifications",
+        "PRIMARY KEY (wanted_id, product_id)"
+      ],
+      [
+        "matching_results",
+        "fk_matching_results_wanted_id_wanted_posts",
+        "FOREIGN KEY (wanted_id) REFERENCES wanted_posts(id)"
+      ],
+      [
+        "matching_results",
+        "pk_matching_results",
+        "PRIMARY KEY (wanted_id)"
+      ],
+      [
+        "matching_revision",
+        "pk_matching_revision",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "meetups",
+        "ck_meetups_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PROPOSED'::character varying)::text, ('CONFIRMED'::character varying)::text, ('COMPLETED'::character varying)::text, ('CANCELLED'::character varying)::text])))"
+      ],
+      [
+        "meetups",
+        "fk_meetups_order_id_orders",
+        "FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE"
+      ],
+      [
+        "meetups",
+        "pk_meetups",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "meetups",
+        "uq_meetups_order",
+        "UNIQUE (order_id)"
+      ],
+      [
+        "notifications",
+        "ck_notifications_type_enum",
+        "CHECK (((type)::text = ANY (ARRAY[('MESSAGE'::character varying)::text, ('OFFER_RECEIVED'::character varying)::text, ('OFFER_ACCEPTED'::character varying)::text, ('OFFER_REJECTED'::character varying)::text, ('MATCH_FOUND'::character varying)::text, ('ORDER_STATUS_CHANGED'::character varying)::text, ('MEETUP_REMINDER'::character varying)::text, ('REVIEW_REQUEST'::character varying)::text, ('REPORT_RESULT'::character varying)::text])))"
+      ],
+      [
+        "notifications",
+        "fk_notifications_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      ],
+      [
+        "notifications",
+        "pk_notifications",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "offers",
+        "ck_offers_amount_non_negative",
+        "CHECK ((amount >= (0)::numeric))"
+      ],
+      [
+        "offers",
+        "ck_offers_ck_offer_proposer_participant",
+        "CHECK (((proposer_id = buyer_id) OR (proposer_id = seller_id)))"
+      ],
+      [
+        "offers",
+        "ck_offers_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('ACCEPTED'::character varying)::text, ('REJECTED'::character varying)::text, ('COUNTERED'::character varying)::text, ('EXPIRED'::character varying)::text, ('CANCELLED'::character varying)::text])))"
+      ],
+      [
+        "offers",
+        "fk_offers_buyer_id_users",
+        "FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "offers",
+        "fk_offers_countered_by_offer_id_offers",
+        "FOREIGN KEY (countered_by_offer_id) REFERENCES offers(id)"
+      ],
+      [
+        "offers",
+        "fk_offers_proposer_id_users",
+        "FOREIGN KEY (proposer_id) REFERENCES users(id)"
+      ],
+      [
+        "offers",
+        "fk_offers_seller_id_users",
+        "FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "offers",
+        "fk_offers_session_id_chat_sessions",
+        "FOREIGN KEY (session_id) REFERENCES chat_sessions(id) ON DELETE CASCADE"
+      ],
+      [
+        "offers",
+        "pk_offers",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "offers",
+        "uq_offers_idempotency",
+        "UNIQUE (session_id, buyer_id, idempotency_key)"
+      ],
+      [
+        "order_events",
+        "fk_order_events_operator_id_users",
+        "FOREIGN KEY (operator_id) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "order_events",
+        "fk_order_events_order_id_orders",
+        "FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE"
+      ],
+      [
+        "order_events",
+        "pk_order_events",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "orders",
+        "ck_orders_amount_non_negative",
+        "CHECK ((amount >= (0)::numeric))"
+      ],
+      [
+        "orders",
+        "ck_orders_not_self_trade",
+        "CHECK ((buyer_id <> seller_id))"
+      ],
+      [
+        "orders",
+        "ck_orders_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING_CONFIRM'::character varying)::text, ('BOOKED'::character varying)::text, ('MEETUP_ARRANGED'::character varying)::text, ('COMPLETED'::character varying)::text, ('CANCELLED'::character varying)::text, ('DISPUTED'::character varying)::text])))"
+      ],
+      [
+        "orders",
+        "fk_orders_buyer_id_users",
+        "FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "fk_orders_offer_id_offers",
+        "FOREIGN KEY (offer_id) REFERENCES offers(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "fk_orders_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "fk_orders_seller_id_users",
+        "FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "orders",
+        "pk_orders",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "orders",
+        "uq_order_offer",
+        "UNIQUE (offer_id)"
+      ],
+      [
+        "product_images",
+        "fk_product_images_product_id_products",
+        "FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE"
+      ],
+      [
+        "product_images",
+        "pk_product_images",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "product_images",
+        "uq_product_images_sort",
+        "UNIQUE (product_id, sort_order)"
+      ],
+      [
+        "products",
+        "ck_products_condition_enum",
+        "CHECK (((condition)::text = ANY (ARRAY[('NEW'::character varying)::text, ('LIKE_NEW'::character varying)::text, ('GOOD'::character varying)::text, ('FAIR'::character varying)::text, ('POOR'::character varying)::text])))"
+      ],
+      [
+        "products",
+        "ck_products_original_price_order",
+        "CHECK (((original_price IS NULL) OR (original_price >= price)))"
+      ],
+      [
+        "products",
+        "ck_products_price_non_negative",
+        "CHECK ((price >= (0)::numeric))"
+      ],
+      [
+        "products",
+        "ck_products_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('ON_SALE'::character varying)::text, ('RESERVED'::character varying)::text, ('SOLD'::character varying)::text, ('HIDDEN'::character varying)::text])))"
+      ],
+      [
+        "products",
+        "fk_products_owner_id_users",
+        "FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "products",
+        "pk_products",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "refresh_sessions",
+        "ck_refresh_sessions_ck_refresh_family_or_revoked",
+        "CHECK (((family_id IS NOT NULL) OR (revoked_at IS NOT NULL)))"
+      ],
+      [
+        "refresh_sessions",
+        "fk_refresh_family_user",
+        "FOREIGN KEY (family_id, user_id) REFERENCES auth_session_families(id, user_id)"
+      ],
+      [
+        "refresh_sessions",
+        "fk_refresh_parent",
+        "FOREIGN KEY (parent_id) REFERENCES refresh_sessions(id)"
+      ],
+      [
+        "refresh_sessions",
+        "fk_refresh_sessions_user_id_users",
+        "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      ],
+      [
+        "refresh_sessions",
+        "pk_refresh_sessions",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_parent",
+        "UNIQUE (parent_id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_sessions_token_hash",
+        "UNIQUE (token_hash)"
+      ],
+      [
+        "reports",
+        "ck_reports_reason_enum",
+        "CHECK (((reason)::text = ANY (ARRAY[('FAKE_PRODUCT'::character varying)::text, ('DESCRIPTION_MISMATCH'::character varying)::text, ('SPAM'::character varying)::text, ('ABNORMAL_PRICE'::character varying)::text, ('HARASSMENT'::character varying)::text, ('VIOLATION'::character varying)::text])))"
+      ],
+      [
+        "reports",
+        "ck_reports_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('PENDING'::character varying)::text, ('PROCESSING'::character varying)::text, ('RESOLVED'::character varying)::text, ('REJECTED'::character varying)::text])))"
+      ],
+      [
+        "reports",
+        "ck_reports_target_type_enum",
+        "CHECK (((target_type)::text = ANY (ARRAY[('USER'::character varying)::text, ('PRODUCT'::character varying)::text, ('ORDER'::character varying)::text, ('CHAT_MESSAGE'::character varying)::text])))"
+      ],
+      [
+        "reports",
+        "fk_reports_handled_by_users",
+        "FOREIGN KEY (handled_by) REFERENCES users(id) ON DELETE SET NULL"
+      ],
+      [
+        "reports",
+        "fk_reports_reporter_id_users",
+        "FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reports",
+        "pk_reports",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "reports",
+        "uq_reports_no_duplicate",
+        "UNIQUE (reporter_id, target_type, target_id, reason)"
+      ],
+      [
+        "reviews",
+        "ck_reviews_ck_review_communication",
+        "CHECK (((communication >= 1) AND (communication <= 5)))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_ck_review_description_accuracy",
+        "CHECK (((description_accuracy >= 1) AND (description_accuracy <= 5)))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_ck_review_punctuality",
+        "CHECK (((punctuality >= 1) AND (punctuality <= 5)))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_not_self_review",
+        "CHECK ((reviewer_id <> reviewee_id))"
+      ],
+      [
+        "reviews",
+        "ck_reviews_rating_range",
+        "CHECK (((rating >= 1) AND (rating <= 5)))"
+      ],
+      [
+        "reviews",
+        "fk_reviews_order_id_orders",
+        "FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reviews",
+        "fk_reviews_reviewee_id_users",
+        "FOREIGN KEY (reviewee_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reviews",
+        "fk_reviews_reviewer_id_users",
+        "FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "reviews",
+        "pk_reviews",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "reviews",
+        "uq_reviews_order_reviewer",
+        "UNIQUE (order_id, reviewer_id)"
+      ],
+      [
+        "uploaded_objects",
+        "fk_uploaded_objects_owner_id_users",
+        "FOREIGN KEY (owner_id) REFERENCES users(id)"
+      ],
+      [
+        "uploaded_objects",
+        "pk_uploaded_objects",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "uploaded_objects",
+        "uq_uploaded_objects_object_key",
+        "UNIQUE (object_key)"
+      ],
+      [
+        "users",
+        "ck_users_rating_range",
+        "CHECK (((rating_avg >= (0)::numeric) AND (rating_avg <= (5)::numeric)))"
+      ],
+      [
+        "users",
+        "ck_users_role_enum",
+        "CHECK (((role)::text = ANY (ARRAY[('USER'::character varying)::text, ('ADMIN'::character varying)::text])))"
+      ],
+      [
+        "users",
+        "ck_users_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('ACTIVE'::character varying)::text, ('DISABLED'::character varying)::text])))"
+      ],
+      [
+        "users",
+        "pk_users",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "users",
+        "uq_users_email",
+        "UNIQUE (email)"
+      ],
+      [
+        "wanted_posts",
+        "ck_wanted_posts_budget_min_non_negative",
+        "CHECK (((budget_min IS NULL) OR (budget_min >= (0)::numeric)))"
+      ],
+      [
+        "wanted_posts",
+        "ck_wanted_posts_budget_order",
+        "CHECK (((budget_min IS NULL) OR (budget_max IS NULL) OR (budget_min <= budget_max)))"
+      ],
+      [
+        "wanted_posts",
+        "ck_wanted_posts_status_enum",
+        "CHECK (((status)::text = ANY (ARRAY[('OPEN'::character varying)::text, ('MATCHED'::character varying)::text, ('CLOSED'::character varying)::text, ('EXPIRED'::character varying)::text])))"
+      ],
+      [
+        "wanted_posts",
+        "fk_wanted_posts_owner_id_users",
+        "FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE RESTRICT"
+      ],
+      [
+        "wanted_posts",
+        "pk_wanted_posts",
+        "PRIMARY KEY (id)"
+      ],
+      [
+        "worker_heartbeats",
+        "pk_worker_heartbeats",
+        "PRIMARY KEY (worker_id)"
+      ]
+    ],
+    [
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_event_key",
+        "CREATE INDEX ix_ai_task_runs_event_key ON public.ai_task_runs USING btree (event_key)"
+      ],
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_outcome",
+        "CREATE INDEX ix_ai_task_runs_outcome ON public.ai_task_runs USING btree (outcome)"
+      ],
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_task_id",
+        "CREATE INDEX ix_ai_task_runs_task_id ON public.ai_task_runs USING btree (task_id)"
+      ],
+      [
+        "ai_task_runs",
+        "ix_ai_task_runs_type_created",
+        "CREATE INDEX ix_ai_task_runs_type_created ON public.ai_task_runs USING btree (task_type, created_at)"
+      ],
+      [
+        "ai_task_runs",
+        "pk_ai_task_runs",
+        "CREATE UNIQUE INDEX pk_ai_task_runs ON public.ai_task_runs USING btree (id)"
+      ],
+      [
+        "alembic_version",
+        "alembic_version_pkc",
+        "CREATE UNIQUE INDEX alembic_version_pkc ON public.alembic_version USING btree (version_num)"
+      ],
+      [
+        "auth_audits",
+        "ix_auth_audit_created",
+        "CREATE INDEX ix_auth_audit_created ON public.auth_audits USING btree (created_at)"
+      ],
+      [
+        "auth_audits",
+        "pk_auth_audits",
+        "CREATE UNIQUE INDEX pk_auth_audits ON public.auth_audits USING btree (id)"
+      ],
+      [
+        "auth_session_families",
+        "ix_auth_families_user_active",
+        "CREATE INDEX ix_auth_families_user_active ON public.auth_session_families USING btree (user_id, revoked_at)"
+      ],
+      [
+        "auth_session_families",
+        "pk_auth_session_families",
+        "CREATE UNIQUE INDEX pk_auth_session_families ON public.auth_session_families USING btree (id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_auth_family_user",
+        "CREATE UNIQUE INDEX uq_auth_family_user ON public.auth_session_families USING btree (id, user_id)"
+      ],
+      [
+        "auth_session_families",
+        "uq_browser_session_token",
+        "CREATE UNIQUE INDEX uq_browser_session_token ON public.auth_session_families USING btree (browser_token_hash)"
+      ],
+      [
+        "chat_messages",
+        "ix_chat_messages_session_cursor",
+        "CREATE INDEX ix_chat_messages_session_cursor ON public.chat_messages USING btree (session_id, id)"
+      ],
+      [
+        "chat_messages",
+        "ix_chat_messages_session_id",
+        "CREATE INDEX ix_chat_messages_session_id ON public.chat_messages USING btree (session_id, id)"
+      ],
+      [
+        "chat_messages",
+        "pk_chat_messages",
+        "CREATE UNIQUE INDEX pk_chat_messages ON public.chat_messages USING btree (id)"
+      ],
+      [
+        "chat_messages",
+        "uq_message_client_id",
+        "CREATE UNIQUE INDEX uq_message_client_id ON public.chat_messages USING btree (sender_id, client_msg_id)"
+      ],
+      [
+        "chat_read_cursors",
+        "pk_chat_read_cursors",
+        "CREATE UNIQUE INDEX pk_chat_read_cursors ON public.chat_read_cursors USING btree (session_id, user_id)"
+      ],
+      [
+        "chat_sessions",
+        "ix_chat_sessions_buyer_last",
+        "CREATE INDEX ix_chat_sessions_buyer_last ON public.chat_sessions USING btree (buyer_id, last_message_at)"
+      ],
+      [
+        "chat_sessions",
+        "ix_chat_sessions_seller_last",
+        "CREATE INDEX ix_chat_sessions_seller_last ON public.chat_sessions USING btree (seller_id, last_message_at)"
+      ],
+      [
+        "chat_sessions",
+        "pk_chat_sessions",
+        "CREATE UNIQUE INDEX pk_chat_sessions ON public.chat_sessions USING btree (id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_product_scope",
+        "CREATE UNIQUE INDEX uq_chat_sessions_product_scope ON public.chat_sessions USING btree (session_type, product_id, buyer_id, seller_id)"
+      ],
+      [
+        "chat_sessions",
+        "uq_chat_sessions_wanted_scope",
+        "CREATE UNIQUE INDEX uq_chat_sessions_wanted_scope ON public.chat_sessions USING btree (session_type, wanted_id, buyer_id, seller_id)"
+      ],
+      [
+        "favorites",
+        "pk_favorites",
+        "CREATE UNIQUE INDEX pk_favorites ON public.favorites USING btree (id)"
+      ],
+      [
+        "favorites",
+        "uq_favorites_user_product",
+        "CREATE UNIQUE INDEX uq_favorites_user_product ON public.favorites USING btree (user_id, product_id)"
+      ],
+      [
+        "idempotency_records",
+        "pk_idempotency_records",
+        "CREATE UNIQUE INDEX pk_idempotency_records ON public.idempotency_records USING btree (id)"
+      ],
+      [
+        "idempotency_records",
+        "uq_idempotency_records_actor_id",
+        "CREATE UNIQUE INDEX uq_idempotency_records_actor_id ON public.idempotency_records USING btree (actor_id, scope, key)"
+      ],
+      [
+        "matching_jobs",
+        "ix_matching_jobs_ready",
+        "CREATE INDEX ix_matching_jobs_ready ON public.matching_jobs USING btree (status, available_at, id)"
+      ],
+      [
+        "matching_jobs",
+        "pk_matching_jobs",
+        "CREATE UNIQUE INDEX pk_matching_jobs ON public.matching_jobs USING btree (id)"
+      ],
+      [
+        "matching_jobs",
+        "uq_matching_jobs_event_key",
+        "CREATE UNIQUE INDEX uq_matching_jobs_event_key ON public.matching_jobs USING btree (event_key, wanted_id)"
+      ],
+      [
+        "matching_notifications",
+        "pk_matching_notifications",
+        "CREATE UNIQUE INDEX pk_matching_notifications ON public.matching_notifications USING btree (wanted_id, product_id)"
+      ],
+      [
+        "matching_results",
+        "pk_matching_results",
+        "CREATE UNIQUE INDEX pk_matching_results ON public.matching_results USING btree (wanted_id)"
+      ],
+      [
+        "matching_revision",
+        "pk_matching_revision",
+        "CREATE UNIQUE INDEX pk_matching_revision ON public.matching_revision USING btree (id)"
+      ],
+      [
+        "meetups",
+        "pk_meetups",
+        "CREATE UNIQUE INDEX pk_meetups ON public.meetups USING btree (id)"
+      ],
+      [
+        "meetups",
+        "uq_meetups_order",
+        "CREATE UNIQUE INDEX uq_meetups_order ON public.meetups USING btree (order_id)"
+      ],
+      [
+        "notifications",
+        "ix_notifications_user_created",
+        "CREATE INDEX ix_notifications_user_created ON public.notifications USING btree (user_id, created_at)"
+      ],
+      [
+        "notifications",
+        "ix_notifications_user_cursor",
+        "CREATE INDEX ix_notifications_user_cursor ON public.notifications USING btree (user_id, id)"
+      ],
+      [
+        "notifications",
+        "ix_notifications_user_read",
+        "CREATE INDEX ix_notifications_user_read ON public.notifications USING btree (user_id, read_at)"
+      ],
+      [
+        "notifications",
+        "pk_notifications",
+        "CREATE UNIQUE INDEX pk_notifications ON public.notifications USING btree (id)"
+      ],
+      [
+        "offers",
+        "ix_offers_session_status",
+        "CREATE INDEX ix_offers_session_status ON public.offers USING btree (session_id, status)"
+      ],
+      [
+        "offers",
+        "pk_offers",
+        "CREATE UNIQUE INDEX pk_offers ON public.offers USING btree (id)"
+      ],
+      [
+        "offers",
+        "uq_offers_idempotency",
+        "CREATE UNIQUE INDEX uq_offers_idempotency ON public.offers USING btree (session_id, buyer_id, idempotency_key)"
+      ],
+      [
+        "order_events",
+        "ix_order_events_order_id",
+        "CREATE INDEX ix_order_events_order_id ON public.order_events USING btree (order_id, id)"
+      ],
+      [
+        "order_events",
+        "pk_order_events",
+        "CREATE UNIQUE INDEX pk_order_events ON public.order_events USING btree (id)"
+      ],
+      [
+        "orders",
+        "ix_orders_buyer_created",
+        "CREATE INDEX ix_orders_buyer_created ON public.orders USING btree (buyer_id, created_at)"
+      ],
+      [
+        "orders",
+        "ix_orders_product_status",
+        "CREATE INDEX ix_orders_product_status ON public.orders USING btree (product_id, status)"
+      ],
+      [
+        "orders",
+        "ix_orders_seller_created",
+        "CREATE INDEX ix_orders_seller_created ON public.orders USING btree (seller_id, created_at)"
+      ],
+      [
+        "orders",
+        "pk_orders",
+        "CREATE UNIQUE INDEX pk_orders ON public.orders USING btree (id)"
+      ],
+      [
+        "orders",
+        "uq_order_active_product",
+        "CREATE UNIQUE INDEX uq_order_active_product ON public.orders USING btree (product_id) WHERE ((status)::text <> ALL (ARRAY[('CANCELLED'::character varying)::text, ('DISPUTED'::character varying)::text]))"
+      ],
+      [
+        "orders",
+        "uq_order_offer",
+        "CREATE UNIQUE INDEX uq_order_offer ON public.orders USING btree (offer_id)"
+      ],
+      [
+        "product_images",
+        "ix_product_images_product",
+        "CREATE INDEX ix_product_images_product ON public.product_images USING btree (product_id)"
+      ],
+      [
+        "product_images",
+        "pk_product_images",
+        "CREATE UNIQUE INDEX pk_product_images ON public.product_images USING btree (id)"
+      ],
+      [
+        "product_images",
+        "uq_product_images_sort",
+        "CREATE UNIQUE INDEX uq_product_images_sort ON public.product_images USING btree (product_id, sort_order)"
+      ],
+      [
+        "products",
+        "ix_products_embedding_hnsw",
+        "CREATE INDEX ix_products_embedding_hnsw ON public.products USING hnsw (embedding vector_cosine_ops) WITH (m='16', ef_construction='64')"
+      ],
+      [
+        "products",
+        "ix_products_owner_created",
+        "CREATE INDEX ix_products_owner_created ON public.products USING btree (owner_id, created_at)"
+      ],
+      [
+        "products",
+        "ix_products_status_category",
+        "CREATE INDEX ix_products_status_category ON public.products USING btree (status, category)"
+      ],
+      [
+        "products",
+        "pk_products",
+        "CREATE UNIQUE INDEX pk_products ON public.products USING btree (id)"
+      ],
+      [
+        "refresh_sessions",
+        "ix_refresh_sessions_user_active",
+        "CREATE INDEX ix_refresh_sessions_user_active ON public.refresh_sessions USING btree (user_id, revoked_at)"
+      ],
+      [
+        "refresh_sessions",
+        "pk_refresh_sessions",
+        "CREATE UNIQUE INDEX pk_refresh_sessions ON public.refresh_sessions USING btree (id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_active_family",
+        "CREATE UNIQUE INDEX uq_refresh_active_family ON public.refresh_sessions USING btree (family_id) WHERE ((consumed_at IS NULL) AND (revoked_at IS NULL))"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_parent",
+        "CREATE UNIQUE INDEX uq_refresh_parent ON public.refresh_sessions USING btree (parent_id)"
+      ],
+      [
+        "refresh_sessions",
+        "uq_refresh_sessions_token_hash",
+        "CREATE UNIQUE INDEX uq_refresh_sessions_token_hash ON public.refresh_sessions USING btree (token_hash)"
+      ],
+      [
+        "reports",
+        "ix_reports_status_created",
+        "CREATE INDEX ix_reports_status_created ON public.reports USING btree (status, created_at)"
+      ],
+      [
+        "reports",
+        "pk_reports",
+        "CREATE UNIQUE INDEX pk_reports ON public.reports USING btree (id)"
+      ],
+      [
+        "reports",
+        "uq_reports_no_duplicate",
+        "CREATE UNIQUE INDEX uq_reports_no_duplicate ON public.reports USING btree (reporter_id, target_type, target_id, reason)"
+      ],
+      [
+        "reviews",
+        "ix_reviews_reviewee_created",
+        "CREATE INDEX ix_reviews_reviewee_created ON public.reviews USING btree (reviewee_id, created_at)"
+      ],
+      [
+        "reviews",
+        "pk_reviews",
+        "CREATE UNIQUE INDEX pk_reviews ON public.reviews USING btree (id)"
+      ],
+      [
+        "reviews",
+        "uq_reviews_order_reviewer",
+        "CREATE UNIQUE INDEX uq_reviews_order_reviewer ON public.reviews USING btree (order_id, reviewer_id)"
+      ],
+      [
+        "uploaded_objects",
+        "ix_uploaded_objects_orphans",
+        "CREATE INDEX ix_uploaded_objects_orphans ON public.uploaded_objects USING btree (purpose, created_at)"
+      ],
+      [
+        "uploaded_objects",
+        "pk_uploaded_objects",
+        "CREATE UNIQUE INDEX pk_uploaded_objects ON public.uploaded_objects USING btree (id)"
+      ],
+      [
+        "uploaded_objects",
+        "uq_uploaded_objects_object_key",
+        "CREATE UNIQUE INDEX uq_uploaded_objects_object_key ON public.uploaded_objects USING btree (object_key)"
+      ],
+      [
+        "users",
+        "ix_users_role_status",
+        "CREATE INDEX ix_users_role_status ON public.users USING btree (role, status)"
+      ],
+      [
+        "users",
+        "pk_users",
+        "CREATE UNIQUE INDEX pk_users ON public.users USING btree (id)"
+      ],
+      [
+        "users",
+        "uq_users_email",
+        "CREATE UNIQUE INDEX uq_users_email ON public.users USING btree (email)"
+      ],
+      [
+        "users",
+        "uq_users_normalized_email",
+        "CREATE UNIQUE INDEX uq_users_normalized_email ON public.users USING btree (lower(TRIM(BOTH FROM email)))"
+      ],
+      [
+        "wanted_posts",
+        "ix_wanted_posts_owner_created",
+        "CREATE INDEX ix_wanted_posts_owner_created ON public.wanted_posts USING btree (owner_id, created_at)"
+      ],
+      [
+        "wanted_posts",
+        "ix_wanted_posts_status_category",
+        "CREATE INDEX ix_wanted_posts_status_category ON public.wanted_posts USING btree (status, category)"
+      ],
+      [
+        "wanted_posts",
+        "pk_wanted_posts",
+        "CREATE UNIQUE INDEX pk_wanted_posts ON public.wanted_posts USING btree (id)"
+      ],
+      [
+        "worker_heartbeats",
+        "pk_worker_heartbeats",
+        "CREATE UNIQUE INDEX pk_worker_heartbeats ON public.worker_heartbeats USING btree (worker_id)"
+      ]
+    ]
+  ]
+}

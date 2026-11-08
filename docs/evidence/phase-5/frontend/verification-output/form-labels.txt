@@ -1,0 +1,37 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts interface-restoration.spec.ts --grep M2 form controls have accessible names
+
+
+Running 2 tests using 1 worker
+
+┌─────────┬─────────────────────────────┬─────────┐
+│ (index) │ path                        │ checked │
+├─────────┼─────────────────────────────┼─────────┤
+│ 0       │ '/login'                    │ 2       │
+│ 1       │ '/register'                 │ 3       │
+│ 2       │ '/publish'                  │ 7       │
+│ 3       │ '/wanted/publish'           │ 7       │
+│ 4       │ '/profile'                  │ 5       │
+│ 5       │ '/transactions/1001/meetup' │ 5       │
+│ 6       │ '/transactions/1001/review' │ 1       │
+│ 7       │ '/publish/price-advice'     │ 3       │
+└─────────┴─────────────────────────────┴─────────┘
+Missing accessible names: []
+  ✓  1 [edge] › tests\live\interface-restoration.spec.ts:238:1 › M2 form controls have accessible names (5.6s)
+┌─────────┬─────────────────────────────┬─────────┐
+│ (index) │ path                        │ checked │
+├─────────┼─────────────────────────────┼─────────┤
+│ 0       │ '/login'                    │ 2       │
+│ 1       │ '/register'                 │ 3       │
+│ 2       │ '/publish'                  │ 7       │
+│ 3       │ '/wanted/publish'           │ 7       │
+│ 4       │ '/profile'                  │ 5       │
+│ 5       │ '/transactions/1001/meetup' │ 5       │
+│ 6       │ '/transactions/1001/review' │ 1       │
+│ 7       │ '/publish/price-advice'     │ 3       │
+└─────────┴─────────────────────────────┴─────────┘
+Missing accessible names: []
+  ✓  2 [chrome] › tests\live\interface-restoration.spec.ts:238:1 › M2 form controls have accessible names (5.4s)
+
+  2 passed (12.7s)

@@ -1,0 +1,37 @@
+{
+  "candidatePlatform": "Windows AMD64 CPU only; Linux installation not inferred from this lock",
+  "cleanInstallationIndependent": false,
+  "machine": "AMD64",
+  "observedAt": "2026-10-17T15:48:52.962887+00:00",
+  "os": "Windows-11-10.0.26300-SP0",
+  "profiles": {
+    "baseline-fresh": {
+      "freezeSha256": "701bdda8fb1257e9b7380816bc8201dcbac3e5c16dd416a3851ad2b46e0fa8d0",
+      "freshInstallThisRun": true,
+      "installation": "pip install --index-url https://pypi.org/simple -r scripts/m7_phase2/requirements.txt",
+      "lockBlobSha256": "701bdda8fb1257e9b7380816bc8201dcbac3e5c16dd416a3851ad2b46e0fa8d0",
+      "lockPath": "scripts/m7_phase2/requirements.txt",
+      "lockedPackages": 6,
+      "mismatches": {},
+      "pipCheck": "No broken requirements found.",
+      "pipCheckExitCode": 0,
+      "python": "Python 3.12.14"
+    },
+    "candidate-reused": {
+      "freezeSha256": "abda27a3388545c76629303f0d91598644729efd4c2d368f1eb5477e5365fcbb",
+      "freshInstallThisRun": false,
+      "installation": "existing isolated environment; no reinstall claimed",
+      "lockBlobSha256": "abda27a3388545c76629303f0d91598644729efd4c2d368f1eb5477e5365fcbb",
+      "lockPath": "services/m7_semantic/requirements.windows-cpu.lock.txt",
+      "lockedPackages": 32,
+      "mismatches": {},
+      "pipCheck": "No broken requirements found.",
+      "pipCheckExitCode": 0,
+      "python": "Python 3.12.14"
+    }
+  },
+  "signatures": null,
+  "sourceCommit": "45acf879bf41c18baae4f89584c9e1732f848c97",
+  "status": "PASS",
+  "tempDirectory": "explicit writable directory outside source; TEMP/TMP/TMPDIR all set"
+}

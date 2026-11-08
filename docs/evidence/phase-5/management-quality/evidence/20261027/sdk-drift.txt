@@ -1,0 +1,16 @@
+warning: in the working copy of 'frontend/src/sdk/generated/client.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/client/client.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/client/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/client/types.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/client/utils.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/auth.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/bodySerializer.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/params.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/pathSerializer.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/queryKeySerializer.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/serverSentEvents.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/types.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/core/utils.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/sdk.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'frontend/src/sdk/generated/types.gen.ts', LF will be replaced by CRLF the next time Git touches it

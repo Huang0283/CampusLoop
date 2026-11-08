@@ -1,0 +1,10 @@
+﻿
+Running 5 tests using 1 worker
+
+  ok 1 tests\live\m2-notification-sync.spec.ts:4:1 › notifications share one poller and synchronize read actions with the header (contract fixture) (7.4s)
+  ok 2 tests\live\m2-phase4.spec.ts:4:1 › report contract consumes private blobs and reuses an uncertain resolution key (contract fixtures) (2.9s)
+  ok 3 tests\live\m2-phase4.spec.ts:83:1 › admin users/risk and missing upstream governance are explicit (contract fixtures) (2.8s)
+  ok 4 tests\live\m4-admin-drawer-keyboard.spec.ts:90:1 › report drawer keeps keyboard focus inside and Escape returns to its opener (contract fixture) (1.6s)
+  ok 5 tests\live\m4-admin-drawer-keyboard.spec.ts:100:1 › product drawer keeps keyboard focus inside and Escape returns to its opener (contract fixture) (1.5s)
+
+  5 passed (22.3s)

@@ -1,0 +1,108 @@
+{
+  "site": "http://127.0.0.1:5174",
+  "results": [
+    {
+      "mobile": false,
+      "category": "DAILY",
+      "cards": 12
+    },
+    {
+      "mobile": false,
+      "category": "STATIONERY",
+      "cards": 12
+    },
+    {
+      "mobile": false,
+      "category": "SPORTS",
+      "cards": 12
+    },
+    {
+      "mobile": false,
+      "category": "clothing",
+      "cards": 12
+    },
+    {
+      "mobile": false,
+      "category": "FURNITURE",
+      "cards": 12
+    },
+    {
+      "mobile": false,
+      "product": 1785,
+      "galleryImages": 4,
+      "reload": true,
+      "guestContact": "login"
+    },
+    {
+      "mobile": false,
+      "product": 1861,
+      "galleryImages": 2,
+      "reload": true,
+      "guestContact": "login"
+    },
+    {
+      "mobile": false,
+      "product": 1871,
+      "galleryImages": 5,
+      "reload": true,
+      "guestContact": "login"
+    },
+    {
+      "mobile": false,
+      "hiddenProduct": 1820,
+      "renderedAsUnavailable": true
+    },
+    {
+      "mobile": true,
+      "category": "DAILY",
+      "cards": 12
+    },
+    {
+      "mobile": true,
+      "category": "STATIONERY",
+      "cards": 12
+    },
+    {
+      "mobile": true,
+      "category": "SPORTS",
+      "cards": 12
+    },
+    {
+      "mobile": true,
+      "category": "clothing",
+      "cards": 12
+    },
+    {
+      "mobile": true,
+      "category": "FURNITURE",
+      "cards": 12
+    },
+    {
+      "mobile": true,
+      "product": 1785,
+      "galleryImages": 4,
+      "reload": true,
+      "guestContact": "login"
+    },
+    {
+      "mobile": true,
+      "product": 1861,
+      "galleryImages": 2,
+      "reload": true,
+      "guestContact": "login"
+    },
+    {
+      "mobile": true,
+      "product": 1871,
+      "galleryImages": 5,
+      "reload": true,
+      "guestContact": "login"
+    },
+    {
+      "mobile": true,
+      "hiddenProduct": 1820,
+      "renderedAsUnavailable": true
+    }
+  ],
+  "errors": []
+}

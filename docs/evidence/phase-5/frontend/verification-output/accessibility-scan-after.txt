@@ -1,0 +1,817 @@
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts interface-restoration.spec.ts --grep M2 (form controls|sampled text contrast)
+
+
+Running 4 tests using 1 worker
+
+┌─────────┬─────────────────────────────┬─────────┐
+│ (index) │ path                        │ checked │
+├─────────┼─────────────────────────────┼─────────┤
+│ 0       │ '/login'                    │ 2       │
+│ 1       │ '/register'                 │ 3       │
+│ 2       │ '/publish'                  │ 7       │
+│ 3       │ '/wanted/publish'           │ 7       │
+│ 4       │ '/profile'                  │ 5       │
+│ 5       │ '/transactions/1001/meetup' │ 5       │
+│ 6       │ '/transactions/1001/review' │ 5       │
+│ 7       │ '/publish/price-advice'     │ 3       │
+└─────────┴─────────────────────────────┴─────────┘
+Missing accessible names: []
+  ✓  1 [edge] › tests\live\interface-restoration.spec.ts:239:1 › M2 form controls have accessible names (5.9s)
+Contrast violations: [
+  {
+    "page": "/login",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"register\"]"
+    ],
+    "html": "<a href=\"/register\" data-discover=\"true\">还没有账号？去注册</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/login",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"market\"]"
+    ],
+    "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"login\"]"
+    ],
+    "html": "<a href=\"/login\" data-discover=\"true\">已有账号，去登录</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"market\"]"
+    ],
+    "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"my-products\"]"
+    ],
+    "html": "<a href=\"/my-products\" data-discover=\"true\">我的发布</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"price-advice\"]"
+    ],
+    "html": "<a href=\"/publish/price-advice\" data-discover=\"true\">查看规则价格建议</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "target": [
+      ".page-heading > a[href$=\"wanted\"][data-discover=\"true\"]"
+    ],
+    "html": "<a href=\"/wanted\" data-discover=\"true\">返回求购广场</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "target": [
+      ".form-actions > a[href$=\"wanted\"][data-discover=\"true\"]"
+    ],
+    "html": "<a href=\"/wanted\" data-discover=\"true\">返回广场</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"transactions\"]"
+    ],
+    "html": "<a href=\"/transactions\" data-discover=\"true\">返回交易中心</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"meetup\"]"
+    ],
+    "html": "<a href=\"/transactions/1001/meetup\" data-discover=\"true\">安排见面</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "tr:nth-child(1) > td > .ant-descriptions-item-container > .ant-descriptions-item-label"
+    ],
+    "html": "<span class=\"ant-descriptions-item-label\">成交金额</span>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "tr:nth-child(2) > td > .ant-descriptions-item-container > .ant-descriptions-item-label"
+    ],
+    "html": "<span class=\"ant-descriptions-item-label\">状态</span>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "tr:nth-child(3) > td > .ant-descriptions-item-container > .ant-descriptions-item-label"
+    ],
+    "html": "<span class=\"ant-descriptions-item-label\">创建时间</span>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"publish\"]"
+    ],
+    "html": "<a href=\"/publish\" data-discover=\"true\">返回发布</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  }
+]
+Contrast requires manual review: [
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-alert-description"
+      ]
+    ]
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-btn-text.ant-btn-variant-text.ant-btn-lg > span"
+      ],
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-select-content"
+      ]
+    ]
+  },
+  {
+    "page": "/product/601",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".gallery-count"
+      ],
+      [
+        ".person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/chat/801",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".chat-session > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      [
+        ".ant-scroll-number-only-unit"
+      ],
+      [
+        ".message-row > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div:nth-child(1) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      [
+        "div:nth-child(2) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/admin",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "#_r_a_"
+      ],
+      [
+        ".person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  }
+]
+  ✘  2 [edge] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast (9.8s)
+┌─────────┬─────────────────────────────┬─────────┐
+│ (index) │ path                        │ checked │
+├─────────┼─────────────────────────────┼─────────┤
+│ 0       │ '/login'                    │ 2       │
+│ 1       │ '/register'                 │ 3       │
+│ 2       │ '/publish'                  │ 7       │
+│ 3       │ '/wanted/publish'           │ 7       │
+│ 4       │ '/profile'                  │ 5       │
+│ 5       │ '/transactions/1001/meetup' │ 5       │
+│ 6       │ '/transactions/1001/review' │ 5       │
+│ 7       │ '/publish/price-advice'     │ 3       │
+└─────────┴─────────────────────────────┴─────────┘
+Missing accessible names: []
+  ✓  3 [chrome] › tests\live\interface-restoration.spec.ts:239:1 › M2 form controls have accessible names (5.9s)
+Contrast violations: [
+  {
+    "page": "/login",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"register\"]"
+    ],
+    "html": "<a href=\"/register\" data-discover=\"true\">还没有账号？去注册</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/login",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"market\"]"
+    ],
+    "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"login\"]"
+    ],
+    "html": "<a href=\"/login\" data-discover=\"true\">已有账号，去登录</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"market\"]"
+    ],
+    "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"my-products\"]"
+    ],
+    "html": "<a href=\"/my-products\" data-discover=\"true\">我的发布</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"price-advice\"]"
+    ],
+    "html": "<a href=\"/publish/price-advice\" data-discover=\"true\">查看规则价格建议</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "target": [
+      ".page-heading > a[href$=\"wanted\"][data-discover=\"true\"]"
+    ],
+    "html": "<a href=\"/wanted\" data-discover=\"true\">返回求购广场</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "target": [
+      ".form-actions > a[href$=\"wanted\"][data-discover=\"true\"]"
+    ],
+    "html": "<a href=\"/wanted\" data-discover=\"true\">返回广场</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"transactions\"]"
+    ],
+    "html": "<a href=\"/transactions\" data-discover=\"true\">返回交易中心</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"meetup\"]"
+    ],
+    "html": "<a href=\"/transactions/1001/meetup\" data-discover=\"true\">安排见面</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "tr:nth-child(1) > td > .ant-descriptions-item-container > .ant-descriptions-item-label"
+    ],
+    "html": "<span class=\"ant-descriptions-item-label\">成交金额</span>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "tr:nth-child(2) > td > .ant-descriptions-item-container > .ant-descriptions-item-label"
+    ],
+    "html": "<span class=\"ant-descriptions-item-label\">状态</span>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "target": [
+      "tr:nth-child(3) > td > .ant-descriptions-item-container > .ant-descriptions-item-label"
+    ],
+    "html": "<span class=\"ant-descriptions-item-label\">创建时间</span>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "target": [
+      "a[href$=\"publish\"]"
+    ],
+    "html": "<a href=\"/publish\" data-discover=\"true\">返回发布</a>",
+    "details": "Fix any of the following:\n  Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+  }
+]
+Contrast requires manual review: [
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-alert-description"
+      ]
+    ]
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-btn-text.ant-btn-variant-text.ant-btn-lg > span"
+      ],
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-select-content"
+      ]
+    ]
+  },
+  {
+    "page": "/product/601",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".gallery-count"
+      ],
+      [
+        ".person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/chat/801",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".chat-session > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      [
+        ".ant-scroll-number-only-unit"
+      ],
+      [
+        ".message-row > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/transactions/1001",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div:nth-child(1) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      [
+        "div:nth-child(2) > .person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/admin",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "#_r_a_"
+      ],
+      [
+        ".person > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ]
+    ]
+  }
+]
+  ✘  4 [chrome] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast (10.3s)
+
+
+  1) [edge] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast ────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 142
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/register\" data-discover=\"true\">还没有账号？去注册</a>",
+    +     "page": "/login",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"register\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    +     "page": "/login",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"market\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/login\" data-discover=\"true\">已有账号，去登录</a>",
+    +     "page": "/register",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"login\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    +     "page": "/register",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"market\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/my-products\" data-discover=\"true\">我的发布</a>",
+    +     "page": "/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"my-products\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/publish/price-advice\" data-discover=\"true\">查看规则价格建议</a>",
+    +     "page": "/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"price-advice\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/wanted\" data-discover=\"true\">返回求购广场</a>",
+    +     "page": "/wanted/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       ".page-heading > a[href$=\"wanted\"][data-discover=\"true\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/wanted\" data-discover=\"true\">返回广场</a>",
+    +     "page": "/wanted/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       ".form-actions > a[href$=\"wanted\"][data-discover=\"true\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/transactions\" data-discover=\"true\">返回交易中心</a>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"transactions\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/transactions/1001/meetup\" data-discover=\"true\">安排见面</a>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"meetup\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<span class=\"ant-descriptions-item-label\">成交金额</span>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "tr:nth-child(1) > td > .ant-descriptions-item-container > .ant-descriptions-item-label",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<span class=\"ant-descriptions-item-label\">状态</span>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "tr:nth-child(2) > td > .ant-descriptions-item-container > .ant-descriptions-item-label",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<span class=\"ant-descriptions-item-label\">创建时间</span>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "tr:nth-child(3) > td > .ant-descriptions-item-container > .ant-descriptions-item-label",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/publish\" data-discover=\"true\">返回发布</a>",
+    +     "page": "/publish/price-advice",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"publish\"]",
+    +     ],
+    +   },
+    + ]
+
+      361 |   console.log('Contrast violations:', JSON.stringify(violations, null, 2))
+      362 |   console.log('Contrast requires manual review:', JSON.stringify(manualReview, null, 2))
+    > 363 |   expect(violations).toEqual([])
+          |                      ^
+      364 | })
+      365 |
+        at D:\CampusLoop-p5-align-1b3385a\frontend\tests\live\interface-restoration.spec.ts:363:22
+
+    Error Context: test-results\interface-restoration-M2-sampled-text-contrast-edge\error-context.md
+
+  2) [chrome] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast ──────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 142
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/register\" data-discover=\"true\">还没有账号？去注册</a>",
+    +     "page": "/login",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"register\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    +     "page": "/login",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"market\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/login\" data-discover=\"true\">已有账号，去登录</a>",
+    +     "page": "/register",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"login\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/market\" data-discover=\"true\">先逛逛</a>",
+    +     "page": "/register",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"market\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/my-products\" data-discover=\"true\">我的发布</a>",
+    +     "page": "/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"my-products\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/publish/price-advice\" data-discover=\"true\">查看规则价格建议</a>",
+    +     "page": "/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"price-advice\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/wanted\" data-discover=\"true\">返回求购广场</a>",
+    +     "page": "/wanted/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       ".page-heading > a[href$=\"wanted\"][data-discover=\"true\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/wanted\" data-discover=\"true\">返回广场</a>",
+    +     "page": "/wanted/publish",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       ".form-actions > a[href$=\"wanted\"][data-discover=\"true\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/transactions\" data-discover=\"true\">返回交易中心</a>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"transactions\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.1 (foreground color: #1677ff, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/transactions/1001/meetup\" data-discover=\"true\">安排见面</a>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"meetup\"]",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<span class=\"ant-descriptions-item-label\">成交金额</span>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "tr:nth-child(1) > td > .ant-descriptions-item-container > .ant-descriptions-item-label",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<span class=\"ant-descriptions-item-label\">状态</span>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "tr:nth-child(2) > td > .ant-descriptions-item-container > .ant-descriptions-item-label",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.36 (foreground color: #8c8c8c, background color: #ffffff, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<span class=\"ant-descriptions-item-label\">创建时间</span>",
+    +     "page": "/transactions/1001",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "tr:nth-child(3) > td > .ant-descriptions-item-container > .ant-descriptions-item-label",
+    +     ],
+    +   },
+    +   Object {
+    +     "details": "Fix any of the following:
+    +   Element has insufficient color contrast of 3.76 (foreground color: #1677ff, background color: #f5f5f5, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +     "html": "<a href=\"/publish\" data-discover=\"true\">返回发布</a>",
+    +     "page": "/publish/price-advice",
+    +     "rule": "color-contrast",
+    +     "target": Array [
+    +       "a[href$=\"publish\"]",
+    +     ],
+    +   },
+    + ]
+
+      361 |   console.log('Contrast violations:', JSON.stringify(violations, null, 2))
+      362 |   console.log('Contrast requires manual review:', JSON.stringify(manualReview, null, 2))
+    > 363 |   expect(violations).toEqual([])
+          |                      ^
+      364 | })
+      365 |
+        at D:\CampusLoop-p5-align-1b3385a\frontend\tests\live\interface-restoration.spec.ts:363:22
+
+    Error Context: test-results\interface-restoration-M2-sampled-text-contrast-chrome\error-context.md
+
+  2 failed
+    [edge] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast ─────────────
+    [chrome] › tests\live\interface-restoration.spec.ts:300:1 › M2 sampled text contrast ───────────
+  2 passed (33.5s)

@@ -1,0 +1,22 @@
+{
+  "catalogId": "catalog-calculator",
+  "context": {
+    "asOf": "2026-09-26T00:00:00Z",
+    "campusId": null,
+    "viewerId": null
+  },
+  "filters": {
+    "categoryId": "calculator",
+    "maxPriceFen": 20000,
+    "minCondition": null,
+    "minPriceFen": 10000,
+    "requiredModel": null,
+    "requiredPlaceIds": []
+  },
+  "queryText": "TI-84 Plus 计算器",
+  "requestId": "calculator-search-exact",
+  "schemaVersion": "m7-processed-v1",
+  "task": "search",
+  "templateGroup": "intent-calculator",
+  "wanted": null
+}

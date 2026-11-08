@@ -1,0 +1,38 @@
+test_default_candidate_remains_explicitly_disabled (test_delivery.CandidateTests.test_default_candidate_remains_explicitly_disabled) ... ok
+test_experimental_vector_recovers_item_without_keyword_overlap (test_delivery.CandidateTests.test_experimental_vector_recovers_item_without_keyword_overlap) ... ok
+test_permission_failure_is_not_downgraded_to_success (test_delivery.CandidateTests.test_permission_failure_is_not_downgraded_to_success) ... ok
+test_comparison_uses_identical_queries_labels_and_metric_function (test_evaluation.EvaluationTests.test_comparison_uses_identical_queries_labels_and_metric_function) ... ok
+test_latency_percentile_uses_nearest_rank_and_empty_is_unknown (test_evaluation.EvaluationTests.test_latency_percentile_uses_nearest_rank_and_empty_is_unknown) ... ok
+test_missing_query_cannot_be_silently_dropped (test_evaluation.EvaluationTests.test_missing_query_cannot_be_silently_dropped) ... ok
+test_empty_query_and_explicit_sort_preserve_baseline (test_hybrid.HybridTests.test_empty_query_and_explicit_sort_preserve_baseline) ... ok
+test_encoder_dictionary_mismatch_falls_back (test_hybrid.HybridTests.test_encoder_dictionary_mismatch_falls_back) ... ok
+test_expired_wanted_rejected_before_model (test_hybrid.HybridTests.test_expired_wanted_rejected_before_model) ... ok
+test_hard_filters_precede_vector_scoring (test_hybrid.HybridTests.test_hard_filters_precede_vector_scoring) ... ok
+test_inputs_are_not_mutated (test_hybrid.HybridTests.test_inputs_are_not_mutated) ... ok
+test_matching_works_without_keyword_overlap (test_hybrid.HybridTests.test_matching_works_without_keyword_overlap) ... ok
+test_missing_index_has_explicit_baseline_fallback (test_hybrid.HybridTests.test_missing_index_has_explicit_baseline_fallback) ... ok
+test_model_failure_falls_back (test_hybrid.HybridTests.test_model_failure_falls_back) ... ok
+test_rrf_contributions_and_version_are_explained (test_hybrid.HybridTests.test_rrf_contributions_and_version_are_explained) ... ok
+test_stale_facts_and_incompatible_index_fall_back_without_old_results (test_hybrid.HybridTests.test_stale_facts_and_incompatible_index_fall_back_without_old_results) ... ok
+test_wrong_owner_rejected_even_when_index_is_unavailable (test_hybrid.HybridTests.test_wrong_owner_rejected_even_when_index_is_unavailable) ... ok
+test_batch_conflict_rolls_back_prior_rows (test_index.IndexTests.test_batch_conflict_rolls_back_prior_rows) ... ok
+test_delete_tombstone_prevents_stale_resurrection (test_index.IndexTests.test_delete_tombstone_prevents_stale_resurrection) ... ok
+test_deleted_flag_and_down_status_create_tombstones (test_index.IndexTests.test_deleted_flag_and_down_status_create_tombstones) ... ok
+test_document_preprocessing_excludes_raw_owner_and_normalizes_unicode (test_index.IndexTests.test_document_preprocessing_excludes_raw_owner_and_normalizes_unicode) ... ok
+test_duplicate_is_idempotent_and_older_update_is_ignored (test_index.IndexTests.test_duplicate_is_idempotent_and_older_update_is_ignored) ... ok
+test_filter_before_top_k_prevents_ineligible_starvation (test_index.IndexTests.test_filter_before_top_k_prevents_ineligible_starvation) ... ok
+test_invalid_batch_does_not_replace_ready_index (test_index.IndexTests.test_invalid_batch_does_not_replace_ready_index) ... ok
+test_missing_model_artifacts_fail_before_optional_runtime_import (test_index.IndexTests.test_missing_model_artifacts_fail_before_optional_runtime_import) ... ok
+test_newer_update_becomes_queryable (test_index.IndexTests.test_newer_update_becomes_queryable) ... ok
+test_persisted_index_reopens_with_same_results (test_index.IndexTests.test_persisted_index_reopens_with_same_results) ... ok
+test_rebuild_logical_digest_is_independent_of_input_order (test_index.IndexTests.test_rebuild_logical_digest_is_independent_of_input_order) ... ok
+test_same_version_different_facts_conflicts (test_index.IndexTests.test_same_version_different_facts_conflicts) ... ok
+test_schema_or_model_identity_mismatch_rejects_query (test_index.IndexTests.test_schema_or_model_identity_mismatch_rejects_query) ... ok
+test_stale_facts_or_missing_product_fail_query (test_index.IndexTests.test_stale_facts_or_missing_product_fail_query) ... ok
+test_unready_index_fails_explicitly (test_index.IndexTests.test_unready_index_fails_explicitly) ... ok
+test_vector_dimension_zero_and_nonfinite_rejected (test_index.IndexTests.test_vector_dimension_zero_and_nonfinite_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.599s
+
+OK

@@ -1,0 +1,17 @@
+{
+  "label": "migrations",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "exec",
+    "campusloop-mq5-audit-api-1",
+    "alembic",
+    "current"
+  ],
+  "startedAt": "2026-10-25T05:14:55.165852+00:00",
+  "endedAt": "2026-10-25T05:14:55.884165+00:00",
+  "elapsedSeconds": 0.718,
+  "exitCode": 0,
+  "output": "migrations.txt",
+  "sha256": "18f22d2848986e88b1159671a4219fbdea185a95f2d561d877549e6128f98a9c"
+}

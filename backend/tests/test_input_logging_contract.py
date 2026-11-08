@@ -42,6 +42,16 @@ def test_private_log_fields_and_exception_parameters_are_not_emitted():
         "email": private,
         "refreshToken": private,
         "nested": [{"password_hash": private, "content": private, "requestId": "safe-id"}],
+        "Cookie": private,
+        "set-cookie": private,
+        "browser_token": private,
+        "token-hash": private,
+        "api-key": private,
+        "refresh_token_hash": private,
+        "userEmail": private,
+        "privateEvidenceUrl": private,
+        "requestBodyContent": private,
+        "sessionCookie": private,
     }
     for formatter in (JsonFormatter(), TextFormatter()):
         result = formatter.format(record)

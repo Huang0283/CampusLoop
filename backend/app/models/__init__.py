@@ -3,6 +3,7 @@
 from app.models.ai_runs import AiTaskRun, WorkerHeartbeat
 from app.models.chat import ChatMessage, ChatSession
 from app.models.matching import MatchingJob, MatchingNotification, MatchingResult
+from app.models.moderation import AccountAppeal, AccountDecision
 from app.models.notification import Notification
 from app.models.offer import Offer
 from app.models.order import Meetup, Order, OrderEvent
@@ -14,6 +15,8 @@ from app.models.user import AuthAudit, AuthSessionFamily, RefreshSession, User
 from app.models.wanted import WantedPost
 
 __all__ = [
+    "AccountAppeal",
+    "AccountDecision",
     "AiTaskRun",
     "WorkerHeartbeat",
     "MatchingJob",

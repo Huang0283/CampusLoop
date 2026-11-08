@@ -1,0 +1,1 @@
+PASS: archived hashes and independent strict metrics; not a live release gate

@@ -1,0 +1,55 @@
+{
+  "AI5_08": "TECHNICAL_PASS_RELEASE_ENVIRONMENT_REVIEW_PENDING",
+  "AI5_09": "LOCAL_INTEGRATION_PASS_RELEASE_END_TO_END_PENDING",
+  "AI5_10": "AUTHOR_REVIEW_INPUT_READY_M10_M1_SIGNOFF_PENDING",
+  "confirmations": {
+    "M1": {
+      "evidencePath": null,
+      "executedAt": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M10": {
+      "evidencePath": null,
+      "executedAt": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M3": {
+      "evidencePath": null,
+      "executedAt": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M6": {
+      "evidencePath": null,
+      "executedAt": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M8": {
+      "evidencePath": null,
+      "executedAt": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    },
+    "M9": {
+      "evidencePath": null,
+      "executedAt": null,
+      "reviewer": null,
+      "signature": null,
+      "status": "PENDING"
+    }
+  },
+  "decision": "KEEP_PHASE3_BASELINES_BOTH_CANDIDATES_NO_GO",
+  "formalStageComplete": false,
+  "issueCloseAllowed": false,
+  "nextCheckProposal": "2026-10-18T18:00:00+08:00",
+  "originalOwnerChoice": "User chose original responsible people to confirm; no substitute signatures.",
+  "proposalConfirmedByOwners": false
+}

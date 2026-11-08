@@ -1,0 +1,545 @@
+{
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY; FINAL_STAGE_ACCEPTANCE_PENDING",
+  "checks": {
+    "baselineLabelsUnchanged": true,
+    "baselineRecalculated": true,
+    "baselineRepeatedMetrics": true,
+    "baselineRepeatedRankings": true,
+    "candidateLabelsUnchanged": true,
+    "candidateNoGoRetained": true,
+    "candidateRecalculated": true,
+    "candidateRepeatedMetrics": true,
+    "candidateRepeatedRankings": true,
+    "cleanCheckoutsAfter": true,
+    "dataInventoryMatches": true,
+    "originalDataUnchanged": true,
+    "realEncodingRepeated": true,
+    "releaseGitBlobsMatch": true,
+    "reviewStillNotArchivable": true,
+    "sourceSnapshotHashesMatch": true
+  },
+  "endedAt": "2026-10-17T11:57:37.974421+00:00",
+  "environment": {
+    "baselineEnvironment": "Reused isolated venv created 2026-10-08; not a new installation",
+    "candidateEnvironment": "Reused Phase 4 CPU venv and hash-pinned local model; not a new installation/download",
+    "driverPython": "3.12.14",
+    "machine": "",
+    "os": "Windows-11-10.0.26300-SP0"
+  },
+  "schemaVersion": "m7-p5-author-reproduction-v1",
+  "sources": {
+    "baseline": {
+      "commit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "dirtyBefore": false
+    },
+    "candidate": {
+      "commit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "dirtyBefore": false
+    },
+    "m10Archive": {
+      "commit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+      "dirtyBefore": false
+    }
+  },
+  "startedAt": "2026-10-17T11:55:36.623837+00:00",
+  "status": "FAIL_OR_PARTIAL",
+  "steps": [
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "durationSeconds": 1.359,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "baseline-environment",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:38.059376+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "durationSeconds": 2.5,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "baseline-pip-check",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:40.428493+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "scripts/m7_phase2/pipeline.py",
+        "verify"
+      ],
+      "durationSeconds": 2.219,
+      "exitCode": 1,
+      "expectedResult": false,
+      "name": "data-verify",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:42.924847+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "scripts/m7_phase2/pipeline.py",
+        "build",
+        "--output-dir",
+        "<output>\\rebuilt"
+      ],
+      "durationSeconds": 2.312,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "data-rebuild",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:45.164682+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "scripts/m7_phase2/pipeline.py",
+        "verify",
+        "--bundle-dir",
+        "<output>\\rebuilt"
+      ],
+      "durationSeconds": 2.297,
+      "exitCode": 1,
+      "expectedResult": false,
+      "name": "data-rebuild-verify",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:47.458082+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "-m",
+        "services.m7_baseline.verify",
+        "--output-dir",
+        "<output>\\baseline-verify"
+      ],
+      "durationSeconds": 6.516,
+      "exitCode": 2,
+      "expectedResult": false,
+      "name": "baseline-full-verify",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:49.752800+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "-m",
+        "services.m7_baseline.evaluate",
+        "--output-dir",
+        "<output>\\baseline-eval"
+      ],
+      "durationSeconds": 3.125,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "baseline-evaluate",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:57.295564+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "-m",
+        "services.m7_baseline.evaluate",
+        "--output-dir",
+        "<output>\\baseline-eval-repeat"
+      ],
+      "durationSeconds": 1.969,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "baseline-evaluate-repeat",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:55:58.383480+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<output>\\baseline-eval\\evaluation-input-all.json",
+        "--output",
+        "<output>\\baseline-recalculated-all.json"
+      ],
+      "durationSeconds": 1.453,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "baseline-recalculate-all",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:56:00.365831+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<output>\\baseline-eval\\evaluation-input-dev.json",
+        "--output",
+        "<output>\\baseline-recalculated-dev.json"
+      ],
+      "durationSeconds": 1.453,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "baseline-recalculate-dev",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:56:01.819366+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<output>\\baseline-eval\\evaluation-input-test_candidate.json",
+        "--output",
+        "<output>\\baseline-recalculated-test_candidate.json"
+      ],
+      "durationSeconds": 0.61,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "baseline-recalculate-test_candidate",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:56:03.279664+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "<documentation-checkout>\\docs\\evidence\\phase-5\\intelligence\\evidence\\author-reproduction-v1\\service-smoke-driver.py",
+        "--checkout",
+        "<baseline-checkout>",
+        "--python",
+        "<baseline-python>",
+        "--output",
+        "<output>\\service-process-smoke.json"
+      ],
+      "durationSeconds": 3.094,
+      "exitCode": 1,
+      "expectedResult": false,
+      "name": "service-process-smoke",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:56:03.885531+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        2
+      ],
+      "checkout": "<baseline-checkout>",
+      "command": [
+        "<baseline-python>",
+        "-m",
+        "services.m7_baseline.review_archive",
+        "--review-sheet",
+        "<user-review-sheet>",
+        "--check-only"
+      ],
+      "durationSeconds": 1.844,
+      "exitCode": 2,
+      "expectedResult": true,
+      "name": "review-sheet-check",
+      "sourceCommit": "0c6528674a57dd555f070dc3a568d1fcf13fadf0",
+      "startedAt": "2026-10-17T11:56:06.984452+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "durationSeconds": 2.219,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-environment",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:56:08.838174+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "durationSeconds": 2.578,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-pip-check",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:56:11.057185+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "services.m7_semantic.download",
+        "--model-dir",
+        "<pinned-local-model>"
+      ],
+      "durationSeconds": 2.187,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-model-hashes",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:56:13.630732+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "services.m7_semantic",
+        "build",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--index",
+        "<output>\\candidate.sqlite",
+        "--products",
+        "data/m7-phase2/derived/products.jsonl"
+      ],
+      "durationSeconds": 12.641,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-index-build",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:56:15.816829+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "services.m7_semantic",
+        "update",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--index",
+        "<output>\\candidate.sqlite",
+        "--products",
+        "data/m7-phase2/derived/products.jsonl"
+      ],
+      "durationSeconds": 12.0,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-index-update",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:56:28.467794+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "services.m7_semantic",
+        "query",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--index",
+        "<output>\\candidate.sqlite",
+        "--products",
+        "<output>\\query-products.jsonl",
+        "--request",
+        "<output>\\query.json"
+      ],
+      "durationSeconds": 10.781,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-query",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:56:40.475057+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "services.m7_semantic.evaluate",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--output-dir",
+        "<output>\\candidate-eval"
+      ],
+      "durationSeconds": 15.265,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-evaluate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:56:51.257305+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "-m",
+        "services.m7_semantic.evaluate",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--output-dir",
+        "<output>\\candidate-eval-repeat"
+      ],
+      "durationSeconds": 15.594,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-evaluate-repeat",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:57:06.525812+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<output>\\candidate-eval\\evaluation-input-all.json",
+        "--output",
+        "<output>\\candidate-recalculated-all.json"
+      ],
+      "durationSeconds": 1.672,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-recalculate-all",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:57:22.115484+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<output>\\candidate-eval\\evaluation-input-dev.json",
+        "--output",
+        "<output>\\candidate-recalculated-dev.json"
+      ],
+      "durationSeconds": 3.219,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-recalculate-dev",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:57:23.784869+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<candidate-checkout>",
+      "command": [
+        "<candidate-python>",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<output>\\candidate-eval\\evaluation-input-test_candidate.json",
+        "--output",
+        "<output>\\candidate-recalculated-test_candidate.json"
+      ],
+      "durationSeconds": 1.109,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "candidate-recalculate-test_candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+      "startedAt": "2026-10-17T11:57:27.234995+00:00"
+    },
+    {
+      "acceptedExitCodes": [
+        0
+      ],
+      "checkout": "<m10-checkout>",
+      "command": [
+        "<baseline-python>",
+        "scripts/quality_phase4/check_archived_evidence.py"
+      ],
+      "durationSeconds": 2.625,
+      "exitCode": 0,
+      "expectedResult": true,
+      "name": "m10-archive-check",
+      "sourceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+      "startedAt": "2026-10-17T11:57:29.135132+00:00"
+    }
+  ]
+}

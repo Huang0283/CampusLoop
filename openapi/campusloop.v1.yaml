@@ -1,10 +1,11 @@
 openapi: 3.1.0
 info:
   title: CampusLoop API
-  version: 0.2.0-contract
+  version: 0.5.0-rc.1
   description: |
-    Phase 2 contract baseline for the CampusLoop MVP. It is a consumer contract,
-    not proof that the FastAPI implementation or persistence exists.
+    Phase 5 M6 release-candidate contract aligned with the accepted Phase 4 main.
+    Candidate version is fixed; final team release approval remains pending.
+    See docs/evidence/phase-5/backend-platform/final-api-documentation.md.
 
     Lifecycle: Phase 2 freezes this contract and generates the SDK; Phase 3
     implements and integrates the MVP operations; Phase 4 implements AI and
@@ -29,6 +30,357 @@ tags:
 security:
   - bearerAuth: []
 paths:
+  /account/decisions:
+    get:
+      tags: [Governance]
+      operationId: listAccountDecisions
+      summary: listAccountDecisions
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionListResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: query
+        name: page
+        schema: {type: integer, minimum: 1, default: 1}
+      - in: query
+        name: pageSize
+        schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+  /account/decisions/{decisionId}:
+    get:
+      tags: [Governance]
+      operationId: getAccountDecision
+      summary: getAccountDecision
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: decisionId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+  /account/decisions/{decisionId}/appeal:
+    post:
+      tags: [Governance]
+      operationId: submitAccountAppeal
+      summary: submitAccountAppeal
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountAppealResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: decisionId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AccountAppealWrite'}
+  /account/appeals/images:
+    post:
+      tags: [Governance]
+      operationId: uploadAppealImage
+      summary: uploadAppealImage
+      responses:
+        '201':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/UploadResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [file]
+              properties:
+                file: {type: string, format: binary}
+  /account/decisions/{decisionId}/evidence/{imageIndex}:
+    get:
+      tags: [Governance]
+      operationId: getDecisionEvidence
+      summary: getDecisionEvidence
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: decisionId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: path
+        name: imageIndex
+        required: true
+        schema: {type: integer, minimum: 0, maximum: 9007199254740991}
+  /account/appeals/{appealId}/evidence/{imageIndex}:
+    get:
+      tags: [Governance]
+      operationId: getOwnAppealEvidence
+      summary: getOwnAppealEvidence
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: path
+        name: imageIndex
+        required: true
+        schema: {type: integer, minimum: 0, maximum: 9007199254740991}
+  /admin/appeals/{appealId}/evidence/{imageIndex}:
+    get:
+      tags: [Governance]
+      operationId: adminGetAppealEvidence
+      summary: adminGetAppealEvidence
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            image/jpeg:
+              schema: {type: string, format: binary}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: path
+        name: imageIndex
+        required: true
+        schema: {type: integer, minimum: 0, maximum: 9007199254740991}
+      - in: query
+        name: source
+        schema: {type: string, enum: [appeal, decision], default: appeal}
+  /admin/users/{userId}/decisions:
+    get:
+      tags: [Governance]
+      operationId: adminListAccountDecisions
+      summary: adminListAccountDecisions
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionListResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: query
+        name: page
+        schema: {type: integer, minimum: 1, default: 1}
+      - in: query
+        name: pageSize
+        schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+    post:
+      tags: [Governance]
+      operationId: adminCreateAccountDecision
+      summary: adminCreateAccountDecision
+      responses:
+        '201':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AccountDecisionResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      - in: header
+        name: Idempotency-Key
+        required: true
+        schema: {type: string, minLength: 1, maxLength: 64}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AccountDecisionWrite'}
+  /admin/appeals:
+    get:
+      tags: [Governance]
+      operationId: adminListAccountAppeals
+      summary: adminListAccountAppeals
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AdminAppealListResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: query
+        name: page
+        schema: {type: integer, minimum: 1, default: 1}
+      - in: query
+        name: pageSize
+        schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+      - in: query
+        name: status
+        schema: {type: string, enum: [PENDING, UPHELD, REVOKED]}
+  /admin/appeals/{appealId}:
+    get:
+      tags: [Governance]
+      operationId: adminGetAccountAppeal
+      summary: adminGetAccountAppeal
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AdminAppealResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+  /admin/appeals/{appealId}/review:
+    post:
+      tags: [Governance]
+      operationId: adminReviewAccountAppeal
+      summary: adminReviewAccountAppeal
+      responses:
+        '200':
+          description: Private account governance response; no-store
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AdminAppealResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409':
+          description: Decision or appeal state changed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ErrorResponse'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+      parameters:
+      - in: path
+        name: appealId
+        required: true
+        schema: {type: integer, minimum: 1, maximum: 9007199254740991}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AccountAppealReview'}
   /chat/messages/{messageId}/image:
     get:
       tags: [Chat]
@@ -436,7 +788,7 @@ paths:
       operationId: uploadImage
       x-campusloop-phase: BP2-03/FE3-05
       parameters:
-        - { name: purpose, in: query, schema: { type: string, enum: [product, evidence, chat], default: product } }
+        - { name: purpose, in: query, schema: { type: string, enum: [product, evidence, chat, avatar], default: product } }
       requestBody:
         required: true
         content:
@@ -721,6 +1073,7 @@ paths:
     get:
       tags: [Chat]
       operationId: listMessages
+      description: Use afterId for durable recovery in ascending ID order, or beforeId for older history; never supply both. Continue recovery until an empty page.
       x-campusloop-phase: BP2-03/FE3-07/FE3-08
       parameters:
         - { name: afterId, in: query, schema: { type: integer, format: int64, minimum: 0 } }
@@ -1042,9 +1395,12 @@ paths:
       tags: [Governance]
       operationId: listMyReports
       x-campusloop-phase: BP2-03/FE3-10
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
       responses:
         '200':
-          description: Reports created by the current user; no internal moderation notes.
+          description: Reports created by the current user, newest first; no evidence keys or internal audit fields.
           content:
             application/json:
               schema: { $ref: '#/components/schemas/ReportListResponse' }
@@ -1150,6 +1506,62 @@ paths:
         '404': { $ref: '#/components/responses/NotFound' }
         '409': { $ref: '#/components/responses/Conflict' }
         '422': { $ref: '#/components/responses/ValidationError' }
+  /admin/dashboard:
+    get:
+      tags: [Admin]
+      operationId: adminGetDashboard
+      x-campusloop-phase: ADMIN-CONSOLE-01
+      description: Administrator-only live aggregates for the console dashboard. Calendar days use campus time (UTC+08:00). On-sale counts use exactly the public market filter. Reads are audited.
+      parameters:
+        - { name: days, in: query, schema: { type: integer, enum: [7, 30], default: 7 } }
+      responses:
+        '200':
+          description: Audited dashboard aggregates.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminDashboardResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '422': { $ref: '#/components/responses/ValidationError' }
+  /admin/orders:
+    get:
+      tags: [Admin]
+      operationId: adminListOrders
+      x-campusloop-phase: ADMIN-CONSOLE-01
+      description: Administrator-only order oversight, newest first. `query` matches an order number or a product title. Read-only and audited.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/OrderStatus' } }
+        - { name: query, in: query, schema: { type: string, maxLength: 100 } }
+      responses:
+        '200':
+          description: Audited administrator order list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminOrderListResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /admin/audit-logs:
+    get:
+      tags: [Admin]
+      operationId: adminListAuditLogs
+      x-campusloop-phase: ADMIN-CONSOLE-01
+      description: Administrator decision trail from the audit table. `decisions` lists state-changing decisions only; `all` also lists audited reads and replays.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - { name: scope, in: query, schema: { type: string, enum: [decisions, all], default: decisions } }
+        - { name: mine, in: query, description: Only entries recorded for the signed-in administrator., schema: { type: boolean, default: false } }
+        - { name: days, in: query, description: 'Last 7 or 30 calendar days including today in Asia/Shanghai. Omit for all history; the console defaults to 7.', schema: { type: integer, enum: [7, 30] } }
+      responses:
+        '200':
+          description: Audited decision trail page.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AdminAuditLogListResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
   /admin/users:
     get:
       tags: [Admin]
@@ -1248,6 +1660,7 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
         - { name: status, in: query, schema: { $ref: '#/components/schemas/ReportStatus' } }
+        - { name: query, in: query, description: 'Report or target ID fragment, reporter/target nickname, product title or report description; prefix a full report ID with # for an exact match. Filtering precedes pagination.', schema: { type: string } }
         - { name: reason, in: query, schema: { type: string, minLength: 1, maxLength: 500, pattern: '\S', default: report_queue_review } }
       responses:
         '200':
@@ -1345,8 +1758,8 @@ components:
       name: Idempotency-Key
       in: header
       required: true
-      description: Client-generated UUID. Replays return the original successful result.
-      schema: { type: string, format: uuid }
+      description: Nonblank key scoped to actor/action. Same body replays; changed body conflicts. UUID recommended.
+      schema: { type: string, minLength: 1, maxLength: 64, pattern: '\S' }
     UserId: { name: userId, in: path, required: true, schema: { type: integer, format: int64, minimum: 1, maximum: 9007199254740991 } }
     ProductId: { name: productId, in: path, required: true, schema: { type: integer, format: int64 } }
     WantedId: { name: wantedId, in: path, required: true, schema: { type: integer, format: int64 } }
@@ -1393,6 +1806,153 @@ components:
           schema: { $ref: '#/components/schemas/ErrorResponse' }
           example: { code: AI_UNAVAILABLE, message: Intelligent service unavailable, details: { fallback: keyword }, requestId: req_01 }
   schemas:
+    AccountDecisionWrite:
+      type: object
+      additionalProperties: false
+      required: [action, reason, facts, basis, occurredAt]
+      properties:
+        action: {type: string, enum: [WARNING, DISABLE]}
+        reason: {type: string, minLength: 1, maxLength: 500, pattern: \S}
+        facts: {type: string, minLength: 1, maxLength: 2000, pattern: \S}
+        basis: {type: string, minLength: 1, maxLength: 500, pattern: \S}
+        occurredAt: {type: string, format: date-time}
+        productId: {type: [integer, 'null'], minimum: 1, maximum: 9007199254740991}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+    AccountAppealWrite:
+      type: object
+      additionalProperties: false
+      required: [explanation]
+      properties:
+        explanation: {type: string, minLength: 1, maxLength: 2000, pattern: \S}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+    AccountAppealReview:
+      type: object
+      additionalProperties: false
+      required: [outcome, reason]
+      properties:
+        outcome: {type: string, enum: [UPHELD, REVOKED]}
+        reason: {type: string, minLength: 1, maxLength: 1000, pattern: \S}
+    AccountAppealRecord:
+      type: object
+      additionalProperties: false
+      required: [id, decisionId, explanation, evidence, status, createdAt, reviewedAt, reviewReason]
+      properties:
+        id: {type: integer, minimum: 1, maximum: 9007199254740991}
+        decisionId: {type: integer, minimum: 1, maximum: 9007199254740991}
+        explanation: {type: string}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+        status: {type: string, enum: [PENDING, UPHELD, REVOKED]}
+        createdAt: {type: string, format: date-time}
+        reviewedAt: {type: [string, 'null'], format: date-time}
+        reviewReason: {type: [string, 'null']}
+    AccountDecisionRecord:
+      type: object
+      additionalProperties: false
+      required: [id, userId, action, reason, facts, basis, occurredAt, createdAt, reference, evidence, revokedAt, revocationReason,
+        appeal]
+      properties:
+        id: {type: integer, minimum: 1, maximum: 9007199254740991}
+        userId: {type: integer, minimum: 1, maximum: 9007199254740991}
+        action: {type: string, enum: [WARNING, DISABLE]}
+        reason: {type: string}
+        facts: {type: string}
+        basis: {type: string}
+        occurredAt: {type: [string, 'null'], format: date-time}
+        createdAt: {type: string, format: date-time}
+        reference:
+          oneOf:
+          - type: object
+            additionalProperties: false
+            required: [productId, title]
+            properties:
+              productId: {type: integer, minimum: 1, maximum: 9007199254740991}
+              title: {type: string}
+          - {type: 'null'}
+        evidence:
+          type: array
+          maxItems: 5
+          items: {type: string}
+        revokedAt: {type: [string, 'null'], format: date-time}
+        revocationReason: {type: [string, 'null']}
+        appeal:
+          oneOf:
+          - {$ref: '#/components/schemas/AccountAppealRecord'}
+          - {type: 'null'}
+    AdminAppealCase:
+      type: object
+      additionalProperties: false
+      required: [appeal, decision, user]
+      properties:
+        appeal: {$ref: '#/components/schemas/AccountAppealRecord'}
+        decision: {$ref: '#/components/schemas/AccountDecisionRecord'}
+        user:
+          type: object
+          additionalProperties: false
+          required: [id, nickname, status]
+          properties:
+            id: {type: integer, minimum: 1, maximum: 9007199254740991}
+            nickname: {type: string}
+            status: {type: string, enum: [ACTIVE, DISABLED]}
+    AccountDecisionResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data: {$ref: '#/components/schemas/AccountDecisionRecord'}
+    AccountDecisionListResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data:
+            type: object
+            additionalProperties: false
+            required: [items, pagination]
+            properties:
+              items:
+                type: array
+                items: {$ref: '#/components/schemas/AccountDecisionRecord'}
+              pagination: {$ref: '#/components/schemas/Pagination'}
+    AccountAppealResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data: {$ref: '#/components/schemas/AccountAppealRecord'}
+    AdminAppealResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data: {$ref: '#/components/schemas/AdminAppealCase'}
+    AdminAppealListResponse:
+      allOf:
+      - {$ref: '#/components/schemas/ApiEnvelope'}
+      - type: object
+        required: [data]
+        properties:
+          data:
+            type: object
+            additionalProperties: false
+            required: [items, pagination]
+            properties:
+              items:
+                type: array
+                items: {$ref: '#/components/schemas/AdminAppealCase'}
+              pagination: {$ref: '#/components/schemas/Pagination'}
     ApiEnvelope:
       type: object
       required: [code, message]
@@ -1530,6 +2090,188 @@ components:
           required: [data]
           properties:
             data: { $ref: '#/components/schemas/AdminProduct' }
+    AdminRatio:
+      type: object
+      required: [numerator, denominator]
+      properties:
+        numerator: { type: integer, minimum: 0 }
+        denominator: { type: integer, minimum: 0, description: Zero means there is no data in the window; clients must not show a percentage. }
+    AdminKeyCount:
+      type: object
+      required: [key, count]
+      properties:
+        key: { type: string }
+        count: { type: integer, minimum: 0 }
+    AdminTodoItem:
+      type: object
+      required: [kind, id, status, targetType, targetId, createdAt]
+      properties:
+        kind: { type: string, enum: [REPORT, DISPUTE] }
+        id: { type: integer, format: int64 }
+        status: { type: string }
+        reason: { oneOf: [{ $ref: '#/components/schemas/ReportReason' }, { type: 'null' }] }
+        targetType: { $ref: '#/components/schemas/ReportTargetType' }
+        targetId: { type: integer, format: int64 }
+        targetTitle: { type: [string, 'null'] }
+        submittedBy: { type: [string, 'null'] }
+        createdAt: { type: string, format: date-time }
+    AdminRecentOrder:
+      type: object
+      required: [id, status, amount, createdAt, productTitle, category, buyerNickname, sellerNickname]
+      properties:
+        id: { type: integer, format: int64 }
+        status: { $ref: '#/components/schemas/OrderStatus' }
+        amount: { type: number, minimum: 0 }
+        createdAt: { type: string, format: date-time }
+        productTitle: { type: string }
+        category: { type: string }
+        buyerNickname: { type: string }
+        sellerNickname: { type: string }
+    AdminRiskUser:
+      type: object
+      required: [id, nickname, avatar, status, reportCount, openReportCount, lastReportedAt]
+      properties:
+        id: { type: integer, format: int64 }
+        nickname: { type: string }
+        avatar: { type: [string, 'null'] }
+        status: { type: string, enum: [ACTIVE, DISABLED] }
+        reportCount: { type: integer, minimum: 1, description: Reports in the window against the user or the user's goods. }
+        openReportCount: { type: integer, minimum: 0 }
+        lastReportedAt: { type: string, format: date-time }
+    AdminAuditLog:
+      type: object
+      required: [id, event, decision, actor, targetUser, subject, reason, resultStatus, createdAt]
+      properties:
+        id: { type: integer, format: int64 }
+        event: { type: string, description: Audit event code, for example admin_product_moderate. }
+        decision: { type: boolean, description: True when the event changed platform state. }
+        actor: { oneOf: [{ $ref: '#/components/schemas/AdminPersonRef' }, { type: 'null' }] }
+        targetUser: { oneOf: [{ $ref: '#/components/schemas/AdminPersonRef' }, { type: 'null' }] }
+        subject:
+          oneOf:
+            - type: object
+              required: [type, id]
+              properties:
+                type: { type: string, enum: [PRODUCT, REPORT, USER] }
+                id: { type: integer, format: int64 }
+            - type: 'null'
+        reason: { type: [string, 'null'] }
+        resultStatus: { type: [string, 'null'] }
+        createdAt: { type: string, format: date-time }
+    AdminPersonRef:
+      type: object
+      required: [id, nickname]
+      properties:
+        id: { type: integer, format: int64 }
+        nickname: { type: [string, 'null'] }
+    AdminDashboard:
+      type: object
+      required: [asOf, timezone, days, rangeStart, products, orders, users, pending, trend, categories, orderStatuses, reportReasons, postingHeatmap, health, todo, recentOrders, riskUsers, recentDecisions]
+      properties:
+        asOf: { type: string, format: date-time }
+        timezone: { type: string, const: '+08:00' }
+        days: { type: integer, enum: [7, 30] }
+        rangeStart: { type: string, format: date, description: First campus day of the window; the window ends today. }
+        products:
+          type: object
+          required: [newToday, newYesterday, newInRange, newPreviousRange, onSale, moderationHeld]
+          properties:
+            newToday: { type: integer, minimum: 0 }
+            newYesterday: { type: integer, minimum: 0 }
+            newInRange: { type: integer, minimum: 0 }
+            newPreviousRange: { type: integer, minimum: 0 }
+            onSale: { type: integer, minimum: 0, description: Same filter as the public market default listing. }
+            moderationHeld: { type: integer, minimum: 0 }
+        orders:
+          type: object
+          required: [newToday, newYesterday, newInRange, newPreviousRange, completedInRange]
+          properties:
+            newToday: { type: integer, minimum: 0 }
+            newYesterday: { type: integer, minimum: 0 }
+            newInRange: { type: integer, minimum: 0 }
+            newPreviousRange: { type: integer, minimum: 0 }
+            completedInRange: { type: integer, minimum: 0 }
+        users:
+          type: object
+          required: [total, disabled, newInRange, newPreviousRange]
+          properties:
+            total: { type: integer, minimum: 0 }
+            disabled: { type: integer, minimum: 0 }
+            newInRange: { type: integer, minimum: 0 }
+            newPreviousRange: { type: integer, minimum: 0 }
+        pending:
+          type: object
+          required: [openReports, disputedOrders, total]
+          properties:
+            openReports: { type: integer, minimum: 0 }
+            disputedOrders: { type: integer, minimum: 0 }
+            total: { type: integer, minimum: 0 }
+        trend:
+          type: array
+          items:
+            type: object
+            required: [date, newProducts, newOrders, completedOrders]
+            properties:
+              date: { type: string, format: date }
+              newProducts: { type: integer, minimum: 0 }
+              newOrders: { type: integer, minimum: 0 }
+              completedOrders: { type: integer, minimum: 0 }
+        categories: { type: array, items: { $ref: '#/components/schemas/AdminKeyCount' } }
+        orderStatuses: { type: array, items: { $ref: '#/components/schemas/AdminKeyCount' } }
+        reportReasons: { type: array, items: { $ref: '#/components/schemas/AdminKeyCount' } }
+        postingHeatmap:
+          type: object
+          required: [days, cells]
+          properties:
+            days: { type: integer, const: 28 }
+            cells:
+              type: array
+              description: Seven rows (Monday first) of 24 hourly counts in campus time.
+              minItems: 7
+              maxItems: 7
+              items: { type: array, minItems: 24, maxItems: 24, items: { type: integer, minimum: 0 } }
+        health:
+          type: object
+          required: [reportsHandled, reportsHandledWithin24h, ordersCompleted]
+          properties:
+            reportsHandled: { $ref: '#/components/schemas/AdminRatio' }
+            reportsHandledWithin24h: { $ref: '#/components/schemas/AdminRatio' }
+            ordersCompleted: { $ref: '#/components/schemas/AdminRatio' }
+        todo: { type: array, maxItems: 8, items: { $ref: '#/components/schemas/AdminTodoItem' } }
+        recentOrders: { type: array, maxItems: 6, items: { $ref: '#/components/schemas/AdminRecentOrder' } }
+        riskUsers: { type: array, maxItems: 5, items: { $ref: '#/components/schemas/AdminRiskUser' } }
+        recentDecisions: { type: array, maxItems: 5, items: { $ref: '#/components/schemas/AdminAuditLog' } }
+    AdminDashboardResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data: { $ref: '#/components/schemas/AdminDashboard' }
+    AdminOrderListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/Order' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
+    AdminAuditLogListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiEnvelope'
+        - type: object
+          required: [data]
+          properties:
+            data:
+              type: object
+              required: [items, pagination]
+              properties:
+                items: { type: array, items: { $ref: '#/components/schemas/AdminAuditLog' } }
+                pagination: { $ref: '#/components/schemas/Pagination' }
     AdminProductListResponse:
       allOf:
         - $ref: '#/components/schemas/ApiEnvelope'
@@ -1547,7 +2289,7 @@ components:
       required: [title, category, condition, price, campusLocation, images]
       properties:
         title: { type: string, minLength: 1, maxLength: 100 }
-        category: { type: string, enum: [BOOKS, DIGITAL, DAILY, SPORTS, clothing, other] }
+        category: { type: string, enum: [BOOKS, STATIONERY, DIGITAL, DAILY, FURNITURE, BEDDING, TRANSPORT, SPORTS, clothing, other] }
         condition: { type: string, enum: [NEW, LIKE_NEW, GOOD, FAIR] }
         description: { type: string, maxLength: 3000 }
         originalPrice:
@@ -1642,7 +2384,7 @@ components:
       properties:
         category: { type: string }
         condition: { type: string }
-        title: { type: string }
+        title: { type: string, maxLength: 100, description: Optional marketplace listing keyword; at least two characters to obtain listing comparisons. }
         description: { type: string }
         originalPrice: { type: [number, 'null'], exclusiveMinimum: 0, maximum: 99999999.99 }
     PriceAdvice:
@@ -1660,6 +2402,26 @@ components:
         degraded: { type: boolean }
         disclaimer: { type: string }
         resultVersion: { type: string }
+        marketReference:
+          anyOf:
+            - type: 'null'
+            - type: object
+              required: [count, lower, upper, listings]
+              description: At most 100 current on-sale matching listings created in the last 90 days, excluding the caller's own listings. These are asking prices, not transactions.
+              properties:
+                count: { type: integer, minimum: 0, maximum: 100 }
+                lower: { type: [number, 'null'], minimum: 0 }
+                upper: { type: [number, 'null'], minimum: 0 }
+                listings:
+                  type: array
+                  maxItems: 5
+                  items:
+                    type: object
+                    required: [id, title, price]
+                    properties:
+                      id: { type: integer, format: int64 }
+                      title: { type: string }
+                      price: { type: number, minimum: 0 }
     ChatSessionType: { type: string, enum: [PRODUCT, WANTED] }
     MessageKind: { type: string, enum: [TEXT, IMAGE, OFFER, ORDER_EVENT, SYSTEM] }
     ChatSession:
@@ -1731,8 +2493,8 @@ components:
         version: { type: integer, minimum: 1 }
         campusLocation: { type: string }
         scheduledDate: { type: string, format: date }
-        timeSlotStart: { type: string, format: time }
-        timeSlotEnd: { type: string, format: time }
+        timeSlotStart: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Campus local time without UTC offset; HH:MM or HH:MM:SS }
+        timeSlotEnd: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Later than start on the same campus-local date }
         note: { type: string }
         buyerConfirmed: { type: boolean }
         sellerConfirmed: { type: boolean }
@@ -1743,8 +2505,8 @@ components:
       properties:
         campusLocation: { type: string, minLength: 1, maxLength: 100 }
         scheduledDate: { type: string, format: date }
-        timeSlotStart: { type: string, format: time }
-        timeSlotEnd: { type: string, format: time }
+        timeSlotStart: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Campus local time without UTC offset }
+        timeSlotEnd: { type: string, pattern: '^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9](\.[0-9]{1,6})?)?$', description: Later than start on the same campus-local date }
         note: { type: string, maxLength: 500 }
     Order:
       type: object
@@ -1806,7 +2568,7 @@ components:
         evidence: { type: array, maxItems: 5, items: { type: string, format: uri } }
     Report:
       type: object
-      required: [id, targetType, targetId, reason, description, status, createdAt]
+      required: [id, targetType, targetId, reason, description, status, createdAt, handledAt, resolutionNote]
       properties:
         id: { type: integer, format: int64 }
         targetType: { $ref: '#/components/schemas/ReportTargetType' }
@@ -1815,6 +2577,8 @@ components:
         description: { type: string, maxLength: 1000 }
         status: { $ref: '#/components/schemas/ReportStatus' }
         createdAt: { type: string, format: date-time }
+        handledAt: { type: [string, 'null'], format: date-time, description: Set when an administrator resolves or rejects the report }
+        resolutionNote: { type: [string, 'null'], maxLength: 1000, description: Human decision visible to the reporter; internal audit records stay private }
     ReportResolutionRequest:
       type: object
       additionalProperties: false
@@ -1848,7 +2612,7 @@ components:
     TrustSummaryResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/TrustSummary' } } }] }
     AdminReportResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/AdminReport' } } }] }
     AdminReportListResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { type: array, items: { $ref: '#/components/schemas/AdminReport' } } } }] }
-    NotificationType: { type: string, enum: [MESSAGE, OFFER_RECEIVED, OFFER_ACCEPTED, OFFER_REJECTED, MATCH_FOUND, ORDER_STATUS_CHANGED, MEETUP_REMINDER, REVIEW_REQUEST, REPORT_RESULT] }
+    NotificationType: { type: string, enum: [MESSAGE, OFFER_RECEIVED, OFFER_ACCEPTED, OFFER_REJECTED, MATCH_FOUND, ORDER_STATUS_CHANGED, MEETUP_REMINDER, REVIEW_REQUEST, REPORT_RESULT, ACCOUNT_ACTION, APPEAL_RECEIVED, APPEAL_RESULT] }
     Notification:
       type: object
       required: [id, type, title, content, read, createdAt]

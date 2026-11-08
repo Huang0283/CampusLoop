@@ -1,0 +1,36 @@
+test_empty_and_missing_data_degrade_for_all_tasks (test_client.ClientTests.test_empty_and_missing_data_degrade_for_all_tasks) ... ok
+test_every_missing_output_field_degrades (test_client.ClientTests.test_every_missing_output_field_degrades) ... ok
+test_invalid_price_interval_degrades (test_client.ClientTests.test_invalid_price_interval_degrades) ... ok
+test_invalid_trust_score_and_status_degrade (test_client.ClientTests.test_invalid_trust_score_and_status_degrade) ... ok
+test_malformed_json_and_non_object_envelopes_degrade (test_client.ClientTests.test_malformed_json_and_non_object_envelopes_degrade) ... ok
+test_network_failure_degrades (test_client.ClientTests.test_network_failure_degrades) ... ok
+test_risk_cannot_enforce_or_hide_manual_review (test_client.ClientTests.test_risk_cannot_enforce_or_hide_manual_review) ... ok
+test_risk_fallback_never_enforces (test_client.ClientTests.test_risk_fallback_never_enforces) ... ok
+test_valid_engine_outputs_are_preserved (test_client.ClientTests.test_valid_engine_outputs_are_preserved) ... ok
+test_wrong_versions_and_unknown_fields_degrade (test_client.ClientTests.test_wrong_versions_and_unknown_fields_degrade) ... ok
+test_closed_service_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_closed_service_degrades_all_three_capabilities) ... ok
+test_empty_or_missing_data_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_empty_or_missing_data_degrades_all_three_capabilities) ... ok
+test_invalid_json_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_invalid_json_degrades_all_three_capabilities) ... ok
+test_normal_rpc_preserves_each_engine_output (test_client_http.ClientHttpTests.test_normal_rpc_preserves_each_engine_output) ... ok
+test_timeout_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_timeout_degrades_all_three_capabilities) ... ok
+test_wrong_algorithm_version_degrades_all_three_capabilities (test_client_http.ClientHttpTests.test_wrong_algorithm_version_degrades_all_three_capabilities) ... ok
+test_interval_is_ordered_and_not_exact_promise (test_engine.PriceTests.test_interval_is_ordered_and_not_exact_promise) ... ok
+test_missing_anchor_is_insufficient (test_engine.PriceTests.test_missing_anchor_is_insufficient) ... ok
+test_rejects_boolean_price (test_engine.PriceTests.test_rejects_boolean_price) ... ok
+test_input_is_not_mutated (test_engine.RiskTests.test_input_is_not_mutated) ... ok
+test_missing_observation_is_not_a_zero_risk_claim (test_engine.RiskTests.test_missing_observation_is_not_a_zero_risk_claim) ... ok
+test_no_clue_has_no_review (test_engine.RiskTests.test_no_clue_has_no_review) ... ok
+test_threshold_emits_explanation_but_no_penalty (test_engine.RiskTests.test_threshold_emits_explanation_but_no_penalty) ... ok
+test_cancelled_disputed_and_invalid_do_not_increase_score (test_engine.TrustTests.test_cancelled_disputed_and_invalid_do_not_increase_score) ... ok
+test_new_user_is_neutral (test_engine.TrustTests.test_new_user_is_neutral) ... ok
+test_smoothing_limits_small_sample (test_engine.TrustTests.test_smoothing_limits_small_sample) ... ok
+test_all_fixed_cases_pass (test_evaluation.EvaluationTests.test_all_fixed_cases_pass) ... ok
+test_authentication_is_required (test_http.HttpTests.test_authentication_is_required) ... ok
+test_unknown_fields_are_rejected (test_http.HttpTests.test_unknown_fields_are_rejected) ... ok
+test_versioned_price_route (test_http.HttpTests.test_versioned_price_route) ... ok
+test_wrong_media_type_is_rejected (test_http.HttpTests.test_wrong_media_type_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 3.956s
+
+OK

@@ -1,0 +1,29 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\phase5-final-integration,target=/workspace,readonly",
+    "-w",
+    "/workspace",
+    "campusloop-p5-final:4950f87",
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m7_baseline/tests",
+    "-v"
+  ],
+  "cwd": ".",
+  "startedAt": "2026-10-27T02:11:48.546896+00:00",
+  "endedAt": "2026-10-27T02:11:52.874752+00:00",
+  "exitCode": 0,
+  "output": "m7-baseline.txt",
+  "sha256": "e43849d9d912d5fdec143eb3206229073432c52b32bfefaddac5479a2b995900"
+}

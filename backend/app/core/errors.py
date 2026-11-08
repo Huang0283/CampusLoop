@@ -8,11 +8,14 @@ from app.core.logging import request_id_var
 
 
 class BusinessError(Exception):
-    def __init__(self, status: int, code: str, message: str, headers: dict | None = None):
+    def __init__(
+        self, status: int, code: str, message: str, headers: dict | None = None, *, details=None
+    ):
         self.status = status
         self.code = code
         self.message = message
         self.headers = headers or {}
+        self.details = details
 
 
 async def business_error_handler(request: Request, exc: BusinessError) -> JSONResponse:
@@ -21,6 +24,6 @@ async def business_error_handler(request: Request, exc: BusinessError) -> JSONRe
         headers["WWW-Authenticate"] = "Bearer"
     return JSONResponse(
         status_code=exc.status,
-        content=error_payload(exc.code, exc.message, request_id_var.get()),
+        content=error_payload(exc.code, exc.message, request_id_var.get(), exc.details),
         headers=headers,
     )

@@ -1,0 +1,37 @@
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 3131 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.56 kB │ gzip:   0.34 kB
+dist/assets/index-Dtyjc_wo.css             25.51 kB │ gzip:   5.86 kB
+dist/assets/reportReasons-Fn36EMKH.js       0.55 kB │ gzip:   0.40 kB
+dist/assets/rolldown-runtime-WkwZ5CU-.js    0.59 kB │ gzip:   0.36 kB
+dist/assets/MessageFilled-BFlsTpJ2.js       1.26 kB │ gzip:   0.71 kB
+dist/assets/idempotency-DofqaQeK.js         1.31 kB │ gzip:   0.83 kB
+dist/assets/row-SF4Vqq0e.js                 4.25 kB │ gzip:   1.90 kB
+dist/assets/rate-BdZIB-7i.js                6.25 kB │ gzip:   2.96 kB
+dist/assets/AccountPages-CLYM4F4J.js        7.07 kB │ gzip:   3.06 kB
+dist/assets/descriptions-WxP3TY2O.js        7.83 kB │ gzip:   2.78 kB
+dist/assets/ReportsPage-ycyFt-Pt.js        11.66 kB │ gzip:   4.55 kB
+dist/assets/ChatPages-ZQvRhF_k.js          18.98 kB │ gzip:   7.18 kB
+dist/assets/input-number-p5NxCkgm.js       20.68 kB │ gzip:   7.52 kB
+dist/assets/pagination-DW7xi8x6.js         23.77 kB │ gzip:   7.14 kB
+dist/assets/form-B4cFDj4z.js               26.49 kB │ gzip:  10.29 kB
+dist/assets/MarketPages-CKEOyn8r.js        35.10 kB │ gzip:  12.06 kB
+dist/assets/TransactionPages-D2tWIex9.js   58.22 kB │ gzip:  18.09 kB
+dist/assets/select-CneW6qpR.js             66.55 kB │ gzip:  22.92 kB
+dist/assets/ReportButton-6FEaxt5Z.js      101.10 kB │ gzip:  34.10 kB
+dist/assets/AdminPages-Amv53rmY.js        187.27 kB │ gzip:  59.84 kB
+dist/assets/index-DdEXNsY8.js             907.68 kB │ gzip: 291.45 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 708ms

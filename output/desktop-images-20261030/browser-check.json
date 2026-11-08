@@ -1,0 +1,218 @@
+{
+  "site": "http://127.0.0.1:5174",
+  "results": [
+    {
+      "mobile": false,
+      "category": "DAILY",
+      "cards": 12
+    },
+    {
+      "mobile": false,
+      "category": "other",
+      "cards": 12
+    },
+    {
+      "mobile": false,
+      "category": "other",
+      "page": 2,
+      "cards": 3
+    },
+    {
+      "mobile": false,
+      "id": 1877,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1878,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1879,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1880,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1881,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1882,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1883,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1884,
+      "category": "DAILY",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1885,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1886,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1887,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1888,
+      "category": "DAILY",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1889,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1890,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": false,
+      "id": 1891,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "category": "DAILY",
+      "cards": 12
+    },
+    {
+      "mobile": true,
+      "category": "other",
+      "cards": 12
+    },
+    {
+      "mobile": true,
+      "category": "other",
+      "page": 2,
+      "cards": 3
+    },
+    {
+      "mobile": true,
+      "id": 1877,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1878,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1879,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1880,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1881,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1882,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1883,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1884,
+      "category": "DAILY",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1885,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1886,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1887,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1888,
+      "category": "DAILY",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1889,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1890,
+      "category": "other",
+      "descriptionAndPrice": true
+    },
+    {
+      "mobile": true,
+      "id": 1891,
+      "category": "other",
+      "descriptionAndPrice": true
+    }
+  ],
+  "errors": []
+}

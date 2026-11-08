@@ -1,0 +1,38 @@
+{
+  "verification": "PASS",
+  "candidateCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+  "independentExecution": "Codex on M10 request; not a human signature",
+  "metrics": {
+    "all": {
+      "metricsRecalculated": true,
+      "independentStrictFormulasChecked": true,
+      "requestCount": 38
+    },
+    "dev": {
+      "metricsRecalculated": true,
+      "independentStrictFormulasChecked": true,
+      "requestCount": 26
+    },
+    "test_candidate": {
+      "metricsRecalculated": true,
+      "independentStrictFormulasChecked": true,
+      "requestCount": 12
+    }
+  },
+  "deterministicRankingRepeated": true,
+  "sourceHashesVerified": true,
+  "formalDecision": "NO_GO",
+  "freezeApproved": false,
+  "archiveHashes": {
+    "evaluation-input-all.json": "61d2e3c5276749effd83df683ef9fb664ac831b0e085e1c3b4c969c62bf1c6a5",
+    "metrics-all.json": "88e0260324def2e39920b6e89815599ef940854a7219039f7b951fb98609c461",
+    "evaluation-input-dev.json": "d1b85ee8861bc0858230a9c17d6c6b02a744aa14af6dd4f1832f40e6d67aeb70",
+    "metrics-dev.json": "5a7ff8362cbbd4024d4b79b4ff770c78fa4d0fd5f45b51bf742015232b9a0b49",
+    "evaluation-input-test_candidate.json": "80dbc0a1cdb72b7f67879f5dd1298b05e006ba2b880e3aca57efef3ca9936886",
+    "metrics-test_candidate.json": "b51370f53fe1cafa1d43e1df93d2e08f8edc68ae67bdce350f5ada2cebb3c638",
+    "per-query.json": "c550e9eb8b3c40931602712b997411cf9c45a9717f5b215ab26d82e851f149fa",
+    "failure-analysis.json": "7c160ca8ac6b3f79b1deca1b68c9ffa76fea2247c98da47a1be68f3b55b641c4",
+    "evaluation-status.json": "b4ec464d8c145aae48bad29eec20e03db4b9387ec7771ad02deee9d17d7fc5b1",
+    "timings.json": "136a866d4f53083e5b122b32a2f7b8509ed4f492b38cf3cb347d1edcb6e463a0"
+  }
+}

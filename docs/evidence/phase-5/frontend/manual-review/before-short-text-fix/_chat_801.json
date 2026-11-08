@@ -1,0 +1,487 @@
+{
+  "page": "/chat/801",
+  "details": [
+    {
+      "rule": "color-contrast",
+      "target": [
+        ".chat-session > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      "html": "<span class=\"ant-avatar-string\" style=\"transform: scale(1);\">王</span>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element content is too short to determine if it is actual text content",
+          "data": {
+            "fgColor": "#456b93",
+            "bgColor": "#dbe7f5",
+            "contrastRatio": 4.43,
+            "fontSize": "13.5pt (18px)",
+            "fontWeight": "normal",
+            "messageKey": "shortTextContent",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "王",
+        "color": "rgb(69, 107, 147)",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar-string"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar",
+              "ant-avatar-circle",
+              "css-var-_r_0_",
+              "ant-avatar-css-var",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgb(219, 231, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "A",
+            "classes": [
+              "chat-session",
+              "is-active"
+            ],
+            "backgroundColor": "rgb(230, 241, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "chat-session-list"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SECTION",
+            "classes": [
+              "chat-session-pane"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "chat-workspace",
+              "has-session"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "color-contrast",
+      "target": [
+        ".ant-scroll-number-only-unit"
+      ],
+      "html": "<span class=\"ant-scroll-number-only-unit current\">2</span>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element content is too short to determine if it is actual text content",
+          "data": {
+            "fgColor": "#ffffff",
+            "bgColor": "#ff4d4f",
+            "contrastRatio": 3.26,
+            "fontSize": "9.0pt (12px)",
+            "fontWeight": "normal",
+            "messageKey": "shortTextContent",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "2",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-scroll-number-only-unit",
+              "current"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-scroll-number-only"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BDI",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SUP",
+            "classes": [
+              "ant-scroll-number",
+              "ant-badge-count"
+            ],
+            "backgroundColor": "rgb(255, 77, 79)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-badge",
+              "ant-badge-not-a-wrapper",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "chat-session-meta"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "A",
+            "classes": [
+              "chat-session",
+              "is-active"
+            ],
+            "backgroundColor": "rgb(230, 241, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "chat-session-list"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SECTION",
+            "classes": [
+              "chat-session-pane"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "chat-workspace",
+              "has-session"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "rule": "color-contrast",
+      "target": [
+        ".message-row > .ant-avatar.ant-avatar-circle.ant-avatar-css-var > .ant-avatar-string"
+      ],
+      "html": "<span class=\"ant-avatar-string\" style=\"transform: scale(1);\">王</span>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element content is too short to determine if it is actual text content",
+          "data": {
+            "fgColor": "#456b93",
+            "bgColor": "#dbe7f5",
+            "contrastRatio": 4.43,
+            "fontSize": "13.5pt (18px)",
+            "fontWeight": "normal",
+            "messageKey": "shortTextContent",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "王",
+        "color": "rgb(69, 107, 147)",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar-string"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SPAN",
+            "classes": [
+              "ant-avatar",
+              "ant-avatar-circle",
+              "css-var-_r_0_",
+              "ant-avatar-css-var",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgb(219, 231, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "message-row"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "chat-message-stream"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SECTION",
+            "classes": [
+              "chat-conversation"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "chat-workspace",
+              "has-session"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "ant-layout-content",
+              "campus-content",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "live-layout",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    }
+  ]
+}

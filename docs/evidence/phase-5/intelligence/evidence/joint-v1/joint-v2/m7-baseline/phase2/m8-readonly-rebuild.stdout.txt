@@ -1,0 +1,33 @@
+{
+  "files": {
+    "manifest.json": "197e3fddfb4373d325bf66fd5d7c7f6dc426510b6c6cfe18972763cf54251877",
+    "metrics.json": "618ed35fcd9a9e77306b8c51c615dc9ba3eed9613126af67c5e3d3e332ecfe5d",
+    "price-evaluation.jsonl": "74b73658aa5eeb7a72c8ca9faa683b9a29f8ea772279212f022e0ffdcd4ae0da"
+  },
+  "manifest": {
+    "datasetVersion": "m8-price-eval-v1",
+    "eligibleL3Count": 0,
+    "inputs": {
+      "price-samples.jsonl": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+      "source-register.json": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3"
+    },
+    "recordCount": 12,
+    "ruleVersion": "price-rule-v1.0-phase2",
+    "schemaVersion": "m8-price-raw-v1"
+  },
+  "metrics": {
+    "boundsValidRate": 1.0,
+    "datasetVersion": "m8-price-eval-v1",
+    "intervalCoverage": null,
+    "labelLevel": "L0_SYNTHETIC",
+    "maeFen": null,
+    "mape": null,
+    "predictionMetrics": "NOT_EVALUATED",
+    "reason": "No eligible L3 completed-transaction labels; listing prices are never used as truth.",
+    "recordCount": 12,
+    "ruleCoverage": 0.9166666666666666,
+    "statusConformance": 1.0
+  },
+  "readOnly": true,
+  "status": "PASS"
+}

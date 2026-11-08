@@ -1,0 +1,627 @@
+{
+  "assets": [
+    {
+      "gitBlobSha256": "b6ad579fc5f6014ed440872765d78e8f882a64e592cbc45a48e5dc9ff109f15d",
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "gitBlobSha256": "2b309e0c477e269c2829bb91ec1c44a2682af45399bc3b94ab79be5fbe4b5ed3",
+      "path": "Dockerfile.minio"
+    },
+    {
+      "gitBlobSha256": "6deb452c25026b98d320e36aa60ec622bb9fad98cfaddb91eeb82bad7f81f912",
+      "path": "backend/app/api/routes/intelligence.py"
+    },
+    {
+      "gitBlobSha256": "cebcaf9f53bda1976f65b23451344596034c925a07d61e5b0f5fe7a6b63af16d",
+      "path": "backend/app/services/intelligence.py"
+    },
+    {
+      "gitBlobSha256": "d2f80bedf36d1f6fe8cb1453581acefe73280ba60da573e38358f79d941f83ff",
+      "path": "backend/app/services/matching_jobs.py"
+    },
+    {
+      "gitBlobSha256": "50837dcf73ea56b3effb4e381b8fa6bb73e66b249e46ca398f940b0472d74c8a",
+      "path": "backend/requirements.txt"
+    },
+    {
+      "gitBlobSha256": "1c3bd794fd356768611a41b0791e042c1243e968133698ff5ea099c57a09b8dd",
+      "path": "backend/tests/test_live_intelligence.py"
+    },
+    {
+      "gitBlobSha256": "ddef55b2425e8d4b6977b5a6016f62ea63901c4b223f5193c561dffd509929da",
+      "path": "backend/tests/test_matching_jobs.py"
+    },
+    {
+      "gitBlobSha256": "a5ff97b6143da26100f410581eee6388f6752d7c193bb206bec32ee55828cfbc",
+      "path": "contracts/intelligence-phase2/model-gates.candidate.json"
+    },
+    {
+      "gitBlobSha256": "8ca4901538f5dc103a119c5d689cc8a5bd9e48543d293a4e5428aa6f090ffa3a",
+      "path": "contracts/intelligence-phase2/ranking-formula-fixture.json"
+    },
+    {
+      "gitBlobSha256": "9aeff1c32fd6c229e447ff259434832f8aaee10dba9785184e6c792ba61862a3",
+      "path": "contracts/m7-phase2/development-policy.json"
+    },
+    {
+      "gitBlobSha256": "720db2b3aac8e2669ba1e88153d55185c885b44c26303dd9355865bbc23b7b3f",
+      "path": "contracts/m7-phase2/examples.json"
+    },
+    {
+      "gitBlobSha256": "39d08aed5dd1017764411b05f4c52d4ef8a67ad9da6e21df6c682fca3fd7574a",
+      "path": "contracts/m7-phase2/examples/authority-unavailable.json"
+    },
+    {
+      "gitBlobSha256": "b92af906d9125b8f71f2505410c52a7e6696bc9799bcdca8b0771958a3777220",
+      "path": "contracts/m7-phase2/examples/baseline-failed.json"
+    },
+    {
+      "gitBlobSha256": "10202dc38b4a768c467dd3916ef48a1a15213071f5ae04ad4cfad4c4d868f6bd",
+      "path": "contracts/m7-phase2/examples/forbidden.json"
+    },
+    {
+      "gitBlobSha256": "93b81f056c7d6f78a6c03cff5ae58d5fa09226e72a94900ab037089309568ce4",
+      "path": "contracts/m7-phase2/examples/inactive-wanted.json"
+    },
+    {
+      "gitBlobSha256": "1cf7fc142721bd455112517e4be83279a8da3fdd84063a64e8173319d22758f2",
+      "path": "contracts/m7-phase2/examples/invalid-input.json"
+    },
+    {
+      "gitBlobSha256": "45204854cc92edbb747b17897ad59047c63139c827d4c132c4ea4057f33656a8",
+      "path": "contracts/m7-phase2/examples/match-degraded.json"
+    },
+    {
+      "gitBlobSha256": "a2704a1a3865b089309230b7b7e409707b8b3eb3cc3c66db7bd886a05941cfae",
+      "path": "contracts/m7-phase2/examples/match-empty.json"
+    },
+    {
+      "gitBlobSha256": "167997ab558fc853e20cfae3069955a1084c92d894d5eb20fff8e292a372a0a9",
+      "path": "contracts/m7-phase2/examples/matching-baseline-failed.json"
+    },
+    {
+      "gitBlobSha256": "85ee50d6672c0016e92f24cdf55d696136c0718849cba3abc966a1d7f37a76b3",
+      "path": "contracts/m7-phase2/examples/matching-constraints-only.json"
+    },
+    {
+      "gitBlobSha256": "fa20723a97d8cffc760c994f427927624498e55c3d19d8b22e281c13cb87e823",
+      "path": "contracts/m7-phase2/examples/matching-pending.json"
+    },
+    {
+      "gitBlobSha256": "31c37cd4942dfd066026c5c0301dfa2b33b06a9cfa41b74b2f3d399e392694fa",
+      "path": "contracts/m7-phase2/examples/matching-success.json"
+    },
+    {
+      "gitBlobSha256": "6bb55491e92094592cdf9f320327d6ee546fb044e2bb44519a269f4f0bcb2a2c",
+      "path": "contracts/m7-phase2/examples/matching-task.json"
+    },
+    {
+      "gitBlobSha256": "33b0a2d8252661883deeb5ec8aeb1b089804c482849a54feadef9eae53ee3625",
+      "path": "contracts/m7-phase2/examples/not-found.json"
+    },
+    {
+      "gitBlobSha256": "ca71531d16d543cf95ee60df227b9aebc4ce128e427c828cfe931da470a1080d",
+      "path": "contracts/m7-phase2/examples/notification-intent.json"
+    },
+    {
+      "gitBlobSha256": "ce990951186ea59ed51749e37496ab8c4a9048c5c373dd5a8d4e69e144f19bf2",
+      "path": "contracts/m7-phase2/examples/product-event.json"
+    },
+    {
+      "gitBlobSha256": "0d88b3f86bc2ec3779d706f5169f99b0264e6fb3c92dca476a6cc9939c1a14a2",
+      "path": "contracts/m7-phase2/examples/rate-limited.json"
+    },
+    {
+      "gitBlobSha256": "4ca196f721099240eb4616ddd20db0e3e17ada3afcdca0aab0a6d34946671523",
+      "path": "contracts/m7-phase2/examples/search-degraded.json"
+    },
+    {
+      "gitBlobSha256": "ffde2b3417dc7f8e1820ecc37f2600461d0f794731a964a8cf6f9b2d85500c70",
+      "path": "contracts/m7-phase2/examples/search-empty.json"
+    },
+    {
+      "gitBlobSha256": "8c8c6d24dd6a6df1220daca726705b6f3528c28698776d174ad30a5c4dcc3399",
+      "path": "contracts/m7-phase2/examples/search-success.json"
+    },
+    {
+      "gitBlobSha256": "bb9f097e1fe427fc54ebb9084480acb56b05b11b94da0541549ea7303f3a924d",
+      "path": "contracts/m7-phase2/examples/stale-snapshot.json"
+    },
+    {
+      "gitBlobSha256": "c4344f9047f6a0243365df9e320bcab309682079456d4e790b285734ad1e4246",
+      "path": "contracts/m7-phase2/examples/stored-result.json"
+    },
+    {
+      "gitBlobSha256": "c46e60e345d2386b8897b8aae167d36428bab74853491dd8967fa78a9e3d11ab",
+      "path": "contracts/m7-phase2/examples/unauthenticated.json"
+    },
+    {
+      "gitBlobSha256": "0d1fbd1b1971977e29598e44b857c410b064b373614f00b5b035df460c646b2e",
+      "path": "contracts/m8-phase2/development-policy.json"
+    },
+    {
+      "gitBlobSha256": "c54a20d12a7e955e47d94b7a9e2aaeb994b9b85afec6fa1f006b6d9b6dd4a5c1",
+      "path": "contracts/m8-phase2/examples/price-success.json"
+    },
+    {
+      "gitBlobSha256": "2cf48aa6fd59fbe9b555f57f34400bb0d17521adfed2190fc120debe7e5175bf",
+      "path": "contracts/m8-phase2/examples/price-unavailable.json"
+    },
+    {
+      "gitBlobSha256": "3755414bdd191ca10a5f82e595a9028fc8152d3644a53c0523180ee0e3b2b25c",
+      "path": "contracts/m8-phase2/examples/risk-admin-case.json"
+    },
+    {
+      "gitBlobSha256": "e2cfca2b25d06c576bb6968d7e67ea3b984b841d53b44b15cabd103eb15a6fa3",
+      "path": "contracts/m8-phase2/examples/risk-public-safe.json"
+    },
+    {
+      "gitBlobSha256": "469e43eee9d13c4e3568c1c06b5348c45bd0824aa4ce9c29179b9214c9468f10",
+      "path": "contracts/m8-phase2/examples/service-timeout.json"
+    },
+    {
+      "gitBlobSha256": "dfb284aa1313386a1b2fd7fc4aec02344b08cd615a201bfcd819761cf18f312c",
+      "path": "contracts/m8-phase2/examples/trust-established.json"
+    },
+    {
+      "gitBlobSha256": "6ef607230ecfe3abbbb41620a9a7cafc4b841355b93ed519c07c80055a41eb8a",
+      "path": "contracts/m8-phase2/examples/trust-new-user.json"
+    },
+    {
+      "gitBlobSha256": "bcfc6388555d84bb1af76d974720612b4c7fbc60b219e6ad07eb1e6260ed7c3b",
+      "path": "contracts/m8-phase3/fixed-cases.json"
+    },
+    {
+      "gitBlobSha256": "8bc209dbd95e3f6a2500bf27b60c0e55cc48343edc4d36d7860c634dbb1a3a54",
+      "path": "contracts/m8-phase3/service-contract.json"
+    },
+    {
+      "gitBlobSha256": "7df09831395df05a01c7b47e1334a831ad8efe8807e74b6644bbe4530dac0847",
+      "path": "contracts/m8-phase4/readiness-policy.json"
+    },
+    {
+      "gitBlobSha256": "f6adc9f7d0b3c495c6aaac50562211611bb38a30ddbd6d2acd07a509cdf15084",
+      "path": "contracts/m8-phase4/service-contract.json"
+    },
+    {
+      "gitBlobSha256": "48b646600299ff7278024bf21586beed6048d9f6035a1828049b38b69f94c70a",
+      "path": "data/m7-phase2/derived/exclusions.json"
+    },
+    {
+      "gitBlobSha256": "a3a103bf2858e740c0f997e6f321780332f43319cd4d738fd458aefd45fb83a8",
+      "path": "data/m7-phase2/derived/labels.draft.jsonl"
+    },
+    {
+      "gitBlobSha256": "8bfa836c446db25cd0cd9352d8be57bd2cf0265128f94814bee29386076c89a8",
+      "path": "data/m7-phase2/derived/leakage-report.json"
+    },
+    {
+      "gitBlobSha256": "89ad7ad186512a91b691b1c9fb6e0216b66b76d2c600d9a8479c67f44faea180",
+      "path": "data/m7-phase2/derived/manifest.json"
+    },
+    {
+      "gitBlobSha256": "fde278938afb5933eb3292cfb93d728c8577cab7ec0f47f29b6f10ec4b2a844e",
+      "path": "data/m7-phase2/derived/products.jsonl"
+    },
+    {
+      "gitBlobSha256": "7f6909687200fe474cbc0bad6c6c19393efe588841b1fb99590197c916d02c7e",
+      "path": "data/m7-phase2/derived/requests.jsonl"
+    },
+    {
+      "gitBlobSha256": "f177a2f42a3b55e5ef7b2cf5e7a265e5c47816c6d7d25fe3c66eaf47db45eb9b",
+      "path": "data/m7-phase2/derived/review-queue.csv"
+    },
+    {
+      "gitBlobSha256": "c64edb1898cb9354624becae403530ae82fe8c94c9ed74b9123983451cabfb73",
+      "path": "data/m7-phase2/derived/snapshot-audit.jsonl"
+    },
+    {
+      "gitBlobSha256": "9529901750ebd5c2a1a1c445cfb59bd8799244d421005315eee3836336927d2f",
+      "path": "data/m7-phase2/derived/splits/dev.json"
+    },
+    {
+      "gitBlobSha256": "5aa1c152145270acb148d8795ea1c3545513a9de222e403e06a877d46f7687a5",
+      "path": "data/m7-phase2/derived/splits/test_candidate.json"
+    },
+    {
+      "gitBlobSha256": "9990450659bc2b51140e201cdf3b567c7ded2a075a83fd367fca827fa0dc4461",
+      "path": "data/m7-phase2/derived/summary.json"
+    },
+    {
+      "gitBlobSha256": "33aae7fb518014c18521f9ac1db8da4faa7d215fbb02059a9efb46ac9764cfae",
+      "path": "data/m7-phase2/raw/asset-manifest.json"
+    },
+    {
+      "gitBlobSha256": "21e6daaded3aa41800c3a33f8e7bcfcde8c5a248a6b030b3837fafc335d16567",
+      "path": "data/m7-phase2/raw/dictionary.json"
+    },
+    {
+      "gitBlobSha256": "7a7fd953c823187e50c102af68d3178dd65168c3d7a7b9b07a24819e22757ed9",
+      "path": "data/m7-phase2/raw/products.jsonl"
+    },
+    {
+      "gitBlobSha256": "cedb0795c4a5348cb4dea3be905fe53216d6cbe45dc266669469d29a073a24fa",
+      "path": "data/m7-phase2/raw/requests.jsonl"
+    },
+    {
+      "gitBlobSha256": "62e0ec71a8f30fdfc5b00d14da6c8be0cf2c279e410a6481fa2d21fc4bdcbbaf",
+      "path": "data/m7-phase2/raw/scenario-cards.json"
+    },
+    {
+      "gitBlobSha256": "5cf52723bf66deacac5fc16d4d816ae0ef6d0ce37790be391cc9e845c6e55114",
+      "path": "data/m7-phase2/raw/semantic-drafts.jsonl"
+    },
+    {
+      "gitBlobSha256": "197e3fddfb4373d325bf66fd5d7c7f6dc426510b6c6cfe18972763cf54251877",
+      "path": "data/m8-phase2/derived/manifest.json"
+    },
+    {
+      "gitBlobSha256": "618ed35fcd9a9e77306b8c51c615dc9ba3eed9613126af67c5e3d3e332ecfe5d",
+      "path": "data/m8-phase2/derived/metrics.json"
+    },
+    {
+      "gitBlobSha256": "74b73658aa5eeb7a72c8ca9faa683b9a29f8ea772279212f022e0ffdcd4ae0da",
+      "path": "data/m8-phase2/derived/price-evaluation.jsonl"
+    },
+    {
+      "gitBlobSha256": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+      "path": "data/m8-phase2/raw/price-samples.jsonl"
+    },
+    {
+      "gitBlobSha256": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3",
+      "path": "data/m8-phase2/raw/source-register.json"
+    },
+    {
+      "gitBlobSha256": "ea0de52d95bfdd2eb1684f8708cda2606aed6080bf85aefa1c0ce1c51c0b92b2",
+      "path": "docker-compose.yml"
+    },
+    {
+      "gitBlobSha256": "030032a5c6d633f08a84c9dc05b732cefadb940b2c0a4f2e8d4380667de385ae",
+      "path": "frontend/package-lock.json"
+    },
+    {
+      "gitBlobSha256": "46d41cf5fb8585b5b4d6b72edff90dcded8364a1c29de551112e547218dde34b",
+      "path": "frontend/src/live/MarketPages.tsx"
+    },
+    {
+      "gitBlobSha256": "7c5d73dcf75aea2947f390bf79426acae2b577b5afc8c3bf3ac24d6c1d1f4927",
+      "path": "frontend/src/pages/wanted/MatchResultPage.tsx"
+    },
+    {
+      "gitBlobSha256": "10247908f8b83647c0abf0093e4ad158a134d8e80f19dc8cccfc0afa15dce6b3",
+      "path": "frontend/tests/live/journey.spec.ts"
+    },
+    {
+      "gitBlobSha256": "20ba572ceb03ebf3368f82942d4afc4e55432bcbe31499ab5d31539c605be718",
+      "path": "schemas/m7-phase2/contracts.schema.json"
+    },
+    {
+      "gitBlobSha256": "881aef21b8f7ae375c86d352bdcac086e6b822ad079d8709c754a7c9c9a8521d",
+      "path": "schemas/m7-phase2/dataset.schema.json"
+    },
+    {
+      "gitBlobSha256": "99e17080dfff6bd694acec4b719be93110f6a34a31bd53acb79a140cc4960a23",
+      "path": "schemas/m7-phase3/rpc.schema.json"
+    },
+    {
+      "gitBlobSha256": "dd6fb095149919c58a17d971136c4c2fb9e64cb8c967e32d385c3b0a111ad585",
+      "path": "schemas/m8-phase2/contracts.schema.json"
+    },
+    {
+      "gitBlobSha256": "90db0f8e571c5671fbe3e805775138aa34872fa01f71e1e711b58a53ae457a8e",
+      "path": "schemas/m8-phase2/price-dataset.schema.json"
+    },
+    {
+      "gitBlobSha256": "bcbbae297c79e7acc82f9e2eea63ad7989bc4b97c15785f684ac1e13a55b9b2c",
+      "path": "scripts/intelligence_phase2/asset_check.py"
+    },
+    {
+      "gitBlobSha256": "4a19bbecfa647d447fb1a260991d3e641d5bb2d8f484e051b5734bcd43d7677d",
+      "path": "scripts/intelligence_phase2/gate_check.py"
+    },
+    {
+      "gitBlobSha256": "1290e883b64d2262c73729015583226f80dd1a4172aff717573166a0c8bf993e",
+      "path": "scripts/intelligence_phase2/metrics.py"
+    },
+    {
+      "gitBlobSha256": "d23816815db2960fcc7ba3eefaca43588314ef1e4f9c8c4b48f2d9ae424826b4",
+      "path": "scripts/intelligence_phase2/run_all.py"
+    },
+    {
+      "gitBlobSha256": "59ae4439440bde245d73a11b7d9c9dda4e0fc808fcf4e685ac2059b954e3ee99",
+      "path": "scripts/intelligence_phase2/test_joint.py"
+    },
+    {
+      "gitBlobSha256": "ca069d9823fa2ec57fa1dc44cd3fe730742180d999629258d7bae440863bcc7c",
+      "path": "scripts/m7_phase2/contract_check.py"
+    },
+    {
+      "gitBlobSha256": "6f66070283215ec9c20fea4b9d288f2b68fa1abd054c1f9a65ad73458140e1d8",
+      "path": "scripts/m7_phase2/pipeline.py"
+    },
+    {
+      "gitBlobSha256": "701bdda8fb1257e9b7380816bc8201dcbac3e5c16dd416a3851ad2b46e0fa8d0",
+      "path": "scripts/m7_phase2/requirements.txt"
+    },
+    {
+      "gitBlobSha256": "2da6e0d222a79a0851c82a16d73c15f21b5b84514f57c30f822d7f4c8e1bbcdb",
+      "path": "scripts/m7_phase2/test_contracts.py"
+    },
+    {
+      "gitBlobSha256": "ad3da54aba5172f84afbf52ed687a4c2b1360b71f422e6f0c6375240ff5b5786",
+      "path": "scripts/m7_phase2/test_pipeline.py"
+    },
+    {
+      "gitBlobSha256": "8de0ccb77f40a8ca8d3afa44e89caa3c8233f1afc3c8f29bb3a0a23fdcbc0c35",
+      "path": "scripts/m8_phase2/contract_check.py"
+    },
+    {
+      "gitBlobSha256": "84573a594494094f850ee59f836755e0c8cb2804d8e0fa9343e6a4942ecd5392",
+      "path": "scripts/m8_phase2/pipeline.py"
+    },
+    {
+      "gitBlobSha256": "ebffac651cdeda9b1ff50840a6dfe02a47cf09f9a10a988704086156adfc790f",
+      "path": "scripts/m8_phase2/test_contracts.py"
+    },
+    {
+      "gitBlobSha256": "7b367957cc1dbce050d3ff450cc875eec2fa084628a74162c0cd1033506f5db0",
+      "path": "scripts/m8_phase2/test_pipeline.py"
+    },
+    {
+      "gitBlobSha256": "92425d929260124c6938d9caab5fe2caa7dba44114e0bea3bfd16ddc06041fb3",
+      "path": "services/intelligence_phase4/__init__.py"
+    },
+    {
+      "gitBlobSha256": "3ccc8a39700763f7caf669ed1f906abdc932e4d48cd36fdf092da3ae4ee7f699",
+      "path": "services/intelligence_phase4/smoke.py"
+    },
+    {
+      "gitBlobSha256": "f17682f18a5e48a49a5c9635cd5e9224dc7d99e69a181840551f0ebb6561699a",
+      "path": "services/intelligence_phase4/verify.py"
+    },
+    {
+      "gitBlobSha256": "233299f72b5c0cb1341a300e7041d9a20b8dd3de04983b4b6a89bfa530a20b6a",
+      "path": "services/m7_baseline/README.md"
+    },
+    {
+      "gitBlobSha256": "82341ac291299f918be19fc507ae264a3f366b3d462d24f7ec61834ba49f5da8",
+      "path": "services/m7_baseline/__init__.py"
+    },
+    {
+      "gitBlobSha256": "ba5eee7c88cf21b12e5b392e5ade81b19a9fb250a700e866163d3bab2b4822be",
+      "path": "services/m7_baseline/__main__.py"
+    },
+    {
+      "gitBlobSha256": "21c00c14d4c7ca1a138e5010c8197db5e5f763b201170a9f8525689223534970",
+      "path": "services/m7_baseline/client.py"
+    },
+    {
+      "gitBlobSha256": "749d128e45fd805e1502110837db41d97e9da3d0e9223e9a8a99bf0854a1a21d",
+      "path": "services/m7_baseline/engine.py"
+    },
+    {
+      "gitBlobSha256": "7cd294d49eee717384d7a31734ea1a78f5cc123080c61eb6655963e64834f93f",
+      "path": "services/m7_baseline/evaluate.py"
+    },
+    {
+      "gitBlobSha256": "ce46f651eb9a7bdc4325c530512ee0fae957a86c21e45a8296f7a91a6a74d1bb",
+      "path": "services/m7_baseline/example_request.py"
+    },
+    {
+      "gitBlobSha256": "8ad4b82fde7d3035d9f65ef87753b2a07e78826152459ab7be8399be62c65da0",
+      "path": "services/m7_baseline/http_service.py"
+    },
+    {
+      "gitBlobSha256": "538adc04105aa149f719d8bf4ee9d683932b227e7238ba22fa0f50e7544cca6f",
+      "path": "services/m7_baseline/response_validation.py"
+    },
+    {
+      "gitBlobSha256": "324cc1d83365d3b806889de9c97cbb9f464bcc643a5a97124bc4aa8218f4aff8",
+      "path": "services/m7_baseline/review_archive.py"
+    },
+    {
+      "gitBlobSha256": "98baa0d5fd7871bb3159054347af6cc7e10ac0e8c7258c150352200b0b01b214",
+      "path": "services/m7_baseline/store.py"
+    },
+    {
+      "gitBlobSha256": "76365df118ed18407c26d427253774a1d30a8165d9c79d85a0b1923c6bdf89ca",
+      "path": "services/m7_baseline/tests/test_client.py"
+    },
+    {
+      "gitBlobSha256": "5b04c68e4e71a5b94426ba404633bdf8ce0b6543cb0e6041e746a4e73a969368",
+      "path": "services/m7_baseline/tests/test_engine.py"
+    },
+    {
+      "gitBlobSha256": "8d7f3c6f1820b22a9d64107b491b709dc14a0e225de9b7017ec419bc20fbd9be",
+      "path": "services/m7_baseline/tests/test_evaluation.py"
+    },
+    {
+      "gitBlobSha256": "44f82837209a4573061b21bf5bd7ac6455f1782a355d4f8b93f014a539cd20f4",
+      "path": "services/m7_baseline/tests/test_http.py"
+    },
+    {
+      "gitBlobSha256": "b4915312acbacc60e89b32c63f77dbd344eecf1013d79f220a0f6d1571581d94",
+      "path": "services/m7_baseline/tests/test_response_http.py"
+    },
+    {
+      "gitBlobSha256": "9b28db16f13834fbea778b8b1e3a7e4f8eea4a8785d354ceb2befc660c27830b",
+      "path": "services/m7_baseline/tests/test_review_archive.py"
+    },
+    {
+      "gitBlobSha256": "49f1d4d11e65046c4a8bbea0b6439bdf732eaf8bfe5cbffa0c522f40767862f5",
+      "path": "services/m7_baseline/tests/test_store.py"
+    },
+    {
+      "gitBlobSha256": "ab583bef456139247120b15621f8c6b93f445546d2024481629222f8ef6957c7",
+      "path": "services/m7_baseline/verify.py"
+    },
+    {
+      "gitBlobSha256": "8ca453a0ed8c72d3e93d451d867f0062dcdc054a16899311d5d25bdcd737d355",
+      "path": "services/m7_semantic/README.md"
+    },
+    {
+      "gitBlobSha256": "577332173fd709095dd9299bab15f2b60f8ba71d7c430afcae36fd1411ca6d14",
+      "path": "services/m7_semantic/__init__.py"
+    },
+    {
+      "gitBlobSha256": "77406d0c69f20156abfc09dd266ecabdead878da72d52ca419eb2d2a5a25d8ef",
+      "path": "services/m7_semantic/__main__.py"
+    },
+    {
+      "gitBlobSha256": "09c53b7a828f6af447c9a972443758fd6a3ed84b623eb4723fcdf6fd4f7f8253",
+      "path": "services/m7_semantic/download.py"
+    },
+    {
+      "gitBlobSha256": "4ac9112516678ca3c81967aa17aa71643b8f74875a630c956264a8417cb3768d",
+      "path": "services/m7_semantic/evaluate.py"
+    },
+    {
+      "gitBlobSha256": "ed2f8fd0b426cae473fbcb1553e93d33bf591dede7152973c952b9acd0b99359",
+      "path": "services/m7_semantic/hybrid.py"
+    },
+    {
+      "gitBlobSha256": "7b1a3481a08a4b740cccb5e0686cba624ed42625bf51d63d503f953cdd685570",
+      "path": "services/m7_semantic/index.py"
+    },
+    {
+      "gitBlobSha256": "9b09c640990068a8258082d192da8ce085ff0f6dd28790e4577710b1c2a33f55",
+      "path": "services/m7_semantic/model.py"
+    },
+    {
+      "gitBlobSha256": "abda27a3388545c76629303f0d91598644729efd4c2d368f1eb5477e5365fcbb",
+      "path": "services/m7_semantic/requirements.windows-cpu.lock.txt"
+    },
+    {
+      "gitBlobSha256": "f6f4a97e47700a00477859b2fb189bbb710635ca38ea92d8b17f68d32d4baa29",
+      "path": "services/m7_semantic/tests/__init__.py"
+    },
+    {
+      "gitBlobSha256": "e5c8fae55eeba7018e58a6869858ffa0bdebdf449dee3ae3178f03bf7e666275",
+      "path": "services/m7_semantic/tests/test_delivery.py"
+    },
+    {
+      "gitBlobSha256": "1b08b49e21ccccc19567ca0fca730be23184283e18699709b41885fe82a03686",
+      "path": "services/m7_semantic/tests/test_evaluation.py"
+    },
+    {
+      "gitBlobSha256": "369e6ee2c035f4b100c47b6962b76683fd0482f8ab412d5067e136f7b45117b0",
+      "path": "services/m7_semantic/tests/test_hybrid.py"
+    },
+    {
+      "gitBlobSha256": "d7b1a6b803d6709073bea5b4e53b3706d374a8e05f0ee8c99a2a49445c55e0b0",
+      "path": "services/m7_semantic/tests/test_index.py"
+    },
+    {
+      "gitBlobSha256": "78c2af121c914656994a817c136837ce3fafe716220200ed4f29d612d5814a97",
+      "path": "services/m7_semantic/verify.py"
+    },
+    {
+      "gitBlobSha256": "7c422e690f0270a047862b65a482cac05112efe82d0cf65f137c72fd6843ec52",
+      "path": "services/m8_baseline/README.md"
+    },
+    {
+      "gitBlobSha256": "b4fa52f42718a8e6655e270a1058d19ac91f53532b314960bc9b8cc63f0fee17",
+      "path": "services/m8_baseline/__init__.py"
+    },
+    {
+      "gitBlobSha256": "183efc71f1af6a1721b61545d66915761e1a73c7b30e39a0d69b3328a822074a",
+      "path": "services/m8_baseline/__main__.py"
+    },
+    {
+      "gitBlobSha256": "e1a2e092c9c6eea38c7e5d1e11d8b340bcfb9a1c519ae49863c07f50685055fe",
+      "path": "services/m8_baseline/client.py"
+    },
+    {
+      "gitBlobSha256": "dcb25a73e482224c3f4c167b40c59896a8f160f328c9bee9abbeab6d4e33a9a4",
+      "path": "services/m8_baseline/engine.py"
+    },
+    {
+      "gitBlobSha256": "2d825d86146f9d61c99e7150ad55de28fc6e61240c37da78d47857add1eb8661",
+      "path": "services/m8_baseline/evaluate.py"
+    },
+    {
+      "gitBlobSha256": "83d7fffcd6e08a53f94797abd4600fda94e6fd99a6f5ec758f32b7b3a344dae5",
+      "path": "services/m8_baseline/http_service.py"
+    },
+    {
+      "gitBlobSha256": "11770f31d9e6518b70cf6697b943b29666f3467d53495bccff72d925494d56de",
+      "path": "services/m8_baseline/response_validation.py"
+    },
+    {
+      "gitBlobSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "path": "services/m8_baseline/tests/__init__.py"
+    },
+    {
+      "gitBlobSha256": "4f46a0732ad886d379e5efb58b38dd1f18bcfc88c825e2c3fbcf57657867d0db",
+      "path": "services/m8_baseline/tests/test_client.py"
+    },
+    {
+      "gitBlobSha256": "6968c4722c72c6eb76684f613e0a801fcbca56a622bb179b3b4d88a29c5d6f7c",
+      "path": "services/m8_baseline/tests/test_client_http.py"
+    },
+    {
+      "gitBlobSha256": "e0aa5cf04a0b0f0a28d367075f5d3153b71797b030d88ba88b9ea9ac87451ad0",
+      "path": "services/m8_baseline/tests/test_engine.py"
+    },
+    {
+      "gitBlobSha256": "f35920304281bbde7cc10a32544a38be695cec005aeb40e2ef39db82e8212020",
+      "path": "services/m8_baseline/tests/test_evaluation.py"
+    },
+    {
+      "gitBlobSha256": "356423c121f1c5a652bf1e2ace56e42372ebc19bcf9249681715abddafb3d8c5",
+      "path": "services/m8_baseline/tests/test_http.py"
+    },
+    {
+      "gitBlobSha256": "8fd67b80e0a0e19f63c46a2fe996238c13093312e2c529d71880257e0a9845d3",
+      "path": "services/m8_baseline/verify.py"
+    },
+    {
+      "gitBlobSha256": "3d0e1055f93d218d0168fe9574147d780c7df90e45584c71cebfc9532d48f6a0",
+      "path": "services/m8_phase4/README.md"
+    },
+    {
+      "gitBlobSha256": "20c2591fe0c0913a7dff26a2022742e9bec63bb3c477c67d1b05691fa654858a",
+      "path": "services/m8_phase4/__init__.py"
+    },
+    {
+      "gitBlobSha256": "da7c5c704cce20b33891707a1dc554d5031907bd9856b3d49398d23ae36533b9",
+      "path": "services/m8_phase4/evaluate.py"
+    },
+    {
+      "gitBlobSha256": "8af2efddf77d5a80a5428e837dac52205fad35211c33afbfd474d79238b963e1",
+      "path": "services/m8_phase4/metrics.py"
+    },
+    {
+      "gitBlobSha256": "2d20c6ff3d63f2094d5b9828f8abf5743406bd58af28b75b48a6777074f2cfca",
+      "path": "services/m8_phase4/readiness.py"
+    },
+    {
+      "gitBlobSha256": "da631d6d95c4adb0ddcd3932a796a7aec7b14a53ada05ecef72644647d50a71b",
+      "path": "services/m8_phase4/router.py"
+    },
+    {
+      "gitBlobSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "path": "services/m8_phase4/tests/__init__.py"
+    },
+    {
+      "gitBlobSha256": "e1d733d57ad0e0df51caa44cf94dab89eb07bf807a731ce38a87becc3999de69",
+      "path": "services/m8_phase4/tests/test_phase4.py"
+    },
+    {
+      "gitBlobSha256": "e6ac3a4c7942d24598eb6616304a3b8a43dda5689463b00e0d2f920f10ff2b3f",
+      "path": "services/m8_phase4/tests/test_verify.py"
+    },
+    {
+      "gitBlobSha256": "29ded0cf3ace863d723ddf1ec9aefd2f0c5a71a05c98cf479ae6a46272f4eaab",
+      "path": "services/m8_phase4/verify.py"
+    }
+  ],
+  "cleanup": "No prohibited tracked files found; no source or unrelated user files deleted.",
+  "forbiddenTrackedArtifacts": [],
+  "highConfidenceSecretMatches": [],
+  "scope": "Current tracked checkout only. Pattern audit is not a full privacy, license, Git-history or security audit.",
+  "sourceCommit": "45acf879bf41c18baae4f89584c9e1732f848c97",
+  "status": "PASS",
+  "trackedFilesScanned": 1643
+}

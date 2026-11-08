@@ -60,6 +60,8 @@ function Assert-DailyData {
 Push-Location $repoRoot
 try {
     if ($Action -eq 'Stop') {
+        & (Join-Path $PSScriptRoot 'start-translation.ps1') -Action Stop
+        & (Join-Path $PSScriptRoot 'start-catalog-search.ps1') -Action Stop
         $frontendProcess = Get-OwnedFrontend
         if ($frontendProcess) { Stop-Process -Id $frontendProcess.ProcessId }
         Invoke-DockerChecked ($composeArgs + @('stop'))
@@ -92,6 +94,8 @@ try {
     New-Item -ItemType Directory -Force -Path $runtimeFolder | Out-Null
     Invoke-DockerChecked ($composeArgs + @('up', '-d', '--no-build', '--wait', '--wait-timeout', '120'))
     Assert-DailyData
+    try { & (Join-Path $PSScriptRoot 'start-catalog-search.ps1') }
+    catch { Write-Warning $_.Exception.Message }
     if (-not (Get-OwnedFrontend)) {
         if (Get-NetTCPConnection -LocalPort 5174 -State Listen -ErrorAction SilentlyContinue) {
             throw 'Port 5174 is occupied by another process. No alternate port or environment will be selected.'
@@ -113,6 +117,8 @@ try {
         catch { if ((Get-Date) -gt $deadline) { throw 'Frontend did not start. Inspect .codex-tmp/local-runtime/frontend-error.log.' }; Start-Sleep -Milliseconds 250 }
     } while ($true)
     $branch = & git branch --show-current
+    try { & (Join-Path $PSScriptRoot 'start-translation.ps1') }
+    catch { Write-Warning "Catalogue translation is unavailable: $($_.Exception.Message)" }
     $revision = & git rev-parse --short HEAD
     Write-Host "Code: $repoRoot | $branch | $revision"
     Write-Host "Website: $site/market"

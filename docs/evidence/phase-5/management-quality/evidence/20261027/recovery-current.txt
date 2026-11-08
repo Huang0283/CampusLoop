@@ -1,0 +1,39 @@
+backupBytes 495961 sha256 70627e63e17b9283a7f0e93e4805e57aac68c7bbfc0710cb57dadddc9da0dc85
+CREATE DATABASE
+ALTER TABLE
+Negative check passed: removed role constraint detected
+{
+  "tables": 26,
+  "counts": {
+    "users": 365,
+    "auth_session_families": 381,
+    "auth_audits": 579,
+    "refresh_sessions": 345,
+    "products": 99,
+    "product_images": 95,
+    "wanted_posts": 31,
+    "favorites": 8,
+    "uploaded_objects": 115,
+    "offers": 45,
+    "orders": 43,
+    "order_events": 128,
+    "meetups": 18,
+    "reviews": 12,
+    "notifications": 1145,
+    "reports": 47,
+    "chat_sessions": 51,
+    "chat_messages": 45,
+    "chat_read_cursors": 4,
+    "matching_jobs": 6497,
+    "matching_results": 19,
+    "matching_notifications": 890,
+    "matching_revision": 1,
+    "ai_task_runs": 1649,
+    "worker_heartbeats": 1,
+    "idempotency_records": 386
+  },
+  "migration": "0011",
+  "snapshotMatch": true,
+  "restoreSeconds": 1.954
+}
+Corrupt archive rejected; original database unchanged

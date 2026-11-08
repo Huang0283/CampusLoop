@@ -1,0 +1,31 @@
+{
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY; M8_REVIEW_M10_M1_SIGNOFF_PENDING",
+  "deploymentEnabled": false,
+  "endedAt": "2026-10-17T15:46:36.225998+00:00",
+  "environment": {
+    "machine": "AMD64",
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.14"
+  },
+  "formalStageComplete": false,
+  "semanticInferenceReproduced": false,
+  "sourceCommit": "45acf879bf41c18baae4f89584c9e1732f848c97",
+  "startedAt": "2026-10-17T15:45:32.580070+00:00",
+  "status": "FAIL",
+  "steps": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m7_baseline.verify",
+        "--output-dir",
+        "<output>\\m7-baseline"
+      ],
+      "exitCode": 2,
+      "name": "m7-baseline",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutSha256": "6f37f9aa1ca4c27838bae07581a1f9d3311433aded5ac6960295269b4f13af69"
+    }
+  ],
+  "workingTreeDirty": false
+}

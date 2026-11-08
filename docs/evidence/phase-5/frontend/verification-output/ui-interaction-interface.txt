@@ -1,0 +1,106 @@
+﻿
+Running 10 tests using 1 worker
+
+  ok  1 tests\live\interface-restoration.spec.ts:49:1 › product gallery switches one main photo and keeps the seller/location/description layout (3.3s)
+  ok  2 tests\live\interface-restoration.spec.ts:84:1 › chat restores the session pane, message bubbles and real send/session switching (2.2s)
+  ok  3 tests\live\interface-restoration.spec.ts:123:1 › chat matches the original proportions and compact offer/composer while keeping emoji and quote actions (2.1s)
+  ok  4 tests\live\interface-restoration.spec.ts:167:1 › profile restores summary beside editable data; wanted and transactions retain rich cards (2.1s)
+  ok  5 tests\live\interface-restoration.spec.ts:181:1 › restored views fit mobile, preserve guest action protection and never fall back to mock products (1.5s)
+  ok  6 tests\live\interface-restoration.spec.ts:195:1 › all student routes render on desktop and mobile without overflow or runtime errors (30.4s)
+  ok  7 tests\live\interface-restoration.spec.ts:223:1 › admin keeps management tabs and tables on desktop and mobile (1.8s)
+┌─────────┬─────────────────────────────┬─────────┐
+│ (index) │ path                        │ checked │
+├─────────┼─────────────────────────────┼─────────┤
+│ 0       │ '/login'                    │ 2       │
+│ 1       │ '/register'                 │ 3       │
+│ 2       │ '/publish'                  │ 7       │
+│ 3       │ '/wanted/publish'           │ 7       │
+│ 4       │ '/profile'                  │ 5       │
+│ 5       │ '/transactions/1001/meetup' │ 5       │
+│ 6       │ '/transactions/1001/review' │ 5       │
+│ 7       │ '/publish/price-advice'     │ 3       │
+└─────────┴─────────────────────────────┴─────────┘
+Missing accessible names: []
+  ok  8 tests\live\interface-restoration.spec.ts:240:1 › M2 form controls have accessible names (5.5s)
+Contrast violations: []
+Contrast requires manual review: [
+  {
+    "page": "/register",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-alert-description"
+      ]
+    ]
+  },
+  {
+    "page": "/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-btn-text.ant-btn-variant-text.ant-btn-lg > span"
+      ],
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/wanted/publish",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".ant-select-content"
+      ]
+    ]
+  },
+  {
+    "page": "/product/601",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        ".gallery-count"
+      ]
+    ]
+  },
+  {
+    "page": "/publish/price-advice",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "div[title=\"图书教材\"]"
+      ],
+      [
+        "div[title=\"八成新\"]"
+      ]
+    ]
+  },
+  {
+    "page": "/admin",
+    "rule": "color-contrast",
+    "targets": [
+      [
+        "#_r_a_"
+      ]
+    ]
+  }
+]
+  ok  9 tests\live\interface-restoration.spec.ts:301:1 › M2 sampled text contrast (10.1s)
+┌─────────┬────────────────────────────────┬───────┐
+│ (index) │ name                           │ ratio │
+├─────────┼────────────────────────────────┼───────┤
+│ 0       │ '卖家头像首字'                 │ 5.01  │
+│ 1       │ '图片计数：白色图片最不利背景' │ 10.41 │
+│ 2       │ '会话头像首字'                 │ 4.97  │
+│ 3       │ '消息头像首字'                 │ 4.97  │
+│ 4       │ '未读数字'                     │ 6.57  │
+│ 5       │ '订单参与者头像 1'             │ 5.01  │
+│ 6       │ '订单参与者头像 2'             │ 5.01  │
+│ 7       │ '管理员列表头像首字'           │ 5.01  │
+└─────────┴────────────────────────────────┴───────┘
+  ok 10 tests\live\interface-restoration.spec.ts:432:1 › M2 short text and image overlays (3.0s)
+
+  10 passed (1.1m)

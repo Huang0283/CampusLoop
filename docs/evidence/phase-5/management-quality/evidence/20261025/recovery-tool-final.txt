@@ -1,0 +1,41 @@
+campusloop-mq5-audit-worker-1
+backupBytes 236685 sha256 3050505b50757a2b9f1391e90804a8bf0e28d3ce7e95c89f14cf28d4418b5423
+CREATE DATABASE
+ALTER TABLE
+Negative check passed: removed role constraint detected
+{
+  "tables": 26,
+  "counts": {
+    "users": 121,
+    "auth_session_families": 120,
+    "auth_audits": 204,
+    "refresh_sessions": 100,
+    "products": 39,
+    "product_images": 35,
+    "wanted_posts": 13,
+    "favorites": 4,
+    "uploaded_objects": 43,
+    "offers": 18,
+    "orders": 18,
+    "order_events": 60,
+    "meetups": 9,
+    "reviews": 7,
+    "notifications": 273,
+    "reports": 16,
+    "chat_sessions": 20,
+    "chat_messages": 24,
+    "chat_read_cursors": 6,
+    "matching_jobs": 1148,
+    "matching_results": 9,
+    "matching_notifications": 165,
+    "matching_revision": 1,
+    "ai_task_runs": 918,
+    "worker_heartbeats": 1,
+    "idempotency_records": 150
+  },
+  "migration": "0010",
+  "snapshotMatch": true,
+  "restoreSeconds": 2.719
+}
+Corrupt archive rejected; original database unchanged
+campusloop-mq5-audit-worker-1

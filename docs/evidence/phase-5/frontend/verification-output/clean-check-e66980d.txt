@@ -1,0 +1,65 @@
+e66980d432474d42a763434c918fbec12e0f72df
+v24.14.1
+11.11.0
+
+added 310 packages, and audited 311 packages in 30s
+
+73 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> frontend@0.0.0 sdk:check
+> npm run sdk:generate && tsc -b
+
+
+> frontend@0.0.0 sdk:generate
+> openapi-ts -f openapi-ts.config.ts
+
+[90m@hey-api/openapi-ts v0.99.0[39m
+
+[90m[Job 1] [39m[90m~[39m [36mGenerating...[39m
+[90m[Job 1] [39m[36m  [1] [39m../openapi/campusloop.v1.yaml
+[90m[Job 1] [39m[32m✓[39m [96m./src\sdk\generated[39m [90m· 4 files · 143ms[39m
+SDK 内容差异退出码：0
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+[36mvite v8.3.5 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 3130 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.56 kB │ gzip:   0.34 kB
+dist/assets/index-Cx0X2sS9.css             20.58 kB │ gzip:   4.92 kB
+dist/assets/reportReasons-Fn36EMKH.js       0.55 kB │ gzip:   0.40 kB
+dist/assets/rolldown-runtime-WkwZ5CU-.js    0.59 kB │ gzip:   0.36 kB
+dist/assets/MessageFilled-BIeIM-vw.js       1.26 kB │ gzip:   0.71 kB
+dist/assets/idempotency-DQGZKp-J.js         1.31 kB │ gzip:   0.83 kB
+dist/assets/row-C4LENo8O.js                 4.25 kB │ gzip:   1.90 kB
+dist/assets/rate-CW7VHyh2.js                6.25 kB │ gzip:   2.95 kB
+dist/assets/AccountPages-Dx2lpRB8.js        7.07 kB │ gzip:   3.06 kB
+dist/assets/descriptions-CxihDvyI.js        7.83 kB │ gzip:   2.77 kB
+dist/assets/ReportsPage-DYmDm02_.js        10.86 kB │ gzip:   4.23 kB
+dist/assets/ChatPages-DGBW6Wmi.js          19.01 kB │ gzip:   7.21 kB
+dist/assets/input-number-RBxxCddM.js       20.68 kB │ gzip:   7.51 kB
+dist/assets/pagination-D_OrIT9j.js         23.76 kB │ gzip:   7.14 kB
+dist/assets/form-CxQ7Xd_d.js               26.49 kB │ gzip:  10.28 kB
+dist/assets/MarketPages-BSFefmSg.js        34.45 kB │ gzip:  11.89 kB
+dist/assets/TransactionPages-BMecCwiE.js   57.05 kB │ gzip:  17.66 kB
+dist/assets/select-FztWu5bS.js             66.55 kB │ gzip:  22.94 kB
+dist/assets/ReportButton-piGZcYBy.js      101.11 kB │ gzip:  34.09 kB
+dist/assets/AdminPages-BCzFNjgr.js        187.26 kB │ gzip:  59.84 kB
+dist/assets/index-DkZT9Smm.js             906.65 kB │ gzip: 291.06 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[32m✓ built in 380ms[39m

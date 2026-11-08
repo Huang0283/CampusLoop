@@ -1,0 +1,79 @@
+{
+  "executionRole": "M7_AUTHOR_TECHNICAL_REVIEW_INPUT_NOT_M10_ACCEPTANCE",
+  "freezeCommit": null,
+  "independentReviewer": null,
+  "m7": {
+    "comparison": {
+      "matching": {
+        "baselineMrrAt10": 1.0,
+        "candidateMrrAt10": 1.0,
+        "candidateThresholdsOnly": true,
+        "mrrImprovementPass": false,
+        "recallAt10": 1.0,
+        "relativeMrrImprovement": 0.0,
+        "requiredRecallAt10": 0.8,
+        "requiredRelativeMrrImprovement": 0.1
+      },
+      "search": {
+        "baselineMrrAt10": 1.0,
+        "candidateMrrAt10": 1.0,
+        "candidateThresholdsOnly": true,
+        "mrrImprovementPass": false,
+        "precisionAt5": 0.5,
+        "precisionPass": false,
+        "recallAt10": 1.0,
+        "relativeMrrImprovement": 0.0,
+        "requiredPrecisionAt5": 0.7,
+        "requiredRecallAt10": 0.8,
+        "requiredRelativeMrrImprovement": 0.1
+      }
+    },
+    "decision": "NO_GO",
+    "labelReview": {
+      "archiveManifestSha256": "5a8b951bbad7ed216d456bd97e35ad2f392d615adfcb446e12b4c43ce748b3c8",
+      "humanReviewedPairs": 228,
+      "labelSource": "HUMAN_REVIEWED_UNSEALED",
+      "labelVersion": "m7-label-reviewed-20261018-v1",
+      "status": "HUMAN_REVIEWED_UNSEALED",
+      "testSetSealed": false
+    },
+    "modelInferenceExecuted": true,
+    "requestsAll": 38,
+    "requestsTestCandidate": 12,
+    "scope": "DIAGNOSTIC_ONLY",
+    "source": "../human-review/20261018-kkkkrui-v1/candidate/evaluation-status.json"
+  },
+  "m8": {
+    "comparison": {
+      "baselineMetrics": {
+        "eligibleL3Count": 0,
+        "intervalCoverage": null,
+        "maeFen": null,
+        "mape": null,
+        "nmae": null,
+        "normalizedWidth": null,
+        "reason": "No eligible L3 completed-transaction labels; listing and accepted-offer prices are not truth.",
+        "status": "NOT_EVALUATED"
+      },
+      "baselineVersion": "m8-price-rule-v1",
+      "candidateMetrics": {
+        "eligibleL3Count": 0,
+        "intervalCoverage": null,
+        "maeFen": null,
+        "mape": null,
+        "nmae": null,
+        "normalizedWidth": null,
+        "reason": "Candidate was not trained because the data gate is NO_GO.",
+        "status": "NOT_EVALUATED"
+      },
+      "candidateState": "NOT_TRAINED_GATE_NO_GO",
+      "candidateVersion": "m8-price-candidate-v1",
+      "fallbackParityRate": 1.0
+    },
+    "decision": "NO_GO",
+    "source": "../evidence/joint-v1/joint-v2/m8/price-comparison.json"
+  },
+  "recordedOn": "2026-10-19",
+  "signedForFinalReport": false,
+  "sourceCommit": "ca5a884c4980f2412da7bbd04ffb969ada5baae2"
+}

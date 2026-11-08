@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "npm.cmd",
+    "run",
+    "test:m4"
+  ],
+  "cwd": "frontend",
+  "startedAt": "2026-10-27T02:00:13.288951+00:00",
+  "endedAt": "2026-10-27T02:00:13.976472+00:00",
+  "exitCode": 0,
+  "output": "m4-governance.txt",
+  "sha256": "b602c9eaf9b401ab99542161fefc938ef89a51d5a209015870ebc5b09ffbdfcb"
+}

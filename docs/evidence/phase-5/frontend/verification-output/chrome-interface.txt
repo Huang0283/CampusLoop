@@ -1,0 +1,23 @@
+d5ad7a2e48831f221823ae260914533963b01aee
+
+> frontend@0.0.0 test:live
+> playwright test --config=playwright.browser.config.ts --project=chrome interface-restoration.spec.ts m2-shell-phase5.spec.ts m2-upload-keyboard.spec.ts m2-account-menu-keyboard.spec.ts
+
+
+Running 13 tests using 1 worker
+
+  ✓   1 [chrome] › tests\live\interface-restoration.spec.ts:48:1 › product gallery switches one main photo and keeps the seller/location/description layout (2.8s)
+  ✓   2 [chrome] › tests\live\interface-restoration.spec.ts:83:1 › chat restores the session pane, message bubbles and real send/session switching (1.7s)
+  ✓   3 [chrome] › tests\live\interface-restoration.spec.ts:122:1 › chat matches the original proportions and compact offer/composer while keeping emoji and quote actions (2.2s)
+  ✓   4 [chrome] › tests\live\interface-restoration.spec.ts:165:1 › profile restores summary beside editable data; wanted and transactions retain rich cards (1.5s)
+  ✓   5 [chrome] › tests\live\interface-restoration.spec.ts:179:1 › restored views fit mobile, preserve guest action protection and never fall back to mock products (1.6s)
+  ✓   6 [chrome] › tests\live\interface-restoration.spec.ts:193:1 › all student routes render on desktop and mobile without overflow or runtime errors (22.8s)
+  ✓   7 [chrome] › tests\live\interface-restoration.spec.ts:221:1 › admin keeps management tabs and tables on desktop and mobile (1.8s)
+  ✓   8 [chrome] › tests\live\m2-account-menu-keyboard.spec.ts:4:3 › account menu supports Tab, Enter, arrows, Escape and navigation (session fixture) (1.2s)
+  ✓   9 [chrome] › tests\live\m2-account-menu-keyboard.spec.ts:4:3 › account menu supports Tab, Space, arrows, Escape and navigation (session fixture) (1.2s)
+  ✓  10 [chrome] › tests\live\m2-shell-phase5.spec.ts:51:1 › guest login returns to the protected deep link and preserves its query (session fixture) (1.9s)
+  ✓  11 [chrome] › tests\live\m2-shell-phase5.spec.ts:74:1 › session restoration failure can retry at the original deep link (session fixture) (650ms)
+  ✓  12 [chrome] › tests\live\m2-upload-keyboard.spec.ts:4:3 › image upload supports Tab and Enter without submitting the form (session fixture) (1.1s)
+  ✓  13 [chrome] › tests\live\m2-upload-keyboard.spec.ts:4:3 › image upload supports Tab and Space without submitting the form (session fixture) (672ms)
+
+  13 passed (44.3s)

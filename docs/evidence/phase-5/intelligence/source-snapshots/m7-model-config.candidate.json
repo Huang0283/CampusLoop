@@ -1,0 +1,39 @@
+{
+  "batchSize": 16,
+  "configVersion": "m7-semantic-model-candidate-v1",
+  "deploymentEnabled": false,
+  "device": "cpu",
+  "dimension": 512,
+  "documentFieldOrder": [
+    "title",
+    "model",
+    "categoryDisplayName",
+    "description"
+  ],
+  "dtype": "float32",
+  "indexBackend": "sqlite-exact-cosine",
+  "indexVersion": "m7-vector-index-v1",
+  "intraOpThreads": 1,
+  "maximumTokens": 512,
+  "modelId": "BAAI/bge-small-zh-v1.5",
+  "normalizeEmbeddings": true,
+  "pooling": "CLS",
+  "preprocessingVersion": "m7-semantic-text-v1",
+  "productSchemaVersion": "m7-processed-v1",
+  "queryInstruction": "为这个句子生成表示以用于检索相关文章：",
+  "ranking": {
+    "keywordWeight": 1,
+    "maximumCandidateDepth": 100,
+    "rrfK": 60,
+    "vectorWeight": 1,
+    "version": "m7-hybrid-rrf-v1"
+  },
+  "readiness": "EXPERIMENTAL_IMPLEMENTATION; FORMAL_DEPLOYMENT_NO_GO",
+  "revision": "7999e1d3359715c523056ef9478215996d62a620",
+  "seed": 0,
+  "sourceProvenanceFile": "source-provenance.json",
+  "truncationSide": "right",
+  "trustRemoteCode": false,
+  "unicodeNormalization": "NFKC",
+  "whitespace": "collapse"
+}

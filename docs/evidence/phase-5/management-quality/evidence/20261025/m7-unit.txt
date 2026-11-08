@@ -1,0 +1,125 @@
+test_client (unittest.loader._FailedTest.test_client) ... ERROR
+test_engine (unittest.loader._FailedTest.test_engine) ... ERROR
+test_evaluation (unittest.loader._FailedTest.test_evaluation) ... ERROR
+test_http (unittest.loader._FailedTest.test_http) ... ERROR
+test_response_http (unittest.loader._FailedTest.test_response_http) ... ERROR
+test_review_archive (unittest.loader._FailedTest.test_review_archive) ... ERROR
+test_store (unittest.loader._FailedTest.test_store) ... ERROR
+
+======================================================================
+ERROR: test_client (unittest.loader._FailedTest.test_client)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_client
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/srv/campusloop/services/m7_baseline/tests/test_client.py", line 5, in <module>
+    import test_engine as fixtures
+  File "/srv/campusloop/services/m7_baseline/tests/test_engine.py", line 6, in <module>
+    from services.m7_baseline import engine
+ModuleNotFoundError: No module named 'services'
+
+
+======================================================================
+ERROR: test_engine (unittest.loader._FailedTest.test_engine)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_engine
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/srv/campusloop/services/m7_baseline/tests/test_engine.py", line 6, in <module>
+    from services.m7_baseline import engine
+ModuleNotFoundError: No module named 'services'
+
+
+======================================================================
+ERROR: test_evaluation (unittest.loader._FailedTest.test_evaluation)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_evaluation
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/srv/campusloop/services/m7_baseline/tests/test_evaluation.py", line 2, in <module>
+    from services.m7_baseline.evaluate import evaluate_fixed
+ModuleNotFoundError: No module named 'services'
+
+
+======================================================================
+ERROR: test_http (unittest.loader._FailedTest.test_http)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_http
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/srv/campusloop/services/m7_baseline/tests/test_http.py", line 9, in <module>
+    import test_engine as fixtures
+  File "/srv/campusloop/services/m7_baseline/tests/test_engine.py", line 6, in <module>
+    from services.m7_baseline import engine
+ModuleNotFoundError: No module named 'services'
+
+
+======================================================================
+ERROR: test_response_http (unittest.loader._FailedTest.test_response_http)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_response_http
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/srv/campusloop/services/m7_baseline/tests/test_response_http.py", line 10, in <module>
+    import test_engine as fixtures
+  File "/srv/campusloop/services/m7_baseline/tests/test_engine.py", line 6, in <module>
+    from services.m7_baseline import engine
+ModuleNotFoundError: No module named 'services'
+
+
+======================================================================
+ERROR: test_review_archive (unittest.loader._FailedTest.test_review_archive)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_review_archive
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/srv/campusloop/services/m7_baseline/tests/test_review_archive.py", line 8, in <module>
+    from services.m7_baseline.engine import ROOT
+ModuleNotFoundError: No module named 'services'
+
+
+======================================================================
+ERROR: test_store (unittest.loader._FailedTest.test_store)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_store
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/srv/campusloop/services/m7_baseline/tests/test_store.py", line 5, in <module>
+    import test_engine as fixtures
+  File "/srv/campusloop/services/m7_baseline/tests/test_engine.py", line 6, in <module>
+    from services.m7_baseline import engine
+ModuleNotFoundError: No module named 'services'
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+FAILED (errors=7)

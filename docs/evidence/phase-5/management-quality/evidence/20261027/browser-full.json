@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "npx.cmd",
+    "playwright",
+    "test"
+  ],
+  "cwd": "frontend",
+  "startedAt": "2026-10-27T01:52:54.266713+00:00",
+  "endedAt": "2026-10-27T01:58:01.194727+00:00",
+  "exitCode": 0,
+  "output": "browser-full.txt",
+  "sha256": "3864b9cdb38442bc13259e5ec224ed5504237e997b73501c4391255c00b9f532"
+}

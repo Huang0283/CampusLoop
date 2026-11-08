@@ -1,0 +1,830 @@
+{
+  "version": "campusloop-demo-v1",
+  "synthetic": true,
+  "notice": "本数据集的账号、标价、聊天、订单与治理记录全部为隔离演示数据，不可作为真实成交训练标签。图片来自用户提供的商品素材。",
+  "products": [
+    {
+      "key": "P01",
+      "title": "【演示】ThinkPad 学习笔记本电脑",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 1150,
+      "description": "【合成演示商品，非真实出售】黑色机身，外观与接口以图片为准。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/01-1.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01lUMInkkWy9H2vHAO_!!4611686018427380002-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "2b916c2317af2863d3d4579c711d7b7d34df8b73026dd83c447541152af16d09",
+          "sha256": "260d40fc9abaa3199289ccbce474bce9b63cdf33951a6279b2973b656ac460ef"
+        }
+      ]
+    },
+    {
+      "key": "P02",
+      "title": "【演示】Lenovo 银色笔记本电脑",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 650,
+      "description": "【合成演示商品，非真实出售】银色机身，适合展示电脑商品的交易流程。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/02-1.jpg",
+        "products/02-2.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN010i98AI5dN5G2BxV2_!!4611686018427380002-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "18964a934ad0b50caa62a341ee8e7bc584e08ec6e9128a86077fb6ee8e6d74fd",
+          "sha256": "4e606c94d21e2016785749a887145a99835bf955de20545d67d2fa34a11f32c0"
+        },
+        {
+          "sourceFile": "O1CN01EoBhL0UBtdF2b8N1_!!4611686018427380002-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "f412ca437f524e2a28a6bc9a54baba0b319c7aba23f6c1a50b77190867355792",
+          "sha256": "22cc6fd885a31ed8a99ecded57a2b76122eb9539f1c441d4c5d08574a06c7a4d"
+        }
+      ]
+    },
+    {
+      "key": "P03",
+      "title": "【演示】轻薄办公笔记本电脑",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 480,
+      "description": "【合成演示商品，非真实出售】轻薄机身，演示验机与当面交易流程。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/03-1.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01ctaf6ThNXaE2b8N1_!!4611686018427380002-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "10076f28a5feeb92afa58af6d1de53c56b6771dacd116c0c5463e6fe46bd4c35",
+          "sha256": "773dc4d3220abb0d6303adcc1b00e7c3218962ccc3b62c0cdfa31d6cfc77d9c1"
+        }
+      ]
+    },
+    {
+      "key": "P04",
+      "title": "【演示】银色学习笔记本电脑",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 720,
+      "description": "【合成演示商品，非真实出售】多角度实拍，具体配置需在聊天中确认。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/04-1.jpg",
+        "products/04-2.jpg",
+        "products/04-3.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN013w5yBxJ7VbB2b0Z7_!!4611686018427380002-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "8a6d6ab1880203769c7525fe47c6377cc1540054362e6e65f8be53f1a04634d8",
+          "sha256": "7d230800928a23d5029885ef16258402cf5b5b4f59fc296e89cfe2144899bcd4"
+        },
+        {
+          "sourceFile": "O1CN01BOZOUvNQpgB1gEVp_!!4611686018427380002-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "5b75b17c06dd36b4db15dfabf92c98d82927c0377769533bba55dc86c4ea80e4",
+          "sha256": "b747dbd01e5a806e5ba41c3f057b66443bd8c1e6b4c5967a1d0c3c220dd594f6"
+        },
+        {
+          "sourceFile": "O1CN01J1RZ8SFHkID1bCKM_!!4611686018427380002-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "1a2c3f0638d3887696a98e715a1ee87912958c8eddef3d16bd12db853e6fd0e5",
+          "sha256": "a43862081c8f31a1723369013c313872298c83e116021e9e90c8a26cc7964373"
+        }
+      ]
+    },
+    {
+      "key": "P05",
+      "title": "【演示】Canon 单反相机套装",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 1650,
+      "description": "【合成演示商品，非真实出售】相机、镜头与配件以图片展示为准。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/05-1.jpg",
+        "products/05-2.jpg",
+        "products/05-3.jpg",
+        "products/05-4.jpg",
+        "products/05-5.jpg",
+        "products/05-6.jpg",
+        "products/05-7.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN011bCME2dvqjJ2vHAO_!!4611686018427383502-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "ce70ce7075286a39abe543d3c5a3bba236cb3f47bd4f6cae780e9ef056fb0516",
+          "sha256": "f7d6cfd83066f79a2a9d1d47df4c89543b76e4c5cce2ea1b8ac3a3339af77604"
+        },
+        {
+          "sourceFile": "O1CN0133xw6WFfF7B2vHAO_!!4611686018427383502-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "6b7a72ee78888e85d6d8481dce4b0bf5439d11999d4c74d605036cf85cb2c873",
+          "sha256": "7a39cb345309ff4dfb2b625382461bb8dbd473bc3b82ba10d40dbc430f4c926b"
+        },
+        {
+          "sourceFile": "O1CN01fLAE93jDxhD2vHAO_!!4611686018427383502-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "c1594fcf18fc3ff99e382f038ad9dc92f42ff7804593640e3a1771bbef8f4d02",
+          "sha256": "30de74b3e009d8c5a5ca165dd40b1d505e7e61e5432f543f1821939640977090"
+        },
+        {
+          "sourceFile": "O1CN01Ki5JubxVffC2vHAO_!!4611686018427383502-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "3607fa2abe5e519b8468a682348b68f00371dcdf224a8393c5ad3f8c1362b9d4",
+          "sha256": "4aa679df8c03ef8830450f5a6037b766e30e28fb26fb664babb5a727ee0edc85"
+        },
+        {
+          "sourceFile": "O1CN01O4r1H6KUcwE2vHAO_!!4611686018427383502-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d325d0d86c324bfa11702776f5cb2ee66aedac97933a86c2b250c9ed26ca58fd",
+          "sha256": "0dd3575aa281788120410f170d3cf20a65175887b8a3430fa2d4c05bd5fcb7ca"
+        },
+        {
+          "sourceFile": "O1CN01RYbVfXq8eZK2vHAO_!!4611686018427383502-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "c031fb08a8b30c0ea7add8cfed531c710e2c7265e6b1d6aa2e2842e8542d0a84",
+          "sha256": "24b677818cee1cd0a22d539fcd5fe90ab914ea7a3247dac21f31497b8556ddad"
+        },
+        {
+          "sourceFile": "O1CN01Z1Y9XACwo5F2vHAO_!!4611686018427383502-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d394af3523f6dce66d61ec0a29aff475dc8e9ba81e5e6f2bba772194fb972fb8",
+          "sha256": "904f4362f381f29440ef1e74cf7471585c4813fd0e17d0c467352326408a972c"
+        }
+      ]
+    },
+    {
+      "key": "P06",
+      "title": "【演示】银色便携数码相机",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 438,
+      "description": "【合成演示商品，非真实出售】小型数码相机，适合校园生活记录。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/06-1.jpg",
+        "products/06-2.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN013hFj4mgKozE2RolB_!!4611686018427384437-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "596a9e5d7819c4b8d7a89523710277596d9580d39f8fe3d8baf355aafb755c60",
+          "sha256": "045b15041027cff98475c52b189a211b07b858d35dbe4ac5e1fa81e24194b8d3"
+        },
+        {
+          "sourceFile": "O1CN01ALBUE6cvyNC2RolX_!!4611686018427384437-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "5aff924fca3433a9b7f269172917d984d1880263a49747216faf2bb2c7cef57a",
+          "sha256": "1ccaa34896b831eee4935687e0a72b9c2de0c284d23f6b6ba24fc7c1cb5e3c9f"
+        }
+      ]
+    },
+    {
+      "key": "P07",
+      "title": "【演示】vivo 智能手机套装",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 1200,
+      "description": "【合成演示商品，非真实出售】手机与包装配件以图片为准，不承诺未核验参数。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/07-1.jpg",
+        "products/07-2.jpg",
+        "products/07-3.jpg",
+        "products/07-4.jpg",
+        "products/07-5.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN013WoyHT1Lw3G1aBrN_!!4611686018427380990-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "8eb4127daa7bebdedcae016b425b3910c14b30f7c256345360d092affbe227dc",
+          "sha256": "68aa148740db68dcd4836aa7f269844241b5b4764602a4916c6915cef0fa0872"
+        },
+        {
+          "sourceFile": "O1CN01JKrpL4keG3C1aBrL_!!4611686018427380990-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "66f999be3db70aca8dd2dfa0fbfc716be52bdf12e96df03cc9334a63cb9fb081",
+          "sha256": "445d6a3025754794f6a639b16bf111449ddeb6ba69b216572cee0449857d74f1"
+        },
+        {
+          "sourceFile": "O1CN01LcZeSIzUVoE1aBrc_!!4611686018427380990-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "00a0239339eaa5635001c6a7fa9c1e98bcbabb82b9b17fc4a01d9d617180798f",
+          "sha256": "25a472eb8976efb55aff9fd9d370731f35e8ba52ab88cddad255974d2233244f"
+        },
+        {
+          "sourceFile": "O1CN01QsjMpqXxRjB1aBs2_!!4611686018427380990-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d47146761ea39c1fbc19fc7c7c02c0b1d7b6df0c3c6991d9ded35a09dfa1b298",
+          "sha256": "32489ad8aa21974c05b0ecd481e1295567126143941d14f07897c1eedda9380b"
+        },
+        {
+          "sourceFile": "O1CN01VogHIbJcPrL1aBre_!!4611686018427380990-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "ceb1ab71799f93a0831f9c39996ff2d504938f3af53a48c0d7fd3c6369e33d1b",
+          "sha256": "06c3ffd9891f0925701677848eefa3fd071d81ef3e3095b48cc6174593d97a4f"
+        }
+      ]
+    },
+    {
+      "key": "P08",
+      "title": "【演示】橙色背壳智能手机",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 397,
+      "description": "【合成演示商品，非真实出售】多角度展示外观，交易前可现场检查。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/08-1.jpg",
+        "products/08-2.jpg",
+        "products/08-3.jpg",
+        "products/08-4.jpg",
+        "products/08-5.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01AF7Yutm119C2BxNI_!!4611686018427381096-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "ac3a473859edf6c8c86d5585bfdf269e15886f57a5b6319b1b527bf353afa243",
+          "sha256": "c95c8c54021c67fd11da514e99ba01932d58d16bbde81ed86613164a3bfa4cad"
+        },
+        {
+          "sourceFile": "O1CN01fsa6omVqt5I2BxNI_!!4611686018427381096-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "519565468ee27dd1009b061d5f0940cb362dadce1e9aa8675f5643f131a94d19",
+          "sha256": "382822d65a6faa6504c8458ab811847485f2e99c21b0069e3d7f7c6cfa193fc9"
+        },
+        {
+          "sourceFile": "O1CN01MEUF13rKyQG2BxNI_!!4611686018427381096-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "0b756e9324dcc35ea8beb60d57c2d381fd90e8147cde2d50913ff20a145b302e",
+          "sha256": "d8dbc011c6dbde0de6eb35c109756e9153d17511097e931798eb6168bb815da6"
+        },
+        {
+          "sourceFile": "O1CN01ne5ZvWL8ssF2BxNI_!!4611686018427381096-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "08c8d90f44c55d63678526c6c428eb914f6619b5b10a9576eb59380028bb9b95",
+          "sha256": "61955775bd35d7abad2b56458672316896346273cff09133c77564a346e19918"
+        },
+        {
+          "sourceFile": "O1CN01xwcTF6fegII2BxNI_!!4611686018427381096-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "43584d0378ebc71a377b74f479c9ffb94992498fa3afd8f21b5e0a5d5cb287df",
+          "sha256": "28fdc076104022129e283703e887b02a39150444f80f26580371f504e383a09a"
+        }
+      ]
+    },
+    {
+      "key": "P09",
+      "title": "【演示】Redmi 智能手机",
+      "category": "DIGITAL",
+      "condition": "GOOD",
+      "price": 850,
+      "description": "【合成演示商品，非真实出售】机身与接口实拍，具体参数以验机为准。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/09-1.jpg",
+        "products/09-2.jpg",
+        "products/09-3.jpg",
+        "products/09-4.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01CeiZYbipMAC2vHAO_!!4611686018427387298-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "baae157ff637cb9edff769722a7f808838cdf80002509f05d45376b849ecab94",
+          "sha256": "9682fdafd6196e61e18d30f1ae6018fd60e48e6765e4219946b1d4c4bd42d6cf"
+        },
+        {
+          "sourceFile": "O1CN01gJzr44wDK7B2vHAO_!!4611686018427387298-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "e1d686d965689c74e24a7e95b1cd367179d6ab7a18390608f04583b7c9efd447",
+          "sha256": "7855e3438fc7fa1ab726a0eb8bf4cd0c02b6783623b2d19498f13f260b1f0a53"
+        },
+        {
+          "sourceFile": "O1CN01iGfwXjbeGAD2vHAO_!!4611686018427387298-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "1518026a07ba2b90518bfd11a87e4ea701d42595e79cd8a2850e2ee3e0955d0c",
+          "sha256": "d1cd8b289eb13c056a11e7dd24b114bd6ef602f4001f74b52b813ba4ffb8c72b"
+        },
+        {
+          "sourceFile": "O1CN01vOBd0griPgG2vHAO_!!4611686018427387298-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "f0f7229dbc56a92928e5788bba267247e2c3f9a382d606c27eb80a2fa4a75795",
+          "sha256": "e11dcf2d1660c1eed3c799977d796b966df4a7d64decc3d27913ece3c90d8da9"
+        }
+      ]
+    },
+    {
+      "key": "P10",
+      "title": "【演示】红色金属签字笔套装",
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "price": 28,
+      "description": "【合成演示商品，非真实出售】适合大学生课堂笔记与日常书写。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/10-1.jpg",
+        "products/10-2.jpg",
+        "products/10-3.jpg",
+        "products/10-4.jpg",
+        "products/10-5.jpg",
+        "products/10-6.jpg",
+        "products/10-7.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN017M2LpibNuhH2vHAO_!!4611686018427381401-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "8d229096d18221ea250e50e8ca259573932e9f0c73bdc992bfbc8f98f49a7669",
+          "sha256": "c0f3e9cda8b389555e3260a3b01ae4bf51587483a4f99849dccabc2eba5365fb"
+        },
+        {
+          "sourceFile": "O1CN018iStxbipxHL2vHAO_!!4611686018427381401-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "79d9ea9b49715f9bd1ded06f9349682ea5ef3df5ebc073cceb64f4ccc8d6d0cc",
+          "sha256": "eeaad1b104f98fb107d89d391f4cda3ede983d1fec8474cc69cfd1edb35528b6"
+        },
+        {
+          "sourceFile": "O1CN01g9PAXUNRBwB3thGS_!!4611686018427381401-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d557a2208f9ef9faa1850dea86ca17574d7bbf5bf71e05ca01eed21babe02571",
+          "sha256": "1d42834045740c8d00193d9881cdc757e8c8acfe56f6a8bd08cdee85f3133618"
+        },
+        {
+          "sourceFile": "O1CN01NcZhcspPa4H2vHAO_!!4611686018427381401-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "db1a8f301779740869e7b0da9af3537e5b47ee6048e3702a112ae7664d1e43fe",
+          "sha256": "f0c33ecbc6739d8ebd22489e531c95cc84c383d80467a0eb4390181de40fd4b3"
+        },
+        {
+          "sourceFile": "O1CN01nErdrwGeQbH2vHAO_!!4611686018427381401-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "9060aafc4751e4c71f2d7101199d3e74f5430eb277ba0676d66acf91cc5b0168",
+          "sha256": "899db50b593173fe6197c5e3e4d2c0086a18ad3dc19425eed7f51760e491e225"
+        },
+        {
+          "sourceFile": "O1CN01pQbRaxFSAkC2vHAO_!!4611686018427381401-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "536b577fb8df9b7a1d1d37ebf52b5b2a399d88285aa80dcbddba133715842f09",
+          "sha256": "2f37d0c5b2ddbbbaaae6baa708e598c60d7b404b1fb1d778c309a1991fae68a9"
+        },
+        {
+          "sourceFile": "O1CN01Q50ekQFgrkF2vHAO_!!4611686018427381401-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "1914747945832cd695feb2d71ef54d4f67611548ea8d02b1191094de96c811bd",
+          "sha256": "837e751da0ed558c9063801e7696f7cc71ec269269a522e484dab8de75a1f92f"
+        }
+      ]
+    },
+    {
+      "key": "P11",
+      "title": "【演示】彩色中性笔套装",
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "price": 12,
+      "description": "【合成演示商品，非真实出售】不同颜色书写笔，商品数量以图片为准。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/11-1.jpg",
+        "products/11-2.jpg",
+        "products/11-3.jpg",
+        "products/11-4.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN014jY4Yv1yAuzF7Ikxp_!!4611686018427379979-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "c1041174dc44ac227e76023297fc199e821057cbb3c3a4aef2ae1c621fea0850",
+          "sha256": "610de04c43e3af7876273054f0c92f00ea05b9d3bd7f4e0fe35d32136f1a2746"
+        },
+        {
+          "sourceFile": "O1CN01e9Veaw1yAuzEWjnd3_!!4611686018427379979-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "ca3e16381a4291db99a360d2f30962feb17d5e255aaacc7934cce6a33b6eee83",
+          "sha256": "a2081ef3c9b42150efc08504e158cc9f51518d019edc408aff1ead24b87cc62d"
+        },
+        {
+          "sourceFile": "O1CN01jJ3Exx1yAuzGBKaTu_!!4611686018427379979-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "2036e92589d4b4b8856b0267a9dcd425eb9a613b1ffd1427a3e7e72e6597ef7e",
+          "sha256": "b70c0e47c730d95200a872432a8256192c7c03cc4d979e13e843844816675caf"
+        },
+        {
+          "sourceFile": "O1CN01JLuzpP1yAuz9qG3ge_!!4611686018427379979-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "2eec220c5f0ac53e29282ef68d029ef3898f44c846851e81233112c5052a583b",
+          "sha256": "63b32e52b4287d4cf17713b7dcdd280524183dcd41a2ed2a5b2d590d88a89d03"
+        }
+      ]
+    },
+    {
+      "key": "P12",
+      "title": "【演示】SAKURA 橡皮套装",
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "price": 8,
+      "description": "【合成演示商品，非真实出售】适合课程练习和手绘修改。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/12-1.jpg",
+        "products/12-2.jpg",
+        "products/12-3.jpg",
+        "products/12-4.jpg",
+        "products/12-5.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01cGrlEG1CDZVJJAWaS_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "fa4c44e4cd55a4ac5d9dfa0a25671d8f4f4ce78e3ee8c9aa298a3f4c9950153f",
+          "sha256": "f91a0eff5175d4e2ad3866df2b44fc5bd29737066db7e6ba76cbe90acb30955f"
+        },
+        {
+          "sourceFile": "O1CN01jzRm671CDZVICVnRk_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "808943e7a31016d2dcc65acf1d9bab1f69f3dcbc9712cd3fc71d5d5f27494a74",
+          "sha256": "6033f9cc06583bfd1d789e7d5849005fa6f6caa184b243ecbd36a1cd8eade636"
+        },
+        {
+          "sourceFile": "O1CN01RqR4UW1CDZVKEqAuj_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "c4605ed689b167f1cc30a93737fb8ead5cfa3e67cab33abb5add66140eb0d0e9",
+          "sha256": "d72bab28e8291d2f9a7c51a5d22ffb448c8284f368673e1dd0af5c4276aa97ac"
+        },
+        {
+          "sourceFile": "O1CN01tmNOAU1CDZVICQxjY_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d757a77fea0a390e2c4d706afdaae7c31c90c921f0b6da4bb2341e72d862a502",
+          "sha256": "0e6a1e0a7e2af616533db7e6a869c46775ad122403793979dfc8756b52d76623"
+        },
+        {
+          "sourceFile": "O1CN01XUB9vp1CDZVNIcpj5_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "bbde7919224ba7e3d03acb259b0bf9ae3de540651f86af06df8da76634335c81",
+          "sha256": "e7eceb88656d6a6d737f15a11928c1704cb9bd4f2dc150fb4f4c06e033a04be3"
+        }
+      ]
+    },
+    {
+      "key": "P13",
+      "title": "【演示】制图直尺四件套",
+      "category": "STATIONERY",
+      "condition": "GOOD",
+      "price": 10,
+      "description": "【合成演示商品，非真实出售】直尺、三角尺与量角器，适合大学生制图课程。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/13-1.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01CJSBi42KbPPs4zlYg_!!4611686018427383063-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "3b8a56500b684aab816a71384c4b49283ed712cd04ed6f777668f0a1bfc041bf",
+          "sha256": "368114e18a74062c59bb62e5740401a0e5c19d28d73466e26e572ca0bf18d815"
+        }
+      ]
+    },
+    {
+      "key": "P14",
+      "title": "【演示】Rust 编程教材",
+      "category": "BOOKS",
+      "condition": "GOOD",
+      "price": 36,
+      "description": "【合成演示商品，非真实出售】教材封面与书脊实拍，可在交接时检查内页。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/14-1.jpg",
+        "products/14-2.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01PNTIvNajpfJ3FPmi_!!4611686018427382303-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "e80904e5f841060ca58701deda4c814ae3e21d43a8b8baa519d7983d5597742e",
+          "sha256": "6a5d22f5651e594731035dd885ad202d6f2151e64a93afc8c943cb8c71b6dc86"
+        },
+        {
+          "sourceFile": "O1CN01VeCl5kNFJYG3FPmi_!!4611686018427382303-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "0b0b69a2ee8ef7a45902146e4481bc01d54f70502681aab58f73dac4feaa8a86",
+          "sha256": "05502278a0c166ab8ee5e338e9580b26b7957ed84dc7439601cc999cd8456e7a"
+        }
+      ]
+    },
+    {
+      "key": "P15",
+      "title": "【演示】Java 2 实用教程",
+      "category": "BOOKS",
+      "condition": "GOOD",
+      "price": 20,
+      "description": "【合成演示商品，非真实出售】大学计算机课程学习用书，版本以封面为准。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/15-1.jpg",
+        "products/15-2.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01kScY5L1DC1ytbJsVO_!!4611686018427383475-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "ca9b025675f423300b5034c902d650f573fd209ac1991bbb43fcff84695df298",
+          "sha256": "deaa60e6370d8c72294fb7451ac536af1e41fb56a7280e950e63004e313a0d0a"
+        },
+        {
+          "sourceFile": "O1CN01lCdiVk1DC1yu4i7t9_!!4611686018427383475-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "e31b6f948a86b58ba98928b058ec37b5dfbb8e799bf7aefb4f258459f1c89cfc",
+          "sha256": "5696c733e16944b104571f48e1efc529ca966ede211060276397e3a2f52c5e47"
+        }
+      ]
+    },
+    {
+      "key": "P16",
+      "title": "【演示】家用双门小冰箱",
+      "category": "FURNITURE",
+      "condition": "GOOD",
+      "price": 90,
+      "description": "【合成演示商品，非真实出售】适合展示家电交易；是否可在宿舍使用需按校内规定确认。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/16-1.jpg",
+        "products/16-2.jpg",
+        "products/16-3.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN019v69cXZSnQC2vHAO_!!4611686018427384615-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "01f3b682360c0dcd774f6a36cd007157a90001476c2b13c27495ed543caea794",
+          "sha256": "3aab1269104c149ffd62820ecb0aa178e6a0e1f854975e69a3bc4b7717835f81"
+        },
+        {
+          "sourceFile": "O1CN010QeRj4NRWUB2vHAO~livephoto~_!!4611686018427384615-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "fc2914d2d7887ef9e0bc7222a48cf867eb633485ca840db30ced3cb39a473bd7",
+          "sha256": "7d8b7b184b021466379026df6b2591d91039fb0411c6464d495be448225b5d4a"
+        },
+        {
+          "sourceFile": "O1CN01uUzTfFxsaYH2vHAO~livephoto~_!!4611686018427384615-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d6e0f0cd47b8acea9d89b17700fe635697df632e1903e65e172d466b3b18fb34",
+          "sha256": "05d2fe86a3bdb9ef18c536e44332f071b02bbdd9795de691f0253a8bcd3e6eb8"
+        }
+      ]
+    },
+    {
+      "key": "P17",
+      "title": "【演示】黑白羽毛球拍双拍",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 40,
+      "description": "【合成演示商品，非真实出售】黑白配色双拍，适合校园体育活动。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/17-1.jpg",
+        "products/17-2.jpg",
+        "products/17-3.jpg",
+        "products/17-4.jpg",
+        "products/17-5.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN010fLV3dxvfUE2BxV2_!!4611686018427380123-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "eb204d9258412f5269f2dc5c42690c0a2507c01d9b7a39b019c7b947e5c3af83",
+          "sha256": "b729ed6a6a3660c3169e97bc97eff36efa672feaeb7a8fc3050538e89e9a8752"
+        },
+        {
+          "sourceFile": "O1CN01JVBpY01UqeZ2nVV2f_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+          "sourceSha256": "3105000d43b72366431f08fc5cb7239f03f1c960b092d18dc415036d3574751c",
+          "sha256": "7a0c914b9e4a0fdb16bbec145623b24abc4fe06c4c6afa8041d6a4db56149986"
+        },
+        {
+          "sourceFile": "O1CN01KRWIq01UqeZ2nyHyN_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+          "sourceSha256": "fac504f07dd3a696a4ce16d57d075a46acd45428f20e7b2ba9cb6bba289290c7",
+          "sha256": "92d21af17a974036a7cecc7524caa32f3b72a3b7a2f3f6d971794d9ccccdf22b"
+        },
+        {
+          "sourceFile": "O1CN01oKT3WS1UqeZ352f4w_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+          "sourceSha256": "103e887fdbcb6f18583113160fabc65459a749306f1724e264ce62b065fb7c65",
+          "sha256": "2544c8f0e06eff285f8da6db50f594518bba536d62c49cae2551df3040b48b13"
+        },
+        {
+          "sourceFile": "O1CN01YglyHq1UqeZ2nXukV_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+          "sourceSha256": "64eba2248bae4f60d0a263d6d70064e90b3934d3f482bb263d5b65a16fda2744",
+          "sha256": "65b504f6cec384e20974ff38cbfc42d611633cedb3943d502adf9234fa339509"
+        }
+      ]
+    },
+    {
+      "key": "P18",
+      "title": "【演示】黄白羽毛球拍双拍",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 20,
+      "description": "【合成演示商品，非真实出售】黄白配色双拍，拍框与握把见图片。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/18-1.jpg",
+        "products/18-2.jpg",
+        "products/18-3.jpg",
+        "products/18-4.jpg",
+        "products/18-5.jpg",
+        "products/18-6.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN011ARDB1sjBRB2vHAO_!!4611686018427382225-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "8d2d53298453fa55f47f2640018c61a147ed7056e341ff7c10cadcaa35ba20fe",
+          "sha256": "3fbcdbcd3db8b4fbdf667baf7249b6d69cf69e4d438a3c7dfb2a3b8caa77c9f7"
+        },
+        {
+          "sourceFile": "O1CN011sWv6UIlmnG2vHAO_!!4611686018427382225-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d54a2c1d40d054432701ce642cb05d01619a8168dbde2c7eee8a07562385eea5",
+          "sha256": "0e7060a88ba6d950a866ac5689fe90db0323507227a681dfc1f7a35fe37cc031"
+        },
+        {
+          "sourceFile": "O1CN014O2LFmiibWI2vHAO_!!4611686018427384129-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "37d50ad0843bbb9f51495192d5baf1489393959d5e3b12fc3a8bbe9d2eb617b6",
+          "sha256": "e53d54ace19e7ce84041e9a959c21efdb7dd3df82c8eb08765404f7b1e8f1550"
+        },
+        {
+          "sourceFile": "O1CN0181vNyRt14rH2vHAO_!!4611686018427382225-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "9270f237e3a6ca56360ef6aa7096249f2f4928ed855de6dcfb55d3911d975f65",
+          "sha256": "175224b7d93fd5c0672053a0ed5f9ea8868fd32c6eafc5fbf01eba236a978cdd"
+        },
+        {
+          "sourceFile": "O1CN01Tbpyea8EwEB2vHAO_!!4611686018427382225-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "86d5d3d05e962d330b135c72630344095ed4ed73ad04f3ffa34bb68a1466cab3",
+          "sha256": "7f584123187dd71547c458fc5845bb6685523a39d7e6f9f80140d02d0f9c79be"
+        },
+        {
+          "sourceFile": "O1CN01wRvhFN6n0iG2vHAO_!!4611686018427382225-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "453bd13de69ece67a280cc9a16985daacef0d65bef51e3af4fb5564a5371ddca",
+          "sha256": "ffac6ffe41030aebaafea017becdebf6ef5b510c4d8f294178e25ca7470c17b9"
+        }
+      ]
+    },
+    {
+      "key": "P19",
+      "title": "【演示】红白羽毛球拍套装",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 35,
+      "description": "【合成演示商品，非真实出售】红白配色双拍与收纳袋。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/19-1.jpg",
+        "products/19-2.jpg",
+        "products/19-3.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN017jcTR7tV6iF3thGS~livephoto~_!!4611686018427381173-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "d27fe21dbcdc63df55e9eebfa0b9874ffae693e8ee4df78ba9ee13e1e9c0eba4",
+          "sha256": "e79e2d4c1832ccdec8275727f1eb3e6cacb719dce2aa9739827fc6bb1662788a"
+        },
+        {
+          "sourceFile": "O1CN01HtW2Z9Qk0eL2vHAO~livephoto~_!!4611686018427381173-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "bf1b5420a02e9b9a85aaf030794efdf9716d3c53ae84b91318cd0dcfa4072697",
+          "sha256": "9fcaa93e969fa9a47431fb2eb551c2b4d90e7781e4c350d2890943d72c054f6b"
+        },
+        {
+          "sourceFile": "O1CN01Jg9XTrVCBkJ2vHAO~livephoto~_!!4611686018427381173-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "228a3a3ba431c8da4cf1ac2a55dde5fcf6a232e42aa019ab463880abe1fff2a8",
+          "sha256": "a2d3b49bcac1b0ce30e7cc0be5c4b9c6a72cc44293788a95d3bb5d4dd0eff119"
+        }
+      ]
+    },
+    {
+      "key": "P20",
+      "title": "【演示】蓝绿羽毛球拍双拍",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 18,
+      "description": "【合成演示商品，非真实出售】两支球拍，适合日常运动。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/20-1.jpg",
+        "products/20-2.jpg",
+        "products/20-3.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN018oEe61mTxcK2vHAO_!!4611686018427385662-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "131fd6946c3908a9cf0671070a3ba8f09cd8821c8359fa92e054cc4251e7464e",
+          "sha256": "109dc78c063e0930869fc8cccff7ee30cb81b9e12655a554a81bd7c5e4466411"
+        },
+        {
+          "sourceFile": "O1CN01fFl5IYHcRYJ2vHAO_!!4611686018427385662-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "2375ea1d042c6c63a260c20f22a4c9335e9f2cf96e6e3965cb34294685354ecb",
+          "sha256": "4a6fbde9afd677b63c4d2c1318a3f87d5fa6725bfe78c482953eda45fa21efc9"
+        },
+        {
+          "sourceFile": "O1CN01fsnTBfFKCuD2vHAO_!!4611686018427385662-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "4e7f4c6e3776d81cd9f41778dcce9a8014d18ec761c9e113c3d7ad50e4cc69fb",
+          "sha256": "181b09046e221542c0a51f0dbac410998fbada9ed66ad6b29ea65ad826921932"
+        }
+      ]
+    },
+    {
+      "key": "P21",
+      "title": "【演示】紫黄羽毛球拍双拍",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 28,
+      "description": "【合成演示商品，非真实出售】紫色与黄色球拍，多角度实拍。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/21-1.jpg",
+        "products/21-2.jpg",
+        "products/21-3.jpg",
+        "products/21-4.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01Cqi20QzQRII2vHAO_!!4611686018427384129-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "8a6785bf92d525287330211e912c5c1e50849c8e1f8a891931445eed8ca35131",
+          "sha256": "44e7b5017a7cde711af8318ce537df2bf95d19a865525eb08a3ed11b19236ce1"
+        },
+        {
+          "sourceFile": "O1CN01js12xYbIDUG2vHAO_!!4611686018427384129-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "6d4f040dbcd1cac0a6827ecbe1b881b137bda7f8c63bbea756e5cb1f1e831179",
+          "sha256": "80b467a8a14ed8ce3c4cadebcd33c9f6ce901f271ef55c283ee0abc5a42352d9"
+        },
+        {
+          "sourceFile": "O1CN01sTcfcj5B8wI2vHAO_!!4611686018427384129-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "79bd5ad87eddce42d2a4e69c837c48cbb88ec3a25d5394ca09c740ff7b0b7f27",
+          "sha256": "5c8c0fc6664d110a196e53d3ce9085e7f7180c2622ee4b7ab4245fb2d9550af5"
+        },
+        {
+          "sourceFile": "O1CN01vR3h6WLszOC2vHAO_!!4611686018427384129-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "70c9784d04fb38e1c302082d2744b87419f116570134b18c39eb04e5100f0e07",
+          "sha256": "e26a7478ad25764a46da354d37e136b31a225da755dcfe4af9baf06a039804c4"
+        }
+      ]
+    },
+    {
+      "key": "P22",
+      "title": "【演示】银白羽毛球拍单拍",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 25,
+      "description": "【合成演示商品，非真实出售】单支球拍，拍杆与握把见图片。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/22-1.jpg",
+        "products/22-2.jpg",
+        "products/22-3.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN0102O1yZaQOSK2BxV2_!!4611686018427380123-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "c4c2679da75a2d98b7e649a394901754ec2afd39769348d6424a6bf2d451f658",
+          "sha256": "3ec7c7b23760a2e3c6063289c04750768e7a19c94ca6a02d3537ceec12fb9db8"
+        },
+        {
+          "sourceFile": "O1CN01r6koua6tJlD2BxV2_!!4611686018427380123-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "dd544b1f530619919c35fde169ad177d5563d1dec91bed259e9c71dd2be74fa2",
+          "sha256": "5cb95e3f2c91d62cae707a8e06deda166b171f55fd569b307dbaaac41d2183d5"
+        },
+        {
+          "sourceFile": "O1CN01WSKz46QSwVK2BxV2_!!4611686018427380123-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+          "sourceSha256": "5771ea974183af4ed43ebf39eb558ae0be759f251d629e0dc951cc076c3c4226",
+          "sha256": "e67b8cbed729e1f18ea4b806c238a66314bba638d486e8f6253cf4d7596a194d"
+        }
+      ]
+    },
+    {
+      "key": "P23",
+      "title": "【演示】绿色球包羽毛球拍套装",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 45,
+      "description": "【合成演示商品，非真实出售】球拍及绿色收纳包，以图片中的配件为准。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/23-1.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01d7hTnD1UqeZ3u6gS5_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+          "sourceSha256": "36b6acc95151a0cefd847649d037afbd48f54c2bf7a77bc64501c6980b460929",
+          "sha256": "8460aee2ee42e17b7fa4ae3d8ecba2548efaf79d0c3317e8e9012b34bf733eb2"
+        }
+      ]
+    },
+    {
+      "key": "P24",
+      "title": "【演示】白色羽毛球拍双拍",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 32,
+      "description": "【合成演示商品，非真实出售】白色配色双拍，适合校园课外运动。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/24-1.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01yoS9cq1UqeZ3lpXVQ_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+          "sourceSha256": "f39fd73d9dacb11d2e39f50cb000e8855a466823c690b3b185791c6bfc11585d",
+          "sha256": "4836c4e4456311b6f1d4d7feffdd75680b4d4392ea8f8c5c2426dc968b53eec6"
+        }
+      ]
+    },
+    {
+      "key": "P25",
+      "title": "【演示】训练用羽毛球拍单拍",
+      "category": "SPORTS",
+      "condition": "GOOD",
+      "price": 15,
+      "description": "【合成演示商品，非真实出售】单支球拍及收纳套，用于商品治理演示。价格与交易记录仅用于功能展示。校内交接，具体位置聊天确认。",
+      "images": [
+        "products/25-1.jpg"
+      ],
+      "provenance": [
+        {
+          "sourceFile": "O1CN01YZV2NC1UqeZ4cCo7T_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+          "sourceSha256": "8b4d2497e1b1029d9b01b50a8e0a3997abd21a7e2cc20aad374df9536945d34c",
+          "sha256": "8d071de1ef4fc71b4f50af8e853729750c4f2ae3305baa7f005d0af1de1894bd"
+        }
+      ]
+    }
+  ],
+  "excluded": {
+    "screenshots": 28,
+    "unusedPhotos": [
+      "O1CN011hQMsdBKwgI1pITk_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN011OFYqmcCw3I2BxNI_!!4611686018427387298-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01AMbSeqHRaMF2BxNI_!!4611686018427381096-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01aRZquY2KbPPs4gdNb_!!4611686018427383063-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01auVkXn1hKDbBGxEoS_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01aY9FD5dGTBL2vHAO_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01C4E6051yAuzF6lGRQ_!!4611686018427379979-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01cC9Py41CDZVMVZi5B_!!53-fleamarket.heic_220x10000Q90.jpg_.webp",
+      "O1CN01DyU2MK1hKDbBUYyf7_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01GKNLcB2KbPPrAgp3L_!!4611686018427383063-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01jrCaVO1hKDbBaZsKF_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01KylKKP2hy3E2vHAO_!!4611686018427384615-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01LioMf3PPvkI2b8N2_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01LqSsGB1yAuzEnB7oZ_!!4611686018427379979-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01nTAcc9BfXfF2vHAO_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01o3mSmW2KbPPrzD4Sb_!!4611686018427383063-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01ObTFkxzim5F2vHAO_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01oeLAACNgzgI2vHAO_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01qQUvb71CDZVJuOPCy_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01QvPrJ2EfyYJ2vHAO_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01S1Y2ysOtSLE1klhQ_!!4611686018427387298-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01subUkr1hKDbD0FbAr_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01sVDACH1CDZVLfVDCl_!!0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01XCktEyXJcvE1klhQ_!!4611686018427387298-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01XkE0x61hKDbBRmHdW_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01xuairz1hKDbBUuCZZ_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01xzebbk1hKDbBGxAfN_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01YHy4tJsuXeC2vHAO_!!4611686018427380058-0-xy_item.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01yOQGs51hKDbBRmLnm_!!4611686018427381810-0-fleamarket.jpg_220x10000Q90.jpg_.webp",
+      "O1CN01yyJtXa1UqeZ35C7nx_!!4611686018427383769-53-fleamarket.heic_220x10000Q90.jpg_.webp",
+      "O1CN01ZcFhzC2KbPPqTztdu_!!4611686018427383063-0-fleamarket.jpg_220x10000Q90.jpg_.webp"
+    ],
+    "reason": "跳过说明截图、带店铺水印或促销字样、含多余人物或无需重复使用的图片。"
+  }
+}

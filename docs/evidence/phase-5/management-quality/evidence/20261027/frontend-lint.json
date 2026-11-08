@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "npm.cmd",
+    "run",
+    "lint"
+  ],
+  "cwd": "frontend",
+  "startedAt": "2026-10-27T01:59:53.724236+00:00",
+  "endedAt": "2026-10-27T02:00:04.086017+00:00",
+  "exitCode": 0,
+  "output": "frontend-lint.txt",
+  "sha256": "98cdc628d09a5242698fda93e945f0e0efa0645207f11c522f5bffab308bd486"
+}

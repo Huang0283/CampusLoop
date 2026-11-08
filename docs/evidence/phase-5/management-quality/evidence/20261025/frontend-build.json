@@ -1,0 +1,16 @@
+{
+  "label": "frontend-build",
+  "command": [
+    "cmd",
+    "/c",
+    "npm",
+    "run",
+    "build"
+  ],
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "startedAt": "2026-10-25T04:58:54.992628+00:00",
+  "elapsedSeconds": 4.705,
+  "exitCode": 0,
+  "output": "frontend-build.txt",
+  "sha256": "73cecc7e855861e9cbf5ef64b10011b8ecf16c1eafc58152db67be88b0088343"
+}

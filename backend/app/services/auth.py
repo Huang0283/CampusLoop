@@ -55,15 +55,23 @@ def authenticate(
     db: Session, token: str, *, allow_logout_replay: bool = False
 ) -> tuple[User, AuthSessionFamily]:
     claims = decode_access(token)
-    # Shared by protected reads/writes and revocation: user -> family -> refresh.
-    user = db.scalar(select(User).where(User.id == int(claims["sub"])).with_for_update())
+    # Keep user -> family -> refresh ordering and same-user serialization.
+    # NO KEY UPDATE permits FK KEY SHARE checks for peer notifications; UPDATE
+    # would deadlock when both participants authenticate and notify each other.
+    user = db.scalar(
+        select(User).where(User.id == int(claims["sub"])).with_for_update(key_share=True)
+    )
     family = db.scalar(
         select(AuthSessionFamily).where(AuthSessionFamily.id == claims["sid"]).with_for_update()
     )
     if not user or not family or family.user_id != user.id or family.expires_at <= utcnow():
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session unavailable.")
     if user.status != "ACTIVE":
-        raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
+        from app.services.appeal_access import disabled_error
+
+        if family.revoked_at and family.revocation_reason != "disabled":
+            raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session revoked.")
+        raise disabled_error(user)
     if family.revoked_at and not (allow_logout_replay and family.revocation_reason == "logout"):
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session revoked.")
     return user, family
@@ -125,7 +133,10 @@ def browser_session(db: Session, request: Request, *, allow_revoked=False):
     )
     if not reference:
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session unavailable.")
-    user = db.scalar(select(User).where(User.id == reference.user_id).with_for_update())
+    # Match bearer authorization: serialize this user without blocking peer FKs.
+    user = db.scalar(
+        select(User).where(User.id == reference.user_id).with_for_update(key_share=True)
+    )
     family = db.scalar(
         select(AuthSessionFamily)
         .where(AuthSessionFamily.id == reference.id)
@@ -136,11 +147,15 @@ def browser_session(db: Session, request: Request, *, allow_revoked=False):
         not user
         or not family
         or family.expires_at <= utcnow()
-        or (family.revoked_at and not allow_revoked)
+        or (family.revoked_at and family.revocation_reason != "disabled" and not allow_revoked)
     ):
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session expired or revoked.")
     if user.status != "ACTIVE" and not allow_revoked:
-        raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
+        from app.services.appeal_access import disabled_error
+
+        raise disabled_error(user)
+    if family.revoked_at and not allow_revoked:
+        raise BusinessError(401, "AUTH_UNAUTHORIZED", "Browser session expired or revoked.")
     return user, family
 
 

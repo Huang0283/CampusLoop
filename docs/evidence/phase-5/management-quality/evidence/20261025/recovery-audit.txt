@@ -1,0 +1,8 @@
+campusloop-mq5-audit-worker-1
+backupBytes 222746 sha256 cfa9c61bfb4281d8cfd4ef5323380941c8e7afd540b91e26918ac8f13e0ce20d
+CREATE DATABASE
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\CampusLoop\.codex-tmp\mq-p5-candidate\.codex-tmp\recovery_audit.py", line 21, in <module>
+    a=json.loads(before);b=json.loads(after);assert a==b,'restored table facts or constraints differ'
+                                                    ^^^^
+AssertionError: restored table facts or constraints differ

@@ -1,0 +1,15 @@
+{
+  "label": "degraded-ui",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "node",
+    "../mq-p5-m10/scripts/quality_phase5/rehearse_degraded.mjs",
+    "frontend"
+  ],
+  "startedAt": "2026-10-25T05:13:25.470803+00:00",
+  "endedAt": "2026-10-25T05:13:36.791227+00:00",
+  "elapsedSeconds": 11.32,
+  "exitCode": 0,
+  "output": "degraded-ui.txt",
+  "sha256": "4f9767e616495e82c2b0736c0988491e4ebc2dfd764283a1ef2f03ef2361d201"
+}

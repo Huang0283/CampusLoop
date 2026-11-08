@@ -1,0 +1,21 @@
+{
+  "sourceImagesUnchanged": 34,
+  "newProducts": 15,
+  "newCategoryCounts": {
+    "DAILY": 2,
+    "other": 13
+  },
+  "sourceImagesUnaccounted": 0,
+  "sourceScreenshotsUsedAsGallery": 0,
+  "seedIdempotencyPassed": true,
+  "pytest": {
+    "command": "python -m pytest tests/test_showcase_catalog.py tests/test_seed_idempotency.py -q",
+    "passed": 11
+  },
+  "auditDatabase": "campusloop_recovered_audit_20261030",
+  "auditRedisDatabase": 15,
+  "livePhotosVerified": 696,
+  "browserChecks": 36,
+  "browserPageErrors": 0,
+  "accountAndBusinessStatePreserved": true
+}

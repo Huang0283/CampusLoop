@@ -1,0 +1,68 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.77kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.1s
+
+#3 [ 1/13] FROM docker.io/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f
+#3 resolve docker.io/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 1.20MB 0.1s
+#4 transferring context: 2.10MB 0.2s done
+#4 DONE 0.2s
+
+#5 [ 2/13] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [ 3/13] WORKDIR /srv/campusloop/backend
+#6 CACHED
+
+#7 [ 4/13] COPY backend/requirements.txt .
+#7 CACHED
+
+#8 [ 5/13] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+
+#9 [ 6/13] COPY backend/ .
+#9 DONE 0.0s
+
+#10 [ 7/13] COPY services/ ../services/
+#10 DONE 0.1s
+
+#11 [ 8/13] COPY scripts/ ../scripts/
+#11 DONE 0.0s
+
+#12 [ 9/13] COPY schemas/ ../schemas/
+#12 DONE 0.1s
+
+#13 [10/13] COPY contracts/ ../contracts/
+#13 DONE 0.1s
+
+#14 [11/13] COPY data/ ../data/
+#14 DONE 0.1s
+
+#15 [12/13] RUN useradd --create-home appuser && chown -R appuser:appuser /srv/campusloop
+#15 DONE 1.2s
+
+#16 [13/13] RUN mkdir -p /data && echo '{}' > /data/.keep && chown -R appuser:appuser /data
+#16 DONE 0.3s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 0.5s done
+#17 exporting manifest sha256:e9225a5a2609c3e82e10d2351e55fae2a2ae7feebd6f0d168c3520418aa6e37d 0.0s done
+#17 exporting config sha256:a4e4218a5ac50edee13915ace46ca0efb5e131dbe77c7d1cb6005a19063c759f 0.0s done
+#17 exporting attestation manifest sha256:23d84aa7906d394b134b4d43d274e063c9cc94b6e698a69df955a341096523ca 0.0s done
+#17 exporting manifest list sha256:6f256a48a0094e40901f8c06dd1249a1187162d91aeb5342593c989895608294 0.0s done
+#17 naming to docker.io/library/campusloop-mq5-api:50108a3
+#17 naming to docker.io/library/campusloop-mq5-api:50108a3 done
+#17 unpacking to docker.io/library/campusloop-mq5-api:50108a3
+#17 unpacking to docker.io/library/campusloop-mq5-api:50108a3 0.2s done
+#17 DONE 0.9s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/a0oas5xz7bqmm79wkmhc6tcy6

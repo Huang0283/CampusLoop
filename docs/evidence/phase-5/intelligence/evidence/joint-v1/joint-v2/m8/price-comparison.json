@@ -1,0 +1,952 @@
+{
+  "comparison": {
+    "baselineMetrics": {
+      "eligibleL3Count": 0,
+      "intervalCoverage": null,
+      "maeFen": null,
+      "mape": null,
+      "nmae": null,
+      "normalizedWidth": null,
+      "reason": "No eligible L3 completed-transaction labels; listing and accepted-offer prices are not truth.",
+      "status": "NOT_EVALUATED"
+    },
+    "baselineVersion": "m8-price-rule-v1",
+    "candidateMetrics": {
+      "eligibleL3Count": 0,
+      "intervalCoverage": null,
+      "maeFen": null,
+      "mape": null,
+      "nmae": null,
+      "normalizedWidth": null,
+      "reason": "Candidate was not trained because the data gate is NO_GO.",
+      "status": "NOT_EVALUATED"
+    },
+    "candidateState": "NOT_TRAINED_GATE_NO_GO",
+    "candidateVersion": "m8-price-candidate-v1",
+    "fallbackParityRate": 1.0
+  },
+  "datasetVersion": "m8-price-eval-v1",
+  "decision": "NO_GO",
+  "drift": {
+    "categoryCounts": {
+      "books": 2,
+      "clothing": 1,
+      "digital": 3,
+      "household": 2,
+      "other": 2,
+      "sports": 2
+    },
+    "monthCounts": {
+      "2026-09": 12
+    },
+    "reason": "No eligible labeled time slices; counts are descriptive only.",
+    "status": "NOT_EVALUATED"
+  },
+  "evaluationVersion": "m8-price-phase4-eval-v1",
+  "results": [
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_0_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 528000,
+            "upper": 600000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_0_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 528000,
+            "upper": 600000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "digital",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-001",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_LIKE_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_18_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 207000,
+            "upper": 256000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_LIKE_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_18_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 207000,
+            "upper": 256000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "digital",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-002",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_24_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 2500,
+            "upper": 4000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_24_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 2500,
+            "upper": 4000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "books",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-003",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_FAIR",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_30_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 2000,
+            "upper": 5000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_FAIR",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_30_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 2000,
+            "upper": 5000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "household",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-004",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_LIKE_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_12_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 28000,
+            "upper": 35000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_LIKE_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_12_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 28000,
+            "upper": 35000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "clothing",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-005",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_36_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 53000,
+            "upper": 85500
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_36_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 53000,
+            "upper": 85500
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "sports",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-006",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_FAIR",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_48_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 3100,
+            "upper": 7600
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_FAIR",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_48_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 3100,
+            "upper": 7600
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "other",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-007",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_UNKNOWN",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 82500,
+            "upper": 120000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_UNKNOWN",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 82500,
+            "upper": 120000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "digital",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-008",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_0_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 4400,
+            "upper": 5000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_0_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 4400,
+            "upper": 5000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "books",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-009",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_20_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 30000,
+            "upper": 49000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_GOOD",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_20_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            },
+            {
+              "code": "DEFECT_OR_ACCESSORY_PENALTY",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺陷或配件不完整使建议区间下调"
+            }
+          ],
+          "intervalFen": {
+            "lower": 30000,
+            "upper": 49000
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "household",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-010",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_LIKE_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_6_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 62000,
+            "upper": 76500
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "LOW",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "CONDITION_LIKE_NEW",
+              "effect": "RULE_FACTOR",
+              "explanation": "商品成色影响价格区间"
+            },
+            {
+              "code": "AGE_6_MONTHS",
+              "effect": "RULE_FACTOR",
+              "explanation": "购买年限影响折旧；未知年限按中性处理"
+            }
+          ],
+          "intervalFen": {
+            "lower": 62000,
+            "upper": 76500
+          },
+          "sampleSize": 0,
+          "status": "LOW_CONFIDENCE"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "sports",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-011",
+      "transactionPriceFen": null
+    },
+    {
+      "baseline": {
+        "candidateRequested": false,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "INSUFFICIENT",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "ORIGINAL_PRICE_MISSING",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺少经批准的原价锚点，无法生成区间"
+            }
+          ],
+          "intervalFen": {
+            "lower": null,
+            "upper": null
+          },
+          "sampleSize": 0,
+          "status": "INSUFFICIENT_DATA"
+        },
+        "fallbackApplied": false,
+        "fallbackReason": "CANDIDATE_DISABLED",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "candidateRoute": {
+        "candidateRequested": true,
+        "data": {
+          "algorithmVersion": "m8-price-rule-v1",
+          "confidence": "INSUFFICIENT",
+          "degradationReason": "NO_ELIGIBLE_L3_LABELS",
+          "degraded": true,
+          "disclaimer": "规则区间仅供发布者参考，不保证成交；请结合实际成色与市场情况自主定价。",
+          "factors": [
+            {
+              "code": "ORIGINAL_PRICE_MISSING",
+              "effect": "RULE_FACTOR",
+              "explanation": "缺少经批准的原价锚点，无法生成区间"
+            }
+          ],
+          "intervalFen": {
+            "lower": null,
+            "upper": null
+          },
+          "sampleSize": 0,
+          "status": "INSUFFICIENT_DATA"
+        },
+        "fallbackApplied": true,
+        "fallbackReason": "DATA_OR_APPROVAL_GATE_NO_GO",
+        "routerVersion": "m8-price-phase4-router-v1",
+        "selectedEngine": "PHASE3_RULE_BASELINE"
+      },
+      "category": "other",
+      "labelLevel": "L0_SYNTHETIC",
+      "listedMonth": "2026-09",
+      "sameOutputAfterFallback": true,
+      "sampleId": "m8-syn-012",
+      "transactionPriceFen": null
+    }
+  ]
+}

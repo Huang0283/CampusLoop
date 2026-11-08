@@ -1,0 +1,18 @@
+{
+  "label": "seed-idempotency",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "exec",
+    "campusloop-mq5-audit-api-1",
+    "python",
+    "scripts/seed.py",
+    "--check"
+  ],
+  "startedAt": "2026-10-25T05:14:55.933256+00:00",
+  "endedAt": "2026-10-25T05:14:57.199741+00:00",
+  "elapsedSeconds": 1.266,
+  "exitCode": 0,
+  "output": "seed-idempotency.txt",
+  "sha256": "95f29721e5601b889c76b585c6ab3b04a9b4f40fb26ac971c41f81cbd6465ced"
+}

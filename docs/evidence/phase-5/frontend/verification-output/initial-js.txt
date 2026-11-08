@@ -1,0 +1,36 @@
+┌─────────┬──────────┬───────────┬─────────┬───────────┐
+│ (index) │ build    │ route     │ jsFiles │ decodedKB │
+├─────────┼──────────┼───────────┼─────────┼───────────┤
+│ 0       │ 'before' │ '/market' │ 1       │ 1465.01   │
+│ 1       │ 'before' │ '/login'  │ 1       │ 1465.01   │
+│ 2       │ 'after'  │ '/market' │ 12      │ 1187.15   │
+│ 3       │ 'after'  │ '/login'  │ 6       │ 950.78    │
+└─────────┴──────────┴───────────┴─────────┴───────────┘
+
+before /market
+/assets/index-DPuACycc.js: 1465007 bytes
+
+before /login
+/assets/index-DPuACycc.js: 1465007 bytes
+
+after /market
+/assets/form-DmhLem5r.js: 26471 bytes
+/assets/idempotency-Dj50bUDm.js: 1311 bytes
+/assets/index-DnK7nUZQ.js: 906130 bytes
+/assets/input-number-BDXVKwoQ.js: 20686 bytes
+/assets/MarketPages-llXTFmWQ.js: 34460 bytes
+/assets/MessageFilled-BANr2889.js: 1263 bytes
+/assets/pagination-Bv79u347.js: 23770 bytes
+/assets/ReportButton-gOw69f4n.js: 101095 bytes
+/assets/reportReasons-Fn36EMKH.js: 554 bytes
+/assets/rolldown-runtime-WkwZ5CU-.js: 599 bytes
+/assets/row-F4DX9UCD.js: 4256 bytes
+/assets/select-CgKrb79F.js: 66551 bytes
+
+after /login
+/assets/AccountPages-zLhJTHhx.js: 7076 bytes
+/assets/form-DmhLem5r.js: 26471 bytes
+/assets/index-DnK7nUZQ.js: 906130 bytes
+/assets/rate-D_RyaABH.js: 6250 bytes
+/assets/rolldown-runtime-WkwZ5CU-.js: 599 bytes
+/assets/row-F4DX9UCD.js: 4256 bytes

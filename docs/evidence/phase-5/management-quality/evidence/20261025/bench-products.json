@@ -1,0 +1,20 @@
+{
+  "label": "bench-products",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "python",
+    "backend/scripts/api_bench.py",
+    "--url",
+    "http://127.0.0.1:8025/products?page=1&pageSize=12",
+    "--requests",
+    "100",
+    "--concurrency",
+    "10"
+  ],
+  "startedAt": "2026-10-25T05:02:52.479064+00:00",
+  "endedAt": "2026-10-25T05:02:53.320559+00:00",
+  "elapsedSeconds": 0.841,
+  "exitCode": 0,
+  "output": "bench-products.txt",
+  "sha256": "ac7cdfff3adf968975f216f72f5a1ddf34e17a295599f68f623d3c7613404c44"
+}

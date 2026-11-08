@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "additionalBicycle303OnlyWeakRelevant": true,
+    "allJsonParse": true,
+    "allOriginalFailureRowsRetained": true,
+    "baselineAndServiceV3Pass": true,
+    "candidateDecisionStillNoGo": true,
+    "candidateMetricsUnchanged": true,
+    "dataHashesUnchanged": true,
+    "documentLinksResolve": true,
+    "fullCandidateVerifyPass": true,
+    "immutableSourceSnapshotsMatch": true,
+    "noAnswerExampleEmpty": true,
+    "productionAssetsUnchanged": true
+  },
+  "mainDocumentHashes": {
+    "README.md": "162cef26a951aee8bb71a5ed0cdd3cd61f8aa87d575aff17d4d57cf1456e27d7",
+    "deliverables.md": "8d29e3a0b56a428f7630f4a5475a9dc6d34b6907f129faabc5387b52a0c3cbb3",
+    "handoff.md": "7d87463284d227e1902fc64cd7bb046a8f9a37d9e14f0528774d7dd34223754f",
+    "search-data-documentation.md": "5b4f5c504567e439d5bceefc87e0da476c840bef255afc9c5d82f6809de44bc1",
+    "search-limitations.md": "8f681e88c6ccc52226cc57a6c4e4d57b2fed0f7fc39e1e87df95408146b47b3c",
+    "search-release-manifest.md": "2f55504b1fb787f3c9d9f1f80be3e4289e990b0c43a1ace3163eacbe3cf8f2ad",
+    "search-reproduction-guide.md": "05038d5e15d210c2ce42f2a216203d78fb84f1c994a2acbdd2112e3ae45412da",
+    "verification.md": "71f55fa1e7770bcc8a7e568e1f81a27bbf9dc38b29fc339ceb686580050373ca"
+  },
+  "status": "PASS"
+}

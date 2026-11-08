@@ -1,0 +1,14 @@
+{
+  "authorizationVersion": "m8-transaction-authorization-v1",
+  "sourceId": "PDS-02",
+  "purpose": "price_candidate_training_and_evaluation",
+  "status": "PENDING",
+  "dataMinimizationConfirmed": false,
+  "retentionDays": null,
+  "approvedFields": [],
+  "approvals": {
+    "M5": null,
+    "M6": null
+  },
+  "note": "Pending owner approval. This file deliberately does not claim authorization."
+}

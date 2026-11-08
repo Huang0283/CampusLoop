@@ -1,0 +1,126 @@
+{
+  "page": "/register",
+  "details": [
+    {
+      "rule": "color-contrast",
+      "target": [
+        ".ant-alert-description"
+      ],
+      "html": "<div class=\"ant-alert-description\">请填写类似 name@example.invalid 或 name@example.com 的测试邮箱，并自行设置密码。无需真实邮箱，也不会发送验证码；这不代表真实学校身份认证。已有账号请直接登录。</div>",
+      "checks": [
+        {
+          "id": "color-contrast",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "data": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ],
+      "rendered": {
+        "text": "请填写类似 name@example.invalid 或 name@example.com 的测试邮箱，并自行设置密码。无需真实邮箱，也不会发送验证码；这不代表真实学校身份认证。已有账号请直接登录。",
+        "color": "rgba(0, 0, 0, 0.88)",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "backgrounds": [
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-alert-description"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-alert-section"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-alert",
+              "ant-alert-info",
+              "ant-alert-outlined",
+              "ant-alert-with-description",
+              "ant-alert-no-icon",
+              "css-var-_r_0_",
+              "css-dev-only-do-not-override-19u5a7b"
+            ],
+            "backgroundColor": "rgb(230, 244, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "SECTION",
+            "classes": [
+              "auth-card"
+            ],
+            "backgroundColor": "rgb(255, 255, 255)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "auth-stage"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "MAIN",
+            "classes": [
+              "campus-content"
+            ],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [
+              "ant-layout",
+              "campus-app",
+              "css-dev-only-do-not-override-19u5a7b",
+              "css-var-_r_0_"
+            ],
+            "backgroundColor": "rgb(245, 246, 248)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "DIV",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "BODY",
+            "classes": [],
+            "backgroundColor": "rgb(245, 245, 245)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          },
+          {
+            "tag": "HTML",
+            "classes": [],
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "backgroundImage": "none",
+            "opacity": "1"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campusloop.local/schemas/m8-phase4/authorized-order-export.schema.json",
+  "title": "M8 authorized, minimized completed-order export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "orderReference", "status", "buyerConfirmedComplete",
+    "sellerConfirmedComplete", "amountFen", "category", "brand", "model",
+    "condition", "originalPriceFen", "purchaseAgeMonths", "accessoryState",
+    "defectTags", "listedAt", "completedAt", "extractedAt", "refundStatus",
+    "disputeStatus", "invalidated"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "m8-authorized-order-v1"},
+    "orderReference": {"type": "string", "minLength": 1},
+    "status": {"enum": ["COMPLETED", "CANCELLED", "DISPUTED"]},
+    "buyerConfirmedComplete": {"type": "boolean"},
+    "sellerConfirmedComplete": {"type": "boolean"},
+    "amountFen": {"type": "integer", "minimum": 1, "maximum": 9999999999},
+    "category": {"enum": ["digital", "books", "household", "clothing", "sports", "other"]},
+    "brand": {"type": ["string", "null"]},
+    "model": {"type": ["string", "null"]},
+    "condition": {"enum": ["new", "like_new", "good", "fair"]},
+    "originalPriceFen": {"type": ["integer", "null"], "minimum": 1, "maximum": 9999999999},
+    "purchaseAgeMonths": {"type": ["integer", "null"], "minimum": 0, "maximum": 600},
+    "accessoryState": {"enum": ["complete", "partial", "unknown"]},
+    "defectTags": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "listedAt": {"type": "string", "format": "date-time"},
+    "completedAt": {"type": ["string", "null"], "format": "date-time"},
+    "extractedAt": {"type": "string", "format": "date-time"},
+    "refundStatus": {"enum": ["NONE", "REQUESTED", "APPROVED", "COMPLETED", "REJECTED"]},
+    "disputeStatus": {"enum": ["NONE", "OPEN", "RESOLVED"]},
+    "invalidated": {"type": "boolean"}
+  }
+}

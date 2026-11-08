@@ -1,0 +1,15 @@
+{
+  "label": "browser-final",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "node",
+    "node_modules/@playwright/test/cli.js",
+    "test"
+  ],
+  "startedAt": "2026-10-25T05:02:32.642396+00:00",
+  "endedAt": "2026-10-25T05:06:09.051739+00:00",
+  "elapsedSeconds": 216.409,
+  "exitCode": 0,
+  "output": "browser-final.txt",
+  "sha256": "3e5d29f07999cdad16f4ae0e33c7214dc1a8375f02e34015a2bac8f9f0a5e753"
+}

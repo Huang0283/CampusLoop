@@ -1,0 +1,32 @@
+{
+  "label": "backend-final",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "campusloop-mq5-audit_default",
+    "--env-file",
+    ".codex-tmp/test.env",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\mq-p5-candidate,target=/workspace,readonly",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\mq-p5-candidate\\.codex-tmp\\runs,target=/evidence",
+    "-w",
+    "/workspace/backend",
+    "campusloop-mq5-api:50108a3",
+    "python",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=/evidence/backend-junit.xml"
+  ],
+  "startedAt": "2026-10-25T04:59:32.710427+00:00",
+  "endedAt": "2026-10-25T05:00:14.093507+00:00",
+  "elapsedSeconds": 41.383,
+  "exitCode": 0,
+  "output": "backend-final.txt",
+  "sha256": "e69dfb88f45e0246c11fad1286161224bf20690a2f4a4cb71582632a83862554"
+}

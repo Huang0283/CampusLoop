@@ -1,0 +1,18 @@
+{
+  "label": "rehearsal-off",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "node",
+    "node_modules/@playwright/test/cli.js",
+    "test",
+    "journey.spec.ts",
+    "--grep",
+    "real two-account|wanted constraints"
+  ],
+  "startedAt": "2026-10-25T05:11:43.987383+00:00",
+  "endedAt": "2026-10-25T05:12:22.917029+00:00",
+  "elapsedSeconds": 38.93,
+  "exitCode": 1,
+  "output": "rehearsal-off.txt",
+  "sha256": "948c0f3c2abef621e06aa659bc79420952627688dfafa5d728b943f64878b7f1"
+}

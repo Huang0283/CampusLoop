@@ -1,0 +1,31 @@
+[seed] 第一遍写入：
+  users            +0
+  products         +0
+  product_images   +0
+  favorites        +0
+  wanted_posts     +0
+  chat_sessions    +0
+  chat_messages    +0
+  offers           +0
+  orders           +0
+  order_events     +0
+  meetups          +0
+  reviews          +0
+  reports          +0
+  notifications    +0
+[seed] 第二遍写入（幂等性验证）：
+  users            +0
+  products         +0
+  product_images   +0
+  favorites        +0
+  wanted_posts     +0
+  chat_sessions    +0
+  chat_messages    +0
+  offers           +0
+  orders           +0
+  order_events     +0
+  meetups          +0
+  reviews          +0
+  reports          +0
+  notifications    +0
+[seed][PASS] 两遍执行结果完全一致： {'users': 121, 'products': 39, 'product_images': 35, 'favorites': 4, 'wanted_posts': 13, 'chat_sessions': 20, 'chat_messages': 24, 'offers': 18, 'orders': 18, 'order_events': 60, 'meetups': 9, 'reviews': 7, 'reports': 16, 'notifications': 273}

@@ -16,7 +16,8 @@ from app.services.ai_adapters import price_payload
 from app.services.auth import Actor, Db, administrator
 from app.services.business import load
 from app.services.governance import read_audit, trust_view
-from app.services.intelligence import CATEGORIES, CONDITIONS, rank_live
+from app.services.intelligence import CATEGORIES, CONDITIONS, PRICE_CATEGORIES, rank_live
+from app.services.listing_price_reference import listing_price_reference
 
 router = APIRouter(tags=["Intelligence"])
 
@@ -161,7 +162,7 @@ def search(
         {
             "items": all_items[(page - 1) * pageSize : page * pageSize],
             "pagination": {"page": page, "pageSize": pageSize, "total": len(all_items)},
-            "mode": "keyword",
+            "mode": metadata["mode"],
             "degraded": metadata["degraded"],
             "degradationReason": metadata["fallbackReason"] or "",
             "resultVersion": version,
@@ -202,15 +203,16 @@ def matches(wantedId: int, db: Db, actor: Actor):
 class PriceInput(StrictInput):
     category: str
     condition: str
-    title: str = ""
+    title: str = Field(default="", max_length=100)
     description: str = ""
     originalPrice: float | int | None = Field(default=None, gt=0, le=99999999.99)
 
 
 @router.post("/price-advice", operation_id="getPriceAdvice")
 def price_advice(body: PriceInput, db: Db, actor: Actor):
+    category = CATEGORIES.get(body.category, body.category)
     payload = {
-        "category": CATEGORIES.get(body.category, body.category),
+        "category": PRICE_CATEGORIES.get(category, category),
         "condition": CONDITIONS.get(body.condition, body.condition),
         "originalPriceFen": round(body.originalPrice * 100)
         if body.originalPrice is not None
@@ -237,5 +239,12 @@ def price_advice(body: PriceInput, db: Db, actor: Actor):
                 "Unavailable; enter a price manually. No guaranteed transaction price.",
             ),
             "resultVersion": result.get("algorithmVersion", "m8-unavailable-v1"),
+            "marketReference": listing_price_reference(
+                db,
+                category=body.category,
+                condition=body.condition,
+                keyword=body.title,
+                user_id=actor.id,
+            ),
         }
     )

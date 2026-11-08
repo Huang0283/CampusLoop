@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "C:/Users/Administrator/AppData/Roaming/uv/python/cpython-3.12.14-windows-x86_64-none/python.exe",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m8_phase4/tests",
+    "-v"
+  ],
+  "cwd": ".",
+  "startedAt": "2026-10-27T02:13:25.283812+00:00",
+  "endedAt": "2026-10-27T02:13:29.807386+00:00",
+  "exitCode": 0,
+  "output": "m8-phase4.txt",
+  "sha256": "ab2f9ce30c4ae69939472feb56aafcbffb051e968bec1efd347d5ea7f8bc3ea3"
+}

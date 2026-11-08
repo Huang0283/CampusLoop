@@ -1,0 +1,210 @@
+{
+  "assets": [
+    {
+      "gitBlobSha256": "6f66070283215ec9c20fea4b9d288f2b68fa1abd054c1f9a65ad73458140e1d8",
+      "path": "scripts/m7_phase2/pipeline.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "701bdda8fb1257e9b7380816bc8201dcbac3e5c16dd416a3851ad2b46e0fa8d0",
+      "path": "scripts/m7_phase2/requirements.txt",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "1290e883b64d2262c73729015583226f80dd1a4172aff717573166a0c8bf993e",
+      "path": "scripts/intelligence_phase2/metrics.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "881aef21b8f7ae375c86d352bdcac086e6b822ad079d8709c754a7c9c9a8521d",
+      "path": "schemas/m7-phase2/dataset.schema.json",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "99e17080dfff6bd694acec4b719be93110f6a34a31bd53acb79a140cc4960a23",
+      "path": "schemas/m7-phase3/rpc.schema.json",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "9aeff1c32fd6c229e447ff259434832f8aaee10dba9785184e6c792ba61862a3",
+      "path": "contracts/m7-phase2/development-policy.json",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "749d128e45fd805e1502110837db41d97e9da3d0e9223e9a8a99bf0854a1a21d",
+      "path": "services/m7_baseline/engine.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "98baa0d5fd7871bb3159054347af6cc7e10ac0e8c7258c150352200b0b01b214",
+      "path": "services/m7_baseline/store.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "8ad4b82fde7d3035d9f65ef87753b2a07e78826152459ab7be8399be62c65da0",
+      "path": "services/m7_baseline/http_service.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "917c9a437040a20be257a40b3f0b66e28a462d17ad0708d38d4ce7f47b0a1352",
+      "path": "services/m7_baseline/client.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "7cd294d49eee717384d7a31734ea1a78f5cc123080c61eb6655963e64834f93f",
+      "path": "services/m7_baseline/evaluate.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "ab583bef456139247120b15621f8c6b93f445546d2024481629222f8ef6957c7",
+      "path": "services/m7_baseline/verify.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "324cc1d83365d3b806889de9c97cbb9f464bcc643a5a97124bc4aa8218f4aff8",
+      "path": "services/m7_baseline/review_archive.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "ce46f651eb9a7bdc4325c530512ee0fae957a86c21e45a8296f7a91a6a74d1bb",
+      "path": "services/m7_baseline/example_request.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "cebcaf9f53bda1976f65b23451344596034c925a07d61e5b0f5fe7a6b63af16d",
+      "path": "backend/app/services/intelligence.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "d2f80bedf36d1f6fe8cb1453581acefe73280ba60da573e38358f79d941f83ff",
+      "path": "backend/app/services/matching_jobs.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "6deb452c25026b98d320e36aa60ec622bb9fad98cfaddb91eeb82bad7f81f912",
+      "path": "backend/app/api/routes/intelligence.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "dac32e09db92167170b718b53600ebfd1600088185715c497b9c753bfc6ee2c0",
+      "path": "backend/app/schemas/business.py",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "910fc5654c435ac682f7b9a3ed5cd6854587d7aaf98ff2080e744fc508938fa4",
+      "path": "frontend/src/sdk/generated/types.gen.ts",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "46d41cf5fb8585b5b4d6b72edff90dcded8364a1c29de551112e547218dde34b",
+      "path": "frontend/src/live/MarketPages.tsx",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "7c5d73dcf75aea2947f390bf79426acae2b577b5afc8c3bf3ac24d6c1d1f4927",
+      "path": "frontend/src/pages/wanted/MatchResultPage.tsx",
+      "scope": "integrated-baseline",
+      "sourceCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff"
+    },
+    {
+      "gitBlobSha256": "9b09c640990068a8258082d192da8ce085ff0f6dd28790e4577710b1c2a33f55",
+      "path": "services/m7_semantic/model.py",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "09c53b7a828f6af447c9a972443758fd6a3ed84b623eb4723fcdf6fd4f7f8253",
+      "path": "services/m7_semantic/download.py",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "7b1a3481a08a4b740cccb5e0686cba624ed42625bf51d63d503f953cdd685570",
+      "path": "services/m7_semantic/index.py",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "ed2f8fd0b426cae473fbcb1553e93d33bf591dede7152973c952b9acd0b99359",
+      "path": "services/m7_semantic/hybrid.py",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "77406d0c69f20156abfc09dd266ecabdead878da72d52ca419eb2d2a5a25d8ef",
+      "path": "services/m7_semantic/__main__.py",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "4ac9112516678ca3c81967aa17aa71643b8f74875a630c956264a8417cb3768d",
+      "path": "services/m7_semantic/evaluate.py",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "78c2af121c914656994a817c136837ce3fafe716220200ed4f29d612d5814a97",
+      "path": "services/m7_semantic/verify.py",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "abda27a3388545c76629303f0d91598644729efd4c2d368f1eb5477e5365fcbb",
+      "path": "services/m7_semantic/requirements.windows-cpu.lock.txt",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "68865c918d7671d78e125826000ff4a40cec4303031b0674b104ad2547f2acde",
+      "path": "docs/evidence/phase-4/intelligence/model-config.candidate.json",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    },
+    {
+      "gitBlobSha256": "1b3a462fde197de958e5ab27124bd36dd13bee5cc1f8133f51c41622a75f4133",
+      "path": "docs/evidence/phase-4/intelligence/source-provenance.json",
+      "scope": "experimental-candidate",
+      "sourceCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d"
+    }
+  ],
+  "candidateDecision": "NO_GO",
+  "candidateDeploymentEnabled": false,
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "experimentalCandidateCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+  "hashConvention": "SHA256 of git show <sourceCommit>:<path> bytes; not OS checkout line endings",
+  "independentDiagnosticEvidenceCommit": "1cc5cbf7633017ea69560cc2f43e0e308658b1da",
+  "integratedBaselineCommit": "6df25176866a6b1df2c1da5dcd28229b965f73ff",
+  "labelSource": "PENDING_HUMAN_REVIEW",
+  "labelVersion": "m7-label-draft-v1",
+  "observedOn": "2026-10-17",
+  "pageServiceReleaseVersionVerified": false,
+  "phase4FreezeCommit": null,
+  "phase4Tag": null,
+  "phase5IntegrationCommit": null,
+  "schemaVersion": "m7-p5-release-inventory-v1",
+  "selectedPath": "KEEP_PHASE3_BASELINE_PENDING_FINAL_FREEZE",
+  "status": "PREPARED_NOT_FINAL_RELEASE",
+  "testSetSealed": false,
+  "upstreamFreezeEvidenceCommit": "ae79224f418aafaaa9620a17a5dd8e64a9fef689",
+  "verifiedStructuredRecords": 0
+}

@@ -26,6 +26,7 @@ from app.schemas.auth import (
     RegisterRequest,
     UserStatusUpdate,
 )
+from app.services.appeal_access import disabled_error
 from app.services.auth import (
     Actor,
     Db,
@@ -44,7 +45,9 @@ from app.services.auth import (
     revoke_family,
 )
 from app.services.governance import read_audit
+from app.services.moderation import record_decision, restore_account
 from app.services.serializers import private_user, private_users, public_user
+from app.services.storage import owned_keys
 
 router = APIRouter(tags=["Auth"])
 
@@ -90,7 +93,7 @@ def login(body: LoginRequest, request: Request, response: Response, db: Db):
         login_failed(body.email)
         raise BusinessError(401, "AUTH_INVALID_CREDENTIALS", "Invalid credentials.")
     if user.status != "ACTIVE":
-        raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
+        raise disabled_error(user)
     if password_hasher.check_needs_rehash(user.password_hash):
         user.password_hash = hash_password(body.password)
     pair = new_session(db, user, request, response)
@@ -121,8 +124,16 @@ def refresh(body: RefreshRequest, response: Response, db: Db):
     now = utcnow()
     if not user or not family or family.user_id != user.id:
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session unavailable.")
+    if (
+        family.expires_at <= now
+        or row.expires_at <= now
+        or (family.revoked_at and family.revocation_reason != "disabled")
+    ):
+        raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session expired or revoked.")
     if user.status != "ACTIVE":
-        raise BusinessError(423, "ACCOUNT_DISABLED", "Account disabled.")
+        if row.consumed_at:
+            raise BusinessError(401, "AUTH_UNAUTHORIZED", "Refresh token already consumed.")
+        raise disabled_error(user)
     if family.revoked_at or family.expires_at <= now or row.expires_at <= now or row.revoked_at:
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session expired or revoked.")
     if row.consumed_at:
@@ -205,6 +216,8 @@ def get_current_user(response: Response, db: Db, actor: Actor):
 
 @router.patch("/users/me", operation_id="updateCurrentUser")
 def update_current_user(body: ProfileUpdate, response: Response, db: Db, actor: Actor):
+    if body.avatar is not None and body.avatar != actor.avatar_url:
+        owned_keys(db, actor, [body.avatar], "avatar")
     for key, value in body.model_dump(exclude_unset=True).items():
         setattr(actor, "avatar_url" if key == "avatar" else key, value)
     db.flush()
@@ -272,13 +285,17 @@ def admin_status(userId: int, body: UserStatusUpdate, db: Db, actor: Actor):
     if user.status != body.status:
         user.status = body.status
         if body.status == "DISABLED":
-            for family in db.scalars(
-                select(AuthSessionFamily)
-                .where(AuthSessionFamily.user_id == user.id)
-                .order_by(AuthSessionFamily.id)
-                .with_for_update()
-            ):
-                revoke_family(db, family, "disabled")
+            record_decision(
+                db,
+                user,
+                actor,
+                action="DISABLE",
+                reason=body.reason,
+                facts=body.reason,
+                basis="管理员人工审核；详细依据见处理说明。",
+            )
+        else:
+            restore_account(db, user, actor, body.reason)
         audit(
             db,
             "admin_user_" + body.status.lower(),

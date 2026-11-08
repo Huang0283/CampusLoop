@@ -1,0 +1,10 @@
+test_all_examples (test_contracts.ContractTests.test_all_examples) ... ok
+test_fallback_never_blocks (test_contracts.ContractTests.test_fallback_never_blocks) ... ok
+test_new_user_prior_is_not_public_rating (test_contracts.ContractTests.test_new_user_prior_is_not_public_rating) ... ok
+test_public_risk_leak_fails (test_contracts.ContractTests.test_public_risk_leak_fails) ... ok
+test_risk_decision_fails (test_contracts.ContractTests.test_risk_decision_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.004s
+
+OK

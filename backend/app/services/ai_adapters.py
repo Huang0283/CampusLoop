@@ -83,6 +83,8 @@ def valid_rank(result, baseline):
             item["productVersion"] != eligible[identity]["productVersion"]
         ):
             return False
+        if "relevanceScore" not in item:
+            return False
         score = item.get("relevanceScore")
         if score is not None and (
             type(score) not in (int, float) or not math.isfinite(score) or not 0 <= score <= 1

@@ -1,0 +1,95 @@
+{
+  "python": "3.12.15",
+  "packages": {
+    "fastapi": {
+      "required": "0.115.6",
+      "installed": "0.115.6",
+      "match": true
+    },
+    "uvicorn[standard]": {
+      "required": "0.32.1",
+      "installed": "0.32.1",
+      "match": true
+    },
+    "sqlalchemy": {
+      "required": "2.0.36",
+      "installed": "2.0.36",
+      "match": true
+    },
+    "alembic": {
+      "required": "1.14.0",
+      "installed": "1.14.0",
+      "match": true
+    },
+    "psycopg[binary]": {
+      "required": "3.2.3",
+      "installed": "3.2.3",
+      "match": true
+    },
+    "pgvector": {
+      "required": "0.3.6",
+      "installed": "0.3.6",
+      "match": true
+    },
+    "pydantic": {
+      "required": "2.10.3",
+      "installed": "2.10.3",
+      "match": true
+    },
+    "pydantic-settings": {
+      "required": "2.6.1",
+      "installed": "2.6.1",
+      "match": true
+    },
+    "redis": {
+      "required": "5.2.1",
+      "installed": "5.2.1",
+      "match": true
+    },
+    "argon2-cffi": {
+      "required": "23.1.0",
+      "installed": "23.1.0",
+      "match": true
+    },
+    "PyJWT": {
+      "required": "2.10.1",
+      "installed": "2.10.1",
+      "match": true
+    },
+    "python-multipart": {
+      "required": "0.0.20",
+      "installed": "0.0.20",
+      "match": true
+    },
+    "boto3": {
+      "required": "1.35.90",
+      "installed": "1.35.90",
+      "match": true
+    },
+    "Pillow": {
+      "required": "11.1.0",
+      "installed": "11.1.0",
+      "match": true
+    },
+    "jsonschema": {
+      "required": "4.25.1",
+      "installed": "4.25.1",
+      "match": true
+    },
+    "pytest": {
+      "required": "8.3.4",
+      "installed": "8.3.4",
+      "match": true
+    },
+    "httpx": {
+      "required": "0.28.1",
+      "installed": "0.28.1",
+      "match": true
+    },
+    "ruff": {
+      "required": "0.8.4",
+      "installed": "0.8.4",
+      "match": true
+    }
+  }
+}

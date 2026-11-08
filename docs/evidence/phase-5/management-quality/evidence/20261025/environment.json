@@ -1,0 +1,133 @@
+{
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "capturedAt": "2026-10-25T05:15:41.804047+00:00",
+  "os": "Windows-11-10.0.26200-SP0",
+  "machine": "AMD64",
+  "pythonHost": "3.14.7",
+  "node": "v24.21.0",
+  "containers": [
+    {
+      "service": "db",
+      "image": "sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b",
+      "status": "running",
+      "health": "healthy",
+      "mounts": [
+        {
+          "name": "campusloop-mq5-audit_db-data",
+          "destination": "/var/lib/postgresql/data",
+          "type": "volume"
+        }
+      ],
+      "logging": {
+        "Type": "json-file",
+        "Config": {
+          "max-file": "3",
+          "max-size": "10m"
+        }
+      }
+    },
+    {
+      "service": "redis",
+      "image": "sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499",
+      "status": "running",
+      "health": "healthy",
+      "mounts": [
+        {
+          "name": "campusloop-mq5-audit_redis-data",
+          "destination": "/data",
+          "type": "volume"
+        }
+      ],
+      "logging": {
+        "Type": "json-file",
+        "Config": {
+          "max-file": "3",
+          "max-size": "10m"
+        }
+      }
+    },
+    {
+      "service": "minio",
+      "image": "sha256:67c4fccaff16f100e61064abc08091233da203d29bd338015cb16d462d2afbca",
+      "status": "running",
+      "health": "healthy",
+      "mounts": [
+        {
+          "name": "campusloop-mq5-audit_minio-data",
+          "destination": "/data",
+          "type": "volume"
+        }
+      ],
+      "logging": {
+        "Type": "json-file",
+        "Config": {
+          "max-file": "3",
+          "max-size": "10m"
+        }
+      }
+    },
+    {
+      "service": "api",
+      "image": "sha256:6f256a48a0094e40901f8c06dd1249a1187162d91aeb5342593c989895608294",
+      "status": "running",
+      "health": "healthy",
+      "mounts": [],
+      "logging": {
+        "Type": "json-file",
+        "Config": {
+          "max-file": "3",
+          "max-size": "10m"
+        }
+      }
+    },
+    {
+      "service": "worker",
+      "image": "sha256:6f256a48a0094e40901f8c06dd1249a1187162d91aeb5342593c989895608294",
+      "status": "running",
+      "health": "healthy",
+      "mounts": [],
+      "logging": {
+        "Type": "json-file",
+        "Config": {
+          "max-file": "3",
+          "max-size": "10m"
+        }
+      }
+    },
+    {
+      "service": "baseline",
+      "image": "sha256:6f256a48a0094e40901f8c06dd1249a1187162d91aeb5342593c989895608294",
+      "status": "running",
+      "health": "healthy",
+      "mounts": [
+        {
+          "name": "campusloop-mq5-audit_baseline-data",
+          "destination": "/data",
+          "type": "volume"
+        }
+      ],
+      "logging": {
+        "Type": "json-file",
+        "Config": {
+          "max-file": "3",
+          "max-size": "10m"
+        }
+      }
+    }
+  ],
+  "dailyDataTouched": false,
+  "health": [
+    {
+      "url": "http://127.0.0.1:8025/health",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8025/ready",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8026/healthz",
+      "status": 200
+    }
+  ]
+}

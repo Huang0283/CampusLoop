@@ -39,8 +39,8 @@ class Notification(Base):
         CheckConstraint(
             "type IN ('MESSAGE', 'OFFER_RECEIVED', 'OFFER_ACCEPTED', 'OFFER_REJECTED', "
             "'MATCH_FOUND', 'ORDER_STATUS_CHANGED', 'MEETUP_REMINDER', "
-            "'REVIEW_REQUEST', 'REPORT_RESULT')",
-            name="ck_type_enum",
+            "'REVIEW_REQUEST', 'REPORT_RESULT', 'ACCOUNT_ACTION', 'APPEAL_RECEIVED', 'APPEAL_RESULT')",
+            name="type_enum",
         ),
         # 未读列表 / 未读数核心索引
         Index("ix_notifications_user_read", "user_id", "read_at"),

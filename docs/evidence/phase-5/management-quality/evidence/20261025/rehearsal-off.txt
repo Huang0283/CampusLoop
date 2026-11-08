@@ -1,0 +1,37 @@
+
+Running 2 tests using 1 worker
+
+(node:44192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing (25.0s)
+  ✘  2 tests\live\journey.spec.ts:139:1 › wanted constraints and price baseline are real services (12.7s)
+
+
+  1) tests\live\journey.spec.ts:139:1 › wanted constraints and price baseline are real services ────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText(/规则参考区间：¥/)
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText(/规则参考区间：¥/) with timeout 10000ms
+      - waiting for getByText(/规则参考区间：¥/)
+
+
+      153 |   await page.getByLabel('原价（元）', { exact: true }).fill('100')
+      154 |   await page.getByRole('button', { name: '计算区间', exact: true }).click()
+    > 155 |   await expect(page.getByText(/规则参考区间：¥/)).toBeVisible()
+          |                                            ^
+      156 | })
+      157 |
+      158 | test('product original-price validation blocks invalid requests and recovers after price changes', async ({ page }) => {
+        at C:\Users\Administrator\Desktop\CampusLoop\.codex-tmp\mq-p5-candidate\frontend\tests\live\journey.spec.ts:155:44
+
+    Error Context: test-results\journey-wanted-constraints-222c7--baseline-are-real-services\error-context.md
+
+  1 failed
+    tests\live\journey.spec.ts:139:1 › wanted constraints and price baseline are real services ─────
+  1 passed (38.3s)

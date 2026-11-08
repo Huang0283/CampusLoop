@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "f5e7576f250ae2874d6e7537c2d0b27cfc4a601f",
+  "command": [
+    "docker",
+    "compose",
+    "-p",
+    "campusloop-p5-final-audit",
+    "-f",
+    "docker-compose.yml",
+    "-f",
+    "C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\phase5-final-integration\\docs\\evidence\\phase-5\\management-quality\\evidence\\20261027\\compose.audit.yml",
+    "up",
+    "-d",
+    "--no-build",
+    "--wait",
+    "--wait-timeout",
+    "120"
+  ],
+  "cwd": ".",
+  "startedAt": "2026-10-27T01:39:28.346176+00:00",
+  "endedAt": "2026-10-27T01:39:48.863916+00:00",
+  "exitCode": 0,
+  "output": "clean-deploy.txt",
+  "sha256": "9d8a31adcb5c8bd32d827b652cc117776b851ce1e21a1d7fc17c424dd770625e"
+}

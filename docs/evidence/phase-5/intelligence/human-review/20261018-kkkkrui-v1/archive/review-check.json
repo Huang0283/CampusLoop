@@ -1,0 +1,15 @@
+{
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "duplicateLabelIds": [],
+  "errors": [],
+  "labelDifferences": [],
+  "missingLabelIds": [],
+  "pairCount": 228,
+  "readyToArchive": true,
+  "receivedRows": 228,
+  "reviewSheetSha256": "b520a34ea8e423ce015d2915d2aeab3c5285806a0cb018c45578752aceda37e7",
+  "sourceLabelSha256": "a3a103bf2858e740c0f997e6f321780332f43319cd4d738fd458aefd45fb83a8",
+  "sourceLabelVersion": "m7-label-draft-v1",
+  "unknownLabelIds": [],
+  "verifiedStructuredRecords": 228
+}

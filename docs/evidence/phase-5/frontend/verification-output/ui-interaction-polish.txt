@@ -1,0 +1,10 @@
+﻿
+Running 5 tests using 1 worker
+
+  ok 1 tests\live\ui-interaction-polish.spec.ts:13:1 › catalog card opens from any area and never takes a text caret (2.6s)
+  ok 2 tests\live\ui-interaction-polish.spec.ts:38:1 › wanted card opens from any area and keeps keyboard reachable (1.5s)
+  ok 3 tests\live\ui-interaction-polish.spec.ts:56:1 › order card opens from any area and role tabs answer arrow keys (1.6s)
+  ok 4 tests\live\ui-interaction-polish.spec.ts:81:1 › my reports keeps records apart from paging and drops the notification shortcut (1.5s)
+  ok 5 tests\live\ui-interaction-polish.spec.ts:97:1 › notification tabs keep the same keyboard behaviour after sharing one component (1.9s)
+
+  5 passed (12.5s)

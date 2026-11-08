@@ -1,0 +1,29 @@
+
+Running 1 test using 1 worker
+
+(node:12084) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing (15.4s)
+
+
+  1) tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing ───
+
+    TimeoutError: locator.fill: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByLabel('校园邮箱', { exact: true })
+
+
+       6 | async function register(page: Page, name: string) {
+       7 |   await page.goto('/register')
+    >  8 |   await page.getByLabel('校园邮箱', { exact: true }).fill(`ui-${randomUUID()}@example.invalid`)
+         |                                                  ^
+       9 |   await page.getByLabel('昵称', { exact: true }).fill(name)
+      10 |   await page.getByLabel('密码', { exact: true }).fill('Valid@12345')
+      11 |   await page.getByRole('button', { name: '注册并登录', exact: true }).click()
+        at register (C:\Users\Administrator\Desktop\CampusLoop\.codex-tmp\mq-p5-candidate\frontend\tests\live\journey.spec.ts:8:50)
+        at C:\Users\Administrator\Desktop\CampusLoop\.codex-tmp\mq-p5-candidate\frontend\tests\live\journey.spec.ts:21:3
+
+    Error Context: test-results\journey-real-two-account-b-1b471-saction-no-database-editing\error-context.md
+
+  1 failed
+    tests\live\journey.spec.ts:15:1 › real two-account browser transaction; no database editing ────

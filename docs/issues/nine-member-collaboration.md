@@ -1,5 +1,16 @@
 # 九人协作：个人任务、具体交付物、数量与交接
 
+> 2026-11-03当前执行说明：详细个人任务、交付物内容/用途、LaTeX与后台扩展要求已按组拆分，以下旧计划中对应126条、Markdown正文等表述由本轮分组要求覆盖；保留历史任务追溯。
+
+| 小组 / 各自岗位 | 详细任务 Issue | 本地说明 |
+|---|---|---|
+| 文书组 R1 / R2 | [#144](https://github.com/Huang0283/CampusLoop/issues/144) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-literature.md) |
+| 测试组 T1 / T2 / T3 | [#145](https://github.com/Huang0283/CampusLoop/issues/145) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-testing.md) |
+| 用户体验组 U1 / U2 | [#146](https://github.com/Huang0283/CampusLoop/issues/146) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-ux.md) |
+| 演示组 D1 / D2 | [#147](https://github.com/Huang0283/CampusLoop/issues/147) | [完整分组说明](https://github.com/Huang0283/CampusLoop/blob/main/docs/issues/group-issue-presentation.md) |
+
+本轮总览：[#143](https://github.com/Huang0283/CampusLoop/issues/143)。
+
 版本：1.4；日期：2026-10-27。M10 陈梓弘继续负责技术与当前 M1 管理工作，其他九人自行认领 2/3/2/2 岗位，不指定姓名。原五阶段每阶段一周；正式课程日期以 Blackboard 为准。本 Issue 保持开放，下面均为待交要求，不代表已完成。
 
 ## 文档和分支入口

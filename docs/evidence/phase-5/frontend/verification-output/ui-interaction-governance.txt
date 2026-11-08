@@ -1,0 +1,12 @@
+﻿
+Running 7 tests using 1 worker
+
+  ok 1 tests\live\m2-notification-sync.spec.ts:4:1 › notifications share one poller and synchronize read actions with the header (contract fixture) (6.9s)
+  ok 2 tests\live\m2-phase4.spec.ts:4:1 › report contract consumes private blobs and reuses an uncertain resolution key (contract fixtures) (2.2s)
+  ok 3 tests\live\m2-phase4.spec.ts:46:1 › ordinary user cannot reach admin; keyboard menu, offline banner and navigation focus (2.1s)
+  ok 4 tests\live\m2-phase4.spec.ts:73:1 › route render exception has a safe fallback and a working home link (injected fault) (1.5s)
+  ok 5 tests\live\m2-phase4.spec.ts:83:1 › admin users/risk and missing upstream governance are explicit (contract fixtures) (2.5s)
+  ok 6 tests\live\m2-phase4.spec.ts:109:1 › timeout does not leave permanent spinner; manual refresh recovers (injected fault) (11.1s)
+  ok 7 tests\live\m2-phase4.spec.ts:118:1 › real admin pagination, risk audit request and status processing revoke another session (5.2s)
+
+  7 passed (36.2s)

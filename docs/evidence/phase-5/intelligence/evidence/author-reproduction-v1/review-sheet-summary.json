@@ -1,0 +1,17 @@
+{
+  "checkedOn": "2026-10-17T11:56:08.778661+00:00",
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "duplicateLabelIds": [],
+  "errorCount": 912,
+  "labelDifferences": [],
+  "missingLabelIds": [],
+  "pairCount": 228,
+  "readyToArchive": false,
+  "receivedRows": 228,
+  "reviewSheetSha256": "55499ad827fd33e40c0240f1fbaf486a2e501bc3f3b2a79de04c63e2700171c6",
+  "sourceLabelSha256": "a3a103bf2858e740c0f997e6f321780332f43319cd4d738fd458aefd45fb83a8",
+  "sourceLabelVersion": "m7-label-draft-v1",
+  "unknownLabelIds": [],
+  "userConfirmation": "228/228 reviewed and correct; no label change; existing structured fields still empty",
+  "verifiedStructuredRecords": 0
+}

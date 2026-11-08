@@ -1,0 +1,45 @@
+{
+  "capabilities": [
+    {
+      "capability": "semantic-search",
+      "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+      "reasons": [
+        "DATASET_NOT_FROZEN",
+        "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+        "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+        "APPROVAL_MISSING_M1",
+        "APPROVAL_MISSING_M10",
+        "APPROVAL_MISSING_M7"
+      ],
+      "registration": "NO_GO"
+    },
+    {
+      "capability": "supply-demand-matching",
+      "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+      "reasons": [
+        "DATASET_NOT_FROZEN",
+        "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+        "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+        "APPROVAL_MISSING_M1",
+        "APPROVAL_MISSING_M10",
+        "APPROVAL_MISSING_M7"
+      ],
+      "registration": "NO_GO"
+    },
+    {
+      "capability": "price-model",
+      "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+      "reasons": [
+        "DATASET_NOT_FROZEN",
+        "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+        "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+        "APPROVAL_MISSING_M1",
+        "APPROVAL_MISSING_M10",
+        "APPROVAL_MISSING_M8"
+      ],
+      "registration": "NO_GO"
+    }
+  ],
+  "deploymentAuthorized": false,
+  "policyVersion": "model-gates-candidate-v1.1"
+}

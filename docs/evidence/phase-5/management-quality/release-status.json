@@ -1,0 +1,374 @@
+{
+  "kind": "CANDIDATE_NOT_FINAL",
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "finalReleaseCommit": null,
+  "checkedAt": "2026-10-27",
+  "gates": {
+    "group_prs_merged": false,
+    "integration_ci_passed": false,
+    "same_source_tested": false,
+    "no_open_p0_p1": false,
+    "clean_install_passed": true,
+    "recovery_passed": true,
+    "two_rehearsals_recorded": false,
+    "recorded_video": false,
+    "course_materials_complete": false,
+    "licenses_reviewed": false,
+    "m1_scope_accepted": false,
+    "m10_quality_accepted": false,
+    "main_stage_pr_merged": false,
+    "immutable_tag_verified": false
+  },
+  "technicalResults": {
+    "backendPassed": 180,
+    "browserPassed": 57,
+    "m7BaselinePassed": 38,
+    "m7SemanticPassed": 39,
+    "m8Phase4Passed": 42,
+    "qualityToolsPassed": 9
+  },
+  "limits": [
+    "Learning candidates remain NO_GO; M8 data authorization PENDING",
+    "Course materials, human rehearsals/video, license decisions and signoffs pending",
+    "Final package reproduction pending; restore covers database only",
+    "Browser suite includes both real API journeys and contract fixtures"
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/phase-5/management-quality/final-requirements-traceability.md",
+      "sha256": "2a1d85647419e4436e13a9e7a17ddee1021fe4b6a1606c5852094f5649759aa4"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/license-and-data-notes.md",
+      "sha256": "688d81ea48d619e86c9e87ff04dc978f975769f696263efb7dcd3626917d0db0"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/quality-tools/m1-tests.txt",
+      "sha256": "ca4e97bde3aa2c5569a0375cda659884e368221945738bbc62464429e2e6b0d8"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/quality-tools/m10-tests.txt",
+      "sha256": "2f747bfc72330084ffeda5315fc65a486c104da0e52a50da8cc8b71dc7d18902"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/clean-install-report.md",
+      "sha256": "e5f40b848c8a0a0dde12080fa28ed6c72ac5407445b82c73edc96f332d14a4a8"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/final-regression-report.md",
+      "sha256": "2189819f4dd0e84bf01748be813ded48978112312e393104a20555a8f5b775cc"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/non-functional-test-report.md",
+      "sha256": "5bd1dca59bc35794dea6ff64079de381454be5cdcd293bb2bfc1a8340f1a0c9d"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/final-rehearsal-report.md",
+      "sha256": "5ef0dea5d6cd4558caa7cb3cf4ee11d8cbf79f6e37af69988364c5c486a3ace1"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/FILES.sha256.json",
+      "sha256": "6d336ac7b53b8f520dece9b8cb732b741ca50dd2d9b27f77e2e3ada58966ad63"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/backend-final.json",
+      "sha256": "190c4e60085b1947da9c2da78aea8def7f7725b9bb9021d68634d2ac4ad20988"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/backend-final.txt",
+      "sha256": "e69dfb88f45e0246c11fad1286161224bf20690a2f4a4cb71582632a83862554"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/backend-image-build.txt",
+      "sha256": "8e517c1f0761a2af9b3051d1a7c104cade0b2a49c69764ca3fdd48de3caf7c53"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/backend-junit.xml",
+      "sha256": "a4fd6cb304a06409d49d1692cb2fe749ac0b298d4e214e504a3bc229768d73d6"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/backend-regression.json",
+      "sha256": "ab2551df3855ad7156442a23cb84ac18da9e8150b08b06130e9b6c0fcfb222b0"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/backend-regression.txt",
+      "sha256": "98719c3939b44f3e783ea29052e9c027e78aacc993b278747079ebf6f872a4f7"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/bench-health.json",
+      "sha256": "28ce2595ac0160c52b3768285486b59af6aa4f0858aa00e5776b7be9ffb807f2"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/bench-health.txt",
+      "sha256": "005a805192817ec15edbbc4b5031ed152cd24163676153de45ad68c40b971a52"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/bench-products.json",
+      "sha256": "d5065047ab1880b29be2047a9985765bccf5196a826b264a8aac611ba82369e5"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/bench-products.txt",
+      "sha256": "ac7cdfff3adf968975f216f72f5a1ddf34e17a295599f68f623d3c7613404c44"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/browser-final.json",
+      "sha256": "f4c00ebccbf64d0fed94d2591a16cee2f98da5240be1a6d8c940555e52e711ce"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/browser-final.txt",
+      "sha256": "3e5d29f07999cdad16f4ae0e33c7214dc1a8375f02e34015a2bac8f9f0a5e753"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/candidate-ci-40165497200.json",
+      "sha256": "611d4b09df462fbba2426551170f4ab9171d832cc7605e0bc8a3780326beb9a8"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/canonical-constraints.json",
+      "sha256": "b69db0790f9d3d2d19420ccd5815702a9716fc40a191325e596dd4c2aba48435"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/clean-deploy.txt",
+      "sha256": "22131b7930c208aa45f9a2d59b7dd4a98bc5966836bb195c4710186164a95444"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/compose.audit.yml",
+      "sha256": "f7bcf12ef9aee455f94b80b25ed52aceb352ce15b9e18d2d1eb334d106504d77"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/degraded-ui.json",
+      "sha256": "24307aa619bea0ddb179761cb3b52907c832bd8dd1e593af5048cbae27121c9a"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/degraded-ui.txt",
+      "sha256": "4f9767e616495e82c2b0736c0988491e4ebc2dfd764283a1ef2f03ef2361d201"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/dependency-audit.json",
+      "sha256": "2ee3f30bcc1e89d673021cc7b39d112ec50c780caec8a1aba4ef12b48d9210b0"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/dependency-audit.txt",
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/environment.json",
+      "sha256": "c25ce199eba54cd0f8e78cf65285c60f2f8a76b536cda1f7059c3909e87e3d99"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/frontend-build.json",
+      "sha256": "a1b66eebab408477ef9615a4811cae9950a6bf72775ff15da64eab9b91fc4570"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/frontend-build.txt",
+      "sha256": "73cecc7e855861e9cbf5ef64b10011b8ecf16c1eafc58152db67be88b0088343"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/frontend-lint.json",
+      "sha256": "af480d389aaf95b90d49681cafc17766cb488e2a04ae93feee8c3de72e3f1c27"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/frontend-lint.txt",
+      "sha256": "0d4695f4da2780a75fa8d28ae5fabe88093b7de3774417c514e2ecd90774e01f"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m2-ci-40163071407.json",
+      "sha256": "abf3e453bcdda0a6302978d7e70b9fb43f039e952bd6808e75ca1ec3e3b8dfe1"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m2-ci-40163073917.json",
+      "sha256": "cbe7ae270bfa06ffbe68bcbe879b3408a8b1108f72777c216dd704775add64be"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m7-final.json",
+      "sha256": "54787f8ae04d46c790cfdb6caed04093241579124bf8cb0b35c994ade699d542"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m7-final.txt",
+      "sha256": "939da9c172625bf986f45c333169fc7f856a6ed8972d5b8c138b4eeabb2040ff"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m7-unit.json",
+      "sha256": "b25b6a8c129ce7070f423f7df37bed6cfba979afbc9e1d14c134525d15396135"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m7-unit.txt",
+      "sha256": "dd61d9a513d2329fd0078dbde112a50a73128d5c0a03bf200997f69b3c60bb53"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m8-final.json",
+      "sha256": "ca315b0f65013b4da15e4f08e9ca5668b3c87c4e95065bd0a5dcc7c7aefe64ab"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m8-final.txt",
+      "sha256": "ae4cfbffdb42b99e02f9d6bb2cd1772038c720429a5abde131f76a779c53bd54"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m8-unit.json",
+      "sha256": "d221b831378e6aa1a8e8ca8d37003ae406c78b8439604d401a599a8806fe4258"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/m8-unit.txt",
+      "sha256": "3cbfee6cc561b11d7dc806c97d52c682a2f7aade70ca8f453e383f6cc87144ba"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/migrations.json",
+      "sha256": "8d09781967ef153fd01154887d8bfaa3213e54c1999ca029886fbc92be918d3f"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/migrations.txt",
+      "sha256": "18f22d2848986e88b1159671a4219fbdea185a95f2d561d877549e6128f98a9c"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/recovery-audit.json",
+      "sha256": "cd6b9e51f43aeba6cd73f534b1fc73c7fb9e73fd1e5cc23f0a3d09362e937c0c"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/recovery-audit.txt",
+      "sha256": "e7441ab03c490e99f590bcb31f06bdb17663afa0b704550e307dc17661c0f310"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/recovery-final.json",
+      "sha256": "d12f358496e8573d52a663d676483d00af5ffc27b82bc7ae5d4ce707b6795f58"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/recovery-final.txt",
+      "sha256": "d36e2ebcaf7c5c53dd5df22f8e17e90dabb9cdc7b2166dd1c9f33d9bacf9a33b"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/recovery-tool-final.json",
+      "sha256": "01e5d7fada3809454de0067527a17dfd9106f8153c0df9382764aaa21812dad1"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/recovery-tool-final.txt",
+      "sha256": "e9d52c838e5dd2a0d46bc55b944b0e2408cac8360e905ee6b0b442001e1b657c"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rehearsal-off.json",
+      "sha256": "dd1b0c9ba59e99148d23a5dd272f5c8b06bed0be671bf5eea44419a2b0d9307a"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rehearsal-off.txt",
+      "sha256": "948c0f3c2abef621e06aa659bc79420952627688dfafa5d728b943f64878b7f1"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rehearsal-online-final.json",
+      "sha256": "14365a04a13fcc61ef28007ad437ed834aa9f5e6c0d71a2890c07f1c5fde5766"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rehearsal-online-final.txt",
+      "sha256": "e78d1ea841e58b06bdf9fa4d2df7349ae9bdf1d6b3fbb3d4105c6357e7f00003"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rehearsal-online.json",
+      "sha256": "041b1ee68a704d9367251d908ecbb6542244ac8dc2417e48003b166dcbe71819"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rehearsal-online.txt",
+      "sha256": "9f65eaa65e5eefecde2765b8f975618129440a79905027a2dff3638becbafca6"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/restore-after.json",
+      "sha256": "1a77c3c4f28496be2d98ff9962e86c9752060756ad1b2bd4657e10965feecc6b"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/restore-before.json",
+      "sha256": "ddd0b682f89598fff5cd1a89f3d8449049ad31f7cdf896258e0cdc04363122f0"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rpc-fault-observations.json",
+      "sha256": "4400ffec30440f54de9fc06d8c022612a23b5bf1adbaa103ecd5a961c89c17d2"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rpc-faults.json",
+      "sha256": "4ff045daaddf4e479ab5c18a692f9062dd10c4a2d72c8fe7d527db3a654cdd4a"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/rpc-faults.txt",
+      "sha256": "4ab8e74f4065d2a43b7c69a025d631b95f95047815eb91a4fad4752762ab4d83"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/sdk-drift.json",
+      "sha256": "62e4df65b84aebd0a9c285b0f48506afc56c9b3ac10d7d9eca1ba4d758b6842e"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/sdk-drift.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/sdk.json",
+      "sha256": "d0b1e0ed2d83ba172e3a5bdd4f84ac63359c352eef03556489432f933c291167"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/sdk.txt",
+      "sha256": "bdd90a3125ed0a3514560409ee0f733e3d02fafa173bb78645e3e70283d35ea4"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/seed-idempotency.json",
+      "sha256": "a6505c0b46d8ffcef603d7bbf62b4048a49537539473edb2c2b7af733d7f774d"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261025/seed-idempotency.txt",
+      "sha256": "95f29721e5601b889c76b585c6ab3b04a9b4f40fb26ac971c41f81cbd6465ced"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/backend-image-initial-failure.txt",
+      "sha256": "744ef0327a58ee5b259ecb2153230314f612f0fc83235ca759e6c56380cd0df1"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/backend-image-proxy-success.txt",
+      "sha256": "012a47acb2a380f61404e36e229bfcb1e8428b67769c05279930acfaa1c3687a"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/backend-tests.json",
+      "sha256": "9eb37661e4f02e3a1d756aca9d8381590b154eaa5b9e8989b97f66ef03fd576e"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/backend-tests.txt",
+      "sha256": "1bc9409ccb7730229ef61a530dcc2361ddca085fedce184a036b8ae0785a90d5"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/frontend-build.txt",
+      "sha256": "4f13d48f563bba9b785241dca20e40179493007db5f452a2108601ab9a444ed6"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/npm-ci.txt",
+      "sha256": "1d7b35f296e5febc5b28a5c8e87e9d079756df30cd8bc1d714acd83dea57e971"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/package-runtime-freeze.txt",
+      "sha256": "f2535f997824ed67ca8115e35354111ce6e6d78488fad476185aaaaee33317dc"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/package-reproduction/sdk-check.txt",
+      "sha256": "7b76ee84765460b3168ace1270f64da799b5ea9229f9c7f212dceb640fa9aa3d"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/integration-review-20261027.md",
+      "sha256": "d2d7503c557feaae982bbcfc6de9cf9418c584f04a32d0996635ab3bbbd40f80"
+    },
+    {
+      "path": "docs/evidence/phase-5/management-quality/evidence/20261027/FILES.sha256.json",
+      "sha256": "390a19009ddf8b955fa38a1e9c1abd581c12153131580a7b88c40cec76adac10"
+    }
+  ],
+  "gateReasons": {
+    "same_source_tested": "Local candidate tests recorded; final release SHA/tag and remote CI pending.",
+    "no_open_p0_p1": "No unresolved P0/P1 observed in executed tests; final global quality signoff not supplied.",
+    "two_rehearsals_recorded": "Two automatic technical runs recorded; full human classroom rehearsal not yet recorded.",
+    "integration_ci_passed": "Current candidate CI has not completed; prior audit CI does not prove this SHA.",
+    "recovery_passed": "Current 0011 audit database restored and compared; PostgreSQL only, no MinIO object bytes.",
+    "group_prs_merged": "Member PRs merged into group branches; formal group-to-stage PRs pending."
+  },
+  "historicalTechnicalResults": {
+    "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+    "checkedAt": "2026-10-25",
+    "technicalResults": {
+      "backendPassed": 173,
+      "browserPassed": 49,
+      "m7Passed": 38,
+      "m8Passed": 31,
+      "rpcFaultsPassed": 18,
+      "restoredTables": 26
+    }
+  }
+}

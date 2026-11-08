@@ -1,0 +1,145 @@
+{
+  "acceptance": "AUTHOR_TECHNICAL_CHECK_ONLY; no M8/M10/M1 signature",
+  "codeCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+  "deterministicOutputHashes": {
+    "evaluation-input-all.json": "dd44b204c0258f4660102dd32e5e0782e75c5f8a9d8f5747f8c24fb121a419ad",
+    "evaluation-input-dev.json": "94034bb3e9065c2a3853250e88d12849908718466b96c10bbf1815e20ca5eb25",
+    "evaluation-input-test_candidate.json": "60f8ba8f7c68e02d798bc6cf231b3294968a3639fccda8e2346f40695b72f817",
+    "failure-analysis.json": "6db29a4d8371dfea32cf83ee6795f8d81afe184a5f051df3a9c84f31b85f5fda",
+    "metrics-all.json": "59bca897734633ddb006f1692029a751795bf0840fd5cb7e02f7059f8543332a",
+    "metrics-dev.json": "0920a6b3b0b5917f8a7e1ab57504c631c43ff07d325a1db1398791e0e2d76638",
+    "metrics-test_candidate.json": "2aa19e263ac126e2b1f847e447df449b5c203a0723721f0c549c80e247f0650e",
+    "per-query.json": "c2f4f9044fe8cb2e83d1c0627bf7da2815287a512b5efd577aa5b2f9acfc3973"
+  },
+  "deterministicOutputs": true,
+  "endedAtUtc": "2026-10-17T12:10:06.701804+00:00",
+  "environment": {
+    "machine": "AMD64",
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.12.14"
+  },
+  "metricsRecalculated": true,
+  "realModelIncrementalCheck": {
+    "delete": "APPLIED",
+    "duplicate": [
+      "IDEMPOTENT"
+    ],
+    "maxUnitNormError": 0.0,
+    "oldEvent": [
+      "STALE_IGNORED"
+    ],
+    "queriedUpdatedProduct": true,
+    "staleAfterDelete": [
+      "STALE_IGNORED"
+    ],
+    "tombstoneRejected": true,
+    "update": [
+      "APPLIED"
+    ]
+  },
+  "startedAtUtc": "2026-10-17T12:08:30.765522+00:00",
+  "status": "PASS",
+  "steps": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "services/m7_semantic/tests",
+        "-v"
+      ],
+      "exitCode": 0,
+      "name": "phase4-tests"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m7_baseline.verify",
+        "--output-dir",
+        "<evidence>\\baseline-regression"
+      ],
+      "exitCode": 0,
+      "name": "phase2-phase3-regression"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "services/m8_baseline/tests",
+        "-v"
+      ],
+      "exitCode": 0,
+      "name": "m8-regression"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m7_semantic.evaluate",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--output-dir",
+        "<evidence>\\evaluation"
+      ],
+      "exitCode": 0,
+      "name": "evaluation"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "services.m7_semantic.evaluate",
+        "--model-dir",
+        "<pinned-local-model>",
+        "--output-dir",
+        "<evidence>\\evaluation-repeat"
+      ],
+      "exitCode": 0,
+      "name": "evaluation-repeat"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<evidence>\\evaluation\\evaluation-input-all.json",
+        "--output",
+        "<evidence>\\recalculated-all.json"
+      ],
+      "exitCode": 0,
+      "name": "recalculate-all"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<evidence>\\evaluation\\evaluation-input-dev.json",
+        "--output",
+        "<evidence>\\recalculated-dev.json"
+      ],
+      "exitCode": 0,
+      "name": "recalculate-dev"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/intelligence_phase2/metrics.py",
+        "--input",
+        "<evidence>\\evaluation\\evaluation-input-test_candidate.json",
+        "--output",
+        "<evidence>\\recalculated-test_candidate.json"
+      ],
+      "exitCode": 0,
+      "name": "recalculate-test_candidate"
+    }
+  ],
+  "tddException": "User explicitly approved unittest alternative on 2026-10-11; installed tdd skill absent",
+  "workingTreeDirty": false
+}

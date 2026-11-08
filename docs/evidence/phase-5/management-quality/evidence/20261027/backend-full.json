@@ -1,0 +1,32 @@
+{
+  "sourceCommit": "4950f875398aeb7b94b1cc7a5c63b11b79ab8b10",
+  "trackedChanges": [],
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "campusloop-p5-final-audit_default",
+    "--env-file",
+    "C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\phase5-final-integration\\.codex-tmp\\test.env",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\phase5-final-integration,target=/workspace,readonly",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\phase5-final-integration\\docs\\evidence\\phase-5\\management-quality\\evidence\\20261027,target=/evidence",
+    "-w",
+    "/workspace/backend",
+    "campusloop-p5-final:4950f87",
+    "python",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "--junitxml=/evidence/backend-junit.xml"
+  ],
+  "cwd": ".",
+  "startedAt": "2026-10-27T02:00:15.440246+00:00",
+  "endedAt": "2026-10-27T02:09:26.209244+00:00",
+  "exitCode": 0,
+  "output": "backend-full.txt",
+  "sha256": "0754345695db6073d1eb084d80765a78e04ca69c34f73c5c9c768439624ec333"
+}

@@ -137,11 +137,33 @@ check('通知：重复任务通知按通知 ID 去重，保留首次顺序', () 
   assert.equal(uniqueNotifications(items)[0].title, 'match')
 })
 
+check('举报：处理说明与结果通知对举报人可见', () => {
+  const governance = read('../backend/app/api/routes/governance.py')
+  const transactions = read('../backend/app/api/routes/transactions.py')
+  assert.match(governance, /entity\.resolution_note = body\.note/)
+  assert.match(governance, /"REPORT_RESULT"/)
+  assert.match(transactions, /"handledAt": dto\.iso\(entity\.handled_at\)/)
+  assert.match(transactions, /"resolutionNote": entity\.resolution_note/)
+  assert.match(transactions, /SELF_REPORT_FORBIDDEN/)
+  assert.match(transactions, /\.offset\(\(page - 1\) \* pageSize\)/)
+})
+
+check('举报：客户端展示处理说明、分页并禁止举报自己', () => {
+  const page = read('src/live/ReportsPage.tsx')
+  assert.match(page, /item\.handledAt/)
+  assert.match(page, /item\.resolutionNote/)
+  assert.match(page, /pageSize: PAGE_SIZE/)
+  const market = read('src/live/MarketPages.tsx')
+  assert.match(market, /user\.id !== item\.seller\.id/)
+  assert.match(market, /label="举报发布者"/)
+})
+
 check('通知：已读操作通知外壳刷新未读数，缓存按账号隔离', () => {
   const page = read('src/live/TransactionPages.tsx')
   const shell = read('src/live/common.tsx')
+  assert.match(page, /useNotificationsResource\(\)/)
   assert.match(page, /notifyNotificationsChanged\(\)/)
-  assert.match(page, /`notifications-\$\{user\?\.id\}`/)
+  assert.match(shell, /`shell-notifications-\$\{user\?\.id\}`/)
   assert.match(shell, /NOTIFICATIONS_CHANGED_EVENT/)
 })
 

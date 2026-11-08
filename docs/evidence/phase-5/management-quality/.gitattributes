@@ -1,0 +1,4 @@
+# Keep report/status hashes stable across Windows and Linux checkouts.
+* text eol=lf
+licenses/** -text whitespace=cr-at-eol
+evidence/** -text -whitespace

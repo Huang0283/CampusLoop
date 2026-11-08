@@ -1,0 +1,22 @@
+{
+  "label": "m8-unit",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "exec",
+    "campusloop-mq5-audit-api-1",
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "../services/m8_baseline/tests",
+    "-v"
+  ],
+  "startedAt": "2026-10-25T05:02:43.151933+00:00",
+  "endedAt": "2026-10-25T05:02:43.423640+00:00",
+  "elapsedSeconds": 0.272,
+  "exitCode": 1,
+  "output": "m8-unit.txt",
+  "sha256": "3cbfee6cc561b11d7dc806c97d52c682a2f7aade70ca8f453e383f6cc87144ba"
+}

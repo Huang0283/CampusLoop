@@ -1,0 +1,526 @@
+{
+  "bySplit": {
+    "all": {
+      "observedCategoryCounts": {
+        "WANTED_INACTIVE": 1,
+        "inactive_wanted_boundary_case_not_relevance_benchmark": 1,
+        "unresolved_U_exclude_entire_query_from_all_main_comparisons": 2
+      },
+      "requestRows": 38,
+      "rows": [
+        {
+          "categories": [],
+          "requestId": "bicycle-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "bicycle-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "bicycle-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "calculator-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "calculator-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "calculator-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "calculus-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "calculus-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "calculus-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-matching-no-answer",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "fan-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "fan-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "fan-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "guitar-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "guitar-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "guitar-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "headphones-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "headphones-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "headphones-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "keyboard-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "keyboard-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "keyboard-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [
+            "unresolved_U_exclude_entire_query_from_all_main_comparisons"
+          ],
+          "requestId": "lamp-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "lamp-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "lamp-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "monitor-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "monitor-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "monitor-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [
+            "unresolved_U_exclude_entire_query_from_all_main_comparisons"
+          ],
+          "requestId": "tablet-matching",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "tablet-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "tablet-search-natural",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "tennis-matching",
+          "split": "all"
+        },
+        {
+          "categories": [
+            "inactive_wanted_boundary_case_not_relevance_benchmark",
+            "WANTED_INACTIVE"
+          ],
+          "requestId": "tennis-matching-expired",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "tennis-search-exact",
+          "split": "all"
+        },
+        {
+          "categories": [],
+          "requestId": "tennis-search-natural",
+          "split": "all"
+        }
+      ],
+      "standardCategoriesIncludingZero": {
+        "HARD_CONSTRAINT_VIOLATION": 0,
+        "NO_ANSWER_FALSE_RECOMMENDATIONS": 0,
+        "POSITIVE_NOT_FIRST": 0,
+        "POSITIVE_NO_RESULT": 0,
+        "WANTED_INACTIVE": 1,
+        "inactive_wanted_boundary_case_not_relevance_benchmark": 1,
+        "unresolved_U_exclude_entire_query_from_all_main_comparisons": 2
+      }
+    },
+    "dev": {
+      "observedCategoryCounts": {
+        "WANTED_INACTIVE": 1,
+        "inactive_wanted_boundary_case_not_relevance_benchmark": 1,
+        "unresolved_U_exclude_entire_query_from_all_main_comparisons": 1
+      },
+      "requestRows": 26,
+      "rows": [
+        {
+          "categories": [],
+          "requestId": "calculator-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "calculator-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "calculator-search-natural",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-matching-no-answer",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "camera-search-natural",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "fan-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "fan-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "fan-search-natural",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "guitar-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "guitar-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "guitar-search-natural",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "headphones-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "headphones-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "headphones-search-natural",
+          "split": "dev"
+        },
+        {
+          "categories": [
+            "unresolved_U_exclude_entire_query_from_all_main_comparisons"
+          ],
+          "requestId": "lamp-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "lamp-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "lamp-search-natural",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "monitor-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "monitor-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "monitor-search-natural",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "tennis-matching",
+          "split": "dev"
+        },
+        {
+          "categories": [
+            "inactive_wanted_boundary_case_not_relevance_benchmark",
+            "WANTED_INACTIVE"
+          ],
+          "requestId": "tennis-matching-expired",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "tennis-search-exact",
+          "split": "dev"
+        },
+        {
+          "categories": [],
+          "requestId": "tennis-search-natural",
+          "split": "dev"
+        }
+      ],
+      "standardCategoriesIncludingZero": {
+        "HARD_CONSTRAINT_VIOLATION": 0,
+        "NO_ANSWER_FALSE_RECOMMENDATIONS": 0,
+        "POSITIVE_NOT_FIRST": 0,
+        "POSITIVE_NO_RESULT": 0,
+        "WANTED_INACTIVE": 1,
+        "inactive_wanted_boundary_case_not_relevance_benchmark": 1,
+        "unresolved_U_exclude_entire_query_from_all_main_comparisons": 1
+      }
+    },
+    "test_candidate": {
+      "observedCategoryCounts": {
+        "unresolved_U_exclude_entire_query_from_all_main_comparisons": 1
+      },
+      "requestRows": 12,
+      "rows": [
+        {
+          "categories": [],
+          "requestId": "bicycle-matching",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "bicycle-search-exact",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "bicycle-search-natural",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "calculus-matching",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "calculus-search-exact",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "calculus-search-natural",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "keyboard-matching",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "keyboard-search-exact",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "keyboard-search-natural",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [
+            "unresolved_U_exclude_entire_query_from_all_main_comparisons"
+          ],
+          "requestId": "tablet-matching",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "tablet-search-exact",
+          "split": "test_candidate"
+        },
+        {
+          "categories": [],
+          "requestId": "tablet-search-natural",
+          "split": "test_candidate"
+        }
+      ],
+      "standardCategoriesIncludingZero": {
+        "HARD_CONSTRAINT_VIOLATION": 0,
+        "NO_ANSWER_FALSE_RECOMMENDATIONS": 0,
+        "POSITIVE_NOT_FIRST": 0,
+        "POSITIVE_NO_RESULT": 0,
+        "WANTED_INACTIVE": 0,
+        "inactive_wanted_boundary_case_not_relevance_benchmark": 0,
+        "unresolved_U_exclude_entire_query_from_all_main_comparisons": 1
+      }
+    }
+  },
+  "candidateCommit": "e4dc076d7a589f41b3d8cd61c246dabe67e9c39d",
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "formalDecision": "NO_GO",
+  "gateFailures": {
+    "matching": {
+      "baselineMrrAt10": 1.0,
+      "candidateMrrAt10": 1.0,
+      "candidateThresholdsOnly": true,
+      "mrrImprovementPass": false,
+      "recallAt10": 1.0,
+      "relativeMrrImprovement": 0.0,
+      "requiredRecallAt10": 0.8,
+      "requiredRelativeMrrImprovement": 0.1
+    },
+    "search": {
+      "baselineMrrAt10": 1.0,
+      "candidateMrrAt10": 1.0,
+      "candidateThresholdsOnly": true,
+      "mrrImprovementPass": false,
+      "precisionAt5": 0.5,
+      "precisionPass": false,
+      "recallAt10": 1.0,
+      "relativeMrrImprovement": 0.0,
+      "requiredPrecisionAt5": 0.7,
+      "requiredRecallAt10": 0.8,
+      "requiredRelativeMrrImprovement": 0.1
+    }
+  },
+  "noAnswerExample": {
+    "baselineReturned": 0,
+    "candidateReturned": 0,
+    "requestId": "camera-matching-no-answer"
+  },
+  "originalFailureRowsPreserved": true,
+  "originalRowCount": 76,
+  "performance": {
+    "SLAApproved": false,
+    "concurrencyTested": false,
+    "firstQuerySource": "limitations-v1/first-query.json",
+    "osCacheCold": false,
+    "warmTimingSource": "author-reproduction-v1/candidate-eval/timings.json"
+  },
+  "schemaVersion": "m7-p5-limitations-audit-v1",
+  "scoreInterpretation": "keyword, rule_match, cosine and RRF are ranking scores, never transaction probabilities",
+  "sources": {
+    "evidence/author-reproduction-v1/candidate-eval/evaluation-status.json": "249248ed8c0959432489f2999a514f703b6b602e66df2eea36f1f2a4a20de40d",
+    "evidence/author-reproduction-v1/candidate-eval/failure-analysis.json": "6db29a4d8371dfea32cf83ee6795f8d81afe184a5f051df3a9c84f31b85f5fda",
+    "evidence/author-reproduction-v1/candidate-eval/metrics-test_candidate.json": "2aa19e263ac126e2b1f847e447df449b5c203a0723721f0c549c80e247f0650e",
+    "evidence/author-reproduction-v1/candidate-eval/per-query.json": "c2f4f9044fe8cb2e83d1c0627bf7da2815287a512b5efd577aa5b2f9acfc3973",
+    "evidence/author-reproduction-v1/candidate-eval/timings.json": "cc2fdfd52246eba6a4ae2a5db90cb4dc91d9e066bc3a196f5e873b88c562bbed"
+  },
+  "status": "DIAGNOSTIC_ONLY",
+  "unchangedBlockers": [
+    "evaluation dataset not sealed",
+    "structured review archive pending",
+    "12 test_candidate requests below required 100; slices below 30",
+    "environment and thresholds not signed",
+    "M10/M1 approval pending",
+    "strict-label candidate MRR relative improvement below 10%; search precision@5 below candidate 0.70"
+  ],
+  "weakRecallExample": {
+    "baselineProductIds": [
+      "302",
+      "301"
+    ],
+    "candidateProductIds": [
+      "302",
+      "301",
+      "303"
+    ],
+    "interpretation": "Additional product 303 is label 1; not strict positive improvement",
+    "requestId": "bicycle-search-natural"
+  }
+}

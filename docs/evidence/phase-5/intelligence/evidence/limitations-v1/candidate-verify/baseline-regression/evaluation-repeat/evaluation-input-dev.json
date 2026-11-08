@@ -1,0 +1,1436 @@
+{
+  "candidateScope": "COMPLETE_CATALOG_POOL",
+  "datasetVersion": "m7-synthetic-p2-v1.1",
+  "kValues": [
+    1,
+    5,
+    10
+  ],
+  "labelSource": "PENDING_HUMAN_REVIEW",
+  "labelVersion": "m7-label-draft-v1",
+  "requests": [
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "101",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "102",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "103",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "104",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "105",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "106",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "calculator-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "101",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "102",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "103",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "104",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "105",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "106",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "calculator-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "101",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "102",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "103",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "104",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "105",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "106",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "calculator-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "801",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "802",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "803",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "804",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "805",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "806",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "camera-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "801",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "802",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget",
+            "model"
+          ],
+          "label": 0,
+          "productId": "803",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "804",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status",
+            "budget"
+          ],
+          "label": 0,
+          "productId": "805",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status",
+            "budget"
+          ],
+          "label": 0,
+          "productId": "806",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "camera-matching-no-answer",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "801",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "802",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "803",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "804",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "805",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "806",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "camera-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "801",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "802",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "803",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "804",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "805",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "806",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "camera-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "601",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "602",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "603",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "604",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "605",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "place"
+          ],
+          "label": 0,
+          "productId": "606",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "fan-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "601",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "602",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "603",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "604",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "605",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "606",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "fan-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "601",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "602",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "603",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "604",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "605",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "606",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "fan-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1101",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1102",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "1103",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1104",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1105",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "condition"
+          ],
+          "label": 0,
+          "productId": "1106",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "guitar-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1101",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1102",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "1103",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1104",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1105",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1106",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "guitar-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1101",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1102",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "1103",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1104",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1105",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1106",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "guitar-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "901",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "902",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "903",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "904",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "905",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "906",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "headphones-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "901",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "902",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "903",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "904",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "905",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "906",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "headphones-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "901",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "902",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "903",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "904",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "905",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "906",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "headphones-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": "unresolved_U_exclude_entire_query_from_all_main_comparisons",
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "701",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "702",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "703",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "704",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "705",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": "U",
+          "productId": "706",
+          "unknownConstraints": [
+            "condition"
+          ]
+        }
+      ],
+      "requestId": "lamp-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "701",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "702",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "703",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "704",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "705",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "706",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "lamp-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "701",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "702",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "703",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "704",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "705",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "706",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "lamp-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "201",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "202",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "203",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "204",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "205",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "206",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "monitor-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "201",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "202",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "203",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "204",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "205",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "206",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "monitor-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "201",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "202",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "203",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "204",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "205",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "206",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "monitor-search-natural",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1201",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1202",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "model"
+          ],
+          "label": 0,
+          "productId": "1203",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1204",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1205",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1206",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "tennis-matching",
+      "task": "matching"
+    },
+    {
+      "excludedReason": "inactive_wanted_boundary_case_not_relevance_benchmark",
+      "labels": [
+        {
+          "failedConstraints": [
+            "wanted_active"
+          ],
+          "label": 0,
+          "productId": "1201",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "wanted_active"
+          ],
+          "label": 0,
+          "productId": "1202",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "wanted_active",
+            "model"
+          ],
+          "label": 0,
+          "productId": "1203",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "wanted_active",
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1204",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "wanted_active",
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1205",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "wanted_active"
+          ],
+          "label": 0,
+          "productId": "1206",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "tennis-matching-expired",
+      "task": "matching"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1201",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1202",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "1203",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1204",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1205",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1206",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "tennis-search-exact",
+      "task": "search"
+    },
+    {
+      "excludedReason": null,
+      "labels": [
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1201",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1202",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 1,
+          "productId": "1203",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "budget"
+          ],
+          "label": 0,
+          "productId": "1204",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [
+            "product_status"
+          ],
+          "label": 0,
+          "productId": "1205",
+          "unknownConstraints": []
+        },
+        {
+          "failedConstraints": [],
+          "label": 2,
+          "productId": "1206",
+          "unknownConstraints": []
+        }
+      ],
+      "requestId": "tennis-search-natural",
+      "task": "search"
+    }
+  ],
+  "runs": [
+    {
+      "algorithmVersion": "m7-keyword-v0+match-v0",
+      "rankings": {
+        "calculator-matching": [
+          "102",
+          "101"
+        ],
+        "calculator-search-exact": [
+          "101",
+          "102",
+          "103"
+        ],
+        "calculator-search-natural": [
+          "102",
+          "101",
+          "103"
+        ],
+        "camera-matching": [
+          "801",
+          "802"
+        ],
+        "camera-matching-no-answer": [],
+        "camera-search-exact": [
+          "801",
+          "802",
+          "803"
+        ],
+        "camera-search-natural": [
+          "801",
+          "802",
+          "803"
+        ],
+        "fan-matching": [
+          "602",
+          "601"
+        ],
+        "fan-search-exact": [
+          "601",
+          "606",
+          "602",
+          "603"
+        ],
+        "fan-search-natural": [
+          "602",
+          "601",
+          "606",
+          "603"
+        ],
+        "guitar-matching": [
+          "1101",
+          "1102"
+        ],
+        "guitar-search-exact": [
+          "1101",
+          "1106",
+          "1102",
+          "1103"
+        ],
+        "guitar-search-natural": [
+          "1101",
+          "1102",
+          "1106",
+          "1103"
+        ],
+        "headphones-matching": [
+          "902",
+          "901"
+        ],
+        "headphones-search-exact": [
+          "901",
+          "902",
+          "903"
+        ],
+        "headphones-search-natural": [
+          "902",
+          "901",
+          "903"
+        ],
+        "lamp-matching": [
+          "702",
+          "701"
+        ],
+        "lamp-search-exact": [
+          "701",
+          "706",
+          "702",
+          "703"
+        ],
+        "lamp-search-natural": [
+          "702",
+          "701",
+          "706",
+          "703"
+        ],
+        "monitor-matching": [
+          "202",
+          "201"
+        ],
+        "monitor-search-exact": [
+          "201",
+          "203",
+          "202"
+        ],
+        "monitor-search-natural": [
+          "202",
+          "201",
+          "203"
+        ],
+        "tennis-matching": [
+          "1202",
+          "1201",
+          "1206"
+        ],
+        "tennis-matching-expired": [],
+        "tennis-search-exact": [
+          "1201",
+          "1206",
+          "1202",
+          "1203"
+        ],
+        "tennis-search-natural": [
+          "1202",
+          "1201",
+          "1206",
+          "1203"
+        ]
+      }
+    }
+  ],
+  "schemaVersion": "intelligence-ranking-eval-v1",
+  "snapshotVersion": "m7-historical-asof-20260926",
+  "splitVersion": "m7-catalog-split-v1:dev"
+}

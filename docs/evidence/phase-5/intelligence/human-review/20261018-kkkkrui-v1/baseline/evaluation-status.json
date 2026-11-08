@@ -1,0 +1,14 @@
+{
+  "humanReviewedPairs": 228,
+  "labelReview": {
+    "archiveManifestSha256": "5a8b951bbad7ed216d456bd97e35ad2f392d615adfcb446e12b4c43ce748b3c8",
+    "humanReviewedPairs": 228,
+    "labelSource": "HUMAN_REVIEWED_UNSEALED",
+    "labelVersion": "m7-label-reviewed-20261018-v1",
+    "status": "HUMAN_REVIEWED_UNSEALED",
+    "testSetSealed": false
+  },
+  "labelSource": "HUMAN_REVIEWED_UNSEALED",
+  "scope": "six-product complete catalog pools; historical synthetic snapshots; not live full-corpus recall",
+  "status": "DIAGNOSTIC_ONLY"
+}

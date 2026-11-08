@@ -1,0 +1,27 @@
+{
+  "label": "m8-final",
+  "sourceCommit": "50108a3a50ca18e0da3f4db709da3f8bea2ee24c",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--mount",
+    "type=bind,source=C:\\Users\\Administrator\\Desktop\\CampusLoop\\.codex-tmp\\mq-p5-candidate,target=/workspace,readonly",
+    "-w",
+    "/workspace",
+    "campusloop-mq5-api:50108a3",
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "services/m8_baseline/tests",
+    "-v"
+  ],
+  "startedAt": "2026-10-25T05:03:24.348533+00:00",
+  "endedAt": "2026-10-25T05:03:29.386857+00:00",
+  "elapsedSeconds": 5.038,
+  "exitCode": 0,
+  "output": "m8-final.txt",
+  "sha256": "ae4cfbffdb42b99e02f9d6bb2cd1772038c720429a5abde131f76a779c53bd54"
+}

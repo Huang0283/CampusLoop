@@ -1,0 +1,51 @@
+test_price_evaluation_is_honest_and_deterministic (test_phase4.EvaluationTests.test_price_evaluation_is_honest_and_deterministic) ... ok
+test_trust_risk_never_auto_penalizes (test_phase4.EvaluationTests.test_trust_risk_never_auto_penalizes) ... ok
+test_untrained_candidate_never_copies_baseline_accuracy (test_phase4.EvaluationTests.test_untrained_candidate_never_copies_baseline_accuracy) ... ok
+test_invalid_price_intervals_are_not_scored (test_phase4.MetricsTests.test_invalid_price_intervals_are_not_scored) ... ok
+test_metrics_use_l3_truth (test_phase4.MetricsTests.test_metrics_use_l3_truth) ... ok
+test_no_l3_is_not_evaluated (test_phase4.MetricsTests.test_no_l3_is_not_evaluated) ... ok
+test_current_data_is_no_go (test_phase4.ReadinessTests.test_current_data_is_no_go) ... ok
+test_contract_versions_and_fallbacks_match_router (test_phase4.RouterTests.test_contract_versions_and_fallbacks_match_router) ... ok
+test_disabled_is_phase3 (test_phase4.RouterTests.test_disabled_is_phase3) ... ok
+test_error_falls_back (test_phase4.RouterTests.test_error_falls_back) ... ok
+test_interval_unknown_fields_are_rejected (test_phase4.RouterTests.test_interval_unknown_fields_are_rejected) ... ok
+test_invalid_boundary_or_explanation_falls_back (test_phase4.RouterTests.test_invalid_boundary_or_explanation_falls_back) ... ok
+test_low_confidence_falls_back (test_phase4.RouterTests.test_low_confidence_falls_back) ... ok
+test_malformed_confidence_falls_back_without_raising (test_phase4.RouterTests.test_malformed_confidence_falls_back_without_raising) ... ok
+test_missing_model_falls_back (test_phase4.RouterTests.test_missing_model_falls_back) ... ok
+test_no_go_cannot_invoke_candidate (test_phase4.RouterTests.test_no_go_cannot_invoke_candidate) ... ok
+test_no_result_falls_back (test_phase4.RouterTests.test_no_result_falls_back) ... ok
+test_rollback_restores_identical_phase3_output (test_phase4.RouterTests.test_rollback_restores_identical_phase3_output) ... ok
+test_timeout_falls_back (test_phase4.RouterTests.test_timeout_falls_back) ... ok
+test_unavailable_candidate_cannot_be_selected (test_phase4.RouterTests.test_unavailable_candidate_cannot_be_selected) ... ok
+test_valid_candidate_is_selected (test_phase4.RouterTests.test_valid_candidate_is_selected) ... ok
+test_version_mismatch_falls_back (test_phase4.RouterTests.test_version_mismatch_falls_back) ... ok
+test_canonical_phase2_l3_rows_are_counted_but_never_auto_served (test_readiness.ReadinessInputTests.test_canonical_phase2_l3_rows_are_counted_but_never_auto_served) ... ok
+test_changed_input_without_manifest_update_cannot_open_gate (test_readiness.ReadinessInputTests.test_changed_input_without_manifest_update_cannot_open_gate) ... ok
+test_duplicate_invalid_and_wrong_source_rows_cannot_open_gate (test_readiness.ReadinessInputTests.test_duplicate_invalid_and_wrong_source_rows_cannot_open_gate) ... ok
+test_policy_is_part_of_the_recorded_input_hashes (test_readiness.ReadinessInputTests.test_policy_is_part_of_the_recorded_input_hashes) ... ok
+test_all_required_categories_and_total_count_are_enforced (test_transaction_dataset.TransactionDatasetTests.test_all_required_categories_and_total_count_are_enforced) ... ok
+test_future_approval_timestamps_are_rejected (test_transaction_dataset.TransactionDatasetTests.test_future_approval_timestamps_are_rejected) ... ok
+test_generated_snapshot_is_consumed_by_readiness_gate (test_transaction_dataset.TransactionDatasetTests.test_generated_snapshot_is_consumed_by_readiness_gate) ... ok
+test_identity_or_unknown_fields_are_rejected_not_silently_dropped (test_transaction_dataset.TransactionDatasetTests.test_identity_or_unknown_fields_are_rejected_not_silently_dropped) ... ok
+test_key_is_required_and_changes_pseudonym (test_transaction_dataset.TransactionDatasetTests.test_key_is_required_and_changes_pseudonym) ... ok
+test_malformed_prices_and_defect_tags_fail_closed (test_transaction_dataset.TransactionDatasetTests.test_malformed_prices_and_defect_tags_fail_closed) ... ok
+test_owner_signing_command_creates_verifiable_approvals (test_transaction_dataset.TransactionDatasetTests.test_owner_signing_command_creates_verifiable_approvals) ... Signing file C:\Users\Administrator\AppData\Local\Temp\m8-sign-7rqb_z5u\approval.payload
+Write signature to C:\Users\Administrator\AppData\Local\Temp\m8-sign-7rqb_z5u\approval.payload.sig
+Signing file C:\Users\Administrator\AppData\Local\Temp\m8-sign-0otu7abs\approval.payload
+Write signature to C:\Users\Administrator\AppData\Local\Temp\m8-sign-0otu7abs\approval.payload.sig
+ok
+test_pending_or_incomplete_authorization_fails_closed (test_transaction_dataset.TransactionDatasetTests.test_pending_or_incomplete_authorization_fails_closed) ... ok
+test_private_snapshot_output_must_be_outside_repository (test_transaction_dataset.TransactionDatasetTests.test_private_snapshot_output_must_be_outside_repository) ... ok
+test_raw_export_inside_repository_is_rejected (test_transaction_dataset.TransactionDatasetTests.test_raw_export_inside_repository_is_rejected) ... ok
+test_refund_dispute_invalidation_and_one_sided_completion_are_excluded (test_transaction_dataset.TransactionDatasetTests.test_refund_dispute_invalidation_and_one_sided_completion_are_excluded) ... ok
+test_signatures_bind_the_approved_scope (test_transaction_dataset.TransactionDatasetTests.test_signatures_bind_the_approved_scope) ... ok
+test_unsigned_self_attested_approvals_are_rejected (test_transaction_dataset.TransactionDatasetTests.test_unsigned_self_attested_approvals_are_rejected) ... ok
+test_empty_test_suite_cannot_pass (test_verify.VerificationTests.test_empty_test_suite_cannot_pass) ... ok
+test_existing_evidence_is_not_overwritten (test_verify.VerificationTests.test_existing_evidence_is_not_overwritten) ... ok
+test_regression_failure_saves_logs_and_does_not_claim_success (test_verify.VerificationTests.test_regression_failure_saves_logs_and_does_not_claim_success) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 4.243s
+
+OK

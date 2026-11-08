@@ -1,0 +1,21 @@
+{
+  "status": "USER_CONFIRMED_REVIEW_BACKFILLED_NOT_DATASET_SEALED",
+  "sourceCommit": "ca5a884c4980f2412da7bbd04ffb969ada5baae2",
+  "sourceSheetSha256": "55499ad827fd33e40c0240f1fbaf486a2e501bc3f3b2a79de04c63e2700171c6",
+  "completedSheetSha256": "b520a34ea8e423ce015d2915d2aeab3c5285806a0cb018c45578752aceda37e7",
+  "reviewer": "KkkkRui",
+  "reviewedAt": "2026-10-18T23:31:00+08:00",
+  "expectedRows": 228,
+  "source": {
+    "reviewDecisionSource": "User selected backfill of previously completed human review and had confirmed all 228 original labels correct",
+    "reviewerAndDateSource": "User: 审核：KkkkRui 10/18",
+    "reasonAuthor": "Codex, organized from original source facts; not verbatim historical human notes",
+    "userConfirmedAllOriginalLabels": true,
+    "reviewDatePrecision": "minute",
+    "timeOfDayKnown": true,
+    "M8IndependentReviewClaimed": false,
+    "formalDatasetSealed": false,
+    "reviewedAtSource": "User: 晚上23:31, in response to actual completion-time question",
+    "timestampSemantics": "Batch human review completion time supplied by reviewer; not an assertion that every pair was examined at the same instant"
+  }
+}

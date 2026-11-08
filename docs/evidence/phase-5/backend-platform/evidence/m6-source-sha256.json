@@ -1,0 +1,26 @@
+{
+  "baseCommit": "2eb166897fa1953b4514eef72b6d06baa869cf34",
+  "branch": "task/m6-p5-business-hardening",
+  "contractVersion": "0.5.0-rc.1",
+  "encoding": "SHA256 of staged Git blob; text LF normalized by Git",
+  "files": {
+    "backend/app/api/routes/intelligence.py": "e81dc076d3988ac5cdd881c2950299bba75e804a92e4bf02b5ff18c2e673e7d7",
+    "backend/app/api/routes/transactions.py": "e55686e9982909cda52c366abd741bc9f05d847d3a9edb2ae8902cb44609e972",
+    "backend/app/main.py": "de23095ad824d2d55de3eec56859f54ea16b29f1ab97f86a427459bb8706d17c",
+    "backend/app/services/ai_adapters.py": "5ee424395ff17d7ee8247e3607a901b38ed5119e4ef937100ed510f8bcf5f3e4",
+    "backend/app/services/business.py": "de9374d9ddbc86167d63e574e9b785efb8f3b7d3b7d43498161963c97f35982f",
+    "backend/app/services/intelligence.py": "be40054ee0b99e2ec5e060651891e8c6f0a5da569053dec23a5dccc8263120ee",
+    "backend/app/services/matching_jobs.py": "feda66c33e5e6897645e6863f568aaad9edbd371341e665a977cac9b622796f4",
+    "backend/tests/test_ai_orchestration.py": "7bd1afdb12016a00f0441e7d872954459a58badc7833f4cf2b1bf5202754ccaa",
+    "backend/tests/test_live_intelligence.py": "7af2988405f92f2e36e9f721b8d24a0aebcc0570ea689a148cad03ec4d14899c",
+    "backend/tests/test_matching_jobs.py": "f01078bc0eaca7699fbdff87b51b4033ab0ead38ca5f7732b04720680a9c3356",
+    "backend/tests/test_p5_api_examples.py": "6d709c6ce2d7bc0cecab68eb0a41e4b249ab203dbd48b697bde4f1d5727b52a7",
+    "backend/tests/test_p5_business_contract.py": "d6096e3f698b2cc2466c43d0e5bb82393e8e53e5d9aedb55d97e5a556adf5ee3",
+    "backend/tests/test_p5_integration.py": "fff2ddfb9f9d9017542e659ea5fd93d561c3668516033ee17960b4b85875633b",
+    "docs/evidence/phase-5/backend-platform/examples/m6-api-examples.json": "6ac0dbadc7871f12f50ffca29bc69ec8b5039a0fc8a23101b9f4330dce03583f",
+    "frontend/src/sdk/generated/sdk.gen.ts": "7ef8d2260faa58ab4423f29bf20d8db0db481a63708f252c9f9006949b661be2",
+    "frontend/src/sdk/generated/types.gen.ts": "a2cacbe2262fe7594c110f8ba908e5f79b6f080bc8814ff06a4652df86d7dceb",
+    "openapi/campusloop.v1.yaml": "0dc441bb7b0ef411c3f8fa8edf5e7632fd50fda44a49532ef0bbb0dd6dc04620",
+    "scripts/m6_phase5/verify.py": "dec3f7a27e2728e19c3dfa65ad3f24613f51956e6efbe49bfc0a1d178a471cae"
+  }
+}
