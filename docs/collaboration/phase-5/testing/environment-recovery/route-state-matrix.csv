@@ -1,102 +1,206 @@
 route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,executed_sha,result,notes
-/admin,admin,admin,加载,/admin,,,未执行,
-/admin,admin,admin,成功,/admin,,,未执行,
-/admin,admin,admin,空,/admin,,,未执行,无列表数据时记不适用并写理由
-/admin,admin,admin,失败,/admin,,,未执行,
-/admin,admin,user,无权限,/admin,,,未执行,
-/admin/reports,admin,admin,加载,/admin/reports,,,未执行,
-/admin/reports,admin,admin,成功,/admin/reports,,,未执行,
-/admin/reports,admin,admin,空,/admin/reports,,,未执行,无举报数据时记空状态表现
-/admin/reports,admin,admin,失败,/admin/reports,,,未执行,
-/admin/reports,admin,user,无权限,/admin/reports,,,未执行,
-/admin/products,admin,admin,加载,/admin/products,,,未执行,
-/admin/products,admin,admin,成功,/admin/products,,,未执行,
-/admin/products,admin,admin,空,/admin/products,,,未执行,
-/admin/products,admin,admin,失败,/admin/products,,,未执行,
-/admin/products,admin,user,无权限,/admin/products,,,未执行,
-/admin/orders,admin,admin,加载,/admin/orders,,,未执行,
-/admin/orders,admin,admin,成功,/admin/orders,,,未执行,
-/admin/orders,admin,admin,空,/admin/orders,,,未执行,
-/admin/orders,admin,admin,失败,/admin/orders,,,未执行,
-/admin/orders,admin,user,无权限,/admin/orders,,,未执行,
-/admin/users,admin,admin,加载,/admin/users,,,未执行,
-/admin/users,admin,admin,成功,/admin/users,,,未执行,
-/admin/users,admin,admin,空,/admin/users,,,未执行,
-/admin/users,admin,admin,失败,/admin/users,,,未执行,
-/admin/users,admin,user,无权限,/admin/users,,,未执行,
-/admin/appeals,admin,admin,加载,/admin/appeals,,,未执行,
-/admin/appeals,admin,admin,成功,/admin/appeals,,,未执行,
-/admin/appeals,admin,admin,空,/admin/appeals,,,未执行,
-/admin/appeals,admin,admin,失败,/admin/appeals,,,未执行,
-/admin/appeals,admin,user,无权限,/admin/appeals,,,未执行,
-/admin/notifications,admin,admin,加载,/admin/notifications,,,未执行,
-/admin/notifications,admin,admin,成功,/admin/notifications,,,未执行,
-/admin/notifications,admin,admin,空,/admin/notifications,,,未执行,
-/admin/notifications,admin,admin,失败,/admin/notifications,,,未执行,
-/admin/notifications,admin,user,无权限,/admin/notifications,,,未执行,
-/admin/audit,admin,admin,加载,/admin/audit,,,未执行,
-/admin/audit,admin,admin,成功,/admin/audit,,,未执行,
-/admin/audit,admin,admin,空,/admin/audit,,,未执行,
-/admin/audit,admin,admin,失败,/admin/audit,,,未执行,
-/admin/audit,admin,user,无权限,/admin/audit,,,未执行,
-/admin/profile,admin,admin,加载,/admin/profile,,,未执行,
-/admin/profile,admin,admin,成功,/admin/profile,,,未执行,
-/admin/profile,admin,admin,空,/admin/profile,,,未执行,表单页，空状态记不适用并写理由
-/admin/profile,admin,admin,失败,/admin/profile,,,未执行,
-/admin/profile,admin,user,无权限,/admin/profile,,,未执行,
-/,front,guest,加载,/,,,未执行,
-/,front,guest,成功,/,,,未执行,
-/,front,guest,空,/,,,未执行,落地页无空状态时记不适用并写理由
-/,front,guest,失败,/,,,未执行,
-/login,front,guest,加载,/login,,,未执行,
-/login,front,guest,成功,/login,,,未执行,
-/login,front,guest,空,/login,,,未执行,表单页，空状态记不适用并写理由
-/login,front,guest,失败,/login,,,未执行,
-/market,front,guest,加载,/market,,,未执行,
-/market,front,guest,成功,/market,,,未执行,
-/market,front,guest,空,/market,,,未执行,搜索无结果时记空状态表现
-/market,front,guest,失败,/market,,,未执行,
-/product/:id,front,guest,加载,/product/1,,,未执行,
-/product/:id,front,guest,成功,/product/1,,,未执行,
-/product/:id,front,guest,空,/product/999999,,,未执行,不存在商品记失败或空，按实际登记
-/product/:id,front,guest,失败,/product/1,,,未执行,
-/my-products,front,user,加载,/my-products,,,未执行,
-/my-products,front,user,成功,/my-products,,,未执行,
-/my-products,front,user,空,/my-products,,,未执行,无发布记录时记空状态表现
-/my-products,front,user,失败,/my-products,,,未执行,
-/favorites,front,user,加载,/favorites,,,未执行,
-/favorites,front,user,成功,/favorites,,,未执行,
-/favorites,front,user,空,/favorites,,,未执行,
-/favorites,front,user,失败,/favorites,,,未执行,
-/publish,front,user,加载,/publish,,,未执行,
-/publish,front,user,成功,/publish,,,未执行,
-/publish,front,user,空,/publish,,,未执行,表单页，空状态记不适用并写理由
-/publish,front,user,失败,/publish,,,未执行,
-/wanted,front,guest,加载,/wanted,,,未执行,
-/wanted,front,guest,成功,/wanted,,,未执行,
-/wanted,front,guest,空,/wanted,,,未执行,
-/wanted,front,guest,失败,/wanted,,,未执行,
-/wanted/:id,front,guest,加载,/wanted/1,,,未执行,
-/wanted/:id,front,guest,成功,/wanted/1,,,未执行,
-/wanted/:id,front,guest,空,/wanted/999999,,,未执行,不存在求购记失败或空，按实际登记
-/wanted/:id,front,guest,失败,/wanted/1,,,未执行,
-/chat,front,user,加载,/chat,,,未执行,
-/chat,front,user,成功,/chat,,,未执行,
-/chat,front,user,空,/chat,,,未执行,无会话时记空状态表现
-/chat,front,user,失败,/chat,,,未执行,
-/transactions,front,user,加载,/transactions,,,未执行,
-/transactions,front,user,成功,/transactions,,,未执行,
-/transactions,front,user,空,/transactions,,,未执行,无订单时记空状态表现
-/transactions,front,user,失败,/transactions,,,未执行,
-/notifications,front,user,加载,/notifications,,,未执行,
-/notifications,front,user,成功,/notifications,,,未执行,
-/notifications,front,user,空,/notifications,,,未执行,
-/notifications,front,user,失败,/notifications,,,未执行,
-/report,front,user,加载,/report,,,未执行,
-/report,front,user,成功,/report,,,未执行,
-/report,front,user,空,/report,,,未执行,无举报记录时记空状态表现
-/report,front,user,失败,/report,,,未执行,
-/account/decisions,front,user,加载,/account/decisions,,,未执行,
-/account/decisions,front,user,成功,/account/decisions,,,未执行,
-/account/decisions,front,user,空,/account/decisions,,,未执行,
-/account/decisions,front,user,失败,/account/decisions,,,未执行,
+/admin,admin,admin,加载,/admin,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin,admin,admin,成功,/admin,,,,,未执行,正常数据下的渲染与接口 200
+/admin,admin,admin,空,/admin,,,,,未执行,无数据时仪表盘应展示空态或零值，不空白
+/admin,admin,admin,失败,/admin,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin,admin,user,无权限,/admin,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/reports,admin,admin,加载,/admin/reports,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/reports,admin,admin,成功,/admin/reports,,,,,未执行,正常数据下的渲染与接口 200
+/admin/reports,admin,admin,空,/admin/reports,,,,,未执行,无举报时记空状态表现
+/admin/reports,admin,admin,失败,/admin/reports,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/reports,admin,user,无权限,/admin/reports,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/products,admin,admin,加载,/admin/products,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/products,admin,admin,成功,/admin/products,,,,,未执行,正常数据下的渲染与接口 200
+/admin/products,admin,admin,空,/admin/products,,,,,未执行,无商品或筛选无结果时记空状态
+/admin/products,admin,admin,失败,/admin/products,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/products,admin,user,无权限,/admin/products,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/orders,admin,admin,加载,/admin/orders,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/orders,admin,admin,成功,/admin/orders,,,,,未执行,正常数据下的渲染与接口 200
+/admin/orders,admin,admin,空,/admin/orders,,,,,未执行,无订单时记空状态
+/admin/orders,admin,admin,失败,/admin/orders,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/orders,admin,user,无权限,/admin/orders,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/users,admin,admin,加载,/admin/users,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/users,admin,admin,成功,/admin/users,,,,,未执行,正常数据下的渲染与接口 200
+/admin/users,admin,admin,空,/admin/users,,,,,未执行,无用户或搜索无结果时记空状态
+/admin/users,admin,admin,失败,/admin/users,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/users,admin,user,无权限,/admin/users,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/appeals,admin,admin,加载,/admin/appeals,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/appeals,admin,admin,成功,/admin/appeals,,,,,未执行,正常数据下的渲染与接口 200
+/admin/appeals,admin,admin,空,/admin/appeals,,,,,未执行,无申诉时记空状态
+/admin/appeals,admin,admin,失败,/admin/appeals,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/appeals,admin,user,无权限,/admin/appeals,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/notifications,admin,admin,加载,/admin/notifications,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/notifications,admin,admin,成功,/admin/notifications,,,,,未执行,正常数据下的渲染与接口 200
+/admin/notifications,admin,admin,空,/admin/notifications,,,,,未执行,无通知时记空状态
+/admin/notifications,admin,admin,失败,/admin/notifications,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/notifications,admin,user,无权限,/admin/notifications,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/audit,admin,admin,加载,/admin/audit,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/audit,admin,admin,成功,/admin/audit,,,,,未执行,正常数据下的渲染与接口 200
+/admin/audit,admin,admin,空,/admin/audit,,,,,未执行,无日志或筛选无结果时记空状态
+/admin/audit,admin,admin,失败,/admin/audit,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/audit,admin,user,无权限,/admin/audit,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/admin/profile,admin,admin,加载,/admin/profile,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/admin/profile,admin,admin,成功,/admin/profile,,,,,未执行,正常数据下的渲染与接口 200
+/admin/profile,admin,admin,空,/admin/profile,,,,,未执行,不适用：表单页无列表空状态
+/admin/profile,admin,admin,失败,/admin/profile,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
+/admin/profile,admin,user,无权限,/admin/profile,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
+/,front,guest,游客未登录,/,,,,,未执行,正常渲染落地页，无需登录
+/,front,买家,加载,/,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/,front,买家,成功,/,,,,,未执行,正常数据下的渲染与接口 200
+/,front,买家,空,/,,,,,未执行,不适用：落地页无列表空态
+/,front,买家,失败,/,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/,front,其他用户,无权限,/,,,,,未执行,不适用：公开页面无越权入口
+/login,front,guest,游客未登录,/login,,,,,未执行,正常显示登录表单
+/login,front,买家,加载,/login,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/login,front,买家,成功,/login,,,,,未执行,正常数据下的渲染与接口 200
+/login,front,买家,空,/login,,,,,未执行,不适用：表单页无列表空态
+/login,front,买家,失败,/login,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/login,front,其他用户,无权限,/login,,,,,未执行,不适用：公开页面无越权入口
+/register,front,guest,游客未登录,/register,,,,,未执行,正常显示注册表单
+/register,front,买家,加载,/register,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/register,front,买家,成功,/register,,,,,未执行,正常数据下的渲染与接口 200
+/register,front,买家,空,/register,,,,,未执行,不适用：表单页无列表空态
+/register,front,买家,失败,/register,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/register,front,其他用户,无权限,/register,,,,,未执行,不适用：公开页面无越权入口
+/profile,front,guest,游客未登录,/profile,,,,,未执行,未登录访问应重定向登录并在登录后回到本页
+/profile,front,买家,加载,/profile,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/profile,front,买家,成功,/profile,,,,,未执行,正常数据下的渲染与接口 200
+/profile,front,买家,空,/profile,,,,,未执行,不适用：个人资料非列表
+/profile,front,买家,失败,/profile,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/profile,front,其他用户,无权限,/profile,,,,,未执行,不适用：公开页面无越权入口
+/market,front,guest,游客未登录,/market,,,,,未执行,游客可公开浏览列表
+/market,front,买家,加载,/market,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/market,front,买家,成功,/market,,,,,未执行,正常数据下的渲染与接口 200
+/market,front,买家,空,/market,,,,,未执行,无商品时记空状态与文案
+/market,front,买家,失败,/market,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/market,front,其他用户,无权限,/market,,,,,未执行,不适用：公开页面无越权入口
+/product/:id,front,guest,游客未登录,/product/1001,,,,,未执行,游客可公开查看商品详情
+/product/:id,front,买家,加载,/product/1001,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/product/:id,front,买家,成功,/product/1001,,,,,未执行,正常数据下的渲染与接口 200
+/product/:id,front,买家,空,/product/1001,,,,,未执行,不适用：详情页无列表空态
+/product/:id,front,买家,失败,/product/1001,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/product/:id,front,其他用户,无权限,/product/1001,,,,,未执行,不适用：公开页面无越权入口
+/my-products,front,guest,游客未登录,/my-products,,,,,未执行,未登录访问应重定向登录
+/my-products,front,买家,加载,/my-products,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/my-products,front,买家,成功,/my-products,,,,,未执行,正常数据下的渲染与接口 200
+/my-products,front,买家,空,/my-products,,,,,未执行,本人无商品时记空状态
+/my-products,front,买家,失败,/my-products,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/my-products,front,其他用户,无权限,/my-products,,,,,未执行,访问他人商品编辑入口应被拒绝
+/favorites,front,guest,游客未登录,/favorites,,,,,未执行,未登录访问应重定向登录
+/favorites,front,买家,加载,/favorites,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/favorites,front,买家,成功,/favorites,,,,,未执行,正常数据下的渲染与接口 200
+/favorites,front,买家,空,/favorites,,,,,未执行,无收藏时记空状态
+/favorites,front,买家,失败,/favorites,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/favorites,front,其他用户,无权限,/favorites,,,,,未执行,不适用：接口按当前登录人过滤
+/publish,front,guest,游客未登录,/publish,,,,,未执行,未登录访问应重定向登录
+/publish,front,买家,加载,/publish,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/publish,front,买家,成功,/publish,,,,,未执行,正常数据下的渲染与接口 200
+/publish,front,买家,空,/publish,,,,,未执行,不适用：表单页无列表空态
+/publish,front,买家,失败,/publish,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/publish,front,其他用户,无权限,/publish,,,,,未执行,不适用：仅本人发布
+/product/:id/edit,front,guest,游客未登录,/product/1001/edit,,,,,未执行,未登录访问应重定向登录
+/product/:id/edit,front,买家,加载,/product/1001/edit,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/product/:id/edit,front,买家,成功,/product/1001/edit,,,,,未执行,正常数据下的渲染与接口 200
+/product/:id/edit,front,买家,空,/product/1001/edit,,,,,未执行,不适用：编辑页无列表空态
+/product/:id/edit,front,买家,失败,/product/1001/edit,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/product/:id/edit,front,其他用户,无权限,/product/1001/edit,,,,,未执行,编辑他人商品应被拒绝并提示，不进入表单
+/publish/price-advice,front,guest,游客未登录,/publish/price-advice,,,,,未执行,未登录访问应重定向登录
+/publish/price-advice,front,买家,加载,/publish/price-advice,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/publish/price-advice,front,买家,成功,/publish/price-advice,,,,,未执行,正常数据下的渲染与接口 200
+/publish/price-advice,front,买家,空,/publish/price-advice,,,,,未执行,不适用：建议页无列表空态
+/publish/price-advice,front,买家,失败,/publish/price-advice,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/publish/price-advice,front,其他用户,无权限,/publish/price-advice,,,,,未执行,不适用：仅本人使用
+/wanted,front,guest,游客未登录,/wanted,,,,,未执行,游客可公开浏览求购列表
+/wanted,front,买家,加载,/wanted,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/wanted,front,买家,成功,/wanted,,,,,未执行,正常数据下的渲染与接口 200
+/wanted,front,买家,空,/wanted,,,,,未执行,无求购时记空状态
+/wanted,front,买家,失败,/wanted,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/wanted,front,其他用户,无权限,/wanted,,,,,未执行,不适用：公开页面无越权入口
+/wanted/publish,front,guest,游客未登录,/wanted/publish,,,,,未执行,未登录访问应重定向登录
+/wanted/publish,front,买家,加载,/wanted/publish,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/wanted/publish,front,买家,成功,/wanted/publish,,,,,未执行,正常数据下的渲染与接口 200
+/wanted/publish,front,买家,空,/wanted/publish,,,,,未执行,不适用：表单页无列表空态
+/wanted/publish,front,买家,失败,/wanted/publish,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/wanted/publish,front,其他用户,无权限,/wanted/publish,,,,,未执行,不适用：仅本人发布
+/wanted/:id/edit,front,guest,游客未登录,/wanted/2001/edit,,,,,未执行,未登录访问应重定向登录
+/wanted/:id/edit,front,买家,加载,/wanted/2001/edit,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/wanted/:id/edit,front,买家,成功,/wanted/2001/edit,,,,,未执行,正常数据下的渲染与接口 200
+/wanted/:id/edit,front,买家,空,/wanted/2001/edit,,,,,未执行,不适用：编辑页无列表空态
+/wanted/:id/edit,front,买家,失败,/wanted/2001/edit,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/wanted/:id/edit,front,其他用户,无权限,/wanted/2001/edit,,,,,未执行,编辑他人求购应被拒绝
+/wanted/:id,front,guest,游客未登录,/wanted/2001,,,,,未执行,游客可公开查看求购详情
+/wanted/:id,front,买家,加载,/wanted/2001,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/wanted/:id,front,买家,成功,/wanted/2001,,,,,未执行,正常数据下的渲染与接口 200
+/wanted/:id,front,买家,空,/wanted/2001,,,,,未执行,不适用：详情页无列表空态
+/wanted/:id,front,买家,失败,/wanted/2001,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/wanted/:id,front,其他用户,无权限,/wanted/2001,,,,,未执行,不适用：公开页面无越权入口
+/wanted/:wantedId/matches,front,guest,游客未登录,/wanted/2001/matches,,,,,未执行,未登录访问应重定向登录
+/wanted/:wantedId/matches,front,买家,加载,/wanted/2001/matches,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/wanted/:wantedId/matches,front,买家,成功,/wanted/2001/matches,,,,,未执行,正常数据下的渲染与接口 200
+/wanted/:wantedId/matches,front,买家,空,/wanted/2001/matches,,,,,未执行,无匹配时记空状态与说明
+/wanted/:wantedId/matches,front,买家,失败,/wanted/2001/matches,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/wanted/:wantedId/matches,front,其他用户,无权限,/wanted/2001/matches,,,,,未执行,查看他人求购匹配应被拒绝
+/chat,front,guest,游客未登录,/chat,,,,,未执行,未登录访问应重定向登录
+/chat,front,买家,加载,/chat,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/chat,front,买家,成功,/chat,,,,,未执行,正常数据下的渲染与接口 200
+/chat,front,买家,空,/chat,,,,,未执行,无会话时记空状态
+/chat,front,买家,失败,/chat,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/chat,front,其他用户,无权限,/chat,,,,,未执行,不适用：列表按当前登录人过滤
+/chat/:id,front,guest,游客未登录,/chat/3001,,,,,未执行,未登录访问应重定向登录
+/chat/:id,front,买家,加载,/chat/3001,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/chat/:id,front,买家,成功,/chat/3001,,,,,未执行,正常数据下的渲染与接口 200
+/chat/:id,front,买家,空,/chat/3001,,,,,未执行,不适用：会话页无列表空态
+/chat/:id,front,买家,失败,/chat/3001,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/chat/:id,front,其他用户,无权限,/chat/3001,,,,,未执行,非参与方读取会话应被拒绝，不返回消息内容
+/transactions,front,guest,游客未登录,/transactions,,,,,未执行,未登录访问应重定向登录
+/transactions,front,买家,加载,/transactions,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/transactions,front,买家,成功,/transactions,,,,,未执行,正常数据下的渲染与接口 200
+/transactions,front,买家,空,/transactions,,,,,未执行,无订单时记空状态
+/transactions,front,买家,失败,/transactions,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/transactions,front,其他用户,无权限,/transactions,,,,,未执行,不适用：列表按当前登录人过滤
+/transactions/:id,front,guest,游客未登录,/transactions/4001,,,,,未执行,未登录访问应重定向登录
+/transactions/:id,front,买家,加载,/transactions/4001,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/transactions/:id,front,买家,成功,/transactions/4001,,,,,未执行,正常数据下的渲染与接口 200
+/transactions/:id,front,买家,空,/transactions/4001,,,,,未执行,不适用：详情页无列表空态
+/transactions/:id,front,买家,失败,/transactions/4001,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/transactions/:id,front,其他用户,无权限,/transactions/4001,,,,,未执行,非买卖双方查看订单应被拒绝
+/transactions/:id/meetup,front,guest,游客未登录,/transactions/4001/meetup,,,,,未执行,未登录访问应重定向登录
+/transactions/:id/meetup,front,买家,加载,/transactions/4001/meetup,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/transactions/:id/meetup,front,买家,成功,/transactions/4001/meetup,,,,,未执行,正常数据下的渲染与接口 200
+/transactions/:id/meetup,front,买家,空,/transactions/4001/meetup,,,,,未执行,不适用：约定页无列表空态
+/transactions/:id/meetup,front,买家,失败,/transactions/4001/meetup,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/transactions/:id/meetup,front,其他用户,无权限,/transactions/4001/meetup,,,,,未执行,非参与方进入约定页应被拒绝
+/transactions/:id/review,front,guest,游客未登录,/transactions/4001/review,,,,,未执行,未登录访问应重定向登录
+/transactions/:id/review,front,买家,加载,/transactions/4001/review,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/transactions/:id/review,front,买家,成功,/transactions/4001/review,,,,,未执行,正常数据下的渲染与接口 200
+/transactions/:id/review,front,买家,空,/transactions/4001/review,,,,,未执行,不适用：评价页无列表空态
+/transactions/:id/review,front,买家,失败,/transactions/4001/review,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/transactions/:id/review,front,其他用户,无权限,/transactions/4001/review,,,,,未执行,非参与方或未完成订单进入评价应被拒绝
+/notifications,front,guest,游客未登录,/notifications,,,,,未执行,未登录访问应重定向登录
+/notifications,front,买家,加载,/notifications,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/notifications,front,买家,成功,/notifications,,,,,未执行,正常数据下的渲染与接口 200
+/notifications,front,买家,空,/notifications,,,,,未执行,无通知时记空状态
+/notifications,front,买家,失败,/notifications,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/notifications,front,其他用户,无权限,/notifications,,,,,未执行,不适用：列表按当前登录人过滤
+/account/decisions,front,guest,游客未登录,/account/decisions,,,,,未执行,未登录访问时的实际表现（提示登录或空态），如实记录
+/account/decisions,front,买家,加载,/account/decisions,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/account/decisions,front,买家,成功,/account/decisions,,,,,未执行,正常数据下的渲染与接口 200
+/account/decisions,front,买家,空,/account/decisions,,,,,未执行,无处置记录时记空状态
+/account/decisions,front,买家,失败,/account/decisions,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/account/decisions,front,其他用户,无权限,/account/decisions,,,,,未执行,不适用：列表按当前登录人过滤
+/account/decisions/:decisionId,front,guest,游客未登录,/account/decisions/1,,,,,未执行,未登录访问时的实际表现，如实记录
+/account/decisions/:decisionId,front,买家,加载,/account/decisions/1,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/account/decisions/:decisionId,front,买家,成功,/account/decisions/1,,,,,未执行,正常数据下的渲染与接口 200
+/account/decisions/:decisionId,front,买家,空,/account/decisions/1,,,,,未执行,不适用：详情页无列表空态
+/account/decisions/:decisionId,front,买家,失败,/account/decisions/1,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/account/decisions/:decisionId,front,其他用户,无权限,/account/decisions/1,,,,,未执行,查看他人处置详情应被拒绝
+/report,front,guest,游客未登录,/report,,,,,未执行,未登录访问应重定向登录
+/report,front,买家,加载,/report,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
+/report,front,买家,成功,/report,,,,,未执行,正常数据下的渲染与接口 200
+/report,front,买家,空,/report,,,,,未执行,不适用：表单页无列表空态
+/report,front,买家,失败,/report,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
+/report,front,其他用户,无权限,/report,,,,,未执行,不适用：举报入口按当前登录人提交
+/orders,front,买家,重定向,/orders,,,,,未执行,重定向到 /transactions，复用订单列表记录；仅登记跳转是否生效
+/orders/:id,front,买家,重定向,/orders/4001,,,,,未执行,与 /transactions/:id 复用同一订单详情页，复用记录并注明
+/orders/:id/review,front,买家,重定向,/orders/4001/review,,,,,未执行,与 /transactions/:id/review 复用同一评价页，复用记录并注明
+/profile/transactions,front,买家,重定向,/profile/transactions,,,,,未执行,重定向到 /transactions，复用订单列表记录；仅登记跳转是否生效
