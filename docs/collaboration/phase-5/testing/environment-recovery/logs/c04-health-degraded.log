@@ -1,0 +1,54 @@
+=== C04 健康与就绪（依赖中断）| 2026-11-08 11:25:48 ===
+被测软件 SHA: d063588c3be59b1e9f013ff27e2a541cc03fed62 (main)
+方法：独立审计实例 t3-audit-api@8011（临时 pg/redis 容器），停对应容器制造中断，日常站点与日常库不受影响
+
+--- 基线 ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+/ready  :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+
+--- 场景1：停止 Redis ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"ok","redis":"unavailable"}}}
+/ready  :: HTTP 503 :: 
+--- 恢复 Redis ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+
+--- 场景2：停止数据库 ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"unavailable","redis":"ok"}}}
+/ready  :: HTTP 503 :: 
+
+--- 场景2 补充：/ready 503 的响应体（数据库停机中，用 HttpClient 读取）---
+
+--- 场景3：媒体不在探测范围（MINIO_ENDPOINT 指向不可达主机）---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"unavailable","redis":"ok"}}}
+
+--- 场景3（重做）：数据库恢复、媒体地址不可达时的探测表现 ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+/ready  :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+
+--- 场景2 补充：数据库停机时 /ready 的完整响应体 ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"unavailable","redis":"ok"}}}
+/ready  :: HTTP 503 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"unavailable","redis":"ok"}}}
+
+--- 场景4：Worker /healthz（数据库不可达）---
+t3-audit-pg 状态: t3-audit-pg Up 21 seconds
+/healthz :: HTTP 503 :: {"status": "degraded", "workerId": "worker-63c691b66f08-1", "workerVersion": "bp4-worker-runtime-v1", "startedAt": "2026-11-08T03:34:02.260167+00:00", "secondsSinceLastLoopTick": 0.886451, "runs": {"total": 0, "succeeded": 0, "skipped": 0, "retryScheduled": 0, "failed": 0, "workerFailure": 0, "droppedEvents": 0, "dbWriteErrors": 2}, "recentRuns": [], "queue": {"reachable": false, "pending": null, "oldestPendingSeconds": null}, "checks": {"mainLoopAlive": true, "dbReachable": false}}
+
+--- 对照：日常 worker 健康时 /healthz（同一软件版本，DB 正常）---
+  File "<stdin>", line 3
+    d=json.load(urllib.request.urlopen(http://127.0.0.1:8000/healthz,timeout=5))
+                                           ^
+SyntaxError: invalid syntax
+
+--- 场景4 补充：对照与稳定态 ---
+/healthz(日常 worker, 127.0.0.1:8002) :: HTTP 200 :: {"status": "ok", "workerId": "worker-29d1b64444dc-1", "workerVersion": "bp4-worker-runtime-v1", "startedAt": "2026-11-08T02:54:43.728653+00:00", "secondsSinceLastLoopTick": 0.573023, "runs": {"total": 3, "succeeded": 3, 
+/healthz(审计 worker, 第1次, DB 已恢复) :: HTTP 503 :: status=degraded queue.reachable=False
+/healthz(审计 worker, 第2次, DB 已恢复) :: HTTP 503 :: status=degraded queue.reachable=False
+/healthz(审计 worker, 第3次, DB 已恢复) :: HTTP 503 :: status=degraded queue.reachable=False
+/healthz(审计 worker, DB 已停止) :: HTTP 503 :: status=degraded queue.reachable=False dbReachable=False
+
+--- 场景4 重做: 已排除临时库未建表的干扰 ---
+基线 DB 正常 :: HTTP 200 :: status=ok queue.reachable=True dbReachable=True
+DB 停止 4s :: HTTP 503 :: status=degraded queue.reachable=False dbReachable=False
+DB 停止 10s :: HTTP 503 :: status=degraded queue.reachable=False dbReachable=False
+DB 恢复 8s :: HTTP 200 :: status=ok queue.reachable=True dbReachable=True
+DB 恢复 18s :: HTTP 200 :: status=ok queue.reachable=True dbReachable=True
