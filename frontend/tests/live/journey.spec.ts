@@ -216,7 +216,7 @@ test('guest browse, failure recovery, secure reload restoration, logout and fixe
   await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
   let expired = false
   await page.route('**/users/me', (route) => {
-    if (!expired) { expired = true; return route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED', message: 'Expired fixture', requestId: 'safe-test' } }) }
+    if (!expired) { expired = true; return route.fulfill({ status: 401, json: { code: 'AUTH_ACCESS_EXPIRED', message: 'Expired fixture', requestId: 'safe-test' } }) }
     return route.continue()
   })
   await page.getByRole('menuitem', { name: '市场' }).click()
@@ -261,7 +261,7 @@ test('another tab changing account cannot retry an old request as the new user',
   let attempts = 0
   await page.route('**/users/me', (route) => {
     attempts += 1
-    return route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED', message: 'Expired fixture', requestId: 'safe-test' } })
+    return route.fulfill({ status: 401, json: { code: 'AUTH_ACCESS_EXPIRED', message: 'Expired fixture', requestId: 'safe-test' } })
   })
   await page.getByText('Original account', { exact: true }).hover()
   const renewed = page.waitForResponse((response) => response.url().endsWith('/auth/browser-session') && response.status() === 200)

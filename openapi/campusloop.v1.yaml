@@ -1791,7 +1791,7 @@ components:
     ReportId: { name: reportId, in: path, required: true, schema: { type: integer, format: int64 } }
   responses:
     Unauthorized:
-      description: Missing, expired, revoked, or invalid token.
+      description: Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
       content:
         application/json:
           schema: { $ref: '#/components/schemas/ErrorResponse' }

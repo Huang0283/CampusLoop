@@ -64,10 +64,12 @@ async function refreshOnce(): Promise<void> {
 async function transport(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const request = new Request(input, init)
   const started = generation
+  const sessionRequest = !!tokens && request.headers.get('Authorization') === 'Bearer ' + tokens.accessToken
   const retry = request.clone()
   let response = await nativeRequest(request)
   const scopedAppeal = new URL(request.url).pathname.startsWith('/account/') && !tokens
-  if (response.status === 401 && request.headers.has('Authorization') && !request.url.endsWith('/auth/logout') && !scopedAppeal) {
+  const expired = response.status === 401 && (await response.clone().json().catch(() => null) as { code?: string } | null)?.code === 'AUTH_ACCESS_EXPIRED'
+  if (expired && sessionRequest && !request.url.endsWith('/auth/logout') && !scopedAppeal) {
     try {
       if (generation !== started) throw new ApiError(401, 'SESSION_CHANGED', '登录状态已变更，请重新操作。')
       await refreshOnce()
@@ -84,7 +86,7 @@ async function transport(input: RequestInfo | URL, init?: RequestInit): Promise<
   }
   if (!response.ok) {
     let body: { code?: string; message?: string; requestId?: string; details?: ApiError['details'] } = {}
-    try { body = await response.clone().json() } catch { /* Safe fallback. */ }
+    try { body = await response.clone().json() || {} } catch { /* Safe fallback. */ }
     if ((response.status === 401 || response.status === 423) && generation === started) {
       clearTokens(); window.dispatchEvent(new Event('campusloop-session-expired'))
       if (response.status === 423 && body.details?.appealToken) window.dispatchEvent(new CustomEvent('campusloop-account-disabled', { detail: body.details }))
