@@ -7,6 +7,39 @@ const user = { id: 501, nickname: '申诉同学', role: 'USER', status: 'ACTIVE'
 const now = '2026-11-04T08:00:00Z'
 const initial: AccountDecisionRecord = { id: 701, userId: user.id, action: 'WARNING', reason: '商品信息违规', facts: '发布信息与商品不符', basis: '平台商品信息规则', occurredAt: now, createdAt: now, reference: null, evidence: [], revokedAt: null, revocationReason: null, appeal: null }
 
+test('account evidence stays visible while copied thumbnail and repeated preview URLs expire', async ({ page }) => {
+  const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNkYPjPwMDAxMDAwMDAAAALHwEDmIWXfgAAAABJRU5ErkJggg==', 'base64')
+  const decision = { ...initial, evidence: ['private/evidence-fixture'] }
+  await routeApiFixture(page, route => {
+    const request = route.request(), path = new URL(request.url()).pathname
+    const reply = (data: unknown) => route.fulfill({ json: { data } })
+    if (path === '/auth/browser-session') return reply({ accessToken: 'evidence-fixture', expiresIn: 600, user })
+    if (path === '/notifications') return reply([])
+    if (path === '/account/decisions') return reply({ items: [decision], pagination: { page: 1, pageSize: 10, total: 1 } })
+    if (path === '/account/decisions/701') return reply(decision)
+    if (path === '/account/decisions/701/evidence/0') {
+      expect(request.headers().authorization).toBe('Bearer evidence-fixture')
+      return route.fulfill({ contentType: 'image/png', body: image })
+    }
+    return route.fulfill({ status: 404 })
+  })
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/account/decisions/701')
+    const thumbnail = page.getByRole('img', { name: '处理或申诉证据', exact: true })
+    await expect.poll(() => thumbnail.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBe(2)
+    for (let attempt = 0; attempt < 2; attempt++) {
+      await thumbnail.click()
+      const preview = page.getByRole('dialog', { name: '处理或申诉证据', exact: true })
+      await expect.poll(() => preview.locator('img').evaluate(element => (element as HTMLImageElement).naturalWidth)).toBe(2)
+      const copied = (await preview.locator('img').getAttribute('src'))!
+      expect(await page.evaluate(async url => { try { await fetch(url); return true } catch { return false } }, copied)).toBe(false)
+      await page.keyboard.press('Escape')
+      await expect(preview).not.toBeVisible()
+    }
+  }
+})
+
 test('ordinary account records renew an expired login session (contract fixture)', async ({ page }) => {
   let sessions = 0
   const unexpected: string[] = []

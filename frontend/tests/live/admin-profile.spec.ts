@@ -3,7 +3,7 @@ import { adminDashboardFixture } from '../admin-dashboard-fixture'
 import { mkdir } from 'node:fs/promises'
 
 const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNkYPjPwMDAxMDAwMDAAAALHwEDmIWXfgAAAABJRU5ErkJggg==', 'base64')
-const avatar = 'http://localhost:8001/admin-profile-fixture.jpg'
+const avatar = 'https://private.campusloop.invalid/avatar/501/admin-profile-fixture.jpg'
 async function setup(page: Page, role: 'ADMIN' | 'USER' | 'GUEST' = 'ADMIN') {
   let profile = { id: 501, nickname: '资料管理员', email: 'admin-profile@example.invalid', role: role === 'GUEST' ? 'USER' : role, status: 'ACTIVE', avatar: null as string | null, bio: '原始简介', school: '', college: '', major: '', transactionCount: 0, rating: 0 }
   let failSave = false, failUpload = false, saves = 0, uploads = 0
@@ -13,9 +13,13 @@ async function setup(page: Page, role: 'ADMIN' | 'USER' | 'GUEST' = 'ADMIN') {
   const requests: string[] = []
   await page.route('**/*', async route => {
     const req = route.request(), url = new URL(req.url())
-    if (url.pathname === '/admin-profile-fixture.jpg') return route.fulfill({ contentType: 'image/png', body: image })
     if (!['fetch', 'xhr'].includes(req.resourceType())) return route.continue()
     requests.push(url.pathname)
+    if (url.pathname === '/avatars/image') {
+      expect(req.headers().authorization).toBe('Bearer admin-profile-fixture')
+      expect(url.searchParams.get('reference')).toBe(avatar)
+      return route.fulfill({ contentType: 'image/png', body: image })
+    }
     if (url.pathname === '/auth/browser-session') return role === 'GUEST' ? route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED' } }) : route.fulfill({ json: { data: { accessToken: 'admin-profile-fixture', expiresIn: 600, user: profile } } })
     if (url.pathname === '/users/me') {
       if (req.method() === 'PATCH') {
@@ -89,11 +93,11 @@ for (const width of [1440, 390]) {
     await editor.getByRole('button', { name: '保存资料', exact: true }).click()
     await expect(editor).toBeVisible()
     await expect(page.locator('.adm-pf-hero h2')).toHaveText('新管理员')
-    await expect(page.locator('.adm-pf-avatar img')).toHaveAttribute('src', avatar)
-    await expect(page.locator('.adm-me img')).toHaveAttribute('src', avatar)
+    await expect(page.locator('.adm-pf-avatar img')).toHaveAttribute('src', /^blob:/)
+    await expect(page.locator('.adm-me img')).toHaveAttribute('src', /^blob:/)
     expect(fixture.payload()).toEqual({ nickname: '新管理员', avatar, bio: '修改后的简介', school: '校内大学', college: '', major: '' })
     await page.reload()
-    await expect(page.locator('.adm-pf-avatar img')).toHaveAttribute('src', avatar)
+    await expect(page.locator('.adm-pf-avatar img')).toHaveAttribute('src', /^blob:/)
     await expect(page.locator('.adm-pf-hero h2')).toHaveText('新管理员')
     await page.locator('.adm-me').click()
     await page.getByRole('menuitem', { name: '编辑资料与头像' }).click()
@@ -142,11 +146,11 @@ test('admin can retry failed upload and save without losing drafts', async ({ pa
   await editor.getByRole('button', { name: '保存资料', exact: true }).click()
   await expect(editor.getByRole('alert')).toBeVisible()
   await expect(editor.getByLabel('简介', { exact: true })).toHaveValue('需要保留的草稿')
-  await expect(editor.locator('.profile-avatar-upload img')).toHaveAttribute('src', avatar)
+  await expect(editor.locator('.profile-avatar-upload img')).toHaveAttribute('src', /^blob:/)
   expect(fixture.profile().avatar).toBeNull()
   fixture.failSave(false)
   await editor.getByRole('button', { name: '保存资料', exact: true }).click()
-  await expect(page.locator('.adm-pf-avatar img')).toHaveAttribute('src', avatar)
+  await expect(page.locator('.adm-pf-avatar img')).toHaveAttribute('src', /^blob:/)
   expect(fixture.profile()).toMatchObject({ avatar, bio: '需要保留的草稿' })
 })
 

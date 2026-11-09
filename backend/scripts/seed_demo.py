@@ -148,8 +148,8 @@ def create_demo(db, items, *, administrator=None):
         ("seller-avatar.png", "buyer-avatar.png", "admin-avatar.png")[: len(created_users)],
         strict=True,
     ):
-        user.avatar_url = (
-            settings.s3_public_base_url.rstrip("/") + "/" + store(user, avatar, "avatar")
+        user.avatar_url = "https://private.campusloop.invalid/" + store(
+            user, avatar, "avatar", private=True
         )
 
     evidence_image = Image.new("RGB", (900, 320), "#f3f6fc")

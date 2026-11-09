@@ -3,20 +3,24 @@ import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 
 const picture = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNkYPjPwMDAxMDAwMDAAAALHwEDmIWXfgAAAABJRU5ErkJggg==', 'base64')
-const avatarUrl = 'http://localhost:8001/fixture-avatar.jpg'
+const avatarUrl = 'https://private.campusloop.invalid/avatar/501/fixture-avatar.jpg'
 async function setup(page: Page) {
   let profile = { id: 501, nickname: '头像同学', email: 'avatar-fixture@example.invalid', role: 'USER', status: 'ACTIVE', avatar: null as string | null, bio: '', school: '', college: '', major: '', transactionCount: 0, rating: 0, campusVerified: false }
   let guest = false, failUpload = false, failSave = false
   let release: (() => void) | undefined
   let gate: Promise<void> | undefined
   let uploads = 0, saves = 0
-  await page.route('**/fixture-avatar.jpg', (route) => route.fulfill({ contentType: 'image/png', body: picture }))
   await page.route('**/*', async (route) => {
     const request = route.request()
     if (!['fetch', 'xhr'].includes(request.resourceType())) return route.fallback()
     const url = new URL(request.url())
     if (url.pathname === '/auth/browser-session') return guest ? route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED' } }) : route.fulfill({ json: { data: { accessToken: 'avatar-fixture-only', expiresIn: 600, user: profile } } })
     if (url.pathname === '/notifications') return route.fulfill({ json: { data: [] } })
+    if (url.pathname === '/avatars/image') {
+      expect(request.headers().authorization).toBe('Bearer avatar-fixture-only')
+      expect(url.searchParams.get('reference')).toBe(avatarUrl)
+      return route.fulfill({ contentType: 'image/png', body: picture })
+    }
     if (url.pathname === '/users/me') {
       if (request.method() === 'PATCH') {
         saves++
@@ -53,15 +57,15 @@ for (const width of [1440, 390]) test(`avatar preview, save, header and reload p
   await expect(page.getByRole('button', { name: '保存资料', exact: true })).toBeDisabled()
   fixture.releaseUpload()
   await expect(page.getByRole('button', { name: '更换头像', exact: true })).toBeVisible()
-  await expect(page.locator('.profile-summary img')).toHaveAttribute('src', avatarUrl)
+  await expect(page.locator('.profile-summary img')).toHaveAttribute('src', /^blob:/)
   expect(fixture.profile().avatar).toBeNull()
   await page.getByLabel('学校', { exact: true }).fill('校内大学')
   await page.getByRole('button', { name: '保存资料', exact: true }).click()
   await expect(page.getByText('资料已保存。', { exact: true })).toBeVisible()
-  await expect(page.getByRole('button', { name: '账号菜单：头像同学', exact: true }).locator('img')).toHaveAttribute('src', avatarUrl)
+  await expect(page.getByRole('button', { name: '账号菜单：头像同学', exact: true }).locator('img')).toHaveAttribute('src', /^blob:/)
   expect(fixture.profile()).toMatchObject({ avatar: avatarUrl, school: '校内大学' })
   await page.reload()
-  await expect(page.locator('.profile-summary img')).toHaveAttribute('src', avatarUrl)
+  await expect(page.locator('.profile-summary img')).toHaveAttribute('src', /^blob:/)
   await expect(page.getByLabel('学校', { exact: true })).toHaveValue('校内大学')
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false)
   if (process.env.CAMPUSLOOP_VISUAL_OUTPUT) {
@@ -104,7 +108,7 @@ test('avatar upload shows Chinese validation and errors and can retry without lo
   await page.getByRole('button', { name: '保存资料', exact: true }).click()
   await expect(page.getByText('服务暂不可用，请稍后重试。', { exact: true })).toBeVisible()
   await expect(page.getByLabel('简介', { exact: true })).toHaveValue('保留未保存简介')
-  await expect(page.locator('.profile-summary img')).toHaveAttribute('src', avatarUrl)
+  await expect(page.locator('.profile-summary img')).toHaveAttribute('src', /^blob:/)
   fixture.failSave(false)
   await page.getByRole('button', { name: '保存资料', exact: true }).click()
   await expect.poll(() => fixture.profile().avatar).toBe(avatarUrl)
