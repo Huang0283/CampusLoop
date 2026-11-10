@@ -271,7 +271,7 @@ def list_wanted(
 def create_wanted(body: WantedWrite, db: Db, actor: Actor, idempotency_key: Key = None):
     def action():
         if body.expireAt <= utcnow():
-            raise BusinessError(422, "VALIDATION_ERROR", "Expiry must be in the future.")
+            raise BusinessError(422, "VALIDATION_ERROR", "到期时间必须晚于当前时间。")
         item = WantedPost(
             owner_id=actor.id,
             title=body.title,
@@ -309,7 +309,7 @@ def update_wanted(wantedId: int, body: WantedWrite, db: Db, actor: Actor):
     if item.status != "OPEN":
         raise BusinessError(409, "WANTED_STATE_CONFLICT", "Wanted post is closed.")
     if body.expireAt <= utcnow():
-        raise BusinessError(422, "VALIDATION_ERROR", "Expiry must be in the future.")
+        raise BusinessError(422, "VALIDATION_ERROR", "到期时间必须晚于当前时间。")
     item.title, item.description = body.title, body.description
     item.budget_min, item.budget_max = body.budgetMin, body.budgetMax
     item.requirements = {"condition": body.condition, "location": body.location}

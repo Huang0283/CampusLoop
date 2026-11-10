@@ -1591,6 +1591,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
+        - name: query
+          in: query
+          schema: { type: string, maxLength: 200 }
+          description: Case-insensitive nickname/email or partial user number; filtered before pagination.
+        - name: status
+          in: query
+          schema: { type: string, enum: [ACTIVE, DISABLED] }
       responses:
         '200':
           description: Admin user list.
@@ -2629,6 +2636,7 @@ components:
         createdAt: { type: string, format: date-time }
         handledBy: { type: [integer, 'null'], format: int64 }
         handledAt: { type: [string, 'null'], format: date-time }
+        resolutionNote: { type: [string, 'null'] }
         evidence: { type: array, items: { type: string, format: uri-reference }, description: Protected administrator evidence paths; never anonymous image URLs }
     TrustSummaryResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/TrustSummary' } } }] }
     AdminReportResponse: { allOf: [{ $ref: '#/components/schemas/ApiEnvelope' }, { type: object, required: [data], properties: { data: { $ref: '#/components/schemas/AdminReport' } } }] }

@@ -893,6 +893,7 @@ export type AdminReport = {
     createdAt: string;
     handledBy: number | null;
     handledAt: string | null;
+    resolutionNote?: string | null;
     /**
      * Protected administrator evidence paths; never anonymous image URLs
      */
@@ -1645,7 +1646,7 @@ export type GetAvatarImageData = {
 
 export type GetAvatarImageErrors = {
     /**
-     * Missing, expired, revoked, or invalid token.
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
      */
     401: ErrorResponse;
     /**
@@ -3672,6 +3673,11 @@ export type AdminListUsersData = {
     query?: {
         page?: number;
         pageSize?: number;
+        /**
+         * Case-insensitive nickname/email or partial user number; filtered before pagination.
+         */
+        query?: string;
+        status?: 'ACTIVE' | 'DISABLED';
     };
     url: '/admin/users';
 };

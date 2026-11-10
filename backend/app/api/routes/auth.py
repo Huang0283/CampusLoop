@@ -1,8 +1,8 @@
 from datetime import timedelta
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, Path, Query, Request, Response
-from sqlalchemy import func, select
+from sqlalchemy import String, cast, func, or_, select
 from sqlalchemy.exc import IntegrityError
 
 from app.core.config import get_settings
@@ -241,18 +241,29 @@ def admin_users(
     actor: Actor,
     page: Annotated[int, Query(ge=1)] = 1,
     pageSize: Annotated[int, Query(ge=1, le=100)] = 20,
+    query: Annotated[str, Query(max_length=200)] = "",
+    status: Literal["ACTIVE", "DISABLED"] | None = None,
 ):
     administrator(actor)
-    users = db.scalars(
-        select(User).order_by(User.id).offset((page - 1) * pageSize).limit(pageSize)
-    ).all()
+    stmt = select(User)
+    if term := query.strip():
+        stmt = stmt.where(
+            or_(
+                cast(User.id, String).contains(term, autoescape=True),
+                User.nickname.icontains(term, autoescape=True),
+                User.email.icontains(term, autoescape=True),
+            )
+        )
+    if status:
+        stmt = stmt.where(User.status == status)
+    users = db.scalars(stmt.order_by(User.id).offset((page - 1) * pageSize).limit(pageSize)).all()
     result = ok(
         {
             "items": private_users(db, users),
             "pagination": {
                 "page": page,
                 "pageSize": pageSize,
-                "total": db.scalar(select(func.count()).select_from(User)),
+                "total": db.scalar(select(func.count()).select_from(stmt.subquery())),
             },
         }
     )

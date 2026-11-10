@@ -121,19 +121,19 @@ export function UsersPanel() {
   useLanguage()
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  const [status, setStatus] = useState<string>()
+  const [status, setStatus] = useState<'ACTIVE' | 'DISABLED'>()
   const [selected, setSelected] = useState<UserProfile>()
   const drawerFocus = useDrawerFocusReturn(Boolean(selected))
-  const remote = useRemote(`admin-users-${page}`, (signal) => api.data(api.adminListUsers({ signal, query: { page, pageSize: 20 } })))
-  const visible = remote.value?.items.filter((user) => (!status || user.status === status) && `${user.id} ${user.nickname} ${user.email}`.toLowerCase().includes(query.toLowerCase())) || []
+  const remote = useRemote(`admin-users-${page}-${query}-${status}`, (signal) => api.data(api.adminListUsers({ signal, query: { page, pageSize: 20, query, status } })))
+  const visible = remote.value?.items || []
   return localize(<>
     <Alert type="info" showIcon title="用户与风险线索读取、账号状态变更均由后端鉴权并审计；禁用会撤销已有会话。" />
     <Space wrap style={{ margin: '16px 0' }}>
-      <Input aria-label="筛选本页用户" placeholder="本页编号、昵称或邮箱" value={query} onChange={(event) => setQuery(event.target.value)} />
-      <Select virtual={false} aria-label="筛选本页账号状态" placeholder="本页全部状态" allowClear value={status} onChange={setStatus} style={{ width: 180 }} options={['ACTIVE', 'DISABLED'].map((value) => ({ value, label: accountStatusLabels[value] }))} />
+      <Input aria-label="搜索用户" placeholder="用户编号、昵称或邮箱" maxLength={200} value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); setSelected(undefined) }} />
+      <Select virtual={false} aria-label="筛选账号状态" placeholder="全部账号状态" allowClear value={status} onChange={(value) => { setStatus(value); setPage(1); setSelected(undefined) }} style={{ width: 180 }} options={['ACTIVE', 'DISABLED'].map((value) => ({ value, label: accountStatusLabels[value] }))} />
       <Button onClick={remote.reload}>刷新用户</Button>
     </Space>
-    <Typography.Paragraph type="secondary">筛选只作用于当前页，查看其他用户请翻页。服务端全文筛选尚未提供。</Typography.Paragraph>
+    <Typography.Paragraph type="secondary">输入关键词即可搜索全部用户，支持编号、昵称和邮箱，并可按账号状态筛选。</Typography.Paragraph>
     <Resource {...remote}>
       {!visible.length && remote.value && <NoItems filtered={Boolean(query || status)} />}
       {visible.length > 0 && <Table rowKey="id" pagination={false} scroll={{ x: 800 }} dataSource={visible} columns={[
@@ -172,7 +172,9 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
   const attemptKey = useAttemptKey()
   const [showEvidence, setShowEvidence] = useState(false)
   const [confirmed, setConfirmed] = useState<AdminReport>()
+  const [overriding, setOverriding] = useState(false)
   const current = confirmed || report
+  const handled = current.status === 'RESOLVED' || current.status === 'REJECTED'
   return localize(<>
     <Descriptions column={1} bordered items={[
     { key: 'target', label: '对象', children: <>{t(targetTypeLabels[current.targetType] || '举报对象')} #{current.targetId}</> },
@@ -180,17 +182,28 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
       { key: 'description', label: '举报说明', children: <CatalogText text={current.description || '无'} /> },
     { key: 'status', label: '处理状态', children: <Tag>{reportStatusLabels[current.status] || '未知状态'}</Tag> },
     { key: 'created', label: '提交时间', children: displayDate(current.createdAt) },
+    ...(handled ? [
+      { key: 'handled', label: '处理时间', children: current.handledAt ? displayDate(current.handledAt) : '暂无记录' },
+      { key: 'note', label: '处理说明', children: <CatalogText text={current.resolutionNote || '暂无记录'} /> },
+    ] : []),
     ]} />
     <Failure error={mutation.error} />
     {confirmed && <Alert role="status" type="success" title="后端已确认处理结果。" />}
-    {['PENDING', 'PROCESSING'].includes(current.status) && <Form layout="vertical" onFinish={(values: { resolution: 'RESOLVED' | 'REJECTED'; note: string }) => void mutation.run(async () => {
+    {handled && !overriding && <Button style={{ margin: '16px 0' }} disabled={!current.handledAt} onClick={() => setOverriding(true)}>改判举报</Button>}
+    {overriding && <Alert type="warning" showIcon style={{ margin: '16px 0' }} title="改判会通知举报人并保留操作日志，不会自动处罚用户或商品。" />}
+    {(!handled || overriding) && <Form key={`${current.status}-${current.handledAt}`} layout="vertical" onFinish={(values: { resolution: 'RESOLVED' | 'REJECTED'; note: string }) => void mutation.run(async () => {
       const body = { resolution: values.resolution, note: values.note.trim() }
-      setConfirmed(await api.data(api.resolveReport({ path: { reportId: report.id }, body, headers: api.idempotencyHeaders(attemptKey({ reportId: report.id, body })) })))
+      const options = { path: { reportId: report.id }, body, headers: api.idempotencyHeaders(attemptKey({ reportId: report.id, body, handledAt: current.handledAt })) }
+      const result = handled && current.handledAt
+        ? await api.data(api.overrideReport({ ...options, body: { ...body, expectedStatus: current.status as 'RESOLVED' | 'REJECTED', expectedHandledAt: current.handledAt } }))
+        : await api.data(api.resolveReport(options))
+      setConfirmed(result)
+      setOverriding(false)
       refresh()
     })}>
       <Form.Item name="resolution" label="人工处理结论" rules={[{ required: true }]}><Select virtual={false} options={[{ value: 'RESOLVED', label: '处理完成' }, { value: 'REJECTED', label: '驳回' }]} /></Form.Item>
       <Form.Item name="note" label="处理说明" rules={[{ required: true, whitespace: true, max: 500 }]}><Input.TextArea maxLength={500} /></Form.Item>
-      <Button htmlType="submit" loading={mutation.busy}>确认处理举报</Button>
+      <Space><Button htmlType="submit" loading={mutation.busy}>{overriding ? '确认改判并通知举报人' : '确认处理举报'}</Button>{overriding && <Button disabled={mutation.busy} onClick={() => setOverriding(false)}>取消改判</Button>}</Space>
     </Form>}
     {Boolean(current.evidence?.length) && <Button style={{ margin: '16px 0' }} onClick={() => setShowEvidence(true)}>读取私密证据（记录访问审计）</Button>}
     {showEvidence && current.evidence?.map((_, index) => localize(<Evidence key={index} reportId={report.id} index={index} />))}
