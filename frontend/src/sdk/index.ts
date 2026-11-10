@@ -97,6 +97,10 @@ async function transport(input: RequestInfo | URL, init?: RequestInit): Promise<
       PRODUCT_STATE_CONFLICT: '商品状态已变化，当前不能操作，请刷新后确认。', PRODUCT_STALE: '商品已更新，请刷新后重新处理。',
       PRODUCT_MODERATION_HOLD: '商品已被管理员下架，请等待人工复核。', OFFER_STATE_CONFLICT: '报价状态已变化，请刷新后重试。',
       WANTED_INACTIVE: '这条求购已关闭或已过期。', SEARCH_CAPACITY_EXCEEDED: '当前搜索繁忙，请稍后重试。',
+      WANTED_STATE_CONFLICT: '这条求购已关闭或已过期，当前不能操作。',
+      REVIEW_DUPLICATED: '你已经评价过这笔交易，不能重复评价。',
+      REPORT_ALREADY_HANDLED: '这条举报已处理。如需变更结论，请使用改判。',
+      REPORT_STALE: '举报处理结果已更新，请关闭详情并重新打开后再改判。',
       IMAGE_TOO_LARGE: '图片不能超过 5MiB。', UNSUPPORTED_IMAGE: '图片无效，请选择 JPG 或 PNG 图片。',
       STORAGE_UNAVAILABLE: '图片存储服务暂不可用，请稍后重试。', INVALID_IMAGE_REFERENCE: '图片引用无效，请重新上传。',
     }

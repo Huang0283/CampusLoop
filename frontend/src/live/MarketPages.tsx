@@ -348,7 +348,7 @@ export function WantedFormPage() {
       <Row gutter={20}><Col span={12}><Form.Item name="budgetMin" label="最低预算" rules={[{ required: true }]}><InputNumber min={0} precision={2} /></Form.Item></Col><Col span={12}><Form.Item name="budgetMax" label="最高预算" rules={[{ required: true }]}><InputNumber min={0} precision={2} /></Form.Item></Col></Row>
       <Form.Item name="condition" label="最低成色" rules={[{ required: true }]}><Select options={[{ value: 'ANY', label: '不限成色' }, ...conditions]} /></Form.Item>
       <Form.Item name="location" label="地点（ANY 表示不限）" rules={[{ required: true }]}><Input /></Form.Item>
-      <Form.Item name="expireAt" label="到期时间" rules={[{ required: true }]} getValueProps={(value: string) => ({ value: value ? new Date(new Date(value).getTime() - new Date(value).getTimezoneOffset() * 60000).toISOString().slice(0, 16) : '' })} normalize={(value: string) => value ? new Date(value).toISOString() : ''}><Input type="datetime-local" /></Form.Item>
+      <Form.Item name="expireAt" label="到期时间" rules={[{ required: true }, { validator: (_, value: string) => !value || Date.parse(value) > Date.now() ? Promise.resolve() : Promise.reject(new Error(t('到期时间必须晚于当前时间。'))) }]} getValueProps={(value: string) => ({ value: value ? new Date(new Date(value).getTime() - new Date(value).getTimezoneOffset() * 60000).toISOString().slice(0, 16) : '' })} normalize={(value: string) => value ? new Date(value).toISOString() : ''}><Input type="datetime-local" /></Form.Item>
       <Form.Item name="description" label="需求说明"><Input.TextArea maxLength={3000} /></Form.Item>
       <div className="form-actions"><Link to="/wanted">返回广场</Link><Button htmlType="submit" type="primary" loading={mutation.busy}>保存求购</Button></div>
     </Form>
