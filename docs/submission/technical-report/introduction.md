@@ -1,0 +1,9 @@
+# Introduction and project context
+
+CampusLoop is a campus second-hand trading platform for students who need to discover, discuss and complete exchanges for used goods within a university context. The project addresses a practical problem: campus listings are fragmented, trust signals are weak, and a transaction requires more than a public product page. A useful system therefore needs public browsing, authenticated ownership, private communication, explicit offer and order states, meeting confirmation, reporting and administrative auditability.
+
+The primary users are students who browse or publish listings, negotiate with another student and record a completed exchange. Administrators are responsible for reviewing reports, inspecting authorized evidence and recording decisions. The system also contains search, matching, price, reputation and risk-assistance boundaries; these are described according to their actual implementation and evidence status rather than as promises of autonomous decisions.
+
+The project scope includes account/session management, product and wanted-item workflows, private chat and offers, order and meetup states, reviews, notifications, reporting, administrative governance, object storage, background work and documented degradation paths. The current software is a technical candidate based on `main@89bca6a6fbcbb19c1a5dd5681954dd148c9b56b5`; M10 must confirm the final assessment SHA before this chapter is frozen.
+
+The scope excludes real university single-sign-on, real payment, logistics fulfilment and automatic punishment decisions. A rule or model result is not described as a verified learning-model achievement unless an independent evaluation and authorization record supports that conclusion. Human experience, course presentation, final licensing decisions and final submission receipt remain separate delivery gates.
