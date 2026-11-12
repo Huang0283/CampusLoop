@@ -17,6 +17,12 @@ from admin_fixtures import products_for_run, verify_execution_log
 
 
 class PackageTests(unittest.TestCase):
+    def test_old_material_checkout_cannot_silently_validate_current_search(self):
+        with tempfile.TemporaryDirectory() as folder:
+            with patch("verify_data.SOFTWARE_ROOT", Path(folder)):
+                with self.assertRaisesRegex(ValueError, "CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT"):
+                    verify_data.verify_static()
+
     def test_all_fixture_families_validate(self):
         report = verify_data.verify_static()
         self.assertEqual(report["mockSchemas"], 20)
@@ -60,6 +66,11 @@ class PackageTests(unittest.TestCase):
             ("admin-scenario-inputs", 7, "dependsOn", "missing"),
             ("admin-scenario-inputs", 3, "targetMessageAuthorAlias", "B"),
             ("admin-list-checks", 0, "endpoint", "/products"),
+            ("admin-list-checks", 0, "queryParameter", "client"),
+            ("search-checks-admin-v2", 2, "expectedInclude", ["AP001", "AP009"]),
+            ("search-checks-admin-v2", 8, "expectedExclude", ["AP009"]),
+            ("search-checks-admin-v2", 2, "endpoint", "/products"),
+            ("search-checks-admin-v2", 9, "endpoint", "/search"),
         ):
 
             def change(path, index=index, field=field, value=value):
@@ -83,6 +94,45 @@ class PackageTests(unittest.TestCase):
                 csv.writer(stream).writerows(rows)
             with self.assertRaisesRegex(ValueError, "ten named columns"):
                 verify_execution_log(broken)
+
+    def execution_rows(self):
+        path = (
+            runtime.ROOT / "docs/collaboration/phase-5/testing/data-permissions/execution-log.csv"
+        )
+        with path.open(encoding="utf-8-sig", newline="") as stream:
+            return list(csv.reader(stream))
+
+    def verify_rows(self, rows):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "execution-log.csv"
+            with path.open("w", encoding="utf-8", newline="") as stream:
+                csv.writer(stream).writerows(rows)
+            verify_execution_log(path)
+
+    def test_execution_log_accepts_appended_retests_without_replacing_history(self):
+        rows = self.execution_rows()
+        rows.append(rows[1].copy())
+        rows[-1][6] = "失败"
+        self.verify_rows(rows)
+
+    def test_execution_log_still_requires_every_case_and_rejects_unknown_ids(self):
+        rows = self.execution_rows()
+        missing = [row for row in rows if row[0] != "T1-C12"]
+        unknown = [row.copy() for row in rows]
+        unknown[-1][0] = "T1-C49"
+        for invalid in (missing, unknown):
+            with self.subTest(invalid=invalid[-1][0]):
+                with self.assertRaisesRegex(ValueError, "cover C01-C48"):
+                    self.verify_rows(invalid)
+
+    def test_execution_log_rejects_timestamp_on_unexecuted_case(self):
+        for case in ("T1-C12", "T1-C44"):
+            rows = self.execution_rows()
+            row = next(row for row in rows[1:] if row[0] == case)
+            row[6:8] = ["未执行", "2026-11-12T01:00:00Z"]
+            with self.subTest(case=case):
+                with self.assertRaisesRegex(ValueError, "cannot have execution timestamps"):
+                    self.verify_rows(rows)
 
     def corrupt(self, filename, change):
         with tempfile.TemporaryDirectory() as folder:

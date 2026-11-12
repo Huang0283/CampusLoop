@@ -21,9 +21,14 @@
 
    ```powershell
    $t1 = 'tests/collaboration/phase-5/data-permissions'
+   git worktree add --detach .codex-tmp/t1-software 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3
+   $env:CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT = (Resolve-Path '.codex-tmp/t1-software').Path
+   python -m pip install -r "$env:CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT/backend/requirements.txt"
    python "$t1/verify_data.py"
    python -m unittest discover -s $t1 -p test_package.py -v
    ```
+
+   若该只读源码目录已经存在，核对 `git -C .codex-tmp/t1-software rev-parse HEAD` 即可，不重复创建。它只供校验读取匹配函数/Schema/OpenAPI，不启动另一套网站，不升级现有审计 API；运行软件仍须 T3/M10 单独确认。
 
 3. M10 先提供独立 audit API、Redis 14/15、audit 媒体桶与 R/S 管理员。凭据只放忽略目录的私有文件。沿用 README 的环境检查，不自行提升账号角色。示例端口/容器必须替换为实际批准的 audit 环境。
 
@@ -40,8 +45,9 @@
 
 ## T2：怎样测市场搜索
 
-- 用关键词模式跑 Q31–Q42，查询参数为 `query`，分类等放 `filters`。Q41 仅测 BOOKS 分类；当前 `/products` 没有 `maxPrice` 参数，不能写一个被忽略的参数来证明价格过滤。
-- 匹配范围是名称及简介的字面关键词。Q33 搜“电脑”时，AP009 的简介“可以装电脑”也会命中；Q39 则只有该包匹配完整短语。这里验证关键词合同，不把它当“只返回电脑整机”的语义意图测评；混合/语义模式需另外定义候选和排序依据。
+- Q31–Q42 的非空词使用商城 `/search?mode=keyword&query=...`，分类等放 `filters`；Q40/Q42 空词使用 `/products`，与商城清空搜索一致。原 `search-checks.json` 的 30 条 `/products` 字面基线继续保留，不能混作商城搜索的验收。
+- Q33 搜“电脑”应包含 AP001/AP003/AP010，排除 AP009 电脑包；Q39 搜“可以装电脑”仍应包含 AP009。商城关键词模式已包含整机边界和别名规则，不需要开语义模型才能排除包。静态校验复用当前 `catalog_search` 匹配函数，只检查样例自洽，仍须 T2 在真实 API 独立验证。
+- Q41 使用 BOOKS 分类；`/search` 支持 `minPrice/maxPrice`，T2-C80 需记录实际端点并组合验证边界。不要将 `/products` 的限制推广到 `/search`。
 - 对所有页取并集，再通过 manifest 过滤为本次 run 的商品，核对 include/exclude，不依赖结果顺序。不要只测第一页就说没有遗漏。Q40 空关键词使用 API `pageSize=20`，70 件样例应跨至少四页；UI 采用自己的页大小，仍须遍历全量且无重复、无遗漏。
 - Q42 从第 2 页开始输入，再清空，确认回到第 1 页，全部 70 件本命名空间商品恢复。搜索测试先于订单/下架场景，避免商品状态变化影响结果；已经被业务测试修改的 run 不当作干净搜索基线。
 
@@ -49,7 +55,7 @@
 
 R 登录后跑 AL01–AL08，D/游客另外检查拒绝访问。每个页面记录输入、实际请求、所有页的 ID 和刷新结果。
 
-- **用户管理**：当前前端先获取账号页，再按昵称、邮箱、ID 等过滤；不要给 `/admin/users` 发一个接口没支持的 `query` 参数来证明搜索。8 个基础账号不足以跨服务器页时，用另一个专用 run 经注册流程准备超过 20 个账号，单独保存映射，验证后页账号也能搜出；缺前置记阻塞。
+- **用户管理**：包含 #158 的版本使用 `/admin/users?query=...&status=...`，服务端先按昵称、邮箱、ID 和状态匹配，再分页。输入/清空/切状态回第 1 页；不能仅在当前页过滤。8 个基础账号不足以跨服务器页时，用另一个专用 run 经注册流程准备超过 20 个账号，单独保存映射，验证后页账号也能搜出；缺前置记阻塞。
 - **商品治理**：使用 `/admin/products?query=...`；搜“笔记本电脑”应包含 AP001/AP010，排除 AP002、Kindle 和 iPad。清空与遍历核对 70 件本命名空间商品。
 - **举报管理**：先执行 AS01–AS04，记录真实 reportId、描述和状态。`#完整ID` 是精确查询，无 `#` 的数字片段是包含查询；还要检查描述关键词与 PENDING 过滤组合。超过一页的举报必须通过合法目标和创建流程补足，不直接造数据库记录；API 返回列表，遍历到不足 pageSize 的末页，不假设响应有 pagination 对象。
 - **禁用/恢复**：状态是 `DISABLED`/`ACTIVE`。AS06 依赖 AS05；保持 E 为可牺牲的隔离账号，不能使用日常账号。禁用后旧会话不得写入；恢复后须重新登录。
@@ -60,6 +66,6 @@ R 登录后跑 AL01–AL08，D/游客另外检查拒绝访问。每个页面记�
 
 T2 将软件 SHA、数据 commit、run-id、用例 ID、真实响应/页面反馈、跨页结果和脱敏证据交给 T1/T3；不发密码、令牌、完整私有 manifest。通过、失败、阻塞、未执行分别记录，CI 的静态通过不能写成真实业务通过。
 
-`verify_data.py --live` 回读基础/扩展商品与原有 30 条关键词 oracle，不自动执行本轮 20 条搜索配方或 8 条治理场景，报告明确列为未执行。C37–C48 仍由实际执行人填写 CSV；本次仅清除未执行行里误填的执行时间，不修改作者已有 C01–C36 的结果声明。
+`verify_data.py --live` 回读基础/扩展商品与原有 30 条关键词 oracle，不自动执行本轮 20 条搜索配方或 8 条治理场景，报告明确列为未执行。C37–C48 仍由实际执行人填写 CSV。日志允许同编号追加复测，必须保留 C01–C48 全部编号；未执行不填执行时间。本次六行元数据修正及原值见 `execution-log-corrections-20261112.md`，53 条原记录及作者结果不变。
 
 沿用 `reset_data.py` 默认 dry-run；确认实际命名空间后才用 `--apply`，它按私有 manifest 处理本 run 的 60/70 件商品和求购。账号、媒体、历史不能安全清理的部分仍保持阻塞和退出码 2，不能声称全部删除。下架恢复和交易场景结束后先记录结果；被预订/售出对象保留阻塞，不强制删除。
