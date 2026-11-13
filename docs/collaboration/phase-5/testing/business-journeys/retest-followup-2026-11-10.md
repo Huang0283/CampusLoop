@@ -1,11 +1,21 @@
-# T2：复核 #158 这次实际修改
+# T2：在固定新环境复核产品修复并交回结论
 
 本 PR 仅提供 T2 对本次产品修改的非作者检查与复测入口。完整个人待办、操作步骤、交付物和交接要求统一在 [T2 Issue #161](https://github.com/Huang0283/CampusLoop/issues/161) 跟踪；T1 的权限收尾在 [Issue #160](https://github.com/Huang0283/CampusLoop/issues/160)。
+
+## 2026-11-13 当前启动与交接
+
+- **本轮实际受测软件固定为 `c635bfc4f9cb4c8a29f2dda8e505364bff00ca18`。** 它已进入 main，包含此前安全/业务修复、本地界面改进、T1 校验修正和 T2 交接。本文下方 2026-11-12 的 `85bcc3e` 和原始输出仅记录历史验证，不再作为本轮启动入口。
+- **T2 使用 `business/run2`：网页 5184、API 18024。** 在自己电脑上从干净的固定软件源码启动；本 PR 的材料分支不作为网站源码。T1 使用 `permission/run2`（5185 / 18025），日常演示使用 5174 / 8001，各自账号与数据库不共用。
+- 首次安装依赖、停止原批次、两个终端启动、导入/二次导入和账号取用，按 [Issue #161 顶部的本轮环境说明](https://github.com/Huang0283/CampusLoop/issues/161) 执行；也可查看[固定软件版本的 README](https://github.com/Huang0283/CampusLoop/blob/c635bfc4f9cb4c8a29f2dda8e505364bff00ca18/README.md)。源码 SHA、`connection.json.softwareSha`、namespace/runId 均对齐后再记复测。
+- A/B/C 是卖家、买家、竞争买家；R/S 是两位管理员。管理员凭据在自己电脑的 `.codex-tmp/audit/business/run2/admins.json`，普通用户在同目录 `data-state/t1-business-run2.json` 的 `accounts` 中。密码随机生成，旧批次和另一组密码不能混用；私有文件不要上传。
+- 本机原 `business/ready3` 实际标记为旧软件 `78ae89a8d66789670056ffab726eebce2362efa4`。该批次现已停止并保留卷；新 `business/run2` 已启动，首次/二次导入及核验保持 8 个账号、70 件商品、12 条求购，30 项真实搜索检查通过，另 20 项增补搜索检查未由该命令执行。这不代表已查看或升级每位组员的电脑。
+- 同一固定软件的开发侧补充：40 项相关后端检查、21 项直接 HTTP 对照、6 项桌面/手机真实 API 会话检查通过；另有 29 项网络契约夹具页面检查通过。C12 自然过期凭证返回 `401 AUTH_ACCESS_EXPIRED`；C34 伪造凭证返回 `401 AUTH_UNAUTHORIZED`，不会通过 Cookie 自动续期；无关用户访问私聊/订单返回 403。夹具和开发侧结果不替代 T1/T2 的独立验收。
+- [T1 修复 PR #163](https://github.com/Huang0283/CampusLoop/pull/163) 已合入其个人材料分支，修正也已进入上述 main；无需再次领取同一修复。个人后续执行/复测仍按原分支交 `team/testing`，原 #150/#161 保持待复核，不因代码或材料合入而自动签收。
 
 ## 检查哪个代码版本
 
 - 代码差异：[已合并的修复 PR #158](https://github.com/Huang0283/CampusLoop/pull/158/files)。
-- main 基线：`427c996e3557c8278a38defa6b8f4550ff197672`，或包含它的后续版本。
+- 当前固定软件：`c635bfc4f9cb4c8a29f2dda8e505364bff00ca18`；本 PR 的材料提交 SHA 单独记录，不能填到软件 SHA 列。
 - 2026-11-12 开发侧实际复核版本：`85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3`，已包含 #154/#155/#158。T2复测时记录实际运行SHA；本PR材料SHA仍不能冒充软件SHA。
 - 本 PR 的材料分支不是网站运行版本。先由 M10/T3 确认 UI/API 实际运行上述软件；测试在已有隔离审计空间做。
 
@@ -31,7 +41,7 @@
 
 没有执行就写未执行，开发者自动化/本 PR 文档 CI 成功不代替你实测通过。发现问题写复现步骤交 M10；详细任务进度在 #161 更新。结果材料从个人分支交 `team/testing`，由另一位成员复核后再登记业务签收。
 
-## 2026-11-12 开发侧复核补充
+## 2026-11-12 开发侧复核补充（历史记录）
 
 本轮没有重新改写已合入的#158，也没有将旧版失败抹掉。固定上述85bcc3e软件，使用专用PostgreSQL数据库`campusloop_audit_t1t2_20261112`、专用Redis DB15和独立媒体桶，未写日常账号库或T2的business/run1。
 
