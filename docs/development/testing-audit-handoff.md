@@ -6,7 +6,9 @@
 
 本轮（2026-11-13）固定软件版本和可点击的源码入口维护在 [T2 Issue #161](https://github.com/Huang0283/CampusLoop/issues/161)。先在自己的干净检出中按 Issue 的完整 SHA 切换版本，执行 `git rev-parse HEAD` 核对；不要把个人 CSV/截图分支的 SHA 当成软件 SHA。T1 数据材料和 T2 交接文件现已整合进 main，不必另外复制旧压缩包。
 
-本轮使用 `business/run2`。旧 `run1` 的数据、账号和结果全部保留；软件变了不在原批次上换标签。以下命令中的 Python 均显式来自本机虚拟环境，不需要修改 PowerShell 执行策略。先确认 Docker Desktop 的 Linux Engine 已运行。
+本轮使用 `business/run2`。旧 `run1` 的数据、账号和结果全部保留。首次建立环境用 `start`；已有 run2 升级代码时必须显式执行 `upgrade`，不能只改 SHA 标签。升级会真实重建 API/worker/baseline，保留账号、密码、数据库和图片，并在本机 `versions/` 备份旧配置、ID 映射和升级前数据库，原执行证据仍归原 SHA。以下命令中的 Python 均显式来自本机虚拟环境，不需要修改 PowerShell 执行策略。先确认 Docker Desktop 的 Linux Engine 已运行。
+
+已有环境更新：`python scripts/audit_env.py upgrade --namespace business --run-id run2`；T1 换为 `permission`。升级完成后在 `connection.json` 核对实际 SHA。新增校园商品、搜索与匹配复测步骤见[全分类复测说明](../collaboration/phase-5/testing/campus-catalog.md)。Windows 的日常/T1/T2 都运行同一个 BGE 模型版本，各用独立服务凭证；首次需按[模型安装说明](catalog-search-local.md)准备已锁定权重和运行环境，模型不可用时明确降级。
 
 终端一：
 

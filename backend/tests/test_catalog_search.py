@@ -57,7 +57,7 @@ def test_candidate_query_expands_computer_aliases_without_changing_query_terms()
         aliases
     )
     assert candidate_query("验收 电脑") == "验收 " + candidate_query("电脑")
-    assert candidate_query("被子") == "被子"
+    assert candidate_query("未登记名称") == "未登记名称"
 
 
 @pytest.mark.parametrize(

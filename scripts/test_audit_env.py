@@ -12,6 +12,68 @@ import audit_env
 
 
 class AuditConfigTests(unittest.TestCase):
+    def test_explicit_upgrade_preserves_credentials_and_archives_old_manifest(self):
+        with (
+            tempfile.TemporaryDirectory() as temporary,
+            patch.object(audit_env, "ROOT", Path(temporary)),
+            patch.object(audit_env, "source_sha", return_value="a" * 40),
+        ):
+            folder, config = audit_env.initialize("business", "run1")
+            audit_env.private_json(folder / "connection.json", {"softwareSha": "a" * 40})
+            manifest = folder / "data-state/t1-business-run1.json"
+            original = {
+                "environment": {
+                    "softwareSha": "a" * 40,
+                    "containerId": "old",
+                    "database": config["AUDIT_DATABASE"],
+                },
+                "accounts": {"A": {"id": 7, "password": "private-test-password"}},
+                "products": {"P001": {"id": 5}},
+            }
+            audit_env.private_json(manifest, original)
+            credentials = (folder / "admins.json").read_bytes()
+            with (
+                patch.object(audit_env, "source_sha", return_value="b" * 40),
+                patch.object(audit_env, "inspect_api", return_value="audit-api"),
+                patch.object(audit_env, "check_configuration"),
+                patch.object(audit_env, "compose", return_value=SimpleNamespace(stdout="audit-db")),
+                patch.object(audit_env, "bootstrap"),
+                patch.object(audit_env, "start_catalog"),
+                patch.object(audit_env.subprocess, "run"),
+                patch.object(audit_env.subprocess, "check_output", return_value=b'[{"Id":"new"}]'),
+            ):
+                audit_env.upgrade(folder, config)
+            current = json.loads(manifest.read_text(encoding="utf-8"))
+            self.assertEqual(current["accounts"], original["accounts"])
+            self.assertEqual(current["products"], original["products"])
+            self.assertEqual(current["environment"]["softwareSha"], "b" * 40)
+            self.assertEqual((folder / "admins.json").read_bytes(), credentials)
+            archived = next((folder / "versions").glob("*/t1-business-run1.json"))
+            self.assertEqual(json.loads(archived.read_text(encoding="utf-8")), original)
+
+    def test_build_failure_never_restarts_or_relabels_existing_environment(self):
+        import subprocess
+
+        with (
+            tempfile.TemporaryDirectory() as temporary,
+            patch.object(audit_env, "ROOT", Path(temporary)),
+            patch.object(audit_env, "source_sha", return_value="a" * 40),
+        ):
+            folder, config = audit_env.initialize("business", "run1")
+            saved = (folder / "private-config.json").read_bytes()
+            with (
+                patch.object(audit_env, "source_sha", return_value="b" * 40),
+                patch.object(audit_env, "inspect_api", return_value="audit-api"),
+                patch.object(audit_env, "check_configuration"),
+                patch.object(
+                    audit_env, "compose", side_effect=subprocess.CalledProcessError(1, "build")
+                ) as compose,
+                self.assertRaises(subprocess.CalledProcessError),
+            ):
+                audit_env.upgrade(folder, config)
+            self.assertEqual(compose.call_count, 1)
+            self.assertEqual((folder / "private-config.json").read_bytes(), saved)
+
     def test_namespace_replay_preserves_secrets_and_rejects_changed_source(self):
         with (
             tempfile.TemporaryDirectory() as temporary,
@@ -20,9 +82,7 @@ class AuditConfigTests(unittest.TestCase):
         ):
             folder, original = audit_env.initialize("business", "run1")
             credentials = (folder / "admins.json").read_bytes()
-            self.assertEqual(
-                audit_env.initialize("business", "run1"), (folder, original)
-            )
+            self.assertEqual(audit_env.initialize("business", "run1"), (folder, original))
             self.assertEqual((folder / "admins.json").read_bytes(), credentials)
             users = json.loads(credentials)
             self.assertNotEqual(users["R"]["email"], users["S"]["email"])

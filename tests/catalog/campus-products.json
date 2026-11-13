@@ -1,0 +1,4002 @@
+[
+  {
+    "fixtureId": "CP001",
+    "category": "BOOKS",
+    "title": "高等数学同济第七版上册",
+    "description": "高数教材 轻微笔记。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP002",
+    "category": "BOOKS",
+    "title": "高等数学同济第七版下册",
+    "description": "高数书 微积分。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP003",
+    "category": "BOOKS",
+    "title": "线性代数同济第六版",
+    "description": "矩阵 大学数学。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP004",
+    "category": "BOOKS",
+    "title": "概率论与数理统计浙大版",
+    "description": "概率统计 大学教材。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP005",
+    "category": "BOOKS",
+    "title": "大学物理上册",
+    "description": "力学 电磁学。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP006",
+    "category": "BOOKS",
+    "title": "大学物理下册",
+    "description": "光学 热学。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP007",
+    "category": "BOOKS",
+    "title": "大学英语综合教程第一册",
+    "description": "英语课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP008",
+    "category": "BOOKS",
+    "title": "大学英语综合教程第二册",
+    "description": "英语课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP009",
+    "category": "BOOKS",
+    "title": "英语四级真题解析",
+    "description": "CET4 备考。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP010",
+    "category": "BOOKS",
+    "title": "英语六级真题解析",
+    "description": "CET6 备考。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP011",
+    "category": "BOOKS",
+    "title": "考研数学复习全书",
+    "description": "研究生考试 数学。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP012",
+    "category": "BOOKS",
+    "title": "考研英语阅读理解",
+    "description": "研究生考试 阅读。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP013",
+    "category": "BOOKS",
+    "title": "马克思主义基本原理教材",
+    "description": "大学思政课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP014",
+    "category": "BOOKS",
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "description": "毛概 大学思政。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP015",
+    "category": "BOOKS",
+    "title": "中国近现代史纲要教材",
+    "description": "大学思政课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP016",
+    "category": "BOOKS",
+    "title": "思想道德与法治教材",
+    "description": "大学思政课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP017",
+    "category": "BOOKS",
+    "title": "Python程序设计入门",
+    "description": "编程 计算机课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP018",
+    "category": "BOOKS",
+    "title": "C语言程序设计教程",
+    "description": "编程 计算机课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP019",
+    "category": "BOOKS",
+    "title": "Java核心技术基础卷",
+    "description": "编程 计算机课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 48,
+    "originalPrice": 96,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP020",
+    "category": "BOOKS",
+    "title": "数据结构与算法分析",
+    "description": "计算机专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP021",
+    "category": "BOOKS",
+    "title": "计算机组成原理",
+    "description": "计算机专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP022",
+    "category": "BOOKS",
+    "title": "计算机网络谢希仁版",
+    "description": "计算机专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP023",
+    "category": "BOOKS",
+    "title": "操作系统概念",
+    "description": "计算机专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 38,
+    "originalPrice": 76,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP024",
+    "category": "BOOKS",
+    "title": "数据库系统概论",
+    "description": "计算机专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP025",
+    "category": "BOOKS",
+    "title": "人工智能导论",
+    "description": "计算机专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 32,
+    "originalPrice": 64,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP026",
+    "category": "BOOKS",
+    "title": "机器学习周志华版",
+    "description": "西瓜书 人工智能。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 50,
+    "originalPrice": 100,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP027",
+    "category": "BOOKS",
+    "title": "深度学习基础教程",
+    "description": "人工智能 神经网络。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP028",
+    "category": "BOOKS",
+    "title": "管理学原理教材",
+    "description": "经济管理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP029",
+    "category": "BOOKS",
+    "title": "微观经济学曼昆版",
+    "description": "经济管理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 32,
+    "originalPrice": 64,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP030",
+    "category": "BOOKS",
+    "title": "宏观经济学教材",
+    "description": "经济管理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP031",
+    "category": "BOOKS",
+    "title": "基础会计学教材",
+    "description": "财务管理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP032",
+    "category": "BOOKS",
+    "title": "市场营销学教材",
+    "description": "经济管理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP033",
+    "category": "BOOKS",
+    "title": "大学生心理健康教材",
+    "description": "心理课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP034",
+    "category": "BOOKS",
+    "title": "社会学概论",
+    "description": "社会科学。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP035",
+    "category": "BOOKS",
+    "title": "法学导论教材",
+    "description": "法律课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP036",
+    "category": "BOOKS",
+    "title": "电路原理邱关源版",
+    "description": "电气电子专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP037",
+    "category": "BOOKS",
+    "title": "模拟电子技术基础",
+    "description": "电子专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP038",
+    "category": "BOOKS",
+    "title": "数字电子技术基础",
+    "description": "电子专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP039",
+    "category": "BOOKS",
+    "title": "机械制图大学教材",
+    "description": "机械专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP040",
+    "category": "BOOKS",
+    "title": "建筑设计基础教材",
+    "description": "建筑专业。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP041",
+    "category": "STATIONERY",
+    "title": "晨光A5纸质笔记本",
+    "description": "课堂记录 本子。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP042",
+    "category": "STATIONERY",
+    "title": "得力B5活页笔记本",
+    "description": "纸质本子 26孔。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP043",
+    "category": "STATIONERY",
+    "title": "国誉方格笔记本",
+    "description": "纸质本子 课程笔记。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP044",
+    "category": "STATIONERY",
+    "title": "MUJI横线笔记本",
+    "description": "纸质本子。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP045",
+    "category": "STATIONERY",
+    "title": "手账点阵笔记本",
+    "description": "纸质本子 手账。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP046",
+    "category": "STATIONERY",
+    "title": "错题整理活页本",
+    "description": "纸质本子。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP047",
+    "category": "STATIONERY",
+    "title": "实验记录本",
+    "description": "大学实验课程。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP048",
+    "category": "STATIONERY",
+    "title": "课程计划周记本",
+    "description": "学习计划。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 9,
+    "originalPrice": 18,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP049",
+    "category": "STATIONERY",
+    "title": "三菱黑色中性笔套装",
+    "description": "签字笔 0.5mm。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP050",
+    "category": "STATIONERY",
+    "title": "斑马速干中性笔",
+    "description": "签字笔 0.5mm。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP051",
+    "category": "STATIONERY",
+    "title": "百乐可换芯走珠笔",
+    "description": "签字笔。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP052",
+    "category": "STATIONERY",
+    "title": "英雄钢笔礼盒",
+    "description": "书写工具。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP053",
+    "category": "STATIONERY",
+    "title": "晨光自动铅笔",
+    "description": "绘图 0.5mm。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP054",
+    "category": "STATIONERY",
+    "title": "施德楼绘图铅笔套装",
+    "description": "素描 绘图。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP055",
+    "category": "STATIONERY",
+    "title": "辉柏嘉彩色铅笔24色",
+    "description": "彩铅 绘画。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP056",
+    "category": "STATIONERY",
+    "title": "樱花针管笔套装",
+    "description": "制图 手绘。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP057",
+    "category": "STATIONERY",
+    "title": "荧光标记笔六色",
+    "description": "重点标注。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP058",
+    "category": "STATIONERY",
+    "title": "白板笔三色套装",
+    "description": "讨论演示。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP059",
+    "category": "STATIONERY",
+    "title": "替换中性笔芯二十支",
+    "description": "签字笔耗材。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP060",
+    "category": "STATIONERY",
+    "title": "得力修正带套装",
+    "description": "书写修改。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 6,
+    "originalPrice": 12,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP061",
+    "category": "STATIONERY",
+    "title": "橡皮擦五块装",
+    "description": "绘图用品。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 5,
+    "originalPrice": 10,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP062",
+    "category": "STATIONERY",
+    "title": "透明直尺三件套",
+    "description": "测量 绘图。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP063",
+    "category": "STATIONERY",
+    "title": "金属三十厘米直尺",
+    "description": "测量 绘图。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP064",
+    "category": "STATIONERY",
+    "title": "工程制图三角尺",
+    "description": "机械制图。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP065",
+    "category": "STATIONERY",
+    "title": "圆规绘图工具套装",
+    "description": "工程制图。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP066",
+    "category": "STATIONERY",
+    "title": "卡西欧科学计算器",
+    "description": "考试允许时使用。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP067",
+    "category": "STATIONERY",
+    "title": "得力桌面订书机",
+    "description": "文档装订。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP068",
+    "category": "STATIONERY",
+    "title": "订书钉十盒",
+    "description": "装订耗材。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 6,
+    "originalPrice": 12,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP069",
+    "category": "STATIONERY",
+    "title": "长尾夹混合套装",
+    "description": "资料整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP070",
+    "category": "STATIONERY",
+    "title": "回形针收纳盒",
+    "description": "资料整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 5,
+    "originalPrice": 10,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP071",
+    "category": "STATIONERY",
+    "title": "A4透明文件袋十个",
+    "description": "讲义整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP072",
+    "category": "STATIONERY",
+    "title": "风琴式文件夹",
+    "description": "资料分类。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 16,
+    "originalPrice": 32,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP073",
+    "category": "STATIONERY",
+    "title": "硬壳资料册六十页",
+    "description": "讲义整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP074",
+    "category": "STATIONERY",
+    "title": "牛皮纸档案袋二十个",
+    "description": "文件保存。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP075",
+    "category": "STATIONERY",
+    "title": "标签索引便利贴",
+    "description": "书籍标注。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 6,
+    "originalPrice": 12,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP076",
+    "category": "STATIONERY",
+    "title": "彩色便签纸套装",
+    "description": "学习提醒。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP077",
+    "category": "STATIONERY",
+    "title": "桌面胶带切割器",
+    "description": "文具工具。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP078",
+    "category": "STATIONERY",
+    "title": "和纸装饰胶带十卷",
+    "description": "手账装饰。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP079",
+    "category": "STATIONERY",
+    "title": "可折叠帆布笔袋",
+    "description": "文具收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP080",
+    "category": "STATIONERY",
+    "title": "A3绘图垫板",
+    "description": "工程制图。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP081",
+    "category": "DIGITAL",
+    "title": "Apple iPhone 12 二手手机",
+    "description": "128GB 电池健康84% 屏幕轻微划痕。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1300,
+    "originalPrice": 2600,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP082",
+    "category": "DIGITAL",
+    "title": "Apple iPhone 13 二手手机",
+    "description": "128GB 电池健康87% 屏幕正常。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1800,
+    "originalPrice": 3600,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP083",
+    "category": "DIGITAL",
+    "title": "华为nova 9 二手手机",
+    "description": "8GB 128GB 电池正常。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 650,
+    "originalPrice": 1300,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP084",
+    "category": "DIGITAL",
+    "title": "小米12 二手手机",
+    "description": "8GB 256GB 屏幕正常。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 950,
+    "originalPrice": 1900,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP085",
+    "category": "DIGITAL",
+    "title": "Redmi Note 12 二手手机",
+    "description": "红米 6GB 128GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 500,
+    "originalPrice": 1000,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP086",
+    "category": "DIGITAL",
+    "title": "Apple iPad 9 平板电脑",
+    "description": "64GB 网课 阅读。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1100,
+    "originalPrice": 2200,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP087",
+    "category": "DIGITAL",
+    "title": "Apple iPad Air 4 平板电脑",
+    "description": "64GB 绘画 网课。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1700,
+    "originalPrice": 3400,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP088",
+    "category": "DIGITAL",
+    "title": "华为MatePad 11 平板电脑",
+    "description": "128GB 网课阅读。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1000,
+    "originalPrice": 2000,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP089",
+    "category": "DIGITAL",
+    "title": "小米平板5",
+    "description": "128GB 追课 阅读。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 900,
+    "originalPrice": 1800,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP090",
+    "category": "DIGITAL",
+    "title": "联想ThinkPad T480笔记本电脑",
+    "description": "i5 8GB 256GB 办公学习。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1200,
+    "originalPrice": 2400,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP091",
+    "category": "DIGITAL",
+    "title": "联想小新Air14笔记本电脑",
+    "description": "i5 16GB 512GB 轻薄本。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1700,
+    "originalPrice": 3400,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP092",
+    "category": "DIGITAL",
+    "title": "联想拯救者R7000游戏本",
+    "description": "R5 16GB 512GB 独立显卡。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 2800,
+    "originalPrice": 5600,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP093",
+    "category": "DIGITAL",
+    "title": "华硕天选2游戏本",
+    "description": "R7 16GB 512GB 独立显卡。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 2900,
+    "originalPrice": 5800,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP094",
+    "category": "DIGITAL",
+    "title": "华硕灵耀14轻薄本",
+    "description": "i5 16GB 512GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 2300,
+    "originalPrice": 4600,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP095",
+    "category": "DIGITAL",
+    "title": "惠普战66笔记本电脑",
+    "description": "i5 16GB 512GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1900,
+    "originalPrice": 3800,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP096",
+    "category": "DIGITAL",
+    "title": "戴尔Latitude 5420笔记本电脑",
+    "description": "i5 16GB 512GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1800,
+    "originalPrice": 3600,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP097",
+    "category": "DIGITAL",
+    "title": "宏碁非凡S3轻薄本",
+    "description": "i5 16GB 512GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 2000,
+    "originalPrice": 4000,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP098",
+    "category": "DIGITAL",
+    "title": "Apple MacBook Air M1",
+    "description": "8GB 256GB 笔记本电脑。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 3200,
+    "originalPrice": 6400,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP099",
+    "category": "DIGITAL",
+    "title": "联想办公台式电脑整机",
+    "description": "i5 8GB 256GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1100,
+    "originalPrice": 2200,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP100",
+    "category": "DIGITAL",
+    "title": "戴尔OptiPlex台式机",
+    "description": "i5 16GB 512GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1300,
+    "originalPrice": 2600,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP101",
+    "category": "DIGITAL",
+    "title": "惠普ProDesk电脑主机",
+    "description": "i5 16GB 512GB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1400,
+    "originalPrice": 2800,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP102",
+    "category": "DIGITAL",
+    "title": "华硕Mini PC迷你主机",
+    "description": "16GB 512GB 台式电脑。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1600,
+    "originalPrice": 3200,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP103",
+    "category": "DIGITAL",
+    "title": "罗技G304无线鼠标",
+    "description": "游戏鼠标 USB接收器。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 90,
+    "originalPrice": 180,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP104",
+    "category": "DIGITAL",
+    "title": "罗技M330静音鼠标",
+    "description": "无线鼠标 办公。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP105",
+    "category": "DIGITAL",
+    "title": "雷蛇蝰蛇有线鼠标",
+    "description": "游戏鼠标。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 60,
+    "originalPrice": 120,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP106",
+    "category": "DIGITAL",
+    "title": "Keychron K2机械键盘",
+    "description": "红轴 蓝牙。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 220,
+    "originalPrice": 440,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP107",
+    "category": "DIGITAL",
+    "title": "RK R87机械键盘",
+    "description": "茶轴 有线。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP108",
+    "category": "DIGITAL",
+    "title": "罗技K380蓝牙键盘",
+    "description": "便携 办公。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 90,
+    "originalPrice": 180,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP109",
+    "category": "DIGITAL",
+    "title": "Apple AirPods 2蓝牙耳机",
+    "description": "电池正常 耳塞已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 260,
+    "originalPrice": 520,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP110",
+    "category": "DIGITAL",
+    "title": "索尼WH-CH720N降噪耳机",
+    "description": "头戴式 蓝牙。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 450,
+    "originalPrice": 900,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP111",
+    "category": "DIGITAL",
+    "title": "佳能EOS 600D数码相机",
+    "description": "单反 含18-55镜头。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1000,
+    "originalPrice": 2000,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP112",
+    "category": "DIGITAL",
+    "title": "索尼A5100数码相机",
+    "description": "微单 含套机镜头。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1700,
+    "originalPrice": 3400,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP113",
+    "category": "DIGITAL",
+    "title": "小米10000mAh移动电源充电宝",
+    "description": "电池正常。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP114",
+    "category": "DIGITAL",
+    "title": "戴尔P2419H显示器",
+    "description": "24英寸 1080P。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 420,
+    "originalPrice": 840,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP115",
+    "category": "DIGITAL",
+    "title": "惠普DeskJet 2720打印机",
+    "description": "喷墨 含墨盒。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 180,
+    "originalPrice": 360,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP116",
+    "category": "DIGITAL",
+    "title": "TP-Link AX1500路由器",
+    "description": "双频 WiFi6。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP117",
+    "category": "DIGITAL",
+    "title": "闪迪128GB U盘",
+    "description": "USB3.0 移动存储。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP118",
+    "category": "DIGITAL",
+    "title": "西数1TB移动硬盘",
+    "description": "USB3.0 存储。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 180,
+    "originalPrice": 360,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP119",
+    "category": "DIGITAL",
+    "title": "绿联65W充电器",
+    "description": "USB-C 笔记本手机充电。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP120",
+    "category": "DIGITAL",
+    "title": "安克USB-C扩展坞",
+    "description": "HDMI USB3.0 读卡器。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP121",
+    "category": "DAILY",
+    "title": "折叠晴雨伞",
+    "description": "雨伞 通勤 防晒。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP122",
+    "category": "DAILY",
+    "title": "长柄透明雨伞",
+    "description": "雨天通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP123",
+    "category": "DAILY",
+    "title": "迷你胶囊雨伞",
+    "description": "便携 雨天通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP124",
+    "category": "DAILY",
+    "title": "保温水杯五百毫升",
+    "description": "保温杯 304不锈钢。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP125",
+    "category": "DAILY",
+    "title": "玻璃水杯带杯套",
+    "description": "饮水。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP126",
+    "category": "DAILY",
+    "title": "运动吨吨水杯",
+    "description": "饮水 一升。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP127",
+    "category": "DAILY",
+    "title": "不锈钢饭盒",
+    "description": "餐具 两层。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP128",
+    "category": "DAILY",
+    "title": "便携餐具三件套",
+    "description": "筷子 勺子 叉子。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP129",
+    "category": "DAILY",
+    "title": "密封食品收纳盒",
+    "description": "餐具 收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP130",
+    "category": "DAILY",
+    "title": "大号宿舍收纳箱",
+    "description": "整理箱 带盖 45升。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP131",
+    "category": "DAILY",
+    "title": "透明宿舍整理箱",
+    "description": "收纳箱 30升。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP132",
+    "category": "DAILY",
+    "title": "床底扁平储物箱",
+    "description": "收纳箱 宿舍。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 32,
+    "originalPrice": 64,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP133",
+    "category": "DAILY",
+    "title": "折叠布艺收纳箱",
+    "description": "宿舍 整理箱。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP134",
+    "category": "DAILY",
+    "title": "桌面抽屉收纳盒",
+    "description": "宿舍 文具整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP135",
+    "category": "DAILY",
+    "title": "分格内衣收纳盒",
+    "description": "衣物整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP136",
+    "category": "DAILY",
+    "title": "旅行洗漱收纳包",
+    "description": "洗漱用品收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP137",
+    "category": "DAILY",
+    "title": "便携洗漱杯",
+    "description": "洗漱收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP138",
+    "category": "DAILY",
+    "title": "塑料洗脸盆",
+    "description": "宿舍用品。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP139",
+    "category": "DAILY",
+    "title": "折叠洗衣盆",
+    "description": "宿舍用品。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP140",
+    "category": "DAILY",
+    "title": "带盖脏衣篮",
+    "description": "衣物收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP141",
+    "category": "DAILY",
+    "title": "便携晾衣绳",
+    "description": "晾晒。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 6,
+    "originalPrice": 12,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP142",
+    "category": "DAILY",
+    "title": "防滑衣架二十个",
+    "description": "衣物晾晒。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP143",
+    "category": "DAILY",
+    "title": "多夹晾袜架",
+    "description": "晾晒。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP144",
+    "category": "DAILY",
+    "title": "长柄软毛扫把",
+    "description": "清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP145",
+    "category": "DAILY",
+    "title": "带簸箕扫把套装",
+    "description": "清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP146",
+    "category": "DAILY",
+    "title": "平板拖把",
+    "description": "清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP147",
+    "category": "DAILY",
+    "title": "粘毛滚筒套装",
+    "description": "清洁 衣物除毛。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP148",
+    "category": "DAILY",
+    "title": "桌面迷你垃圾桶",
+    "description": "清洁 收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP149",
+    "category": "DAILY",
+    "title": "宿舍脚踏垃圾桶",
+    "description": "清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP150",
+    "category": "DAILY",
+    "title": "抽屉分隔板套装",
+    "description": "收纳整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP151",
+    "category": "DAILY",
+    "title": "床边挂式收纳袋",
+    "description": "宿舍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP152",
+    "category": "DAILY",
+    "title": "便携针线盒",
+    "description": "衣物修补。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP153",
+    "category": "DAILY",
+    "title": "家用尖嘴钳",
+    "description": "钳子 手工维修。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP154",
+    "category": "DAILY",
+    "title": "迷你组合钳",
+    "description": "钳子 手工维修。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP155",
+    "category": "DAILY",
+    "title": "六件套螺丝刀",
+    "description": "维修工具。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 16,
+    "originalPrice": 32,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP156",
+    "category": "DAILY",
+    "title": "可伸缩卷尺",
+    "description": "测量 三米。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP157",
+    "category": "DAILY",
+    "title": "防滑浴室拖鞋",
+    "description": "日常用品 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP158",
+    "category": "DAILY",
+    "title": "门后挂钩四个",
+    "description": "宿舍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP159",
+    "category": "DAILY",
+    "title": "可折叠购物袋",
+    "description": "环保 通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 6,
+    "originalPrice": 12,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP160",
+    "category": "DAILY",
+    "title": "旅行压缩收纳袋",
+    "description": "行李整理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP161",
+    "category": "FURNITURE",
+    "title": "可折叠床上书桌",
+    "description": "宿舍 阅读。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP162",
+    "category": "FURNITURE",
+    "title": "升降床上小桌",
+    "description": "宿舍 学习。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP163",
+    "category": "FURNITURE",
+    "title": "简约学习书桌",
+    "description": "书桌 校内搬运。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP164",
+    "category": "FURNITURE",
+    "title": "折叠电脑桌",
+    "description": "书桌 校内搬运。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 80,
+    "originalPrice": 160,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP165",
+    "category": "FURNITURE",
+    "title": "木质桌面书架",
+    "description": "书籍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP166",
+    "category": "FURNITURE",
+    "title": "三层落地书架",
+    "description": "书籍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP167",
+    "category": "FURNITURE",
+    "title": "金属夹缝置物架",
+    "description": "宿舍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP168",
+    "category": "FURNITURE",
+    "title": "桌上双层置物架",
+    "description": "宿舍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP169",
+    "category": "FURNITURE",
+    "title": "带轮三层置物架",
+    "description": "宿舍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP170",
+    "category": "FURNITURE",
+    "title": "免打孔床头置物架",
+    "description": "宿舍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP171",
+    "category": "FURNITURE",
+    "title": "网面办公椅",
+    "description": "座椅 学习。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP172",
+    "category": "FURNITURE",
+    "title": "可折叠靠背椅",
+    "description": "座椅。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP173",
+    "category": "FURNITURE",
+    "title": "塑料折叠小凳",
+    "description": "座椅。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP174",
+    "category": "FURNITURE",
+    "title": "实木小圆凳",
+    "description": "座椅。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP175",
+    "category": "FURNITURE",
+    "title": "懒人靠背地椅",
+    "description": "座椅。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 55,
+    "originalPrice": 110,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP176",
+    "category": "FURNITURE",
+    "title": "小米LED护眼台灯",
+    "description": "阅读灯 学习。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP177",
+    "category": "FURNITURE",
+    "title": "飞利浦护眼台灯",
+    "description": "阅读灯 学习。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 80,
+    "originalPrice": 160,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP178",
+    "category": "FURNITURE",
+    "title": "USB夹式阅读灯",
+    "description": "台灯 床头照明。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP179",
+    "category": "FURNITURE",
+    "title": "可充电床头灯",
+    "description": "照明。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP180",
+    "category": "FURNITURE",
+    "title": "桌面氛围小夜灯",
+    "description": "照明。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP181",
+    "category": "FURNITURE",
+    "title": "USB桌面风扇",
+    "description": "低功率 送风。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP182",
+    "category": "FURNITURE",
+    "title": "小型循环风扇",
+    "description": "低功率 送风。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 60,
+    "originalPrice": 120,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP183",
+    "category": "FURNITURE",
+    "title": "夹式床头电风扇",
+    "description": "宿舍 低功率。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP184",
+    "category": "FURNITURE",
+    "title": "手持充电风扇",
+    "description": "便携 低功率。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP185",
+    "category": "FURNITURE",
+    "title": "桌面电子闹钟",
+    "description": "时间显示。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP186",
+    "category": "FURNITURE",
+    "title": "静音石英挂钟",
+    "description": "时间显示。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP187",
+    "category": "FURNITURE",
+    "title": "迷你温湿度计",
+    "description": "环境显示。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP188",
+    "category": "FURNITURE",
+    "title": "小型空气加湿器",
+    "description": "USB 低功率。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP189",
+    "category": "FURNITURE",
+    "title": "桌面小型空气净化器",
+    "description": "USB 低功率。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP190",
+    "category": "FURNITURE",
+    "title": "手持衣物除毛器",
+    "description": "衣物护理。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP191",
+    "category": "FURNITURE",
+    "title": "充电式电动牙刷",
+    "description": "自用机身 不含旧刷头。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 50,
+    "originalPrice": 100,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP192",
+    "category": "FURNITURE",
+    "title": "便携电子体重秤",
+    "description": "体重测量。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP193",
+    "category": "FURNITURE",
+    "title": "小型手持吸尘器",
+    "description": "清洁 低功率。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 55,
+    "originalPrice": 110,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP194",
+    "category": "FURNITURE",
+    "title": "桌面键盘吸尘器",
+    "description": "清洁 USB。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP195",
+    "category": "FURNITURE",
+    "title": "充电式感应灯",
+    "description": "衣柜照明。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP196",
+    "category": "FURNITURE",
+    "title": "伸缩窗帘杆",
+    "description": "宿舍收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP197",
+    "category": "FURNITURE",
+    "title": "简易折叠衣帽架",
+    "description": "衣物收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP198",
+    "category": "FURNITURE",
+    "title": "竹制小鞋架",
+    "description": "鞋子收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP199",
+    "category": "FURNITURE",
+    "title": "床头软包靠背",
+    "description": "宿舍靠背。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP200",
+    "category": "FURNITURE",
+    "title": "门口换鞋小凳",
+    "description": "座椅收纳。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP201",
+    "category": "BEDDING",
+    "title": "一米二纯棉床单",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP202",
+    "category": "BEDDING",
+    "title": "九十厘米纯棉床单",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP203",
+    "category": "BEDDING",
+    "title": "一米五磨毛床单",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP204",
+    "category": "BEDDING",
+    "title": "灰色条纹床单",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP205",
+    "category": "BEDDING",
+    "title": "蓝色格子床单",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP206",
+    "category": "BEDDING",
+    "title": "全棉单人被套",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP207",
+    "category": "BEDDING",
+    "title": "双面纯棉被套",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP208",
+    "category": "BEDDING",
+    "title": "磨毛保暖被套",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP209",
+    "category": "BEDDING",
+    "title": "单人空调被",
+    "description": "被子 夏季 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP210",
+    "category": "BEDDING",
+    "title": "薄款夏凉被",
+    "description": "被子 夏季 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP211",
+    "category": "BEDDING",
+    "title": "单人秋冬棉被",
+    "description": "被子 冬季 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP212",
+    "category": "BEDDING",
+    "title": "加厚纤维冬被",
+    "description": "被子 冬季 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 70,
+    "originalPrice": 140,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP213",
+    "category": "BEDDING",
+    "title": "轻薄羽绒被",
+    "description": "被子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 120,
+    "originalPrice": 240,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP214",
+    "category": "BEDDING",
+    "title": "桑蚕丝夏凉被",
+    "description": "被子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP215",
+    "category": "BEDDING",
+    "title": "三件套床单被套枕套",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP216",
+    "category": "BEDDING",
+    "title": "纯棉枕套一对",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP217",
+    "category": "BEDDING",
+    "title": "亚麻枕套一对",
+    "description": "宿舍 寝具 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP218",
+    "category": "BEDDING",
+    "title": "记忆棉枕头",
+    "description": "枕芯 带可洗外套。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP219",
+    "category": "BEDDING",
+    "title": "乳胶枕头",
+    "description": "枕芯 带可洗外套。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 50,
+    "originalPrice": 100,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP220",
+    "category": "BEDDING",
+    "title": "荞麦枕头",
+    "description": "枕芯。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP221",
+    "category": "BEDDING",
+    "title": "纤维学生枕头",
+    "description": "大学生宿舍 枕芯。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP222",
+    "category": "BEDDING",
+    "title": "U形午睡枕",
+    "description": "午休。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP223",
+    "category": "BEDDING",
+    "title": "趴睡午休枕",
+    "description": "午休。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP224",
+    "category": "BEDDING",
+    "title": "靠腰记忆棉垫",
+    "description": "宿舍靠垫。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP225",
+    "category": "BEDDING",
+    "title": "床头三角靠枕",
+    "description": "宿舍靠垫。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP226",
+    "category": "BEDDING",
+    "title": "卡通抱枕",
+    "description": "宿舍靠垫 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP227",
+    "category": "BEDDING",
+    "title": "办公室午休毯",
+    "description": "毛毯 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP228",
+    "category": "BEDDING",
+    "title": "珊瑚绒毛毯",
+    "description": "毛毯 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP229",
+    "category": "BEDDING",
+    "title": "法兰绒毛毯",
+    "description": "毛毯 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP230",
+    "category": "BEDDING",
+    "title": "单人透气床垫",
+    "description": "宿舍 一米二。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 80,
+    "originalPrice": 160,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP231",
+    "category": "BEDDING",
+    "title": "折叠海绵床垫",
+    "description": "宿舍 九十厘米。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP232",
+    "category": "BEDDING",
+    "title": "椰棕薄床垫",
+    "description": "宿舍 一米二。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 90,
+    "originalPrice": 180,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP233",
+    "category": "BEDDING",
+    "title": "床垫防滑保护套",
+    "description": "宿舍 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP234",
+    "category": "BEDDING",
+    "title": "防水床笠",
+    "description": "宿舍 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP235",
+    "category": "BEDDING",
+    "title": "纯棉床笠",
+    "description": "宿舍 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP236",
+    "category": "BEDDING",
+    "title": "单人凉席",
+    "description": "夏季 寝具。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP237",
+    "category": "BEDDING",
+    "title": "冰丝凉席三件套",
+    "description": "夏季 寝具。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP238",
+    "category": "BEDDING",
+    "title": "宿舍遮光床帘",
+    "description": "床帘 含挂钩。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP239",
+    "category": "BEDDING",
+    "title": "单人蚊帐",
+    "description": "夏季 防蚊。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP240",
+    "category": "BEDDING",
+    "title": "床帘支架套装",
+    "description": "宿舍 寝具配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP241",
+    "category": "TRANSPORT",
+    "title": "捷安特ATX660山地自行车",
+    "description": "山地车 26寸 变速。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 650,
+    "originalPrice": 1300,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP242",
+    "category": "TRANSPORT",
+    "title": "捷安特ATX720山地自行车",
+    "description": "山地车 27.5寸 变速。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 900,
+    "originalPrice": 1800,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP243",
+    "category": "TRANSPORT",
+    "title": "美利达勇士300山地车",
+    "description": "自行车 26寸。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 600,
+    "originalPrice": 1200,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP244",
+    "category": "TRANSPORT",
+    "title": "美利达公爵500山地车",
+    "description": "自行车 27.5寸。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1000,
+    "originalPrice": 2000,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP245",
+    "category": "TRANSPORT",
+    "title": "迪卡侬ST100山地自行车",
+    "description": "山地车 26寸。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 500,
+    "originalPrice": 1000,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP246",
+    "category": "TRANSPORT",
+    "title": "喜德盛旭日300A山地车",
+    "description": "自行车 变速。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 600,
+    "originalPrice": 1200,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP247",
+    "category": "TRANSPORT",
+    "title": "凤凰通勤自行车",
+    "description": "城市车 校内通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 220,
+    "originalPrice": 440,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP248",
+    "category": "TRANSPORT",
+    "title": "永久通勤自行车",
+    "description": "城市车 校内通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 200,
+    "originalPrice": 400,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP249",
+    "category": "TRANSPORT",
+    "title": "飞鸽城市自行车",
+    "description": "城市车 校内通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 180,
+    "originalPrice": 360,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP250",
+    "category": "TRANSPORT",
+    "title": "捷安特Escape平把公路车",
+    "description": "自行车 通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 900,
+    "originalPrice": 1800,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP251",
+    "category": "TRANSPORT",
+    "title": "美利达探索者平把公路车",
+    "description": "自行车 通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1100,
+    "originalPrice": 2200,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP252",
+    "category": "TRANSPORT",
+    "title": "迪卡侬RC100公路自行车",
+    "description": "公路车 弯把。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1000,
+    "originalPrice": 2000,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP253",
+    "category": "TRANSPORT",
+    "title": "喜德盛RF380公路车",
+    "description": "自行车 弯把。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1300,
+    "originalPrice": 2600,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP254",
+    "category": "TRANSPORT",
+    "title": "捷安特OCR2600公路车",
+    "description": "自行车 弯把。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1800,
+    "originalPrice": 3600,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP255",
+    "category": "TRANSPORT",
+    "title": "大行P8折叠自行车",
+    "description": "折叠车 20寸。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1400,
+    "originalPrice": 2800,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP256",
+    "category": "TRANSPORT",
+    "title": "迪卡侬Tilt100折叠车",
+    "description": "自行车 20寸。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 500,
+    "originalPrice": 1000,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP257",
+    "category": "TRANSPORT",
+    "title": "欧亚马折叠自行车",
+    "description": "折叠车 通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 650,
+    "originalPrice": 1300,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP258",
+    "category": "TRANSPORT",
+    "title": "永久二十寸折叠车",
+    "description": "自行车 通勤。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 280,
+    "originalPrice": 560,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP259",
+    "category": "TRANSPORT",
+    "title": "小牛U1电动自行车",
+    "description": "电动车 合规牌照手续需核验。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1500,
+    "originalPrice": 3000,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP260",
+    "category": "TRANSPORT",
+    "title": "雅迪小型电动自行车",
+    "description": "电动车 合规牌照手续需核验。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1200,
+    "originalPrice": 2400,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP261",
+    "category": "TRANSPORT",
+    "title": "爱玛城市电动自行车",
+    "description": "电瓶车 合规牌照手续需核验。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1300,
+    "originalPrice": 2600,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP262",
+    "category": "TRANSPORT",
+    "title": "九号A30电动自行车",
+    "description": "电动车 合规牌照手续需核验。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 1800,
+    "originalPrice": 3600,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP263",
+    "category": "TRANSPORT",
+    "title": "迪卡侬成人滑板车",
+    "description": "人力滑板车 校内按规定使用。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 150,
+    "originalPrice": 300,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP264",
+    "category": "TRANSPORT",
+    "title": "成人四轮长板",
+    "description": "滑板 防护用品另备。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 120,
+    "originalPrice": 240,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP265",
+    "category": "TRANSPORT",
+    "title": "成人双翘滑板",
+    "description": "滑板 防护用品另备。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP266",
+    "category": "TRANSPORT",
+    "title": "自行车U形防盗车锁",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP267",
+    "category": "TRANSPORT",
+    "title": "自行车密码链条车锁",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP268",
+    "category": "TRANSPORT",
+    "title": "公路自行车骑行头盔",
+    "description": "骑行配件 无碰撞历史。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 50,
+    "originalPrice": 100,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP269",
+    "category": "TRANSPORT",
+    "title": "城市通勤骑行头盔",
+    "description": "骑行配件 无碰撞历史。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP270",
+    "category": "TRANSPORT",
+    "title": "自行车USB充电前灯",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP271",
+    "category": "TRANSPORT",
+    "title": "自行车红色尾灯",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP272",
+    "category": "TRANSPORT",
+    "title": "自行车便携打气筒",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP273",
+    "category": "TRANSPORT",
+    "title": "自行车维修补胎工具",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP274",
+    "category": "TRANSPORT",
+    "title": "自行车铝合金水壶架",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP275",
+    "category": "TRANSPORT",
+    "title": "自行车快拆车筐",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP276",
+    "category": "TRANSPORT",
+    "title": "自行车机械车铃",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP277",
+    "category": "TRANSPORT",
+    "title": "自行车手机支架",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP278",
+    "category": "TRANSPORT",
+    "title": "通勤骑行半指手套",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP279",
+    "category": "TRANSPORT",
+    "title": "电动车防雨座套",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP280",
+    "category": "TRANSPORT",
+    "title": "电动车后视镜一对",
+    "description": "骑行配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP281",
+    "category": "SPORTS",
+    "title": "尤尼克斯入门羽毛球拍",
+    "description": "羽拍 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP282",
+    "category": "SPORTS",
+    "title": "胜利铁锤羽毛球拍",
+    "description": "羽拍 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 90,
+    "originalPrice": 180,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP283",
+    "category": "SPORTS",
+    "title": "李宁双人羽毛球拍",
+    "description": "羽拍 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 80,
+    "originalPrice": 160,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP284",
+    "category": "SPORTS",
+    "title": "羽毛球十二只装",
+    "description": "球类耗材。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP285",
+    "category": "SPORTS",
+    "title": "斯伯丁七号篮球",
+    "description": "篮球 室外。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP286",
+    "category": "SPORTS",
+    "title": "威尔胜七号篮球",
+    "description": "篮球 室内。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 80,
+    "originalPrice": 160,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP287",
+    "category": "SPORTS",
+    "title": "李宁耐磨篮球",
+    "description": "篮球 室外。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP288",
+    "category": "SPORTS",
+    "title": "摩腾五号足球",
+    "description": "足球 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 55,
+    "originalPrice": 110,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP289",
+    "category": "SPORTS",
+    "title": "迪卡侬五号足球",
+    "description": "足球 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP290",
+    "category": "SPORTS",
+    "title": "米卡萨排球",
+    "description": "排球 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 70,
+    "originalPrice": 140,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP291",
+    "category": "SPORTS",
+    "title": "双鱼乒乓球拍双拍",
+    "description": "乒乓球 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP292",
+    "category": "SPORTS",
+    "title": "红双喜三星乒乓球拍",
+    "description": "乒乓球 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP293",
+    "category": "SPORTS",
+    "title": "乒乓球十只装",
+    "description": "球类耗材。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP294",
+    "category": "SPORTS",
+    "title": "迪卡侬入门网球拍",
+    "description": "网球 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 90,
+    "originalPrice": 180,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP295",
+    "category": "SPORTS",
+    "title": "网球训练球三只",
+    "description": "球类耗材。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP296",
+    "category": "SPORTS",
+    "title": "八毫米防滑瑜伽垫",
+    "description": "健身 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP297",
+    "category": "SPORTS",
+    "title": "六毫米TPE瑜伽垫",
+    "description": "健身 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP298",
+    "category": "SPORTS",
+    "title": "可调节速度跳绳",
+    "description": "健身 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP299",
+    "category": "SPORTS",
+    "title": "无绳跳绳套装",
+    "description": "健身 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP300",
+    "category": "SPORTS",
+    "title": "两公斤哑铃一对",
+    "description": "力量训练。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP301",
+    "category": "SPORTS",
+    "title": "五公斤哑铃一对",
+    "description": "力量训练。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 55,
+    "originalPrice": 110,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP302",
+    "category": "SPORTS",
+    "title": "可调节握力器",
+    "description": "力量训练。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP303",
+    "category": "SPORTS",
+    "title": "弹力阻力带套装",
+    "description": "力量训练。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP304",
+    "category": "SPORTS",
+    "title": "俯卧撑支架",
+    "description": "力量训练。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP305",
+    "category": "SPORTS",
+    "title": "健腹轮",
+    "description": "力量训练。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP306",
+    "category": "SPORTS",
+    "title": "泡沫轴按摩滚筒",
+    "description": "运动放松。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 22,
+    "originalPrice": 44,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP307",
+    "category": "SPORTS",
+    "title": "筋膜按摩球",
+    "description": "运动放松。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP308",
+    "category": "SPORTS",
+    "title": "护膝一对",
+    "description": "运动防护 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP309",
+    "category": "SPORTS",
+    "title": "护腕一对",
+    "description": "运动防护 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP310",
+    "category": "SPORTS",
+    "title": "护踝一对",
+    "description": "运动防护 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP311",
+    "category": "SPORTS",
+    "title": "速干运动毛巾",
+    "description": "运动用品 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP312",
+    "category": "SPORTS",
+    "title": "游泳护目镜",
+    "description": "游泳用品 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP313",
+    "category": "SPORTS",
+    "title": "硅胶游泳帽",
+    "description": "游泳用品 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP314",
+    "category": "SPORTS",
+    "title": "成人浮力训练板",
+    "description": "游泳训练。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP315",
+    "category": "SPORTS",
+    "title": "户外折叠坐垫",
+    "description": "露营 运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP316",
+    "category": "SPORTS",
+    "title": "双人露营帐篷",
+    "description": "户外露营。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP317",
+    "category": "SPORTS",
+    "title": "折叠露营椅",
+    "description": "户外露营。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP318",
+    "category": "SPORTS",
+    "title": "三十升徒步背包",
+    "description": "户外徒步。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP319",
+    "category": "SPORTS",
+    "title": "可调节登山杖一对",
+    "description": "户外徒步。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP320",
+    "category": "SPORTS",
+    "title": "户外飞盘",
+    "description": "操场运动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP321",
+    "category": "clothing",
+    "title": "优衣库纯棉短袖M码",
+    "description": "夏季 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP322",
+    "category": "clothing",
+    "title": "优衣库纯棉短袖L码",
+    "description": "夏季 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP323",
+    "category": "clothing",
+    "title": "李宁速干运动短袖",
+    "description": "运动 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP324",
+    "category": "clothing",
+    "title": "迪卡侬长袖运动衫",
+    "description": "运动 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP325",
+    "category": "clothing",
+    "title": "森马纯棉衬衫",
+    "description": "春秋 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 28,
+    "originalPrice": 56,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP326",
+    "category": "clothing",
+    "title": "海澜之家商务衬衫",
+    "description": "面试 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP327",
+    "category": "clothing",
+    "title": "基础圆领卫衣",
+    "description": "春秋 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP328",
+    "category": "clothing",
+    "title": "连帽加绒卫衣",
+    "description": "秋冬 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP329",
+    "category": "clothing",
+    "title": "轻薄牛仔外套",
+    "description": "春秋 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP330",
+    "category": "clothing",
+    "title": "冬季加绒牛仔外套",
+    "description": "冬季 上衣 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP331",
+    "category": "clothing",
+    "title": "迪卡侬防风冲锋衣",
+    "description": "外套 户外 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 80,
+    "originalPrice": 160,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP332",
+    "category": "clothing",
+    "title": "优衣库轻薄羽绒服",
+    "description": "冬季 外套 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP333",
+    "category": "clothing",
+    "title": "短款保暖棉服",
+    "description": "冬季 外套 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 70,
+    "originalPrice": 140,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP334",
+    "category": "clothing",
+    "title": "春秋针织开衫",
+    "description": "外套 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP335",
+    "category": "clothing",
+    "title": "基础直筒牛仔裤",
+    "description": "裤子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP336",
+    "category": "clothing",
+    "title": "宽松休闲长裤",
+    "description": "裤子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP337",
+    "category": "clothing",
+    "title": "加绒运动长裤",
+    "description": "冬季 裤子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP338",
+    "category": "clothing",
+    "title": "速干运动短裤",
+    "description": "夏季 裤子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP339",
+    "category": "clothing",
+    "title": "基础西装长裤",
+    "description": "面试 裤子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP340",
+    "category": "clothing",
+    "title": "大学生面试西装外套",
+    "description": "正装 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP341",
+    "category": "clothing",
+    "title": "大学生面试西装套装",
+    "description": "正装 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 180,
+    "originalPrice": 360,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP342",
+    "category": "clothing",
+    "title": "白色帆布鞋四十码",
+    "description": "鞋子 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP343",
+    "category": "clothing",
+    "title": "回力帆布鞋四十二码",
+    "description": "鞋子 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 40,
+    "originalPrice": 80,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP344",
+    "category": "clothing",
+    "title": "安踏轻便跑鞋",
+    "description": "运动鞋 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP345",
+    "category": "clothing",
+    "title": "李宁缓震跑鞋",
+    "description": "运动鞋 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 85,
+    "originalPrice": 170,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP346",
+    "category": "clothing",
+    "title": "迪卡侬羽毛球鞋",
+    "description": "运动鞋 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 60,
+    "originalPrice": 120,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP347",
+    "category": "clothing",
+    "title": "匹克篮球鞋",
+    "description": "运动鞋 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP348",
+    "category": "clothing",
+    "title": "日常平底单鞋",
+    "description": "鞋子 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP349",
+    "category": "clothing",
+    "title": "真皮面试皮鞋",
+    "description": "正装 鞋子 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 75,
+    "originalPrice": 150,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP350",
+    "category": "clothing",
+    "title": "纯色棒球帽",
+    "description": "帽子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP351",
+    "category": "clothing",
+    "title": "冬季针织帽",
+    "description": "帽子 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP352",
+    "category": "clothing",
+    "title": "羊毛混纺围巾",
+    "description": "冬季 配饰 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP353",
+    "category": "clothing",
+    "title": "冬季保暖手套",
+    "description": "配饰 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP354",
+    "category": "clothing",
+    "title": "帆布单肩包",
+    "description": "通勤 包袋。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP355",
+    "category": "clothing",
+    "title": "大容量双肩背包",
+    "description": "通勤 包袋 可以装电脑。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP356",
+    "category": "clothing",
+    "title": "防水笔记本电脑包",
+    "description": "包袋 可以装电脑。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP357",
+    "category": "clothing",
+    "title": "十五寸笔记本内胆包",
+    "description": "电脑配件 包袋。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP358",
+    "category": "clothing",
+    "title": "通勤斜挎小包",
+    "description": "包袋。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP359",
+    "category": "clothing",
+    "title": "二十寸拉杆行李箱",
+    "description": "旅行箱 行李箱。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 65,
+    "originalPrice": 130,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP360",
+    "category": "clothing",
+    "title": "二十四寸旅行行李箱",
+    "description": "拉杆箱 行李箱。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 90,
+    "originalPrice": 180,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP361",
+    "category": "other",
+    "title": "毕业纪念相册",
+    "description": "照片收藏。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP362",
+    "category": "other",
+    "title": "明信片收藏套装",
+    "description": "文创收藏。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP363",
+    "category": "other",
+    "title": "大学校园纪念徽章",
+    "description": "文创收藏。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP364",
+    "category": "other",
+    "title": "手工羊毛毡材料包",
+    "description": "手工材料 未使用。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP365",
+    "category": "other",
+    "title": "刺绣入门材料包",
+    "description": "手工材料 未使用。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP366",
+    "category": "other",
+    "title": "十字绣材料套装",
+    "description": "手工材料 未使用。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP367",
+    "category": "other",
+    "title": "钩针编织工具套装",
+    "description": "手工工具。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP368",
+    "category": "other",
+    "title": "毛线混色六团",
+    "description": "手工材料 未使用。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP369",
+    "category": "other",
+    "title": "模型拼装剪裁工具",
+    "description": "模型工具。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP370",
+    "category": "other",
+    "title": "塑料拼装飞机模型",
+    "description": "模型收藏。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP371",
+    "category": "other",
+    "title": "木质建筑拼装模型",
+    "description": "模型收藏。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP372",
+    "category": "other",
+    "title": "一千片风景拼图",
+    "description": "休闲 拼图完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP373",
+    "category": "other",
+    "title": "五百片校园拼图",
+    "description": "休闲 拼图完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP374",
+    "category": "other",
+    "title": "标准国际象棋",
+    "description": "桌游 棋子完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP375",
+    "category": "other",
+    "title": "磁性中国象棋",
+    "description": "桌游 棋子完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP376",
+    "category": "other",
+    "title": "折叠围棋棋盘套装",
+    "description": "桌游 棋子完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP377",
+    "category": "other",
+    "title": "标准五子棋套装",
+    "description": "桌游 棋子完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP378",
+    "category": "other",
+    "title": "狼人杀桌游卡牌",
+    "description": "社团活动 牌张完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP379",
+    "category": "other",
+    "title": "UNO桌游卡牌",
+    "description": "社团活动 牌张完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP380",
+    "category": "other",
+    "title": "飞行棋折叠棋盘",
+    "description": "休闲 棋子完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 10,
+    "originalPrice": 20,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP381",
+    "category": "other",
+    "title": "成人魔方三阶",
+    "description": "益智用品。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP382",
+    "category": "other",
+    "title": "成人魔方四阶",
+    "description": "益智用品。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP383",
+    "category": "other",
+    "title": "木吉他入门款",
+    "description": "乐器 六弦完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 180,
+    "originalPrice": 360,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP384",
+    "category": "other",
+    "title": "尤克里里二十三寸",
+    "description": "乐器 四弦完整。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 100,
+    "originalPrice": 200,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP385",
+    "category": "other",
+    "title": "口琴二十四孔",
+    "description": "乐器 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP386",
+    "category": "other",
+    "title": "卡祖笛金属款",
+    "description": "乐器 已清洁。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP387",
+    "category": "other",
+    "title": "电子节拍器",
+    "description": "乐器配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP388",
+    "category": "other",
+    "title": "吉他调音器",
+    "description": "乐器配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 15,
+    "originalPrice": 30,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP389",
+    "category": "other",
+    "title": "折叠乐谱架",
+    "description": "乐器配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP390",
+    "category": "other",
+    "title": "吉他便携支架",
+    "description": "乐器配件。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP391",
+    "category": "other",
+    "title": "仿真绿植桌面盆栽",
+    "description": "宿舍装饰。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP392",
+    "category": "other",
+    "title": "简约陶瓷花瓶",
+    "description": "宿舍装饰。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 18,
+    "originalPrice": 36,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP393",
+    "category": "other",
+    "title": "木质桌面相框",
+    "description": "宿舍装饰。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 12,
+    "originalPrice": 24,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP394",
+    "category": "other",
+    "title": "软木留言板",
+    "description": "宿舍装饰。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 25,
+    "originalPrice": 50,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP395",
+    "category": "other",
+    "title": "挂墙照片网格架",
+    "description": "宿舍装饰。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 20,
+    "originalPrice": 40,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP396",
+    "category": "other",
+    "title": "大学社团展示易拉宝架",
+    "description": "活动器材 不含旧宣传内容。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 45,
+    "originalPrice": 90,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP397",
+    "category": "other",
+    "title": "演讲提示翻页笔",
+    "description": "课堂展示 USB接收器。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 30,
+    "originalPrice": 60,
+    "condition": "LIKE_NEW",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP398",
+    "category": "other",
+    "title": "可折叠活动展示架",
+    "description": "社团活动。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 35,
+    "originalPrice": 70,
+    "condition": "GOOD",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP399",
+    "category": "other",
+    "title": "证件卡套挂绳套装",
+    "description": "校园日常。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 8,
+    "originalPrice": 16,
+    "condition": "FAIR",
+    "campusLocation": "校内"
+  },
+  {
+    "fixtureId": "CP400",
+    "category": "other",
+    "title": "毕业学士服纪念套装",
+    "description": "大学毕业 已清洗。校内当面核验，物品状态以页面成色为准。虚构测试商品，不代表真实货源或成交价格。",
+    "price": 50,
+    "originalPrice": 100,
+    "condition": "NEW",
+    "campusLocation": "校内"
+  }
+]

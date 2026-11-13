@@ -138,6 +138,16 @@ def setup(args):
         record["id"] = result["id"]
         save(path, state)
 
+    if args.campus_catalog:
+        # Import before wanted posts exist, avoiding thousands of redundant jobs
+        # while still publishing every item through the normal business API.
+        import sys
+
+        sys.path.insert(0, str(BASE.parents[3] / "scripts"))
+        from seed_campus_catalog import seed
+
+        seed(args)
+
     for fixture in read("wanted.json"):
         fid = fixture["fixtureId"]
         owner = state["accounts"][fixture["ownerAlias"]]
@@ -213,6 +223,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--admin-search", action="store_true", help="Add ten isolated search products (70 total)"
     )
+    parser.add_argument(
+        "--campus-catalog", action="store_true", help="Add 400 campus items before wanted posts"
+    )
+    parser.add_argument("--font", type=Path, default=Path("C:/Windows/Fonts/msyh.ttc"))
     try:
         from verify_data import verify_static
 

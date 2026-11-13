@@ -198,9 +198,8 @@ def rank_live(
     db, query, wanted=None, mode="keyword", filters=None, sort="relevance", lock_candidates=False
 ):
     original_query = query
-    if wanted is None:
-        query = search_query(query)
-    baseline_query = candidate_query(query) if wanted is None else query
+    query = search_query(query)
+    baseline_query = candidate_query(query)
     entities, payload = input_snapshot(db, baseline_query, wanted, filters)
     payload["options"] = {"mode": "keyword", "sort": sort}
     result = rank_payload(payload)
@@ -213,6 +212,10 @@ def rank_live(
                 result["metadata"].update(degraded=True, fallbackReason="SEMANTIC_UNAVAILABLE")
         else:
             result = refine_search(result, payload["products"], query, sort)
+    else:
+        # M7's frozen rule baseline includes constraints-only candidates. The live
+        # journey also requires the requested item, for both the API and worker.
+        result = refine_search(result, payload["products"], query, sort)
     # Re-read visibility after RPC, before public output; never return internal IDs blindly.
     ranked_ids = [int(item["productId"]) for item in result["items"]]
     fresh_query = select(Product)
@@ -245,8 +248,8 @@ def rank_live(
         "algorithm": result["metadata"]["algorithmVersion"],
         "options": payload["options"],
     }
+    stable["catalogSearchVersion"] = SEARCH_VERSION
     if wanted is None:
-        stable["catalogSearchVersion"] = SEARCH_VERSION
         stable["requestedMode"] = mode
     version = hashlib.sha256(json.dumps(stable, sort_keys=True, default=str).encode()).hexdigest()
     if wanted and (

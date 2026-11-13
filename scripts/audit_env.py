@@ -10,6 +10,7 @@ import re
 import secrets
 import shutil
 import subprocess
+from datetime import UTC, datetime
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -20,21 +21,45 @@ PORTS = {
     "permission": (18025, 5185, 19027),
     "environment": (18026, 5186, 19026),
 }
+CATALOG_PORTS = {"business": 18790, "permission": 18791}
+
+
+def local_catalog(namespace):
+    return (
+        f"http://host.docker.internal:{CATALOG_PORTS[namespace]}"
+        if os.name == "nt" and namespace in CATALOG_PORTS
+        else ""
+    )
+
+
+def start_catalog(config):
+    if config.get("CATALOG_SEMANTIC_URL"):
+        subprocess.run(
+            [
+                "powershell",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                str(ROOT / "scripts/start-catalog-search.ps1"),
+                "-Namespace",
+                config["AUDIT_NAMESPACE"],
+                "-RunId",
+                config["AUDIT_RUN_ID"],
+            ],
+            check=True,
+        )
 
 
 def private_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     path.chmod(0o600)
 
 
 def source_sha():
     if (ROOT / ".git").exists():
-        if subprocess.check_output(
-            ["git", "diff", "HEAD", "--name-only"], cwd=ROOT
-        ).strip():
+        if subprocess.check_output(["git", "diff", "HEAD", "--name-only"], cwd=ROOT).strip():
             raise ValueError("Commit tracked changes before starting an audit image")
         untracked = subprocess.check_output(
             [
@@ -54,9 +79,7 @@ def source_sha():
             cwd=ROOT,
         )
         if untracked.strip():
-            raise ValueError(
-                "Untracked application files exist; commit them before audit startup"
-            )
+            raise ValueError("Untracked application files exist; commit them before audit startup")
         return subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, encoding="utf-8"
         ).strip()
@@ -68,9 +91,7 @@ def source_sha():
                 not path.is_relative_to(ROOT)
                 or hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]
             ):
-                raise ValueError(
-                    "Source bundle has changed; use a fresh verified extraction"
-                )
+                raise ValueError("Source bundle has changed; use a fresh verified extraction")
     return manifest["sourceCommit"]
 
 
@@ -89,7 +110,7 @@ def initialize(namespace, run_id, *, existing_only=False):
             raise ValueError("Stored configuration does not match this audit batch")
         if not existing_only and config["AUDIT_SOFTWARE_SHA"] != source_sha():
             raise ValueError(
-                "Software SHA changed; preserve this batch and use a new --run-id"
+                "Software SHA changed; use explicit upgrade to preserve accounts/history, or a new --run-id"
             )
         return folder, config
     if existing_only:
@@ -116,6 +137,7 @@ def initialize(namespace, run_id, *, existing_only=False):
         AUTH_COOKIE_SECURE="false",
         BASELINE_SERVICES_ENABLED="true",
         MATCHING_NOTIFICATIONS_ENABLED="true",
+        CATALOG_SEMANTIC_URL=local_catalog(namespace),
     )
     private_json(config_path, config)
     private_json(
@@ -182,10 +204,7 @@ def inspect_api(folder, config):
                 ("MINIO_PRIVATE_BUCKET", "AUDIT_PRIVATE_BUCKET"),
             ]
         )
-        or any(
-            mount.get("Name", "").startswith("campusloop-local")
-            for mount in info["Mounts"]
-        )
+        or any(mount.get("Name", "").startswith("campusloop-local") for mount in info["Mounts"])
     ):
         raise ValueError("Running API is not the expected isolated audit target")
     return info["Name"].lstrip("/")
@@ -202,9 +221,7 @@ def check_configuration(folder, config):
     services = document["services"]
     for service in ("db", "redis", "worker"):
         if services[service].get("ports"):
-            raise ValueError(
-                "Database, Redis and worker must stay on the private audit network"
-            )
+            raise ValueError("Database, Redis and worker must stay on the private audit network")
     for service, target, port in [
         ("api", 8000, "AUDIT_API_PORT"),
         ("minio", 9000, "AUDIT_STORAGE_PORT"),
@@ -224,9 +241,7 @@ def check_configuration(folder, config):
             != f'postgresql+psycopg://campusloop:{config["AUDIT_DB_PASSWORD"]}@db:5432/{config["AUDIT_DATABASE"]}'
             or env["REDIS_URL"] != "redis://redis:6379/15"
         ):
-            raise ValueError(
-                "Compose database/Redis target differs from the audit configuration"
-            )
+            raise ValueError("Compose database/Redis target differs from the audit configuration")
 
 
 def api_call(config, method, path, body=None, token=None):
@@ -244,9 +259,7 @@ def api_call(config, method, path, body=None, token=None):
             content = response.read()
             return json.loads(content)["data"] if content else None
     except HTTPError as error:
-        raise ValueError(
-            f"Audit verification failed: HTTP {error.code} at {path}"
-        ) from None
+        raise ValueError(f"Audit verification failed: HTTP {error.code} at {path}") from None
 
 
 def bootstrap(folder, config):
@@ -260,16 +273,11 @@ def bootstrap(folder, config):
         encoding="utf-8",
     )
     if result.returncode:
-        raise ValueError(
-            "R/S initialization failed; passwords and private output were withheld"
-        )
+        raise ValueError("R/S initialization failed; passwords and private output were withheld")
     identities = json.loads(result.stdout)
     for alias, account in credentials.items():
         login = api_call(config, "POST", "/auth/login", account)
-        if (
-            login["user"]["role"] != "ADMIN"
-            or login["user"]["id"] != identities[alias]["id"]
-        ):
+        if login["user"]["role"] != "ADMIN" or login["user"]["id"] != identities[alias]["id"]:
             raise ValueError("R/S login did not match the seeded administrator")
         api_call(config, "GET", "/admin/users?pageSize=1", token=login["accessToken"])
         api_call(config, "POST", "/auth/logout", token=login["accessToken"])
@@ -294,26 +302,99 @@ def bootstrap(folder, config):
     print(f"Private R/S credentials: {folder / 'admins.json'} (not printed)")
 
 
+def upgrade(folder, config):
+    """Explicit code upgrade: keep accounts/volumes and archive the previous runtime mapping."""
+    old_container = inspect_api(folder, config)
+    revision = source_sha()
+    if revision == config["AUDIT_SOFTWARE_SHA"]:
+        bootstrap(folder, config)
+        start_catalog(config)
+        return
+    new_config = {
+        **config,
+        "AUDIT_SOFTWARE_SHA": revision,
+        "CATALOG_SEMANTIC_URL": local_catalog(config["AUDIT_NAMESPACE"]),
+    }
+    check_configuration(folder, new_config)
+    compose(folder, new_config, "build", "api")
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
+    backup = folder / "versions" / (stamp + "-" + config["AUDIT_SOFTWARE_SHA"][:12])
+    backup.mkdir(parents=True)
+    for name in ("private-config.json", ".env.audit", "connection.json"):
+        shutil.copy2(folder / name, backup / name)
+    manifests = []
+    for path in sorted((folder / "data-state").glob("*.json")):
+        value = json.loads(path.read_text(encoding="utf-8"))
+        environment = value.get("environment", {})
+        if environment.get("softwareSha") != config["AUDIT_SOFTWARE_SHA"]:
+            raise ValueError("Audit manifest revision mismatch; inspect before upgrading")
+        shutil.copy2(path, backup / path.name)
+        manifests.append((path, value))
+    # No migrations in this update; the dump still preserves the pre-upgrade facts.
+    compose(folder, config, "stop", "worker")
+    try:
+        database = compose(folder, config, "ps", "-q", "db", capture=True).stdout.strip()
+        with (backup / "database.dump").open("wb") as output:
+            subprocess.run(
+                [
+                    "docker",
+                    "exec",
+                    database,
+                    "pg_dump",
+                    "-U",
+                    "campusloop",
+                    "-d",
+                    config["AUDIT_DATABASE"],
+                    "-Fc",
+                ],
+                stdout=output,
+                check=True,
+            )
+        compose(folder, new_config, "up", "-d", "--no-build", "--wait", "--wait-timeout", "180")
+        bootstrap(folder, new_config)
+    except (ValueError, subprocess.CalledProcessError):
+        compose(folder, config, "up", "-d", "--no-build", "--wait", "--wait-timeout", "180")
+        shutil.copy2(backup / "connection.json", folder / "connection.json")
+        raise
+    container = inspect_api(folder, new_config)
+    identity = json.loads(subprocess.check_output(["docker", "inspect", container]))[0]["Id"]
+    for path, value in manifests:
+        value.setdefault("upgradeHistory", []).append(
+            {"fromSha": config["AUDIT_SOFTWARE_SHA"], "toSha": revision, "at": stamp}
+        )
+        value["environment"].update(containerId=identity, softwareSha=revision)
+        private_json(path, value)
+    private_json(folder / "private-config.json", new_config)
+    (folder / ".env.audit").write_text(
+        "".join(f"{k}={v}\n" for k, v in new_config.items()), encoding="utf-8"
+    )
+    start_catalog(new_config)
+    print(
+        f"Upgraded {old_container}; kept accounts, ports and all volumes. Previous version: {backup}"
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("start", "status", "stop", "ui"))
+    parser.add_argument("action", choices=("start", "status", "stop", "ui", "upgrade"))
     parser.add_argument("--namespace", choices=tuple(PORTS), required=True)
     parser.add_argument("--run-id", default="run1")
     args = parser.parse_args()
     folder, config = initialize(
-        args.namespace, args.run_id, existing_only=args.action in {"stop", "status"}
+        args.namespace, args.run_id, existing_only=args.action in {"stop", "status", "upgrade"}
     )
     if args.action == "start":
         check_configuration(folder, config)
         compose(folder, config, "build", "api")
         compose(folder, config, "build", "minio")
-        compose(
-            folder, config, "up", "-d", "--no-build", "--wait", "--wait-timeout", "180"
-        )
+        compose(folder, config, "up", "-d", "--no-build", "--wait", "--wait-timeout", "180")
         bootstrap(folder, config)
+        start_catalog(config)
         print(
             f"Next terminal: python scripts/audit_env.py ui --namespace {args.namespace} --run-id {args.run_id}"
         )
+    elif args.action == "upgrade":
+        upgrade(folder, config)
     elif args.action == "status":
         bootstrap(folder, config)
     elif args.action == "stop":
@@ -324,9 +405,7 @@ def main():
         node = shutil.which("node")
         vite = ROOT / "frontend/node_modules/vite/bin/vite.js"
         if not node or not vite.exists():
-            raise ValueError(
-                "Install Node.js 22+ and run npm ci --prefix frontend first"
-            )
+            raise ValueError("Install Node.js 22+ and run npm ci --prefix frontend first")
         subprocess.run(
             [
                 node,

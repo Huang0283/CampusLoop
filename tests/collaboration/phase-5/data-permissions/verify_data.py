@@ -444,10 +444,25 @@ def verify_live(args):
             require(actual["status"] == expected_status, f"{fid}: status mismatch")
     for alias in {r["ownerAlias"] for r in state["products"].values()}:
         token, _ = token_for(client, state["accounts"][alias])
-        rows = client.call("GET", "/products/mine?pageSize=100", token=token)
         expected = {r["id"] for r in state["products"].values() if r["ownerAlias"] == alias}
+        catalog_path = path.parent / f"campus-catalog-{args.namespace}-{args.run_id}.json"
+        if alias == "A" and catalog_path.exists():
+            catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+            require(
+                catalog["environment"] == state["environment"],
+                "Campus catalog environment mismatch",
+            )
+            expected.update(r["id"] for r in catalog["products"].values() if r.get("id"))
+        actual_ids, page = [], 1
+        while True:
+            rows = client.call("GET", f"/products/mine?pageSize=100&page={page}", token=token)
+            actual_ids.extend(r["id"] for r in rows["items"])
+            if page * 100 >= rows["pagination"]["total"]:
+                break
+            page += 1
         require(
-            {r["id"] for r in rows["items"]} == expected
+            set(actual_ids) == expected
+            and len(actual_ids) == len(expected)
             and rows["pagination"]["total"] == len(expected),
             "Duplicate or missing owner products",
         )

@@ -91,6 +91,70 @@ def test_live_search_matches_price_and_service_degradation(client, monkeypatch):
     assert client.get("/products").status_code == 200
 
 
+def test_wanted_rejects_unrelated_items_in_api_and_background_results(client, monkeypatch):
+    from app.db.session import SessionLocal
+    from app.models import MatchingNotification, MatchingResult
+    from tests.test_matching_jobs import drain
+
+    monkeypatch.setenv("MATCHING_NOTIFICATIONS_ENABLED", "true")
+    get_settings.cache_clear()
+    seller, buyer = account(client), account(client)
+    source = product(client, seller)
+    marker = uuid4().hex
+    body = {
+        "title": f"高等数学 {marker}",
+        "category": "BOOKS",
+        "condition": "GOOD",
+        "price": 25,
+        "campusLocation": "校内",
+        "description": "大学教材",
+        "images": source["images"],
+    }
+
+    def publish(**changes):
+        response = client.post("/products", headers=key_headers(seller), json=body | changes)
+        assert response.status_code == 201, response.text
+        return response.json()["data"]["id"]
+
+    eligible = publish(title=f"[t1-business-regression/CP001] 高等数学 {marker}")
+    unrelated = publish(title=f"[t1-business-regression/CP002] 雨伞 {marker}", category="DAILY")
+    publish(price=51)
+    publish(price=19)
+    publish(condition="FAIR")
+    publish(campusLocation="校内图书馆")
+    response = client.post(
+        "/wanted",
+        headers=key_headers(buyer),
+        json={
+            "title": f"[t1-business-regression/W01] 求购高数教材 {marker}",
+            "budgetMin": 20,
+            "budgetMax": 50,
+            "condition": "GOOD",
+            "location": "校内",
+            "expireAt": (utcnow() + timedelta(days=1)).isoformat(),
+        },
+    )
+    assert response.status_code == 201, response.text
+    wid = response.json()["data"]["id"]
+    path = f"/wanted/{wid}/matches"
+    matches = client.get(path, headers=headers(buyer))
+    assert matches.status_code == 200, matches.text
+    assert [p["product"]["id"] for p in matches.json()["data"]["items"]] == [eligible]
+    drain()
+    with SessionLocal() as db:
+        assert [p["productId"] for p in db.get(MatchingResult, wid).facts["items"]] == [
+            str(eligible)
+        ]
+        assert db.get(MatchingNotification, (wid, unrelated)) is None
+    assert (
+        client.patch(
+            f"/products/{eligible}/status", headers=headers(seller), json={"status": "HIDDEN"}
+        ).status_code
+        == 200
+    )
+    assert client.get(path, headers=headers(buyer)).json()["data"]["items"] == []
+
+
 def test_price_reference_only_uses_recent_visible_matching_listing_prices(client, monkeypatch):
     from app.db.session import SessionLocal
     from app.models import Product, User
@@ -189,11 +253,10 @@ def test_trust_and_risk_use_current_facts_no_enforcement(client):
 
 
 def test_timeout_does_not_rollback_publish_and_filters_expired_wanted(client, monkeypatch):
-    from services.m7_baseline import client as m7_client
-    from services.m8_baseline import client as m8_client
-
     from app.db.session import SessionLocal
     from app.models import WantedPost
+    from services.m7_baseline import client as m7_client
+    from services.m8_baseline import client as m8_client
 
     def timeout(*args, **kwargs):
         raise TimeoutError("injected provider timeout")

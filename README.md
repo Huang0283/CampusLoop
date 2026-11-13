@@ -29,6 +29,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 
 ## 当前协作
 
+搜索/求购匹配补充了[校园全分类复测说明](docs/collaboration/phase-5/testing/campus-catalog.md)：原 70 件基础样例加 400 件不同校园商品，10 类各新增 40 件。已有 T1/T2 环境使用 `python scripts/audit_env.py upgrade --namespace business --run-id run2`（T1 换 `permission`）保留账号、端口与数据并升级；新批次的 `setup_data.py --admin-search --campus-catalog` 可一次导入。维护者修复需要同步升级日常、T1、T2，历史验收仍按原 SHA 追溯。
+
 ### T2 测试环境与启动入口
 
 日常演示和破坏性测试分开运行，源码可以是同一个版本，账号与数据库不共用：
