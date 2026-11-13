@@ -1,1 +1,14 @@
-defect_id,software_sha,status,evidence,reviewer
+case_id,old_software_sha,new_software_sha,result,evidence,note
+T2-C18,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C18/C18-1.png,提示'到期时间必须晚于当前时间'；编辑失败原记录不变；改未来可保存
+T2-C44,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C44/C44-2.png,提示'你已经评价过这笔交易，不能重复评价'；最终各1条评价
+T2-C66,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C66/C66-3.png,改判入口在详情底部；空原因拦截；通知/审计可追溯；S旧快照被拒'举报处理结果已更新，请关闭详情并重新打开后再改判'
+T2-C68,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C68/C68-1.png,搜e/example命中全部、邮箱前缀精确定位、状态筛选清空正常；跨页(>20用户)因仅8账号无法验证(记限制)
+T2-C81,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C81/C81-1.png,切换后跳转到该商品最后消息/报价；草稿不丢；刷新归属不混
+T2-C30,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C30/C30-2.png,重放accept请求返回200，订单仍1个
+T2-C51,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C51/C51-2.png,正常JPG通过；超限提示'只接受不超过5MiB的JPG/PNG图片…'；错误格式提示'图片无效…'；被拒不误建举报
+T2-C54,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C54/C54-1.png,处理表单消失、B仅一条通知、举报只被处理一次；请求重试证据引用T3
+T2-C65,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C54/C54-2.png,同C54：表单消失、不重复处理/通知；请求重试证据引用T3
+T2-C75,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C75/C75-1.png,预订/已售不可下架(提示'已预订、已售出或发布者自行下架的商品不能通过此入口更改')；卖家下架不可后台恢复；删除后后台不复活
+T2-C76,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C76/C76-2.png,Excel/CSV导出成功且内容一致无乱码；订单搜索仅连续子串匹配(观察)
+T2-C79,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C79/C79-2-1.png,笔记本17/笔记本电脑11/电脑16，搜'电脑'时双肩包不在结果(整机排除电脑包)
+T2-C80,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C80/C80-3-2.png,自行车/山地车/雨伞包含排除正确；价格筛选生效；分页无遗漏重复；收纳箱/高数教材别名命中
