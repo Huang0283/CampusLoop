@@ -30,10 +30,10 @@ def verify_execution_log(path):
     ]
     if not rows or rows[0] != columns or any(len(row) != len(columns) for row in rows[1:]):
         raise ValueError("Execution log must have ten named columns on every row")
-    if {row[0] for row in rows[1:]} != {f"T1-C{i:02d}" for i in range(1, 49)} or len(rows) != 49:
-        raise ValueError("Execution log must define C01-C48 once each")
+    if {row[0] for row in rows[1:]} != {f"T1-C{i:02d}" for i in range(1, 49)}:
+        raise ValueError("Execution log must cover C01-C48; retests may append existing IDs")
     for row in rows[1:]:
-        if int(row[0].split("C")[1]) >= 37 and row[6] in {"未执行", "待执行"} and row[7]:
+        if row[6] in {"未执行", "待执行"} and row[7]:
             raise ValueError("Unexecuted cases cannot have execution timestamps")
 
 
@@ -46,6 +46,8 @@ def verify_admin_fixtures(base, data):
         UserStatus,
     )
     from app.schemas.business import ProductWrite
+    from app.services.catalog_search import WORDS, normalize, search_query, term_matches
+    from app.services.intelligence import CATEGORIES
 
     families = {
         "admin-search-products": 10,
@@ -92,17 +94,27 @@ def verify_admin_fixtures(base, data):
         ProductWrite.model_validate({**fields, "images": product["imageFixtureIds"]})
         products[product["fixtureId"]] = product
     for row in extra["search-checks-admin-v2"]:
-        if row["endpoint"] != "/products" or row["mode"] != "keyword" or row["scope"] != "market":
+        endpoint = "/search" if row["query"].strip() else "/products"
+        if row["endpoint"] != endpoint or row["mode"] != "keyword" or row["scope"] != "market":
             raise ValueError("Market keyword check has incorrect scope or endpoint")
         include, exclude = set(row["expectedInclude"]), set(row["expectedExclude"])
         if include & exclude or not include | exclude <= products.keys():
             raise ValueError("Search references are invalid or contradictory")
         if not set(row["filters"]) <= {"category", "condition", "status"}:
             raise ValueError("Search uses unsupported filters")
+        terms = WORDS.findall(search_query(row["query"]))
         matches = {
             fid
             for fid, p in products.items()
-            if row["query"].casefold() in (p["title"] + " " + p["description"]).casefold()
+            if all(
+                term_matches(
+                    term,
+                    normalize(p["title"]),
+                    normalize(p["description"]),
+                    CATEGORIES.get(p["category"], p["category"]),
+                )
+                for term in terms
+            )
             and all(
                 p.get(key, "ON_SALE" if key == "status" else None) == value
                 for key, value in row["filters"].items()
@@ -127,7 +139,7 @@ def verify_admin_fixtures(base, data):
             or not row["preconditions"]
         ):
             raise ValueError("Admin check lacks role or execution recipe")
-        if row["queryParameter"] != ("client" if row["page"] == "users" else "query"):
+        if row["queryParameter"] != "query":
             raise ValueError("Admin check uses unsupported query mechanism")
     scenarios = {r["scenarioId"]: r for r in data["scenario-inputs"]}
     seen = set()

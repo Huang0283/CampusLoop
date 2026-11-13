@@ -18,12 +18,24 @@ Use Python 3.12 with the repository's locked backend dependencies. From the
 checkout root (PowerShell):
 
 ```powershell
-python -m pip install -r backend/requirements.txt
 $t1 = "tests/collaboration/phase-5/data-permissions"
+# The material branch is older than the current software. Point to a clean,
+# separate software checkout at 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3.
+$env:CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT = (Resolve-Path '.codex-tmp/t1-software').Path
+python -m pip install -r "$env:CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT/backend/requirements.txt"
 python "$t1/verify_data.py"
 python -m unittest discover -s $t1 -p test_package.py -v
 python "$t1/generate_invalid_media.py"
 ```
+
+Create that read-only software checkout first with
+`git worktree add --detach .codex-tmp/t1-software 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3`,
+then install the locked dependencies from its `backend/requirements.txt`.
+CI uses the same pinned software SHA and keeps the PR's fixture/log files as
+the material under review. This creates no second website or database.
+When the package is integrated into the same software checkout, the variable
+may be omitted. A newer software SHA requires reviewing the OpenAPI snapshot
+and documenting the new baseline; never silently regenerate to make CI green.
 
 Static verification checks all nine JSON fixture families, field contracts,
 quotas, references, media provenance/MIME/size/SHA256, 20 OpenAPI response mocks,
@@ -34,8 +46,9 @@ uploads files. Eight original geometric JPEG/PNG files are committed, with a
 CC0 source statement in `media/LICENSE.md` and a 12-definition manifest.
 
 It also checks the four added JSON families, search expectations against their
-actual product text, governance status values/dependencies, admin routes and
-the ten-column C01-C48 execution CSV. These are definition checks; they do not
+actual product text using the selected software's catalog matcher, governance
+status values/dependencies, admin routes and the ten-column C01-C48 execution
+CSV (historical rows and appended retests are allowed). These are definition checks; they do not
 execute the new UI, search or governance recipes or confirm earlier human results.
 
 `mock-responses.json` is labelled `MOCK_RESPONSE`, only for isolated UI fixture

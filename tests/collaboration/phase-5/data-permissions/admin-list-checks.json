@@ -5,7 +5,7 @@
     "route": "/admin/users",
     "endpoint": "/admin/users",
     "query": "卖家A",
-    "queryParameter": "client",
+    "queryParameter": "query",
     "actorAlias": "R",
     "pageSize": 20,
     "preconditions": [
@@ -25,7 +25,7 @@
     "route": "/admin/users",
     "endpoint": "/admin/users",
     "query": "${account:A:id:fragment}",
-    "queryParameter": "client",
+    "queryParameter": "query",
     "actorAlias": "R",
     "pageSize": 20,
     "preconditions": [

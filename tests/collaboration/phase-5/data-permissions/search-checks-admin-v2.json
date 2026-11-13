@@ -3,7 +3,7 @@
     "id": "Q31",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "笔记本",
     "mode": "keyword",
     "filters": {},
@@ -34,7 +34,7 @@
     "id": "Q32",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "笔记本电脑",
     "mode": "keyword",
     "filters": {},
@@ -64,19 +64,19 @@
     "id": "Q33",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "电脑",
     "mode": "keyword",
     "filters": {},
     "expectedInclude": [
       "AP001",
       "AP003",
-      "AP009",
       "AP010"
     ],
     "expectedExclude": [
       "P010",
-      "P016"
+      "P016",
+      "AP009"
     ],
     "assertion": "include_exclude",
     "pageSize": 20,
@@ -88,13 +88,13 @@
       "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
       "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
     ],
-    "reason": "关键词按名称及简介匹配，包的简介命中也应返回；不是整机意图评估。"
+    "reason": "商城整机搜索包含笔记本和台式电脑；电脑包不能因简介“可以装电脑”混入整机结果。"
   },
   {
     "id": "Q34",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "台式电脑",
     "mode": "keyword",
     "filters": {},
@@ -121,7 +121,7 @@
     "id": "Q35",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "自行车",
     "mode": "keyword",
     "filters": {},
@@ -147,7 +147,7 @@
     "id": "Q36",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "山地车",
     "mode": "keyword",
     "filters": {},
@@ -174,7 +174,7 @@
     "id": "Q37",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "雨伞",
     "mode": "keyword",
     "filters": {},
@@ -194,13 +194,13 @@
       "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
       "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
     ],
-    "reason": "摄影柔光伞标题/简介不含完整关键词雨伞。"
+    "reason": "商城雨伞搜索匹配生活用伞，排除摄影柔光伞。"
   },
   {
     "id": "Q38",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "充电宝",
     "mode": "keyword",
     "filters": {},
@@ -224,7 +224,7 @@
     "id": "Q39",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "可以装电脑",
     "mode": "keyword",
     "filters": {},
@@ -274,7 +274,7 @@
     "id": "Q41",
     "scope": "market",
     "route": "/market",
-    "endpoint": "/products",
+    "endpoint": "/search",
     "query": "笔记本",
     "mode": "keyword",
     "filters": {
@@ -298,7 +298,7 @@
       "打开市场，选择关键词模式并输入 query；Q41同时选择 BOOKS 分类。",
       "遍历所有返回页，按私有 manifest 仅比对本命名空间ID；截图UI和脱敏请求。"
     ],
-    "reason": "BOOKS 分类过滤；不使用接口未支持的 maxPrice。"
+    "reason": "商城 /search 的 BOOKS 分类过滤；minPrice/maxPrice 另按 T2-C80 组合检查。"
   },
   {
     "id": "Q42",

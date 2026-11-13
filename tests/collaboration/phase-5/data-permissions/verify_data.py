@@ -14,7 +14,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 from PIL import Image
 from runtime import (
     BASE,
-    ROOT,
+    SOFTWARE_ROOT,
     ApiError,
     arguments,
     digest,
@@ -32,8 +32,13 @@ def require(condition, message):
 
 
 def verify_static(base=BASE):
-    sys.path.insert(0, str(ROOT / "backend"))
-    sys.path.insert(0, str(ROOT))
+    require(
+        (SOFTWARE_ROOT / "backend/app/services/catalog_search.py").is_file(),
+        "Select the current software checkout with CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT; "
+        "the material branch is not the tested software version",
+    )
+    sys.path.insert(0, str(SOFTWARE_ROOT / "backend"))
+    sys.path.insert(0, str(SOFTWARE_ROOT))
     from pydantic import ValidationError
 
     from app.schemas import auth, business
@@ -259,7 +264,7 @@ def verify_static(base=BASE):
             )
     contract = json.loads((base / "response-contract.json").read_text(encoding="utf-8"))
     openapi_hash = hashlib.sha256(
-        (ROOT / "openapi/campusloop.v1.yaml").read_text(encoding="utf-8").encode()
+        (SOFTWARE_ROOT / "openapi/campusloop.v1.yaml").read_text(encoding="utf-8").encode()
     ).hexdigest()
     require(contract["openapiSha256"] == openapi_hash, "Response contract snapshot is stale")
     for row in data["mock-responses"]:

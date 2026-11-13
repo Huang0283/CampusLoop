@@ -3,13 +3,13 @@
 import hashlib
 import json
 
-from runtime import BASE, ROOT
+from runtime import BASE, SOFTWARE_ROOT
 
 
 def refresh():
     import yaml
 
-    source = (ROOT / "openapi/campusloop.v1.yaml").read_text(encoding="utf-8")
+    source = (SOFTWARE_ROOT / "openapi/campusloop.v1.yaml").read_text(encoding="utf-8")
     schemas = yaml.safe_load(source)["components"]["schemas"]
     found = {}
 

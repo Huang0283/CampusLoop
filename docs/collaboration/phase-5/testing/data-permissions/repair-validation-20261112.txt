@@ -1,0 +1,66 @@
+Material package: T1 focused repair, 2026-11-12
+Software: 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3
+Read-only software checkout; fixtures/logs from repaired material branch.
+No live permission/business cases executed by this check.
+
+COMMAND python tests/collaboration/phase-5/data-permissions/verify_data.py
+{
+  "static": {
+    "inputs": {
+      "accounts": 8,
+      "products": 60,
+      "wanted": 12,
+      "invalid-inputs": 24,
+      "mock-responses": 20,
+      "search-checks": 30,
+      "price-checks": 24,
+      "trust-risk-checks": 12,
+      "scenario-inputs": 12
+    },
+    "additionalInputs": {
+      "admin-search-products": 10,
+      "search-checks-admin-v2": 12,
+      "admin-list-checks": 8,
+      "admin-scenario-inputs": 8
+    },
+    "media": 12,
+    "schemaRejected": 22,
+    "semanticNegativesNotExecuted": 2,
+    "mockSchemas": 20,
+    "ruleChecks": 36,
+    "transportUnavailableNotExecuted": 3,
+    "permissionCasesDefined": 48,
+    "permissionCasesNotExecutedByThisCheck": 48
+  }
+}
+
+COMMAND python -m unittest discover -s tests/collaboration/phase-5/data-permissions -p test_package.py -v
+test_daily_api_refused_before_docker_or_http (test_package.BoundaryTests.test_daily_api_refused_before_docker_or_http) ... ok
+test_daily_database_or_redis_or_bucket_refused (test_package.BoundaryTests.test_daily_database_or_redis_or_bucket_refused) ... ok
+test_manifest_cannot_be_reused_for_different_environment (test_package.BoundaryTests.test_manifest_cannot_be_reused_for_different_environment) ... ok
+test_reset_run_cannot_be_silently_reseeded (test_package.BoundaryTests.test_reset_run_cannot_be_silently_reseeded) ... ok
+test_all_fixture_families_validate (test_package.PackageTests.test_all_fixture_families_validate) ... ok
+test_changed_image_fails (test_package.PackageTests.test_changed_image_fails) ... ok
+test_execution_log_accepts_appended_retests_without_replacing_history (test_package.PackageTests.test_execution_log_accepts_appended_retests_without_replacing_history) ... ok
+test_execution_log_missing_column_is_rejected (test_package.PackageTests.test_execution_log_missing_column_is_rejected) ... ok
+test_execution_log_rejects_timestamp_on_unexecuted_case (test_package.PackageTests.test_execution_log_rejects_timestamp_on_unexecuted_case) ... ok
+test_execution_log_still_requires_every_case_and_rejects_unknown_ids (test_package.PackageTests.test_execution_log_still_requires_every_case_and_rejects_unknown_ids) ... ok
+test_existing_run_cannot_switch_optional_dataset (test_package.PackageTests.test_existing_run_cannot_switch_optional_dataset) ... ok
+test_invalid_category_fails (test_package.PackageTests.test_invalid_category_fails) ... ok
+test_missing_image_fails (test_package.PackageTests.test_missing_image_fails) ... ok
+test_new_fixture_families_are_required (test_package.PackageTests.test_new_fixture_families_are_required) ... ok
+test_old_material_checkout_cannot_silently_validate_current_search (test_package.PackageTests.test_old_material_checkout_cannot_silently_validate_current_search) ... ok
+test_omitted_fixture_family_fails (test_package.PackageTests.test_omitted_fixture_family_fails) ... ok
+test_optional_search_data_does_not_replace_foundation (test_package.PackageTests.test_optional_search_data_does_not_replace_foundation) ... ok
+test_search_and_governance_corruption_is_rejected (test_package.PackageTests.test_search_and_governance_corruption_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 14.586s
+
+OK
+
+COMMAND ruff check --config backend/ruff.toml tests/collaboration/phase-5/data-permissions
+All checks passed!
+
+COMMAND ruff format --check --config backend/ruff.toml tests/collaboration/phase-5/data-permissions
+9 files already formatted

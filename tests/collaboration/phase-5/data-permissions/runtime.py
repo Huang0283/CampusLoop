@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -14,6 +15,7 @@ from urllib.request import Request, urlopen
 
 BASE = Path(__file__).resolve().parent
 ROOT = BASE.parents[3]
+SOFTWARE_ROOT = Path(os.environ.get("CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT", ROOT)).resolve()
 NAMESPACES = ("permission", "business", "environment", "experience", "demo")
 
 
