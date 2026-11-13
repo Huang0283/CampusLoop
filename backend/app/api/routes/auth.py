@@ -256,9 +256,7 @@ def admin_users(
         )
     if status:
         stmt = stmt.where(User.status == status)
-    users = db.scalars(
-        stmt.order_by(User.id).offset((page - 1) * pageSize).limit(pageSize)
-    ).all()
+    users = db.scalars(stmt.order_by(User.id).offset((page - 1) * pageSize).limit(pageSize)).all()
     result = ok(
         {
             "items": private_users(db, users),

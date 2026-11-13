@@ -164,19 +164,25 @@ def test_admin_user_search_filters_before_pagination(client):
     with SessionLocal.begin() as db:
         db.get(User, admin["user"]["id"]).role = "ADMIN"
         for index in range(23):
-            db.add(User(
-                email=f"{marker}-{index}@example.invalid",
-                nickname=f"{marker}-{index}",
-                password_hash="unused-search-fixture",
-                status="DISABLED" if index == 22 else "ACTIVE",
-            ))
+            db.add(
+                User(
+                    email=f"{marker}-{index}@example.invalid",
+                    nickname=f"{marker}-{index}",
+                    password_hash="unused-search-fixture",
+                    status="DISABLED" if index == 22 else "ACTIVE",
+                )
+            )
     first = client.get("/admin/users", headers=headers(admin), params={"query": marker})
     assert first.status_code == 200, first.text
     assert first.json()["data"]["pagination"]["total"] == 23
     assert len(first.json()["data"]["items"]) == 20
     second = client.get("/admin/users", headers=headers(admin), params={"query": marker, "page": 2})
     assert len(second.json()["data"]["items"]) == 3
-    found = client.get("/admin/users", headers=headers(admin), params={"query": marker.upper(), "status": "DISABLED"})
+    found = client.get(
+        "/admin/users",
+        headers=headers(admin),
+        params={"query": marker.upper(), "status": "DISABLED"},
+    )
     assert found.json()["data"]["pagination"]["total"] == 1
     target = found.json()["data"]["items"][0]
     assert target["nickname"].endswith("-22")
@@ -185,7 +191,12 @@ def test_admin_user_search_filters_before_pagination(client):
     literal = client.get("/admin/users", headers=headers(admin), params={"query": marker + "%"})
     assert literal.json()["data"]["pagination"]["total"] == 0
     assert client.get("/admin/users", params={"query": marker}).status_code == 401
-    assert client.get("/admin/users", headers=headers(account(client)), params={"query": marker}).status_code == 403
+    assert (
+        client.get(
+            "/admin/users", headers=headers(account(client)), params={"query": marker}
+        ).status_code
+        == 403
+    )
 
 
 def test_admin_disable_revoke_and_audit(client):

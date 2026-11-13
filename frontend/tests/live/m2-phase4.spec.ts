@@ -32,6 +32,13 @@ test('report contract consumes private blobs and reuses an uncertain resolution 
   const image = page.getByRole('img', { name: '举报私密证据 1', exact: true })
   await expect(image).toHaveAttribute('src', /^blob:/)
   await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBe(1)
+  await image.click()
+  const privatePreview = page.getByRole('dialog', { name: '举报私密证据 1', exact: true })
+  await expect.poll(() => privatePreview.locator('img').evaluate(element => (element as HTMLImageElement).naturalWidth)).toBe(1)
+  const copied = (await privatePreview.locator('img').getAttribute('src'))!
+  expect(await page.evaluate(async url => { try { await fetch(url); return true } catch { return false } }, copied)).toBe(false)
+  await page.keyboard.press('Escape')
+  await expect(privatePreview).not.toBeVisible()
   await expect(page.getByText('private/object-not-a-public-url', { exact: true })).not.toBeVisible()
   await page.getByLabel('人工处理结论', { exact: true }).click()
   await page.getByText('处理完成', { exact: true }).click()

@@ -1,0 +1,75 @@
+# Overlay only. scripts/audit_env.py supplies an isolated env file/project.
+services:
+  db:
+    environment:
+      POSTGRES_DB: ${AUDIT_DATABASE:?}
+      POSTGRES_PASSWORD: ${AUDIT_DB_PASSWORD:?}
+    ports: !override []
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U campusloop -d $$POSTGRES_DB"]
+  redis:
+    ports: !override []
+  minio:
+    image: campusloop-audit-minio:fixed
+    environment:
+      MINIO_ROOT_USER: ${AUDIT_STORAGE_USER:?}
+      MINIO_ROOT_PASSWORD: ${AUDIT_STORAGE_PASSWORD:?}
+    ports: !override
+      - "127.0.0.1:${AUDIT_STORAGE_PORT:?}:9000"
+  minio-init:
+    image: campusloop-audit-minio:fixed
+    environment:
+      MINIO_ROOT_USER: ${AUDIT_STORAGE_USER:?}
+      MINIO_ROOT_PASSWORD: ${AUDIT_STORAGE_PASSWORD:?}
+      PUBLIC_BUCKET: ${AUDIT_PUBLIC_BUCKET:?}
+      PRIVATE_BUCKET: ${AUDIT_PRIVATE_BUCKET:?}
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD" >/dev/null
+        mc mb --ignore-existing "local/$$PUBLIC_BUCKET"
+        mc mb --ignore-existing "local/$$PRIVATE_BUCKET"
+        mc anonymous set download "local/$$PUBLIC_BUCKET"
+        mc anonymous set none "local/$$PRIVATE_BUCKET"
+  baseline:
+    image: ${AUDIT_PROJECT:?}-api:${AUDIT_SOFTWARE_SHA:?}
+    environment:
+      APP_ENV: test
+    build:
+      labels:
+        campusloop.audit.software-sha: ${AUDIT_SOFTWARE_SHA:?}
+  worker:
+    image: ${AUDIT_PROJECT:?}-api:${AUDIT_SOFTWARE_SHA:?}
+    environment: &audit-runtime
+      APP_ENV: test
+      DATABASE_URL: postgresql+psycopg://campusloop:${AUDIT_DB_PASSWORD:?}@db:5432/${AUDIT_DATABASE:?}
+      REDIS_URL: redis://redis:6379/15
+      MINIO_ACCESS_KEY: ${AUDIT_STORAGE_USER:?}
+      MINIO_SECRET_KEY: ${AUDIT_STORAGE_PASSWORD:?}
+      MINIO_PUBLIC_BUCKET: ${AUDIT_PUBLIC_BUCKET:?}
+      MINIO_PRIVATE_BUCKET: ${AUDIT_PRIVATE_BUCKET:?}
+    ports: !override []
+    build:
+      labels:
+        campusloop.audit.software-sha: ${AUDIT_SOFTWARE_SHA:?}
+  api:
+    image: ${AUDIT_PROJECT:?}-api:${AUDIT_SOFTWARE_SHA:?}
+    # Fixture scripts create all business facts via API. No daily/demo seed import.
+    command: ["sh", "-ec", "alembic upgrade head && exec python scripts/serve.py"]
+    environment:
+      <<: *audit-runtime
+      AUDIT_PROJECT: ${AUDIT_PROJECT:?}
+      AUDIT_NAMESPACE: ${AUDIT_NAMESPACE:?}
+      AUDIT_RUN_ID: ${AUDIT_RUN_ID:?}
+      CORS_ORIGINS: http://127.0.0.1:${AUDIT_UI_PORT:?}
+      AUTH_COOKIE_NAME: ${AUDIT_PROJECT:?}-session
+      AUTH_REGISTRATION_DOMAINS: example.invalid
+      S3_PUBLIC_BASE_URL: http://127.0.0.1:${AUDIT_STORAGE_PORT:?}/${AUDIT_PUBLIC_BUCKET:?}
+    ports: !override
+      - "127.0.0.1:${AUDIT_API_PORT:?}:8000"
+    labels:
+      campusloop.audit.software-sha: ${AUDIT_SOFTWARE_SHA:?}
+    build:
+      labels:
+        campusloop.audit.software-sha: ${AUDIT_SOFTWARE_SHA:?}

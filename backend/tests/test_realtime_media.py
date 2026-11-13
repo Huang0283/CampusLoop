@@ -5,7 +5,9 @@ from starlette.websockets import WebSocketDisconnect
 
 from app.core.config import get_settings
 from app.db.session import SessionLocal
-from app.models import AuthAudit, User
+from app.models import AuthAudit, ChatMessage, User
+from app.services.storage import storage_client
+from scripts.privatize_media import privatize_media
 from tests.conftest import requires_postgres
 from tests.test_auth import account, headers
 from tests.test_transaction_api import image_url, key_headers, product
@@ -85,7 +87,8 @@ def test_websocket_auth_and_private_send(client):
             revoked.receive_json()
 
 
-def test_private_chat_and_evidence_access_audited(client):
+@pytest.mark.parametrize("legacy", [False, True])
+def test_private_chat_and_evidence_access_audited(client, legacy):
     seller, buyer, outsider = account(client), account(client), account(client)
     sid = context(client, seller, buyer)
     image = image_url(client, buyer, "chat")
@@ -95,6 +98,26 @@ def test_private_chat_and_evidence_access_audited(client):
         headers=headers(buyer),
         json={"clientMsgId": str(uuid.uuid4()), "kind": "IMAGE", "content": image},
     ).json()["data"]
+    if legacy:
+        settings = get_settings()
+        key = image.removeprefix("https://private.campusloop.invalid/")
+        storage = storage_client()
+        storage.copy_object(
+            Bucket=settings.minio_public_bucket,
+            Key=key,
+            CopySource={"Bucket": settings.minio_private_bucket, "Key": key},
+        )
+        storage.delete_object(Bucket=settings.minio_private_bucket, Key=key)
+        legacy_url = settings.s3_public_base_url.rstrip("/") + "/" + key
+        with SessionLocal.begin() as db:
+            db.get(ChatMessage, message["id"]).content = legacy_url
+        with SessionLocal() as db:
+            assert privatize_media(db) >= 1
+            assert db.get(ChatMessage, message["id"]).content == legacy_url
+        from tests.test_avatar_upload import assert_anonymous_denied
+
+        assert_anonymous_denied(settings.minio_public_bucket, key)
+        assert_anonymous_denied(settings.minio_private_bucket, key)
     path = f'/chat/messages/{message["id"]}/image'
     for actor in (buyer, seller):
         response = client.get(path, headers=headers(actor))
