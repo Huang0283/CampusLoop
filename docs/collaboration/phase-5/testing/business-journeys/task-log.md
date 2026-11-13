@@ -8,3 +8,10 @@
 - PR：#150（已 push，待非作者 review）
 - 软件 SHA：`78ae89a8d66789670056ffab726eebce2362efa4`
 - 待办：user-handoff.md、daily-report/task-log/delivery-checklist 收尾；体验观察是否转 Issue（可选）
+
+## 2026-11-13 ~ 11-14
+
+- 完成：在 `b42eb606…`（business/run2）上完成 #158 定向复测与缺项补齐；更新 execution-log（+13 复测行）、retest-log、defects、business-data-counts、user-handoff、testing-summary 与 7 索引
+- 软件 SHA：`b42eb606eb02da573c6671e5d35bf3650a07a544`
+- 提交：5857e82（待 push）；#159 复测结论已发
+- 待办：PR #150 改标题/正文、请求非作者 review；T2-DEF-01/02 待 M10 确认
