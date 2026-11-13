@@ -77,3 +77,10 @@ backend/scripts/*.sh text eol=lf
 /docs/evidence/phase-5/intelligence/evidence/joint-v1/ci-backend-job.txt -whitespace
 /docs/evidence/phase-5/intelligence/human-review/**/review-records.csv whitespace=cr-at-eol
 /docs/evidence/phase-5/management-quality/evidence/20261027/** -text -whitespace
+
+# T1 fixtures have portable text hashes and exact binary media hashes.
+/tests/collaboration/phase-5/data-permissions/** text eol=lf
+/tests/collaboration/phase-5/data-permissions/media/*.jpg -text
+/tests/collaboration/phase-5/data-permissions/media/*.png -text
+/docs/collaboration/phase-5/testing/data-permissions/** text eol=lf
+/.github/workflows/t1-fixtures.yml text eol=lf

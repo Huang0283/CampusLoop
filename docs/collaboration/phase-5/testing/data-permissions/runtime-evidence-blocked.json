@@ -1,0 +1,68 @@
+{
+  "executedAt": "2026-10-30T11:24:59.675933+00:00",
+  "softwareSha": "3b0b333af6ae5a26272ef62b3954f14e293b56d6",
+  "initialAttempt": {
+    "exitCode": 1,
+    "error": "RATE_LIMITED (429)",
+    "manifestRetained": true
+  },
+  "environment": "same isolated PR142 audit API/DB; dedicated Redis DB14",
+  "stages": [
+    {
+      "script": "setup_data.py",
+      "exitCode": 2,
+      "result": {
+        "accounts": 6,
+        "products": 60,
+        "wanted": 12,
+        "blocked": [
+          "R: M10 administrator initialization required",
+          "S: M10 administrator initialization required",
+          "Z: disabling requires initialized administrator R"
+        ]
+      }
+    },
+    {
+      "script": "verify_data.py",
+      "exitCode": 2,
+      "result": {
+        "static": {
+          "inputs": {
+            "accounts": 8,
+            "products": 60,
+            "wanted": 12,
+            "invalid-inputs": 24,
+            "mock-responses": 20,
+            "search-checks": 30,
+            "price-checks": 24,
+            "trust-risk-checks": 12,
+            "scenario-inputs": 12
+          },
+          "media": 12,
+          "schemaRejected": 22,
+          "semanticNegativesNotExecuted": 2,
+          "mockSchemas": 20,
+          "ruleChecks": 36,
+          "transportUnavailableNotExecuted": 3,
+          "permissionCasesNotExecuted": 36
+        },
+        "live": {
+          "created": {
+            "accounts": 6,
+            "products": 60,
+            "wanted": 12
+          },
+          "rejected": 0,
+          "blocked": [
+            "R: M10 administrator initialization required",
+            "S: M10 administrator initialization required",
+            "Z: disabling requires initialized administrator R"
+          ],
+          "liveSearchChecks": 30,
+          "softwareSha": "3b0b333af6ae5a26272ef62b3954f14e293b56d6"
+        }
+      }
+    }
+  ],
+  "limiterRecovery": "Explicit operator reset of isolated audit auth counters; runner did not bypass/reset limiter"
+}

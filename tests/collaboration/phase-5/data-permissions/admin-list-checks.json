@@ -1,0 +1,166 @@
+[
+  {
+    "id": "AL01",
+    "page": "users",
+    "route": "/admin/users",
+    "endpoint": "/admin/users",
+    "query": "卖家A",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。"
+    ],
+    "steps": [
+      "用户管理输入本次A账号完整昵称；无需点击搜索，列表实时匹配，清空后恢复。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  },
+  {
+    "id": "AL02",
+    "page": "users",
+    "route": "/admin/users",
+    "endpoint": "/admin/users",
+    "query": "${account:A:id:fragment}",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。"
+    ],
+    "steps": [
+      "先通过合法创建的账号准备一个跨第2页的ID；输入ID片段，检查未遗漏分页外匹配用户。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  },
+  {
+    "id": "AL03",
+    "page": "products",
+    "route": "/admin/products",
+    "endpoint": "/admin/products",
+    "query": "笔记本电脑",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。"
+    ],
+    "steps": [
+      "商品治理输入关键词，遍历所有页，包含AP001/AP010，排除AP002和Kindle/iPad。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  },
+  {
+    "id": "AL04",
+    "page": "products",
+    "route": "/admin/products",
+    "endpoint": "/admin/products",
+    "query": "",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。"
+    ],
+    "steps": [
+      "pageSize=20遍历全部页；70件本命名空间商品都出现且不重复；清空搜索回到第1页。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  },
+  {
+    "id": "AL05",
+    "page": "reports",
+    "route": "/admin/reports",
+    "endpoint": "/admin/reports",
+    "query": "#${report:AS02:id}",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。",
+      "T2合法创建AS01-AS04举报并在私有manifest保存reportId、描述、状态；分页不足时用独立合法举报补至超过20条，不直接写库。"
+    ],
+    "steps": [
+      "T2先建立AS02举报；输入#完整举报ID，只返回该条。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  },
+  {
+    "id": "AL06",
+    "page": "reports",
+    "route": "/admin/reports",
+    "endpoint": "/admin/reports",
+    "query": "${report:AS02:id:fragment}",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。",
+      "T2合法创建AS01-AS04举报并在私有manifest保存reportId、描述、状态；分页不足时用独立合法举报补至超过20条，不直接写库。"
+    ],
+    "steps": [
+      "输入举报ID的一部分，遍历所有页；所有本命名空间ID包含该片段的举报都出现，不能按完整ID误筛。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  },
+  {
+    "id": "AL07",
+    "page": "reports",
+    "route": "/admin/reports",
+    "endpoint": "/admin/reports",
+    "query": "${report:AS02:description}",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。",
+      "T2合法创建AS01-AS04举报并在私有manifest保存reportId、描述、状态；分页不足时用独立合法举报补至超过20条，不直接写库。"
+    ],
+    "steps": [
+      "举报管理按唯一描述片段搜索，再选PENDING；只显示描述匹配且状态一致的举报。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  },
+  {
+    "id": "AL08",
+    "page": "reports",
+    "route": "/admin/reports",
+    "endpoint": "/admin/reports",
+    "query": "",
+    "queryParameter": "query",
+    "actorAlias": "R",
+    "pageSize": 20,
+    "preconditions": [
+      "专用audit环境，R为管理员，实际软件SHA已记录。",
+      "先确认当前软件支持该页面和搜索行为；缺能力记阻塞，不用旧版本失败冒充本轮失败。",
+      "T2合法创建AS01-AS04举报并在私有manifest保存reportId、描述、状态；分页不足时用独立合法举报补至超过20条，不直接写库。"
+    ],
+    "steps": [
+      "在第2页输入唯一描述，再清空关键词并取消状态筛选；回到第1页，全部本命名空间举报恢复。",
+      "输入后等待列表请求完成，记录URL/过滤条件/跨页ID/刷新结果；无前置写阻塞。"
+    ],
+    "expected": "按输入条件匹配完整本命名空间记录；不得只过滤当前页。",
+    "status": "未执行"
+  }
+]

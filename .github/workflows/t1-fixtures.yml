@@ -1,0 +1,43 @@
+name: T1 fixture package
+
+on:
+  pull_request:
+    paths:
+      - tests/collaboration/phase-5/data-permissions/**
+      - docs/collaboration/phase-5/testing/data-permissions/**
+      - backend/app/models/**
+      - backend/app/schemas/**
+      - backend/app/services/catalog_search.py
+      - backend/app/services/intelligence.py
+      - services/m8_baseline/**
+      - scripts/m8_phase2/**
+      - openapi/campusloop.v1.yaml
+      - .github/workflows/t1-fixtures.yml
+  workflow_dispatch:
+
+jobs:
+  fixtures:
+    runs-on: ubuntu-latest
+    env:
+      CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT: ${{ github.workspace }}/.codex-tmp/t1-software
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read the fixed software baseline separately from test materials
+        uses: actions/checkout@v4
+        with:
+          ref: 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3
+          path: .codex-tmp/t1-software
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r "$CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT/backend/requirements.txt"
+      - name: Check runner style
+        run: |
+          ruff check --config backend/ruff.toml tests/collaboration/phase-5/data-permissions
+          ruff format --check --config backend/ruff.toml tests/collaboration/phase-5/data-permissions
+      - name: Validate all fixture families and hashes
+        run: python tests/collaboration/phase-5/data-permissions/verify_data.py
+      - name: Check integrity failures and audit environment boundaries
+        run: python -m unittest discover -s tests/collaboration/phase-5/data-permissions -p test_package.py -v

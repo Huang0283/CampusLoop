@@ -1,0 +1,464 @@
+{
+  "executedAt": "2026-10-30T11:20:50.119004+00:00",
+  "softwareSha": "3b0b333af6ae5a26272ef62b3954f14e293b56d6",
+  "checkout": "fix/pr142-runtime (isolated worktree)",
+  "api": "http://127.0.0.1:18014",
+  "database": "campusloop_pr142_audit_20261030",
+  "redis": "campusloop-pr142-audit-redis/14",
+  "buckets": [
+    "campusloop-pr142-audit-public",
+    "campusloop-pr142-audit-private"
+  ],
+  "static": {
+    "inputs": {
+      "accounts": 8,
+      "products": 60,
+      "wanted": 12,
+      "invalid-inputs": 24,
+      "mock-responses": 20,
+      "search-checks": 30,
+      "price-checks": 24,
+      "trust-risk-checks": 12,
+      "scenario-inputs": 12
+    },
+    "media": 12,
+    "schemaRejected": 22,
+    "semanticNegativesNotExecuted": 2,
+    "mockSchemas": 20,
+    "ruleChecks": 36,
+    "transportUnavailableNotExecuted": 3,
+    "permissionCasesNotExecuted": 36
+  },
+  "stages": [
+    {
+      "script": "setup_data.py",
+      "namespace": "permission",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "accounts": 8,
+        "products": 60,
+        "wanted": 12,
+        "blocked": []
+      }
+    },
+    {
+      "script": "setup_data.py",
+      "namespace": "permission",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "accounts": 8,
+        "products": 60,
+        "wanted": 12,
+        "blocked": []
+      }
+    },
+    {
+      "script": "verify_data.py",
+      "namespace": "permission",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "static": {
+          "inputs": {
+            "accounts": 8,
+            "products": 60,
+            "wanted": 12,
+            "invalid-inputs": 24,
+            "mock-responses": 20,
+            "search-checks": 30,
+            "price-checks": 24,
+            "trust-risk-checks": 12,
+            "scenario-inputs": 12
+          },
+          "media": 12,
+          "schemaRejected": 22,
+          "semanticNegativesNotExecuted": 2,
+          "mockSchemas": 20,
+          "ruleChecks": 36,
+          "transportUnavailableNotExecuted": 3,
+          "permissionCasesNotExecuted": 36
+        },
+        "live": {
+          "created": {
+            "accounts": 8,
+            "products": 60,
+            "wanted": 12
+          },
+          "rejected": 0,
+          "blocked": [],
+          "liveSearchChecks": 30,
+          "softwareSha": "3b0b333af6ae5a26272ef62b3954f14e293b56d6"
+        }
+      }
+    },
+    {
+      "script": "setup_data.py",
+      "namespace": "business",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "accounts": 8,
+        "products": 60,
+        "wanted": 12,
+        "blocked": []
+      }
+    },
+    {
+      "script": "setup_data.py",
+      "namespace": "business",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "accounts": 8,
+        "products": 60,
+        "wanted": 12,
+        "blocked": []
+      }
+    },
+    {
+      "script": "verify_data.py",
+      "namespace": "business",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "static": {
+          "inputs": {
+            "accounts": 8,
+            "products": 60,
+            "wanted": 12,
+            "invalid-inputs": 24,
+            "mock-responses": 20,
+            "search-checks": 30,
+            "price-checks": 24,
+            "trust-risk-checks": 12,
+            "scenario-inputs": 12
+          },
+          "media": 12,
+          "schemaRejected": 22,
+          "semanticNegativesNotExecuted": 2,
+          "mockSchemas": 20,
+          "ruleChecks": 36,
+          "transportUnavailableNotExecuted": 3,
+          "permissionCasesNotExecuted": 36
+        },
+        "live": {
+          "created": {
+            "accounts": 8,
+            "products": 60,
+            "wanted": 12
+          },
+          "rejected": 0,
+          "blocked": [],
+          "liveSearchChecks": 30,
+          "softwareSha": "3b0b333af6ae5a26272ef62b3954f14e293b56d6"
+        }
+      }
+    },
+    {
+      "script": "reset_data.py",
+      "namespace": "permission",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "dryRun": true,
+        "products": 60,
+        "wanted": 12,
+        "changed": 0,
+        "blocked": [
+          "Accounts/media/history retained: no namespace-safe deletion API; use a new run ID"
+        ]
+      }
+    },
+    {
+      "script": "reset_data.py",
+      "namespace": "permission",
+      "apply": true,
+      "exitCode": 2,
+      "result": {
+        "dryRun": false,
+        "products": 60,
+        "wanted": 12,
+        "changed": 72,
+        "blocked": [
+          "Accounts/media/history retained: no namespace-safe deletion API; use a new run ID"
+        ]
+      }
+    },
+    {
+      "script": "verify_data.py",
+      "namespace": "business",
+      "apply": false,
+      "exitCode": 0,
+      "result": {
+        "static": {
+          "inputs": {
+            "accounts": 8,
+            "products": 60,
+            "wanted": 12,
+            "invalid-inputs": 24,
+            "mock-responses": 20,
+            "search-checks": 30,
+            "price-checks": 24,
+            "trust-risk-checks": 12,
+            "scenario-inputs": 12
+          },
+          "media": 12,
+          "schemaRejected": 22,
+          "semanticNegativesNotExecuted": 2,
+          "mockSchemas": 20,
+          "ruleChecks": 36,
+          "transportUnavailableNotExecuted": 3,
+          "permissionCasesNotExecuted": 36
+        },
+        "live": {
+          "created": {
+            "accounts": 8,
+            "products": 60,
+            "wanted": 12
+          },
+          "rejected": 0,
+          "blocked": [],
+          "liveSearchChecks": 30,
+          "softwareSha": "3b0b333af6ae5a26272ef62b3954f14e293b56d6"
+        }
+      }
+    }
+  ],
+  "lostResponseRecovery": {
+    "fixture": "P001",
+    "preparedBeforeRequest": true,
+    "failure": "simulated lost response after database commit",
+    "recoveredRealId": 122,
+    "duplicateCount": 0,
+    "verifiedBy": "live owner product count and ID set"
+  },
+  "idempotency": {
+    "before": "26|180|36|48",
+    "after": "26|180|36|48",
+    "order": "users|products|wanted_posts|uploaded_objects",
+    "pass": true
+  },
+  "namespaceIds": {
+    "permission": {
+      "accounts": {
+        "R": 18,
+        "S": 19,
+        "A": 22,
+        "B": 23,
+        "C": 24,
+        "D": 25,
+        "E": 26,
+        "Z": 27
+      },
+      "products": {
+        "P001": 122,
+        "P002": 123,
+        "P003": 124,
+        "P004": 125,
+        "P005": 126,
+        "P006": 127,
+        "P007": 128,
+        "P008": 129,
+        "P009": 130,
+        "P010": 131,
+        "P011": 132,
+        "P012": 133,
+        "P013": 134,
+        "P014": 135,
+        "P015": 136,
+        "P016": 137,
+        "P017": 138,
+        "P018": 139,
+        "P019": 140,
+        "P020": 141,
+        "P021": 142,
+        "P022": 143,
+        "P023": 144,
+        "P024": 145,
+        "P025": 146,
+        "P026": 147,
+        "P027": 148,
+        "P028": 149,
+        "P029": 150,
+        "P030": 151,
+        "P031": 152,
+        "P032": 153,
+        "P033": 154,
+        "P034": 155,
+        "P035": 156,
+        "P036": 157,
+        "P037": 158,
+        "P038": 159,
+        "P039": 160,
+        "P040": 161,
+        "P041": 162,
+        "P042": 163,
+        "P043": 164,
+        "P044": 165,
+        "P045": 166,
+        "P046": 167,
+        "P047": 168,
+        "P048": 169,
+        "P049": 170,
+        "P050": 171,
+        "P051": 172,
+        "P052": 173,
+        "P053": 174,
+        "P054": 175,
+        "P055": 176,
+        "P056": 177,
+        "P057": 178,
+        "P058": 179,
+        "P059": 180,
+        "P060": 181
+      },
+      "wanted": {
+        "W01": 26,
+        "W02": 27,
+        "W03": 28,
+        "W04": 29,
+        "W05": 30,
+        "W06": 31,
+        "W07": 32,
+        "W08": 33,
+        "W09": 34,
+        "W10": 35,
+        "W11": 36,
+        "W12": 37
+      }
+    },
+    "business": {
+      "accounts": {
+        "R": 20,
+        "S": 21,
+        "A": 28,
+        "B": 29,
+        "C": 30,
+        "D": 31,
+        "E": 32,
+        "Z": 33
+      },
+      "products": {
+        "P001": 182,
+        "P002": 183,
+        "P003": 184,
+        "P004": 185,
+        "P005": 186,
+        "P006": 187,
+        "P007": 188,
+        "P008": 189,
+        "P009": 190,
+        "P010": 191,
+        "P011": 192,
+        "P012": 193,
+        "P013": 194,
+        "P014": 195,
+        "P015": 196,
+        "P016": 197,
+        "P017": 198,
+        "P018": 199,
+        "P019": 200,
+        "P020": 201,
+        "P021": 202,
+        "P022": 203,
+        "P023": 204,
+        "P024": 205,
+        "P025": 206,
+        "P026": 207,
+        "P027": 208,
+        "P028": 209,
+        "P029": 210,
+        "P030": 211,
+        "P031": 212,
+        "P032": 213,
+        "P033": 214,
+        "P034": 215,
+        "P035": 216,
+        "P036": 217,
+        "P037": 218,
+        "P038": 219,
+        "P039": 220,
+        "P040": 221,
+        "P041": 222,
+        "P042": 223,
+        "P043": 224,
+        "P044": 225,
+        "P045": 226,
+        "P046": 227,
+        "P047": 228,
+        "P048": 229,
+        "P049": 230,
+        "P050": 231,
+        "P051": 232,
+        "P052": 233,
+        "P053": 234,
+        "P054": 235,
+        "P055": 236,
+        "P056": 237,
+        "P057": 238,
+        "P058": 239,
+        "P059": 240,
+        "P060": 241
+      },
+      "wanted": {
+        "W01": 38,
+        "W02": 39,
+        "W03": 40,
+        "W04": 41,
+        "W05": 42,
+        "W06": 43,
+        "W07": 44,
+        "W08": 45,
+        "W09": 46,
+        "W10": 47,
+        "W11": 48,
+        "W12": 49
+      }
+    }
+  },
+  "resetIsolation": {
+    "dryRunUnchanged": true,
+    "removedProducts": 60,
+    "closedWanted": 12,
+    "businessSnapshotBefore": "de8d3d30de069ada562529b5abb1cd29761bebf51b1827d9c14024d573bda360",
+    "businessSnapshotAfter": "de8d3d30de069ada562529b5abb1cd29761bebf51b1827d9c14024d573bda360",
+    "retained": [
+      "accounts",
+      "uploaded media",
+      "idempotency and audit history"
+    ],
+    "result": "PARTIAL_CLEANUP; new runId required; other namespace unchanged"
+  },
+  "mediaSourceHashes": {
+    "M01.jpg": "5d3b7173af0eaf1e1f9cb0906c12a7da127ec894641265c8216ac6cc94094fe9",
+    "M02.jpg": "17935b409e36961d71d64b04cc2595a5dc671727f0dd41d459377d08e6a26eb3",
+    "M03.jpg": "62e871826ba981ca1ab35df972f88d8976e3521b9aadb307704e8dc383771a19",
+    "M04.jpg": "a6a2fe3eb6e41d87394f69421ccac75818763b4397b75114e5862c16b7d3b2b5",
+    "M05.png": "39b1cc42f740d027ab1a58da229b82df6acc89a12ae6a2e403515e32b64b8197",
+    "M06.png": "41c1e0bfdc7c23e7a7a22588bdcfa386b6796a2c4b790c11bce3acfc3cbfe7fa",
+    "M07.png": "e90e236d0b8117c5228899b2b50615e8cea56fddf77e8c130cff164c34055ef1",
+    "M08.png": "8b19750e7882c946fd93da2e44c010031086edb2c274c16a262ddf45c4017bed"
+  },
+  "packageSourceSha256": {
+    "generate_invalid_media.py": "d902b48aa41e6efb229ae11c4a3873264d90409728dcdf0fd70e8c2190a76560",
+    "generate_media.py": "312b6d338f8bb632c71323ea13e4c287385a9aea8aa2435e7bf1a3abd8e6e409",
+    "refresh_response_contract.py": "cf605861515450b4e494b057aa9018837056afe3bde83265837cada196d6df31",
+    "reset_data.py": "195a2f875c13f17a6897e1ae28dd7cc15a1a537727dba33bbd6545f4ccab28fe",
+    "runtime.py": "f45711cc6891393fe922e3143ed68d22b9b61b0e0ba1f70313d15063e3bf360c",
+    "setup_data.py": "af5702e6cbe1aea1616ec87df905f5a1c02199453b3050e5472b467ddc431f20",
+    "test_package.py": "4a48978e7c4124bb8d8eebf8433669724ff58794eb0a806f745bd65b9248f29a",
+    "verify_data.py": "4a59e933e01121c60f438be569bff9dd2c180661c567140d6107b042bfcd6229"
+  },
+  "sourceHashNormalization": "UTF-8 universal newlines to LF",
+  "checks": {
+    "python": "3.12 (audit container)",
+    "unitTests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "ruff": "check and format passed using backend/ruff.toml from repository root",
+    "missingAdminEvidence": "runtime-evidence-blocked.json"
+  }
+}

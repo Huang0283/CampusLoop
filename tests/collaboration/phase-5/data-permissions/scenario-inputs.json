@@ -1,0 +1,14 @@
+[
+  { "scenarioId": "S01", "productFixtureId": "P049", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S02", "productFixtureId": "P050", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S03", "productFixtureId": "P051", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S04", "productFixtureId": "P052", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S05", "productFixtureId": "P053", "buyerAlias": "B", "sellerAlias": "A", "competitiveBuyerAlias": "C" },
+  { "scenarioId": "S06", "productFixtureId": "P054", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S07", "productFixtureId": "P055", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S08", "productFixtureId": "P056", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S09", "productFixtureId": "P057", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S10", "productFixtureId": "P058", "buyerAlias": "B", "sellerAlias": "A", "adminAlias": "R" },
+  { "scenarioId": "S11", "productFixtureId": "P059", "buyerAlias": "B", "sellerAlias": "A" },
+  { "scenarioId": "S12", "productFixtureId": "P060", "buyerAlias": "B", "sellerAlias": "A" }
+]
