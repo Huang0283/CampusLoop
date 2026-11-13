@@ -231,6 +231,21 @@ def _run_event(job, started, *, identity=None, outcome=None, error=None):
 def process_claim(db, job):
     from app.services.intelligence import rank_live
 
+    # Results are recomputed from current facts. A later committed event for the
+    # same wanted post already schedules that work; retain this event as skipped.
+    newer = db.scalar(
+        select(MatchingJob.id)
+        .where(
+            MatchingJob.wanted_id == job.wanted_id,
+            MatchingJob.id > job.id,
+            MatchingJob.status == "PENDING",
+        )
+        .limit(1)
+    )
+    if newer is not None:
+        job.status, job.last_error = "SKIPPED", "SUPERSEDED_INPUT"
+        db.commit()
+        return True
     input_revision = db.scalar(text("SELECT value FROM matching_revision WHERE id=1"))
     job.attempts += 1
     owner_id = db.scalar(select(WantedPost.owner_id).where(WantedPost.id == job.wanted_id))

@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 $recordDir = Join-Path $repo '.codex-tmp/local-runtime'
 $recordPath = Join-Path $recordDir $(if ($Namespace -eq 'daily') { 'catalog-search.json' } else { "catalog-search-$Namespace.json" })
-$catalogPort = @{ daily = 18789; business = 18790; permission = 18791 }[$Namespace]
+$catalogPort = @{ daily = 18789; business = 18792; permission = 18793 }[$Namespace]
 $warmPort = @{ daily = 8001; business = 18024; permission = 18025 }[$Namespace]
 if ($RunId -notmatch '^[a-z0-9][a-z0-9-]{0,19}$') { throw 'Invalid audit run ID.' }
 $tokenFile = if ($Namespace -eq 'daily') { Join-Path $repo '.env' } else { Join-Path $repo ".codex-tmp/audit/$Namespace/$RunId/.env.audit" }

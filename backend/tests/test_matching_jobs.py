@@ -122,6 +122,45 @@ def test_matching_outbox_result_notification_dedup_and_close(client):
         assert db.get(MatchingResult, wid) is None
 
 
+def test_superseded_events_skip_redundant_ranking_but_latest_keeps_result(client):
+    from app.models import WantedPost
+    from app.services.matching_jobs import process_claim
+
+    seller, buyer = account(client), account(client)
+    item = product(client, seller)
+    response = client.post(
+        "/wanted",
+        headers=key_headers(buyer),
+        json={
+            "title": "book",
+            "budgetMin": 50,
+            "budgetMax": 50,
+            "condition": "GOOD",
+            "location": "Library",
+            "expireAt": (utcnow() + timedelta(days=1)).isoformat(),
+        },
+    )
+    assert response.status_code == 201, response.text
+    wid = response.json()["data"]["id"]
+    drain()
+    with SessionLocal() as db:
+        enqueue(db, f"older-{wid}", [wid])
+        enqueue(db, f"newer-{wid}", [wid])
+        db.commit()
+        older = db.scalar(select(MatchingJob).where(MatchingJob.event_key == f"older-{wid}"))
+        newer = db.scalar(select(MatchingJob).where(MatchingJob.event_key == f"newer-{wid}"))
+        assert process_claim(db, older)
+        assert older.status == "SKIPPED" and older.last_error == "SUPERSEDED_INPUT"
+        assert newer.status == "PENDING"
+        assert process_claim(db, newer)
+        assert newer.status == "DONE"
+        assert str(item["id"]) in [
+            p["productId"] for p in db.get(MatchingResult, wid).facts["items"]
+        ]
+        assert db.get(MatchingNotification, (wid, item["id"])) is not None
+        assert db.get(WantedPost, wid).status == "OPEN"
+
+
 def test_business_rollback_rolls_back_outbox(client):
     seller = account(client)
     item = product(client, seller)

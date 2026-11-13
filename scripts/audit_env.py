@@ -21,7 +21,7 @@ PORTS = {
     "permission": (18025, 5185, 19027),
     "environment": (18026, 5186, 19026),
 }
-CATALOG_PORTS = {"business": 18790, "permission": 18791}
+CATALOG_PORTS = {"business": 18792, "permission": 18793}
 
 
 def local_catalog(namespace):
@@ -47,6 +47,13 @@ def start_catalog(config):
                 "-RunId",
                 config["AUDIT_RUN_ID"],
             ],
+            # uv's Python launcher injects PYTHONHOME; a different-version model
+            # runtime must discover its own stdlib, not inherit the runner's.
+            env={
+                k: v
+                for k, v in os.environ.items()
+                if k.upper() not in {"PYTHONHOME", "UV_INTERNAL__PYTHONHOME", "PYTHONPATH"}
+            },
             check=True,
         )
 
