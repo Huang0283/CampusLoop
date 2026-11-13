@@ -76,7 +76,7 @@ export function OrdersPage() {
         {remote.value && remote.value.pagination.total > 20 && <Pagination className="adm-pager" current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => update({ page: String(next) })} />}
       </Resource>
     </div>
-    <DetailDialog title={selected ? `订单 #${selected.id}` : ''} open={Boolean(selected)} onClose={() => setSelected(undefined)}>
+    <DetailDialog key={selected?.id ?? 'closed'} title={selected ? `订单 #${selected.id}` : ''} open={Boolean(selected)} onClose={() => setSelected(undefined)}>
       {selected && <>
         {selected.status === 'DISPUTED' && <Alert type="warning" showIcon title="该订单处于争议中" description="当前版本没有管理员仲裁接口。请结合双方举报在「举报处理」中处理，并在说明里记录结论。" style={{ marginBottom: 16 }} />}
         <Descriptions column={1} bordered items={[

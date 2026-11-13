@@ -68,7 +68,7 @@ function Quote({ offer, refresh }: { offer: Offer; refresh: () => void }) {
     <Failure error={mutation.error} retry={refresh} /><div className="chat-offer-actions"><Space wrap>
       {offer.orderId && <Link to={`/transactions/${offer.orderId}`}>查看订单</Link>}
       {pending && (offer.proposerId === user.id ? <Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.cancelOffer({ path: { offerId: offer.id } }); refresh() })}>撤回报价</Button> : <>
-        <Button type="primary" loading={mutation.busy} onClick={() => void mutation.run(async () => { const saved = await api.data(api.acceptOffer({ path: { offerId: offer.id }, headers: api.idempotencyHeaders(crypto.randomUUID()) })); refresh(); navigate(`/transactions/${saved.order.id}`) })}>接受报价</Button>
+        <Button type="primary" loading={mutation.busy} onClick={() => void mutation.run(async () => { const saved = await api.data(api.acceptOffer({ path: { offerId: offer.id }, headers: api.idempotencyHeaders(attemptKey({ offerId: offer.id, action: 'accept' })) })); refresh(); navigate(`/transactions/${saved.order.id}`) })}>接受报价</Button>
         <Button loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.rejectOffer({ path: { offerId: offer.id } }); refresh() })}>拒绝报价</Button>
         <Button type="text" onClick={() => setCountering(!countering)}>还价</Button>
         {countering && <><InputNumber aria-label="还价金额" min={0.01} precision={2} value={amount} onChange={setAmount} /><Button disabled={!amount} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.counterOffer({ path: { offerId: offer.id }, body: { amount: amount! }, headers: api.idempotencyHeaders(attemptKey({ offerId: offer.id, amount })) }); setCountering(false); refresh() })}>提交还价</Button></>}
@@ -99,10 +99,19 @@ function Conversation({ session, sessions }: { session: ChatSession; sessions: C
   const attemptKey = useAttemptKey()
   const streamRef = useRef<HTMLDivElement>(null)
   const followBottom = useRef(true)
+  const locateSession = useRef<number | undefined>(undefined)
   useEffect(() => {
     const stream = streamRef.current
     if (stream && followBottom.current) stream.scrollTop = stream.scrollHeight
   }, [chat.messages, chat.pending, offers.value])
+  useEffect(() => {
+    const stream = streamRef.current
+    if (!stream || locateSession.current !== session.id || chat.loading || offers.loading) return
+    const entries = stream.querySelectorAll<HTMLElement>(`[data-session-id="${session.id}"]`)
+    const latest = entries[entries.length - 1]
+    if (latest) stream.scrollTop += latest.getBoundingClientRect().top - stream.getBoundingClientRect().top - 16
+    locateSession.current = undefined
+  }, [session.id, chat.messages, chat.loading, offers.value, offers.loading])
   const timeline = [
     ...chat.messages.map((message) => ({ key: `message-${message.id}`, sessionId: message.sessionId, time: message.createdAt, message, offer: undefined as Offer | undefined })),
     ...(offers.value || []).map((offer) => ({ key: `offer-${offer.id}`, sessionId: offer.sessionId, time: offer.createdAt, message: undefined, offer })),
@@ -114,7 +123,7 @@ function Conversation({ session, sessions }: { session: ChatSession; sessions: C
   }
   return localize(<section className="chat-conversation" aria-label="当前聊天">
     <div className="chat-conversation-header"><Space><Link className="chat-back" to="/chat" aria-label="返回聊天列表"><ArrowLeftOutlined /></Link><h1>{<OriginalText>{session.peer.nickname}</OriginalText>}</h1></Space><Space>{chat.connection === 'connected' && <span className="chat-online" role="status">实时连接已建立</span>}<Popover trigger="click" placement="bottomRight" content={<ReportButton targetType="USER" targetId={session.peer.id} label="举报对方" />}><Button type="text" aria-label="会话操作" icon={<EllipsisOutlined />} /></Popover></Space></div>
-    <div className="chat-context">{sessions.length > 1 && <div className="chat-context-switch"><span>当前沟通</span><Select aria-label="选择沟通商品或求购" virtual={false} value={session.id} onChange={(id) => { setQuoteSessionId(undefined); setAmount(null); navigate(`/chat/${id}`, { replace: true }) }} options={sessions.map((item) => ({ value: item.id, label: <>{item.type === 'WANTED' ? t('求购：') : ''}<CatalogText text={contextTitle(item)} /></> }))} /><span className="muted">共 {sessions.length} 项，聊天记录已合并</span></div>}{session.product ? <ProductSummary product={session.product} /> : session.wanted ? <><Link to={`/wanted/${session.wanted.id}`}>{<CatalogText text={session.wanted.title} />}</Link><p className="muted">求购会话用于沟通；交易请从具体商品发起。</p></> : <p className="muted">关联商品已不可用，历史消息仍可查看。</p>}</div>
+    <div className="chat-context">{sessions.length > 1 && <div className="chat-context-switch"><span>当前沟通</span><Select aria-label="选择沟通商品或求购" virtual={false} value={session.id} onChange={(id) => { locateSession.current = id; followBottom.current = false; setQuoteSessionId(undefined); setAmount(null); navigate(`/chat/${id}`, { replace: true }) }} options={sessions.map((item) => ({ value: item.id, label: <>{item.type === 'WANTED' ? t('求购：') : ''}<CatalogText text={contextTitle(item)} /></> }))} /><span className="muted">共 {sessions.length} 项，聊天记录已合并</span></div>}{session.product ? <ProductSummary product={session.product} /> : session.wanted ? <><Link to={`/wanted/${session.wanted.id}`}>{<CatalogText text={session.wanted.title} />}</Link><p className="muted">求购会话用于沟通；交易请从具体商品发起。</p></> : <p className="muted">关联商品已不可用，历史消息仍可查看。</p>}</div>
     <div className="chat-connection">{chat.connection !== 'connected' && <Alert type="warning" title="实时连接恢复中，仍可发送消息并获取历史记录。" />}<Failure error={chat.error} /><Failure error={offers.error} retry={offers.reload} /></div>
     <div className="chat-message-stream" ref={streamRef} onScroll={() => { const stream = streamRef.current; if (stream) followBottom.current = stream.scrollHeight - stream.scrollTop - stream.clientHeight < 100 }} aria-label="聊天消息">
       {(chat.loading || chat.hasOlder) && <div style={{ textAlign: 'center' }}><Button type="text" loading={chat.loading} disabled={!chat.hasOlder || !chat.messages.length} onClick={() => { followBottom.current = false; void chat.older() }}>加载更早消息</Button></div>}
@@ -123,7 +132,7 @@ function Conversation({ session, sessions }: { session: ChatSession; sessions: C
         const mine = entry.offer ? entry.offer.proposerId === user.id : entry.message?.senderId === user.id
         const author = mine ? user : session.peer
         const context = sessions.find((item) => item.id === entry.sessionId)
-        return localize(<div key={entry.key}><div className="chat-time">{chatTime(entry.time)}</div><div className={`message-row ${mine ? 'is-mine' : ''}`}><Avatar size={44} src={author.avatar}>{<OriginalText>{author.nickname.slice(0, 1)}</OriginalText>}</Avatar><div className="message-body">
+        return localize(<div key={entry.key} data-session-id={entry.sessionId}><div className="chat-time">{chatTime(entry.time)}</div><div className={`message-row ${mine ? 'is-mine' : ''}`}><Avatar size={44} src={author.avatar}>{<OriginalText>{author.nickname.slice(0, 1)}</OriginalText>}</Avatar><div className="message-body">
           {sessions.length > 1 && context && <div className="chat-message-context">{<CatalogText text={contextTitle(context)} />}</div>}
           {entry.offer ? <Quote offer={entry.offer} refresh={offers.reload} /> : entry.message && <><div className="message-bubble">{entry.message.kind === 'IMAGE' ? <PrivateImage messageId={entry.message.id} /> : <CatalogText text={entry.message.content || (entry.message.kind === 'OFFER' ? '报价动态' : '系统消息')} />}</div>{!mine && <div className="message-report"><Popover trigger={['hover', 'click']} content={<ReportButton targetType="CHAT_MESSAGE" targetId={entry.message.id} />}><Button type="text" aria-label="消息操作" icon={<EllipsisOutlined />} /></Popover></div>}</>}
         </div></div></div>)

@@ -893,6 +893,7 @@ export type AdminReport = {
     createdAt: string;
     handledBy: number | null;
     handledAt: string | null;
+    resolutionNote?: string | null;
     /**
      * Protected administrator evidence paths; never anonymous image URLs
      */
@@ -3637,6 +3638,11 @@ export type AdminListUsersData = {
     query?: {
         page?: number;
         pageSize?: number;
+        /**
+         * Case-insensitive nickname/email or partial user number; filtered before pagination.
+         */
+        query?: string;
+        status?: 'ACTIVE' | 'DISABLED';
     };
     url: '/admin/users';
 };

@@ -54,7 +54,8 @@ def revoke_family(db: Session, family: AuthSessionFamily, reason: str) -> None:
 def authenticate(
     db: Session, token: str, *, allow_logout_replay: bool = False
 ) -> tuple[User, AuthSessionFamily]:
-    claims = decode_access(token)
+    # Check revocation before advertising expiry as renewable.
+    claims = decode_access(token, allow_expired=True)
     # Keep user -> family -> refresh ordering and same-user serialization.
     # NO KEY UPDATE permits FK KEY SHARE checks for peer notifications; UPDATE
     # would deadlock when both participants authenticate and notify each other.
@@ -74,6 +75,8 @@ def authenticate(
         raise disabled_error(user)
     if family.revoked_at and not (allow_logout_replay and family.revocation_reason == "logout"):
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session revoked.")
+    if int(claims["exp"]) <= int(utcnow().timestamp()):
+        raise BusinessError(401, "AUTH_ACCESS_EXPIRED", "Access token expired.")
     return user, family
 
 

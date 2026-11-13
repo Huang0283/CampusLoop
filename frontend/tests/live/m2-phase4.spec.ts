@@ -144,7 +144,7 @@ test('real admin pagination, risk audit request and status processing revoke ano
   // User IDs are ordered, but gaps are possible; get the actual total from server.
   const total = (await (await listed).json()).data.pagination.total as number
   await admin.locator(`.ant-pagination-item-${Math.ceil(total / 20)}`).click()
-  await admin.getByRole('textbox', { name: '筛选本页用户', exact: true }).fill(nickname)
+  await admin.getByRole('textbox', { name: '搜索用户', exact: true }).fill(nickname)
   await admin.getByRole('button', { name: `详情与人工处理 #${id}`, exact: true }).click()
   await admin.getByRole('button', { name: '读取风险线索（记录访问审计）', exact: true }).click()
   await expect(admin.getByText('数据不足，暂不能完整判断', { exact: true })).toBeVisible()

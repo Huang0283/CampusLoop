@@ -3,7 +3,7 @@ import { t, useLanguage } from '../i18n/language'
 import { CatalogText } from '../i18n/CatalogText'
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import { Alert, Button, Descriptions, Image, Input, Modal, Pagination, Select, Space, Table, Tabs, Tag, Typography } from 'antd'
+import { Alert, Button, Descriptions, Image, Input, Pagination, Select, Space, Table, Tabs, Tag, Typography } from 'antd'
 import { Form } from '../i18n/Form'
 import type { ReactNode } from 'react'
 import * as api from '../sdk'
@@ -11,7 +11,9 @@ import type { AdminProduct, AdminReport, ReportStatus, UserProfile } from '../sd
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useAttemptKey } from './idempotency'
 import { Person } from './Presentation'
+import { PrivateMediaImage } from './PrivateMediaImage'
 import { AccountDecisionControls } from '../admin/AccountDecisionControls'
+import { MinimizableModal } from './MinimizableModal'
 import { reportReasonLabels } from './reportReasons'
 import { productStatusLabels, accountStatusLabels, reportStatusLabels, roleLabels, targetTypeLabels, displayDate, systemText, riskClueText } from './display'
 
@@ -76,8 +78,8 @@ function keepDrawerFocus(event: KeyboardEvent<HTMLElement>) {
 /** Centred detail dialog for the console. The Tab trap wraps the whole panel, close button included. */
 export function DetailDialog({ title, open, onClose, children }: { title: string; open: boolean; onClose: () => void; children: ReactNode }) {
   useLanguage()
-  return localize(<Modal title={title} open={open} onCancel={onClose} footer={null} width={760} centered destroyOnHidden rootClassName="adm-detail"
-    modalRender={(node) => localize(<div onKeyDown={keepDrawerFocus}>{node}</div>)}>{children}</Modal>)
+  return localize(<MinimizableModal title={title} open={open} onCancel={onClose} footer={null} width={760} centered rootClassName="adm-detail"
+    modalRender={(node) => localize(<div onKeyDown={keepDrawerFocus}>{node}</div>)}>{children}</MinimizableModal>)
 }
 
 function RiskDetail({ user }: { user: UserProfile }) {
@@ -120,19 +122,19 @@ export function UsersPanel() {
   useLanguage()
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  const [status, setStatus] = useState<string>()
+  const [status, setStatus] = useState<'ACTIVE' | 'DISABLED'>()
   const [selected, setSelected] = useState<UserProfile>()
   const drawerFocus = useDrawerFocusReturn(Boolean(selected))
-  const remote = useRemote(`admin-users-${page}`, (signal) => api.data(api.adminListUsers({ signal, query: { page, pageSize: 20 } })))
-  const visible = remote.value?.items.filter((user) => (!status || user.status === status) && `${user.id} ${user.nickname} ${user.email}`.toLowerCase().includes(query.toLowerCase())) || []
+  const remote = useRemote(`admin-users-${page}-${query}-${status}`, (signal) => api.data(api.adminListUsers({ signal, query: { page, pageSize: 20, query, status } })))
+  const visible = remote.value?.items || []
   return localize(<>
     <Alert type="info" showIcon title="用户与风险线索读取、账号状态变更均由后端鉴权并审计；禁用会撤销已有会话。" />
     <Space wrap style={{ margin: '16px 0' }}>
-      <Input aria-label="筛选本页用户" placeholder="本页编号、昵称或邮箱" value={query} onChange={(event) => setQuery(event.target.value)} />
-      <Select virtual={false} aria-label="筛选本页账号状态" placeholder="本页全部状态" allowClear value={status} onChange={setStatus} style={{ width: 180 }} options={['ACTIVE', 'DISABLED'].map((value) => ({ value, label: accountStatusLabels[value] }))} />
+      <Input aria-label="搜索用户" placeholder="用户编号、昵称或邮箱" maxLength={200} value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); setSelected(undefined) }} />
+      <Select virtual={false} aria-label="筛选账号状态" placeholder="全部账号状态" allowClear value={status} onChange={(value) => { setStatus(value); setPage(1); setSelected(undefined) }} style={{ width: 180 }} options={['ACTIVE', 'DISABLED'].map((value) => ({ value, label: accountStatusLabels[value] }))} />
       <Button onClick={remote.reload}>刷新用户</Button>
     </Space>
-    <Typography.Paragraph type="secondary">筛选只作用于当前页，查看其他用户请翻页。服务端全文筛选尚未提供。</Typography.Paragraph>
+    <Typography.Paragraph type="secondary">输入关键词即可搜索全部用户，支持编号、昵称和邮箱，并可按账号状态筛选。</Typography.Paragraph>
     <Resource {...remote}>
       {!visible.length && remote.value && <NoItems filtered={Boolean(query || status)} />}
       {visible.length > 0 && <Table rowKey="id" pagination={false} scroll={{ x: 800 }} dataSource={visible} columns={[
@@ -143,7 +145,7 @@ export function UsersPanel() {
       ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(next) => { setSelected(undefined); setPage(next) }} />}
     </Resource>
-    <DetailDialog title={selected?.role === 'ADMIN' ? '管理员资料' : '用户详情与风险复核'} open={Boolean(selected)} onClose={() => setSelected(undefined)}>
+    <DetailDialog key={selected?.id ?? 'closed'} title={selected?.role === 'ADMIN' ? '管理员资料' : '用户详情与风险复核'} open={Boolean(selected)} onClose={() => setSelected(undefined)}>
       {selected && <UserDetail key={selected.id} user={selected} refresh={remote.reload} />}
     </DetailDialog>
   </>)
@@ -152,17 +154,17 @@ export function UsersPanel() {
 function Evidence({ reportId, index }: { reportId: number; index: number }) {
   useLanguage()
   const [attempt, setAttempt] = useState(0)
-  const [image, setImage] = useState<{ url?: string; error?: unknown }>({})
+  const [image, setImage] = useState<{ blob?: Blob; url?: string; error?: unknown }>({})
   useEffect(() => {
     const controller = new AbortController()
     let disposed = false
     let url: string | undefined
     void api.getReportEvidence({ path: { reportId, imageIndex: index }, signal: controller.signal, parseAs: 'blob' }).then((blob) => {
-      if (!disposed) { url = URL.createObjectURL(blob as unknown as Blob); setImage({ url }) }
+      if (!disposed) { url = URL.createObjectURL(blob as unknown as Blob); setImage({ blob: blob as unknown as Blob, url }) }
     }).catch((error) => { if (!disposed) setImage({ error }) })
     return () => { disposed = true; controller.abort(); if (url) URL.revokeObjectURL(url) }
   }, [reportId, index, attempt])
-  return image.url ? localize(<Image src={image.url} alt={`举报私密证据 ${index + 1}`} width={160} />) : image.error ? localize(<Failure error={image.error} retry={() => { setImage({}); setAttempt((value) => value + 1) }} />) : localize(<Typography.Text role="status">正在读取私密证据…</Typography.Text>)
+  return image.url && image.blob ? localize(<PrivateMediaImage key={image.url} url={image.url} blob={image.blob} alt={`举报私密证据 ${index + 1}`} width={160} />) : image.error ? localize(<Failure error={image.error} retry={() => { setImage({}); setAttempt((value) => value + 1) }} />) : localize(<Typography.Text role="status">正在读取私密证据…</Typography.Text>)
 }
 
 function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () => void }) {
@@ -171,7 +173,9 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
   const attemptKey = useAttemptKey()
   const [showEvidence, setShowEvidence] = useState(false)
   const [confirmed, setConfirmed] = useState<AdminReport>()
+  const [overriding, setOverriding] = useState(false)
   const current = confirmed || report
+  const handled = current.status === 'RESOLVED' || current.status === 'REJECTED'
   return localize(<>
     <Descriptions column={1} bordered items={[
     { key: 'target', label: '对象', children: <>{t(targetTypeLabels[current.targetType] || '举报对象')} #{current.targetId}</> },
@@ -179,17 +183,28 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
       { key: 'description', label: '举报说明', children: <CatalogText text={current.description || '无'} /> },
     { key: 'status', label: '处理状态', children: <Tag>{reportStatusLabels[current.status] || '未知状态'}</Tag> },
     { key: 'created', label: '提交时间', children: displayDate(current.createdAt) },
+    ...(handled ? [
+      { key: 'handled', label: '处理时间', children: current.handledAt ? displayDate(current.handledAt) : '暂无记录' },
+      { key: 'note', label: '处理说明', children: <CatalogText text={current.resolutionNote || '暂无记录'} /> },
+    ] : []),
     ]} />
     <Failure error={mutation.error} />
     {confirmed && <Alert role="status" type="success" title="后端已确认处理结果。" />}
-    {['PENDING', 'PROCESSING'].includes(current.status) && <Form layout="vertical" onFinish={(values: { resolution: 'RESOLVED' | 'REJECTED'; note: string }) => void mutation.run(async () => {
+    {handled && !overriding && <Button style={{ margin: '16px 0' }} disabled={!current.handledAt} onClick={() => setOverriding(true)}>改判举报</Button>}
+    {overriding && <Alert type="warning" showIcon style={{ margin: '16px 0' }} title="改判会通知举报人并保留操作日志，不会自动处罚用户或商品。" />}
+    {(!handled || overriding) && <Form key={`${current.status}-${current.handledAt}`} layout="vertical" onFinish={(values: { resolution: 'RESOLVED' | 'REJECTED'; note: string }) => void mutation.run(async () => {
       const body = { resolution: values.resolution, note: values.note.trim() }
-      setConfirmed(await api.data(api.resolveReport({ path: { reportId: report.id }, body, headers: api.idempotencyHeaders(attemptKey({ reportId: report.id, body })) })))
+      const options = { path: { reportId: report.id }, body, headers: api.idempotencyHeaders(attemptKey({ reportId: report.id, body, handledAt: current.handledAt })) }
+      const result = handled && current.handledAt
+        ? await api.data(api.overrideReport({ ...options, body: { ...body, expectedStatus: current.status as 'RESOLVED' | 'REJECTED', expectedHandledAt: current.handledAt } }))
+        : await api.data(api.resolveReport(options))
+      setConfirmed(result)
+      setOverriding(false)
       refresh()
     })}>
       <Form.Item name="resolution" label="人工处理结论" rules={[{ required: true }]}><Select virtual={false} options={[{ value: 'RESOLVED', label: '处理完成' }, { value: 'REJECTED', label: '驳回' }]} /></Form.Item>
       <Form.Item name="note" label="处理说明" rules={[{ required: true, whitespace: true, max: 500 }]}><Input.TextArea maxLength={500} /></Form.Item>
-      <Button htmlType="submit" loading={mutation.busy}>确认处理举报</Button>
+      <Space><Button htmlType="submit" loading={mutation.busy}>{overriding ? '确认改判并通知举报人' : '确认处理举报'}</Button>{overriding && <Button disabled={mutation.busy} onClick={() => setOverriding(false)}>取消改判</Button>}</Space>
     </Form>}
     {Boolean(current.evidence?.length) && <Button style={{ margin: '16px 0' }} onClick={() => setShowEvidence(true)}>读取私密证据（记录访问审计）</Button>}
     {showEvidence && current.evidence?.map((_, index) => localize(<Evidence key={index} reportId={report.id} index={index} />))}
@@ -220,7 +235,7 @@ export function ReportsPanel() {
       ]} />}
       {remote.value && <Space><Button disabled={page === 1} onClick={() => { setSelected(undefined); setPage(page - 1) }}>上一页</Button><span>第 {page} 页</span><Button disabled={remote.value.length < 20} onClick={() => { setSelected(undefined); setPage(page + 1) }}>下一页</Button></Space>}
     </Resource>}
-    <DetailDialog title="举报详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)}>{selected && <ReportDetail key={selected.id} report={selected} refresh={remote.reload} />}</DetailDialog>
+    <DetailDialog key={selected?.id ?? 'closed'} title="举报详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)}>{selected && <ReportDetail key={selected.id} report={selected} refresh={remote.reload} />}</DetailDialog>
   </>)
 }
 
@@ -282,7 +297,7 @@ export function ProductsPanel() {
       ]} />}
       {remote.value && <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={(value) => { setPage(value); setSelected(undefined) }} />}
     </Resource>}
-    <DetailDialog title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)}>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</DetailDialog>
+    <DetailDialog key={selected ?? 'closed'} title="商品详情与人工处理" open={Boolean(selected)} onClose={() => setSelected(undefined)}>{selected && <ProductDetail key={selected} productId={selected} refresh={remote.reload} />}</DetailDialog>
   </>)
 }
 

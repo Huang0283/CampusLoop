@@ -490,6 +490,17 @@ def test_report_private_upload_favorites_and_wanted(client):
         ).status_code
         == 415
     )
+    expired_body = {
+        "title": "Expired wanted validation",
+        "budgetMin": 10,
+        "budgetMax": 60,
+        "condition": "ANY",
+        "location": "ANY",
+        "expireAt": (datetime.now(UTC) - timedelta(days=1)).isoformat(),
+    }
+    expired = client.post("/wanted", headers=key_headers(buyer), json=expired_body)
+    assert expired.status_code == 422
+    assert expired.json()["message"] == "到期时间必须晚于当前时间。"
     wanted = client.post(
         "/wanted",
         headers=key_headers(buyer),
@@ -504,6 +515,10 @@ def test_report_private_upload_favorites_and_wanted(client):
     )
     assert wanted.status_code == 201, wanted.text
     wid = wanted.json()["data"]["id"]
+    expired_edit = client.patch(f"/wanted/{wid}", headers=headers(buyer), json=expired_body)
+    assert expired_edit.status_code == 422
+    assert expired_edit.json()["message"] == "到期时间必须晚于当前时间。"
+    assert client.get(f"/wanted/{wid}").json()["data"]["title"] == "Book"
     assert client.get(f"/wanted/{wid}").status_code == 200
     assert client.delete(f"/wanted/{wid}", headers=headers(seller)).status_code == 403
     assert client.delete(f"/wanted/{wid}", headers=headers(buyer)).status_code == 204

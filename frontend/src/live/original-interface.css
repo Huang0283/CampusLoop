@@ -287,15 +287,31 @@
 .order-price .ant-btn { margin-top: 12px; border-radius: 999px; }
 .order-persons { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--hair); }
 .order-progress { margin-bottom: 24px; }
-.notification-list { padding: 4px 16px; border: 1px solid var(--card-line); border-radius: 22px; background: var(--card); box-shadow: var(--card-shadow); }
-.notification-row { display: flex; align-items: flex-start; gap: 16px; margin: 6px 0; padding: 18px 16px; border-radius: 16px; }
-.notification-row.is-unread { background: color-mix(in oklab, var(--g1) 9%, transparent); }
-.notification-row.is-unread h2::after { content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 8px; border-radius: 50%; vertical-align: middle; background: linear-gradient(135deg, #F2603F, #F2508C); }
-.notification-icon { display: grid; place-items: center; flex: 0 0 44px; height: 44px; border-radius: 14px; color: #fff; font-size: 20px; }
-.notification-copy { flex: 1; min-width: 0; overflow-wrap: anywhere; }
-.notification-copy h2 { margin: 0 0 6px; font-size: 16px; }
-.notification-copy p { margin: 0 0 8px; color: var(--muted); white-space: pre-wrap; }
-.notification-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.notification-list { padding: 4px 20px 10px; border: 1px solid var(--card-line); border-radius: 22px; background: var(--card); box-shadow: var(--card-shadow); }
+.notice-day + .notice-day { margin-top: 6px; }
+.notice-day-label { margin: 0; padding: 14px 12px 6px; color: var(--muted); font-size: 13px; font-weight: 600; letter-spacing: .02em; }
+.notification-row { --nc: var(--g1); display: grid; grid-template-columns: 40px minmax(0, 1fr) auto auto; align-items: center; gap: 14px; margin: 0; padding: 14px 12px; border-radius: 14px; }
+.notification-row { position: relative; }
+.notification-row + .notification-row::before { content: ""; position: absolute; top: -1px; right: 12px; left: 66px; height: 1px; background: var(--hair); transition: opacity .2s ease; }
+.notification-row:hover::before, .notification-row:hover + .notification-row::before, .notification-row:focus-visible::before, .notification-row:focus-visible + .notification-row::before { opacity: 0; }
+@media (hover: hover) {
+  .notification-read.ant-btn:not(:disabled) { opacity: 0; transition: opacity .15s ease; }
+  .notification-row:hover .notification-read.ant-btn:not(:disabled), .notification-row:focus-within .notification-read.ant-btn:not(:disabled) { opacity: 1; }
+}
+.notification-icon { position: relative; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: var(--nc); background: color-mix(in oklab, var(--nc) 13%, transparent); font-size: 18px; }
+.notification-row.is-unread .notification-icon::after { content: ""; position: absolute; top: -3px; right: -3px; width: 10px; height: 10px; border-radius: 50%; background: #F2508C; box-shadow: 0 0 0 2px var(--card); }
+.notification-copy { min-width: 0; overflow-wrap: anywhere; }
+.notification-copy h3 { margin: 0; color: var(--ink); font-size: 15px; font-weight: 500; line-height: 1.45; }
+.notification-row.is-unread .notification-copy h3 { font-weight: 700; }
+.notification-copy p { display: -webkit-box; margin: 2px 0 0; overflow: hidden; color: var(--muted); font-size: 14px; line-height: 1.5; white-space: pre-wrap; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.notification-time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.notification-actions { display: flex; align-items: center; gap: 4px; }
+.notification-read.ant-btn { height: 28px; padding: 0 8px; border-radius: 8px; color: var(--link); font-size: 13px; }
+.notification-read.ant-btn:disabled { opacity: 0; }
+.notification-go { width: 12px; color: var(--faint); font-size: 12px; transition: transform .2s ease, color .2s ease; }
+.notification-row.has-link:hover .notification-go { color: var(--link); transform: translateX(2px); }
+.notification-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 16px 4px 0; color: var(--muted); font-size: 14px; }
+.notification-tab-count { display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 6px; padding: 0 5px; border-radius: 999px; color: var(--link); background: color-mix(in oklab, var(--g1) 14%, transparent); font-size: 11px; font-weight: 700; line-height: 1; vertical-align: 1px; }
 .notification-tabs, .segmented-tabs { display: flex; align-items: flex-end; gap: 6px; margin: 0 -24px 12px; padding: 10px 24px 0; border-bottom: 1px solid var(--hair); }
 .notification-tab, .segmented-tab { position: relative; appearance: none; border: 0; background: transparent; padding: 10px 16px 12px; border-radius: 10px 10px 0 0; color: var(--muted); font-size: 15px; font-weight: 500; line-height: 1.4; font-family: inherit; cursor: pointer; user-select: none; -webkit-user-select: none; caret-color: transparent; outline: none; transition: color .2s ease, background-color .2s ease; }
 .notification-tab::after, .segmented-tab::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: -1px; height: 3px; border-radius: 3px 3px 0 0; background: var(--g1); transform: scaleX(0); transform-origin: center; transition: transform .2s ease; }
@@ -305,8 +321,7 @@
 .notification-tab:focus-visible, .segmented-tab:focus-visible { outline: 2px solid var(--g1); outline-offset: 2px; }
 .notification-rows { padding: 4px 0; }
 .notification-row { cursor: pointer; border-radius: 10px; user-select: none; -webkit-user-select: none; caret-color: transparent; transition: background-color .2s ease, box-shadow .2s ease, transform .12s ease; }
-.notification-row:hover { background: var(--well); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--g1) 28%, transparent), 0 6px 18px rgba(47, 107, 255, .08); }
-.notification-row.is-unread:hover { background: color-mix(in oklab, var(--g1) 18%, transparent); }
+.notification-row:hover { background: var(--well); }
 .notification-row:active { background: var(--well); transform: translateY(1px); }
 .notification-row:focus-visible { outline: 2px solid var(--g1); outline-offset: -2px; }
 @media (max-width: 720px) {
@@ -378,9 +393,15 @@
   .order-card-body { align-items: flex-start; flex-direction: column; }
   .order-price { text-align: left; }
   .order-persons { grid-template-columns: minmax(0, 1fr); }
-  .notification-list { padding: 4px 6px; }
-  .notification-row { flex-wrap: wrap; gap: 12px; padding: 16px 10px; }
-  .notification-actions { width: 100%; justify-content: flex-end; }
+  .notification-list { padding: 4px 8px 8px; }
+  .notification-row { grid-template-columns: 36px minmax(0, 1fr) auto; grid-template-areas: "icon copy time" "icon copy act"; align-items: start; gap: 2px 12px; padding: 12px 8px; }
+  .notification-icon { grid-area: icon; width: 36px; height: 36px; font-size: 16px; }
+  .notification-copy { grid-area: copy; }
+  .notification-time { grid-area: time; padding-top: 2px; font-size: 12px; text-align: right; }
+  .notification-actions { grid-area: act; justify-content: flex-end; }
+  .notification-read.ant-btn { padding: 0 4px; }
+  .notification-go { display: none; }
+  .notification-row + .notification-row::before { right: 8px; left: 56px; }
   .admin-panel { padding: 12px; }
   .match-results .product-card { flex-direction: column; }
   .match-results .product-card > a:first-child { flex-basis: auto; }
@@ -504,6 +525,49 @@
 }
 .report-pager-label { color: var(--muted); font-size: 13px; }
 
+/* 我的举报：独立页面，按处理状态着色 */
+.report-board { padding: 6px 20px 18px; border: 1px solid var(--card-line); border-radius: 22px; background: var(--card); box-shadow: var(--card-shadow); }
+.report-board-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--hair); }
+.report-board-head h2 { margin: 0; color: var(--ink); font-size: 16px; font-weight: 700; }
+.report-list { margin: 0; padding: 0; list-style: none; }
+.report-item { --rc: #E8930C; --rc-ink: #9A5B00; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; padding: 18px 4px; border-bottom: 1px solid var(--hair); }
+.report-item:last-child { border-bottom: 0; }
+.report-item.is-processing { --rc: #2F6BFF; --rc-ink: #1F4FCC; }
+.report-item.is-resolved { --rc: #12A877; --rc-ink: #0B7350; }
+.report-item.is-rejected { --rc: #7C8496; --rc-ink: #4A5068; }
+.report-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: var(--rc); background: color-mix(in oklab, var(--rc) 13%, transparent); font-size: 17px; }
+.report-body { min-width: 0; overflow-wrap: anywhere; }
+.report-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.report-line h3 { margin: 0; color: var(--ink); font-size: 15px; font-weight: 700; }
+.report-status { padding: 2px 10px; border-radius: 999px; color: var(--rc-ink); background: color-mix(in oklab, var(--rc) 14%, transparent); font-size: 12px; font-weight: 600; line-height: 20px; }
+.report-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; }
+.report-reason { padding: 2px 9px; border-radius: 8px; color: var(--ink); background: var(--well); line-height: 20px; }
+.report-target { display: inline-flex; align-items: center; gap: 4px; color: var(--link); }
+.report-target .anticon { font-size: 10px; }
+span.report-target { color: var(--muted); }
+.report-desc { margin: 8px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+.report-reply { margin-top: 10px; padding: 10px 14px; border-radius: 12px; background: color-mix(in oklab, var(--rc) 8%, transparent); }
+.report-reply strong { color: var(--rc-ink); font-size: 12px; font-weight: 700; }
+.report-reply p { margin: 2px 0 0; color: var(--ink); font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+.report-dates { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.report-decisions-link { padding: 9px 16px; border-radius: 999px; color: var(--ink); background: var(--btn2); font-size: 14px; font-weight: 600; transition: background-color .2s ease; }
+.report-decisions-link:hover { color: var(--ink); background: var(--well); }
+.image-queue { width: fit-content; max-width: 100%; }
+.image-queue-paste { display: flex; width: fit-content; align-items: center; gap: 8px; margin-top: 8px; padding: 8px 12px; border: 1px dashed var(--card-line); border-radius: 8px; color: var(--link); cursor: text; }
+.image-queue-paste:focus-visible { outline: 2px solid var(--g1); outline-offset: 2px; }
+.moderation-optional { margin: 8px 0 16px; }
+.moderation-optional summary { width: fit-content; margin-bottom: 12px; color: var(--link); cursor: pointer; }
+.minimizable-modal-minimize { position: absolute; top: 10px; right: 52px; z-index: 1; }
+.minimized-modal-restore { position: fixed; right: 88px; bottom: 24px; z-index: 1100; max-width: calc(100vw - 32px); box-shadow: 0 8px 24px rgba(23, 31, 56, .2); }
+@media (max-width: 600px) { .minimized-modal-restore { right: 16px; bottom: 80px; } }
+[data-theme="dark"] .report-item { --rc-ink: color-mix(in oklab, var(--rc) 55%, white); }
+[data-theme="dark"] .notification-icon { color: color-mix(in oklab, var(--nc) 70%, white); }
+@media (max-width: 720px) {
+  .report-board { padding: 4px 12px 14px; }
+  .report-item { grid-template-columns: 34px minmax(0, 1fr); gap: 12px; }
+  .report-icon { width: 34px; height: 34px; font-size: 15px; }
+}
+
 /* Phase 5 按钮统一反馈 */
 .campus-app .ant-btn {
   transition: color .2s ease, background-color .2s ease, border-color .2s ease,
@@ -516,7 +580,7 @@
 @media (prefers-reduced-motion: reduce) {
   .catalog-card, .wanted-card.ant-card, .order-card.ant-card,
   .catalog-card .product-photo img, .campus-app .ant-btn,
-  .notification-row, .notification-tab, .segmented-tab { transition: none; }
+  .notification-row, .notification-tab, .segmented-tab, .notification-go, .report-decisions-link { transition: none; }
   .catalog-card:hover, .wanted-card.ant-card:hover,
   .catalog-card:active, .wanted-card.ant-card:active { transform: none; }
   .catalog-card:hover .ant-card-cover img { transform: none; }

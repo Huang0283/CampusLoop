@@ -65,7 +65,8 @@ test('notifications share one poller and synchronize read actions with the heade
   await expect(first).toBeVisible()
   await expect(second).toBeVisible()
   await expect(badge).toHaveAttribute('title', '2')
-  await expect.poll(() => reportReads).toBeGreaterThan(0)
+  // 我的举报 now lives on /report, so the notifications page must not poll it.
+  expect(reportReads).toBe(0)
   expect(notificationReads).toBe(1)
 
   // Observe one real polling interval, including a short duplicate-request window.

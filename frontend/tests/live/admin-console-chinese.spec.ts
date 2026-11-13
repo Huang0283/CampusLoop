@@ -52,6 +52,31 @@ for (const width of [1440, 390]) {
   })
 }
 
+test('admin dashboard refreshes when the browser tab returns to the foreground', async ({ page }) => {
+  let reads = 0
+  await page.route('**/admin/dashboard?**', route => {
+    reads += 1
+    return route.fulfill({ json: { data: adminDashboardFixture } })
+  })
+  await page.goto('/admin')
+  await expect.poll(() => reads).toBeGreaterThan(0)
+  const beforeReturn = reads
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')))
+  await expect.poll(() => reads).toBeGreaterThan(beforeReturn)
+})
+
+test('administrator detail forms can be minimized and restored without losing drafts', async ({ page }) => {
+  await page.goto('/admin/users')
+  await page.getByRole('button', { name: '详情与人工处理 #501', exact: true }).click()
+  const dialog = page.getByRole('dialog')
+  const facts = dialog.getByLabel('相关行为与事实', { exact: true })
+  await facts.fill('待核实的事实草稿')
+  await dialog.getByRole('button', { name: '最小化窗口', exact: true }).click()
+  await expect(dialog).toBeHidden()
+  await page.getByRole('button', { name: /恢复未完成的窗口/ }).click()
+  await expect(facts).toHaveValue('待核实的事实草稿')
+})
+
 test('report search sends live keywords and combines them with status', async ({ page }) => {
   const queries: URL[] = []
   await page.route('**/admin/reports?**', route => {

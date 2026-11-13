@@ -35,7 +35,7 @@ export function AppealsPage() {
         <Pagination current={page} pageSize={20} total={remote.value.pagination.total} showSizeChanger={false} onChange={setPage} />
       </>}</Resource>
     </div>
-    <DetailDialog title="账号申诉复核" open={Boolean(selected)} onClose={() => setParams({})}>{selected && <AppealDetail key={selected} appealId={selected} onReviewed={remote.reload} />}</DetailDialog>
+    <DetailDialog key={selected ?? 'closed'} title="账号申诉复核" open={Boolean(selected)} onClose={() => setParams({})}>{selected && <AppealDetail key={selected} appealId={selected} onReviewed={remote.reload} />}</DetailDialog>
   </div>)
 }
 

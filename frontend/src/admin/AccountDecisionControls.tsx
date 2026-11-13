@@ -39,7 +39,9 @@ export function AccountDecisionControls({ user, onChanged }: { user: UserProfile
         <Form.Item name="occurredAt" label="行为发生时间" rules={[{ required: true }]}><Input type="datetime-local" max={localNow} /></Form.Item>
         <Form.Item name="facts" label="相关行为与事实" rules={[{ required: true, whitespace: true, max: 2000 }]}><Input.TextArea rows={3} maxLength={2000} showCount /></Form.Item>
         <Form.Item name="basis" label="处理依据" rules={[{ required: true, whitespace: true, max: 500 }]}><Input.TextArea rows={2} maxLength={500} placeholder="请填写适用的平台规则或人工核实依据。" /></Form.Item>
-        <Form.Item name="productId" label="关联商品编号（可选，须属于该用户）"><InputNumber min={1} max={Number.MAX_SAFE_INTEGER} precision={0} style={{ width: '100%' }} /></Form.Item>
+        <details className="moderation-optional"><summary>关联商品（可选）</summary>
+          <Form.Item name="productId" label="关联商品编号（须属于该用户）"><InputNumber min={1} max={Number.MAX_SAFE_INTEGER} precision={0} style={{ width: '100%' }} /></Form.Item>
+        </details>
         <Alert type="info" showIcon title="以下事实、原因和证据将对被处理用户可见，请勿包含举报人身份或他人隐私。" style={{ marginBottom: 16 }} />
         <Form.Item name="evidence" label="可向本人展示的证据图片（可选）"><ImageQueue purpose="evidence" onBusyChange={setUploading} /></Form.Item>
       </>}

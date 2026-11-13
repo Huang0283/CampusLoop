@@ -94,6 +94,7 @@ for (const width of [1440, 390]) test(`one contact keeps multiple products, mess
   await page.getByRole('combobox', { name: '选择沟通商品或求购' }).click()
   await page.getByRole('option', { name: '台灯', exact: true }).click()
   await expect(page).toHaveURL(/\/chat\/801$/)
+  await expect(stream.locator('[data-session-id="801"]').last()).toBeInViewport()
   await expect(page.locator('.chat-context .product-summary a')).toHaveAttribute('href', '/product/601')
   await expect(page.getByRole('textbox', { name: '消息内容' })).toHaveValue('商品切换时保留草稿')
   await page.getByRole('button', { name: '发送消息', exact: true }).click()
@@ -122,6 +123,22 @@ for (const width of [1440, 390]) test(`one contact keeps multiple products, mess
   }
 })
 
+test('switching products locates their latest entry in a long merged history', async ({ page }) => {
+  const fixture = await setup(page)
+  for (const sessionId of [801, 802]) fixture.messages.set(sessionId, Array.from({ length: 30 }, (_, index): Message => ({
+    id: sessionId * 100 + index, sessionId, senderId: 502, clientMsgId: `locate-${sessionId}-${index}`,
+    kind: 'TEXT', content: `商品 ${sessionId} 消息 ${index}`,
+    createdAt: sessionId === 801 ? stamp : '2026-11-01T12:00:00Z',
+  })))
+  await page.goto('/chat/802')
+  const target = page.locator('.chat-message-stream [data-session-id="801"]').last()
+  await expect(page.locator('.chat-message-stream [data-session-id="802"]').last()).toBeInViewport()
+  await expect(target).not.toBeInViewport()
+  await page.getByRole('combobox', { name: '选择沟通商品或求购' }).click()
+  await page.getByRole('option', { name: '台灯', exact: true }).click()
+  await expect(target).toBeInViewport()
+})
+
 test('merged chat keeps retry targets, real time events, history cursors and new product drafts', async ({ page }) => {
   const fixture = await setup(page)
   const history = Array.from({ length: 101 }, (_, i): Message => ({ id: 2000 + i, sessionId: 801, senderId: 502, clientMsgId: `history-${i}`, kind: 'TEXT', content: `台灯历史 ${i}`, createdAt: stamp }))
@@ -144,7 +161,7 @@ test('merged chat keeps retry targets, real time events, history cursors and new
   const incoming: Message = { id: 15000, clientMsgId: 'incoming-unselected', sessionId: 801, senderId: 502, kind: 'TEXT', content: '未选中的台灯也实时收到', createdAt: new Date().toISOString() }
   fixture.messages.get(801)!.push(incoming)
   fixture.sockets.at(-1)!.send(JSON.stringify({ type: 'MESSAGE_CREATED', payload: { sessionId: 801, message: incoming } }))
-  await expect(page.getByText(incoming.content!, { exact: true })).toBeVisible()
+  await expect(page.locator('.chat-message-stream').getByText(incoming.content!, { exact: true })).toBeVisible()
   await expect.poll(() => fixture.reads.get(801)).toBe(15000)
   await page.getByRole('textbox', { name: '消息内容' }).fill('新商品加入时保留')
   fixture.sessions.push({ ...fixture.sessions[0], id: 804, product: undefined, type: 'WANTED', wanted: { id: 704, owner: peer, title: '求购笔记本', description: '测试夹具', budgetMin: 1, budgetMax: 10, condition: 'GOOD', location: '校内', status: 'OPEN', createdAt: stamp } })
@@ -161,6 +178,24 @@ test('merged chat keeps retry targets, real time events, history cursors and new
   fixture.setIdentity(null)
   await page.reload()
   await expect(page).toHaveURL(/\/login$/)
+})
+
+test('retrying an uncertain offer acceptance keeps its idempotency key', async ({ page }) => {
+  const fixture = await setup(page)
+  fixture.offers[0] = { ...fixture.offers[0], status: 'PENDING', proposerId: 502, orderId: undefined }
+  const keys: string[] = []
+  await page.route('**/offers/1001/accept', route => {
+    keys.push(route.request().headers()['idempotency-key'])
+    return keys.length === 1 ? route.abort() : route.fulfill({ json: { data: { offer: { ...fixture.offers[0], status: 'ACCEPTED' }, order: { id: 1101 } } } })
+  })
+  await page.goto('/chat/801')
+  await page.getByRole('button', { name: /接受报价$/ }).click()
+  await expect(page.getByText('无法连接服务，请检查网络后重试。', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: /接受报价$/ }).click()
+  await expect(page).toHaveURL(/\/transactions\/1101$/)
+  expect(keys).toHaveLength(2)
+  expect(keys[0]).toBeTruthy()
+  expect(keys[1]).toBe(keys[0])
 })
 
 test('cancelling a removed listing explains why it stays out of the market after reload', async ({ page }) => {

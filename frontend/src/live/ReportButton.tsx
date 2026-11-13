@@ -1,7 +1,7 @@
 import { localize, LocalizedText } from '../i18n/Localize'
 import { useLanguage, t } from '../i18n/language'
 import { useState } from 'react'
-import { Alert, Button, Input, message, Modal, Select } from 'antd'
+import { Alert, Button, Input, message, Select } from 'antd'
 import { Form } from '../i18n/Form'
 import { Link } from 'react-router-dom'
 import { createReport, data, idempotencyHeaders } from '../sdk'
@@ -10,6 +10,7 @@ import { Failure, useMutation } from './common'
 import { ImageQueue } from './ImageQueue'
 import { useAttemptKey } from './idempotency'
 import { reportReasons } from './reportReasons'
+import { MinimizableModal } from './MinimizableModal'
 
 export function ReportButton({ targetType, targetId, orderRole, label = '举报' }: { targetType: ReportTargetType; targetId: number; orderRole?: 'buyer' | 'seller'; label?: string }) {
   useLanguage()
@@ -20,7 +21,7 @@ export function ReportButton({ targetType, targetId, orderRole, label = '举报'
   const attemptKey = useAttemptKey()
   const [messageApi, contextHolder] = message.useMessage()
   const options = reportReasons(targetType, orderRole)
-  return localize(<>{contextHolder}<Button onClick={() => setOpen(true)}>{label}</Button><Modal title="提交举报" open={open} onCancel={() => setOpen(false)} footer={null}>
+  return localize(<>{contextHolder}<Button onClick={() => setOpen(true)}>{label}</Button><MinimizableModal title="提交举报" open={open} onCancel={() => setOpen(false)} footer={null}>
     {targetType === 'ORDER' && <Alert type="info" style={{ marginBottom: 16 }} title={orderRole === 'seller' ? '举报本订单中的买家行为' : '举报本订单中的交易问题'} description="请选择与事实相符的原因；恶意下单、爽约等请在交易违规的说明中描述。" />}
     <Failure error={mutation.error} /><Form form={form} layout="vertical" onFinish={(values: { reason: ReportReason; description?: string; evidence?: string[] }) => void mutation.run(async () => {
       const body = { targetType, targetId, ...values }
@@ -32,5 +33,5 @@ export function ReportButton({ targetType, targetId, orderRole, label = '举报'
       <Form.Item name="evidence" label="证据图片（可选，私有存储）"><ImageQueue purpose="evidence" onBusyChange={setUploadBlocked} /></Form.Item>
       <Button type="primary" htmlType="submit" loading={mutation.busy} disabled={uploadBlocked}>提交举报</Button>
     </Form>
-  </Modal></>)
+  </MinimizableModal></>)
 }

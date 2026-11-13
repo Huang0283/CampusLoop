@@ -1,10 +1,11 @@
 import { localize, OriginalText } from '../i18n/Localize'
-import { useLanguage, t } from '../i18n/language'
+import { dateLocale, useLanguage, t } from '../i18n/language'
 import { CatalogText } from '../i18n/CatalogText'
 import { useEffect, useRef, useState } from 'react'
-import { Alert, Badge, Button, Card, Descriptions, Input, Pagination, Popconfirm, Rate, Select, Space, Steps, Tag, Timeline, Typography } from 'antd'
+import type { ReactNode } from 'react'
+import { Alert, Button, Card, Descriptions, Input, Pagination, Popconfirm, Rate, Select, Space, Steps, Tag, Timeline, Typography } from 'antd'
 import { Form } from '../i18n/Form'
-import { AimOutlined, BellFilled, CheckCircleOutlined, MessageFilled, MessageOutlined, MoneyCollectFilled, ShopOutlined, SwapOutlined } from '@ant-design/icons'
+import { AimOutlined, AuditOutlined, BellOutlined, CalendarOutlined, CheckCircleOutlined, CheckOutlined, FlagOutlined, MessageOutlined, RightOutlined, SafetyCertificateOutlined, ShopOutlined, StarOutlined, SwapOutlined, TagOutlined } from '@ant-design/icons'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { MeetupWriteRequest, Notification, OrderStatus, ReviewWriteRequest } from '../sdk'
@@ -13,7 +14,6 @@ import { ReportButton } from './ReportButton'
 import { useSession } from './session'
 import { useAttemptKey } from './idempotency'
 import { campusToday, validateMeetupEnd, validateMeetupStart } from './meetupTime'
-import { MyReports } from './ReportsPage'
 import { notifyNotificationsChanged, uniqueNotifications } from './notifications'
 import { ProductSummary, Person } from './Presentation'
 import { displayDate, systemText } from './display'
@@ -113,7 +113,7 @@ export function ReviewPage() {
 const notificationGroups = ['全部', '消息', '报价', '匹配', '系统'] as const
 type NotificationGroup = typeof notificationGroups[number]
 
-function NotificationTabs({ value, onChange }: { value: NotificationGroup; onChange: (value: NotificationGroup) => void }) {
+function NotificationTabs({ value, onChange, counts }: { value: NotificationGroup; onChange: (value: NotificationGroup) => void; counts: Partial<Record<NotificationGroup, number>> }) {
   useLanguage()
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const focusTab = (index: number) => {
@@ -139,10 +139,35 @@ function NotificationTabs({ value, onChange }: { value: NotificationGroup; onCha
           else if (event.key === 'Home') { event.preventDefault(); focusTab(0) }
           else if (event.key === 'End') { event.preventDefault(); focusTab(notificationGroups.length - 1) }
         }}
-      >{label}</button>)
+      >{label}{counts[label] ? <span className="notification-tab-count" aria-hidden="true">{counts[label]}</span> : null}</button>)
     })}
   </div>)
 }
+
+// Each notification type keeps its own glyph and hue, so a glance tells what happened; tabs still group by the four families.
+const NOTICE_KINDS: Record<Notification['type'], { icon: ReactNode; color: string }> = {
+  MESSAGE: { icon: <MessageOutlined />, color: '#2F6BFF' },
+  OFFER_RECEIVED: { icon: <TagOutlined />, color: '#12A877' },
+  OFFER_ACCEPTED: { icon: <CheckCircleOutlined />, color: '#12A877' },
+  OFFER_REJECTED: { icon: <TagOutlined />, color: '#7C8496' },
+  MATCH_FOUND: { icon: <AimOutlined />, color: '#8B5CF6' },
+  ORDER_STATUS_CHANGED: { icon: <SwapOutlined />, color: '#0E9BB8' },
+  MEETUP_REMINDER: { icon: <CalendarOutlined />, color: '#0E9BB8' },
+  REVIEW_REQUEST: { icon: <StarOutlined />, color: '#E8930C' },
+  REPORT_RESULT: { icon: <FlagOutlined />, color: '#F07800' },
+  ACCOUNT_ACTION: { icon: <SafetyCertificateOutlined />, color: '#E5383B' },
+  APPEAL_RECEIVED: { icon: <AuditOutlined />, color: '#E0569E' },
+  APPEAL_RESULT: { icon: <AuditOutlined />, color: '#E0569E' },
+}
+const dayKey = (value: Date) => `${value.getFullYear()}-${value.getMonth()}-${value.getDate()}`
+function dayLabel(value: string) {
+  const date = new Date(value), today = new Date()
+  if (dayKey(date) === dayKey(today)) return '今天'
+  if (dayKey(date) === dayKey(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1))) return '昨天'
+  return new Intl.DateTimeFormat(dateLocale(), { month: 'long', day: 'numeric', weekday: 'short', ...(date.getFullYear() === today.getFullYear() ? {} : { year: 'numeric' }) }).format(date)
+}
+const clockTime = (value: string) => new Intl.DateTimeFormat(dateLocale(), { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(value))
+const internalLink = (item: Notification) => item.link && /^\/(?!\/)/.test(item.link) ? item.link : undefined
 
 export function NotificationsPage({ admin = false }: { admin?: boolean }) {
   useLanguage()
@@ -153,29 +178,59 @@ export function NotificationsPage({ admin = false }: { admin?: boolean }) {
   const [group, setGroup] = useState<NotificationGroup>('全部')
   const groupOf = (item: Notification): Exclude<NotificationGroup, '全部'> => item.type === 'MESSAGE' ? '消息' : item.type.startsWith('OFFER_') ? '报价' : item.type === 'MATCH_FOUND' ? '匹配' : '系统'
   const visible = notifications.filter((item) => group === '全部' || groupOf(item) === group)
-  const config = { 消息: { icon: localize(<MessageFilled />), color: '#2f6bff' }, 报价: { icon: localize(<MoneyCollectFilled />), color: '#52c41a' }, 匹配: { icon: localize(<AimOutlined />), color: '#fa8c16' }, 系统: { icon: localize(<BellFilled />), color: '#722ed1' } }
+  const unread = notifications.filter((item) => !item.read)
+  const counts: Partial<Record<NotificationGroup, number>> = { 全部: unread.length }
+  for (const item of unread) counts[groupOf(item)] = (counts[groupOf(item)] ?? 0) + 1
+  const days: { key: string; label: string; items: Notification[] }[] = []
+  for (const item of visible) {
+    const key = dayKey(new Date(item.createdAt))
+    if (days[days.length - 1]?.key !== key) days.push({ key, label: dayLabel(item.createdAt), items: [] })
+    days[days.length - 1].items.push(item)
+  }
   const openNotification = (item: Notification) => {
     void mutation.run(async () => {
       if (!item.read) { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() }
-      if (item.link && /^\/(?!\/)/.test(item.link)) navigate(item.link)
+      const link = internalLink(item)
+      if (link) navigate(link)
     })
   }
   const markRead = (item: Notification) => {
     if (item.read) return
     void mutation.run(async () => { await api.markNotificationRead({ path: { notificationId: item.id } }); notifyNotificationsChanged() })
   }
-  return localize(<Page title="通知" extra={<Button aria-label="全部已读" loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><NotificationTabs value={group} onChange={setGroup} /><Resource {...remote}>
-    {visible.length ? <div className="notification-rows" role="list">{visible.map((item) => localize(<article
-      key={item.id}
-      role="listitem"
-      tabIndex={0}
-      aria-label={`${t(systemText(item.title, systemText(item.type, '平台通知')))}, ${displayDate(item.createdAt)}${item.read ? '' : t('，未读')}`}
-      className={`notification-row ${item.read ? '' : 'is-unread'}`}
-      onClick={() => openNotification(item)}
-      onKeyDown={(event) => {
-        if (event.target !== event.currentTarget) return
-        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openNotification(item) }
-      }}
-    ><span className="notification-icon" style={{ background: config[groupOf(item)].color }}>{config[groupOf(item)].icon}</span><div className="notification-copy"><h2><Badge dot={!item.read} /> {<CatalogText text={systemText(item.title, systemText(item.type, '平台通知'))} />}</h2><p>{item.content ? <CatalogText text={systemText(item.content, item.content)} /> : null}</p><span className="muted">{displayDate(item.createdAt)}</span></div><div className="notification-actions"><Button disabled={item.read} loading={mutation.busy} onClick={(event) => { event.stopPropagation(); markRead(item) }}>标为已读</Button>{item.link && /^\/(?!\/)/.test(item.link) && <Button onClick={(event) => { event.stopPropagation(); openNotification(item) }}>查看</Button>}</div></article>))}</div> : <NoItems />}
-  </Resource></div>{admin ? null : <><p><Link to="/account/decisions">查看全部账号处理记录与申诉</Link></p><MyReports /></>}</Page>)
+  const subtitle = remote.value ? unread.length ? t(`${unread.length} 条未读`) : t('没有未读通知') : undefined
+  return localize(<Page title="通知" subtitle={subtitle} className="notifications-page" extra={<Button aria-label="全部已读" icon={<CheckOutlined />} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.markAllNotificationsRead(); notifyNotificationsChanged() })}>全部已读</Button>}><Failure error={mutation.error} /><div className="notification-list"><NotificationTabs value={group} onChange={setGroup} counts={counts} /><Resource {...remote}>
+    {visible.length ? <div className="notification-rows" role="list">{days.map((day) => localize(<section key={day.key} className="notice-day" role="presentation">
+      <h2 className="notice-day-label">{day.label}</h2>
+      {day.items.map((item) => {
+        const kind = NOTICE_KINDS[item.type] ?? { icon: <BellOutlined />, color: '#8B5CF6' }
+        const title = systemText(item.title, systemText(item.type, '平台通知'))
+        const link = internalLink(item)
+        return localize(<article
+          key={item.id}
+          role="listitem"
+          tabIndex={0}
+          aria-label={`${t(title)}, ${displayDate(item.createdAt)}${item.read ? '' : t('，未读')}`}
+          className={`notification-row${item.read ? '' : ' is-unread'}${link ? ' has-link' : ''}`}
+          style={{ ['--nc' as string]: kind.color }}
+          onClick={() => openNotification(item)}
+          onKeyDown={(event) => {
+            if (event.target !== event.currentTarget) return
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openNotification(item) }
+          }}
+        >
+          <span className="notification-icon" aria-hidden="true">{kind.icon}</span>
+          <div className="notification-copy">
+            <h3><CatalogText text={title} /></h3>
+            {item.content ? <p><CatalogText text={systemText(item.content, item.content)} /></p> : null}
+          </div>
+          <time className="notification-time" dateTime={item.createdAt} title={displayDate(item.createdAt)}>{clockTime(item.createdAt)}</time>
+          <div className="notification-actions">
+            <Button type="text" size="small" className="notification-read" aria-label="标为已读" icon={<CheckOutlined />} disabled={item.read} onClick={(event) => { event.stopPropagation(); markRead(item) }}>标为已读</Button>
+            {link ? <RightOutlined className="notification-go" aria-hidden="true" /> : <span className="notification-go" aria-hidden="true" />}
+          </div>
+        </article>)
+      })}
+    </section>))}</div> : <NoItems />}
+  </Resource></div>{admin ? null : <p className="notification-foot"><Link to="/report">我的举报记录</Link><span aria-hidden="true">·</span><Link to="/account/decisions">账号处理记录与申诉</Link></p>}</Page>)
 }

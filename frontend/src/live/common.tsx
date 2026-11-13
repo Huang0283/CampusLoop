@@ -4,7 +4,7 @@ import { useLanguage, t } from '../i18n/language'
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Alert, Avatar, Badge, Button, Card, Dropdown, Empty, Input, Menu, Result } from 'antd'
-import { BellOutlined, DownOutlined, FileSearchOutlined, MessageOutlined, SafetyCertificateOutlined, SearchOutlined, ShopOutlined, SwapOutlined } from '@ant-design/icons'
+import { BellOutlined, DownOutlined, FileSearchOutlined, FlagOutlined, MessageOutlined, SafetyCertificateOutlined, SearchOutlined, ShopOutlined, SwapOutlined } from '@ant-design/icons'
 import { Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ApiError, data, listNotifications, logout } from '../sdk'
 import { useSession } from './session'
@@ -177,10 +177,10 @@ export function Shell() {
   const nav = [
     { key: '/market', icon: localize(<ShopOutlined aria-hidden />), label: '市场' },
     ...(user?.role !== 'ADMIN' ? [{ key: '/wanted', icon: localize(<FileSearchOutlined aria-hidden />), label: '求购' }] : []),
-    ...(user?.role === 'USER' ? [{ key: '/chat', icon: localize(<MessageOutlined aria-hidden />), label: '聊天' }, { key: '/transactions', icon: localize(<SwapOutlined aria-hidden />), label: '交易' }] : []),
+    ...(user?.role === 'USER' ? [{ key: '/chat', icon: localize(<MessageOutlined aria-hidden />), label: '聊天' }, { key: '/transactions', icon: localize(<SwapOutlined aria-hidden />), label: '交易' }, { key: '/report', icon: localize(<FlagOutlined aria-hidden />), label: '举报' }] : []),
     ...(user?.role === 'ADMIN' ? [{ key: '/admin', icon: localize(<SafetyCertificateOutlined aria-hidden />), label: '管理后台' }] : []),
   ]
-  const selected = location.pathname.startsWith('/admin') ? '/admin' : location.pathname.startsWith('/chat') ? '/chat' : location.pathname.startsWith('/transactions') ? '/transactions' : location.pathname.startsWith('/wanted') ? '/wanted' : location.pathname.startsWith('/market') || location.pathname.startsWith('/product') ? '/market' : ''
+  const selected = location.pathname.startsWith('/admin') ? '/admin' : location.pathname.startsWith('/chat') ? '/chat' : location.pathname.startsWith('/transactions') ? '/transactions' : location.pathname === '/report' ? '/report' : location.pathname.startsWith('/wanted') ? '/wanted' : location.pathname.startsWith('/market') || location.pathname.startsWith('/product') ? '/market' : ''
   const menu = [
     ...(user?.role === 'ADMIN' ? [{ key: '/admin', label: '管理后台' }] : [{ key: '/profile', label: '个人中心' }, { key: '/my-products', label: '我的发布' }, { key: '/favorites', label: '我的收藏' }, { key: '/report', label: '我的举报' }, { key: '/account/decisions', label: '账号处理记录' }]),
     { key: 'logout', label: '退出登录', danger: true },
@@ -194,7 +194,8 @@ export function Shell() {
     <header className="app-topbar">
       <Link to="/" className="app-brand" aria-label="CampusLoop 首页"><Logo size={30} /><span>CampusLoop</span></Link>
       <Menu className="app-nav" mode="horizontal" disabledOverflow selectedKeys={[selected]} items={nav} onClick={({ key }) => navigate(key)} />
-      <Input.Search key={location.pathname + location.search} className="header-search" aria-label="全站搜索商品" placeholder="搜索校园好物" prefix={<SearchOutlined style={{ color: 'var(--placeholder)' }} />} allowClear defaultValue={location.pathname === '/market' ? new URLSearchParams(location.search).get('query') || '' : ''} onSearch={(value) => navigate(value.trim() ? `/market?query=${encodeURIComponent(value.trim())}` : '/market')} />
+      {/* The market page carries its own search bar, so the global one would only duplicate it there. */}
+      {location.pathname !== '/market' && <Input.Search key={location.pathname + location.search} className="header-search" aria-label="全站搜索商品" placeholder="搜索校园好物" prefix={<SearchOutlined style={{ color: 'var(--placeholder)' }} />} allowClear onSearch={(value) => navigate(value.trim() ? `/market?query=${encodeURIComponent(value.trim())}` : '/market')} />}
       <div className="app-tools">
         {user?.role === 'USER' && <div className="app-notification-bell"><Badge count={unread} size="small" offset={[-6, 6]}><Button aria-label="通知" type="text" className="cl-icon-btn" icon={<BellOutlined />} onClick={() => navigate('/notifications')} /></Badge></div>}
         <ThemeToggle />

@@ -54,6 +54,21 @@ export function AdminLayout() {
   const [offline, setOffline] = useState(!navigator.onLine)
   // One audited read refreshes the dashboard and the sidebar badges every two minutes.
   const dashboard = useRemote(`admin-dashboard-${days}`, (signal) => api.data(api.adminGetDashboard({ signal, query: { days } })), 120000, true)
+  const reloadDashboard = dashboard.reload
+  useEffect(() => {
+    let queued = false
+    const refreshOnReturn = () => {
+      if (document.visibilityState !== 'visible' || queued) return
+      queued = true
+      window.setTimeout(() => { queued = false; if (document.visibilityState === 'visible') reloadDashboard() }, 0)
+    }
+    window.addEventListener('focus', refreshOnReturn)
+    document.addEventListener('visibilitychange', refreshOnReturn)
+    return () => {
+      window.removeEventListener('focus', refreshOnReturn)
+      document.removeEventListener('visibilitychange', refreshOnReturn)
+    }
+  }, [reloadDashboard])
   useEffect(() => {
     const changed = () => setOffline(!navigator.onLine)
     window.addEventListener('online', changed); window.addEventListener('offline', changed)

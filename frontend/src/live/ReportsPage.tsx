@@ -2,7 +2,8 @@ import { localize } from '../i18n/Localize'
 import { useLanguage, dateLocale, t } from '../i18n/language'
 import { CatalogText } from '../i18n/CatalogText'
 import { useState } from 'react'
-import { Button, Card, List, Tag, Typography } from 'antd'
+import { Button } from 'antd'
+import { FlagOutlined, ReloadOutlined, RightOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import type { Report, ReportTargetType } from '../sdk'
 import * as api from '../sdk'
@@ -20,37 +21,47 @@ function targetPath(report: Report) {
   return null
 }
 
+const when = (value: string) => new Date(value).toLocaleString(dateLocale(), { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false })
+
 export function MyReports() {
   useLanguage()
   const user = useSession((state) => state.user)
   const [page, setPage] = useState(1)
   const reports = useRemote(`my-reports-${user?.id}-${page}`, (signal) => api.data(api.listMyReports({ query: { page, pageSize: PAGE_SIZE }, signal })), 5000)
   const items = reports.value ?? []
-  return localize(<Card title="我的举报" style={{ marginTop: 16 }} extra={<Button size="small" onClick={reports.reload}>刷新</Button>}><Resource {...reports}>
-    {items.length ?
-      <List dataSource={items} renderItem={(item) => {
+  return localize(<section className="report-board" aria-label="我的举报">
+    <div className="report-board-head"><h2>我的举报</h2><Button size="small" type="text" icon={<ReloadOutlined />} onClick={reports.reload}>刷新</Button></div>
+    <Resource {...reports}>
+      {items.length ? <ol className="report-list">{items.map((item) => {
         const target = <>{targetLabels[item.targetType]} #{item.targetId}</>
         const path = targetPath(item)
-        return localize(<List.Item actions={[<Tag>{statusLabels[item.status]}</Tag>]}>
-          <List.Item.Meta title={<span>举报 #{item.id} · {path ? <Link to={path}>{target}</Link> : target}</span>}
-            description={<>
-              <span>{reportReasonLabels[item.reason]}</span>
-              {item.description && <Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>{<CatalogText text={item.description} />}</Typography.Paragraph>}
-              <div>提交于 {new Date(item.createdAt).toLocaleString(dateLocale())}</div>
-              {item.handledAt && <div>处理于 {new Date(item.handledAt).toLocaleString(dateLocale())}</div>}
-              {item.resolutionNote && <Typography.Paragraph type="secondary" style={{ marginTop: 8, marginBottom: 0 }}>处理说明：{<CatalogText text={item.resolutionNote} />}</Typography.Paragraph>}
-            </>} />
-        </List.Item>)
-      }} /> : <NoItems />}
-    {(items.length > 0 || page > 1) && <div className="report-pager">
+        return localize(<li key={item.id} className={`report-item is-${item.status.toLowerCase()}`}>
+          <span className="report-icon" aria-hidden="true"><FlagOutlined /></span>
+          <div className="report-body">
+            <div className="report-line">
+              <h3>举报 #{item.id}</h3>
+              <span className="report-status">{statusLabels[item.status]}</span>
+            </div>
+            <div className="report-meta">
+              <span className="report-reason">{reportReasonLabels[item.reason]}</span>
+              {path ? <Link className="report-target" to={path}>{target}<RightOutlined aria-hidden="true" /></Link> : <span className="report-target">{target}</span>}
+            </div>
+            {item.description && <p className="report-desc"><CatalogText text={item.description} /></p>}
+            {item.resolutionNote && <div className="report-reply"><strong>处理说明</strong><p><CatalogText text={item.resolutionNote} /></p></div>}
+            <div className="report-dates"><span>提交于 {when(item.createdAt)}</span>{item.handledAt && <span>处理于 {when(item.handledAt)}</span>}</div>
+          </div>
+        </li>)
+      })}</ol> : <NoItems />}
+      {(items.length > 0 || page > 1) && <div className="report-pager">
         <Button disabled={page === 1} onClick={() => setPage(page - 1)}>上一页</Button>
         <span className="report-pager-label">{t(`第 ${page} 页`)}</span>
         <Button disabled={items.length < PAGE_SIZE} onClick={() => setPage(page + 1)}>下一页</Button>
       </div>}
-  </Resource></Card>)
+    </Resource>
+  </section>)
 }
 
 export function ReportsPage() {
   useLanguage()
-  return localize(<Page title="我的举报记录"><MyReports /></Page>)
+  return localize(<Page title="我的举报记录" subtitle="举报提交后由平台审核，处理结果会同步到通知。" className="reports-page" extra={<Link className="report-decisions-link" to="/account/decisions">账号处理记录与申诉</Link>}><MyReports /></Page>)
 }

@@ -1,7 +1,9 @@
 import { localize } from '../i18n/Localize'
 import { useLanguage } from '../i18n/language'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type { ClipboardEvent } from 'react'
 import { Alert, Button, Upload } from 'antd'
+import { SnippetsOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd'
 import * as api from '../sdk'
 
@@ -14,6 +16,7 @@ type Props = {
 // Upload status is not a URL. Failed or pending files block submission until retried/removed.
 export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'product', uploadImage }: Props) {
   useLanguage()
+  const queue = useRef<HTMLDivElement>(null)
   const [files, setFiles] = useState<UploadFile[] | null>(null)
   const [error, setError] = useState('')
   const [expected, setExpected] = useState<string[]>(value)
@@ -31,7 +34,18 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
       onProgress?.({ percent: 100 }); onSuccess?.(result)
     }).catch((failure: Error) => { setError(failure.message); onError?.(failure) })
   }
-  return localize(<>
+  const paste = (event: ClipboardEvent<HTMLDivElement>) => {
+    const images = Array.from(event.clipboardData.items).map(item => item.getAsFile()).filter((file): file is File => Boolean(file?.type.startsWith('image/')))
+    if (!images.length) return
+    event.preventDefault()
+    const input = queue.current?.querySelector<HTMLInputElement>('input[type="file"]')
+    if (!input) return
+    const transfer = new DataTransfer()
+    images.forEach(file => transfer.items.add(file))
+    input.files = transfer.files
+    input.dispatchEvent(new Event('change', { bubbles: true }))
+  }
+  return localize(<div ref={queue} className="image-queue">
     {error && <Alert type="error" title={error} description="移除失败图片后重新上传；其余已上传图片不会丢失。" closable onClose={() => setError('')} />}
     <Upload listType="picture-card" accept="image/png,image/jpeg" fileList={current} customRequest={upload} maxCount={5}
       beforeUpload={(file) => {
@@ -54,6 +68,7 @@ export function ImageQueue({ value = [], onChange, onBusyChange, purpose = 'prod
         </Button>
       )}
     </Upload>
+    <div className="image-queue-paste" role="group" aria-label="粘贴截图" tabIndex={0} onPaste={paste}><SnippetsOutlined aria-hidden="true" /><span>粘贴截图</span></div>
     {current.some((file) => file.status === 'error') && <Button onClick={() => update(current.filter((file) => file.status !== 'error'))}>移除失败图片并重新上传</Button>}
-  </>)
+  </div>)
 }

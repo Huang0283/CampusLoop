@@ -89,7 +89,7 @@ test('my reports keeps records apart from paging and drops the notification shor
   await expect(page.locator('.report-pager').getByRole('button', { name: '上一页' })).toBeVisible()
   await expect(page.locator('.report-pager').getByRole('button', { name: '下一页' })).toBeVisible()
 
-  const listBottom = await page.locator('.ant-list').first().boundingBox()
+  const listBottom = await page.locator('.report-list').first().boundingBox()
   const pagerTop = await page.locator('.report-pager').boundingBox()
   expect(listBottom && pagerTop && pagerTop.y >= listBottom.y + listBottom.height - 1).toBe(true)
 })
