@@ -5,6 +5,7 @@
 - Check the complete affected journey, including desktop/mobile layout, guest access, permissions, failure states and persistence after reload. Passing TypeScript/build alone does not verify the interface or the business flow.
 - Use `scripts/start-local.ps1` for the daily website. Keep its database and media volumes. Run write-heavy acceptance tests against a dedicated audit database and Redis DB14/15, never the daily account database.
 - Clearly identify the checkout/branch being previewed, the API it uses and whether changes are merged. Preserve unrelated user documents and outputs.
+- Keep temporary worktrees, checks, logs, caches and local backups under this project's `.codex-tmp/`; do not create extra Desktop folders unless the user requests an exported deliverable there. Update existing README/docs for handoff instructions.
 - When a tool call fails because of invalid arguments or parameters, inspect the error and tool schema, correct the arguments or switch to a suitable available tool, and do not retry the identical failing call. After repeated tool failures, stop retrying and report the blocker and current work state plainly.
 - Keep progress updates useful and non-repetitive: report only new findings, decisions, or completed work; do not repeat the same sentence or restate the plan when nothing has changed. If interrupted, inspect the current state and continue without duplicating completed work.
 

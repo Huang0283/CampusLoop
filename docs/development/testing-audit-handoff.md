@@ -4,16 +4,31 @@
 
 ## T2 先这样开始
 
+本轮（2026-11-13）固定软件版本和可点击的源码入口维护在 [T2 Issue #161](https://github.com/Huang0283/CampusLoop/issues/161)。先在自己的干净检出中按 Issue 的完整 SHA 切换版本，执行 `git rev-parse HEAD` 核对；不要把个人 CSV/截图分支的 SHA 当成软件 SHA。T1 数据材料和 T2 交接文件现已整合进 main，不必另外复制旧压缩包。
+
+本轮使用 `business/run2`。旧 `run1` 的数据、账号和结果全部保留；软件变了不在原批次上换标签。以下命令中的 Python 均显式来自本机虚拟环境，不需要修改 PowerShell 执行策略。先确认 Docker Desktop 的 Linux Engine 已运行。
+
+终端一：
+
 ```powershell
 py -3.12 -m venv .codex-tmp/runner
-& ./.codex-tmp/runner/Scripts/Activate.ps1
-python -m pip install -r backend/requirements.txt
-python scripts/audit_env.py start --namespace business --run-id run1
+$python = '.\.codex-tmp\runner\Scripts\python.exe'
+& $python -m pip install -r backend/requirements.txt
 npm ci --prefix frontend
-python scripts/audit_env.py ui --namespace business --run-id run1
+# 如有旧 run1，先在其网页终端按 Ctrl+C，再停止旧容器（不删卷）。
+if (Test-Path '.codex-tmp/audit/business/run1/connection.json') {
+    & $python scripts/audit_env.py stop --namespace business --run-id run1
+}
+& $python scripts/audit_env.py start --namespace business --run-id run2
 ```
 
-最后一条会持续运行，在第二个终端执行，保持窗口开启。浏览器打开 `http://127.0.0.1:5184/login`，R/S 登录后进入 `/admin`；普通买家卖家由 T1 数据脚本注册。后台页面、订单、举报和商品都来自真实 API，没有 Mock。
+终端二进入同一个源码根目录，执行并保持窗口开启：
+
+```powershell
+& .\.codex-tmp\runner\Scripts\python.exe scripts/audit_env.py ui --namespace business --run-id run2
+```
+
+浏览器打开 `http://127.0.0.1:5184/login`，R/S 登录后进入 `/admin`；普通买家卖家由下文 T1 数据脚本注册。后台页面、订单、举报和商品都来自真实 API，没有 Mock。别人电脑上的 `127.0.0.1` 无法代替自己的本机环境。
 
 | 接收人 | namespace | API | 网页 | 公共图片端口 |
 |---|---|---|---|---|
@@ -29,29 +44,32 @@ T1/T3 把命令中的 `business` 换为自己的 namespace。不同 namespace �
 
 以 T2 为例，私有文件在：
 
-- `.codex-tmp/audit/business/run1/admins.json`：R/S 的邮箱、随机密码；只在本机打开，不上传 GitHub、群聊、CSV、截图或执行日志。
-- `.codex-tmp/audit/business/run1/connection.json`：实际 API/网页、容器名、数据库名、Redis DB、两个媒体桶、R/S 真实 ID、软件 SHA。交接环境信息以此文件为准。
+- `.codex-tmp/audit/business/run2/admins.json`：本批次 R/S 的邮箱、随机密码；只在本机打开，不上传 GitHub、群聊、CSV、截图或执行日志。
+- `.codex-tmp/audit/business/run2/connection.json`：实际 API/网页、容器名、数据库名、Redis DB、两个媒体桶、R/S 真实 ID、软件 SHA。交接环境信息以此文件为准。
 - 同目录 `private-config.json`、`.env.audit`：仅本环境的数据库、存储和签名密钥，不能分享。
 
-R 的邮箱形如 `t1-business-run1-r@example.invalid`，S 为同前缀的 `-s@example.invalid`，密码以本机 `admins.json` 为准。它们不是文书组 R1/R2 的账号。已有账号若角色、状态或密码不匹配，脚本拒绝继续，不重置密码或把普通用户升成管理员。重复启动不会换密码、重建业务数据或清空卷。
+R 的邮箱形如 `t1-business-run2-r@example.invalid`，S 为同前缀的 `-s@example.invalid`，密码以本机 `admins.json` 为准。它们不是文书组 R1/R2 的账号，也不是日常演示管理员。已有账号若角色、状态或密码不匹配，脚本拒绝继续，不重置密码或把普通用户升成管理员。重复启动同一批次不会换密码、重建业务数据或清空卷。
 
 ## 接 T1 的数据包
 
-T1 数据材料采用 `work/testing/data-permissions` 的文件；本环境不替代其用例和执行证据。交接包的 `source/` 中已叠加注明来源的 T1 数据目录及执行日志模板，从 `source/` 执行下面命令。单独使用本环境分支时，还需接收 T1 对应文件，不能把缺材料记成环境通过。
+本轮 main 已包含 T1 修正的数据包、校验器、历史结果和 T2 交接材料。以下命令在同一完整源码根目录执行；它们导入测试数据，不替代 T1/T2 的用例执行和独立复测。旧压缩包和旧分支只作当时材料追溯，不再作为本轮启动来源。
 
 ```powershell
 $t1 = 'tests/collaboration/phase-5/data-permissions'
-$runtime = '.codex-tmp/audit/business/run1'
+$python = '.\.codex-tmp\runner\Scripts\python.exe'
+$runtime = '.codex-tmp/audit/business/run2'
 $envInfo = Get-Content "$runtime/connection.json" -Raw | ConvertFrom-Json
 $target = @('--api', $envInfo.api, '--container', $envInfo.container,
-            '--namespace', 'business', '--run-id', 'run1',
+            '--namespace', 'business', '--run-id', 'run2',
             '--state-dir', "$runtime/data-state")
-python "$t1/setup_data.py" @target --admins "$runtime/admins.json" --admin-search
-python "$t1/setup_data.py" @target --admin-search
-python "$t1/verify_data.py" --live @target
+& $python "$t1/setup_data.py" @target --admins "$runtime/admins.json" --admin-search
+& $python "$t1/setup_data.py" @target --admin-search
+& $python "$t1/verify_data.py" --live @target
 ```
 
-数据脚本需要 Python 3.12 及 `backend/requirements.txt` 中的依赖。新终端要再次激活上述虚拟环境。若 PowerShell 不允许激活，可直接用 `./.codex-tmp/runner/Scripts/python.exe` 替代命令中的 `python`，不需要修改执行策略。Linux/macOS 用 `python3.12 -m venv .codex-tmp/runner` 和 `source .codex-tmp/runner/bin/activate`。
+A 是卖家，B 是买家，C 是竞争买家，D 是交易外的用户，E 是空资料用户，Z 是禁用用户，R/S 是两个管理员。普通用户的邮箱、随机密码及真实 ID 保存在本机 `.codex-tmp/audit/business/run2/data-state/t1-business-run2.json` 的 `accounts` 中。该文件也有令牌和恢复状态，勿整份贴到群聊、Issue 或 GitHub。新 run2 与旧 run1 的密码不通用，不能拿 5174 的两个演示买卖账号代替这些测试身份。
+
+数据脚本需要 Python 3.12 及 `backend/requirements.txt` 中的依赖。新终端可继续显式使用上述虚拟环境 Python。Linux/macOS 用 `python3.12 -m venv .codex-tmp/runner` 和 `source .codex-tmp/runner/bin/activate`。
 
 `--admin-search` 使用 PR #148 增补版；该版本为 70 件商品（原 60 + 10 件搜索边界商品），仍为 8 个账号和 12 条求购。不用该参数则为 60 件；同一批次不能中途切换该参数。随包 `response-contract.json` 按 main 的 OpenAPI 重新生成并校验；已核对的字段变化是面交时间从通用 `time` 改为校内本地时间 `HH:MM` 格式约束。T1 脚本另补 Windows 状态文件短暂占用时的有限重试，不改变业务数据和预期结果；准确提交和适配差异见包清单。
 
@@ -62,16 +80,16 @@ python "$t1/verify_data.py" --live @target
 ## 停止、重启与新批次
 
 ```powershell
-python scripts/audit_env.py status --namespace business --run-id run1
-python scripts/audit_env.py stop --namespace business --run-id run1
-python scripts/audit_env.py start --namespace business --run-id run1
+& .\.codex-tmp\runner\Scripts\python.exe scripts/audit_env.py status --namespace business --run-id run2
+& .\.codex-tmp\runner\Scripts\python.exe scripts/audit_env.py stop --namespace business --run-id run2
+& .\.codex-tmp\runner\Scripts\python.exe scripts/audit_env.py start --namespace business --run-id run2
 ```
 
 `stop` 只停止本批次容器，保留所有卷。启动脚本没有删卷、清库或“重置全部”选项；日常 `campusloop-local` 项目不受影响。T3 的破坏性恢复测试使用自己的 `environment`，不要停别人的服务。
 
 `status` 会检查容器、初始化缺失的 R/S，并实际登录/退出确认权限，因此会产生本测试环境的认证记录。它不会重置既有账号或重建商品。
 
-代码版本改变、数据被交易流程修改、或已执行过有状态清理时，保留旧记录并用新的 `--run-id run2`；同 namespace 默认端口相同，先停止旧批次和旧网页终端。新批次会生成新的 R/S，不能继续借用 run1 的凭据。启动脚本拒绝用脏工作目录冒充原 SHA；源码包则核验清单哈希后启动。
+未来再次换软件版本、需要全新前置或已执行过有状态清理时，保留旧记录并换未使用的批次（例如 `--run-id run3`），同时修改上面所有命令和文件路径；同 namespace 默认端口相同，先停止旧批次和旧网页终端。新批次会生成新的 R/S，不能继续借用旧凭据。启动脚本拒绝用脏工作目录冒充原 SHA；源码包则核验清单哈希后启动。普通重启继续使用原批次，不因此另建数据。
 
 ## 组员怎么交回结果
 

@@ -29,6 +29,41 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 
 ## 当前协作
 
+### T2 测试环境与启动入口
+
+日常演示和破坏性测试分开运行，源码可以是同一个版本，账号与数据库不共用：
+
+| 用途 | 网页 / API | 账号 |
+|---|---|---|
+| 日常、课堂演示 | `5174` / `8001` | 两个演示买卖账号，见上方演示说明 |
+| T2 业务验收 | `5184` / `18024` | A 卖家、B 买家、C 竞争买家等测试用户；R/S 两位管理员 |
+
+T2 本轮用 `business/run2`，保留旧 `run1` 的数据和执行证据。先打开 Docker Desktop，在**自己的电脑、干净的完整源码目录**运行；本轮固定的完整软件 SHA 和定向复测任务见 [T2 Issue #161](https://github.com/Huang0283/CampusLoop/issues/161)。首次安装及终端一：
+
+```powershell
+py -3.12 -m venv .codex-tmp/runner
+$python = '.\.codex-tmp\runner\Scripts\python.exe'
+& $python -m pip install -r backend/requirements.txt
+npm ci --prefix frontend
+# 仅在本机已有 run1 时停止旧容器；先在原网页终端按 Ctrl+C。
+if (Test-Path '.codex-tmp/audit/business/run1/connection.json') {
+    & $python scripts/audit_env.py stop --namespace business --run-id run1
+}
+& $python scripts/audit_env.py start --namespace business --run-id run2
+```
+
+终端二进入**同一个源码目录**，保持网页进程运行：
+
+```powershell
+& .\.codex-tmp\runner\Scripts\python.exe scripts/audit_env.py ui --namespace business --run-id run2
+```
+
+打开 `http://127.0.0.1:5184/login`。管理员凭据在本机 `.codex-tmp/audit/business/run2/admins.json`；实际版本、地址以同目录 `connection.json` 为准。A/B/C 等用户需要导入已合入仓库的 T1 数据包，不能用日常演示密码登录；完整导入命令、账号文件位置和重启方法见[测试环境交接说明](docs/development/testing-audit-handoff.md)。各人的 `127.0.0.1` 和数据库互相独立，密码与令牌不要上传 Issue。
+
+临时检出、验证日志、缓存和本机备份统一放项目内的 `.codex-tmp/`，不在桌面另建一批项目文件夹；正式说明维护在本 README 和已有 `docs/` 目录。
+
+### 任务与交接
+
 - [九人协作总任务书](docs/management/nine-member-collaboration-plan.md)：成员自选岗位、交付文件、边界及验收要求。
 - [升级、测试、真人体验与材料同步工作流](docs/workflows/version-acceptance.md)：每轮通知、T01–T15 功能目录、U01–U08 用户任务、修复复测及材料同步。
 - [四组任务与 Git 操作入口](docs/management/README.md)：各组独立任务书、长期分支、岗位分支与 PR 操作。
