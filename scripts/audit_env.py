@@ -337,7 +337,7 @@ def upgrade(folder, config):
             raise ValueError("Audit manifest revision mismatch; inspect before upgrading")
         shutil.copy2(path, backup / path.name)
         manifests.append((path, value))
-    # No migrations in this update; the dump still preserves the pre-upgrade facts.
+    # Preserve pre-migration facts before rebuilding services against the new schema.
     compose(folder, config, "stop", "worker")
     try:
         database = compose(folder, config, "ps", "-q", "db", capture=True).stdout.strip()

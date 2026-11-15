@@ -55,13 +55,13 @@ export function OrdersPage() {
     <div className="adm-head"><div><h1>订单管理</h1><p>查看全平台订单。管理员在这里只读查看，订单状态由买卖双方在交易流程中推进。</p></div></div>
     <div className="adm-card adm-plain">
       <Space wrap className="adm-filters">
-        <Input.Search aria-label="搜索订单" placeholder="订单号片段或商品名称" value={query} allowClear onChange={(event) => update({ query: event.target.value || undefined, page: undefined })} onSearch={(value) => update({ query: value.trim() || undefined, page: undefined })} style={{ width: 280 }} />
+        <Input.Search aria-label="搜索订单" placeholder="订单号、商品或买卖双方关键词" value={query} allowClear onChange={(event) => update({ query: event.target.value || undefined, page: undefined })} onSearch={(value) => update({ query: value.trim() || undefined, page: undefined })} style={{ width: 280 }} />
         <Select virtual={false} aria-label="订单状态" placeholder="全部状态" allowClear value={status} style={{ width: 160 }} onChange={(value) => update({ status: value, page: undefined })} options={STATUSES.map((value) => ({ value, label: orderStatusLabels[value] }))} />
         <Button onClick={remote.reload} icon={<Icon name="refresh" size={15} />}>刷新</Button>
         <Button onClick={() => void exportAll()} loading={exporting} icon={<Icon name="download" size={15} />}>导出 Excel</Button>
         <Dropdown trigger={['click']} menu={{ items: [{ key: 'csv', label: t('导出 CSV') }], onClick: () => void exportAll('csv') }}><Button aria-label="其他导出格式" disabled={exporting}>···</Button></Dropdown>
       </Space>
-      <p className="adm-orders-search-note">支持订单号片段和商品名称；输入 #6024 可精确查找订单。{remote.value && <span>{t(`共 ${remote.value.pagination.total} 条订单`)}</span>}</p>
+      <p className="adm-orders-search-note">支持订单号、商品名称、买卖双方昵称或邮箱；多个关键词用空格分隔，输入 #6024 精确查找订单。{remote.value && <span>{t(`共 ${remote.value.pagination.total} 条订单`)}</span>}</p>
       <Resource {...remote}>
         {remote.value?.items.length === 0 && <NoItems filtered={Boolean(query || status)} />}
         {Boolean(remote.value?.items.length) && <Table rowKey="id" pagination={false} scroll={{ x: 900 }} dataSource={remote.value?.items} columns={[

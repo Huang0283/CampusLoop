@@ -162,7 +162,7 @@ export function cancelOrder(orderId: number, reason: string): Promise<Order> {
 
 /* ---------- 评价 ---------- */
 
-/** 仅已完成订单的非参与者可评价；服务端按 orderId 限制一人一次 */
+/** 仅已完成订单的参与者可评价；服务端按 orderId 限制一人一次 */
 export function createReview(body: {
   orderId: number
   overall: number

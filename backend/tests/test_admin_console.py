@@ -7,7 +7,7 @@ import pytest
 
 from app.core.security import utcnow
 from app.db.session import SessionLocal
-from app.models import AuthAudit
+from app.models import AuthAudit, Product, User
 from app.services.admin_console import campus_midnight
 from tests.conftest import requires_postgres
 from tests.test_auth import account, headers
@@ -149,6 +149,46 @@ def test_order_oversight_matches_the_trade_and_the_dashboard(client):
     ).json()["data"]
     assert order["id"] not in [row["id"] for row in by_status["items"]]
     assert audit_rows(admin, "admin_orders_read")
+
+
+def test_order_search_matches_separate_keywords_people_case_and_literal_symbols(client):
+    admin, seller, buyer = administrator_account(client), account(client), account(client)
+    token = uuid.uuid4().hex
+    orders = [pending_order(client, seller, buyer) for _ in range(3)]
+    titles = [
+        f"{token} 联想 二手笔记本电脑 ThinkPad 16GB",
+        f"{token} 二手笔记本电脑 16GB",
+        f"{token} 笔记本电脑 8GB",
+    ]
+    with SessionLocal() as db:
+        for (item, _, _), title in zip(orders, titles, strict=True):
+            db.get(Product, item["id"]).title = title
+        db.get(User, buyer["user"]["id"]).nickname = f"Buyer{token}"
+        db.commit()
+    endpoint = "/admin/orders"
+
+    def search(query, **params):
+        response = client.get(endpoint, headers=headers(admin), params={"query": query, **params})
+        assert response.status_code == 200, response.text
+        return response.json()["data"]
+
+    query = f"16GB {token} 电脑"
+    first, second = search(query, pageSize=1), search(query, pageSize=1, page=2)
+    assert first["pagination"]["total"] == second["pagination"]["total"] == 2
+    assert {row["id"] for data in [first, second] for row in data["items"]} == {
+        orders[i][2]["id"] for i in [0, 1]
+    }
+    assert search(query, status="COMPLETED")["items"] == []
+    assert len(search(f"BUYER{token} 16gb")["items"]) == 2
+    assert len(search(f'{buyer["user"]["email"].upper()} ThinkPad')["items"]) == 1
+    assert search(f"{token} 16GB 不存在")["items"] == []
+    assert search(f"{token} %_")["items"] == []
+    exact = search(f'#{orders[0][2]["id"]}')
+    assert [row["id"] for row in exact["items"]] == [orders[0][2]["id"]]
+    assert client.get(endpoint, headers=headers(buyer), params={"query": query}).status_code == 403
+    assert (
+        client.get(endpoint, headers=headers(admin), params={"query": "x" * 201}).status_code == 422
+    )
 
 
 def test_report_search_filters_before_pagination_and_preserves_status(client):

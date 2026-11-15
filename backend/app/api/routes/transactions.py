@@ -570,6 +570,34 @@ def cancel_order(orderId: int, body: ReasonWrite, db: Db, actor: Actor):
     return result
 
 
+def review_dto(review):
+    return {
+        "id": review.id,
+        "orderId": review.order_id,
+        "reviewerId": review.reviewer_id,
+        "revieweeId": review.reviewee_id,
+        "overall": review.rating,
+        "descriptionAccuracy": review.description_accuracy,
+        "communication": review.communication,
+        "punctuality": review.punctuality,
+        "comment": review.comment,
+        "createdAt": dto.iso(review.created_at),
+    }
+
+
+@router.get("/orders/{orderId}/reviews", operation_id="listOrderReviews")
+def order_reviews(orderId: int, db: Db, actor: Actor):
+    order(db, orderId, actor)
+    return ok(
+        [
+            review_dto(review)
+            for review in db.scalars(
+                select(Review).where(Review.order_id == orderId).order_by(Review.id)
+            )
+        ]
+    )
+
+
 @router.post("/reviews", status_code=201, operation_id="createReview")
 def create_review(body: ReviewWrite, db: Db, actor: Actor, idempotency_key: Key = None):
     def action():
@@ -595,15 +623,7 @@ def create_review(body: ReviewWrite, db: Db, actor: Actor, idempotency_key: Key 
         )
         db.add(review)
         db.flush()
-        return ok(
-            {
-                **body.model_dump(),
-                "id": review.id,
-                "reviewerId": actor.id,
-                "revieweeId": peer,
-                "createdAt": dto.iso(review.created_at),
-            }
-        )
+        return ok(review_dto(review))
 
     return idempotent(db, actor, "review", idempotency_key, body.model_dump(mode="json"), action)
 
@@ -650,10 +670,13 @@ def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key 
                 Report.target_type == body.targetType,
                 Report.target_id == body.targetId,
                 Report.reason == body.reason,
+                Report.status.in_(("PENDING", "PROCESSING")),
             )
         ):
             raise BusinessError(
-                409, "REPORT_DUPLICATED", "This target was already reported for this reason."
+                409,
+                "REPORT_DUPLICATED",
+                "A report for this target and reason is still being handled.",
             )
         keys = owned_keys(db, actor, body.evidence, "evidence")
         entity = Report(

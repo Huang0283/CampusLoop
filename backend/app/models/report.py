@@ -11,7 +11,7 @@ from sqlalchemy import (
     ForeignKey,
     Index,
     String,
-    UniqueConstraint,
+    text,
 )
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
@@ -60,12 +60,14 @@ class Report(TimestampMixin, Base):
             name="ck_status_enum",
         ),
         # 同一人对同一目标同一理由只允许一条未处理举报
-        UniqueConstraint(
+        Index(
+            "uq_reports_no_duplicate",
             "reporter_id",
             "target_type",
             "target_id",
             "reason",
-            name="uq_reports_no_duplicate",
+            unique=True,
+            postgresql_where=text("status IN ('PENDING', 'PROCESSING')"),
         ),
         Index("ix_reports_status_created", "status", "created_at"),
     )

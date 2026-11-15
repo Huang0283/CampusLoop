@@ -492,10 +492,22 @@ def order_search(query: str):
     if not term:
         return None
     digits = term.removeprefix("#")
-    title = Product.title.contains(term, autoescape=True)
-    if digits.isascii() and digits.isdigit() and len(digits) <= 15:
-        # A hash means one exact order; bare digits support incremental search.
-        if term.startswith("#"):
-            return Order.id == int(digits)
-        return or_(cast(Order.id, String).contains(digits, autoescape=True), title)
-    return title
+    if term.startswith("#") and digits.isascii() and digits.isdigit() and len(digits) <= 15:
+        return Order.id == int(digits)
+    conditions = []
+    for word in term.lower().split():
+        people = select(User.id).where(
+            or_(
+                func.lower(User.nickname).contains(word, autoescape=True),
+                func.lower(User.email).contains(word, autoescape=True),
+            )
+        )
+        conditions.append(
+            or_(
+                cast(Order.id, String).contains(word, autoescape=True),
+                func.lower(Product.title).contains(word, autoescape=True),
+                Order.buyer_id.in_(people),
+                Order.seller_id.in_(people),
+            )
+        )
+    return and_(*conditions)

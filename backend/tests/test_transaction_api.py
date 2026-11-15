@@ -232,6 +232,16 @@ def test_two_account_durable_journey_and_permissions(client):
     assert client.post("/reviews", headers=key_headers(buyer), json=review).status_code == 201
     assert client.post("/reviews", headers=key_headers(buyer), json=review).status_code == 409
     events = client.get(f"/orders/{oid}/events", headers=headers(buyer)).json()["data"]
+    review_path = f"/orders/{oid}/reviews"
+    mine = client.get(review_path, headers=headers(buyer))
+    assert mine.status_code == 200
+    saved = mine.json()["data"]
+    assert len(saved) == 1 and saved[0]["comment"] == "Good" and saved[0]["overall"] == 5
+    assert saved[0]["reviewerId"] == buyer["user"]["id"]
+    assert client.get(review_path, headers=headers(seller)).json()["data"] == saved
+    assert client.get(review_path, headers=headers(stranger)).status_code == 403
+    assert client.get(review_path).status_code == 401
+    assert client.get("/orders/9007199254740990/reviews", headers=headers(buyer)).status_code == 404
     assert events[-1]["toStatus"] == "COMPLETED"
     count = len(events)
     assert (

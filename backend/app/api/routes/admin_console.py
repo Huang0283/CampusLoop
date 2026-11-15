@@ -5,7 +5,7 @@ All three are read-only and audited like the other administrator reads.
 
 from typing import Literal
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from sqlalchemy import func, select
 
 from app.api.routes.market import Page, PageSize
@@ -48,7 +48,7 @@ def orders(
     page: Page = 1,
     pageSize: PageSize = 20,
     status: OrderStatusFilter | None = None,
-    query: str = "",
+    query: str = Query(default="", max_length=200),
 ):
     administrator(actor)
     stmt = select(Order).join(Product, Product.id == Order.product_id)

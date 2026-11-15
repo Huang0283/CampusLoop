@@ -72,9 +72,11 @@ export function OrderPage() {
       </Space></div>
       {mutable && meetupNeedsReschedule && <Alert type="warning" style={{ marginBottom: 16 }} title="见面开始时间已过且尚未完成双方确认，请修改见面约定后重新确认。" />}
       {mutable && <Alert type="info" title={`完成确认：买家${item.buyerConfirmedComplete ? '已确认' : '未确认'}，卖家${item.sellerConfirmedComplete ? '已确认' : '未确认'}；双方确认后才完成。`} />}
+      {item.status === 'COMPLETED' && <p><a href="#order-reviews">查看评价</a></p>}
       {item.status === 'CANCELLED' && item.product.status === 'HIDDEN' && <Alert type="info" title="订单已取消，该商品已删除或下架，仍不在商城展示。" />}
       {mutable && !item.buyerConfirmedComplete && !item.sellerConfirmedComplete && <Space wrap style={{ marginTop: 16 }}><Input aria-label="取消原因" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="取消原因" maxLength={200} /><Popconfirm title="取消这笔订单？正常商品将恢复在售，已删除或下架的商品保持下架。" onConfirm={() => mutation.run(async () => { await api.cancelOrder({ path: { orderId }, body: { reason } }); remote.reload(); events.reload() })}><Button danger disabled={!reason.trim()} loading={mutation.busy}>取消订单</Button></Popconfirm></Space>}
     </Card><Card title="订单时间线"><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: localize(<>{<CatalogText text={systemText(event.description, '订单状态已更新')} />}<br /><Typography.Text type="secondary">{displayDate(event.createdAt)}</Typography.Text></>) }))} /></Resource></Card></div><aside className="surface"><h2>订单信息</h2><Descriptions column={1} items={[{ key: 'price', label: '成交金额', children: <span className="price">¥{item.amount.toFixed(2)}</span> }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'created', label: '创建时间', children: displayDate(item.createdAt) }]} /><p className="muted">请核实商品和见面信息，实际完成交易后再确认。买卖双方都确认后，订单才会完成。</p></aside></div>
+    {item.status === 'COMPLETED' && <Card id="order-reviews" title="交易评价" style={{ marginTop: 24 }}><OrderReviews key={item.id} orderId={item.id} /></Card>}
   </>}</Resource></Page>)
 }
 
@@ -97,17 +99,36 @@ export function MeetupPage() {
   </Form></Card></div><aside className="surface"><h2>交易商品</h2>{remote.value && <ProductSummary product={remote.value.product} />}<p className="muted">建议选择校内公共区域。修改约定后，请提醒对方确认最新版本。</p></aside></div></Resource></Page>)
 }
 
+const reviewScores = [['overall', '总体评价'], ['descriptionAccuracy', '描述准确度'], ['communication', '沟通体验'], ['punctuality', '守时情况']] as const
+
+function OrderReviews({ orderId, writable = false }: { orderId: number; writable?: boolean }) {
+  useLanguage()
+  const user = useSession((state) => state.user)!
+  const reviews = useRemote(`order-reviews-${orderId}`, (signal) => api.data(api.listOrderReviews({ path: { orderId }, signal })), 5000, true)
+  const mutation = useMutation()
+  const [done, setDone] = useState(false)
+  const attemptKey = useAttemptKey()
+  const mine = reviews.value?.some((review) => review.reviewerId === user.id)
+  return localize(<Resource {...reviews}><Failure error={mutation.error} />{done && <Alert type="success" title="评价已保存。" style={{ marginBottom: 16 }} />}
+    <div className="order-review-list">{reviews.value?.length ? reviews.value.map((review) => localize(<section className="order-review" key={review.id} aria-label={review.reviewerId === user.id ? '我的评价' : '对方的评价'}>
+      <Typography.Title level={5}>{review.reviewerId === user.id ? '我的评价' : '对方的评价'}</Typography.Title>
+      <Typography.Text type="secondary">{displayDate(review.createdAt)}</Typography.Text>
+      <Descriptions column={1} size="small" items={reviewScores.map(([name, label]) => ({ key: name, label, children: review[name] == null ? <span>未评分</span> : <Rate disabled value={review[name]!} aria-label={t(label)} style={{ fontSize: 16 }} /> }))} />
+      <p className="order-review-comment">{review.comment ? <OriginalText>{review.comment}</OriginalText> : t('未填写文字评价')}</p>
+    </section>)) : <Typography.Paragraph type="secondary">暂无交易评价。</Typography.Paragraph>}</div>
+    {!reviews.value?.some((review) => review.reviewerId !== user.id) && <Typography.Paragraph type="secondary">对方尚未评价。</Typography.Paragraph>}
+    {writable && (mine || done ? <Alert type="info" title="你已评价过这笔交易，可在这里查看双方评价。" /> : reviews.value && <Form layout="vertical" onFinish={(values: Omit<ReviewWriteRequest, 'orderId'>) => void mutation.run(async () => { await api.createReview({ body: { ...values, orderId }, headers: api.idempotencyHeaders(attemptKey(values)) }); setDone(true); reviews.reload() })}>
+      {reviewScores.map(([name, label]) => localize(<Form.Item key={name} name={name} label={label} rules={[{ required: true, type: 'number', min: 1, max: 5 }]}><Rate aria-label={label} /></Form.Item>))}
+      <Form.Item name="comment" label="评价内容"><Input.TextArea maxLength={1000} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy}>提交评价</Button>
+    </Form>)}
+  </Resource>)
+}
+
 export function ReviewPage() {
   useLanguage()
   const { id } = useParams()
   const remote = useRemote(`review-order-${id}`, (signal) => api.data(api.getOrder({ path: { orderId: Number(id) }, signal })))
-  const mutation = useMutation()
-  const [done, setDone] = useState(false)
-  const attemptKey = useAttemptKey()
-  return localize(<Page title="评价交易" subtitle="分享真实的交易体验" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card className="review-card">{remote.value && <ProductSummary product={remote.value.product} />}<Failure error={mutation.error} />{done ? <Alert type="success" title="评价已保存。" /> : remote.value?.status !== 'COMPLETED' ? <Alert type="warning" title="双方完成交易后才可评价。" /> : <Form layout="vertical" onFinish={(values: Omit<ReviewWriteRequest, 'orderId'>) => void mutation.run(async () => { await api.createReview({ body: { ...values, orderId: Number(id) }, headers: api.idempotencyHeaders(attemptKey(values)) }); setDone(true) })}>
-    {[['overall', '总体评价'], ['descriptionAccuracy', '描述准确度'], ['communication', '沟通体验'], ['punctuality', '守时情况']].map(([name, label]) => localize(<Form.Item key={name} name={name} label={label} rules={[{ required: true, type: 'number', min: 1, max: 5 }]}><Rate aria-label={label} /></Form.Item>))}
-    <Form.Item name="comment" label="评价内容"><Input.TextArea maxLength={1000} /></Form.Item><Button type="primary" htmlType="submit" loading={mutation.busy}>提交评价</Button>
-  </Form>}</Card></Resource></Page>)
+  return localize(<Page title="评价交易" subtitle="分享真实的交易体验" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><Card className="review-card">{remote.value && <ProductSummary product={remote.value.product} />}{remote.value?.status !== 'COMPLETED' ? <Alert type="warning" title="双方完成交易后才可评价。" /> : <OrderReviews key={id} orderId={Number(id)} writable />}</Card></Resource></Page>)
 }
 
 const notificationGroups = ['全部', '消息', '报价', '匹配', '系统'] as const

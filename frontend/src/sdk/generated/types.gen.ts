@@ -832,10 +832,16 @@ export type ReviewWriteRequest = {
     comment?: string;
 };
 
-export type Review = ReviewWriteRequest & {
+export type Review = {
     id: number;
+    orderId: number;
     reviewerId: number;
     revieweeId: number;
+    overall: number;
+    descriptionAccuracy: number | null;
+    communication: number | null;
+    punctuality: number | null;
+    comment: string | null;
     createdAt: string;
 };
 
@@ -983,6 +989,10 @@ export type MeetupResponse = ApiEnvelope & {
 
 export type ReviewResponse = ApiEnvelope & {
     data: Review;
+};
+
+export type ReviewListResponse = ApiEnvelope & {
+    data: Array<Review>;
 };
 
 export type ReportResponse = ApiEnvelope & {
@@ -3095,6 +3105,41 @@ export type GetOrderResponses = {
 };
 
 export type GetOrderResponse = GetOrderResponses[keyof GetOrderResponses];
+
+export type ListOrderReviewsData = {
+    body?: never;
+    path: {
+        orderId: number;
+    };
+    query?: never;
+    url: '/orders/{orderId}/reviews';
+};
+
+export type ListOrderReviewsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+};
+
+export type ListOrderReviewsError = ListOrderReviewsErrors[keyof ListOrderReviewsErrors];
+
+export type ListOrderReviewsResponses = {
+    /**
+     * Saved reviews visible only to the two order participants.
+     */
+    200: ReviewListResponse;
+};
+
+export type ListOrderReviewsResponse = ListOrderReviewsResponses[keyof ListOrderReviewsResponses];
 
 export type ListOrderEventsData = {
     body?: never;

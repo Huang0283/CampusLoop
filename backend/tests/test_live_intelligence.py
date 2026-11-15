@@ -253,10 +253,11 @@ def test_trust_and_risk_use_current_facts_no_enforcement(client):
 
 
 def test_timeout_does_not_rollback_publish_and_filters_expired_wanted(client, monkeypatch):
-    from app.db.session import SessionLocal
-    from app.models import WantedPost
     from services.m7_baseline import client as m7_client
     from services.m8_baseline import client as m8_client
+
+    from app.db.session import SessionLocal
+    from app.models import WantedPost
 
     def timeout(*args, **kwargs):
         raise TimeoutError("injected provider timeout")

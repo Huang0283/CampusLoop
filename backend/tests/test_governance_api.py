@@ -45,6 +45,38 @@ def report_user(client, reporter, target, evidence=None):
     return response.json()["data"]
 
 
+@pytest.mark.parametrize("resolution", ["RESOLVED", "REJECTED"])
+def test_handled_reports_allow_a_new_case_without_losing_history_or_replay(client, resolution):
+    admin, reporter, target = administrator_account(client), account(client), account(client)
+    body = {"targetType": "USER", "targetId": target["user"]["id"], "reason": "SPAM"}
+    first_key = key_headers(reporter)
+    first = client.post("/reports", headers=first_key, json=body).json()["data"]
+    assert client.post("/reports", headers=key_headers(reporter), json=body).status_code == 409
+    handled = client.post(
+        f'/admin/reports/{first["id"]}/resolve',
+        headers=key_headers(admin),
+        json={"resolution": resolution, "note": "Keep the original decision as history"},
+    )
+    assert handled.status_code == 200, handled.text
+    replay = client.post("/reports", headers=first_key, json=body)
+    assert replay.status_code == 201 and replay.json()["data"]["id"] == first["id"]
+    second = client.post("/reports", headers=key_headers(reporter), json=body)
+    assert second.status_code == 201, second.text
+    sid = second.json()["data"]["id"]
+    assert sid != first["id"]
+    with SessionLocal() as db:
+        db.get(Report, sid).status = "PROCESSING"
+        db.commit()
+    duplicate = client.post("/reports", headers=key_headers(reporter), json=body)
+    assert duplicate.status_code == 409 and duplicate.json()["code"] == "REPORT_DUPLICATED"
+    history = client.get("/reports/mine", headers=headers(reporter)).json()["data"]
+    assert [(row["id"], row["status"]) for row in history] == [
+        (sid, "PROCESSING"),
+        (first["id"], resolution),
+    ]
+    assert history[1]["resolutionNote"] == "Keep the original decision as history"
+
+
 def test_report_description_matches_database_limit(client):
     reporter, target, second_target = account(client), account(client), account(client)
     base = {

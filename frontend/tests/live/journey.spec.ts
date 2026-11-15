@@ -117,9 +117,27 @@ test('real two-account browser transaction; no database editing', async ({ brows
   for (const field of ['overall', 'descriptionAccuracy', 'communication', 'punctuality']) {
     await buyer.locator(`#${field} .ant-rate-star`).nth(4).click()
   }
+  await buyer.getByLabel('评价内容', { exact: true }).fill('买家评价：沟通顺利。')
   await buyer.getByRole('button', { name: '提交评价', exact: true }).click()
   await expect(buyer.getByText('评价已保存。', { exact: true })).toBeVisible()
   await buyer.getByRole('link', { name: '返回订单', exact: true }).click()
+  await buyer.getByRole('link', { name: '查看评价', exact: true }).click()
+  await expect(buyer.getByRole('region', { name: '我的评价', exact: true })).toContainText('买家评价：沟通顺利。')
+  await seller.reload()
+  await seller.getByRole('link', { name: '评价交易', exact: true }).click()
+  await expect(seller.getByRole('region', { name: '对方的评价', exact: true })).toContainText('买家评价：沟通顺利。')
+  for (const field of ['overall', 'descriptionAccuracy', 'communication', 'punctuality']) {
+    await seller.locator(`#${field} .ant-rate-star`).nth(3).click()
+  }
+  await seller.getByLabel('评价内容', { exact: true }).fill('卖家评价：准时交易。')
+  await seller.getByRole('button', { name: '提交评价', exact: true }).click()
+  await expect(seller.getByRole('region', { name: '我的评价', exact: true })).toContainText('卖家评价：准时交易。')
+  await buyer.reload()
+  await buyer.setViewportSize({ width: 390, height: 844 })
+  await buyer.getByRole('link', { name: '查看评价', exact: true }).click()
+  await expect(buyer.getByRole('region', { name: '对方的评价', exact: true })).toContainText('卖家评价：准时交易。')
+  expect(await buyer.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  await buyer.setViewportSize({ width: 1280, height: 720 })
   await buyer.getByRole('button', { name: /举\s*报/ }).click()
   await buyer.getByLabel('举报原因', { exact: true }).click()
   await expect(buyer.getByText('商品描述不符', { exact: true })).toBeVisible()
