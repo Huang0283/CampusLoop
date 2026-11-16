@@ -201,14 +201,23 @@
 - **实际结果**：未执行
 
 ### T3-C23 Cookie、CORS 与跨域请求按实际契约验证
-- **实现依据**：刷新令牌走 Cookie，属性为 `HttpOnly`、`SameSite=Strict`、`Path=/`、按环境启用 `Secure`；
+- **实现依据**（`backend/app/services/auth.py`、`backend/app/main.py`）：
+  刷新令牌走 Cookie，属性 `HttpOnly`、`SameSite=strict`、`Path=/`、`Max-Age≈7 天`；
+  `Secure` 仅在 `app_env=prod` 或 `AUTH_COOKIE_SECURE=1` 时启用，启用后 Cookie 名改为 `__Host-` 前缀。
   访问令牌走 `Authorization: Bearer`。CORS 为白名单 `settings.cors_origin_list`，`allow_credentials=True`。
-  **当前未实现独立 CSRF token**，跨站写保护依赖 `SameSite=Strict`。
-- **前置条件**：可构造跨域与第三方页面发起的请求
-- **步骤**：检查刷新 Cookie 的实际属性；用非白名单来源发起预检与实际请求；在第三方页面发起写操作
-- **预期**：Cookie 属性与上述实现一致；非白名单来源被 CORS 拒绝；跨站写请求因 `SameSite=Strict` 不携带凭据而失败。
-  未实现独立 CSRF token 记为**范围限制**，不作为失败判定
-- **证据要求**：响应头原文（Cookie 属性）、预检响应、跨站请求结果
+  浏览器会话端点（登录、`/auth/browser-session`、登出）额外要求请求头 `X-CampusLoop-Browser: 1`
+  **且** Origin 在白名单内（`browser_origin()`），否则 403。**没有独立 CSRF token**，跨站写保护由
+  “自定义头 + Origin 白名单 + `SameSite=strict`”三重约束共同构成。不带该头的客户端走非浏览器流程：
+  只在响应体返回访问令牌与刷新令牌，不下发 Cookie。浏览器刷新走 `/auth/browser-session`（读 Cookie），
+  非浏览器刷新走 `/auth/refresh`（读 `body.refreshToken`）。
+- **前置条件**：可构造不同 Origin 的请求；浏览器路径与非浏览器路径都要覆盖
+- **步骤**：对白名单内、白名单外与外站三种 Origin 各做一次 CORS 预检；登录并核对 Cookie 属性；
+  带自定义头与不带自定义头各登录一次；对 `/auth/browser-session` 分别验证“有 Cookie / 无 Cookie /
+  非白名单 Origin / 缺自定义头”四种组合
+- **预期**：仅白名单 Origin 返回 `Access-Control-Allow-Origin`，其余预检无该头；Cookie 属性与上述一致
+  （本地环境 `Secure` 未启用属预期，不作为失败）；非白名单 Origin 返回 403 且不下发 Cookie；
+  缺自定义头时不下发刷新 Cookie；会话恢复在缺 Cookie 时返回 401、缺自定义头或 Origin 不合法时返回 403
+- **证据要求**：三种 Origin 的预检响应头、Set-Cookie 原文（值脱敏）、四种组合的状态码与错误码
 - **实际结果**：未执行
 
 ### T3-C24 日志不泄漏密码、令牌与私聊内容
