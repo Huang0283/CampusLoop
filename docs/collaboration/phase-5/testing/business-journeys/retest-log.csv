@@ -12,3 +12,6 @@ T2-C75,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf365
 T2-C76,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C76/C76-2.png,Excel/CSV导出成功且内容一致无乱码；订单搜索仅连续子串匹配(观察)
 T2-C79,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C79/C79-2-1.png,笔记本17/笔记本电脑11/电脑16，搜'电脑'时双肩包不在结果(整机排除电脑包)
 T2-C80,78ae89a8d66789670056ffab726eebce2362efa4,b42eb606eb02da573c6671e5d35bf3650a07a544,通过,evidence/retest/C80/C80-3-2.png,自行车/山地车/雨伞包含排除正确；价格筛选生效；分页无遗漏重复；收纳箱/高数教材别名命中
+T2-DEF-01,b42eb606eb02da573c6671e5d35bf3650a07a544,f1885ba416df2a255e06503c2393b7753ab723b9,通过,evidence/retest2/DEF01-1.png,举报重提：待处理重复被拦'你对该对象的同一原因举报仍在处理中'；驳回/处理后重提成功、新ID、历史保留
+T2-OBS-01(评价回看),b42eb606eb02da573c6671e5d35bf3650a07a544,f1885ba416df2a255e06503c2393b7753ab723b9,通过,evidence/retest2/DEF02-1.png,查看评价显示双方评价/评分/时间、已评价不可重提、D403'无权访问'、未登录跳登录；长文字换行待补
+T2-DEF-02,b42eb606eb02da573c6671e5d35bf3650a07a544,f1885ba416df2a255e06503c2393b7753ab723b9,通过,evidence/retest2/DEF03-1.png,订单组合搜索：电脑T480/昵称/邮箱/大小写/#订单号/空结果/清空/状态/导出/%_ 均正常
