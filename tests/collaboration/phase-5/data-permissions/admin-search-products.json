@@ -2,8 +2,8 @@
   {
     "fixtureId": "AP001",
     "ownerAlias": "A",
-    "title": "联想测试笔记本电脑",
-    "description": "测试电脑，附电源。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "title": "联想 ThinkPad T480 笔记本电脑",
+    "description": "i5处理器，16GB内存，512GB固态硬盘，校内隔离测试商品，不代表真实货源或成交。",
     "category": "DIGITAL",
     "condition": "GOOD",
     "price": 1800,
@@ -36,8 +36,8 @@
   {
     "fixtureId": "AP003",
     "ownerAlias": "A",
-    "title": "测试台式电脑",
-    "description": "测试电脑主机，附电源。纯虚构搜索测试数据，不表示真实商品或成交。",
+    "title": "联想办公台式电脑",
+    "description": "i5处理器，8GB内存，512GB固态硬盘，校内隔离测试商品，不代表真实货源或成交。",
     "category": "DIGITAL",
     "condition": "GOOD",
     "price": 1200,
@@ -155,8 +155,8 @@
   {
     "fixtureId": "AP010",
     "ownerAlias": "A",
-    "title": "华硕测试笔记本电脑",
-    "description": "测试电脑，附充电器。 纯虚构搜索测试数据，不表示真实商品或成交。",
+    "title": "华硕 VivoBook 15 笔记本电脑",
+    "description": "i5处理器，16GB内存，512GB固态硬盘，校内隔离测试商品，不代表真实货源或成交。",
     "category": "DIGITAL",
     "condition": "GOOD",
     "price": 2100,

@@ -506,6 +506,7 @@ def order_search(query: str):
             or_(
                 cast(Order.id, String).contains(word, autoescape=True),
                 func.lower(Product.title).contains(word, autoescape=True),
+                func.lower(Product.description).contains(word, autoescape=True),
                 Order.buyer_id.in_(people),
                 Order.seller_id.in_(people),
             )

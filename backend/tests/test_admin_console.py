@@ -156,13 +156,20 @@ def test_order_search_matches_separate_keywords_people_case_and_literal_symbols(
     token = uuid.uuid4().hex
     orders = [pending_order(client, seller, buyer) for _ in range(3)]
     titles = [
-        f"{token} 联想 二手笔记本电脑 ThinkPad 16GB",
-        f"{token} 二手笔记本电脑 16GB",
-        f"{token} 笔记本电脑 8GB",
+        f"{token} 联想 ThinkPad T480 笔记本电脑",
+        f"{token} 华硕 VivoBook 15 笔记本电脑",
+        f"{token} 联想台式电脑",
+    ]
+    descriptions = [
+        "i5处理器，16GB内存，512GB固态硬盘，隔离环境测试商品。",
+        "i5处理器，16GB内存，512GB固态硬盘，隔离环境测试商品。",
+        "i5处理器，8GB内存，512GB固态硬盘，隔离环境测试商品。",
     ]
     with SessionLocal() as db:
-        for (item, _, _), title in zip(orders, titles, strict=True):
-            db.get(Product, item["id"]).title = title
+        for (item, _, _), title, description in zip(orders, titles, descriptions, strict=True):
+            product = db.get(Product, item["id"])
+            product.title = title
+            product.description = description
         db.get(User, buyer["user"]["id"]).nickname = f"Buyer{token}"
         db.commit()
     endpoint = "/admin/orders"
