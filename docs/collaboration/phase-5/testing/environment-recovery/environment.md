@@ -22,16 +22,20 @@
 
 | 项目 | 值 |
 |---|---|
-| 执行时完整 SHA | `d063588c3be59b1e9f013ff27e2a541cc03fed62` |
-| 分支 | `main`（材料分支 `work/testing/environment-recovery`，材料 SHA `f77afc1`） |
+| 当前执行时完整 SHA | `f1885ba416df2a255e06503c2393b7753ab723b9`（2026-11-16 起） |
+| 首轮执行 SHA | `d063588c3be59b1e9f013ff27e2a541cc03fed62`（2026-11-08，C02–C05 首轮记录） |
+| 分支 | `main`（材料分支 `work/testing/environment-recovery`） |
 | 依赖安装方式 | `scripts/start-local.ps1` 构建 `campusloop-local-api:dev`（镜像带 `campusloop.sourceFingerprint` 标签）；前端使用 `frontend/node_modules` 中已安装依赖，vite 直接服务当前 checkout |
-| 与上轮基线的差异 | 开测前本机运行的是 2026-10-26 构建的镜像（迁移只到 `0011`，缺 `moderation`、`admin_console` 模块），已按 `AGENTS.md` 用 `start-local` 重建为 `0012 (head)` |
+| 与上轮基线的差异 | ① 开测前本机运行 2026-10-26 镜像（迁移只到 `0011`），已按 `AGENTS.md` 用 `start-local` 重建为 `0012`；② 2026-11-16 `main` 前进 44 个提交、241 文件、新增迁移 `0013_open_report_uniqueness`，镜像重建为 `377fc67a0847`，C02–C05 在新基线上重跑 |
 
 > 基线会随 main 前进而变化。每条执行记录都要写当时实际 SHA，不要沿用文档里的旧 SHA。
+> 同一用例的多轮执行分别写入 `execution-log.csv`（按运行一行）与 `retest-log.csv`，不覆盖上轮证据。
 
-**版本一致性取证（C05）**：容器内 `app/main.py` 的 sha256 = `89ecf55535c885f1d4c2e159c51908a0221e34114a14a5ff968650e23c269033`，
-与仓库 `main` 同名文件逐字节一致；`/openapi.json` 的 `info.version = 0.5.0-rc.1`；Worker `/healthz` 的
-`workerVersion = bp4-worker-runtime-v1`，与 API 同镜像。证据见 `logs/c05-code-identity.log`。
+**版本一致性取证（C05）**：`f1885ba` 基线上，容器内 `app/main.py`（`89ecf555…`）、`app/api/routes/admin_console.py`（`94ad95bb…`）、
+`app/api/routes/auth.py`（`4961e25b…`）、`alembic/versions/0013_open_report_uniqueness.py`（`bc70676d…`）的 sha256
+与仓库同名文件逐字节一致；`/openapi.json` 的 `info.version = 0.5.0-rc.1`；Worker `/healthz` 的
+`workerVersion = bp4-worker-runtime-v1`，与 API 同镜像。证据见 `logs/c05-code-identity-20261116.log`；
+`d063588` 基线的首轮取证见 `logs/c05-code-identity.log`。
 
 ## 隔离约束核对
 
@@ -63,3 +67,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1 -NoB
 | Docker 构建容器内无法访问 `github.com:443`，MinIO 镜像无法现场重建 | 无（用等价镜像打标签） | 复用同 tag 同版本的本地镜像 | 否 |
 | `/health` 与 `/ready` 只探测 database 与 redis，媒体服务不在探测范围 | C04 | 媒体在 C04 中只记录为范围限制；媒体可用性由 C10（重启后图片可读）与 C27（媒体恢复及范围）用真实图片请求覆盖 | 否（范围限制，非缺陷） |
 | 无独立审计栈，审计库与日常库同实例 | C19–C30 | 审计库为独立库名，写操作只作用于 `campusloop_t3_audit`；并发与备份类用例执行前逐条复核 `DATABASE_URL` | 否 |
+| 审计库随基线变更重建 | C02–C05、C19–C30 | 重建前数据仅来自种子与自测写入，无他人数据；重建后立即执行 C02 迁移到 `0013` | 否 |

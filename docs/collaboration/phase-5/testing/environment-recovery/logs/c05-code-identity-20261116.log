@@ -1,0 +1,14 @@
+=== C05 界面/接口/Worker 版本一致（基线变更后重跑）| 2026-11-16 14:25:22 ===
+仓库提交 (main) = f1885ba416df2a255e06503c2393b7753ab723b9
+上轮基线 d063588 的同用例记录见 logs/c05-code-identity.log
+
+--- 逐文件哈希：容器 vs 仓库 ---
+  app/main.py container=89ecf55535c8 repo=89ecf55535c8 same=True
+  app/api/routes/admin_console.py container=94ad95bb6a15 repo=94ad95bb6a15 same=True
+  app/api/routes/auth.py container=4961e25b0fcb repo=4961e25b0fcb same=True
+  alembic/versions/0013_open_report_uniqueness.py container=bc70676d08a7 repo=bc70676d08a7 same=True
+
+API version (openapi.json info.version) = 0.5.0-rc.1
+Worker version (/healthz workerVersion) = bp4-worker-runtime-v1 | status=ok
+前端: vite dev server 5174 直接服务当前 checkout（f1885ba），package.json version 无独立语义
+镜像: campusloop-local-api:dev 377fc67a0847 2026-11-16 14:19:19 +0800 CST
