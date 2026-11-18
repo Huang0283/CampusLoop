@@ -321,7 +321,7 @@ def test_repeated_stale_snapshot_stops_after_five_attempts(monkeypatch):
     job = MatchingJob(id=1, wanted_id=1, status="PENDING", attempts=0)
     monkeypatch.setattr(intelligence, "rank_live", lambda *a, **k: ({}, {}, "unused"))
     for attempt in range(1, 6):
-        values = iter([None, 1, SimpleNamespace(status="ACTIVE"), wanted, 2])
+        values = iter([None, 1, 1, SimpleNamespace(status="ACTIVE"), wanted, 2])
         db = SimpleNamespace(scalar=lambda *a, values=values: next(values), commit=lambda: None)
         assert process_claim(db, job)
         assert job.attempts == attempt and job.last_error == "STALE_INPUT"
