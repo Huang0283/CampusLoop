@@ -1,0 +1,268 @@
+{
+  "outcome": "passed",
+  "executedAt": "2026-11-17T13:31:08.167097+00:00",
+  "softwareSha": "9713c8cc1adcf23b8214a29128ef00ca3362332c",
+  "namespace": "permission/run2",
+  "scope": "five AP fixtures only; not full 470 catalog acceptance",
+  "mapping": {
+    "AP001": 25,
+    "AP002": 26,
+    "AP003": 27,
+    "AP009": 28,
+    "AP010": 29
+  },
+  "records": [
+    {
+      "case": "setup",
+      "role": "search",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true
+    },
+    {
+      "case": "setup",
+      "role": "A",
+      "method": "POST",
+      "path": "/uploads/images",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "search-owner",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "search-owner",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "search-owner",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "search-owner",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "search-owner",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "guest",
+      "method": "GET",
+      "path": "/search",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "guest",
+      "method": "GET",
+      "path": "/search",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true
+    },
+    {
+      "query": "笔记本",
+      "fixtureIds": [
+        "AP001",
+        "AP002",
+        "AP010"
+      ],
+      "expectedInclude": [
+        "AP001",
+        "AP002",
+        "AP010"
+      ],
+      "expectedExclude": [
+        "AP003",
+        "AP009"
+      ],
+      "pages": 2
+    },
+    {
+      "case": "Q33",
+      "role": "guest",
+      "method": "GET",
+      "path": "/search",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true
+    },
+    {
+      "query": "笔记本电脑",
+      "fixtureIds": [
+        "AP001",
+        "AP010"
+      ],
+      "expectedInclude": [
+        "AP001",
+        "AP010"
+      ],
+      "expectedExclude": [
+        "AP002",
+        "AP003",
+        "AP009"
+      ],
+      "pages": 1
+    },
+    {
+      "case": "Q33",
+      "role": "guest",
+      "method": "GET",
+      "path": "/search",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true
+    },
+    {
+      "case": "Q33",
+      "role": "guest",
+      "method": "GET",
+      "path": "/search",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true
+    },
+    {
+      "query": "电脑",
+      "fixtureIds": [
+        "AP001",
+        "AP003",
+        "AP010"
+      ],
+      "expectedInclude": [
+        "AP001",
+        "AP003",
+        "AP010"
+      ],
+      "expectedExclude": [
+        "AP002",
+        "AP009"
+      ],
+      "pages": 2
+    },
+    {
+      "case": "Q33",
+      "role": "guest",
+      "method": "GET",
+      "path": "/search",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true
+    },
+    {
+      "query": "台式电脑",
+      "fixtureIds": [
+        "AP003"
+      ],
+      "expectedInclude": [
+        "AP003"
+      ],
+      "expectedExclude": [
+        "AP001",
+        "AP002",
+        "AP009",
+        "AP010"
+      ],
+      "pages": 1
+    },
+    {
+      "case": "Q33",
+      "role": "guest",
+      "method": "GET",
+      "path": "/search",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true
+    },
+    {
+      "query": "可以装电脑",
+      "fixtureIds": [
+        "AP009"
+      ],
+      "expectedInclude": [
+        "AP009"
+      ],
+      "expectedExclude": [
+        "AP001",
+        "AP003",
+        "AP010"
+      ],
+      "pages": 1
+    }
+  ]
+}
