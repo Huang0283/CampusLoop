@@ -187,6 +187,7 @@ def restore_browser(body: BrowserSessionRequest, request: Request, response: Res
     response.headers["Cache-Control"] = "no-store"
     return result
 
+
 @router.post("/auth/logout", status_code=204, operation_id="logout")
 def logout(request: Request, db: Db):
     browser = request.headers.get("X-CampusLoop-Browser") == "1"
