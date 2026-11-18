@@ -6,10 +6,12 @@ import { resolveWebSocketUrl } from './urls'
 export const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001').replace(/\/$/, '')
 export const webSocketUrl = resolveWebSocketUrl(apiBaseUrl, import.meta.env.VITE_WS_URL)
 let tokens: Pick<BrowserAuthResult, 'accessToken' | 'expiresIn'> | null = null
+let refreshFlight: { generation: number; promise: Promise<void> } | null = null
 let generation = 0
+let tokenUserId: number | null = null
 
-export function setTokens(pair: BrowserAuthResult) { tokens = { accessToken: pair.accessToken, expiresIn: pair.expiresIn }; generation += 1 }
-export function clearTokens() { tokens = null; generation += 1 }
+export function setTokens(pair: BrowserAuthResult) { tokens = { accessToken: pair.accessToken, expiresIn: pair.expiresIn }; tokenUserId = pair.user.id; generation += 1 }
+export function clearTokens() { tokens = null; tokenUserId = null; generation += 1 }
 export function accessToken() { return tokens?.accessToken ?? null }
 
 export class ApiError extends Error {
@@ -36,16 +38,50 @@ async function nativeRequest(request: Request): Promise<Response> {
   }
 }
 
+async function refreshOnce(): Promise<void> {
+  if (refreshFlight?.generation === generation) return refreshFlight.promise
+  const current = tokens
+  const started = generation
+  const expectedUserId = tokenUserId
+  if (!current) throw new ApiError(401, 'AUTH_UNAUTHORIZED', '请重新登录。')
+  const promise = (async () => {
+    const response = await nativeRequest(new Request(apiBaseUrl + '/auth/browser-session', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}',
+    }))
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({})) as { code?: string; details?: ApiError['details'] }
+      throw new ApiError(response.status, body.code || 'REFRESH_UNAVAILABLE', response.status === 401 ? '会话已失效，请重新登录。' : '会话刷新暂不可用，请稍后重试。', undefined, body.details)
+    }
+    const result = await response.json() as { data: BrowserAuthResult }
+    if (generation !== started) throw new ApiError(401, 'SESSION_CHANGED', '登录状态已变更。')
+    if (result.data.user.id !== expectedUserId) throw new ApiError(401, 'SESSION_CHANGED', '另一个页面已切换账号，请刷新后重新操作。')
+    tokens = { accessToken: result.data.accessToken, expiresIn: result.data.expiresIn }
+  })().finally(() => { if (refreshFlight?.generation === started) refreshFlight = null })
+  refreshFlight = { generation: started, promise }
+  return promise
+}
+
 async function transport(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const request = new Request(input, init)
   const started = generation
   const sessionRequest = !!tokens && request.headers.get('Authorization') === 'Bearer ' + tokens.accessToken
-  const response = await nativeRequest(request)
-  // Rejected credentials require explicit sign-in, without cookie retries.
-  if (response.status === 401 && sessionRequest && !request.url.endsWith('/auth/logout')) {
-    if (generation === started) {
-      clearTokens()
-      window.dispatchEvent(new Event('campusloop-session-expired'))
+  const retry = request.clone()
+  let response = await nativeRequest(request)
+  const scopedAppeal = new URL(request.url).pathname.startsWith('/account/') && !tokens
+  const expired = response.status === 401 && (await response.clone().json().catch(() => null) as { code?: string } | null)?.code === 'AUTH_ACCESS_EXPIRED'
+  if (expired && sessionRequest && !request.url.endsWith('/auth/logout') && !scopedAppeal) {
+    try {
+      if (generation !== started) throw new ApiError(401, 'SESSION_CHANGED', '登录状态已变更，请重新操作。')
+      await refreshOnce()
+      retry.headers.set('Authorization', 'Bearer ' + accessToken())
+      response = await nativeRequest(retry)
+    } catch (error) {
+      if (generation === started && error instanceof ApiError && [401, 403, 423].includes(error.status)) {
+        clearTokens()
+        window.dispatchEvent(new Event('campusloop-session-expired'))
+        if (error.status === 423 && error.details?.appealToken) window.dispatchEvent(new CustomEvent('campusloop-account-disabled', { detail: error.details }))
+      }
+      throw error
     }
   }
   if (!response.ok) {
@@ -84,11 +120,7 @@ export async function data<T>(promise: Promise<{ data: T } | undefined>): Promis
 }
 
 export function idempotencyHeaders(key: string) { return { 'Idempotency-Key': key } }
-export async function restoreIdentity() {
-  const legacyToken = localStorage.getItem('token')
-  localStorage.removeItem('token')
-  return data(restoreBrowserSession({ body: {}, headers: { 'X-CampusLoop-Browser': '1', ...(legacyToken !== null ? { Authorization: 'Bearer ' + legacyToken } : {}) } }))
-}
+export async function restoreIdentity() { return data(restoreBrowserSession({ body: {}, headers: { 'X-CampusLoop-Browser': '1' } })) }
 export { client }
 export * from './generated/sdk.gen'
 export type * from './generated/types.gen'
