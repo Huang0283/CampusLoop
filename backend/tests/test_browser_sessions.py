@@ -97,9 +97,10 @@ def test_restore_rejects_supplied_invalid_bearer_with_valid_cookie(client):
             json={},
         )
         assert response.status_code == 401
-    assert client.post(
-        "/auth/browser-session", headers=BROWSER | headers(data), json={}
-    ).status_code == 200
+    assert (
+        client.post("/auth/browser-session", headers=BROWSER | headers(data), json={}).status_code
+        == 200
+    )
     assert client.post("/auth/browser-session", headers=BROWSER, json={}).status_code == 200
 
 
