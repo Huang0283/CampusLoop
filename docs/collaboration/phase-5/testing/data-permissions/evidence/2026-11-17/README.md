@@ -6,7 +6,7 @@
 
 - [真实HTTP结果](direct-results.json)：62检查点，包括测试前置；不是62个用例。10组API补测，含C47部分；对象ID、状态码、错误码、订单金额已脱敏记录。凭证/密码不入文件。
 - [浏览器结果](browser-results.json)：13项通过，无跳过，1440/390px凭证、私有媒体、双账号真实交易、游客、刷新和共享标签切换。共享标签测试明确注入过期401；不将该注入作为真实后端拒绝证据。
-- [集成回归](integration.log)：42项通过；真实专用PostgreSQL/Redis/MinIO，FastAPI TestClient应用集成；与经HTTP网络的direct-results区分。
+- [集成回归](integration.txt)：42项通过；真实专用PostgreSQL/Redis/MinIO，FastAPI TestClient应用集成；与经HTTP网络的direct-results区分。
 - [搜索结果及实际ID](search-results.json)：复用AP001/AP002/AP003/AP009/AP010定义，通过真实API创建五件隔离样例并以pageSize=2遍历全部页，验证五种查询。仅验证这些样例，不声称导入470件或完成语义模型评估。
 - [历史53条证据梳理](historical-evidence-audit.csv)：45条空路径，8条为缺前置说明，均不作为已核验通过；旧原文保留。11月初原始48条另存[历史快照](execution-history-b2af182.csv)，防止之前覆盖式修改丢失历史。
 - 可复核请求逻辑：[HTTP脚本](direct-runner.py)、[搜索脚本](search-runner.py)。在同版审计API容器运行，脚本防止使用日常库，管理员私有JSON仅留本机。每次创建独立测试对象；不要对日常库运行。
@@ -32,4 +32,4 @@
 
 脚本复现位置：将本目录HTTP脚本复制到审计容器/tmp，并仅在该容器提供私有/tmp/closeout-admins.json；脚本只输出脱敏结果。chat-ui-runner.cjs原运行于主源码的.codex-tmp/closeout-20261117，使用主源码frontend依赖；不得直接在不含实际软件的旧材料分支启动网站。
 
-现有包完整性 unittest：18项通过，见 [运行日志](package-tests.log)。
+现有包完整性 unittest：18项通过，见 [运行日志](package-tests.txt)。
