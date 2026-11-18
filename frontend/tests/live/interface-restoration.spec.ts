@@ -40,6 +40,7 @@ async function setup(page: Page, guest = false) {
     else if (path === '/chat/sessions/801/offers') data = []
     else if (path === '/orders/1001') data = order
     else if (path === '/orders/1001/events') data = [{ id: 1, orderId: 1001, toStatus: 'BOOKED', description: '双方达成报价', createdAt: now }]
+    else if (path === '/orders/1001/reviews') data = []
     else if (path === '/orders') data = { items: [order], pagination }
     else if (path === '/admin/dashboard') data = adminDashboardFixture
     else if (path.endsWith('/read')) data = {}
@@ -288,7 +289,7 @@ test('M2 form controls have accessible names', async ({ page }) => {
 
   for (const path of paths) {
     await page.goto(path)
-    await expect(page.locator('.ant-form').first()).toBeVisible()
+    await expect(page.locator('.ant-form').first(), `${path} must render a visible form`).toBeVisible()
 
     const controls = page.locator(
       '.ant-form input:not([type="hidden"]), .ant-form textarea, ' +
