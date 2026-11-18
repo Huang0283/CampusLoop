@@ -88,6 +88,21 @@ def test_cookie_restore_csrf_and_absolute_lifetime(client):
     assert client.cookies.get(cookie_options()["key"]) is None
 
 
+def test_restore_rejects_supplied_invalid_bearer_with_valid_cookie(client):
+    data = browser_account(client).json()["data"]
+    for value in ("Bearer fake-token", "Bearer ", "Basic fake"):
+        response = client.post(
+            "/auth/browser-session",
+            headers=BROWSER | {"Authorization": value},
+            json={},
+        )
+        assert response.status_code == 401
+    assert client.post(
+        "/auth/browser-session", headers=BROWSER | headers(data), json={}
+    ).status_code == 200
+    assert client.post("/auth/browser-session", headers=BROWSER, json={}).status_code == 200
+
+
 def test_concurrent_reload_keeps_both_tabs_valid_and_logout_revokes(client):
     data = browser_account(client).json()["data"]
     cookie = client.cookies.get(cookie_options()["key"])
