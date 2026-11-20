@@ -97,3 +97,5 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1 -NoB
 | `/health` 与 `/ready` 只探测 database 与 redis，媒体服务不在探测范围 | C04 | 媒体在 C04 中只记录为范围限制；媒体可用性由 C10（重启后图片可读）与 C27（媒体恢复及范围）用真实图片请求覆盖 | 否（范围限制，非缺陷）；判定依据与受影响接口见 `defects.md` 的「已核查、不判缺陷」 |
 | 无独立审计栈，审计库与日常库同实例 | C19–C30 | 审计库为独立库名，写操作只作用于 `campusloop_t3_audit`；并发与备份类用例执行前逐条复核 `DATABASE_URL` | 否 |
 | 审计库随基线变更重建 | C02–C05、C19–C30 | 重建前数据仅来自种子与自测写入，无他人数据；重建后立即执行 C02 迁移到 `0013` | 否 |
+| 无 T1 数据包要求的独立审计栈（`_audit_` 库名、Redis DB14/15、含 `audit` 的双桶、`campusloop.audit.software-sha` 标签、预建 R/S 管理员） | C36 | 只完成静态包校验；`reset_data.py` 守卫拒绝日常 8001，未在日常库造数据 | 是（`defects.md` B-04） |
+| 智能评估输入不在 PR 分支内：`docs/evidence/phase-5/intelligence`、`data/m7-phase2` 的封存清单只存在于含 main 内容的检出 | C30 | 复算在 `c090ce4` 材料检出上执行并记录完整 SHA，数据集以 `data-hashes.json` 的 20 项校验固定 | 否（已记录 SHA 与校验值） |
