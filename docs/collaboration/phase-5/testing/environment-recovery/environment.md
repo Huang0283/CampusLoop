@@ -64,7 +64,7 @@
 
 注意净差异改的是 `backend/app/services/admin_console.py`（`+1` 行，T2 订单搜索），与 C05 核对的 `api/routes/admin_console.py` 不是同一文件，因此不改变 C05 的身份结论。
 
-仍待补：容器侧完整重跑（`5e0d982` 构建镜像 → 容器内 `sha256sum` → `/openapi.json` 的 `info.version` → Worker `/healthz` 的 `workerVersion`）。本次复核时 Docker daemon 未运行，容器侧无法执行，**不以仓库侧一致代替容器侧通过**，该步骤在 Docker 环境恢复后补记。
+容器侧补记（2026-11-20 13:12，Docker 可用后执行）：在运行容器上取 `sha256sum`，四个身份文件与 `5e0d982` 检出内容逐字节一致（按行尾归一为 CRLF 后比对，`89ecf555…` / `94ad95bb…` / `4961e25b…` / `bc70676d…`）；`/openapi.json` 的 `info.version = 0.5.0-rc.1`；Worker `/healthz` 的 `status = ok`、`workerVersion = bp4-worker-runtime-v1`。镜像仍为 `f1885ba` 构建产物（2026-11-16 14:19）未重建：因四个身份文件在 `5e0d982` 未变，容器实际运行字节即可对应 `5e0d982`，身份结论成立；`services/admin_console.py` 的 1 行差异不在 C05 核对口径内。证据见 `logs/c05-code-identity-20261120.log`。
 
 ## 隔离约束核对
 
