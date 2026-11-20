@@ -1,26 +1,26 @@
 route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,executed_sha,result,notes
 /admin,admin,admin,加载,/admin,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/admin,admin,admin,成功,/admin,,,,,未执行,正常数据下的渲染与接口 200
+/admin,admin,admin,成功,http://127.0.0.1:5186/admin,200,跳到主要内容 CampusLoop 管理后台 概览 仪表盘 审核中心 举报处理 1 申诉复核 商品治理 运营管理 订单管,logs/screens/c32-admin-mobile-admin-dashboard.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 管理员桌面与手机双视口
 /admin,admin,admin,空,/admin,,,,,未执行,无数据时仪表盘应展示空态或零值，不空白
 /admin,admin,admin,失败,/admin,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
 /admin,admin,user,无权限,/admin,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
 /admin/reports,admin,admin,加载,/admin/reports,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/admin/reports,admin,admin,成功,/admin/reports,,,,,未执行,正常数据下的渲染与接口 200
+/admin/reports,admin,admin,成功,http://127.0.0.1:5186/admin/reports,200,跳到主要内容 CampusLoop 管理后台 概览 仪表盘 审核中心 举报处理 1 申诉复核 商品治理 运营管理 订单管,logs/screens/c32-admin-mobile-admin-reports.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 管理员桌面与手机双视口
 /admin/reports,admin,admin,空,/admin/reports,,,,,未执行,无举报时记空状态表现
 /admin/reports,admin,admin,失败,/admin/reports,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
 /admin/reports,admin,user,无权限,/admin/reports,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
 /admin/products,admin,admin,加载,/admin/products,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/admin/products,admin,admin,成功,/admin/products,,,,,未执行,正常数据下的渲染与接口 200
+/admin/products,admin,admin,成功,http://127.0.0.1:5186/admin/products,200,跳到主要内容 CampusLoop 管理后台 概览 仪表盘 审核中心 举报处理 1 申诉复核 商品治理 运营管理 订单管,logs/screens/c32-admin-mobile-admin-products.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 管理员桌面与手机双视口
 /admin/products,admin,admin,空,/admin/products,,,,,未执行,无商品或筛选无结果时记空状态
 /admin/products,admin,admin,失败,/admin/products,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
 /admin/products,admin,user,无权限,/admin/products,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
 /admin/orders,admin,admin,加载,/admin/orders,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/admin/orders,admin,admin,成功,/admin/orders,,,,,未执行,正常数据下的渲染与接口 200
+/admin/orders,admin,admin,成功,http://127.0.0.1:5186/admin/orders,200,跳到主要内容 CampusLoop 管理后台 概览 仪表盘 审核中心 举报处理 1 申诉复核 商品治理 运营管理 订单管,logs/screens/c32-admin-mobile-admin-orders.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 管理员桌面与手机双视口
 /admin/orders,admin,admin,空,/admin/orders,,,,,未执行,无订单时记空状态
 /admin/orders,admin,admin,失败,/admin/orders,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
 /admin/orders,admin,user,无权限,/admin/orders,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
 /admin/users,admin,admin,加载,/admin/users,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/admin/users,admin,admin,成功,/admin/users,,,,,未执行,正常数据下的渲染与接口 200
+/admin/users,admin,admin,成功,http://127.0.0.1:5186/admin/users,200,跳到主要内容 CampusLoop 管理后台 概览 仪表盘 审核中心 举报处理 1 申诉复核 商品治理 运营管理 订单管,logs/screens/c32-admin-mobile-admin-users.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 管理员桌面与手机双视口
 /admin/users,admin,admin,空,/admin/users,,,,,未执行,无用户或搜索无结果时记空状态
 /admin/users,admin,admin,失败,/admin/users,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
 /admin/users,admin,user,无权限,/admin/users,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
@@ -35,7 +35,7 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /admin/notifications,admin,admin,失败,/admin/notifications,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
 /admin/notifications,admin,user,无权限,/admin/notifications,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
 /admin/audit,admin,admin,加载,/admin/audit,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/admin/audit,admin,admin,成功,/admin/audit,,,,,未执行,正常数据下的渲染与接口 200
+/admin/audit,admin,admin,成功,http://127.0.0.1:5186/admin/audit,200,跳到主要内容 CampusLoop 管理后台 概览 仪表盘 审核中心 举报处理 1 申诉复核 商品治理 运营管理 订单管,logs/screens/c32-admin-mobile-admin-audit.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 管理员桌面与手机双视口
 /admin/audit,admin,admin,空,/admin/audit,,,,,未执行,无日志或筛选无结果时记空状态
 /admin/audit,admin,admin,失败,/admin/audit,,,,,未执行,接口失败时有可辨识错误提示与重试，无假成功
 /admin/audit,admin,user,无权限,/admin/audit,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
@@ -46,7 +46,7 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /admin/profile,admin,user,无权限,/admin/profile,,,,,未执行,普通用户访问后台路由：被拒绝或重定向，不渲染后台数据、不泄露字段
 /,front,guest,游客未登录,/,,,,,未执行,正常渲染落地页，无需登录
 /,front,买家,加载,/,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/,front,买家,成功,/,,,,,未执行,正常数据下的渲染与接口 200
+/,front,买家,成功,http://127.0.0.1:5186/,200,CampusLoop 市场 求购 怎么用 简体中文 s seller 你好，seller，欢迎回到 CampusLoop,logs/screens/c29-desktop-home.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 CampusLoop 市场 求购 怎么用 简体中文 s seller 你好，se
 /,front,买家,空,/,,,,,未执行,不适用：落地页无列表空态
 /,front,买家,失败,/,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /,front,其他用户,无权限,/,,,,,未执行,不适用：公开页面无越权入口
@@ -64,13 +64,13 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /register,front,其他用户,无权限,/register,,,,,未执行,不适用：公开页面无越权入口
 /profile,front,guest,游客未登录,/profile,,,,,未执行,未登录访问应重定向登录并在登录后回到本页
 /profile,front,买家,加载,/profile,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/profile,front,买家,成功,/profile,,,,,未执行,正常数据下的渲染与接口 200
+/profile,front,买家,成功,http://127.0.0.1:5186/profile,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 个人资料 s sel,logs/screens/c29-desktop-profile.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /profile,front,买家,空,/profile,,,,,未执行,不适用：个人资料非列表
 /profile,front,买家,失败,/profile,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /profile,front,其他用户,无权限,/profile,,,,,未执行,不适用：公开页面无越权入口
 /market,front,guest,游客未登录,/market,,,,,未执行,游客可公开浏览列表
 /market,front,买家,加载,/market,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/market,front,买家,成功,/market,,,,,未执行,正常数据下的渲染与接口 200
+/market,front,买家,成功,http://127.0.0.1:5186/market,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 每一件闲置， 一目了,logs/screens/c29-desktop-market.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /market,front,买家,空,/market,,,,,未执行,无商品时记空状态与文案
 /market,front,买家,失败,/market,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /market,front,其他用户,无权限,/market,,,,,未执行,不适用：公开页面无越权入口
@@ -82,7 +82,7 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /product/:id,front,其他用户,无权限,/product/1001,,,,,未执行,不适用：公开页面无越权入口
 /my-products,front,guest,游客未登录,/my-products,,,,,未执行,未登录访问应重定向登录
 /my-products,front,买家,加载,/my-products,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/my-products,front,买家,成功,/my-products,,,,,未执行,正常数据下的渲染与接口 200
+/my-products,front,买家,成功,http://127.0.0.1:5186/my-products,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 我的发布 管理你发布,logs/screens/c29-desktop-my-products.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /my-products,front,买家,空,/my-products,,,,,未执行,本人无商品时记空状态
 /my-products,front,买家,失败,/my-products,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /my-products,front,其他用户,无权限,/my-products,,,,,未执行,访问他人商品编辑入口应被拒绝
@@ -94,7 +94,7 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /favorites,front,其他用户,无权限,/favorites,,,,,未执行,不适用：接口按当前登录人过滤
 /publish,front,guest,游客未登录,/publish,,,,,未执行,未登录访问应重定向登录
 /publish,front,买家,加载,/publish,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/publish,front,买家,成功,/publish,,,,,未执行,正常数据下的渲染与接口 200
+/publish,front,买家,成功,http://127.0.0.1:5186/publish,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 发布商品 给闲置一个,logs/screens/c29-desktop-publish.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /publish,front,买家,空,/publish,,,,,未执行,不适用：表单页无列表空态
 /publish,front,买家,失败,/publish,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /publish,front,其他用户,无权限,/publish,,,,,未执行,不适用：仅本人发布
@@ -106,19 +106,19 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /product/:id/edit,front,其他用户,无权限,/product/1001/edit,,,,,未执行,编辑他人商品应被拒绝并提示，不进入表单
 /publish/price-advice,front,guest,游客未登录,/publish/price-advice,,,,,未执行,未登录访问应重定向登录
 /publish/price-advice,front,买家,加载,/publish/price-advice,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/publish/price-advice,front,买家,成功,/publish/price-advice,,,,,未执行,正常数据下的渲染与接口 200
+/publish/price-advice,front,买家,成功,http://127.0.0.1:5186/publish/price-advice,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 价格建议 返回发布 ,logs/screens/c29-desktop-price-advice.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /publish/price-advice,front,买家,空,/publish/price-advice,,,,,未执行,不适用：建议页无列表空态
 /publish/price-advice,front,买家,失败,/publish/price-advice,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /publish/price-advice,front,其他用户,无权限,/publish/price-advice,,,,,未执行,不适用：仅本人使用
 /wanted,front,guest,游客未登录,/wanted,,,,,未执行,游客可公开浏览求购列表
 /wanted,front,买家,加载,/wanted,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/wanted,front,买家,成功,/wanted,,,,,未执行,正常数据下的渲染与接口 200
+/wanted,front,买家,成功,http://127.0.0.1:5186/wanted,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 求购广场 看看同学们,logs/screens/c29-desktop-wanted.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /wanted,front,买家,空,/wanted,,,,,未执行,无求购时记空状态
 /wanted,front,买家,失败,/wanted,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /wanted,front,其他用户,无权限,/wanted,,,,,未执行,不适用：公开页面无越权入口
 /wanted/publish,front,guest,游客未登录,/wanted/publish,,,,,未执行,未登录访问应重定向登录
 /wanted/publish,front,买家,加载,/wanted/publish,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/wanted/publish,front,买家,成功,/wanted/publish,,,,,未执行,正常数据下的渲染与接口 200
+/wanted/publish,front,买家,成功,http://127.0.0.1:5186/wanted/publish,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 发布求购 告诉同学们,logs/screens/c29-desktop-wanted-publish.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /wanted/publish,front,买家,空,/wanted/publish,,,,,未执行,不适用：表单页无列表空态
 /wanted/publish,front,买家,失败,/wanted/publish,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /wanted/publish,front,其他用户,无权限,/wanted/publish,,,,,未执行,不适用：仅本人发布
@@ -142,7 +142,7 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /wanted/:wantedId/matches,front,其他用户,无权限,/wanted/2001/matches,,,,,未执行,查看他人求购匹配应被拒绝
 /chat,front,guest,游客未登录,/chat,,,,,未执行,未登录访问应重定向登录
 /chat,front,买家,加载,/chat,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/chat,front,买家,成功,/chat,,,,,未执行,正常数据下的渲染与接口 200
+/chat,front,买家,成功,http://127.0.0.1:5186/chat,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 聊天 b buyer,logs/screens/c29-desktop-chat-list.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /chat,front,买家,空,/chat,,,,,未执行,无会话时记空状态
 /chat,front,买家,失败,/chat,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /chat,front,其他用户,无权限,/chat,,,,,未执行,不适用：列表按当前登录人过滤
@@ -154,7 +154,7 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /chat/:id,front,其他用户,无权限,/chat/3001,,,,,未执行,非参与方读取会话应被拒绝，不返回消息内容
 /transactions,front,guest,游客未登录,/transactions,,,,,未执行,未登录访问应重定向登录
 /transactions,front,买家,加载,/transactions,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/transactions,front,买家,成功,/transactions,,,,,未执行,正常数据下的渲染与接口 200
+/transactions,front,买家,成功,http://127.0.0.1:5186/transactions,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 交易中心 查看购买、,logs/screens/c29-desktop-transactions.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /transactions,front,买家,空,/transactions,,,,,未执行,无订单时记空状态
 /transactions,front,买家,失败,/transactions,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /transactions,front,其他用户,无权限,/transactions,,,,,未执行,不适用：列表按当前登录人过滤
@@ -178,7 +178,7 @@ route,surface,role,state,url_sample,http_status,visible_feedback,evidence_path,e
 /transactions/:id/review,front,其他用户,无权限,/transactions/4001/review,,,,,未执行,非参与方或未完成订单进入评价应被拒绝
 /notifications,front,guest,游客未登录,/notifications,,,,,未执行,未登录访问应重定向登录
 /notifications,front,买家,加载,/notifications,,,,,未执行,进入时的骨架或加载态，无白屏、无长期空转
-/notifications,front,买家,成功,/notifications,,,,,未执行,正常数据下的渲染与接口 200
+/notifications,front,买家,成功,http://127.0.0.1:5186/notifications,200,跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文 s seller 通知 73 条未读 ,logs/screens/c29-desktop-notifications.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,2026-11-20 桌面 跳到主要内容 CampusLoop 市场 求购 聊天 交易 举报 73 简体中文
 /notifications,front,买家,空,/notifications,,,,,未执行,无通知时记空状态
 /notifications,front,买家,失败,/notifications,,,,,未执行,接口失败或超时时给出可辨识提示与重试，无假成功
 /notifications,front,其他用户,无权限,/notifications,,,,,未执行,不适用：列表按当前登录人过滤

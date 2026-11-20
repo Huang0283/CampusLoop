@@ -1,1 +1,9 @@
 component,scenario,surface,mock_response_path,applicable,reason_if_not_applicable,result,evidence_path,executed_sha,notes
+market/list,接口失败（500）,市场,route fulfill 500,true,,显示“服务出错，请稍后重试。重试”,logs/screens/c17-market-500.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误可辨识且可重试
+market/list,空数据,市场,-,true,,显示“暂无内容。”与筛选区,logs/screens/c17-empty-wanted.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,空数据不空白
+wanted/list,空数据,求购广场,-,true,,显示“暂无内容。”,logs/screens/c17-empty-wanted.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,
+transactions/list,空数据,交易中心,-,true,,显示“共 0 笔交易 / 还没有交易记录”,logs/screens/c17-empty-transactions.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,
+chat/list,空数据,聊天,-,true,,显示“还没有会话，从商品页联系卖家开始吧”,logs/screens/c17-empty-chat.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,
+my-products/list,空数据,我的发布,-,true,,显示“暂无内容。”,logs/screens/c17-empty-my-products.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,
+transaction/detail,无权限（非参与方）,订单详情,-,true,,显示“无权访问 返回首页”,logs/screens/c17-forbidden-order.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,未泄露订单字段
+market/list,超时（12s 延迟）,市场,route 延迟 12s,true,,显示“等待已超时。请先刷新确认处理”,logs/screens/c14-slow-market.png,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,不假成功

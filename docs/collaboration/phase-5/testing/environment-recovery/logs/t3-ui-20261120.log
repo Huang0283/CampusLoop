@@ -1,0 +1,75 @@
+=== T3 浏览器侧用例执行 | 2026-11-20 | software 5e0d982c9fa0324ff53bf069eb267737873371fd ===
+环境: campusloop-environment-run1-audit；UI http://127.0.0.1:5186（Vite dev）；API http://127.0.0.1:18026
+浏览器: Playwright + msedge，桌面 1440x900 / 手机 390x844
+注入方式: page.route 拦截或延迟 / 中止 http://127.0.0.1:18026/**；context.setOffline 断开网络
+截图目录: logs/screens/
+
+--- C13 API 不可达 ---
+拦截全部 API 请求后访问 / /market /market/2 /orders /login
+结果: 五条路由统一渲染“暂时无法恢复登录，请检查网络后重试。”并提供“重试恢复”
+判定: 无白屏、无无限加载、无假成功 -> 通过
+截图: c13-home.png c13-market.png c13-detail.png c13-orders.png c13-login.png
+
+--- C14 慢响应与超时 ---
+对 /products 注入 12s 延迟后访问 /market
+结果: 页面渲染完整筛选与排序，并给出“等待已超时。请先刷新确认处理”
+判定: 有明确超时提示、不假成功 -> 通过
+截图: c14-slow-market.png
+
+--- C15 聊天断线后补拉 ---
+会话 10（C15 断线补拉商品）；断线前卖家发送 2 条（201/201）
+买家端 setOffline(true) 后卖家再发 3 条（201/201/201）
+断线期间页面提示: “当前离线，请恢复网络后刷新。提交过的操作请先确认记录，避免重复。” + “无法连接服务，请检查网络后重试。重试”
+setOffline(false) 后恢复: 消息顺序 断线前消息1 -> 2 -> 断线期间消息3 -> 4 -> 5，共 5 条
+判定: 补齐完整、顺序正确、“断线期间消息 3”仅出现 1 次无重复 -> 通过
+截图: c15-offline.png c15-recovered.png
+
+--- C17 空 / 失败 / 无权限 ---
+空数据（新注册账号）: /wanted “暂无内容。”；/transactions “共 0 笔交易 / 还没有交易记录”；
+  /chat “还没有会话，从商品页联系卖家开始吧”；/my-products “暂无内容。”
+失败: /market 的 /products 注入 500 -> “服务出错，请稍后重试。重试”
+无权限: 非参与方访问 /transactions/2 -> “无权访问 返回首页”，未渲染订单字段
+判定: 三类状态均可辨识 -> 通过
+截图: c17-empty-*.png c17-market-500.png c17-forbidden-order.png
+
+--- C18 故障恢复后主旅程 ---
+在 C13/C14/C17/C33 注入并恢复后，重新遍历 20 条路由（学生 14 × 桌面/手机 + 后台 6 × 桌面/手机）= 40 次导航
+结果: 全部 200，API 4xx/5xx 计数为 0，无异常重定向；数据与故障前一致（商品 2 详情、订单 2 详情、会话 2 均正常）
+判定: 通过
+
+--- C29 路由状态与双视口 ---
+学生 14 条: / /market /product/2 /wanted /wanted/publish /chat /chat/2 /transactions
+  /transactions/2 /notifications /profile /publish /publish/price-advice /my-products
+桌面 1440x900 与手机 390x844 均正常渲染，无 4xx/5xx
+空数据表现: /wanted “暂无内容。”
+判定: 通过
+截图: c29-desktop-*.png c29-mobile-*.png（28 张）
+
+--- C31 后台路由真实状态 ---
+管理员 R 登录后遍历 /admin /admin/reports /admin/orders /admin/products /admin/users /admin/audit
+结果: 六条路由桌面下全部 200，侧栏显示“举报处理 1”待办计数，无 API 错误
+判定: 通过
+截图: c31-admin-desktop-*.png（6 张）
+
+--- C32 后台双视口 ---
+同一组后台路由在 390x844 下全部 200，导航折叠为可展开入口，内容区无横向溢出
+判定: 通过
+截图: c32-admin-mobile-*.png（6 张）
+
+--- C33 管理操作断网与恢复 ---
+后台 /admin/reports 正常加载后中止全部 API 并重载
+断网表现: “暂时无法恢复登录，请检查网络后重试。重试恢复”，不白屏
+恢复网络后重载: 回到 /admin/reports 并正常加载举报列表
+判定: 断网有可辨识提示且可恢复 -> 通过
+截图: c33-admin-offline.png c33-admin-recovered.png
+
+--- C16 智能服务降级（部分）---
+停用 campusloop-environment-run1-audit-baseline-1 后：
+  /products?mode=semantic 仍 200；/products?mode=keyword 200；/health = ok；无 5xx
+  /price-advice 因请求体字段不匹配返回 422，未取得降级提示
+判定: 证据不足，不判通过；待补齐“价格建议与匹配在智能服务停用时的 UI 降级提示”
+已恢复基线容器
+
+=== 本轮结论 ===
+执行 9 条: C13 C14 C15 C17 C18 C29 C31 C32 C33，全部通过
+C16 部分执行、证据不足；C30 C36 未执行（需智能基线数据与 T1 增补数据包）；C06 仍阻塞（需第二台设备）
