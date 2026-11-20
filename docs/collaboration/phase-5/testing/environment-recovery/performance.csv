@@ -1,0 +1,10 @@
+scenario,metric,iterations,raw_values_path,min_ms,p50_ms,p95_ms,max_ms,method,executed_sha,result,notes
+list-products,latency_ms,20,logs/t3-execution-20261120.log,10.1,31.0,35.6,38.2,并发 1,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+list-products,latency_ms,20,logs/t3-execution-20261120.log,13.9,30.8,47.6,52.3,并发 5,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+list-products,latency_ms,20,logs/t3-execution-20261120.log,89.5,173.5,183.6,185.1,并发 20,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+get-product,latency_ms,20,logs/t3-execution-20261120.log,7.7,20.9,33.4,35.1,并发 1,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+get-product,latency_ms,20,logs/t3-execution-20261120.log,12.2,25.9,49.0,53.5,并发 5,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+get-product,latency_ms,20,logs/t3-execution-20261120.log,79.5,155.1,165.4,166.4,并发 20,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+post-message,latency_ms,20,logs/t3-execution-20261120.log,12.3,30.2,32.5,33.5,并发 1,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+post-message,latency_ms,20,logs/t3-execution-20261120.log,23.2,46.1,64.6,71.8,并发 5,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0
+post-message,latency_ms,20,logs/t3-execution-20261120.log,56.6,148.5,233.0,237.7,并发 20,5e0d982c9fa0324ff53bf069eb267737873371fd,通过,错误数 0

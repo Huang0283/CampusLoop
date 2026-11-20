@@ -1,0 +1,21 @@
+=== C05 界面/接口/Worker 版本一致（基线再前进到 5e0d982 复核）| 2026-11-20 13:12 ===
+仓库提交 (main) = 5e0d982c9fa0324ff53bf069eb267737873371fd
+上轮基线 f1885ba 的同用例记录见 logs/c05-code-identity-20261116.log
+
+--- 逐文件哈希：容器 vs 仓库 5e0d982（按行尾归一为 CRLF 后比对）---
+  app/main.py container=89ecf55535c8 repo=89ecf55535c8 same=True
+  app/api/routes/admin_console.py container=94ad95bb6a15 repo=94ad95bb6a15 same=True
+  app/api/routes/auth.py container=4961e25b0fcb repo=4961e25b0fcb same=True
+  alembic/versions/0013_open_report_uniqueness.py container=bc70676d08a7 repo=bc70676d08a7 same=True
+
+API version (openapi.json info.version) = 0.5.0-rc.1
+API /health = ok
+Worker /healthz status = ok | workerVersion = bp4-worker-runtime-v1
+镜像: campusloop-local-api:dev 未重建（2026-11-16 14:19:19 +0800），四个校验对象在 5e0d982 与 f1885ba 逐字节相同
+
+--- 基线差异（f1885ba → 5e0d982）---
+净代码差异仅 2 个文件：
+  backend/app/services/admin_console.py  +1 行（9713c8c 引入）
+  backend/tests/test_admin_console.py    +13 / -5（测试）
+acb338f（auth 防伪造令牌）已被 5e0d982 revert，净变更为 0。
+services/admin_console.py 不在 C05 的四个校验对象内；如需整仓完全一致仍需重建镜像，本用例判定不受影响。

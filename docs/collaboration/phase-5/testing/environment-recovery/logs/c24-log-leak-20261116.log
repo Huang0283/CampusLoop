@@ -1,0 +1,21 @@
+=== C24 日志不泄漏密码/令牌/私聊内容 | 2026-11-16 14:53:56 ===
+被测软件 SHA: f1885ba416df2a255e06503c2393b7753ab723b9 (main)
+产生的真实操作: 密码明文登录（成功与失败各一次）、浏览器会话恢复、市场与商品浏览、会话 4027 中发送带标记的私聊正文
+
+API 日志行数: 369 | Worker 日志行数: 1
+日志确有记录本次请求: /auth/login=10 行 /chat/sessions=4 行 /products=26 行
+
+--- 敏感项命中统计 ---
+  登录密码明文 Demo@12345 : API=0 行  Worker=0 行
+  JWT 访问令牌客户端 eyJ : API=0 行  Worker=0 行
+  Authorization 请求头名 : API=0 行  Worker=0 行
+  Bearer 令牌值 : API=0 行  Worker=0 行
+  刷新 Cookie 名与值 : API=0 行  Worker=0 行
+  refreshToken 字段 : API=0 行  Worker=0 行
+  私聊正文标记文本 : API=0 行  Worker=0 行
+  私聊正文中文片段 : API=0 行  Worker=0 行
+
+--- 抽样：一条聊天请求的日志原文（验证只有路由与状态码，无正文）---
+--- 抽样：一次发送私聊消息的日志原文 ---
+{"timestamp": "2026-11-16T06:53:49.828826+00:00", "level": "INFO", "logger": "http", "requestId": "de9a98355147", "message": "request_finished method=POST route=/chat/sessions/{sessionId}/messages status=201 duration_ms=31"}
+说明: 只记录模板化路由、状态码与耗时，无会话 ID、无消息正文

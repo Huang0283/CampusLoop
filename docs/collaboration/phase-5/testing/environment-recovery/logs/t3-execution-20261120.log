@@ -1,0 +1,108 @@
+=== T3 剩余用例执行 | 2026-11-20 | software 5e0d982c9fa0324ff53bf069eb267737873371fd ===
+环境: campusloop-environment-run1-audit（独立 Docker 项目；库 campusloop_audit_environment_run1；Redis DB15；桶 campusloop-environment-run1-audit-public/private；API 18026；UI 5186）
+说明: 构建阶段容器内无法访问 github.com，MinIO 镜像改用本地同源镜像 campusloop-local-minio:dev（tag 为 campusloop-audit-minio:fixed），运行代码仍为 origin/main 检出内容。
+
+--- 环境启动 ---
+audit_env.py start --namespace environment → identities R/S 就绪, API 18026 healthy
+
+--- 业务数据（C08 前置）---
+上传商品图 201 / 上传头像 201
+发布商品 201 → productId=2
+建会话 200 → sessionId=2 / 发消息 201 / 报价 201 / 接受报价 200 → orderId=2
+举报 201 → reportId=2
+通知 200 → 2 条
+
+--- C08 正常停止后再启动 ---
+stop elapsed 3.2s，全部容器停止
+start elapsed 22.4s
+重启后: product=RESERVED order=PENDING_CONFIRM reports=1 notifications=4 messages=3
+图片: public 200/694B、avatar 200/4726B、chat 200/773B（与重启前字节一致）
+结论: 通过
+
+--- C09 第二次重启 ---
+第二轮写入: 消息 201 → messageId=5；商品 201 → productId=3
+before2: reports=1 notifications=5 messages=4
+stop/start 26.5s
+after2: reports=1 notifications=5 messages=4；round2 商品 200；round2 消息存在 true
+结论: 通过
+
+--- C10 重启后图片可读 ---
+商品图 200/694B、头像 200/4726B、聊天图 200/773B，均与重启前一致
+结论: 通过
+
+--- C11 迁移升级与回滚 ---
+alembic current → 0013 (head)
+alembic downgrade -1 → 0012
+alembic upgrade head → 0013 (head)
+verify_restore.py → users=4 products=2 alembic=0013
+结论: 通过
+
+--- C12 构建包与 EXE 缺口 ---
+git ls-files: 无 exe/msi/appx/dmg；无 electron/tauri/pyinstaller/pkg 配置；无本地 dist
+结论: 登记为交付缺口（项目形态为 Web+Docker），见 defects.md
+
+--- C19 两买家竞争（三轮）---
+round 1: codes=[200, 409] orders=1 product=RESERVED
+round 2: codes=[200, 409] orders=1 product=RESERVED
+round 3: codes=[200, 409] orders=1 product=RESERVED
+结论: 通过
+
+--- C20 幂等重试 ---
+productId=7 sessionId=9
+sameKey first=[201, 9] second=[201, 9] sameRecord=true storedOffers=1
+withoutKey status=422 code=VALIDATION_ERROR
+结论: 通过
+
+--- C21 重复消息去重 ---
+first=[201, 6] second=[201, 6] storedCount=1
+结论: 通过
+
+--- C25 性能（各 20 次，0 错误）---
+list-products  c1  min=10.1 p50=31.0 p95=35.6 max=38.2
+list-products  c5  min=13.9 p50=30.8 p95=47.6 max=52.3
+list-products  c20 min=89.5 p50=173.5 p95=183.6 max=185.1
+get-product    c1  min=7.7  p50=20.9 p95=33.4 max=35.1
+get-product    c5  min=12.2 p50=25.9 p95=49.0 max=53.5
+get-product    c20 min=79.5 p50=155.1 p95=165.4 max=166.4
+post-message   c1  min=12.3 p50=30.2 p95=32.5 max=33.5
+post-message   c5  min=23.2 p50=46.1 p95=64.6 max=71.8
+post-message   c20 min=56.6 p50=148.5 p95=233.0 max=237.7
+结论: 通过（明细见 performance.csv）
+
+--- C26 备份并恢复到新实例 ---
+pg_dump -F c → /tmp/t3-full.dump 116109B sha256 前缀 509f0d9fe8011f3f
+createdb campusloop_t3_restore_1；pg_restore 成功
+psql: users=4 products=2 alembic_version=0013
+verify_restore.py(新库): users 4 / auth_session_families 28 / auth_audits 44 / refresh_sessions 28 / products 2 / product_images 2
+结论: 通过
+
+--- C27 媒体恢复 ---
+备份: public+private 共 4 个对象 → /tmp/backup-public /tmp/backup-private
+删除 product/4/e2cdc5178b3344eebb65fb5dd862816b.jpg → 该 URL 404
+mirror 回桶后 → 200
+私有对象仍只能经鉴权接口读取
+结论: 通过
+
+--- C28 损坏备份拒绝 ---
+head -c 50000 生成 /tmp/t3-broken.dump
+pg_restore → "could not read from input file: end of file"，退出非 0
+campusloop_t3_broken_1 表数 = 0（无半恢复残留）
+源库 users 仍为 4
+结论: 通过
+
+--- C34 两管理员并发处理同一举报 ---
+report 3
+R: RESOLVED → 200，finalState=RESOLVED
+S: REJECTED → 409 REPORT_ALREADY_HANDLED
+队列: RESOLVED 含 3，REJECTED 为空
+结论: 通过
+
+--- C35 重启后治理回看 ---
+重启前: PATCH /admin/users/4/status {"status":"DISABLED"} → 200
+重启 26.5s
+回看: adminLogin=200 userStatus=DISABLED buyerLogin=423 resolvedReportIds=[3]
+结论: 通过
+
+=== 本轮结论 ===
+执行 14 条: C08 C09 C10 C11 C12 C19 C20 C21 C25 C26 C27 C28 C34 C35
+通过 14 条，失败 0，阻塞 1（C06 需第二台设备），未执行 12 条（C13–C18、C29–C33、C36）

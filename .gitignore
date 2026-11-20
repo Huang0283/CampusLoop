@@ -6,6 +6,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# T3 交付物：环境与恢复的原始日志需要入库
+!docs/collaboration/phase-5/testing/environment-recovery/logs
+!docs/collaboration/phase-5/testing/environment-recovery/logs/**
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

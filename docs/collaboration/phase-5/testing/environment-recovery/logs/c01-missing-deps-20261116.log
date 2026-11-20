@@ -1,0 +1,42 @@
+=== C01 缺依赖时的提示 | 2026-11-16 14:38:32 ===
+被测软件 SHA: f1885ba416df2a255e06503c2393b7753ab723b9 (main)
+
+--- 1) 全新 venv（无第三方包）---
+Package Version
+------- -------
+pip     25.2
+
+--- 2) 后端直接导入 app.main ---
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys; sys.path.insert(0, r'C:\Projects\CampusLoop\backend'); import app.main
+                                                                       ^^^^^^^^^^^^^^^
+  File "C:\Projects\CampusLoop\backend\app\main.py", line 16, in <module>
+    from fastapi import FastAPI
+ModuleNotFoundError: No module named 'fastapi'
+
+--- 3) 前端无 node_modules 执行 npm run build ---
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+node.exe : 'tsc' is not recognized as an internal or external command,
+所在位置 行:1 字符: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ('tsc' is not re...ternal command,:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+operable program or batch file.
+exit=1
+
+--- 4) 项目自带预检：start-local.ps1 在缺少 node 时 ---
+方法: 子进程中从 PATH 移除 nodejs 目录后执行 scripts/start-local.ps1 -NoBrowser
+powershell : Missing command: node
+所在位置 C:\Users\Yezidan\AppData\Local\Temp\genie-ps-1794811129826-w4znf7.ps1:954 字符: 28
++ ... CampusLoop; powershell -NoProfile -ExecutionPolicy Bypass -File "$env ...
+
+--- 5) 安装命令出处（README）---
+README.md:9: 在仓库根目录运行，首次运行前安装 Docker Desktop、Python、Node，并在 `frontend` 执行 `npm ci`：
+README.md:48: & $python -m pip install -r backend/requirements.txt
+README.md:49: npm ci --prefix frontend

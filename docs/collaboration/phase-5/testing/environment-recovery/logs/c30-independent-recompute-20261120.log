@@ -1,0 +1,119 @@
+T3-C30 智能基线与数据门禁独立复算 — 原始输出
+执行时间：2026-11-20
+材料检出：c090ce4db7b5f4f2e6f63be77eedad2b233e937a（本地 work/local/environment-recovery-merged，含 main 合并内容）
+PR 分支检出：cb53ce5058115a3e0873cd403ca1f0357a3918e1（work/testing/environment-recovery，仅新增测试交付物）
+Python：Python 3.13.7
+说明：step 2 的 gate_check 退出码 3 表示存在 NO_GO 原因，不是脚本报错；step 1 的
+--review-archive 指向人工审核归档，未使用合成标签顶替。
+
+==============================================================================
+1. 基线评估重算（带人工审核归档，输出目录须为空，执行前已清空）
+$ cd C:/Projects/CampusLoop
+$ python -m services.m7_baseline.evaluate --output-dir .codex-tmp/c30-baseline-reviewed --review-archive docs/evidence/phase-5/intelligence/human-review/20261018-kkkkrui-v1/archive
+[exit 0]
+------------------------------------------------------------------------------
+{"status": "DIAGNOSTIC_ONLY", "requestCount": 38, "humanReviewedPairs": 228, "labelSource": "HUMAN_REVIEWED_UNSEALED"}
+
+==============================================================================
+2. 资产哈希 + 指标字节一致性复核
+$ cd C:/Projects/CampusLoop
+$ python logs/c30-recompute-check.py --root . --recomputed .codex-tmp/c30-baseline-reviewed
+[exit 0]
+------------------------------------------------------------------------------
+datasetVersion=m7-synthetic-p2-v1.1 assets=17 verified=20 failed=0
+identical metrics-all.json
+identical metrics-dev.json
+identical metrics-test_candidate.json
+C30_RESULT:PASS
+
+==============================================================================
+3. 数据/模型门禁核对
+$ cd C:/Projects/CampusLoop
+$ python scripts/intelligence_phase2/gate_check.py
+[exit 3]
+------------------------------------------------------------------------------
+{
+  "capabilities": [
+    {
+      "capability": "semantic-search",
+      "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+      "reasons": [
+        "DATASET_NOT_FROZEN",
+        "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+        "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+        "APPROVAL_MISSING_M1",
+        "APPROVAL_MISSING_M10",
+        "APPROVAL_MISSING_M7"
+      ],
+      "registration": "NO_GO"
+    },
+    {
+      "capability": "supply-demand-matching",
+      "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+      "reasons": [
+        "DATASET_NOT_FROZEN",
+        "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+        "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+        "APPROVAL_MISSING_M1",
+        "APPROVAL_MISSING_M10",
+        "APPROVAL_MISSING_M7"
+      ],
+      "registration": "NO_GO"
+    },
+    {
+      "capability": "price-model",
+      "modelDecision": "NO_GO_PENDING_EFFECT_AND_FALLBACK_EVIDENCE",
+      "reasons": [
+        "DATASET_NOT_FROZEN",
+        "REVIEWED_LABEL_COUNT_INSUFFICIENT",
+        "PERFORMANCE_ENVIRONMENT_NOT_CONFIRMED",
+        "APPROVAL_MISSING_M1",
+        "APPROVAL_MISSING_M10",
+        "APPROVAL_MISSING_M8"
+      ],
+      "registration": "NO_GO"
+    }
+  ],
+  "deploymentAuthorized": false,
+  "policyVersion": "model-gates-candidate-v1.1"
+}
+
+==============================================================================
+4. 资产与标签核对
+$ cd C:/Projects/CampusLoop
+$ python scripts/intelligence_phase2/asset_check.py
+[exit 0]
+------------------------------------------------------------------------------
+{
+  "files": {
+    "manifest.json": "197e3fddfb4373d325bf66fd5d7c7f6dc426510b6c6cfe18972763cf54251877",
+    "metrics.json": "618ed35fcd9a9e77306b8c51c615dc9ba3eed9613126af67c5e3d3e332ecfe5d",
+    "price-evaluation.jsonl": "74b73658aa5eeb7a72c8ca9faa683b9a29f8ea772279212f022e0ffdcd4ae0da"
+  },
+  "manifest": {
+    "datasetVersion": "m8-price-eval-v1",
+    "eligibleL3Count": 0,
+    "inputs": {
+      "price-samples.jsonl": "42bb1f978f5d96c531515580bc0b0c1b07103c65c3759b5fb1676f9bbbc5cc09",
+      "source-register.json": "5178fc174cbc2750c8298e55ac3ffee292d3ee2f7c5534d34515e6cb63241fe3"
+    },
+    "recordCount": 12,
+    "ruleVersion": "price-rule-v1.0-phase2",
+    "schemaVersion": "m8-price-raw-v1"
+  },
+  "metrics": {
+    "boundsValidRate": 1.0,
+    "datasetVersion": "m8-price-eval-v1",
+    "intervalCoverage": null,
+    "labelLevel": "L0_SYNTHETIC",
+    "maeFen": null,
+    "mape": null,
+    "predictionMetrics": "NOT_EVALUATED",
+    "reason": "No eligible L3 completed-transaction labels; listing prices are never used as truth.",
+    "recordCount": 12,
+    "ruleCoverage": 0.9166666666666666,
+    "statusConformance": 1.0
+  },
+  "readOnly": true,
+  "status": "PASS"
+}
