@@ -90,3 +90,39 @@
 结论：未执行
 
 > 说明：任何“修复”都不得以删除数据卷或重置数据库完成；若因数据损坏必须重建，需在本文记录原始证据与重建理由，并同步 `defects.md`。
+
+---
+
+## 演练记录（2026-11-20，软件 `5e0d982c9fa0324ff53bf069eb267737873371fd`）
+
+环境：审计环境 campusloop-environment-run1-audit（独立库/Redis DB15/独立桶）
+
+### 正常停止与启动（C08）
+
+| 项 | 实测 |
+|---|---|
+| 停止命令 | `audit_env.py stop --namespace environment`（compose stop，保留卷） |
+| 停止耗时 | 3.2s，全部容器退出 |
+| 启动耗时 | 22.4s，容器 healthy 后可访问 |
+| 数据核对 | 商品 RESERVED、订单 PENDING_CONFIRM、举报 1、通知 4、消息 3 全部保留 |
+| 媒体核对 | 商品图 694B、头像 4726B、聊天图 773B 均 200，字节数与重启前一致 |
+
+### 第二次重启（C09）
+
+第二轮写入消息 5 与新商品 3 后再次停启（26.5s）。重启后消息计数保持 4、新商品可读、第二轮消息存在、举报与通知计数不变。
+
+### 迁移升级与回滚（C11）
+
+`alembic current` 0013 → `downgrade -1` 至 0012 → `upgrade head` 回 0013；回滚后 `verify_restore.py` 计数（users=4、products=2）与升级前一致。0013 的 downgrade 在存在重复举报时会拒绝执行，本次无重复数据。
+
+### 数据库备份与恢复（C26/C28）
+
+`pg_dump` 自定义格式 116109B；恢复到全新库 `campusloop_t3_restore_1` 后 users=4、products=2、alembic=0013，与源库一致。截断到 50000B 的备份 `pg_restore` 报 `could not read from input file: end of file` 并退出非 0，目标库 0 张表（无半恢复残留），源库 users 仍为 4。
+
+### 媒体恢复（C27）
+
+两个桶共 4 个对象备份到容器内 `/tmp/backup-public`、`/tmp/backup-private`。删除商品图后该 URL 返回 404；从备份 mirror 回桶后恢复 200。私有对象仍只能通过鉴权接口读取。
+
+### 重启后治理回看（C35）
+
+禁用买家账号并处理举报 3 后重启：管理员登录 200、被禁用账号仍为 DISABLED 且登录返回 423、举报 3 的处理结果仍在 RESOLVED 队列。
