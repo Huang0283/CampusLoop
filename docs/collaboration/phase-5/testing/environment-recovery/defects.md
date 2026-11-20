@@ -7,6 +7,20 @@
 |---|---|---|---|---|---|---|---|
 |  |  |  |  |  |  |  |  |
 
+## 已核查、不判缺陷
+
+| 项目 | 关联用例 | 结论 | 依据 | 受影响接口与用户行为 | 覆盖方式 |
+|---|---|---|---|---|---|
+| 媒体服务不可达时 `/health` 与 `/ready` 仍返回 ok | C04 | 符合当前探针契约范围，不登记缺陷 | `backend/app/api/routes/system.py` 的 `collect_dependency_status()` 只收集 `database` 与 `redis`，未包含对象存储；`openapi/campusloop.v1.yaml` 的 HealthResponse 亦未约定媒体项，实现与契约一致。媒体可用性由业务接口表达：`app/services/storage.py` 上传失败与 `app/api/routes/media.py` 读取私有图片失败均抛 `503 STORAGE_UNAVAILABLE` | 受影响：`POST /uploads/images`、`GET /chat/messages/{messageId}/image`、`GET /avatars/image`、`GET /admin/reports/{reportId}/evidence/{imageIndex}` 返回 503；用户表现为上传图片失败、聊天图片/头像/举报证据无法加载。不受影响：浏览商品、文字消息、报价、下单、评价 | C10（重启后图片可读）与 C27（媒体恢复及范围）用真实图片请求覆盖媒体可用性 |
+
+判为范围限制而非缺陷的理由：
+
+1. 健康探针的职责是判断“该实例能否接流量”。对象存储属外部依赖，若纳入 `/ready`，媒体故障会让所有 API 实例同时 503 并被编排层摘流，把“图片打不开”放大为“整站不可用”。
+2. 契约层未承诺媒体参与健康检查，实现与契约一致，不构成“实现偏离契约”的缺陷要件。
+3. 媒体故障有可断言的外部表现（503 `STORAGE_UNAVAILABLE`），并非静默失败。
+
+可选改进（不在本 PR 范围，建议另开 Issue）：为对象存储增加独立探针，或为 `/health` 增加 `media` 依赖项并同步更新 openapi 契约；该项一旦实施，C04 的期望与本文结论需同步修订。
+
 ## 登记规则
 
 - 一行一个缺陷，ID 形如 `T3-DEF-01`；与 Issue 编号对应时写真实 Issue 编号，不用占位编号。

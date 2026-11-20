@@ -37,6 +37,35 @@
 `workerVersion = bp4-worker-runtime-v1`，与 API 同镜像。证据见 `logs/c05-code-identity-20261116.log`；
 `d063588` 基线的首轮取证见 `logs/c05-code-identity.log`。
 
+### 基线适用性（复核至 `5e0d982`，2026-11-20）
+
+`main` 在 `f1885ba` 之后前进到 `5e0d982`（`9713c8c` → `acb338f` → `5e0d982`，其中 `acb338f` 已被 `5e0d982` revert）。两点差异的净改动只有 6 个文件，**不含** `backend/app/api/routes/` 与 `backend/alembic/versions/`：
+
+| 用例 | 结论是否受新基线影响 | 依据 |
+|---|---|---|
+| C01 缺依赖提示 | 否，仍适用 | 结论只取决于依赖清单与报错来源（`fastapi`、`tsc`、`node`），净差异未触及 |
+| C02 空库迁移 | 否，仍适用 | 净差异无新增迁移，`0013_open_report_uniqueness` 仍是 head |
+| C03 种子幂等 | 否，仍适用 | `backend/scripts/seed.py` 未变 |
+| C04 健康与就绪 | 否，仍适用 | `app/api/routes/system.py` 未变，依赖清单仍为 database + redis |
+| C05 界面/接口/Worker 版本一致 | 是，已在 `5e0d982` 上复核 | 详见下段 |
+| C07 端口占用明确失败 | 否，仍适用 | 结论取决于启动脚本与端口绑定，与业务代码无关 |
+| C22 SDK 无漂移 | 否，仍适用 | `openapi/campusloop.v1.yaml` 与前端 SDK 产物未变 |
+| C23 Cookie 与 CORS 契约 | 否，仍适用 | `app/api/routes/auth.py` 净差异为零（`acb338f` 的改动已被 revert） |
+| C24 日志不泄漏 | 否，仍适用 | 日志实现（`app/core/logging.py`）与消息接口未变 |
+
+**C05 复核（`5e0d982`）**：按 `f1885ba` 首轮相同的文件口径，在 `5e0d982` 检出内容上重算四项身份文件 sha256，结果与既有记录逐项一致：
+
+| 文件 | `f1885ba` 记录 | `5e0d982` 实测 | 是否一致 |
+|---|---|---|---|
+| `backend/app/main.py` | `89ecf555…` | `89ecf555…` | 一致 |
+| `backend/app/api/routes/admin_console.py` | `94ad95bb…` | `94ad95bb…` | 一致 |
+| `backend/app/api/routes/auth.py` | `4961e25b…` | `4961e25b…` | 一致 |
+| `backend/alembic/versions/0013_open_report_uniqueness.py` | `bc70676d…` | `bc70676d…` | 一致 |
+
+注意净差异改的是 `backend/app/services/admin_console.py`（`+1` 行，T2 订单搜索），与 C05 核对的 `api/routes/admin_console.py` 不是同一文件，因此不改变 C05 的身份结论。
+
+仍待补：容器侧完整重跑（`5e0d982` 构建镜像 → 容器内 `sha256sum` → `/openapi.json` 的 `info.version` → Worker `/healthz` 的 `workerVersion`）。本次复核时 Docker daemon 未运行，容器侧无法执行，**不以仓库侧一致代替容器侧通过**，该步骤在 Docker 环境恢复后补记。
+
 ## 隔离约束核对
 
 - [x] 写入类验证使用独立审计数据库 `campusloop_t3_audit`，未使用日常库 `campusloop`
@@ -65,6 +94,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1 -NoB
 | 限制 | 影响用例 | 替代方案 | 是否已记阻塞 |
 |---|---|---|---|
 | Docker 构建容器内无法访问 `github.com:443`，MinIO 镜像无法现场重建 | 无（用等价镜像打标签） | 复用同 tag 同版本的本地镜像 | 否 |
-| `/health` 与 `/ready` 只探测 database 与 redis，媒体服务不在探测范围 | C04 | 媒体在 C04 中只记录为范围限制；媒体可用性由 C10（重启后图片可读）与 C27（媒体恢复及范围）用真实图片请求覆盖 | 否（范围限制，非缺陷） |
+| `/health` 与 `/ready` 只探测 database 与 redis，媒体服务不在探测范围 | C04 | 媒体在 C04 中只记录为范围限制；媒体可用性由 C10（重启后图片可读）与 C27（媒体恢复及范围）用真实图片请求覆盖 | 否（范围限制，非缺陷）；判定依据与受影响接口见 `defects.md` 的「已核查、不判缺陷」 |
 | 无独立审计栈，审计库与日常库同实例 | C19–C30 | 审计库为独立库名，写操作只作用于 `campusloop_t3_audit`；并发与备份类用例执行前逐条复核 `DATABASE_URL` | 否 |
 | 审计库随基线变更重建 | C02–C05、C19–C30 | 重建前数据仅来自种子与自测写入，无他人数据；重建后立即执行 C02 迁移到 `0013` | 否 |
