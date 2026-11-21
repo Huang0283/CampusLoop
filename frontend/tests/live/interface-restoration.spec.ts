@@ -289,7 +289,7 @@ test('M2 form controls have accessible names', async ({ page }) => {
 
   for (const path of paths) {
     await page.goto(path)
-    await expect(page.locator('.ant-form').first()).toBeVisible()
+    await expect(page.locator('.ant-form').first(), `${path} must render a visible form`).toBeVisible()
 
     const controls = page.locator(
       '.ant-form input:not([type="hidden"]), .ant-form textarea, ' +
