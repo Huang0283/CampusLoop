@@ -25,7 +25,7 @@ jobs:
       - name: Read the fixed software baseline separately from test materials
         uses: actions/checkout@v4
         with:
-          ref: 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3
+          ref: 9713c8cc1adcf23b8214a29128ef00ca3362332c
           path: .codex-tmp/t1-software
       - uses: actions/setup-python@v5
         with:
