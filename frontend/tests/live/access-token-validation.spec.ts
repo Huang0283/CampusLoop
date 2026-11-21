@@ -5,7 +5,7 @@ const user = { id: 501, nickname: '会话测试同学', role: 'USER', status: 'A
 
 for (const width of [1440, 390]) {
   for (const scenario of ['expired', 'forged', 'revoked-cookie'] as const) {
-    test(`${scenario} credentials at ${width}px renew only verified expiry (contract fixture)`, async ({ page }) => {
+    test(`${scenario} credentials at ${width}px require sign-in (contract fixture)`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 })
       let sessions = 0, profiles = 0
       const unexpected: string[] = []
@@ -26,16 +26,10 @@ for (const width of [1440, 390]) {
         return route.fulfill({ status: 501 })
       })
       await page.goto('/profile')
-      if (scenario === 'expired') {
-        await expect(page.getByRole('heading', { name: '个人资料', exact: true })).toBeVisible()
-        await expect(page.getByRole('button', { name: '保存资料', exact: true })).toBeVisible()
-        expect(profiles).toBe(2)
-      } else {
-        await expect(page).toHaveURL(/\/login$/)
-        await expect(page.getByRole('heading', { name: '欢迎回来', exact: true })).toBeVisible()
-        expect(profiles).toBe(1)
-      }
-      expect(sessions).toBe(scenario === 'forged' ? 1 : 2)
+      await expect(page).toHaveURL(/\/login$/)
+      await expect(page.getByRole('heading', { name: '欢迎回来', exact: true })).toBeVisible()
+      expect(profiles).toBe(1)
+      expect(sessions).toBe(1)
       expect(unexpected).toEqual([])
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
     })
@@ -73,7 +67,7 @@ test('an explicit foreign credential cannot be renewed with the current login co
   expect(sessions).toBe(1)
 })
 
-test('parallel expired requests share one renewal (contract fixture)', async ({ page }) => {
+test('parallel expired requests reject without renewal (contract fixture)', async ({ page }) => {
   let sessions = 0, profiles = 0
   let release: (() => void) | undefined
   const bothExpired = new Promise<void>(resolve => { release = resolve })
@@ -99,10 +93,10 @@ test('parallel expired requests share one renewal (contract fixture)', async ({ 
   const ids = await page.evaluate(async () => {
     const modulePath = performance.getEntriesByType('resource').find(entry => new URL(entry.name).pathname === '/src/sdk/index.ts')!.name
     const sdk = await import(/* @vite-ignore */ modulePath)
-    const results = await Promise.all([sdk.getCurrentUser(), sdk.getCurrentUser()])
-    return results.map(result => result.data.id)
+    const results = await Promise.allSettled([sdk.getCurrentUser(), sdk.getCurrentUser()])
+    return results.map(result => result.status)
   })
-  expect(ids).toEqual([user.id, user.id])
-  expect(sessions).toBe(2)
-  expect(profiles).toBe(4)
+  expect(ids).toEqual(['rejected', 'rejected'])
+  expect(sessions).toBe(1)
+  expect(profiles).toBe(2)
 })
