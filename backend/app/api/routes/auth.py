@@ -173,7 +173,13 @@ def refresh(body: RefreshRequest, response: Response, db: Db):
 
 @router.post("/auth/browser-session", operation_id="restoreBrowserSession")
 def restore_browser(body: BrowserSessionRequest, request: Request, response: Response, db: Db):
+    # A supplied credential must be valid even when a browser cookie is valid.
+    supplied = None
+    if request.headers.get("Authorization") is not None:
+        supplied = authenticate(db, bearer(request))
     user, family = browser_session(db, request)
+    if supplied is not None and (supplied[0].id != user.id or supplied[1].id != family.id):
+        raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session identity mismatch.")
     refresh_window(family)
     result = ok({**browser_access(user, family), "user": private_user(db, user)})
     audit(db, "browser_session_restored", user.id)

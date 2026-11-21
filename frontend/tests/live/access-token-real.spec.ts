@@ -50,13 +50,7 @@ print(jwt.encode(claims, signing_key(), algorithm='HS256', headers={'kid': s.aut
       await page.getByRole('menuitem', { name: '个人中心', exact: true }).click()
       const response = await denied
       expect((await response.json()).code).toBe(scenario === 'expired' ? 'AUTH_ACCESS_EXPIRED' : 'AUTH_UNAUTHORIZED')
-      if (scenario === 'expired') {
-        await expect(page.getByRole('heading', { name: '个人资料', exact: true })).toBeVisible()
-        await expect(page.getByRole('button', { name: '保存资料', exact: true })).toBeVisible()
-        expect(renewals).toBe(1)
-        await page.reload()
-        await expect(page.getByRole('heading', { name: '个人资料', exact: true })).toBeVisible()
-      } else {
+      {
         await expect(page).toHaveURL(/\/login$/)
         await expect(page.getByRole('heading', { name: '欢迎回来', exact: true })).toBeVisible()
         expect(renewals).toBe(0)

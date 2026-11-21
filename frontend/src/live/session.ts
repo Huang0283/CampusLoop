@@ -47,7 +47,7 @@ if (typeof window !== 'undefined') {
     useSession.setState({ user: null, appealToken: details.appealToken, disabledNotice: true })
   })
   window.addEventListener('campusloop-session-expired', () => useSession.getState().clear())
-  for (const key of ['token', 'role', 'userId', 'nickname', 'avatar', 'campusVerified', 'school', 'college', 'major', 'bio']) {
+  for (const key of ['role', 'userId', 'nickname', 'avatar', 'campusVerified', 'school', 'college', 'major', 'bio']) {
     localStorage.removeItem(key)
   }
 }
