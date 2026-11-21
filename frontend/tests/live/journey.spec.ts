@@ -4,12 +4,14 @@ import { randomUUID } from 'node:crypto'
 
 const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNkYPjPwMDAxMDAwMDAAAALHwEDmIWXfgAAAABJRU5ErkJggg==', 'base64')
 async function register(page: Page, name: string) {
+  const email = `ui-${randomUUID()}@example.invalid`
   await page.goto('/register')
-  await page.getByLabel('校园邮箱', { exact: true }).fill(`ui-${randomUUID()}@example.invalid`)
+  await page.getByLabel('校园邮箱', { exact: true }).fill(email)
   await page.getByLabel('昵称', { exact: true }).fill(name)
   await page.getByLabel('密码', { exact: true }).fill('Valid@12345')
   await page.getByRole('button', { name: '注册并登录', exact: true }).click()
   await expect(page).toHaveURL(/\/market$/)
+  return email
 }
 
 test('real two-account browser transaction; no database editing', async ({ browser }) => {
@@ -225,23 +227,29 @@ test('guest browse, failure recovery, secure reload restoration, logout and fixe
   await page.unroute('**/products**')
   await page.getByRole('button', { name: /重\s*试/ }).click()
   await expect(page.getByRole('button', { name: /重\s*试/ })).not.toBeVisible()
-  await register(page, 'Reload test')
+  const email = await register(page, 'Reload test')
   await page.reload()
   await expect(page.getByText('Reload test', { exact: true })).toBeVisible()
   await page.goto('/profile')
   await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
   await page.reload()
   await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
+  let renewals = 0
+  page.on('request', request => { if (request.url().endsWith('/auth/browser-session')) renewals += 1 })
   let expired = false
   await page.route('**/users/me', (route) => {
     if (!expired) { expired = true; return route.fulfill({ status: 401, json: { code: 'AUTH_ACCESS_EXPIRED', message: 'Expired fixture', requestId: 'safe-test' } }) }
     return route.continue()
   })
   await page.getByRole('menuitem', { name: '市场' }).click()
-  const renewed = page.waitForResponse((response) => response.url().endsWith('/auth/browser-session') && response.status() === 200)
   await page.getByRole('button', { name: '账号菜单：Reload test', exact: true }).hover()
   await page.getByRole('menuitem', { name: '个人中心' }).click()
-  await renewed
+  await expect(page).toHaveURL(/\/login$/)
+  expect(renewals).toBe(0)
+  await page.unroute('**/users/me')
+  await page.getByLabel('校园邮箱', { exact: true }).fill(email)
+  await page.getByLabel('密码', { exact: true }).fill('Valid@12345')
+  await page.getByRole('button', { name: '登录', exact: true }).click()
   await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible()
   await expect(page.getByRole('button', { name: '保存资料' })).toBeVisible()
   await page.unroute('**/users/me')
@@ -276,18 +284,19 @@ test('another tab changing account cannot retry an old request as the new user',
   await register(page, 'Original account')
   const other = await context.newPage()
   await register(other, 'Changed account')
+  let renewals = 0
+  page.on('request', request => { if (request.url().endsWith('/auth/browser-session')) renewals += 1 })
   let attempts = 0
   await page.route('**/users/me', (route) => {
     attempts += 1
     return route.fulfill({ status: 401, json: { code: 'AUTH_ACCESS_EXPIRED', message: 'Expired fixture', requestId: 'safe-test' } })
   })
   await page.getByText('Original account', { exact: true }).hover()
-  const renewed = page.waitForResponse((response) => response.url().endsWith('/auth/browser-session') && response.status() === 200)
   await page.getByRole('menuitem', { name: '个人中心' }).click()
-  await renewed
   await expect(page).toHaveURL(/\/login$/)
   await expect(page.getByRole('heading', { name: '欢迎回来', exact: true })).toBeVisible()
   expect(attempts).toBe(1)
+  expect(renewals).toBe(0)
   await page.unroute('**/users/me')
   await page.reload()
   await page.getByRole('link', { name: '先逛逛 →', exact: true }).click()

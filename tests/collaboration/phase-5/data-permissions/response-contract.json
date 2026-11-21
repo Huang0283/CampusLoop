@@ -1,5 +1,5 @@
 {
-  "openapiSha256": "e58b64e207cde6e15e83776bad804f027a70d2b9e714324b0399ad20f7d40ffc",
+  "openapiSha256": "7f3bab44f0cb7609d3fd282172f636db8434a9becfc492e2b060bd2e1de51ab2",
   "hashNormalization": "UTF-8, universal newlines to LF",
   "schemas": {
     "ProductListResponse": {

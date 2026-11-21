@@ -40,7 +40,7 @@ test('account evidence stays visible while copied thumbnail and repeated preview
   }
 })
 
-test('ordinary account records renew an expired login session (contract fixture)', async ({ page }) => {
+test('expired account-record credentials require sign-in without renewal (contract fixture)', async ({ page }) => {
   let sessions = 0
   const unexpected: string[] = []
   await routeApiFixture(page, route => {
@@ -59,9 +59,9 @@ test('ordinary account records renew an expired login session (contract fixture)
     return route.fulfill({ status: 501 })
   })
   await page.goto('/account/decisions')
-  await expect(page.getByRole('heading', { name: '账号处理记录', exact: true })).toBeVisible()
-  await expect(page.getByText('商品信息违规', { exact: true })).toBeVisible()
-  expect(sessions).toBe(2)
+  await expect(page).toHaveURL(/\/login$/)
+  await expect(page.getByRole('heading', { name: '欢迎回来', exact: true })).toBeVisible()
+  expect(sessions).toBe(1)
   expect(unexpected).toEqual([])
 })
 
@@ -105,7 +105,7 @@ for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 960 })
     await page.goto('/notifications')
     await expect(page.locator('.app-notification-bell .ant-badge-count')).toHaveText('1')
-    await page.getByRole('button', { name: /^查\s*看$/ }).click()
+    await page.getByRole('listitem', { name: /账号违规警告/ }).click()
     await expect(page).toHaveURL(/\/account\/decisions\/701$/)
     await expect(page.getByText('发布信息与商品不符', { exact: true })).toBeVisible()
     await page.getByLabel('申诉说明', { exact: true }).fill('商品描述已经更正，请重新核实。')
@@ -118,7 +118,7 @@ for (const width of [1440, 390]) {
     role = 'ADMIN'; noticeRead = false
     await page.goto('/admin/notifications')
     await expect(page.locator('.adm-top .ant-badge-count')).toHaveText('1')
-    await page.getByRole('button', { name: /^查\s*看$/ }).click()
+    await page.getByRole('listitem', { name: /收到账号申诉/ }).click()
     const dialog = page.getByRole('dialog', { name: '账号申诉复核', exact: true })
     await expect(dialog.getByText('商品描述已经更正，请重新核实。', { exact: true })).toBeVisible()
     await dialog.getByLabel('复核结论', { exact: true }).click()
