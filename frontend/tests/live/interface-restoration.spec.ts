@@ -267,6 +267,7 @@ test('M2 form controls have accessible names', async ({ page }) => {
   await page.route('**/orders/1001', route => route.fulfill({
     json: { data: { ...order, status: 'COMPLETED' } },
   }))
+  await page.route('**/orders/1001/reviews', route => route.fulfill({ json: { data: [] } }))
 
   const paths = [
     '/login',
