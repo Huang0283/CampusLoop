@@ -1,0 +1,210 @@
+{
+  "softwareSha": "9713c8cc1adcf23b8214a29128ef00ca3362332c",
+  "api": "http://127.0.0.1:18025",
+  "ui": "http://127.0.0.1:5185",
+  "stats": {
+    "startTime": "2026-11-17T13:27:38.222Z",
+    "duration": 136227.003,
+    "expected": 13,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "title": "real API expired credential at 1440px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 9020
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "real API forged credential at 1440px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 4648
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "real API logout credential at 1440px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 5652
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "real API expired credential at 390px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 7030
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "real API forged credential at 390px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 5050
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "real API logout credential at 390px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 6201
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "real two-account browser transaction; no database editing",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 37589
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "guest browse, failure recovery, secure reload restoration, logout and fixed navigation",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 9508
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "mobile navigation and empty-state filter recovery",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 3085
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "another tab changing account cannot retry an old request as the new user",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 11464
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "administrator uploads, saves and reloads a private avatar on desktop and mobile",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 8679
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "private avatar and chat image persist without guest access at 1440px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 11983
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "private avatar and chat image persist without guest access at 390px",
+      "ok": true,
+      "tests": [
+        {
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "duration": 12247
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

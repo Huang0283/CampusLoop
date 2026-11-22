@@ -24,3 +24,8 @@
 软件 SHA：`3b0b333af6ae5a26272ef62b3954f14e293b56d6`。实际导入/拒绝/阻塞数量以 `runtime-evidence.json` 为准，静态行数不代表执行成功数。对应 PR #142，目标 `team/testing`，未合并 main。
 
 以上 SHA/运行证据属于原始包的历史验证。PR #148 的新增材料不沿用旧证据声称业务通过；当前软件、数据 commit、可选扩展和接收步骤见 [admin-search-handoff.md](admin-search-handoff.md)。
+
+
+## 2026-11-17 增量
+
+本次执行和剩余边界以 [收尾证据](evidence/2026-11-17/README.md) 为准：62个真实HTTP检查、13个浏览器场景、42项集成回归通过；Q33五种查询及分页通过。C36阻塞，C47部分通过，历史无证据结果待验证；模型效果NOT_EVALUATED，非作者接收待完成。旧段落为历史状态，不覆盖历史。

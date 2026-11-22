@@ -1,0 +1,29 @@
+{
+  "static": {
+    "inputs": {
+      "accounts": 8,
+      "products": 60,
+      "wanted": 12,
+      "invalid-inputs": 24,
+      "mock-responses": 20,
+      "search-checks": 30,
+      "price-checks": 24,
+      "trust-risk-checks": 12,
+      "scenario-inputs": 12
+    },
+    "additionalInputs": {
+      "admin-search-products": 10,
+      "search-checks-admin-v2": 12,
+      "admin-list-checks": 8,
+      "admin-scenario-inputs": 8
+    },
+    "media": 12,
+    "schemaRejected": 22,
+    "semanticNegativesNotExecuted": 2,
+    "mockSchemas": 20,
+    "ruleChecks": 36,
+    "transportUnavailableNotExecuted": 3,
+    "permissionCasesDefined": 48,
+    "permissionCasesNotExecutedByThisCheck": 48
+  }
+}

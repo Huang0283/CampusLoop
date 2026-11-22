@@ -1,0 +1,954 @@
+{
+  "executedAt": "2026-11-17T13:33:59.543520+00:00",
+  "softwareSha": "9713c8cc1adcf23b8214a29128ef00ca3362332c",
+  "api": "http://127.0.0.1:18025",
+  "namespace": "permission/run2",
+  "executor": "Codex on user request; independent human review pending",
+  "outcome": "passed",
+  "records": [
+    {
+      "case": "setup",
+      "role": "A",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "B",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "D",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "R",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "S",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "C12",
+      "role": "A",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 174,
+        "status": "ACTIVE"
+      },
+      "input": {}
+    },
+    {
+      "case": "C12",
+      "role": "A",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 174,
+        "status": "ACTIVE"
+      },
+      "input": {}
+    },
+    {
+      "case": "C12",
+      "role": "A",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 401,
+      "code": "AUTH_ACCESS_EXPIRED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C12",
+      "role": "A",
+      "method": "GET",
+      "path": "/orders",
+      "status": 401,
+      "code": "AUTH_ACCESS_EXPIRED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C12",
+      "role": "A",
+      "method": "PATCH",
+      "path": "/users/me",
+      "status": 401,
+      "code": "AUTH_ACCESS_EXPIRED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {
+        "bio": "must-not-save"
+      }
+    },
+    {
+      "case": "C34",
+      "role": "A",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 401,
+      "code": "AUTH_UNAUTHORIZED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C34",
+      "role": "A",
+      "method": "GET",
+      "path": "/orders",
+      "status": 401,
+      "code": "AUTH_UNAUTHORIZED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C34",
+      "role": "A",
+      "method": "PATCH",
+      "path": "/users/me",
+      "status": 401,
+      "code": "AUTH_UNAUTHORIZED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {
+        "bio": "must-not-save"
+      }
+    },
+    {
+      "case": "C34",
+      "role": "A",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 174,
+        "status": "ACTIVE"
+      },
+      "input": {}
+    },
+    {
+      "case": "C39",
+      "role": "R",
+      "method": "PATCH",
+      "path": "/admin/users/2/status",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        400,
+        403,
+        404,
+        409
+      ],
+      "pass_": true,
+      "input": {
+        "status": "DISABLED"
+      }
+    },
+    {
+      "case": "C39",
+      "role": "R",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 2,
+        "status": "ACTIVE"
+      },
+      "input": {}
+    },
+    {
+      "case": "C39",
+      "role": "R",
+      "method": "PATCH",
+      "path": "/admin/users/3/status",
+      "status": 404,
+      "code": "NOT_FOUND",
+      "expected": [
+        400,
+        403,
+        404,
+        409
+      ],
+      "pass_": true,
+      "input": {
+        "status": "DISABLED"
+      }
+    },
+    {
+      "case": "C39",
+      "role": "S",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 3,
+        "status": "ACTIVE"
+      },
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "disabled-target",
+      "method": "POST",
+      "path": "/auth/register",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "C09",
+      "role": "R",
+      "method": "PATCH",
+      "path": "/admin/users/177/status",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 177,
+        "status": "DISABLED"
+      },
+      "input": {
+        "status": "DISABLED"
+      }
+    },
+    {
+      "case": "C09",
+      "role": "Z",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 423,
+      "code": "ACCOUNT_DISABLED",
+      "expected": [
+        423,
+        403
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C09",
+      "role": "Z",
+      "method": "GET",
+      "path": "/orders",
+      "status": 423,
+      "code": "ACCOUNT_DISABLED",
+      "expected": [
+        401,
+        403,
+        423
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C41",
+      "role": "R",
+      "method": "PATCH",
+      "path": "/admin/users/177/status",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 177,
+        "status": "ACTIVE"
+      },
+      "input": {
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "case": "C41",
+      "role": "Z-old",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 401,
+      "code": "AUTH_UNAUTHORIZED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C41",
+      "role": "Z-new",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "A",
+      "method": "POST",
+      "path": "/uploads/images",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "A",
+      "method": "POST",
+      "path": "/uploads/images",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "A",
+      "method": "POST",
+      "path": "/uploads/images",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "setup",
+      "role": "A",
+      "method": "POST",
+      "path": "/uploads/images",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "C46",
+      "role": "A",
+      "method": "PATCH",
+      "path": "/users/me",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 174,
+        "status": "ACTIVE"
+      },
+      "input": {}
+    },
+    {
+      "case": "C46",
+      "role": "A",
+      "method": "PATCH",
+      "path": "/users/me",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        403,
+        422
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C46",
+      "role": "A",
+      "method": "PATCH",
+      "path": "/users/me",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        403,
+        422
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C46",
+      "role": "A",
+      "method": "PATCH",
+      "path": "/users/me",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        403,
+        422
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C46",
+      "role": "A",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 174,
+        "status": "ACTIVE"
+      },
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "A",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 30,
+        "status": "ON_SALE",
+        "updatedAt": "2026-11-17T13:33:58.884657+00:00"
+      },
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "B",
+      "method": "POST",
+      "path": "/chat/sessions",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 16
+      },
+      "productId": 30,
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "B",
+      "method": "POST",
+      "path": "/chat/sessions/16/messages",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 17
+      },
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "B",
+      "method": "POST",
+      "path": "/chat/sessions/16/offers",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 8,
+        "amount": 40.0,
+        "status": "PENDING"
+      },
+      "input": {
+        "amount": 40
+      }
+    },
+    {
+      "case": "C47",
+      "role": "A",
+      "method": "POST",
+      "path": "/offers/8/accept",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {},
+      "order": {
+        "id": 8,
+        "productId": 30,
+        "amount": 40.0
+      }
+    },
+    {
+      "case": "C47",
+      "role": "D",
+      "method": "GET",
+      "path": "/orders/8",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        403,
+        404
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "D",
+      "method": "GET",
+      "path": "/chat/sessions/16/messages",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        403,
+        404
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "A",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 31,
+        "status": "ON_SALE",
+        "updatedAt": "2026-11-17T13:33:59.122068+00:00"
+      },
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "B",
+      "method": "POST",
+      "path": "/chat/sessions",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "id": 17
+      },
+      "productId": 31,
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "B",
+      "method": "POST",
+      "path": "/chat/sessions/17/messages",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 18
+      },
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "B",
+      "method": "POST",
+      "path": "/chat/sessions/17/offers",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 9,
+        "amount": 41.0,
+        "status": "PENDING"
+      },
+      "input": {
+        "amount": 41
+      }
+    },
+    {
+      "case": "C47",
+      "role": "A",
+      "method": "POST",
+      "path": "/offers/9/accept",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {},
+      "order": {
+        "id": 9,
+        "productId": 31,
+        "amount": 41.0
+      }
+    },
+    {
+      "case": "C47",
+      "role": "D",
+      "method": "GET",
+      "path": "/orders/9",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        403,
+        404
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C47",
+      "role": "D",
+      "method": "GET",
+      "path": "/chat/sessions/17/messages",
+      "status": 403,
+      "code": "FORBIDDEN",
+      "expected": [
+        403,
+        404
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C35",
+      "role": "A",
+      "method": "POST",
+      "path": "/chat/sessions/16/messages",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 19
+      },
+      "input": {}
+    },
+    {
+      "case": "C35",
+      "role": "A",
+      "method": "GET",
+      "path": "/chat/messages/19/image",
+      "status": 200,
+      "code": null,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C35",
+      "role": "B",
+      "method": "GET",
+      "path": "/chat/messages/19/image",
+      "status": 200,
+      "code": null,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C35",
+      "role": "D",
+      "method": "GET",
+      "path": "/chat/messages/19/image",
+      "status": 404,
+      "code": "NOT_FOUND",
+      "expected": [
+        404
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C35",
+      "role": "guest",
+      "method": "GET",
+      "path": "/chat/messages/19/image",
+      "status": 401,
+      "code": "AUTH_UNAUTHORIZED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C35",
+      "role": "guest",
+      "path": "private-storage-object",
+      "status": 403,
+      "pass_": true
+    },
+    {
+      "case": "C44",
+      "role": "A",
+      "method": "POST",
+      "path": "/products",
+      "status": 201,
+      "code": 0,
+      "expected": [
+        201
+      ],
+      "pass_": true,
+      "object": {
+        "id": 32,
+        "status": "ON_SALE",
+        "updatedAt": "2026-11-17T13:33:59.413539+00:00"
+      },
+      "input": {}
+    },
+    {
+      "case": "C44",
+      "role": "R",
+      "method": "POST",
+      "path": "/admin/products/32/moderation",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {
+        "moderationBlocked": true
+      },
+      "productId": 32,
+      "input": {
+        "hidden": true,
+        "expectedUpdatedAt": "2026-11-17T13:33:59.413539+00:00"
+      }
+    },
+    {
+      "case": "C44",
+      "role": "S",
+      "method": "POST",
+      "path": "/admin/products/32/moderation",
+      "status": 409,
+      "code": "PRODUCT_STALE",
+      "expected": [
+        409
+      ],
+      "pass_": true,
+      "input": {
+        "hidden": false,
+        "expectedUpdatedAt": "2026-11-17T13:33:59.413539+00:00"
+      }
+    },
+    {
+      "case": "C44",
+      "role": "guest",
+      "method": "GET",
+      "path": "/products/32",
+      "status": 404,
+      "code": "NOT_FOUND",
+      "expected": [
+        404
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C32",
+      "role": "D",
+      "method": "POST",
+      "path": "/auth/refresh",
+      "status": 200,
+      "code": 0,
+      "expected": [
+        200
+      ],
+      "pass_": true,
+      "object": {},
+      "input": {}
+    },
+    {
+      "case": "C32",
+      "role": "D",
+      "method": "POST",
+      "path": "/auth/logout",
+      "status": 204,
+      "code": null,
+      "expected": [
+        204
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C32",
+      "role": "D-old",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 401,
+      "code": "AUTH_UNAUTHORIZED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    },
+    {
+      "case": "C32",
+      "role": "D-rotated",
+      "method": "GET",
+      "path": "/users/me",
+      "status": 401,
+      "code": "AUTH_UNAUTHORIZED",
+      "expected": [
+        401
+      ],
+      "pass_": true,
+      "input": {}
+    }
+  ]
+}
