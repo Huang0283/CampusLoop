@@ -1,0 +1,30 @@
+=== C04 健康与就绪（基线变更后重跑）| 2026-11-16 14:22:29 ===
+被测软件 SHA: f1885ba416df2a255e06503c2393b7753ab723b9 (main)
+方法: 一次性审计容器 t3-audit-pg / t3-audit-redis / t3-audit-api@8011；日常栈与日常库不参与故障注入
+上轮基线 d063588 的同用例记录见 logs/c04-health-degraded.log
+
+--- 基线 ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+/ready  :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+
+--- 场景1 停止 Redis ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"ok","redis":"unavailable"}}}
+/ready  :: HTTP 503 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"ok","redis":"unavailable"}}}
+--- 恢复 Redis ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+
+--- 场景2 停止数据库 ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"unavailable","redis":"ok"}}}
+/ready  :: HTTP 503 :: {"code":0,"message":"ok","data":{"status":"degraded","dependencies":{"database":"unavailable","redis":"ok"}}}
+--- 恢复数据库 ---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+
+--- 场景3 媒体地址不可达（MINIO_ENDPOINT=minio-down:9000）---
+/health :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+/ready  :: HTTP 200 :: {"code":0,"message":"ok","data":{"status":"ok","dependencies":{"database":"ok","redis":"ok"}}}
+
+--- 场景4 Worker /healthz ---
+基线 DB 正常 :: HTTP 200 :: status=ok queue.reachable=True dbReachable=True
+/healthz 日常 worker 127.0.0.1:8002 :: HTTP 200
+DB 停止 5s :: HTTP 503 :: status=degraded queue.reachable=False dbReachable=False
+DB 恢复 10s :: HTTP 200 :: status=ok queue.reachable=True dbReachable=True

@@ -1,0 +1,29 @@
+=== C23 Cookie 与 CORS 契约 | 2026-11-16 14:52:54 ===
+被测软件 SHA: f1885ba416df2a255e06503c2393b7753ab723b9 (main)
+账号: seed 演示账号；Cookie 与令牌值一律脱敏，不入证据
+工具说明: HttpClient 关闭自动 Cookie 容器（UseCookies=false），避免客户端自动回放干扰判定
+
+--- 1) CORS 预检 ---
+Origin=http://127.0.0.1:5174 -> HTTP 200 Allow-Origin=http://127.0.0.1:5174 Allow-Headers=content-type,x-campusloop-browser
+Origin=http://localhost:5174 -> HTTP 400 Allow-Origin=(无) Allow-Headers=content-type,x-campusloop-browser
+Origin=http://evil.example -> HTTP 400 Allow-Origin=(无) Allow-Headers=content-type,x-campusloop-browser
+
+--- 2) 登录：合规 Origin + 自定义头 ---
+HTTP 200 | 响应字段: accessToken,expiresIn,user | 下发 Cookie 数: 1
+Set-Cookie: campusloop-local-session=<已脱敏>; HttpOnly; Max-Age=604799; Path=/; SameSite=strict
+Cookie 属性核对: HttpOnly=True Path=/=True SameSite=strict=True Secure=False
+
+--- 3) 登录：Origin 不在白名单 ---
+HTTP 403 | Origin is not permitted. | 下发 Cookie 数: 0
+
+--- 4) 登录：缺少 X-CampusLoop-Browser 自定义头（非浏览器路径）---
+HTTP 200 | 响应字段: accessToken,refreshToken,expiresIn,user | 下发 Cookie 数: 0（无刷新 Cookie，仅访问令牌，天然无跨站写入面）
+
+--- 5) 浏览器会话恢复 /auth/browser-session ---
+5a Cookie + 合法 Origin + 自定义头 : HTTP 200 :: {"code":0,"message":"ok","data":{"accessToken":"eyJhbGciOiJIUzI1NiIsImtpZCI6InByaW1hcnkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJjY
+5b Cookie + 非白名单 Origin + 自定义头 : HTTP 403 :: {"code":"FORBIDDEN","message":"Origin is not permitted.","details":null,"requestId":"2e0ea80a2aad"}
+5c 无 Cookie + 合法 Origin + 自定义头 : HTTP 401 :: {"code":"AUTH_UNAUTHORIZED","message":"Browser session unavailable.","details":null,"requestId":"85a05c7ea3b3"}
+5d Cookie + 合法 Origin + 缺自定义头 : HTTP 403 :: {"code":"FORBIDDEN","message":"Trusted browser Origin and CSRF header required.","details":null,"requestId":"31abb922660
+
+--- 6) 非浏览器刷新路径 /auth/refresh 只接受 body.refreshToken ---
+HTTP 422（空令牌被拒，说明该路径不使用 Cookie）

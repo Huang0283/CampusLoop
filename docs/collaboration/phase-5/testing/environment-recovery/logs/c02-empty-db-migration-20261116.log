@@ -1,0 +1,38 @@
+=== C02 空库迁移（基线变更后重跑）| 2026-11-16 14:20:55 ===
+被测软件 SHA: f1885ba416df2a255e06503c2393b7753ab723b9 (main)
+API 镜像: campusloop-local-api:dev 377fc67a0847 (2026-11-16 14:19 构建)
+审计库: campusloop_t3_audit（重建；同实例独立库，不碰日常库 campusloop）
+上轮基线 d063588 的同用例记录见 logs/c02-empty-db-migration.log
+
+--- 1) 重建空库 ---
+DROP DATABASE
+CREATE DATABASE
+
+--- 2) alembic upgrade head ---
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001, initial schema: all Phase 2 tables (BP2-07)
+INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, BP3-01/02: refresh families, private profile and transactional audit.
+INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, BP3-04 through BP3-11: durable writes, idempotency and transaction invariants.
+INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Persist bounded admin operation context without copying private evidence.
+INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Repair sequences for existing Phase 2 explicit-ID seeds (no row changes).
+INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Transactional matching outbox/current result and durable notification dedup.
+INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Authoritative catalog/authorization revision for conditional result writes.
+INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, HttpOnly browser credentials; existing JSON-refresh families remain unchanged.
+INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, BP4-07/08（M9）：AI 任务运行观测表 + 求购匹配向量索引。
+INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Keep a human moderation hold distinct from an owner's ordinary hiding.
+INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Expose a human resolution note to the reporter without leaking internal audit data.
+INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Persist account decisions and appeals without exposing internal reports.
+INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Keep duplicate protection for open reports while preserving handled history.
+
+--- 3) heads ---
+0013 (head)
+
+--- 4) current ---
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+0013 (head)
+
+--- 5) 公共表数量 ---
+    29
+

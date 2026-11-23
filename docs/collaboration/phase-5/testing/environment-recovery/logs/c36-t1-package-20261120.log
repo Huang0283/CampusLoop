@@ -1,0 +1,103 @@
+T3-C36 独立接收 T1 增补数据与运行说明 — 原始输出
+执行时间：2026-11-20
+材料检出：c090ce4db7b5f4f2e6f63be77eedad2b233e937a（含 main 合并内容，T1 数据包在此版本上漂移）
+PR 分支检出：cb53ce5058115a3e0873cd403ca1f0357a3918e1（work/testing/environment-recovery）
+Python：Python 3.13.7
+说明：本轮只完成静态包校验，未执行导入/二次导入/复位；阻塞原因见 defects.md B-04。
+step 3 的缺依赖是 README 要求先装 backend/requirements.txt，本机仅有全局 jsonschema/Pillow。
+
+==============================================================================
+1. PR 分支上契约快照与自身 OpenAPI 比对
+$ cd C:/Projects/CampusLoop-materials
+$ python -c "import hashlib,json,pathlib;p=pathlib.Path('openapi/campusloop.v1.yaml');h=hashlib.sha256(p.read_text(encoding='utf-8').encode()).hexdigest();c=json.loads(pathlib.Path('tests/collaboration/phase-5/data-permissions/response-contract.json').read_text(encoding='utf-8'));print('openapi',h);print('recorded',c['openapiSha256']);print('match',h==c['openapiSha256'])"
+[exit 0]
+------------------------------------------------------------------------------
+openapi 431ea96df929c132c57482d505c8388798be81cb1ceac932b5a67d2705daffba
+recorded 431ea96df929c132c57482d505c8388798be81cb1ceac932b5a67d2705daffba
+match True
+
+==============================================================================
+2. 合入 main 内容后同一比对（契约快照漂移）
+$ cd C:/Projects/CampusLoop
+$ python -c "import hashlib,json,pathlib;p=pathlib.Path('openapi/campusloop.v1.yaml');h=hashlib.sha256(p.read_text(encoding='utf-8').encode()).hexdigest();c=json.loads(pathlib.Path('tests/collaboration/phase-5/data-permissions/response-contract.json').read_text(encoding='utf-8'));print('openapi',h);print('recorded',c['openapiSha256']);print('match',h==c['openapiSha256'])"
+[exit 0]
+------------------------------------------------------------------------------
+openapi 04352a095568a969be397065be9e84bf8bbce8e661baf548e4b998273b4b01bd
+recorded 431ea96df929c132c57482d505c8388798be81cb1ceac932b5a67d2705daffba
+match False
+
+==============================================================================
+3. PR 分支检出上的静态验证（缺后端依赖）
+$ cd C:/Projects/CampusLoop-materials
+$ python tests/collaboration/phase-5/data-permissions/verify_data.py
+[exit 1]
+------------------------------------------------------------------------------
+Verification failed: ModuleNotFoundError: No module named 'sqlalchemy'
+
+==============================================================================
+4. 静态验证单元测试（合入 main 内容）
+$ cd C:/Projects/CampusLoop
+$ python -m unittest discover -s tests/collaboration/phase-5/data-permissions -p test_package.py -v
+[exit 1]
+------------------------------------------------------------------------------
+test_daily_api_refused_before_docker_or_http (test_package.BoundaryTests.test_daily_api_refused_before_docker_or_http) ... ok
+test_daily_database_or_redis_or_bucket_refused (test_package.BoundaryTests.test_daily_database_or_redis_or_bucket_refused) ... ok
+test_manifest_cannot_be_reused_for_different_environment (test_package.BoundaryTests.test_manifest_cannot_be_reused_for_different_environment) ... ok
+test_reset_run_cannot_be_silently_reseeded (test_package.BoundaryTests.test_reset_run_cannot_be_silently_reseeded) ... ok
+test_all_fixture_families_validate (test_package.PackageTests.test_all_fixture_families_validate) ... ERROR
+test_changed_image_fails (test_package.PackageTests.test_changed_image_fails) ... ok
+test_execution_log_missing_column_is_rejected (test_package.PackageTests.test_execution_log_missing_column_is_rejected) ... ok
+test_existing_run_cannot_switch_optional_dataset (test_package.PackageTests.test_existing_run_cannot_switch_optional_dataset) ... ok
+test_invalid_category_fails (test_package.PackageTests.test_invalid_category_fails) ... ok
+test_missing_image_fails (test_package.PackageTests.test_missing_image_fails) ... ok
+test_new_fixture_families_are_required (test_package.PackageTests.test_new_fixture_families_are_required) ... ok
+test_omitted_fixture_family_fails (test_package.PackageTests.test_omitted_fixture_family_fails) ... ok
+test_optional_search_data_does_not_replace_foundation (test_package.PackageTests.test_optional_search_data_does_not_replace_foundation) ... ok
+test_search_and_governance_corruption_is_rejected (test_package.PackageTests.test_search_and_governance_corruption_is_rejected) ... ok
+
+======================================================================
+ERROR: test_all_fixture_families_validate (test_package.PackageTests.test_all_fixture_families_validate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>\tests\collaboration\phase-5\data-permissions\test_package.py", line 21, in test_all_fixture_families_validate
+    report = verify_data.verify_static()
+  File "<repo>\tests\collaboration\phase-5\data-permissions\verify_data.py", line 264, in verify_static
+    require(contract["openapiSha256"] == openapi_hash, "Response contract snapshot is stale")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>\tests\collaboration\phase-5\data-permissions\verify_data.py", line 31, in require
+    raise ValueError(message)
+ValueError: Response contract snapshot is stale
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.802s
+
+FAILED (errors=1)
+
+==============================================================================
+5. 静态验证主入口（合入 main 内容）
+$ cd C:/Projects/CampusLoop
+$ python tests/collaboration/phase-5/data-permissions/verify_data.py
+[exit 1]
+------------------------------------------------------------------------------
+Verification failed: ValueError: Response contract snapshot is stale
+
+==============================================================================
+6. 导入/复位前置守卫拒绝（仅运行中的日常栈）
+$ cd C:/Projects/CampusLoop
+$ python tests/collaboration/phase-5/data-permissions/reset_data.py --api http://127.0.0.1:8001 --container campusloop-local-api-1 --namespace permission --run-id run1 --state-dir .codex-tmp/t1-state
+[exit 1]
+------------------------------------------------------------------------------
+Reset failed: Use a dedicated loopback API port (not daily 8001)
+
+==============================================================================
+7. 运行中容器（无审计栈）
+$ cd C:/Projects/CampusLoop
+$ docker ps --format '{{.Names}} {{.Ports}} {{.Status}}'
+[exit 0]
+------------------------------------------------------------------------------
+campusloop-local-worker-1	127.0.0.1:8002->8000/tcp	Up 2 hours (healthy)
+campusloop-local-baseline-1	8000/tcp	Up 2 hours (healthy)
+campusloop-local-api-1	127.0.0.1:8001->8000/tcp	Up 2 hours (healthy)
+campusloop-local-db-1	127.0.0.1:15432->5432/tcp	Up 2 hours (healthy)
+campusloop-local-redis-1	127.0.0.1:16379->6379/tcp	Up 2 hours (healthy)
+campusloop-local-minio-1	127.0.0.1:19000->9000/tcp, 127.0.0.1:19001->9001/tcp	Up 2 hours (healthy)

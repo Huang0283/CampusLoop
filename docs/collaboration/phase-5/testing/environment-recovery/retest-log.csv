@@ -1,0 +1,5 @@
+defect_id,case_id,original_sha,software_sha,status,evidence,reviewer
+,C02,d063588c3be59b1e9f013ff27e2a541cc03fed62,f1885ba416df2a255e06503c2393b7753ab723b9,通过,logs/c02-empty-db-migration-20261116.log,T3 自测
+,C03,d063588c3be59b1e9f013ff27e2a541cc03fed62,f1885ba416df2a255e06503c2393b7753ab723b9,通过,logs/c03-seed-idempotent-20261116.log,T3 自测
+,C04,d063588c3be59b1e9f013ff27e2a541cc03fed62,f1885ba416df2a255e06503c2393b7753ab723b9,通过,logs/c04-health-degraded-20261116.log,T3 自测
+,C05,d063588c3be59b1e9f013ff27e2a541cc03fed62,f1885ba416df2a255e06503c2393b7753ab723b9,通过,logs/c05-code-identity-20261116.log,T3 自测

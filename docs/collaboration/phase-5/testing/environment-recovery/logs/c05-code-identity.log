@@ -1,0 +1,9 @@
+=== C05 界面/接口/Worker 版本一致 | 2026-11-08 11:41:04 ===
+仓库提交 (main): d063588c3be59b1e9f013ff27e2a541cc03fed62
+API 容器 app/main.py sha256 = 89ecf55535c885f1d4c2e159c51908a0221e34114a14a5ff968650e23c269033
+仓库 backend/app/main.py sha256 = 89ecf55535c885f1d4c2e159c51908a0221e34114a14a5ff968650e23c269033
+一致 = True
+API version (openapi.json info.version) = 0.5.0-rc.1 | title=CampusLoop API
+Worker version (/healthz workerVersion) = bp4-worker-runtime-v1 | workerId=worker-29d1b64444dc-1 | status=ok
+前端 package.json name=frontend version=0.0.0 | 运行方式=vite dev server (5174) 直接服务当前工作区 checkout
+镜像: campusloop-local-api:dev a39f40d4676d (start-local 以 sourceFingerprint 标签构建)

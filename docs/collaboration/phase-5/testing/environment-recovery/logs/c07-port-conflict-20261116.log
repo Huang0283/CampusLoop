@@ -1,0 +1,15 @@
+=== C07 端口被占用时的表现 | 2026-11-16 14:47:55 ===
+被测软件 SHA: f1885ba416df2a255e06503c2393b7753ab723b9 (main)
+
+--- 1) 前端 5174 已占用时启动第二个 vite ---
+命令: node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 5174 --strictPort（工作目录 frontend）
+[31merror when starting dev server:
+Error: Port 5174 is already in use
+    at httpServerStart (file:///C:/Projects/CampusLoop/frontend/node_modules/vite/dist/node/chunks/node.js:14661:10)
+进程已自行退出，未改换其他端口
+
+--- 2) 后端 8001 已占用时启动第二个容器 ---
+命令: docker run --rm -p 127.0.0.1:8001:8000 campusloop-local-api:dev
+docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint strange_ellis (7041dc924baa4af0a650f9e48b79bd64ca47057455836113c42a7d4dbff4a6cc): Bind for 127.0.0.1:8001 failed: port is already allocated
+System.Management.Automation.RemoteException
+exit=125

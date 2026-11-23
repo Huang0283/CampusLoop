@@ -1,0 +1,24 @@
+=== C22 SDK 重新生成无漂移 | 2026-11-16 14:54:59 ===
+被测软件 SHA: f1885ba416df2a255e06503c2393b7753ab723b9 (main)
+契约源: openapi/campusloop.v1.yaml -> 输出 frontend/src/sdk/generated
+
+--- 1) 首次尝试（IDE 环境原样）---
+结果: 失败。原因不在项目代码：IDE 注入的 NODE_OPTIONS 指向 safe-delete shim，删除旧生成目录时 trash 操作报 Some operations were aborted
+处理: 清空 NODE_OPTIONS 后重试（该注入只存在于 IDE 会话，不在仓库配置中）
+
+--- 2) 清空 NODE_OPTIONS 后 npm run sdk:generate ---
+
+[90m@hey-api/openapi-ts v0.99.0[39m
+
+[90m[Job 1] [39m[90m~[39m [36mGenerating...[39m
+[90m[Job 1] [39m[36m  [1] [39m../openapi/campusloop.v1.yaml
+[90m[Job 1] [39m[32m✓[39m [96m./src\sdk\generated[39m [90m· 4 files · 492ms[39m
+
+--- 3) 与仓库产物比对 ---
+git status --porcelain 显示 16 个文件 M（全部位于 frontend/src/sdk/generated）
+git diff --numstat 为空 → 无任何行级内容差异
+core.autocrlf=true → M 由工作区 LF 与索引 CRLF 的行尾归一化造成，非契约漂移
+还原命令: git checkout -- frontend/src/sdk/generated
+
+--- 4) 类型检查 ---
+node node_modules/typescript/bin/tsc -b → exit 0，无诊断输出

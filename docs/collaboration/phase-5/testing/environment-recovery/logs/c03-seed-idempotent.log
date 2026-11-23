@@ -1,0 +1,41 @@
+=== C03 种子二次导入幂等 | 2026-11-08 11:24:48 ===
+被测软件 SHA: d063588c3be59b1e9f013ff27e2a541cc03fed62 (main)
+审计库: campusloop_t3_audit / Redis DB14
+--- seed.py --check（连跑两遍比对行数） ---
+[seed] 第一遍写入：
+  users            +4
+  products         +3
+  product_images   +1
+  favorites        +1
+  wanted_posts     +2
+  chat_sessions    +1
+  chat_messages    +3
+  offers           +1
+  orders           +2
+  order_events     +5
+  meetups          +1
+  reviews          +1
+  reports          +1
+  notifications    +3
+[seed] 第二遍写入（幂等性验证）：
+  users            +0
+  products         +0
+  product_images   +0
+  favorites        +0
+  wanted_posts     +0
+  chat_sessions    +0
+  chat_messages    +0
+  offers           +0
+  orders           +0
+  order_events     +0
+  meetups          +0
+  reviews          +0
+  reports          +0
+  notifications    +0
+[seed][PASS] 两遍执行结果完全一致： {'users': 22, 'products': 393, 'product_images': 697, 'favorites': 1, 'wanted_posts': 2, 'chat_sessions': 1, 'chat_messages': 3, 'offers': 1, 'orders': 2, 'order_events': 5, 'meetups': 1, 'reviews': 1, 'reports': 1, 'notifications': 3}
+
+--- exit code: 0 ---
+
+--- 关键表计数 ---
+ users=22 products=393 wanted=2 orders=2
+
