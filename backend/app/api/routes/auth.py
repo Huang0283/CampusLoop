@@ -293,7 +293,9 @@ def admin_status(userId: int, body: UserStatusUpdate, db: Db, actor: Actor):
         raise BusinessError(403, "FORBIDDEN", "Self-administration is not permitted.")
     # Do not acquire another administrator's lock: two admins targeting each other
     # must fail without reversing the authorization lock order.
-    user = db.scalar(select(User).where(User.id == userId, User.role == "USER").with_for_update())
+    user = db.scalar(
+        select(User).where(User.id == userId, User.role == "USER").with_for_update(key_share=True)
+    )
     if not user:
         raise BusinessError(404, "NOT_FOUND", "User not found.")
     if user.role == "ADMIN":

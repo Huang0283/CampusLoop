@@ -180,6 +180,30 @@ test('merged chat keeps retry targets, real time events, history cursors and new
   await expect(page).toHaveURL(/\/login$/)
 })
 
+test('private chat text and previews never enter catalogue translation in either language', async ({ page }) => {
+  const fixture = await setup(page)
+  const secret = '私密聊天凭证 13900139000，请勿翻译'
+  fixture.messages.get(801)![0].content = secret
+  fixture.messages.get(801)![0].createdAt = '2026-11-01T14:00:00Z'
+  const submitted: string[] = []
+  await page.route('**/display-translation/translate', route => {
+    const texts = route.request().postDataJSON().texts as string[]
+    submitted.push(...texts)
+    return route.fulfill({ json: { translations: texts.map(() => 'Public catalogue translation') } })
+  })
+  for (const language of ['en', 'zh']) {
+    await page.addInitScript(value => localStorage.setItem('campusloop-language', value), language)
+    await page.goto('/chat/801')
+    await expect(page.locator('.chat-message-stream').getByText(secret, { exact: true })).toBeVisible()
+    await expect(page.locator('.chat-session-list')).toContainText('13900139000')
+    await page.locator('.chat-composer textarea').fill(secret + ' 草稿 ' + language)
+    await page.locator('.composer-actions .ant-btn-primary').click()
+    await expect(page.locator('.chat-message-stream').getByText(secret + ' 草稿 ' + language, { exact: true })).toBeVisible()
+    expect(submitted.some(text => text.includes('13900139000'))).toBe(false)
+  }
+  expect(submitted.length).toBeGreaterThan(0) // Public titles still translate.
+})
+
 test('retrying an uncertain offer acceptance keeps its idempotency key', async ({ page }) => {
   const fixture = await setup(page)
   fixture.offers[0] = { ...fixture.offers[0], status: 'PENDING', proposerId: 502, orderId: undefined }

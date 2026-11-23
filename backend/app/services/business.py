@@ -83,7 +83,13 @@ def notify(
 
 
 def event(
-    db: Session, entity: Order, actor: User, description: str, to_status: str | None = None
+    db: Session,
+    entity: Order,
+    actor: User,
+    description: str,
+    to_status: str | None = None,
+    *,
+    notify_peer: bool = True,
 ) -> None:
     previous = entity.status
     if to_status:
@@ -98,5 +104,6 @@ def event(
             description=description,
         )
     )
-    peer = entity.seller_id if actor.id == entity.buyer_id else entity.buyer_id
-    notify(db, peer, "ORDER_STATUS_CHANGED", f"/orders/{entity.id}", description)
+    if notify_peer:
+        peer = entity.seller_id if actor.id == entity.buyer_id else entity.buyer_id
+        notify(db, peer, "ORDER_STATUS_CHANGED", f"/orders/{entity.id}", description)

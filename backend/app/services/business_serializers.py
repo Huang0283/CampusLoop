@@ -285,23 +285,20 @@ def orders(db: Session, entities: list[Order]) -> list[dict]:
             ).all(),
         )
     }
-    users = public_users(
-        db,
-        db.scalars(
-            select(User).where(
-                User.id.in_(
-                    {uid for entity in entities for uid in (entity.buyer_id, entity.seller_id)}
-                )
-            )
-        ).all(),
-    )
+    participants = db.scalars(
+        select(User).where(
+            User.id.in_({uid for entity in entities for uid in (entity.buyer_id, entity.seller_id)})
+        )
+    ).all()
+    users = public_users(db, participants)
+    disabled = {user.id for user in participants if user.status != "ACTIVE"}
     return [
-        order_fields(entity, items[entity.product_id], users, arrangements.get(entity.id))
+        order_fields(entity, items[entity.product_id], users, arrangements.get(entity.id), disabled)
         for entity in entities
     ]
 
 
-def order_fields(entity, item, users, arrangement):
+def order_fields(entity, item, users, arrangement, disabled=()):
     result = {
         "id": entity.id,
         "product": item,
@@ -310,6 +307,8 @@ def order_fields(entity, item, users, arrangement):
         "status": entity.status,
         "amount": float(entity.amount),
         "buyerConfirmedComplete": entity.buyer_confirmed_complete,
+        "version": entity.version,
+        "participantDisabled": entity.buyer_id in disabled or entity.seller_id in disabled,
         "sellerConfirmedComplete": entity.seller_confirmed_complete,
         "createdAt": iso(entity.created_at),
         "updatedAt": iso(entity.updated_at or entity.created_at),

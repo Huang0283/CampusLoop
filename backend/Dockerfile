@@ -32,6 +32,5 @@ USER appuser
 
 EXPOSE 8000
 
-# 容器启动即执行迁移 + 种子 + 启动服务；
-# --check 保证种子幂等性在每次部署时被真实校验（失败则拒绝启动）
-CMD ["sh", "-c", "alembic upgrade head && python scripts/seed.py --check && python scripts/serve.py"]
+# 默认只迁移并启动。演示数据由本地 overlay 显式导入，种子幂等性由 CI 单独验证。
+CMD ["sh", "-ec", "alembic upgrade head && exec python scripts/serve.py"]

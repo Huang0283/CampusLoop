@@ -222,10 +222,22 @@ def test_admin_disable_revoke_and_audit(client):
     )
     assert changed.status_code == 200
     assert client.get("/users/me", headers=headers(target)).status_code == 423
+    # The original operator cannot undo their own decision via the status endpoint.
     assert (
         client.patch(
             f'/admin/users/{target["user"]["id"]}/status',
             headers=headers(admin),
+            json={"status": "ACTIVE", "reason": "Test restore"},
+        ).status_code
+        == 403
+    )
+    from tests.test_account_appeals import admin as other_admin
+
+    reviewer = other_admin(client)
+    assert (
+        client.patch(
+            f'/admin/users/{target["user"]["id"]}/status',
+            headers=headers(reviewer),
             json={"status": "ACTIVE", "reason": "Test restore"},
         ).status_code
         == 200

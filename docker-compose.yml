@@ -30,7 +30,7 @@ services:
       POSTGRES_PASSWORD: campusloop
       POSTGRES_DB: campusloop
     ports:
-      - "${CAMPUSLOOP_DB_PORT:-5432}:5432"
+      - "127.0.0.1:${CAMPUSLOOP_DB_PORT:-5432}:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
@@ -50,7 +50,7 @@ services:
   redis:
     image: redis:7.4-alpine
     ports:
-      - "${CAMPUSLOOP_REDIS_PORT:-6379}:6379"
+      - "127.0.0.1:${CAMPUSLOOP_REDIS_PORT:-6379}:6379"
     volumes:
       - redis-data:/data
     healthcheck:
@@ -81,8 +81,8 @@ services:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
     ports:
-      - "${CAMPUSLOOP_STORAGE_PORT:-9000}:9000"   # S3 API
-      - "${CAMPUSLOOP_STORAGE_CONSOLE_PORT:-9001}:9001"   # 管理控制台
+      - "127.0.0.1:${CAMPUSLOOP_STORAGE_PORT:-9000}:9000"   # S3 API
+      - "127.0.0.1:${CAMPUSLOOP_STORAGE_CONSOLE_PORT:-9001}:9001"   # 管理控制台
     volumes:
       - minio-data:/data
     healthcheck:
@@ -203,7 +203,7 @@ services:
       MINIO_PUBLIC_BUCKET: campusloop-public
       MINIO_PRIVATE_BUCKET: campusloop-private
     ports:
-      - "${CAMPUSLOOP_WORKER_PORT:-8002}:8000"
+      - "127.0.0.1:${CAMPUSLOOP_WORKER_PORT:-8002}:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -257,7 +257,7 @@ services:
       MINIO_PRIVATE_BUCKET: campusloop-private
       S3_PUBLIC_BASE_URL: http://localhost:${CAMPUSLOOP_STORAGE_PORT:-9000}/campusloop-public
     ports:
-      - "${CAMPUSLOOP_API_PORT:-8001}:8000"
+      - "127.0.0.1:${CAMPUSLOOP_API_PORT:-8001}:8000"
     depends_on:
       db:
         condition: service_healthy

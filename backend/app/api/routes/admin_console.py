@@ -1,6 +1,6 @@
 """Administrator console: dashboard aggregates, order oversight and the decision log.
 
-All three are read-only and audited like the other administrator reads.
+Reads are audited; disputed cancellations additionally retain immutable order events.
 """
 
 from typing import Literal
@@ -11,11 +11,14 @@ from sqlalchemy import func, select
 from app.api.routes.market import Page, PageSize
 from app.core.envelope import ok
 from app.core.errors import BusinessError
-from app.models import AuthAudit, Order, Product
+from app.models import AuthAudit, Order, OrderEvent, Product
+from app.schemas.moderation import DisputeCancel
 from app.services import admin_console
 from app.services import business_serializers as dto
-from app.services.auth import Actor, Db, administrator
+from app.services.auth import Actor, Db, administrator, audit
+from app.services.business import load
 from app.services.governance import read_audit
+from app.services.order_governance import cancel_reservation
 
 router = APIRouter(tags=["Admin"])
 OrderStatusFilter = Literal[
@@ -79,6 +82,70 @@ def orders(
         pageSize=pageSize,
         status=status,
     )
+    db.commit()
+    return result
+
+
+@router.get("/admin/orders/{orderId}/events", operation_id="adminListOrderEvents")
+def order_events(orderId: int, db: Db, actor: Actor):
+    administrator(actor)
+    load(db, Order, orderId)
+    rows = db.scalars(
+        select(OrderEvent).where(OrderEvent.order_id == orderId).order_by(OrderEvent.id)
+    ).all()
+    result = ok(
+        [
+            {
+                "id": row.id,
+                "orderId": row.order_id,
+                "operatorId": row.operator_id,
+                "toStatus": row.to_status,
+                "description": row.description,
+                "createdAt": dto.iso(row.created_at),
+                **({"fromStatus": row.from_status} if row.from_status else {}),
+            }
+            for row in rows
+        ]
+    )
+    read_audit(
+        db,
+        "admin_order_events_read",
+        actor.id,
+        reason="order_oversight",
+        snapshot={"orderId": orderId, "ids": [row.id for row in rows]},
+    )
+    db.commit()
+    return result
+
+
+@router.post("/admin/orders/{orderId}/cancel-dispute", operation_id="adminCancelDisputedOrder")
+def cancel_dispute(orderId: int, body: DisputeCancel, db: Db, actor: Actor):
+    administrator(actor)
+    reference = load(db, Order, orderId)
+    load(db, Product, reference.product_id, lock=True)
+    entity = db.scalar(
+        select(Order)
+        .where(Order.id == orderId)
+        .with_for_update()
+        .execution_options(populate_existing=True)
+    )
+    if entity.version != body.expectedVersion or entity.status != "DISPUTED":
+        raise BusinessError(409, "ORDER_STATE_CONFLICT", "订单已更新，请刷新后重新核实。")
+    reason = body.reason.strip()
+    cancel_reservation(db, entity, actor, reason)
+    audit(
+        db,
+        "admin_order_dispute_cancelled",
+        actor.id,
+        context={
+            "orderId": entity.id,
+            "reason": reason,
+            "before": {"status": "DISPUTED", "version": body.expectedVersion},
+            "after": {"status": entity.status, "version": entity.version},
+        },
+    )
+    db.flush()
+    result = ok(dto.order(db, entity))
     db.commit()
     return result
 

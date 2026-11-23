@@ -1,6 +1,5 @@
-import { localize } from '../i18n/Localize'
+import { localize, OriginalText } from '../i18n/Localize'
 import { useLanguage, dateLocale, t } from '../i18n/language'
-import { CatalogText } from '../i18n/CatalogText'
 import { useState } from 'react'
 import { Button } from 'antd'
 import { FlagOutlined, ReloadOutlined, RightOutlined } from '@ant-design/icons'
@@ -46,8 +45,8 @@ export function MyReports() {
               <span className="report-reason">{reportReasonLabels[item.reason]}</span>
               {path ? <Link className="report-target" to={path}>{target}<RightOutlined aria-hidden="true" /></Link> : <span className="report-target">{target}</span>}
             </div>
-            {item.description && <p className="report-desc"><CatalogText text={item.description} /></p>}
-            {item.resolutionNote && <div className="report-reply"><strong>处理说明</strong><p><CatalogText text={item.resolutionNote} /></p></div>}
+            {item.description && <p className="report-desc"><OriginalText>{item.description}</OriginalText></p>}
+            {item.resolutionNote && <div className="report-reply"><strong>处理说明</strong><p><OriginalText>{item.resolutionNote}</OriginalText></p></div>}
             <div className="report-dates"><span>提交于 {when(item.createdAt)}</span>{item.handledAt && <span>处理于 {when(item.handledAt)}</span>}</div>
           </div>
         </li>)

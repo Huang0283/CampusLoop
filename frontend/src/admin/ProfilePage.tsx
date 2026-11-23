@@ -1,7 +1,6 @@
 import { UserAvatar as Avatar } from '../live/UserAvatar'
 import { localize, OriginalText } from '../i18n/Localize'
 import { useLanguage } from '../i18n/language'
-import { CatalogText } from '../i18n/CatalogText'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Button, Pagination } from 'antd'
@@ -16,7 +15,7 @@ import { Icon, type IconName } from './icons'
 import { auditEventLabels, resultStatusLabels } from './labels'
 import { ProfileEditor } from './ProfileEditor'
 
-const SUBJECTS = { PRODUCT: '商品', REPORT: '举报', USER: '用户' } as const
+const SUBJECTS = { PRODUCT: '商品', REPORT: '举报', USER: '用户', ORDER: '订单' } as const
 const KINDS: { key: string; label: string; icon: IconName; color: string; match: (event: string) => boolean }[] = [
   { key: 'report', label: '举报处理', icon: 'flag', color: '#FF7D00', match: (event) => event.startsWith('admin_report') },
   { key: 'product', label: '商品处理', icon: 'shield', color: '#2F6BFF', match: (event) => event.startsWith('admin_product') },
@@ -27,7 +26,7 @@ const WEEK = 7 * 24 * 3600 * 1000
 
 /** The signed-in administrator's own account and decision trail (`mine=true` on the audited log). */
 export function ProfilePage() {
-  const { language } = useLanguage()
+  useLanguage()
   const user = useSession((state) => state.user)
   const navigate = useNavigate()
   const [params] = useSearchParams()
@@ -62,8 +61,8 @@ export function ProfilePage() {
         <div className="adm-pf-title"><h2>{<OriginalText>{user.nickname}</OriginalText>}</h2>
         <div className="adm-pf-tags"><span className="adm-pill p-blue">管理员</span><span className={`adm-pill ${user.status === 'ACTIVE' ? 'p-green' : 'p-red'}`}>{user.status === 'ACTIVE' ? '账号正常' : '已禁用'}</span></div></div>
         <p className="adm-pf-line"><Icon name="mail" size={15} />{<OriginalText>{user.email}</OriginalText>}</p>
-        {facts.length > 0 && <div className="adm-pf-line adm-pf-facts"><Icon name="user" size={15} /><div>{facts.map((fact, index) => <span key={index}>{language === 'zh' ? <OriginalText>{fact}</OriginalText> : <CatalogText text={fact!} />}</span>)}</div></div>}
-        {user.bio && <p className="adm-pf-bio">{<CatalogText text={user.bio} />}</p>}
+        {facts.length > 0 && <div className="adm-pf-line adm-pf-facts"><Icon name="user" size={15} /><div>{facts.map((fact, index) => <OriginalText key={index}>{fact}</OriginalText>)}</div></div>}
+        {user.bio && <p className="adm-pf-bio">{<OriginalText>{user.bio}</OriginalText>}</p>}
         </div>
         <div className="adm-pf-actions">
           <Button icon={<Icon name="edit" size={15} />} onClick={focusEditor}>编辑资料与头像</Button>
@@ -121,7 +120,7 @@ function Decision({ row }: { row: AdminAuditLog }) {
   const color = row.event === 'admin_user_disabled' || row.resultStatus === 'HIDDEN' ? 'var(--adm-red)' : row.resultStatus === 'REJECTED' ? 'var(--adm-orange)' : 'var(--adm-green)'
   return localize(<li>
     <span className="adm-note-ic" style={{ ['--nc' as string]: color }}><Icon name={kind} size={16} /></span>
-    <div><p>{auditEventLabels[row.event] ?? row.event}{row.resultStatus && <> · {resultStatusLabels[row.resultStatus] ?? row.resultStatus}</>}{row.subject && <span className="adm-note-sub"> {SUBJECTS[row.subject.type]} #{row.subject.id}</span>}</p><small>{<CatalogText text={row.reason ?? '未填写理由'} />}</small></div>
+    <div><p>{auditEventLabels[row.event] ?? row.event}{row.resultStatus && <> · {resultStatusLabels[row.resultStatus] ?? row.resultStatus}</>}{row.subject && <span className="adm-note-sub"> {SUBJECTS[row.subject.type]} #{row.subject.id}</span>}</p><small>{<OriginalText>{row.reason ?? '未填写理由'}</OriginalText>}</small></div>
     <time>{clock(row.createdAt)}</time>
   </li>)
 }

@@ -43,6 +43,7 @@ services:
     image: ${AUDIT_PROJECT:?}-api:${AUDIT_SOFTWARE_SHA:?}
     environment: &audit-runtime
       APP_ENV: test
+      ALLOW_SINGLE_ADMIN_REVIEW: "false"
       DATABASE_URL: postgresql+psycopg://campusloop:${AUDIT_DB_PASSWORD:?}@db:5432/${AUDIT_DATABASE:?}
       REDIS_URL: redis://redis:6379/15
       MINIO_ACCESS_KEY: ${AUDIT_STORAGE_USER:?}

@@ -9,6 +9,8 @@ export const reportStatusLabels: Record<ReportStatus, string> = { PENDING: '待�
 export const targetTypeLabels: Record<ReportTargetType, string> = { USER: '用户', PRODUCT: '商品', ORDER: '订单', CHAT_MESSAGE: '聊天消息' }
 
 export const auditEventLabels: Record<string, string> = {
+  admin_order_dispute_cancelled: '核实后取消争议订单', admin_order_events_read: '查看订单历史',
+  admin_single_reviewer_exception: '单管理员演示复核例外',
   admin_account_decision: '账号警告或禁用', admin_account_appeal_review: '账号申诉复核',
   admin_account_decisions_read: '查看账号处理记录', admin_account_appeals_read: '查看申诉队列',
   admin_account_appeal_read: '查看申诉详情', admin_account_evidence_read: '查看处理或申诉证据',

@@ -282,7 +282,7 @@ export type AdminAuditLog = {
     actor: AdminPersonRef | null;
     targetUser: AdminPersonRef | null;
     subject: {
-        type: 'PRODUCT' | 'REPORT' | 'USER';
+        type: 'PRODUCT' | 'REPORT' | 'USER' | 'ORDER';
         id: number;
     } | null;
     reason: string | null;
@@ -808,6 +808,14 @@ export type Order = {
     amount: number;
     meetup?: Meetup;
     buyerConfirmedComplete: boolean;
+    /**
+     * Optimistic version for administrator dispute cancellation.
+     */
+    version?: number;
+    /**
+     * A participant cannot transact; early cancellation or administrator dispute review is required.
+     */
+    participantDisabled?: boolean;
     sellerConfirmedComplete: boolean;
     createdAt: string;
     updatedAt: string;
@@ -3670,6 +3678,87 @@ export type AdminListOrdersResponses = {
 };
 
 export type AdminListOrdersResponse = AdminListOrdersResponses[keyof AdminListOrdersResponses];
+
+export type AdminListOrderEventsData = {
+    body?: never;
+    path: {
+        orderId: number;
+    };
+    query?: never;
+    url: '/admin/orders/{orderId}/events';
+};
+
+export type AdminListOrderEventsErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+};
+
+export type AdminListOrderEventsError = AdminListOrderEventsErrors[keyof AdminListOrderEventsErrors];
+
+export type AdminListOrderEventsResponses = {
+    /**
+     * Audited order history for dispute review.
+     */
+    200: OrderEventListResponse;
+};
+
+export type AdminListOrderEventsResponse = AdminListOrderEventsResponses[keyof AdminListOrderEventsResponses];
+
+export type AdminCancelDisputedOrderData = {
+    body: {
+        expectedVersion: number;
+        reason: string;
+    };
+    path: {
+        orderId: number;
+    };
+    query?: never;
+    url: '/admin/orders/{orderId}/cancel-dispute';
+};
+
+export type AdminCancelDisputedOrderErrors = {
+    /**
+     * Missing, expired, revoked, or invalid token. AUTH_ACCESS_EXPIRED identifies a signature-verified access token with otherwise valid claims whose expiry has elapsed; the browser SDK may renew only its own credential through a valid browser session. Other 401 responses must not trigger automatic renewal.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated but not allowed for this role, object, field, or state.
+     */
+    403: ErrorResponse;
+    /**
+     * Resource does not exist or is intentionally hidden from this caller.
+     */
+    404: ErrorResponse;
+    /**
+     * Duplicate request, stale version, expired object, or illegal state transition.
+     */
+    409: ErrorResponse;
+    /**
+     * Request fields failed validation.
+     */
+    422: ErrorResponse;
+};
+
+export type AdminCancelDisputedOrderError = AdminCancelDisputedOrderErrors[keyof AdminCancelDisputedOrderErrors];
+
+export type AdminCancelDisputedOrderResponses = {
+    /**
+     * Cancelled order, immutable event and notifications to both parties.
+     */
+    200: OrderResponse;
+};
+
+export type AdminCancelDisputedOrderResponse = AdminCancelDisputedOrderResponses[keyof AdminCancelDisputedOrderResponses];
 
 export type AdminListAuditLogsData = {
     body?: never;
