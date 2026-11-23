@@ -39,6 +39,7 @@ from app.services import business_serializers as dto
 from app.services.auth import Actor, Db, student
 from app.services.business import chat, event, idempotent, load, notify, order, require_participant
 from app.services.meetup_time import require_future_meetup
+from app.services.order_governance import cancel_reservation
 from app.services.storage import owned_keys
 
 router = APIRouter(tags=["Transactions"])
@@ -402,7 +403,7 @@ def order_events(orderId: int, db: Db, actor: Actor):
     )
 
 
-def writable_order(db, identity, actor):
+def writable_order(db, identity, actor, *, allow_disabled_peer=False):
     student(actor)
     candidate = load(db, Order, identity)
     require_participant(candidate, actor)
@@ -413,6 +414,11 @@ def writable_order(db, identity, actor):
         .with_for_update()
         .execution_options(populate_existing=True)
     )
+    peer_id = entity.seller_id if actor.id == entity.buyer_id else entity.buyer_id
+    if not allow_disabled_peer and db.get(User, peer_id).status != "ACTIVE":
+        raise BusinessError(
+            409, "ORDER_PEER_DISABLED", "对方账号已禁用，请取消未履行订单或等待管理员处理争议。"
+        )
     return entity
 
 
@@ -543,7 +549,7 @@ def complete_order(
 
 @router.post("/orders/{orderId}/cancel", operation_id="cancelOrder")
 def cancel_order(orderId: int, body: ReasonWrite, db: Db, actor: Actor):
-    entity = writable_order(db, orderId, actor)
+    entity = writable_order(db, orderId, actor, allow_disabled_peer=True)
     if not body.reason.strip():
         raise BusinessError(422, "VALIDATION_ERROR", "Cancellation reason required.")
     if (
@@ -552,18 +558,7 @@ def cancel_order(orderId: int, body: ReasonWrite, db: Db, actor: Actor):
         or entity.seller_confirmed_complete
     ):
         raise BusinessError(409, "ORDER_STATE_CONFLICT", "Order cannot be cancelled.")
-    entity.cancelled_reason = body.reason
-    product = db.get(Product, entity.product_id)
-    # Cancelling a reservation must preserve catalog removal and manual takedowns.
-    product.status = (
-        "HIDDEN"
-        if product.deleted_at or product.moderation_blocked or product.status == "HIDDEN"
-        else "ON_SALE"
-    )
-    arrangement = db.scalar(select(Meetup).where(Meetup.order_id == orderId).with_for_update())
-    if arrangement:
-        arrangement.status = "CANCELLED"
-    event(db, entity, actor, "Order cancelled", "CANCELLED")
+    cancel_reservation(db, entity, actor, body.reason.strip())
     db.flush()
     result = ok(dto.order(db, entity))
     db.commit()

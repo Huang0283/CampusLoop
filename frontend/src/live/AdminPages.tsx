@@ -180,12 +180,12 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
     <Descriptions column={1} bordered items={[
     { key: 'target', label: '对象', children: <>{t(targetTypeLabels[current.targetType] || '举报对象')} #{current.targetId}</> },
     { key: 'reason', label: '举报原因', children: reportReasonLabels[current.reason] || '其他举报原因' },
-      { key: 'description', label: '举报说明', children: <CatalogText text={current.description || '无'} /> },
+      { key: 'description', label: '举报说明', children: <OriginalText>{current.description || t('无')}</OriginalText> },
     { key: 'status', label: '处理状态', children: <Tag>{reportStatusLabels[current.status] || '未知状态'}</Tag> },
     { key: 'created', label: '提交时间', children: displayDate(current.createdAt) },
     ...(handled ? [
       { key: 'handled', label: '处理时间', children: current.handledAt ? displayDate(current.handledAt) : '暂无记录' },
-      { key: 'note', label: '处理说明', children: <CatalogText text={current.resolutionNote || '暂无记录'} /> },
+      { key: 'note', label: '处理说明', children: <OriginalText>{current.resolutionNote || t('暂无记录')}</OriginalText> },
     ] : []),
     ]} />
     <Failure error={mutation.error} />

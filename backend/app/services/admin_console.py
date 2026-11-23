@@ -29,6 +29,8 @@ DECISION_EVENTS = (
     "admin_report_override",
     "admin_user_disabled",
     "admin_user_active",
+    "admin_order_dispute_cancelled",
+    "admin_single_reviewer_exception",
 )
 
 
@@ -361,7 +363,7 @@ def audit_items(db, rows):
     for row in rows:
         context = row.context or {}
         subject = None
-        for key, kind in (("productId", "PRODUCT"), ("reportId", "REPORT")):
+        for key, kind in (("productId", "PRODUCT"), ("reportId", "REPORT"), ("orderId", "ORDER")):
             if isinstance(context.get(key), int):
                 subject = {"type": kind, "id": context[key]}
         if subject is None and row.target_id is not None:

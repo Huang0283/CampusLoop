@@ -41,3 +41,8 @@ class AppealWrite(StrictInput):
 class AppealReview(StrictInput):
     outcome: Literal["UPHELD", "REVOKED"]
     reason: str = Field(min_length=1, max_length=1000, pattern=r"\S")
+
+
+class DisputeCancel(StrictInput):
+    expectedVersion: int = Field(gt=0)
+    reason: str = Field(min_length=1, max_length=200, pattern=r"\S")

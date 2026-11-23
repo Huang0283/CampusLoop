@@ -20,6 +20,7 @@ from app.services.moderation import (
     conclude_appeal,
     decision_dto,
     record_decision,
+    require_independent_reviewer,
     target_user,
 )
 from app.services.storage import owned_keys, upload
@@ -300,6 +301,7 @@ def review(appealId: int, body: AppealReview, db: Db, actor: Actor):
         raise BusinessError(409, "APPEAL_REVIEWED", "该申诉已被复核，请刷新查看结果。")
     if decision.revoked_at:
         raise BusinessError(409, "DECISION_REVOKED", "原处理已撤销，请刷新后查看。")
+    require_independent_reviewer(db, decision, actor)
     if body.outcome == "REVOKED":
         decision.revoked_at, decision.revoked_by, decision.revocation_reason = (
             utcnow(),

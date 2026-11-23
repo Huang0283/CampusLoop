@@ -46,7 +46,7 @@ function AppealDetail({ appealId, onReviewed }: { appealId: number; onReviewed: 
   const [outcome, setOutcome] = useState<'UPHELD' | 'REVOKED'>('UPHELD')
   const item = remote.value
   return localize(<Resource {...remote}>{item && <div className="moderation-stack">
-    <Alert showIcon type="info" title="请结合原处理和申诉证据人工复核；撤销禁用处理会恢复账号，但旧登录会话不会恢复。" />
+    <Alert showIcon type="info" title="请由另一位管理员结合原处理和申诉证据复核。仅显式启用的单管理员本地演示允许例外；撤销禁用不会恢复旧登录会话。" />
     <Card title="原处理记录"><DecisionSummary decision={item.decision} /><Space wrap style={{ marginTop: 16 }}>{item.decision.evidence.map((_, imageIndex) => <ModerationImage key={imageIndex} load={signal => api.adminGetAppealEvidence({ signal, path: { appealId, imageIndex }, query: { source: 'decision' }, parseAs: 'blob' })} />)}</Space></Card>
     <Card title="用户申诉"><AppealSummary appeal={item.appeal} /><Space wrap style={{ marginTop: 16 }}>{item.appeal.evidence.map((_, imageIndex) => <ModerationImage key={imageIndex} load={signal => api.adminGetAppealEvidence({ signal, path: { appealId, imageIndex }, parseAs: 'blob' })} />)}</Space></Card>
     {item.appeal.status === 'PENDING' && <><Failure error={mutation.error} /><Form layout="vertical" onFinish={(values: { reason: string }) => void mutation.run(async () => { await api.data(api.adminReviewAccountAppeal({ path: { appealId }, body: { outcome, reason: values.reason.trim() } })); remote.reload(); onReviewed(); notifyNotificationsChanged() })}>

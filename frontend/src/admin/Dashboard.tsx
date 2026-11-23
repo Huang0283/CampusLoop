@@ -38,7 +38,7 @@ function Empty({ children }: { children: ReactNode }) {
 
 function TargetText({ item }: { item: AdminTodoItem }) {
   useLanguage()
-  return <>{t(targetTypeLabels[item.targetType] ?? '对象')} {item.targetTitle ? <>「{item.targetType === 'USER' ? <OriginalText>{item.targetTitle}</OriginalText> : <CatalogText text={item.targetTitle} />}」</> : `#${item.targetId}`}</>
+  return <>{t(targetTypeLabels[item.targetType] ?? '对象')} {item.targetTitle ? <>「{item.targetType === 'PRODUCT' ? <CatalogText text={item.targetTitle} /> : <OriginalText>{item.targetTitle}</OriginalText>}」</> : `#${item.targetId}`}</>
 }
 
 export function DashboardPage() {
@@ -183,7 +183,7 @@ function Board({ data, days, setDays, refreshing, reload, error }: { data: Admin
           const color = row.event === 'admin_user_disabled' || row.resultStatus === 'HIDDEN' ? 'var(--adm-red)' : row.resultStatus === 'REJECTED' ? 'var(--adm-orange)' : 'var(--adm-green)'
           return localize(<li key={row.id}>
             <span className="adm-note-ic" style={{ ['--nc' as string]: color }}><Icon name={kind} size={16} /></span>
-            <div><p>{auditEventLabels[row.event] ?? row.event}{row.resultStatus && <> · {resultStatusLabels[row.resultStatus] ?? row.resultStatus}</>}{row.subject && <span className="adm-note-sub"> {row.subject.type === 'PRODUCT' ? '商品' : row.subject.type === 'REPORT' ? '举报' : '用户'} #{row.subject.id}</span>}</p><small>{<OriginalText>{row.actor?.nickname ?? '管理员'}</OriginalText>}：{<CatalogText text={row.reason ?? '未填写理由'} />}</small></div>
+            <div><p>{auditEventLabels[row.event] ?? row.event}{row.resultStatus && <> · {resultStatusLabels[row.resultStatus] ?? row.resultStatus}</>}{row.subject && <span className="adm-note-sub"> {row.subject.type === 'PRODUCT' ? '商品' : row.subject.type === 'REPORT' ? '举报' : '用户'} #{row.subject.id}</span>}</p><small>{<OriginalText>{row.actor?.nickname ?? '管理员'}</OriginalText>}：{<OriginalText>{row.reason ?? '未填写理由'}</OriginalText>}</small></div>
             <time>{clock(row.createdAt)}</time>
           </li>)
         })}</ul> : <Empty>还没有人工处理记录。下架商品、处理举报或禁用账号后会显示在这里。</Empty>}

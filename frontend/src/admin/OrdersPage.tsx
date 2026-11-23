@@ -2,11 +2,11 @@ import { localize, LocalizedText, OriginalText } from '../i18n/Localize'
 import { dateLocale, t, useLanguage } from '../i18n/language'
 import { CatalogText } from '../i18n/CatalogText'
 import { useState } from 'react'
-import { Alert, App, Button, Descriptions, Dropdown, Image, Input, Pagination, Select, Space, Table, Tag } from 'antd'
+import { Alert, App, Button, Descriptions, Dropdown, Image, Input, Pagination, Popconfirm, Select, Space, Table, Tag, Timeline } from 'antd'
 import { Link, useSearchParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { Order, OrderStatus } from '../sdk'
-import { errorText, NoItems, Resource, useRemote } from '../live/common'
+import { errorText, Failure, NoItems, Resource, useMutation, useRemote } from '../live/common'
 import { categoryLabels, orderStatusLabels } from './labels'
 import { clock, downloadCsv } from './format'
 import { Icon } from './icons'
@@ -52,7 +52,7 @@ export function OrdersPage() {
     } catch (error) { message.error(errorText(error)) } finally { setExporting(false) }
   }
   return localize(<div className="adm-section">
-    <div className="adm-head"><div><h1>订单管理</h1><p>查看全平台订单。管理员在这里只读查看，订单状态由买卖双方在交易流程中推进。</p></div></div>
+    <div className="adm-head"><div><h1>订单管理</h1><p>查看全平台订单与历史；争议订单须核实双方交付及线下款项后处理。</p></div></div>
     <div className="adm-card adm-plain">
       <Space wrap className="adm-filters">
         <Input.Search aria-label="搜索订单" placeholder="订单号、商品或买卖双方关键词" value={query} allowClear onChange={(event) => update({ query: event.target.value || undefined, page: undefined })} onSearch={(value) => update({ query: value.trim() || undefined, page: undefined })} style={{ width: 280 }} />
@@ -78,7 +78,7 @@ export function OrdersPage() {
     </div>
     <DetailDialog key={selected?.id ?? 'closed'} title={selected ? `订单 #${selected.id}` : ''} open={Boolean(selected)} onClose={() => setSelected(undefined)}>
       {selected && <>
-        {selected.status === 'DISPUTED' && <Alert type="warning" showIcon title="该订单处于争议中" description="当前版本没有管理员仲裁接口。请结合双方举报在「举报处理」中处理，并在说明里记录结论。" style={{ marginBottom: 16 }} />}
+        {selected.status === 'DISPUTED' && <Alert type="warning" showIcon title="该订单处于争议中" description="请核对双方交付与付款凭证，确认已协商取消后再处理。平台未接入支付，此操作不会退款或强制确认成交。" style={{ marginBottom: 16 }} />}
         <Descriptions column={1} bordered items={[
           { key: 'product', label: '商品', children: <Link to={`/product/${selected.product.id}`} target="_blank">{<CatalogText text={selected.product.title} />}</Link> },
           { key: 'category', label: '分类', children: categoryLabels[selected.product.category] ?? selected.product.category },
@@ -87,11 +87,26 @@ export function OrdersPage() {
           { key: 'amount', label: '成交价', children: `¥${selected.amount.toFixed(2)}` },
           { key: 'status', label: '状态', children: orderStatusLabels[selected.status] },
           { key: 'confirm', label: '完成确认', children: <>{t('买家')}：{t(selected.buyerConfirmedComplete ? '已确认' : '未确认')} · {t('卖家')}：{t(selected.sellerConfirmedComplete ? '已确认' : '未确认')}</> },
-          { key: 'meetup', label: '见面约定', children: selected.meetup ? <><CatalogText text={selected.meetup.campusLocation} /> · {selected.meetup.scheduledDate} {selected.meetup.timeSlotStart.slice(0, 5)}–{selected.meetup.timeSlotEnd.slice(0, 5)} ({t(selected.meetup.buyerConfirmed && selected.meetup.sellerConfirmed ? '双方已确认' : '待双方确认')})</> : '尚未约定' },
+          { key: 'meetup', label: '见面约定', children: selected.meetup ? <><OriginalText>{selected.meetup.campusLocation}</OriginalText> · {selected.meetup.scheduledDate} {selected.meetup.timeSlotStart.slice(0, 5)}–{selected.meetup.timeSlotEnd.slice(0, 5)} ({t(selected.meetup.buyerConfirmed && selected.meetup.sellerConfirmed ? '双方已确认' : '待双方确认')})</> : '尚未约定' },
           { key: 'created', label: '下单时间', children: new Date(selected.createdAt).toLocaleString(dateLocale(), { hour12: false }) },
           { key: 'updated', label: '最近更新', children: new Date(selected.updatedAt).toLocaleString(dateLocale(), { hour12: false }) },
         ]} />
+        <DisputeReview key={`${selected.id}-${selected.version}`} order={selected} onChanged={(order) => { setSelected(order); remote.reload() }} />
       </>}
     </DetailDialog>
+  </div>)
+}
+
+function DisputeReview({ order, onChanged }: { order: Order; onChanged: (order: Order) => void }) {
+  useLanguage()
+  const history = useRemote(`admin-order-events-${order.id}-${order.version}`, signal => api.data(api.adminListOrderEvents({ signal, path: { orderId: order.id } })))
+  const mutation = useMutation()
+  const [reason, setReason] = useState('')
+  return localize(<div style={{ marginTop: 20 }}>
+    <h3>订单时间线</h3><Resource {...history}><Timeline items={history.value?.map(event => ({ children: <><OriginalText>{event.description}</OriginalText><br />{clock(event.createdAt)}</> }))} /></Resource>
+    {order.status === 'DISPUTED' && <><Failure error={mutation.error} />
+      <label htmlFor="dispute-reason">核实结论与取消原因</label><Input.TextArea id="dispute-reason" aria-label="核实结论与取消原因" value={reason} onChange={event => setReason(event.target.value)} maxLength={200} rows={3} style={{ margin: '8px 0' }} />
+      <Popconfirm title="已核对双方交付与线下款项处理，确认取消争议订单？" onConfirm={() => mutation.run(async () => { const saved = await api.data(api.adminCancelDisputedOrder({ path: { orderId: order.id }, body: { expectedVersion: order.version!, reason: reason.trim() } })); onChanged(saved) })}><Button danger disabled={!reason.trim() || !order.version} loading={mutation.busy}>核实后取消订单</Button></Popconfirm>
+    </>}
   </div>)
 }

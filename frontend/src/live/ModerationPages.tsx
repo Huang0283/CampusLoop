@@ -2,8 +2,7 @@ import { Alert, Button, Card, Descriptions, Input, Pagination, Space, Tag } from
 import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Form } from '../i18n/Form'
-import { CatalogText } from '../i18n/CatalogText'
-import { localize } from '../i18n/Localize'
+import { OriginalText, localize } from '../i18n/Localize'
 import { useLanguage } from '../i18n/language'
 import * as api from '../sdk'
 import type { AccountDecisionRecord, AccountAppealRecord } from '../sdk'
@@ -20,11 +19,11 @@ export function DecisionSummary({ decision }: { decision: AccountDecisionRecord 
     { key: 'action', label: '处理结果', children: <Space wrap><Tag color={decision.action === 'DISABLE' ? 'red' : 'orange'}>{decision.action === 'DISABLE' ? '禁用账号' : '违规警告'}</Tag>{decision.revokedAt && <Tag color="green">已撤销</Tag>}</Space> },
     { key: 'occurred', label: '行为发生时间', children: decision.occurredAt ? displayDate(decision.occurredAt) : '历史处理未记录具体发生时间' },
     { key: 'created', label: '处理时间', children: displayDate(decision.createdAt) },
-    { key: 'facts', label: '相关行为与事实', children: <CatalogText text={decision.facts} /> },
-    { key: 'basis', label: '处理依据', children: <CatalogText text={decision.basis} /> },
-    { key: 'reason', label: '处理原因', children: <CatalogText text={decision.reason} /> },
-    ...(decision.reference ? [{ key: 'product', label: '关联商品快照', children: <CatalogText text={`#${decision.reference.productId} ${decision.reference.title}`} /> }] : []),
-    ...(decision.revokedAt ? [{ key: 'revoked', label: '撤销时间', children: displayDate(decision.revokedAt) }, { key: 'revocation', label: '撤销说明', children: <CatalogText text={decision.revocationReason || ''} /> }] : []),
+    { key: 'facts', label: '相关行为与事实', children: <OriginalText>{decision.facts}</OriginalText> },
+    { key: 'basis', label: '处理依据', children: <OriginalText>{decision.basis}</OriginalText> },
+    { key: 'reason', label: '处理原因', children: <OriginalText>{decision.reason}</OriginalText> },
+    ...(decision.reference ? [{ key: 'product', label: '关联商品快照', children: <OriginalText>{`#${decision.reference.productId} ${decision.reference.title}`}</OriginalText> }] : []),
+    ...(decision.revokedAt ? [{ key: 'revoked', label: '撤销时间', children: displayDate(decision.revokedAt) }, { key: 'revocation', label: '撤销说明', children: <OriginalText>{decision.revocationReason || ''}</OriginalText> }] : []),
   ]} />)
 }
 
@@ -33,8 +32,8 @@ export function AppealSummary({ appeal }: { appeal: AccountAppealRecord }) {
   return localize(<Descriptions column={1} bordered size="small" items={[
     { key: 'status', label: '申诉状态', children: <Tag color={appeal.status === 'PENDING' ? 'orange' : 'green'}>{appealStatusLabels[appeal.status]}</Tag> },
     { key: 'time', label: '申诉时间', children: displayDate(appeal.createdAt) },
-    { key: 'explanation', label: '申诉说明', children: <CatalogText text={appeal.explanation} /> },
-    ...(appeal.reviewedAt ? [{ key: 'reviewed', label: '复核时间', children: displayDate(appeal.reviewedAt) }, { key: 'reason', label: '复核说明', children: <CatalogText text={appeal.reviewReason || ''} /> }] : []),
+    { key: 'explanation', label: '申诉说明', children: <OriginalText>{appeal.explanation}</OriginalText> },
+    ...(appeal.reviewedAt ? [{ key: 'reviewed', label: '复核时间', children: displayDate(appeal.reviewedAt) }, { key: 'reason', label: '复核说明', children: <OriginalText>{appeal.reviewReason || ''}</OriginalText> }] : []),
   ]} />)
 }
 
@@ -74,7 +73,7 @@ function DecisionContent({ token }: { token: string | null }) {
       </Card>
     </div>}</Resource> : <Resource {...list}>{list.value && <div className="moderation-stack">
       {!list.value.items.length && <NoItems />}
-      {list.value.items.map(item => <Card key={item.id} title={`处理记录 #${item.id}`} extra={<Link to={`/account/decisions/${item.id}`}>查看详情与申诉</Link>}><Space wrap><Tag color={item.action === 'DISABLE' ? 'red' : 'orange'}>{item.action === 'DISABLE' ? '禁用账号' : '违规警告'}</Tag>{item.revokedAt && <Tag color="green">已撤销</Tag>}{item.appeal && <Tag>{appealStatusLabels[item.appeal.status]}</Tag>}<span>{displayDate(item.createdAt)}</span></Space><p><CatalogText text={item.reason} /></p></Card>)}
+      {list.value.items.map(item => <Card key={item.id} title={`处理记录 #${item.id}`} extra={<Link to={`/account/decisions/${item.id}`}>查看详情与申诉</Link>}><Space wrap><Tag color={item.action === 'DISABLE' ? 'red' : 'orange'}>{item.action === 'DISABLE' ? '禁用账号' : '违规警告'}</Tag>{item.revokedAt && <Tag color="green">已撤销</Tag>}{item.appeal && <Tag>{appealStatusLabels[item.appeal.status]}</Tag>}<span>{displayDate(item.createdAt)}</span></Space><p><OriginalText>{item.reason}</OriginalText></p></Card>)}
       <Pagination current={page} pageSize={10} total={list.value.pagination.total} onChange={setPage} showSizeChanger={false} />
     </div>}</Resource>}
   </Page>)

@@ -94,6 +94,7 @@ def review(client, operator, appeal_id, outcome):
 
 
 def test_warning_notice_and_appeal_upheld_preserve_original(client):
+    reviewer = admin(client)
     user, peer, operator = account(client), account(client), admin(client)
     decision = decide(client, operator, user)
     assert decision["facts"] == "发布与商品不符的信息"
@@ -124,11 +125,11 @@ def test_warning_notice_and_appeal_upheld_preserve_original(client):
         item["type"] == "APPEAL_RECEIVED" and item["link"].endswith(f'appeal={submitted["id"]}')
         for item in admin_notices
     )
-    result = review(client, operator, submitted["id"], "UPHELD")
+    result = review(client, reviewer, submitted["id"], "UPHELD")
     assert result.status_code == 200, result.text
     assert result.json()["data"]["appeal"]["status"] == "UPHELD"
-    assert review(client, operator, submitted["id"], "UPHELD").status_code == 200
-    assert review(client, operator, submitted["id"], "REVOKED").status_code == 409
+    assert review(client, reviewer, submitted["id"], "UPHELD").status_code == 200
+    assert review(client, reviewer, submitted["id"], "REVOKED").status_code == 409
     stored = client.get(f'/account/decisions/{decision["id"]}', headers=headers(user)).json()[
         "data"
     ]
@@ -141,6 +142,7 @@ def test_warning_notice_and_appeal_upheld_preserve_original(client):
 
 
 def test_disabled_identity_appeals_but_cannot_transact_and_requires_new_login_after_restore(client):
+    reviewer = admin(client)
     user, operator = account(client), admin(client)
     decision = decide(client, operator, user, "DISABLE")
     disabled = client.get("/users/me", headers=headers(user))
@@ -160,7 +162,7 @@ def test_disabled_identity_appeals_but_cannot_transact_and_requires_new_login_af
     assert client.post("/products", headers=headers(scoped), json={}).status_code in (401, 422)
     assert client.get("/account/decisions", headers=headers(scoped)).status_code == 200
     submitted = appeal(client, scoped, decision["id"])
-    assert review(client, operator, submitted["id"], "REVOKED").status_code == 200
+    assert review(client, reviewer, submitted["id"], "REVOKED").status_code == 200
     result = client.get(f'/account/decisions/{decision["id"]}', headers=headers(scoped)).json()[
         "data"
     ]
@@ -241,11 +243,12 @@ def test_scoped_tokens_expiry_tampering_and_private_evidence_ownership(client):
 
 
 def test_restore_closes_pending_appeal_and_old_warning_cannot_undo_new_disable(client):
+    reviewer = admin(client)
     user, operator = account(client), admin(client)
     warning = decide(client, operator, user)
     warning_appeal = appeal(client, user, warning["id"])
     disabled = decide(client, operator, user, "DISABLE")
-    assert review(client, operator, warning_appeal["id"], "REVOKED").status_code == 200
+    assert review(client, reviewer, warning_appeal["id"], "REVOKED").status_code == 200
     assert client.get("/users/me", headers=headers(user)).status_code == 423
     scoped = {
         "accessToken": client.get("/users/me", headers=headers(user)).json()["details"][
@@ -255,17 +258,22 @@ def test_restore_closes_pending_appeal_and_old_warning_cannot_undo_new_disable(c
     pending = appeal(client, scoped, disabled["id"])
     restored = client.patch(
         f'/admin/users/{user["user"]["id"]}/status',
-        headers=headers(operator),
+        headers=headers(reviewer),
         json={"status": "ACTIVE", "reason": "人工核实后恢复"},
     )
     assert restored.status_code == 200
     result = client.get(f'/admin/appeals/{pending["id"]}', headers=headers(operator)).json()["data"]
     assert result["appeal"]["status"] == "REVOKED" and result["decision"]["revokedAt"]
-    assert review(client, operator, pending["id"], "UPHELD").status_code == 409
+    assert review(client, reviewer, pending["id"], "UPHELD").status_code == 409
 
 
 def test_permissions_idempotency_and_concurrent_review(client):
-    user, operator, operator2 = account(client), admin(client), admin(client)
+    user, operator, operator2, operator3 = (
+        account(client),
+        admin(client),
+        admin(client),
+        admin(client),
+    )
     body = {
         "action": "WARNING",
         "reason": "测试警告",
@@ -302,7 +310,7 @@ def test_permissions_idempotency_and_concurrent_review(client):
         results = list(
             pool.map(
                 lambda pair: concurrent_review(*pair),
-                [(operator, "UPHELD"), (operator2, "REVOKED")],
+                [(operator2, "UPHELD"), (operator3, "REVOKED")],
             )
         )
     assert sorted(results) == [200, 409]

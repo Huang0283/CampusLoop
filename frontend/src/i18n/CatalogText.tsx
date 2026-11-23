@@ -36,6 +36,7 @@ async function flush() {
         const result = await response.json() as { translations: string[] }
         if (!Array.isArray(result.translations) || result.translations.length !== batch.length || result.translations.some((value) => typeof value !== 'string' || !value)) throw new Error('Invalid translation')
         batch.forEach(([key, item], row) => { cache.set(key, result.translations[row]); item.resolve.forEach((resolve) => resolve(result.translations[row])) })
+        while (cache.size > 2000) cache.delete(cache.keys().next().value!)
       } catch { batch.forEach(([, item]) => item.reject.forEach((reject) => reject())) }
     }
   }

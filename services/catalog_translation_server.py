@@ -10,8 +10,8 @@ import hashlib
 import json
 import os
 import re
-import sqlite3
 import threading
+from collections import OrderedDict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -22,6 +22,8 @@ CACHE.mkdir(parents=True, exist_ok=True)
 MODELS = {"en": "Helsinki-NLP/opus-mt-zh-en", "zh": "Helsinki-NLP/opus-mt-en-zh"}
 LOCK = threading.Lock()
 loaded = {}
+translations = OrderedDict()
+MAX_TRANSLATIONS = 2000
 # Brand spellings and model names are preserved exactly as supplied, in both modes.
 BRAND = re.compile(r"\b(?i:Apple|MacBook(?:\s+(?:Air|Pro))?|iPhone|iPad|iMac|AirPods|ThinkPad|Lenovo|Huawei|Xiaomi|Redmi|Samsung|Sony|Canon|Nikon|Fujifilm|DJI|Nintendo|Switch|ASUS|ROG|Dell|HP|Acer|OPPO|vivo|realme|OnePlus|HONOR|Microsoft|Surface|Logitech|JBL|Bose|Beats|Kindle|Casio|Nike|adidas|Uniqlo|Decathlon|IKEA|MUJI)(?:\s+[A-Z0-9][A-Z0-9.+-]*)*\b|苹果|华为|小米|红米|荣耀|联想|佳能|尼康|索尼|富士|大疆|任天堂|华硕|戴尔|惠普|宏碁|耐克|阿迪达斯|优衣库|迪卡侬|宜家|无印良品")
 PROTECTED = re.compile(BRAND.pattern + r"|[¥￥$]?\d+(?:[.,:/–-]\d+)*(?:GB|TB|MB|GHz|Hz|cm|mm|kg|%|g)?")
@@ -61,26 +63,40 @@ def model(target, *, download=False):
     return loaded[target]
 
 
+def remember(text, target, result):
+    translations[(text, target)] = result
+    translations.move_to_end((text, target))
+    while len(translations) > MAX_TRANSLATIONS:
+        translations.popitem(last=False)
+
+
+def purge_legacy_cache():
+    # These files can contain private text from older frontends. Keep model weights.
+    for path in CACHE.glob("translations-*.sqlite3*"):
+        if re.fullmatch(r"translations-(?:[a-f0-9]{12}|v\d+)\.sqlite3(?:-wal|-shm|-journal)?", path.name):
+            path.unlink(missing_ok=True)
+
+
 def translate(texts: list[str], target: str) -> list[str]:
     import torch
-    with LOCK, sqlite3.connect(CACHE / f"translations-{REVISION[:12]}.sqlite3") as db:
-        db.execute("CREATE TABLE IF NOT EXISTS translations (source TEXT, target TEXT, result TEXT, PRIMARY KEY(source,target))")
+    with LOCK:
         results = []
         for text in texts:
             non_brand = BRAND.sub("", text)
             if not text.strip() or (target == "en" and not re.search(r"[\u3400-\u9fff]", text)) or (target == "zh" and (re.search(r"[\u3400-\u9fff]", text) or not re.search(r"[a-zA-Z]{3}", non_brand))):
                 results.append(text)
                 continue
-            cached = db.execute("SELECT result FROM translations WHERE source=? AND target=?", (text, target)).fetchone()
+            cached = translations.get((text, target))
             if cached:
-                results.append(cached[0])
+                translations.move_to_end((text, target))
+                results.append(cached)
                 continue
             # Reviewed translations are keyed by the complete source text, never
             # by item IDs. An edited or newly published description falls through
             # to inference rather than reusing a translation of old facts.
             reviewed = PHRASES[target].get(text)
             if reviewed:
-                db.execute("INSERT OR REPLACE INTO translations VALUES (?,?,?)", (text, target, reviewed))
+                remember(text, target, reviewed)
                 results.append(reviewed)
                 continue
             # Translate clauses separately to stay within Marian's token window;
@@ -123,9 +139,8 @@ def translate(texts: list[str], target: str) -> list[str]:
                 result = re.sub(r"\s+([,.:;!?])", r"\1", result)
             if not result:
                 raise ValueError("Empty translation")
-            db.execute("INSERT OR REPLACE INTO translations VALUES (?,?,?)", (text, target, result))
+            remember(text, target, result)
             results.append(result)
-        db.commit()
         return results
 
 
@@ -181,6 +196,7 @@ if __name__ == "__main__":
     parser.add_argument("--prepare", action="store_true")
     parser.add_argument("--port", type=int, default=18790)
     args = parser.parse_args()
+    purge_legacy_cache()
     if args.prepare:
         for language in MODELS:
             model(language, download=True)

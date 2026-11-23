@@ -1,6 +1,5 @@
 import { localize, OriginalText } from '../i18n/Localize'
 import { dateLocale, useLanguage, t } from '../i18n/language'
-import { CatalogText } from '../i18n/CatalogText'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Alert, Button, Card, Descriptions, Input, Pagination, Popconfirm, Rate, Select, Space, Steps, Tag, Timeline, Typography } from 'antd'
@@ -58,11 +57,11 @@ export function OrderPage() {
     <Card className="order-progress"><Steps size="small" status={['CANCELLED', 'DISPUTED'].includes(item.status) ? 'error' : undefined} current={item.status === 'COMPLETED' ? 3 : item.status === 'MEETUP_ARRANGED' ? 2 : 1} items={[{ title: '达成报价' }, { title: '安排见面' }, { title: '双方确认' }, { title: '完成交易' }]} /><div style={{ marginTop: 16 }}><Tag color="blue">{orderLabels[item.status]}</Tag><span className="muted">订单 #{item.id} · {displayDate(item.createdAt)}</span></div></Card>
     <div className="detail-columns"><div className="detail-sections"><Card title="商品信息"><ProductSummary product={item.product} /><div className="order-persons"><div><p className="muted">买家</p><Person person={item.buyer} /></div><div><p className="muted">卖家</p><Person person={item.seller} /></div></div></Card>
     <Card title="见面与交易操作">
-      {item.meetup && <><Typography.Title level={5}>见面约定 · 版本 {item.meetup.version}</Typography.Title><Typography.Paragraph>{<CatalogText text={item.meetup.campusLocation} />} · {item.meetup.scheduledDate} · {item.meetup.timeSlotStart}–{item.meetup.timeSlotEnd}<br />{item.meetup.note && <CatalogText text={item.meetup.note} />}</Typography.Paragraph><Space wrap><Tag color={item.meetup.buyerConfirmed ? 'success' : undefined}>买家{item.meetup.buyerConfirmed ? '已确认' : '未确认'}</Tag><Tag color={item.meetup.sellerConfirmed ? 'success' : undefined}>卖家{item.meetup.sellerConfirmed ? '已确认' : '未确认'}</Tag></Space></>}
+      {item.meetup && <><Typography.Title level={5}>见面约定 · 版本 {item.meetup.version}</Typography.Title><Typography.Paragraph>{<OriginalText>{item.meetup.campusLocation}</OriginalText>} · {item.meetup.scheduledDate} · {item.meetup.timeSlotStart}–{item.meetup.timeSlotEnd}<br />{item.meetup.note && <OriginalText>{item.meetup.note}</OriginalText>}</Typography.Paragraph><Space wrap><Tag color={item.meetup.buyerConfirmed ? 'success' : undefined}>买家{item.meetup.buyerConfirmed ? '已确认' : '未确认'}</Tag><Tag color={item.meetup.sellerConfirmed ? 'success' : undefined}>卖家{item.meetup.sellerConfirmed ? '已确认' : '未确认'}</Tag></Space></>}
       <div style={{ margin: '16px 0' }}><Space wrap>
-        {mutable && <Link to={`/transactions/${item.id}/meetup`}>{item.meetup ? '修改见面约定' : '安排见面'}</Link>}
-        {mutable && item.meetup && <Button disabled={confirmedMeetup || meetupNeedsReschedule} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.confirmMeetup({ path: { orderId }, body: { meetupId: item.meetup!.id, version: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}>确认当前版本</Button>}
-        {item.status === 'MEETUP_ARRANGED' && <Popconfirm title="确认已实际完成这次交易？" onCancel={() => {
+        {mutable && !item.participantDisabled && <Link to={`/transactions/${item.id}/meetup`}>{item.meetup ? '修改见面约定' : '安排见面'}</Link>}
+        {mutable && !item.participantDisabled && item.meetup && <Button disabled={confirmedMeetup || meetupNeedsReschedule} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.confirmMeetup({ path: { orderId }, body: { meetupId: item.meetup!.id, version: item.meetup!.version }, headers: api.idempotencyHeaders(crypto.randomUUID()) }); remote.reload(); events.reload() })}>确认当前版本</Button>}
+        {item.status === 'MEETUP_ARRANGED' && !item.participantDisabled && <Popconfirm title="确认已实际完成这次交易？" onCancel={() => {
           window.requestAnimationFrame(() => {
             completionButtonRef.current?.focus({ preventScroll: true })
           })
@@ -73,9 +72,11 @@ export function OrderPage() {
       {mutable && meetupNeedsReschedule && <Alert type="warning" style={{ marginBottom: 16 }} title="见面开始时间已过且尚未完成双方确认，请修改见面约定后重新确认。" />}
       {mutable && <Alert type="info" title={`完成确认：买家${item.buyerConfirmedComplete ? '已确认' : '未确认'}，卖家${item.sellerConfirmedComplete ? '已确认' : '未确认'}；双方确认后才完成。`} />}
       {item.status === 'COMPLETED' && <p><a href="#order-reviews">查看评价</a></p>}
+      {item.status === 'DISPUTED' && <Alert type="warning" showIcon title="订单已转入争议，等待管理员核实。" description="请保留交付、沟通和付款凭证，可通过举报补充说明。平台未接入支付，不会自动退款。" />}
+      {mutable && item.participantDisabled && <Alert type="warning" showIcon title="对方账号暂不可交易，可以取消尚未履行的订单。" />}
       {item.status === 'CANCELLED' && item.product.status === 'HIDDEN' && <Alert type="info" title="订单已取消，该商品已删除或下架，仍不在商城展示。" />}
       {mutable && !item.buyerConfirmedComplete && !item.sellerConfirmedComplete && <Space wrap style={{ marginTop: 16 }}><Input aria-label="取消原因" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="取消原因" maxLength={200} /><Popconfirm title="取消这笔订单？正常商品将恢复在售，已删除或下架的商品保持下架。" onConfirm={() => mutation.run(async () => { await api.cancelOrder({ path: { orderId }, body: { reason } }); remote.reload(); events.reload() })}><Button danger disabled={!reason.trim()} loading={mutation.busy}>取消订单</Button></Popconfirm></Space>}
-    </Card><Card title="订单时间线"><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: localize(<>{<CatalogText text={systemText(event.description, '订单状态已更新')} />}<br /><Typography.Text type="secondary">{displayDate(event.createdAt)}</Typography.Text></>) }))} /></Resource></Card></div><aside className="surface"><h2>订单信息</h2><Descriptions column={1} items={[{ key: 'price', label: '成交金额', children: <span className="price">¥{item.amount.toFixed(2)}</span> }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'created', label: '创建时间', children: displayDate(item.createdAt) }]} /><p className="muted">请核实商品和见面信息，实际完成交易后再确认。买卖双方都确认后，订单才会完成。</p></aside></div>
+    </Card><Card title="订单时间线"><Resource {...events}><Timeline items={events.value?.map((event) => ({ children: localize(<><OriginalText>{t(systemText(event.description, event.description))}</OriginalText><br /><Typography.Text type="secondary">{displayDate(event.createdAt)}</Typography.Text></>) }))} /></Resource></Card></div><aside className="surface"><h2>订单信息</h2><Descriptions column={1} items={[{ key: 'price', label: '成交金额', children: <span className="price">¥{item.amount.toFixed(2)}</span> }, { key: 'status', label: '状态', children: orderLabels[item.status] }, { key: 'created', label: '创建时间', children: displayDate(item.createdAt) }]} /><p className="muted">请核实商品和见面信息，实际完成交易后再确认。买卖双方都确认后，订单才会完成。</p></aside></div>
     {item.status === 'COMPLETED' && <Card id="order-reviews" title="交易评价" style={{ marginTop: 24 }}><OrderReviews key={item.id} orderId={item.id} /></Card>}
   </>}</Resource></Page>)
 }
@@ -90,7 +91,7 @@ export function MeetupPage() {
   const attemptKey = useAttemptKey()
   useEffect(() => { if (remote.value?.meetup) form.setFieldsValue(remote.value.meetup) }, [remote.value, form])
   return localize(<Page title="安排见面" extra={<Link to={`/transactions/${id}`}>返回订单</Link>}><Resource {...remote}><div className="detail-columns"><div className="detail-sections">
-    <Card title="当前约定">{remote.value?.meetup ? <Descriptions column={1} items={[{ key: 'location', label: '见面地点', children: <CatalogText text={remote.value.meetup.campusLocation} /> }, { key: 'time', label: '见面时间', children: `${remote.value.meetup.scheduledDate} ${remote.value.meetup.timeSlotStart}–${remote.value.meetup.timeSlotEnd}` }, { key: 'version', label: '版本', children: remote.value.meetup.version }]} /> : <Typography.Text type="secondary">尚未安排见面，请与对方沟通后填写约定。</Typography.Text>}</Card>
+    <Card title="当前约定">{remote.value?.meetup ? <Descriptions column={1} items={[{ key: 'location', label: '见面地点', children: <OriginalText>{remote.value.meetup.campusLocation}</OriginalText> }, { key: 'time', label: '见面时间', children: `${remote.value.meetup.scheduledDate} ${remote.value.meetup.timeSlotStart}–${remote.value.meetup.timeSlotEnd}` }, { key: 'version', label: '版本', children: remote.value.meetup.version }]} /> : <Typography.Text type="secondary">尚未安排见面，请与对方沟通后填写约定。</Typography.Text>}</Card>
     <Card title="填写 / 修改约定"><Failure error={mutation.error} /><Alert type="info" title="请使用北京时间选择未来的开始时间；每次修改生成新版本，双方需要重新确认。" style={{ marginBottom: 16 }} /><Form form={form} layout="vertical" size="large" noValidate onFinish={(body) => void mutation.run(async () => { validateMeetupStart(body.scheduledDate, body.timeSlotStart); await api.saveMeetup({ path: { orderId: Number(id) }, body, headers: api.idempotencyHeaders(attemptKey(body)) }); navigate(`/transactions/${id}`) })}>
     <Form.Item name="campusLocation" label="校内见面地点" rules={[{ required: true, whitespace: true, max: 100 }]}><Input /></Form.Item>
     <Form.Item name="scheduledDate" label="日期" rules={[{ required: true }]}><Input type="date" min={campusToday()} /></Form.Item>
@@ -242,8 +243,8 @@ export function NotificationsPage({ admin = false }: { admin?: boolean }) {
         >
           <span className="notification-icon" aria-hidden="true">{kind.icon}</span>
           <div className="notification-copy">
-            <h3><CatalogText text={title} /></h3>
-            {item.content ? <p><CatalogText text={systemText(item.content, item.content)} /></p> : null}
+            <h3><OriginalText>{t(title)}</OriginalText></h3>
+            {item.content ? <p><OriginalText>{item.content}</OriginalText></p> : null}
           </div>
           <time className="notification-time" dateTime={item.createdAt} title={displayDate(item.createdAt)}>{clockTime(item.createdAt)}</time>
           <div className="notification-actions">

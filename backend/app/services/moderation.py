@@ -2,6 +2,7 @@
 
 from sqlalchemy import select
 
+from app.core.config import get_settings
 from app.core.errors import BusinessError
 from app.core.security import utcnow
 from app.models import AccountAppeal, AccountDecision, AuthSessionFamily, Product, User
@@ -14,7 +15,9 @@ from app.services.storage import owned_keys
 def target_user(db, user_id, actor):
     if user_id == actor.id:
         raise BusinessError(403, "FORBIDDEN", "不能对自己的账号进行处罚。")
-    user = db.scalar(select(User).where(User.id == user_id, User.role == "USER").with_for_update())
+    user = db.scalar(
+        select(User).where(User.id == user_id, User.role == "USER").with_for_update(key_share=True)
+    )
     if not user:
         raise BusinessError(404, "NOT_FOUND", "用户不存在或该账号属于受保护的管理员。")
     return user
@@ -65,6 +68,9 @@ def record_decision(
     if action == "DISABLE":
         user.status = "DISABLED"
         revoke_sessions(db, user)
+        from app.services.order_governance import protect_disabled_orders
+
+        protect_disabled_orders(db, user, actor)
     title = "账号违规警告" if action == "WARNING" else "账号已被禁用"
     notify(
         db, user.id, "ACCOUNT_ACTION", f"/account/decisions/{decision.id}", title, decision.reason
@@ -115,9 +121,9 @@ def decision_dto(decision, appeal=None):
 
 
 def conclude_appeal(db, appeal, actor, outcome, reason):
+    decision = db.get(AccountDecision, appeal.decision_id)
     appeal.status, appeal.review_reason = outcome, reason.strip()
     appeal.reviewed_at, appeal.reviewed_by = utcnow(), actor.id
-    decision = db.get(AccountDecision, appeal.decision_id)
     notify(
         db,
         decision.user_id,
@@ -126,6 +132,27 @@ def conclude_appeal(db, appeal, actor, outcome, reason):
         "申诉复核结果",
         "已撤销原处理" if outcome == "REVOKED" else "维持原处理",
     )
+
+
+def require_independent_reviewer(db, decision, actor):
+    if decision.actor_id != actor.id:
+        return
+    settings = get_settings()
+    another_admin = db.scalar(
+        select(User.id)
+        .where(User.role == "ADMIN", User.status == "ACTIVE", User.id != actor.id)
+        .limit(1)
+    )
+    if settings.allow_single_admin_review and settings.app_env == "dev" and another_admin is None:
+        audit(
+            db,
+            "admin_single_reviewer_exception",
+            actor.id,
+            decision.user_id,
+            context={"decisionId": decision.id, "reason": "explicit_local_demo_exception"},
+        )
+        return
+    raise BusinessError(403, "INDEPENDENT_REVIEW_REQUIRED", "请由另一位管理员复核原处理。")
 
 
 def restore_account(db, user, actor, reason):
@@ -139,6 +166,7 @@ def restore_account(db, user, actor, reason):
         .order_by(AccountDecision.id)
         .with_for_update()
     ):
+        require_independent_reviewer(db, decision, actor)
         decision.revoked_at, decision.revoked_by, decision.revocation_reason = (
             utcnow(),
             actor.id,
