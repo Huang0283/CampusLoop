@@ -166,8 +166,12 @@ test('real admin pagination, risk audit request and status processing revoke ano
   await expect(student.getByRole('heading', { name: '个人资料', exact: true })).toHaveCount(0)
   await expect(student.getByRole('dialog', { name: '账号已被禁用', exact: true })).toBeVisible()
   await admin.getByLabel('状态变更原因', { exact: true }).fill('Phase4 isolated acceptance restore')
+  const restore = admin.waitForResponse(response => response.url().endsWith(`/admin/users/${id}/status`) && response.request().method() === 'PATCH')
   await admin.getByRole('button', { name: /恢复账号/ }).click()
-  await expect(admin.getByRole('button', { name: /禁用账号并撤销会话/ })).toBeEnabled()
+  const denied = await restore
+  expect(denied.status()).toBe(403)
+  expect((await denied.json()).code).toBe('INDEPENDENT_REVIEW_REQUIRED')
+  await expect(admin.getByRole('button', { name: /恢复账号/ })).toBeEnabled()
   await admin.getByRole('button', { name: '关闭', exact: true }).click()
   const reports = admin.waitForResponse((response) => response.url().includes('/admin/reports?') && response.status() === 200)
   await admin.getByRole('link', { name: '举报处理' }).click()
