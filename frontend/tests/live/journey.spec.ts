@@ -61,7 +61,7 @@ test('real two-account browser transaction; no database editing', async ({ brows
   await expect(buyer.getByText('实时连接恢复中，仍可发送消息并获取历史记录。')).toBeVisible()
   await buyerContext.setOffline(false)
   await expect(buyer.getByText('实时连接已建立')).toBeVisible()
-  await expect(buyer.getByText('失败重试测试消息', { exact: true })).toHaveCount(1)
+  await expect(buyer.locator('.chat-message-stream').getByText('失败重试测试消息', { exact: true })).toHaveCount(1)
   await buyer.getByRole('button', { name: '报价', exact: true }).click()
   await buyer.getByRole('spinbutton', { name: '报价金额', exact: true }).fill('45')
   await buyer.getByRole('button', { name: '提交报价', exact: true }).click()

@@ -9,6 +9,10 @@ test('long product names stay inside the admin mobile viewport while the table r
   await routeApiFixture(page, route => {
     const request = route.request(), path = new URL(request.url()).pathname
     const reply = (data: unknown) => route.fulfill({ json: { data } })
+    if (request.method() === 'POST' && path === '/display-translation/translate') {
+      const body = request.postDataJSON() as { texts: string[] }
+      return route.fulfill({ json: { translations: body.texts } })
+    }
     if (request.method() === 'POST' && path === '/auth/browser-session') return reply({ accessToken: 'admin-products-mobile', expiresIn: 600, user: admin })
     if (request.method() === 'GET' && path === '/admin/dashboard') return reply(adminDashboardFixture)
     if (request.method() === 'GET' && path === '/notifications') return reply([])
