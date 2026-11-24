@@ -19,14 +19,9 @@ jobs:
   fixtures:
     runs-on: ubuntu-latest
     env:
-      CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT: ${{ github.workspace }}/.codex-tmp/t1-software
+      CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
-      - name: Read the fixed software baseline separately from test materials
-        uses: actions/checkout@v4
-        with:
-          ref: 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3
-          path: .codex-tmp/t1-software
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

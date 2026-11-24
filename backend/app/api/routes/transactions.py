@@ -3,6 +3,7 @@ from typing import Literal
 
 from fastapi import APIRouter, Response
 from sqlalchemy import select, update
+from sqlalchemy.exc import OperationalError
 
 from app.api.routes.market import Key, Page, PageSize, page_data
 from app.core.envelope import ok
@@ -188,11 +189,23 @@ def mark_session_read(sessionId: int, body: ReadWrite, db: Db, actor: Actor):
     return Response(status_code=204)
 
 
-def available_product(db, context):
+def available_product(db, context, actor):
     if not context.product_id:
         raise BusinessError(
             409, "OFFER_CONTEXT_INVALID", "Create a product conversation to make an offer."
         )
+    peer_id = context.seller_id if actor.id == context.buyer_id else context.buyer_id
+    try:
+        # SHARE guards status updates; NOWAIT avoids a cycle with peer authorization locks.
+        peer_status = db.scalar(
+            select(User.status).where(User.id == peer_id).with_for_update(read=True, nowait=True)
+        )
+    except OperationalError as exc:
+        if getattr(exc.orig, "sqlstate", None) != "55P03":
+            raise
+        raise BusinessError(409, "OFFER_PEER_BUSY", "对方账号状态正在更新，请稍后重试。") from None
+    if peer_status != "ACTIVE":
+        raise BusinessError(409, "OFFER_PEER_DISABLED", "对方账号暂不可交易，不能继续报价。")
     item = load(db, Product, context.product_id, lock=True)
     if item.status != "ON_SALE" or item.deleted_at:
         raise BusinessError(409, "PRODUCT_STATE_CONFLICT", "Product is not available.")
@@ -245,7 +258,7 @@ def create_offer(
 ):
     def action():
         context = chat(db, sessionId, actor)
-        available_product(db, context)
+        available_product(db, context, actor)
         entity = new_offer(db, context, actor, body.amount)
         return ok(dto.offer(db, entity))
 
@@ -259,7 +272,7 @@ def pending_offer(db, identity, actor, *, creator=False):
     candidate = load(db, Offer, identity)
     context = load(db, ChatSession, candidate.session_id)
     require_participant(context, actor)
-    available_product(db, context)
+    available_product(db, context, actor)
     entity = db.scalar(
         select(Offer)
         .where(Offer.id == identity)

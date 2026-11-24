@@ -1375,5 +1375,7 @@
   "查看订单历史": "View order history",
   "交易参与方账号被禁用，订单转入争议，等待管理员核实。": "A participant was disabled. The order is disputed and awaits administrator review.",
   "交易参与方账号被禁用，可由正常账号一方取消订单。": "A participant was disabled. The active participant can cancel the order.",
-  "管理员已核实并取消争议订单": "An administrator verified and cancelled the disputed order"
+  "管理员已核实并取消争议订单": "An administrator verified and cancelled the disputed order",
+  "对方账号状态正在更新，请稍后重试。": "The other account is busy. Please try again shortly.",
+  "对方账号暂不可交易，不能继续报价。": "The other account cannot trade. You cannot continue this offer."
 }

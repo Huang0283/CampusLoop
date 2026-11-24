@@ -19,23 +19,33 @@ checkout root (PowerShell):
 
 ```powershell
 $t1 = "tests/collaboration/phase-5/data-permissions"
-# The material branch is older than the current software. Point to a clean,
-# separate software checkout at 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3.
-$env:CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT = (Resolve-Path '.codex-tmp/t1-software').Path
+# Use the same checkout for current application code and fixtures.
+$env:CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT = (Get-Location).Path
 python -m pip install -r "$env:CAMPUSLOOP_FIXTURE_SOFTWARE_ROOT/backend/requirements.txt"
 python "$t1/verify_data.py"
 python -m unittest discover -s $t1 -p test_package.py -v
 python "$t1/generate_invalid_media.py"
 ```
 
-Create that read-only software checkout first with
-`git worktree add --detach .codex-tmp/t1-software 85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3`,
-then install the locked dependencies from its `backend/requirements.txt`.
-CI uses the same pinned software SHA and keeps the PR's fixture/log files as
-the material under review. This creates no second website or database.
-When the package is integrated into the same software checkout, the variable
-may be omitted. A newer software SHA requires reviewing the OpenAPI snapshot
-and documenting the new baseline; never silently regenerate to make CI green.
+CI validates the checked-out PR merge revision, including its application code,
+OpenAPI and fixture snapshot; it no longer silently checks against the retired
+`85bcc3e8d9f62c38a230dc7f9a53800c11f5b2b3` application baseline.
+When fixtures and application code are in the same checkout, the variable may
+be omitted. To audit historical material against another approved revision,
+point it at a separate read-only checkout under `.codex-tmp/` and record both
+revisions. This does not create another website or database.
+A newer application revision requires reviewing the OpenAPI snapshot and
+documenting the new baseline; never silently regenerate to make CI green.
+
+### 2026-11-24 reviewed response-contract update
+
+The previous response snapshot predates the order-governance changes in
+`main@28e30a248168e0a0a32a7cc0b560401a649d1dff`. The reviewed schema diff adds only
+the optional `Order.version` and `Order.participantDisabled` properties; required
+properties and the other collected schemas are unchanged. The snapshot is
+re-extracted from the current OpenAPI, not patched by changing its hash alone.
+The 20 mock responses remain definition checks, not evidence that live
+permission, cleanup or T3 acceptance has passed.
 
 Static verification checks all nine JSON fixture families, field contracts,
 quotas, references, media provenance/MIME/size/SHA256, 20 OpenAPI response mocks,

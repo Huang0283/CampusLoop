@@ -2,6 +2,8 @@
 
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
+from threading import Event
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
@@ -10,14 +12,164 @@ from sqlalchemy import func, select
 from app.core.security import utcnow
 from app.db.session import SessionLocal
 from app.main import app
-from app.models import AccountAppeal, AccountDecision, AuthAudit, Notification, Order, OrderEvent
+from app.models import (
+    AccountAppeal,
+    AccountDecision,
+    AuthAudit,
+    Notification,
+    Offer,
+    Order,
+    OrderEvent,
+    Product,
+    User,
+)
 from tests.conftest import requires_postgres
 from tests.test_account_appeals import admin, appeal, decide, review
 from tests.test_account_appeals import isolated_database as isolated_database
 from tests.test_auth import account, headers
-from tests.test_transaction_api import key_headers, pending_order
+from tests.test_transaction_api import key_headers, pending_order, product
 
 pytestmark = [pytest.mark.integration, requires_postgres]
+
+
+def pending_offer(client, seller, buyer, disabled_role):
+    item = product(client, seller)
+    response = client.post("/chat/sessions", headers=headers(buyer), json={"productId": item["id"]})
+    assert response.status_code == 200, response.text
+    context = response.json()["data"]
+    response = client.post(
+        f'/chat/sessions/{context["id"]}/offers',
+        headers=key_headers(buyer),
+        json={"amount": 45},
+    )
+    assert response.status_code == 201, response.text
+    offer = response.json()["data"]
+    if disabled_role == "seller":
+        response = client.post(
+            f'/offers/{offer["id"]}/counter',
+            headers=key_headers(seller),
+            json={"amount": 46},
+        )
+        assert response.status_code == 201, response.text
+        offer = response.json()["data"]
+    return item, context, offer
+
+
+@pytest.mark.parametrize("disabled_role", ["buyer", "seller"])
+@pytest.mark.parametrize("operation", ["create", "counter", "accept"])
+def test_disabled_peer_cannot_receive_new_offer_or_order(client, disabled_role, operation):
+    seller, buyer, operator = account(client), account(client), admin(client)
+    item, context, offer = pending_offer(client, seller, buyer, disabled_role)
+    disabled = buyer if disabled_role == "buyer" else seller
+    active = seller if disabled_role == "buyer" else buyer
+    decide(client, operator, disabled, "DISABLE")
+    with SessionLocal() as db:
+        before_offers = db.scalar(
+            select(func.count(Offer.id)).where(Offer.session_id == context["id"])
+        )
+        before_notifications = db.scalar(select(func.count(Notification.id)))
+    endpoint = (
+        f'/chat/sessions/{context["id"]}/offers'
+        if operation == "create"
+        else f'/offers/{offer["id"]}/{operation}'
+    )
+    result = client.post(
+        endpoint,
+        headers=key_headers(active),
+        **({} if operation == "accept" else {"json": {"amount": 44}}),
+    )
+    assert result.status_code == 409, result.text
+    assert result.json()["code"] == "OFFER_PEER_DISABLED"
+    with SessionLocal() as db:
+        assert db.get(Product, item["id"]).status == "ON_SALE"
+        assert db.get(Offer, offer["id"]).status == "PENDING"
+        assert db.scalar(select(func.count(Order.id)).where(Order.product_id == item["id"])) == 0
+        assert (
+            db.scalar(select(func.count(Offer.id)).where(Offer.session_id == context["id"]))
+            == before_offers
+        )
+        assert db.scalar(select(func.count(Notification.id))) == before_notifications
+
+
+def test_peer_status_lock_returns_conflict_and_same_attempt_can_retry(client):
+    seller, buyer = account(client), account(client)
+    item, _, offer = pending_offer(client, seller, buyer, "buyer")
+    accept_headers = key_headers(seller)
+    endpoint = f'/offers/{offer["id"]}/accept'
+    with SessionLocal.begin() as peer_request:
+        peer_request.scalar(
+            select(User).where(User.id == buyer["user"]["id"]).with_for_update(key_share=True)
+        )
+        result = client.post(endpoint, headers=accept_headers)
+        assert result.status_code == 409, result.text
+        assert result.json()["code"] == "OFFER_PEER_BUSY"
+        with SessionLocal() as db:
+            assert db.get(Product, item["id"]).status == "ON_SALE"
+            assert db.get(Offer, offer["id"]).status == "PENDING"
+            assert (
+                db.scalar(select(func.count(Order.id)).where(Order.product_id == item["id"])) == 0
+            )
+    accepted = client.post(endpoint, headers=accept_headers)
+    assert accepted.status_code == 200, accepted.text
+    assert client.post(endpoint, headers=accept_headers).json() == accepted.json()
+    with SessionLocal() as db:
+        assert db.scalar(select(func.count(Order.id)).where(Order.product_id == item["id"])) == 1
+
+
+@pytest.mark.parametrize("disabled_role", ["buyer", "seller"])
+def test_disable_waits_for_acceptance_and_protects_the_new_order(client, disabled_role):
+    from app.api.routes import transactions
+
+    seller, buyer, operator = account(client), account(client), admin(client)
+    item, _, offer = pending_offer(client, seller, buyer, disabled_role)
+    disabled = buyer if disabled_role == "buyer" else seller
+    active = seller if disabled_role == "buyer" else buyer
+    eligibility_checked, finish_acceptance, disabling = Event(), Event(), Event()
+    original = transactions.available_product
+
+    def pause_after_eligibility(db, context, actor):
+        result = original(db, context, actor)
+        eligibility_checked.set()
+        assert finish_acceptance.wait(timeout=10)
+        return result
+
+    def accept():
+        with TestClient(app) as other:
+            return other.post(f'/offers/{offer["id"]}/accept', headers=key_headers(active))
+
+    def disable():
+        disabling.set()
+        with TestClient(app) as other:
+            return decide(other, operator, disabled, "DISABLE")
+
+    with patch.object(transactions, "available_product", pause_after_eligibility):
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            accepting = pool.submit(accept)
+            try:
+                assert eligibility_checked.wait(timeout=10)
+                disable_result = pool.submit(disable)
+                assert disabling.wait(timeout=10)
+            finally:
+                finish_acceptance.set()
+            accepted = accepting.result(timeout=15)
+            assert accepted.status_code == 200, accepted.text
+            disable_result.result(timeout=15)
+    saved = client.get(
+        f'/orders/{accepted.json()["data"]["order"]["id"]}', headers=headers(active)
+    ).json()["data"]
+    assert saved["participantDisabled"] is True
+    assert saved["status"] == "PENDING_CONFIRM"
+    with SessionLocal() as db:
+        assert db.get(Product, item["id"]).status == "RESERVED"
+        assert (
+            db.scalar(
+                select(func.count(OrderEvent.id)).where(
+                    OrderEvent.order_id == saved["id"],
+                    OrderEvent.description == "交易参与方账号被禁用，可由正常账号一方取消订单。",
+                )
+            )
+            == 1
+        )
 
 
 def arrange(client, buyer, seller, order, complete=False):

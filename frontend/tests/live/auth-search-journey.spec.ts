@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures'
 import { randomUUID } from 'node:crypto'
 import { mkdir } from 'node:fs/promises'
 
@@ -15,6 +15,8 @@ test('audit register, reload, login and new product description search persist',
   await page.reload()
   await page.goto('/publish')
   await page.getByLabel('商品名称', { exact: true }).fill(title)
+  await page.getByLabel('分类', { exact: true }).click()
+  await page.locator('.ant-select-dropdown').getByText('数码电子', { exact: true }).click()
   await page.locator('input[type=file]').setInputFiles({
     name: 'audit.png', mimeType: 'image/png',
     buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAFklEQVR4nGNkYPjPwMDAxMDAwMDAAAALHwEDmIWXfgAAAABJRU5ErkJggg==', 'base64'),

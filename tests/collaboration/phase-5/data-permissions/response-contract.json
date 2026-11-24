@@ -1,5 +1,5 @@
 {
-  "openapiSha256": "7f3bab44f0cb7609d3fd282172f636db8434a9becfc492e2b060bd2e1de51ab2",
+  "openapiSha256": "8ab6c611151c0295411f3ab9092e4ab87a22a814416091ed8d025709761afba3",
   "hashNormalization": "UTF-8, universal newlines to LF",
   "schemas": {
     "ProductListResponse": {
@@ -438,6 +438,15 @@
         },
         "buyerConfirmedComplete": {
           "type": "boolean"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Optimistic version for administrator dispute cancellation."
+        },
+        "participantDisabled": {
+          "type": "boolean",
+          "description": "A participant cannot transact; early cancellation or administrator dispute review is required."
         },
         "sellerConfirmedComplete": {
           "type": "boolean"
