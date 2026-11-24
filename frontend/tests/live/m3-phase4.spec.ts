@@ -84,7 +84,7 @@ test('matching renders constraints/version and updates expiry while page remains
   await expect(page.getByText(/硬约束：预算符合/)).toBeVisible()
   await expect(page.getByText(/结果版本：match-fixture-v4/)).toBeVisible()
   await expect(page.getByText(/不是成交概率/)).toBeVisible()
-  await expect(page.getByRole('link', { name: '查看匹配通知', exact: true })).toHaveAttribute('href', '/notifications')
+  await expect(page.getByRole('link', { name: '查看匹配通知', exact: true })).toHaveAttribute('href', '/notifications?group=匹配')
   await expect(page.getByText('已过期', { exact: true })).not.toBeVisible()
   await page.clock.fastForward(61000)
   await expect(page.getByText('已过期', { exact: true })).toBeVisible()

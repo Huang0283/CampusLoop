@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Alert, Badge, Button, Dropdown, Tooltip } from 'antd'
 import { Link, NavLink, Outlet, useLocation, useNavigate, useOutletContext } from 'react-router-dom'
+import { useReturnState } from '../live/BackLink'
 import * as api from '../sdk'
 import type { AdminDashboard } from '../sdk'
 import { useNotificationsResource, useRemote } from '../live/common'
@@ -45,6 +46,7 @@ const COLLAPSE_KEY = 'campusloop-admin-sidebar'
 
 export function AdminLayout() {
   useLanguage()
+  const returnState = useReturnState()
   const user = useSession((state) => state.user)
   const location = useLocation()
   const navigate = useNavigate()
@@ -118,7 +120,7 @@ export function AdminLayout() {
         <ThemeToggle className="adm-theme" />
         <LanguageSelect className="adm-language" />
         <Tooltip title="通知与申诉提醒">
-          <Badge count={unread} size="small" offset={[-4, 4]}><Button type="text" className="adm-icon-btn" aria-label="通知" icon={<Icon name="bell" />} onClick={() => navigate('/admin/notifications')} /></Badge>
+          <Badge count={unread} size="small" offset={[-4, 4]}><Button type="text" className="adm-icon-btn" aria-label="通知" icon={<Icon name="bell" />} onClick={() => navigate('/admin/notifications', { state: returnState })} /></Badge>
         </Tooltip>
         <Dropdown trigger={['click']} placement="bottomRight" getPopupContainer={(trigger) => trigger.parentElement ?? document.body}
           // Keep positioning relative to the sticky header; reduced motion must

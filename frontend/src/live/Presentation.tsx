@@ -6,6 +6,7 @@ import { useState, type ReactNode } from 'react'
 import { Button, Empty, Image, Tag, Typography } from 'antd'
 import { CalendarOutlined, EnvironmentOutlined, FileProtectOutlined, FileTextOutlined, InboxOutlined, LeftOutlined, RightOutlined, StarOutlined, SwapOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import { useReturnState } from './BackLink'
 import type { Product, UserBrief } from '../sdk'
 import { categoryLabels, conditionLabels, productStatusLabels, displayDate } from './display'
 import { Logo } from '../theme/brand'
@@ -22,7 +23,8 @@ export function Person({ person, detail }: { person: UserBrief; detail?: ReactNo
 
 export function ProductSummary({ product, children }: { product: Product; children?: ReactNode }) {
   useLanguage()
-  return localize(<div className="product-summary">{product.images[0] ? <img src={product.images[0]} alt={product.title} /> : <div className="product-summary-placeholder"><InboxOutlined /></div>}<div className="product-summary-copy"><Link to={`/product/${product.id}`}>{<CatalogText text={product.title} />}</Link><div className="price">¥{product.price.toFixed(2)}</div><Tag color={product.status === 'ON_SALE' ? 'green' : undefined}>{productStatusLabels[product.status]}</Tag>{children}</div></div>)
+  const returnState = useReturnState()
+  return localize(<div className="product-summary">{product.images[0] ? <img src={product.images[0]} alt={product.title} /> : <div className="product-summary-placeholder"><InboxOutlined /></div>}<div className="product-summary-copy"><Link to={`/product/${product.id}`} state={returnState}>{<CatalogText text={product.title} />}</Link><div className="price">¥{product.price.toFixed(2)}</div><Tag color={product.status === 'ON_SALE' ? 'green' : undefined}>{productStatusLabels[product.status]}</Tag>{children}</div></div>)
 }
 
 export function ProductDetail({ item, actions, feedback }: { item: Product; actions: ReactNode; feedback: ReactNode }) {

@@ -11,9 +11,11 @@ import { ImageQueue } from './ImageQueue'
 import { useAttemptKey } from './idempotency'
 import { reportReasons } from './reportReasons'
 import { MinimizableModal } from './MinimizableModal'
+import { useReturnState } from './BackLink'
 
 export function ReportButton({ targetType, targetId, orderRole, label = '举报' }: { targetType: ReportTargetType; targetId: number; orderRole?: 'buyer' | 'seller'; label?: string }) {
   useLanguage()
+  const returnState = useReturnState()
   const [open, setOpen] = useState(false)
   const [uploadBlocked, setUploadBlocked] = useState(false)
   const [form] = Form.useForm()
@@ -26,7 +28,7 @@ export function ReportButton({ targetType, targetId, orderRole, label = '举报'
     <Failure error={mutation.error} /><Form form={form} layout="vertical" onFinish={(values: { reason: ReportReason; description?: string; evidence?: string[] }) => void mutation.run(async () => {
       const body = { targetType, targetId, ...values }
       await data(createReport({ body, headers: idempotencyHeaders(attemptKey(body)) })); form.resetFields(); setUploadBlocked(false); setOpen(false)
-      void messageApi.success({ content: <LocalizedText>举报已提交，<Link to="/report">查看我的举报</Link></LocalizedText>, duration: 6 })
+      void messageApi.success({ content: <LocalizedText>举报已提交，<Link to="/report" state={returnState}>查看我的举报</Link></LocalizedText>, duration: 6 })
     })}>
       <Form.Item name="reason" label="举报原因" rules={[{ required: true }, { validator: (_, value) => !value || options.some((option) => option.value === value) ? Promise.resolve() : Promise.reject(new Error(t('请重新选择符合当前举报对象的原因。'))) }]}><Select options={options} /></Form.Item>
       <Form.Item name="description" label="说明"><Input.TextArea maxLength={1000} showCount /></Form.Item>

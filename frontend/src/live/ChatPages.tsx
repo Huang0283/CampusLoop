@@ -4,7 +4,7 @@ import { useLanguage, t, dateLocale } from '../i18n/language'
 import { CatalogText } from '../i18n/CatalogText'
 import { useEffect, useRef, useState } from 'react'
 import { Alert, Badge, Button, Empty, Input, InputNumber, Popover, Select, Space, Tag, Tooltip, Typography } from 'antd'
-import { ArrowLeftOutlined, DollarOutlined, EllipsisOutlined, PaperClipOutlined, ReloadOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons'
+import { DollarOutlined, EllipsisOutlined, PaperClipOutlined, ReloadOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as api from '../sdk'
 import type { ChatSession, Offer } from '../sdk'
@@ -15,6 +15,7 @@ import { ImageQueue } from './ImageQueue'
 import { ReportButton } from './ReportButton'
 import { useSession } from './session'
 import { useChat } from './useChat'
+import { BackLink } from './BackLink'
 import { PrivateImage } from './PrivateImage'
 import { useAttemptKey } from './idempotency'
 
@@ -123,7 +124,7 @@ function Conversation({ session, sessions }: { session: ChatSession; sessions: C
     void chat.send(session.id, { clientMsgId: crypto.randomUUID(), kind: 'TEXT', content })
   }
   return localize(<section className="chat-conversation" aria-label="当前聊天">
-    <div className="chat-conversation-header"><Space><Link className="chat-back" to="/chat" aria-label="返回聊天列表"><ArrowLeftOutlined /></Link><h1>{<OriginalText>{session.peer.nickname}</OriginalText>}</h1></Space><Space>{chat.connection === 'connected' && <span className="chat-online" role="status">实时连接已建立</span>}<Popover trigger="click" placement="bottomRight" content={<ReportButton targetType="USER" targetId={session.peer.id} label="举报对方" />}><Button type="text" aria-label="会话操作" icon={<EllipsisOutlined />} /></Popover></Space></div>
+    <div className="chat-conversation-header"><Space><BackLink fallback="/chat">返回聊天列表</BackLink><h1>{<OriginalText>{session.peer.nickname}</OriginalText>}</h1></Space><Space>{chat.connection === 'connected' && <span className="chat-online" role="status">实时连接已建立</span>}<Popover trigger="click" placement="bottomRight" content={<ReportButton targetType="USER" targetId={session.peer.id} label="举报对方" />}><Button type="text" aria-label="会话操作" icon={<EllipsisOutlined />} /></Popover></Space></div>
     <div className="chat-context">{sessions.length > 1 && <div className="chat-context-switch"><span>当前沟通</span><Select aria-label="选择沟通商品或求购" virtual={false} value={session.id} onChange={(id) => { locateSession.current = id; followBottom.current = false; setQuoteSessionId(undefined); setAmount(null); navigate(`/chat/${id}`, { replace: true }) }} options={sessions.map((item) => ({ value: item.id, label: <>{item.type === 'WANTED' ? t('求购：') : ''}<CatalogText text={contextTitle(item)} /></> }))} /><span className="muted">共 {sessions.length} 项，聊天记录已合并</span></div>}{session.product ? <ProductSummary product={session.product} /> : session.wanted ? <><Link to={`/wanted/${session.wanted.id}`}>{<CatalogText text={session.wanted.title} />}</Link><p className="muted">求购会话用于沟通；交易请从具体商品发起。</p></> : <p className="muted">关联商品已不可用，历史消息仍可查看。</p>}</div>
     <div className="chat-connection">{chat.connection !== 'connected' && <Alert type="warning" title="实时连接恢复中，仍可发送消息并获取历史记录。" />}<Failure error={chat.error} /><Failure error={offers.error} retry={offers.reload} /></div>
     <div className="chat-message-stream" ref={streamRef} onScroll={() => { const stream = streamRef.current; if (stream) followBottom.current = stream.scrollHeight - stream.scrollTop - stream.clientHeight < 100 }} aria-label="聊天消息">

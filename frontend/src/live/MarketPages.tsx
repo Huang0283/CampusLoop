@@ -12,6 +12,7 @@ import type { Product, ProductWriteRequest, WantedWriteRequest, PriceAdviceReque
 import { Failure, NoItems, Page, Resource, useMutation, useRemote } from './common'
 import { useSession } from './session'
 import { ReportButton } from './ReportButton'
+import { BackLink, useReturnState } from './BackLink'
 import { ImageQueue } from './ImageQueue'
 import { useAttemptKey } from './idempotency'
 import { ProductDetail, Person } from './Presentation'
@@ -34,18 +35,20 @@ function requireStudent(navigate: ReturnType<typeof useNavigate>, from: string) 
 
 export function ProductCards({ products, from, actions }: { products: Product[]; from?: string; actions?: (product: Product) => React.ReactNode }) {
   useLanguage()
+  const returnState = useReturnState()
+  const sourceState = { ...returnState, returnTo: from || returnState.returnTo }
   const navigate = useNavigate()
   return localize(<div className="product-grid">{products.map((product) => {
     const meta = categoryOf(product.category)
     return localize(<article key={product.id} className="product-card catalog-card" style={{ ['--ic' as string]: meta.color }}>
-      <Link to={`/product/${product.id}`} state={{ from }} aria-hidden="true" tabIndex={-1}>
+      <Link to={`/product/${product.id}`} state={sourceState} aria-hidden="true" tabIndex={-1}>
         <div className="product-photo">
           {product.images[0] ? <img src={product.images[0]} alt={product.title} loading="lazy" /> : <Glyph name={meta.glyph} />}
           <span className="condition">{conditionLabels[product.condition] || '成色待确认'}</span>
         </div>
       </Link>
       <div className="product-body">
-        <h3><Link className="catalog-title" onKeyDown={(event) => { if (event.key === ' ') { event.preventDefault(); navigate(`/product/${product.id}`, { state: { from } }) } }} to={`/product/${product.id}`} state={{ from }} style={{ color: 'inherit' }}>{<CatalogText text={product.title} />}</Link></h3>
+        <h3><Link className="catalog-title" onKeyDown={(event) => { if (event.key === ' ') { event.preventDefault(); navigate(`/product/${product.id}`, { state: sourceState }) } }} to={`/product/${product.id}`} state={sourceState} style={{ color: 'inherit' }}>{<CatalogText text={product.title} />}</Link></h3>
         <div className="row"><span className="cl-price catalog-price"><small>¥</small>{product.price.toFixed(2)}</span><span className={`cl-chip${product.status === 'ON_SALE' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{stateLabel[product.status]}</span></div>
         <span className="loc"><EnvironmentOutlined />{<CatalogText text={product.campusLocation || '地点未填写'} />}</span>
         <div className="catalog-seller"><Avatar size={22} src={product.seller.avatar}>{<OriginalText>{product.seller.nickname.slice(0, 1)}</OriginalText>}</Avatar><span>{<OriginalText>{product.seller.nickname}</OriginalText>}</span></div>
@@ -85,6 +88,7 @@ function MarketSky() {
 
 export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'favorites' }) {
   useLanguage()
+  const returnState = useReturnState()
   const [params, setParams] = useSearchParams()
   const query = params.get('query') || ''
   const page = Math.max(1, Number(params.get('page')) || 1)
@@ -123,7 +127,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   useEffect(() => {
     if (remote.error instanceof api.ApiError && remote.error.status === 0) void messageApi.error(<LocalizedText>网络异常，请检查网络后重试</LocalizedText>)
   }, [remote.error, messageApi])
-  const publish = localize(<Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish') }}>发布商品</Button>)
+  const publish = localize(<Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/publish')) navigate('/publish', { state: returnState }) }}>发布商品</Button>)
   const results = localize(<>
     {contextHolder}
     <Failure error={mutation.error} />
@@ -137,7 +141,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
       </div>}
       {searchResult && !searchResult.items.length && (category || condition) && <Button style={{ marginBottom: 16 }} onClick={() => { const next = new URLSearchParams(params); next.delete('category'); next.delete('condition'); next.delete('page'); setParams(next) }}>清除分类与成色筛选</Button>}
       {remote.value?.items.length ? <ProductCards products={remote.value.items} from={location.pathname + location.search} actions={mode === 'mine' ? (product) => localize(<Space wrap>
-        <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => navigate(`/product/${product.id}/edit`)}>编辑</Button>
+        <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => navigate(`/product/${product.id}/edit`, { state: returnState })}>编辑</Button>
         <Button disabled={['SOLD', 'RESERVED'].includes(product.status)} loading={mutation.busy} onClick={() => void mutation.run(async () => { await api.updateProductStatus({ path: { productId: product.id }, body: { status: product.status === 'ON_SALE' ? 'HIDDEN' : 'ON_SALE' } }); remote.reload() })}>{product.status === 'ON_SALE' ? '下架' : '上架'}</Button>
         <Button danger disabled={['SOLD', 'RESERVED'].includes(product.status)} onClick={() => void mutation.run(async () => { await api.deleteProduct({ path: { productId: product.id } }); remote.reload() })}>删除</Button>
       </Space>) : mode === 'favorites' ? (product) => localize(<Button onClick={() => void mutation.run(async () => { await api.removeFavorite({ path: { productId: product.id } }); remote.reload() })}>取消收藏</Button>) : undefined} /> : <NoItems filtered={Boolean(query || params.get('category') || params.get('condition'))} />}
@@ -145,7 +149,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
     </Resource>
   </>)
 
-  if (mode !== 'public') return localize(<Page title={mode === 'mine' ? '我的发布' : '我的收藏'} subtitle={mode === 'mine' ? '管理你发布的商品与在售状态' : '收藏喜欢的校园好物'} extra={publish}>
+  if (mode !== 'public') return localize(<Page title={mode === 'mine' ? '我的发布' : '我的收藏'} subtitle={mode === 'mine' ? '管理你发布的商品与在售状态' : '收藏喜欢的校园好物'} extra={<Space wrap><BackLink fallback="/market">返回上一页</BackLink>{publish}</Space>}>
     {mode === 'mine' && <div style={{ marginBottom: 20, maxWidth: 360 }}><Input.Search maxLength={200} aria-label="搜索商品" placeholder="搜索我的商品" defaultValue={query} onSearch={(value) => change('query', value)} allowClear /></div>}
     {results}
   </Page>)
@@ -215,9 +219,9 @@ export function ProductPage() {
     }
   })
   const favorite = savedFavorite?.key === favoriteKey ? savedFavorite.value : favoriteState.value === true
-  const from = typeof location.state?.from === 'string' && location.state.from.startsWith('/market') ? location.state.from : '/market'
+  const returnState = useReturnState()
   const item = remote.value
-  return localize(<div className="campus-page"><Breadcrumb style={{ marginBottom: 20 }} items={[{ title: <Link to={from}>返回列表</Link> }, { title: item ? categoryLabels[item.category] || '其他' : '商品' }, { title: '商品详情' }]} /><Resource {...remote}>
+  return localize(<div className="campus-page"><Breadcrumb style={{ marginBottom: 20 }} items={[{ title: <BackLink fallback="/market">返回列表</BackLink> }, { title: item ? categoryLabels[item.category] || '其他' : '商品' }, { title: '商品详情' }]} /><Resource {...remote}>
     {item && <ProductDetail key={item.id} item={item} feedback={<><Failure error={mutation.error} /><Failure error={favoriteState.error} retry={favoriteState.reload} /></>} actions={user?.role !== 'ADMIN' && <>
         <Button icon={favorite ? <HeartFilled aria-hidden /> : <HeartOutlined aria-hidden />} loading={mutation.busy || (user?.role === 'USER' && favoriteState.loading)} disabled={user?.role === 'USER' && Boolean(favoriteState.error)} onClick={() => void mutation.run(async () => {
           if (!requireStudent(navigate, location.pathname)) return
@@ -228,9 +232,9 @@ export function ProductPage() {
         <Button type="primary" icon={<MessageFilled aria-hidden />} disabled={item.status !== 'ON_SALE' || user?.id === item.seller.id} loading={mutation.busy} onClick={() => void mutation.run(async () => {
           if (!requireStudent(navigate, location.pathname)) return
           const session = await api.data(api.createChatSession({ body: { productId: item.id }, headers: api.idempotencyHeaders(crypto.randomUUID()) }))
-          navigate(`/chat/${session.id}`)
+          navigate(`/chat/${session.id}`, { state: returnState })
         })}>联系卖家</Button>
-        <div className="seller-secondary-actions">{user?.id === item.seller.id && <Link to={`/product/${item.id}/edit`}>编辑商品</Link>}
+        <div className="seller-secondary-actions">{user?.id === item.seller.id && <Link to={`/product/${item.id}/edit`} state={returnState}>编辑商品</Link>}
         {user?.role === 'USER' && user.id !== item.seller.id && <><ReportButton label="举报商品" targetType="PRODUCT" targetId={item.id} /><ReportButton label="举报卖家" targetType="USER" targetId={item.seller.id} /></>}</div>
       </>} />}
   </Resource></div>)
@@ -238,6 +242,7 @@ export function ProductPage() {
 
 export function ProductFormPage() {
   useLanguage()
+  const returnState = useReturnState()
   const { id } = useParams()
   const remote = useRemote(`edit-product-${id}`, (signal) => id ? api.data(api.getProduct({ path: { productId: Number(id) }, headers: { Authorization: 'Bearer ' + api.accessToken() }, signal })) : Promise.resolve(null))
   const [form] = Form.useForm<ProductWriteRequest>()
@@ -255,7 +260,7 @@ export function ProductFormPage() {
       condition: conditions.some((entry) => entry.value === condition) ? condition as ProductWriteRequest['condition'] : undefined,
       campusLocation: fields.campusLocation || '', description: fields.description || '' })
   }, [remote.value, form])
-  return localize(<Page title={id ? '编辑商品' : '发布商品'} subtitle="给闲置一个新去处" extra={<Link to="/my-products">我的发布</Link>}><Resource {...remote}><Card className="form-surface">
+  return localize(<Page title={id ? '编辑商品' : '发布商品'} subtitle="给闲置一个新去处" extra={<Space wrap><BackLink fallback={id ? `/product/${id}` : "/market"}>返回上一页</BackLink><Link to="/my-products">我的发布</Link></Space>}><Resource {...remote}><Card className="form-surface">
     <p className="form-intro">填写商品信息，清楚描述成色和瑕疵，方便同学了解你的好物。</p>
     <Failure error={mutation.error} />
     <Form form={form} layout="vertical" size="large" initialValues={{ images: [], category: 'BOOKS', condition: 'GOOD' }} onFinish={(body) => void mutation.run(async () => {
@@ -277,13 +282,14 @@ export function ProductFormPage() {
       })]}><InputNumber min={0} max={99999999.99} precision={2} /></Form.Item>
       <Form.Item name="campusLocation" label="校内交易地点" rules={[{ required: true, whitespace: true, max: 128 }]}><Input /></Form.Item>
       <Form.Item name="description" label="描述"><Input.TextArea maxLength={3000} rows={5} showCount placeholder="使用情况、瑕疵、配件，以及其他希望买家了解的信息" /></Form.Item>
-      <div className="form-actions"><Link to="/publish/price-advice">查看规则价格建议</Link><Button type="primary" htmlType="submit" loading={mutation.busy} disabled={uploadBlocked}>保存商品</Button></div>
+      <div className="form-actions"><Link to="/publish/price-advice" state={returnState}>查看规则价格建议</Link><Button type="primary" htmlType="submit" loading={mutation.busy} disabled={uploadBlocked}>保存商品</Button></div>
     </Form>
   </Card></Resource></Page>)
 }
 
 export function WantedListPage() {
   useLanguage()
+  const returnState = useReturnState()
   const [params, setParams] = useSearchParams()
   const query = params.get('query') || ''
   const page = Math.max(1, Number(params.get('page')) || 1)
@@ -294,17 +300,17 @@ export function WantedListPage() {
   const scale = Math.max(1, ...(remote.value?.items.map((item) => item.budgetMax) ?? [1]))
   return localize(<Page title="求购广场" subtitle="看看同学们正在找什么，手里有闲置就去帮一把。" extra={<Space wrap>
     <Input.Search maxLength={200} aria-label="搜索求购" placeholder="搜索求购" defaultValue={query} onSearch={(value) => setParams(value ? { query: value } : {})} allowClear style={{ width: 280 }} />
-    <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish') }}>发布求购</Button>
+    <Button type="primary" className="cl-btn-grad" icon={<PlusOutlined aria-hidden />} onClick={() => { if (requireStudent(navigate, '/wanted/publish')) navigate('/wanted/publish', { state: returnState }) }}>发布求购</Button>
   </Space>}>
     <Resource {...remote}>{remote.value?.items.length ? <div className="wanted-grid">{remote.value.items.map((item) => localize(<Card className={`wanted-card${item.status === 'OPEN' ? '' : ' is-closed'}`} key={item.id}>
-      <h2 style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}><Link className="wanted-title" onKeyDown={(event) => { if (event.key === ' ') { event.preventDefault(); navigate(`/wanted/${item.id}`) } }} to={`/wanted/${item.id}`}>{<CatalogText text={item.title} />}</Link><span className={`cl-chip${item.status === 'OPEN' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{wantedStatusLabels[item.status]}</span></h2>
+      <h2 style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}><Link className="wanted-title" onKeyDown={(event) => { if (event.key === ' ') { event.preventDefault(); navigate(`/wanted/${item.id}`, { state: returnState }) } }} to={`/wanted/${item.id}`} state={returnState}>{<CatalogText text={item.title} />}</Link><span className={`cl-chip${item.status === 'OPEN' ? ' is-ok' : ''}`} style={{ marginLeft: 'auto' }}>{wantedStatusLabels[item.status]}</span></h2>
       <div className="wanted-description">{<CatalogText text={item.description || '发布者暂未填写补充说明。'} />}</div>
       <div className="wanted-budget"><div className="top"><span className="muted">预算</span><span className="cl-price"><small>¥</small>{item.budgetMin}–{item.budgetMax}</span></div>
         <div className="bar" aria-hidden="true"><span style={{ left: `${item.budgetMin / scale * 100}%`, right: `${100 - item.budgetMax / scale * 100}%` }} /></div></div>
       <div className="wanted-footer"><span className="cl-chip" style={{ ['--c' as string]: 'var(--cat-other)' }}>最低成色：{conditionLabels[item.condition] || '成色待确认'}</span>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Avatar size={22} src={item.owner.avatar}>{<OriginalText>{item.owner.nickname.slice(0, 1)}</OriginalText>}</Avatar>{<OriginalText>{item.owner.nickname}</OriginalText>}</span>
         <span><EnvironmentOutlined /> {item.location === 'ANY' ? '不限地点' : item.location}</span><span><ClockCircleOutlined /> {displayDate(item.createdAt)}</span>
-        {user?.id === item.owner.id ? <Link className="go" to={`/wanted/${item.id}/matches`}>查看匹配</Link> : <Link className="go" to={`/wanted/${item.id}`}>查看详情 →</Link>}</div>
+        {user?.id === item.owner.id ? <Link className="go" to={`/wanted/${item.id}/matches`} state={returnState}>查看匹配</Link> : <Link className="go" to={`/wanted/${item.id}`} state={returnState}>查看详情 →</Link>}</div>
     </Card>))}</div> : <NoItems filtered={Boolean(query)} />}
       {remote.value && <Pagination className="cl-pagination" current={page} pageSize={12} total={remote.value.pagination.total} onChange={(next) => setParams({ query, page: String(next) })} showSizeChanger={false} />}
     </Resource>
@@ -313,20 +319,21 @@ export function WantedListPage() {
 
 export function WantedDetailPage() {
   useLanguage()
+  const returnState = useReturnState()
   const { id } = useParams()
   const user = useSession((state) => state.user)
   const remote = useRemote(`wanted-detail-${id}`, (signal) => api.data(api.getWanted({ path: { wantedId: Number(id) }, signal })))
   const mutation = useMutation()
   const navigate = useNavigate()
   const item = remote.value
-  return localize(<Page title="求购详情" extra={<Link to="/wanted">返回广场</Link>}><Resource {...remote}><Failure error={mutation.error} />{item && <div className="detail-columns"><section className="surface">
+  return localize(<Page title="求购详情" extra={<BackLink fallback="/wanted">返回广场</BackLink>}><Resource {...remote}><Failure error={mutation.error} />{item && <div className="detail-columns"><section className="surface">
     <Typography.Title level={3}>{<CatalogText text={item.title} />}</Typography.Title><Tag color="blue">{wantedStatusLabels[item.status]}</Tag><p className="muted">发布于 {displayDate(item.createdAt)} · 有效期至 {displayDate(item.expireAt)}</p>
     <h2 style={{ marginTop: 28 }}><FileTextOutlined /> 需求描述</h2><Typography.Paragraph style={{ whiteSpace: 'pre-wrap' }}>{<CatalogText text={item.description || '暂无补充说明。'} />}</Typography.Paragraph>
     <h2 style={{ marginTop: 28 }}>需求条件</h2><div className="fact-grid"><div className="fact-tile"><span className="muted">预算范围</span><strong>¥{item.budgetMin}–{item.budgetMax}</strong></div><div className="fact-tile"><span className="muted">最低成色</span><strong>{conditionLabels[item.condition] || '成色待确认'}</strong></div><div className="fact-tile"><span className="muted">交易地点</span><strong>{item.location === 'ANY' ? '不限地点' : item.location}</strong></div></div>
-    </section><aside className="surface"><Person person={item.owner} /><div className="form-actions">{user?.id === item.owner.id ? <><Link to={`/wanted/${item.id}/matches`}>规则匹配结果</Link><Link to={`/wanted/${item.id}/edit`}>编辑求购</Link>
+    </section><aside className="surface"><Person person={item.owner} /><div className="form-actions">{user?.id === item.owner.id ? <><Link to={`/wanted/${item.id}/matches`} state={returnState}>规则匹配结果</Link><Link to={`/wanted/${item.id}/edit`} state={returnState}>编辑求购</Link>
       <Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => { await api.closeWanted({ path: { wantedId: item.id } }); remote.reload() })}>关闭求购</Button></> : <><Button disabled={item.status !== 'OPEN'} onClick={() => void mutation.run(async () => {
         if (!requireStudent(navigate, `/wanted/${item.id}`)) return
-        const session = await api.data(api.createChatSession({ body: { wantedId: item.id }, headers: api.idempotencyHeaders(crypto.randomUUID()) })); navigate(`/chat/${session.id}`)
+        const session = await api.data(api.createChatSession({ body: { wantedId: item.id }, headers: api.idempotencyHeaders(crypto.randomUUID()) })); navigate(`/chat/${session.id}`, { state: returnState })
     })}>联系发布者</Button>{user?.role === 'USER' && user.id !== item.owner.id && <ReportButton label="举报发布者" targetType="USER" targetId={item.owner.id} />}</>}</div></aside></div>}</Resource></Page>)
 }
 
@@ -340,7 +347,7 @@ export function WantedFormPage() {
   const attemptKey = useAttemptKey()
   const navigate = useNavigate()
   useEffect(() => { if (remote.value) form.setFieldsValue(remote.value) }, [remote.value, form])
-  return localize(<Page title={id ? '编辑求购' : '发布求购'} subtitle="告诉同学们你想寻找的好物" extra={<Link to="/wanted">返回求购广场</Link>}><Resource {...remote}><Card className="form-surface"><Failure error={mutation.error} />
+  return localize(<Page title={id ? '编辑求购' : '发布求购'} subtitle="告诉同学们你想寻找的好物" extra={<BackLink fallback="/wanted">返回求购广场</BackLink>}><Resource {...remote}><Card className="form-surface"><Failure error={mutation.error} />
     <Form form={form} layout="vertical" size="large" initialValues={{ condition: 'ANY', location: 'ANY', expireAt: defaultExpiry }} onFinish={(body) => void mutation.run(async () => {
       const result = id ? await api.data(api.updateWanted({ path: { wantedId: Number(id) }, body })) : await api.data(api.createWanted({ body, headers: api.idempotencyHeaders(attemptKey(body)) })); navigate(`/wanted/${result.id}`)
     })}>
@@ -350,13 +357,14 @@ export function WantedFormPage() {
       <Form.Item name="location" label="地点（ANY 表示不限）" rules={[{ required: true }]}><Input /></Form.Item>
       <Form.Item name="expireAt" label="到期时间" rules={[{ required: true }, { validator: (_, value: string) => !value || Date.parse(value) > Date.now() ? Promise.resolve() : Promise.reject(new Error(t('到期时间必须晚于当前时间。'))) }]} getValueProps={(value: string) => ({ value: value ? new Date(new Date(value).getTime() - new Date(value).getTimezoneOffset() * 60000).toISOString().slice(0, 16) : '' })} normalize={(value: string) => value ? new Date(value).toISOString() : ''}><Input type="datetime-local" /></Form.Item>
       <Form.Item name="description" label="需求说明"><Input.TextArea maxLength={3000} /></Form.Item>
-      <div className="form-actions"><Link to="/wanted">返回广场</Link><Button htmlType="submit" type="primary" loading={mutation.busy}>保存求购</Button></div>
+      <div className="form-actions"><BackLink fallback="/wanted">返回广场</BackLink><Button htmlType="submit" type="primary" loading={mutation.busy}>保存求购</Button></div>
     </Form>
   </Card></Resource></Page>)
 }
 
 export function MatchesPage() {
   useLanguage()
+  const returnState = useReturnState()
   const { wantedId } = useParams()
   const remote = useRemote(`matches-${wantedId}`, (signal) => api.data(api.listWantedMatches({ path: { wantedId: Number(wantedId) }, signal })))
   const [now, setNow] = useState(() => Date.now())
@@ -366,9 +374,9 @@ export function MatchesPage() {
     window.addEventListener('focus', update)
     return () => { window.clearInterval(timer); window.removeEventListener('focus', update) }
   }, [])
-  return localize(<Page title="规则匹配结果" subtitle="结合需求条件寻找候选商品，结果仅供参考" extra={<Space><Link to={`/wanted/${wantedId}`}>返回求购详情</Link><Link to="/notifications">查看匹配通知</Link><Button onClick={remote.reload}>刷新匹配</Button></Space>}><Resource {...remote}>
+  return localize(<Page title="规则匹配结果" subtitle="结合需求条件寻找候选商品，结果仅供参考" extra={<Space wrap><BackLink fallback={`/wanted/${wantedId}`}>返回求购详情</BackLink><Link to="/notifications?group=匹配" state={returnState}>查看匹配通知</Link><Button onClick={remote.reload}>刷新匹配</Button></Space>}><Resource {...remote}>
     {remote.value?.degraded && <Alert type="warning" title="正在使用关键词/规则降级结果" description={systemText(remote.value.degradationReason, '当前使用备用规则，结果仅供参考。')} style={{ marginBottom: 16 }} />}
-    {remote.value?.items.length ? <div className="match-results"><ProductCards products={remote.value.items.map((item) => item.product)} actions={(product) => {
+    {remote.value?.items.length ? <div className="match-results"><ProductCards from={returnState.returnTo} products={remote.value.items.map((item) => item.product)} actions={(product) => {
       const match = remote.value?.items.find((item) => item.product.id === product.id)
       const expiresAt = Date.parse(match?.expiresAt || '')
       const expiryKnown = Number.isFinite(expiresAt)
@@ -386,6 +394,7 @@ export function MatchesPage() {
 
 export function PricePage() {
   useLanguage()
+  const returnState = useReturnState()
   const mutation = useMutation()
   const [result, setResult] = useState<api.PriceAdvice>()
   const [usedOriginalPrice, setUsedOriginalPrice] = useState(false)
@@ -415,7 +424,7 @@ export function PricePage() {
   }
   const market = result?.marketReference
   const hasMarketRange = market?.lower != null && market.upper != null
-  return localize(<Page title="价格建议" extra={<Link to="/publish">返回发布</Link>}><Alert type="info" showIcon title="价格建议仅供参考" style={{ marginBottom: 24 }} /><div className="price-advice-grid"><Card title={<Space><RobotOutlined />商品信息</Space>}><Failure error={mutation.error} />
+  return localize(<Page title="价格建议" extra={<BackLink fallback="/publish">返回发布</BackLink>}><Alert type="info" showIcon title="价格建议仅供参考" style={{ marginBottom: 24 }} /><div className="price-advice-grid"><Card title={<Space><RobotOutlined />商品信息</Space>}><Failure error={mutation.error} />
     {mutation.error != null && !result && <Alert type="warning" title="价格建议获取失败，请重试或手动定价。" style={{ marginBottom: 16 }} />}
     <Form layout="vertical" disabled={mutation.busy} initialValues={{ category: 'BOOKS', condition: 'GOOD' }} onValuesChange={() => setResult(undefined)} onFinish={(body: PriceAdviceRequest) => void mutation.run(async () => {
       setResult(undefined)
@@ -434,7 +443,7 @@ export function PricePage() {
         <div>已参考 {market.count} 件在售商品</div>
         <div>近90天上架，同分类、同成色、名称含关键词；最多参考100件，不含自己的商品。</div>
         <div>这是卖家标价，不代表成交价；匹配商品可能不是同款，请核对型号与成色。</div>
-        {market.listings.length > 0 && <details className="price-advice-details"><summary>查看参考商品</summary><ul>{market.listings.map(item => <li key={item.id}><Link to={`/product/${item.id}`}><CatalogText text={item.title} /></Link> · ¥{item.price}</li>)}</ul></details>}
+        {market.listings.length > 0 && <details className="price-advice-details"><summary>查看参考商品</summary><ul>{market.listings.map(item => <li key={item.id}><Link to={`/product/${item.id}`} state={returnState}><CatalogText text={item.title} /></Link> · ¥{item.price}</li>)}</ul></details>}
       </>} />}
       {(!hasMarketRange || (usedOriginalPrice && result.method === 'unavailable')) && <Alert type={alertType} title={hasMarketRange && usedOriginalPrice && result.method === 'unavailable' ? '原价规则暂不可用，当前显示在售标价。' : alertTitle} description={<>
       {bodyRange && <div>{rangeText}</div>}

@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ApiError, data, getCurrentUser, login, register, updateCurrentUser } from '../sdk'
 import type { UpdateProfileRequest, UserProfile } from '../sdk'
 import { Failure, Page, Resource, useMutation, useRemote } from './common'
+import { BackLink } from './BackLink'
 import { useSession } from './session'
 import { AuthScene } from '../landing/AuthScene'
 import { AvatarUpload } from './AvatarUpload'
@@ -68,7 +69,7 @@ export function ProfilePage() {
   useLanguage()
   const user = useSession((state) => state.user)
   const remote = useRemote(`profile-${user?.id}`, (signal) => data(getCurrentUser({ signal })), 0, true)
-  return localize(<Page title="个人资料"><Resource {...remote}>
+  return localize(<Page title="个人资料" extra={<BackLink fallback="/market">返回上一页</BackLink>}><Resource {...remote}>
     {remote.value && <ProfileEditor key={remote.value.id} profile={remote.value} refresh={remote.reload} />}
   </Resource></Page>)
 }

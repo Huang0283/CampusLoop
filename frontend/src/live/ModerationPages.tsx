@@ -1,6 +1,6 @@
 import { Alert, Button, Card, Descriptions, Input, Pagination, Space, Tag } from 'antd'
 import { useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { Form } from '../i18n/Form'
 import { OriginalText, localize } from '../i18n/Localize'
 import { useLanguage } from '../i18n/language'
@@ -11,6 +11,7 @@ import { appealStatusLabels, displayDate } from './display'
 import { ImageQueue } from './ImageQueue'
 import { ModerationImage } from './ModerationImage'
 import { useSession } from './session'
+import { BackLink, useReturnState } from './BackLink'
 import './moderation.css'
 
 export function DecisionSummary({ decision }: { decision: AccountDecisionRecord }) {
@@ -47,8 +48,12 @@ export function AccountDecisionsPage() {
 
 function DecisionContent({ token }: { token: string | null }) {
   useLanguage()
+  const returnState = useReturnState()
+  const location = useLocation()
   const { decisionId } = useParams()
-  const [page, setPage] = useState(1)
+  const [params, setParams] = useSearchParams()
+  const page = Math.max(1, Number(params.get('page')) || 1)
+  const setPage = (next: number) => setParams({ page: String(next) }, { state: location.state })
   const [uploading, setUploading] = useState(false)
   const [form] = Form.useForm()
   const mutation = useMutation()
@@ -56,7 +61,7 @@ function DecisionContent({ token }: { token: string | null }) {
   const list = useRemote(`account-decisions-${page}`, signal => api.data(api.listAccountDecisions({ signal, headers, query: { page, pageSize: 10 } })))
   const detail = useRemote(`account-decision-${decisionId}`, signal => decisionId ? api.data(api.getAccountDecision({ signal, headers, path: { decisionId: Number(decisionId) } })) : Promise.resolve(null))
   const decision = detail.value
-  return localize(<Page title="账号处理记录" subtitle="查看处理事实、依据和申诉进度。原始记录会保留，复核结果另行记录。" extra={<Space wrap><Link to="/account/decisions">全部处理记录</Link>{token ? <Button onClick={() => { useSession.getState().clear(); window.location.assign('/login') }}>返回登录</Button> : <Link to="/notifications">返回通知</Link>}</Space>}>
+  return localize(<Page title="账号处理记录" subtitle="查看处理事实、依据和申诉进度。原始记录会保留，复核结果另行记录。" extra={<Space wrap><Link to="/account/decisions">全部处理记录</Link>{token ? <Button onClick={() => { useSession.getState().clear(); window.location.assign('/login') }}>返回登录</Button> : <BackLink fallback={decisionId ? "/account/decisions" : "/notifications"}>返回上一页</BackLink>}</Space>}>
     {token && <Alert type="warning" showIcon title="当前仅可查看本人的处理记录并申诉，不能进行交易。凭证有效期为 15 分钟，过期后请重新登录验证。" style={{ marginBottom: 16 }} />}
     {decisionId ? <Resource {...detail}>{decision && <div className="moderation-stack">
       <Card title={`处理记录 #${decision.id}`}><DecisionSummary decision={decision} /><Space wrap style={{ marginTop: 16 }}>{decision.evidence.map((_, index) => <ModerationImage key={index} load={signal => api.getDecisionEvidence({ signal, headers, path: { decisionId: decision.id, imageIndex: index }, parseAs: 'blob' })} />)}</Space></Card>
@@ -73,7 +78,7 @@ function DecisionContent({ token }: { token: string | null }) {
       </Card>
     </div>}</Resource> : <Resource {...list}>{list.value && <div className="moderation-stack">
       {!list.value.items.length && <NoItems />}
-      {list.value.items.map(item => <Card key={item.id} title={`处理记录 #${item.id}`} extra={<Link to={`/account/decisions/${item.id}`}>查看详情与申诉</Link>}><Space wrap><Tag color={item.action === 'DISABLE' ? 'red' : 'orange'}>{item.action === 'DISABLE' ? '禁用账号' : '违规警告'}</Tag>{item.revokedAt && <Tag color="green">已撤销</Tag>}{item.appeal && <Tag>{appealStatusLabels[item.appeal.status]}</Tag>}<span>{displayDate(item.createdAt)}</span></Space><p><OriginalText>{item.reason}</OriginalText></p></Card>)}
+      {list.value.items.map(item => <Card key={item.id} title={`处理记录 #${item.id}`} extra={<Link to={`/account/decisions/${item.id}`} state={returnState}>查看详情与申诉</Link>}><Space wrap><Tag color={item.action === 'DISABLE' ? 'red' : 'orange'}>{item.action === 'DISABLE' ? '禁用账号' : '违规警告'}</Tag>{item.revokedAt && <Tag color="green">已撤销</Tag>}{item.appeal && <Tag>{appealStatusLabels[item.appeal.status]}</Tag>}<span>{displayDate(item.createdAt)}</span></Space><p><OriginalText>{item.reason}</OriginalText></p></Card>)}
       <Pagination current={page} pageSize={10} total={list.value.pagination.total} onChange={setPage} showSizeChanger={false} />
     </div>}</Resource>}
   </Page>)

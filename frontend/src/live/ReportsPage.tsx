@@ -1,9 +1,9 @@
 import { localize, OriginalText } from '../i18n/Localize'
 import { useLanguage, dateLocale, t } from '../i18n/language'
-import { useState } from 'react'
-import { Button } from 'antd'
+import { Button, Space } from 'antd'
+import { BackLink, useReturnState } from './BackLink'
 import { FlagOutlined, ReloadOutlined, RightOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import type { Report, ReportTargetType } from '../sdk'
 import * as api from '../sdk'
 import { NoItems, Page, Resource, useRemote } from './common'
@@ -24,8 +24,12 @@ const when = (value: string) => new Date(value).toLocaleString(dateLocale(), { y
 
 export function MyReports() {
   useLanguage()
+  const returnState = useReturnState()
+  const location = useLocation()
   const user = useSession((state) => state.user)
-  const [page, setPage] = useState(1)
+  const [params, setParams] = useSearchParams()
+  const page = Math.max(1, Number(params.get('page')) || 1)
+  const setPage = (next: number) => setParams({ page: String(next) }, { state: location.state })
   const reports = useRemote(`my-reports-${user?.id}-${page}`, (signal) => api.data(api.listMyReports({ query: { page, pageSize: PAGE_SIZE }, signal })), 5000)
   const items = reports.value ?? []
   return localize(<section className="report-board" aria-label="我的举报">
@@ -43,7 +47,7 @@ export function MyReports() {
             </div>
             <div className="report-meta">
               <span className="report-reason">{reportReasonLabels[item.reason]}</span>
-              {path ? <Link className="report-target" to={path}>{target}<RightOutlined aria-hidden="true" /></Link> : <span className="report-target">{target}</span>}
+              {path ? <Link className="report-target" to={path} state={returnState}>{target}<RightOutlined aria-hidden="true" /></Link> : <span className="report-target">{target}</span>}
             </div>
             {item.description && <p className="report-desc"><OriginalText>{item.description}</OriginalText></p>}
             {item.resolutionNote && <div className="report-reply"><strong>处理说明</strong><p><OriginalText>{item.resolutionNote}</OriginalText></p></div>}
@@ -62,5 +66,6 @@ export function MyReports() {
 
 export function ReportsPage() {
   useLanguage()
-  return localize(<Page title="我的举报记录" subtitle="举报提交后由平台审核，处理结果会同步到通知。" className="reports-page" extra={<Link className="report-decisions-link" to="/account/decisions">账号处理记录与申诉</Link>}><MyReports /></Page>)
+  const returnState = useReturnState()
+  return localize(<Page title="我的举报记录" subtitle="举报提交后由平台审核，处理结果会同步到通知。" className="reports-page" extra={<Space wrap><BackLink fallback="/market">返回上一页</BackLink><Link className="report-decisions-link" to="/account/decisions" state={returnState}>账号处理记录与申诉</Link></Space>}><MyReports /></Page>)
 }

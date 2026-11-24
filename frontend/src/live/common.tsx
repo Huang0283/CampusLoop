@@ -15,6 +15,7 @@ import { AsyncTaskState } from './AsyncTaskState'
 import { NOTIFICATIONS_CHANGED_EVENT } from './notifications'
 import { Logo } from '../theme/brand'
 import { ThemeToggle } from '../theme/AppTheme'
+import { useReturnState } from './BackLink'
 import './original-interface.css'
 
 export function errorText(error: unknown) { return t(error instanceof Error && /[\u3400-\u9fff]/u.test(error.message) ? error.message : '操作失败，请重试。') }
@@ -153,6 +154,7 @@ export function Guard({ admin = false, children }: { admin?: boolean; children: 
 
 export function Shell() {
   useLanguage()
+  const returnState = useReturnState()
   const user = useSession((state) => state.user)
   const location = useLocation()
   useEffect(() => { window.dispatchEvent(new Event('campusloop-route-change')) }, [location.pathname])
@@ -198,11 +200,11 @@ export function Shell() {
       {/* The market page carries its own search bar, so the global one would only duplicate it there. */}
       {location.pathname !== '/market' && <Input.Search key={location.pathname + location.search} className="header-search" aria-label="全站搜索商品" placeholder="搜索校园好物" prefix={<SearchOutlined style={{ color: 'var(--placeholder)' }} />} allowClear onSearch={(value) => navigate(value.trim() ? `/market?query=${encodeURIComponent(value.trim())}` : '/market')} />}
       <div className="app-tools">
-        {user?.role === 'USER' && <div className="app-notification-bell"><Badge count={unread} size="small" offset={[-6, 6]}><Button aria-label="通知" type="text" className="cl-icon-btn" icon={<BellOutlined />} onClick={() => navigate('/notifications')} /></Badge></div>}
+        {user?.role === 'USER' && <div className="app-notification-bell"><Badge count={unread} size="small" offset={[-6, 6]}><Button aria-label="通知" type="text" className="cl-icon-btn" icon={<BellOutlined />} onClick={() => navigate('/notifications', { state: returnState })} /></Badge></div>}
         <ThemeToggle />
         {user?.role !== 'ADMIN' && <LanguageSelect />}
         <div className="app-user-menu">
-          {user ? <Dropdown autoFocus trigger={['click', 'hover']} placement="bottomRight" menu={{ items: menu, onKeyDown: (event) => { if (event.key === 'Escape') window.requestAnimationFrame(() => accountMenuButtonRef.current?.focus({ preventScroll: true })) }, onClick: ({ key }) => { if (key !== 'logout') navigate(key); else void mutation.run(async () => {
+          {user ? <Dropdown autoFocus trigger={['click', 'hover']} placement="bottomRight" menu={{ items: menu, onKeyDown: (event) => { if (event.key === 'Escape') window.requestAnimationFrame(() => accountMenuButtonRef.current?.focus({ preventScroll: true })) }, onClick: ({ key }) => { if (key !== 'logout') navigate(key, { state: returnState }); else void mutation.run(async () => {
             await logout()
             // Leave protected routes before clearing the identity, so Guard's
             // login redirect cannot race the intended return to the market.
