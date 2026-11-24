@@ -33,6 +33,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-local.ps1
 
 ## 当前协作
 
+**最终协作入口与统一软件基线（2026-11-24）**：见 [各组最终环境与材料交接](docs/collaboration/final-environment-20261124.md)。日常展示 5174、T2/用户组写入 5184、T1 权限 5185，全部使用 `81bacfc1d8b170baf7413950cc6a180abc7f44ea` 应用代码；保留各自账号和数据。内含首次准备、翻译模型、升级/启动、凭据位置和 R/U/D 交接。原始回归证据见 [本轮验证资料](docs/evidence/phase-5/management-quality/final-20261124/manifest.json)。
+
 2026-11-24 修复：账号禁用后，交易对方不能再新建报价、还价或接受旧报价生成订单；并发账号状态更新返回可重试冲突。T1 数据包契约与 CI 已改为核对当前检出代码，搜索浏览器用例按真实商品分类准备前置。验证与剩余交付缺口见 [T 组深查与修复记录](docs/collaboration/phase-5/testing/maintainer-deep-audit-20261124.md)。拉取代码后仍须按下文保留数据升级日常/T1/T2 环境；Git 更新本身不会自动重建 Docker 镜像。
 
 课程各项提交要求、九个岗位的文件内容/用途/接收人、交接流程和最终验收见 [完整中文 PDF 指南](output/pdf/CampusLoop_课程提交要求与九人交付完整指南_20261124.pdf)。课程硬性要求、本组验收与建议分别标识；该指南不代表任务已经全部通过验收。

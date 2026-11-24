@@ -1,0 +1,34 @@
+{
+  "softwareRevision": "81bacfc1d8b170baf7413950cc6a180abc7f44ea",
+  "scope": "Maintainer checks; does not substitute member acceptance or clean-machine installation.",
+  "files": [
+    {
+      "path": "backend-fix-regression.xml",
+      "sha256": "5174288808017e64ba2f509b7741fd9686787bae0dd138e3a9a11b23d83d866b"
+    },
+    {
+      "path": "bilingual-pages.log",
+      "sha256": "355615d652584e9711903ea378b873af1ec315758a7078cb6d643ec0a28d49cc"
+    },
+    {
+      "path": "catalog-private-ui.log",
+      "sha256": "be067300b9752abae5c5d51f4b73c139486e6cce7b5fea50fe4abb6c21645166"
+    },
+    {
+      "path": "disabled-offer-final.xml",
+      "sha256": "0c52576c5300c6861b124cc097b5a0187ab8e00b027a063a5c27a9d7e1729182"
+    },
+    {
+      "path": "final-runtime-check.json",
+      "sha256": "5fd7db7e43acd66808aa366b13d8e26f875727bfb142671add7ccf18d8d302a7"
+    },
+    {
+      "path": "t1-package-fixed.log",
+      "sha256": "5512ac294730cc70a4d431b65dca0d3f4d297c386ea1a3f66cca5777eee1d254"
+    },
+    {
+      "path": "translation-service-verified.json",
+      "sha256": "166923b5481d455a1946cf458cd173ab2a05f0f39c398df1421f15ff37f83b4f"
+    }
+  ]
+}

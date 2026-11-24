@@ -1,5 +1,33 @@
 # [演示组] D1/D2 PPT、讲稿、彩排、视频与最终提交
 
+<!-- final-environment-20261124:start -->
+## 2026-11-24 最终协作环境与统一软件基线
+
+**当前软件基线：`81bacfc1d8b170baf7413950cc6a180abc7f44ea`。后文旧 SHA/5198 等只保留为历史记录，不能继续作为本轮启动指引。** 这是固定协作入口，不代表所有组员任务已经验收完成。各人材料分支继续原分工；软件版本与材料 commit 分开写。
+
+| 用途 | 页面 / API | 账号和数据 |
+|---|---|---|
+| 日常展示、最终截图、查看双演示账号历史 | http://127.0.0.1:5174/market / 8001；后台 `/admin` | 原商城＋两演示账号的15笔合成交易历史 |
+| T2、U1/U2正式新建交易/举报/处罚等写入验收 | http://127.0.0.1:5184/market / 18024；后台 `/admin` | `business/run2`；T2交接的A/B等身份，R/S管理员 |
+| T1权限验收 | http://127.0.0.1:5185/market / 18025；后台 `/admin` | `permission/run2`，其独立A/B等身份及R/S |
+| T3本人异机/新VM验收 | http://127.0.0.1:5186/market / 18026 | `environment/run2`，由T3在目标机器实际准备 |
+
+这些 localhost 都是各自电脑，GitHub不共享运行中的数据库。三套已存在环境保留原数据，修复后的应用代码一致；不再新增5198/5194/5197给组员使用。**包含首次依赖、固定版本检出、翻译模型准备、启动/升级命令与凭据位置的完整说明：[最终环境操作单](https://github.com/Huang0283/CampusLoop/blob/main/docs/collaboration/final-environment-20261124.md)。**
+
+日常启动：`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1 -NoBrowser`。T2/U组写入使用 `python scripts/audit_env.py upgrade --namespace business --run-id run2`，随后另一终端 `python scripts/audit_env.py ui --namespace business --run-id run2`；首次没有该批次才将 upgrade 换 start。T1把business换permission，T3换environment。用已安装后端依赖的Python 3.12，不用缺依赖的系统Python。
+
+首次商品翻译模型：`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-translation.ps1 -Prepare`；以后审计/日常启动会调用商品翻译服务。右上角中英切换，品牌/型号/容量/用户名/邮箱保留原值；图片内文字不会自动改变。私聊/举报/申诉原文不发送给公开商品翻译服务。
+
+日常双账号：`demo.seller@example.invalid`、`demo.buyer@example.invalid`；公开合成密码均为 `CampusDemo@2026`。**这不是5184/5185的登录身份。** 审计R/S从本机 `.codex-tmp/audit/<namespace>/run2/admins.json` 获取；A/B等从该目录 `data-state/t1-<namespace>-run2.json` 获取；随机凭据不贴公开Issue。新机器先完成T1数据导入再测试，不把只有管理员的空库当完整环境。
+
+维护者本机已保留数据升级日常/T1/T2，核对API/Worker关键源码和健康/搜索服务；**不等于组员自己的机器已升级**。本轮可引用回归：后端319条通过；追加封禁/锁专项23条（与全套有重叠，不能相加）；T1包18条；双语页面11条；商品/私密展示6条。[原始回归证据](https://github.com/Huang0283/CampusLoop/tree/main/docs/evidence/phase-5/management-quality/final-20261124)。自动化回归、合成演示历史、组员真人体验和独立模型效果分别标识。
+
+### 本组现在如何接收
+
+D1/D2：本轮演示软件SHA如上，常规最终展示用5174；需处罚/破坏性彩排用5184并由T2交场景。第11页等测试结果可引用本轮维护者证据，但标明执行方/范围，不混同T2或真人验收。T2原件可从其材料分支business-journeys目录读取；R2正式报告图源、U2同版截图目前仍需各组交PR，缺件写待交，可先做版式。总时长15分钟含讲解/操作/结论；MP4讲解者出镜，未规定个人露脸分钟数或全程露脸。
+
+<!-- final-environment-20261124:end -->
+
 关联：总导航 [#143](https://github.com/Huang0283/CampusLoop/issues/143)、总协作 [#129](https://github.com/Huang0283/CampusLoop/issues/129)、其他组见#143导航。长期分支 `team/presentation`；个人分支 `work/presentation/slides-evidence`、`work/presentation/demo-video`。个人 PR 先入组分支，组汇总 PR 再入 `main`。已有认领沿用评论，尚未认领者自行登记。
 
 课程要求包括一次 15 分钟项目演示、PowerPoint 和真人出镜 MP4；至少三次 Project Update（计划四次）。这些是课程交付，其他彩排清单与证据索引是团队为保证可复现而增加的工作要求。演示内容必须反映冻结版本的真实能力、测试结论和限制；不能把计划用例说成通过，不能用自动录屏替代真人讲解。

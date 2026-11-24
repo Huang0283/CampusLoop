@@ -1,5 +1,33 @@
 # [用户体验组] U1/U2 学生与管理员体验、手册和截图交接
 
+<!-- final-environment-20261124:start -->
+## 2026-11-24 最终协作环境与统一软件基线
+
+**当前软件基线：`81bacfc1d8b170baf7413950cc6a180abc7f44ea`。后文旧 SHA/5198 等只保留为历史记录，不能继续作为本轮启动指引。** 这是固定协作入口，不代表所有组员任务已经验收完成。各人材料分支继续原分工；软件版本与材料 commit 分开写。
+
+| 用途 | 页面 / API | 账号和数据 |
+|---|---|---|
+| 日常展示、最终截图、查看双演示账号历史 | http://127.0.0.1:5174/market / 8001；后台 `/admin` | 原商城＋两演示账号的15笔合成交易历史 |
+| T2、U1/U2正式新建交易/举报/处罚等写入验收 | http://127.0.0.1:5184/market / 18024；后台 `/admin` | `business/run2`；T2交接的A/B等身份，R/S管理员 |
+| T1权限验收 | http://127.0.0.1:5185/market / 18025；后台 `/admin` | `permission/run2`，其独立A/B等身份及R/S |
+| T3本人异机/新VM验收 | http://127.0.0.1:5186/market / 18026 | `environment/run2`，由T3在目标机器实际准备 |
+
+这些 localhost 都是各自电脑，GitHub不共享运行中的数据库。三套已存在环境保留原数据，修复后的应用代码一致；不再新增5198/5194/5197给组员使用。**包含首次依赖、固定版本检出、翻译模型准备、启动/升级命令与凭据位置的完整说明：[最终环境操作单](https://github.com/Huang0283/CampusLoop/blob/main/docs/collaboration/final-environment-20261124.md)。**
+
+日常启动：`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1 -NoBrowser`。T2/U组写入使用 `python scripts/audit_env.py upgrade --namespace business --run-id run2`，随后另一终端 `python scripts/audit_env.py ui --namespace business --run-id run2`；首次没有该批次才将 upgrade 换 start。T1把business换permission，T3换environment。用已安装后端依赖的Python 3.12，不用缺依赖的系统Python。
+
+首次商品翻译模型：`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-translation.ps1 -Prepare`；以后审计/日常启动会调用商品翻译服务。右上角中英切换，品牌/型号/容量/用户名/邮箱保留原值；图片内文字不会自动改变。私聊/举报/申诉原文不发送给公开商品翻译服务。
+
+日常双账号：`demo.seller@example.invalid`、`demo.buyer@example.invalid`；公开合成密码均为 `CampusDemo@2026`。**这不是5184/5185的登录身份。** 审计R/S从本机 `.codex-tmp/audit/<namespace>/run2/admins.json` 获取；A/B等从该目录 `data-state/t1-<namespace>-run2.json` 获取；随机凭据不贴公开Issue。新机器先完成T1数据导入再测试，不把只有管理员的空库当完整环境。
+
+维护者本机已保留数据升级日常/T1/T2，核对API/Worker关键源码和健康/搜索服务；**不等于组员自己的机器已升级**。本轮可引用回归：后端319条通过；追加封禁/锁专项23条（与全套有重叠，不能相加）；T1包18条；双语页面11条；商品/私密展示6条。[原始回归证据](https://github.com/Huang0283/CampusLoop/tree/main/docs/evidence/phase-5/management-quality/final-20261124)。自动化回归、合成演示历史、组员真人体验和独立模型效果分别标识。
+
+### 本组现在如何接收
+
+U1/U2：查看现成双账号历史/普通截图用5174；正式新建交易、举报、禁用/恢复及故障恢复用T2的5184隔离环境，先向T2接收角色/对象/已通过步骤。不要拿日常演示账号登录5184。主8–12页手册本身包含安装、配置、运行、使用；U2提供已核步骤，详细部署文档另附，不能把主手册安装内容全部移走。截图写语言、角色、视口、SHA；用户名/邮箱和图像内文字保留原文不等于系统漏翻。
+
+<!-- final-environment-20261124:end -->
+
 关联：总导航 [#143](https://github.com/Huang0283/CampusLoop/issues/143)、总协作 [#129](https://github.com/Huang0283/CampusLoop/issues/129)、测试组Issue https://github.com/Huang0283/CampusLoop/issues/145。长期分支 `team/user-experience`；个人分支 `work/user-experience/student-experience`、`work/user-experience/admin-deployment`。个人 PR 先入组分支，组汇总 PR 再入 `main`。已有认领沿用评论，尚未认领者自行登记。
 
 本组负责让未参与开发的人看懂并能完成任务。截图和手册必须来自标明 SHA 的真实页面；模拟视口要标明“浏览器模拟”，不能写成真机测试。课程规定学生用户手册 8–12 页；管理员、部署和故障说明作为补充材料，不擅自声称有课程页数要求。

@@ -85,3 +85,4 @@ backend/scripts/*.sh text eol=lf
 /tests/collaboration/phase-5/data-permissions/media/*.png -text
 /docs/collaboration/phase-5/testing/data-permissions/** text eol=lf
 /.github/workflows/t1-fixtures.yml text eol=lf
+

@@ -1,0 +1,62 @@
+{
+  "campusloop-local-api-1": {
+    "image": "campusloop-local-api:dev",
+    "sourceFilesMatch": true,
+    "hashes": {
+      "backend/app/api/routes/transactions.py": "63262275eef728aa53385717de6f13b7889e3f84fc7c75cd031f972cb017b314",
+      "backend/app/services/auth.py": "8e29706af1d16ad27021a95beb1baead8996ebfcbc9c18bd8a2b66ae68be26c6",
+      "services/catalog_translation_server.py": "e8a62785f848c49a21dfdd9aaa2d7ebaa41a3c0d2ae7035b3e783006a02c36b1",
+      "services/catalog_translation_glossary.json": "5e1f415e09ed306f474ed982f76c2a70a32dd3dd1d79db6847ace15afe5aa2d7"
+    }
+  },
+  "campusloop-local-worker-1": {
+    "image": "campusloop-local-api:dev",
+    "sourceFilesMatch": true,
+    "hashes": {
+      "backend/app/api/routes/transactions.py": "63262275eef728aa53385717de6f13b7889e3f84fc7c75cd031f972cb017b314",
+      "backend/app/services/auth.py": "8e29706af1d16ad27021a95beb1baead8996ebfcbc9c18bd8a2b66ae68be26c6",
+      "services/catalog_translation_server.py": "e8a62785f848c49a21dfdd9aaa2d7ebaa41a3c0d2ae7035b3e783006a02c36b1",
+      "services/catalog_translation_glossary.json": "5e1f415e09ed306f474ed982f76c2a70a32dd3dd1d79db6847ace15afe5aa2d7"
+    }
+  },
+  "campusloop-business-run2-audit-api-1": {
+    "image": "campusloop-business-run2-audit-api:81bacfc1d8b170baf7413950cc6a180abc7f44ea",
+    "sourceFilesMatch": true,
+    "hashes": {
+      "backend/app/api/routes/transactions.py": "63262275eef728aa53385717de6f13b7889e3f84fc7c75cd031f972cb017b314",
+      "backend/app/services/auth.py": "8e29706af1d16ad27021a95beb1baead8996ebfcbc9c18bd8a2b66ae68be26c6",
+      "services/catalog_translation_server.py": "e8a62785f848c49a21dfdd9aaa2d7ebaa41a3c0d2ae7035b3e783006a02c36b1",
+      "services/catalog_translation_glossary.json": "5e1f415e09ed306f474ed982f76c2a70a32dd3dd1d79db6847ace15afe5aa2d7"
+    }
+  },
+  "campusloop-business-run2-audit-worker-1": {
+    "image": "campusloop-business-run2-audit-api:81bacfc1d8b170baf7413950cc6a180abc7f44ea",
+    "sourceFilesMatch": true,
+    "hashes": {
+      "backend/app/api/routes/transactions.py": "63262275eef728aa53385717de6f13b7889e3f84fc7c75cd031f972cb017b314",
+      "backend/app/services/auth.py": "8e29706af1d16ad27021a95beb1baead8996ebfcbc9c18bd8a2b66ae68be26c6",
+      "services/catalog_translation_server.py": "e8a62785f848c49a21dfdd9aaa2d7ebaa41a3c0d2ae7035b3e783006a02c36b1",
+      "services/catalog_translation_glossary.json": "5e1f415e09ed306f474ed982f76c2a70a32dd3dd1d79db6847ace15afe5aa2d7"
+    }
+  },
+  "campusloop-permission-run2-audit-api-1": {
+    "image": "campusloop-permission-run2-audit-api:81bacfc1d8b170baf7413950cc6a180abc7f44ea",
+    "sourceFilesMatch": true,
+    "hashes": {
+      "backend/app/api/routes/transactions.py": "63262275eef728aa53385717de6f13b7889e3f84fc7c75cd031f972cb017b314",
+      "backend/app/services/auth.py": "8e29706af1d16ad27021a95beb1baead8996ebfcbc9c18bd8a2b66ae68be26c6",
+      "services/catalog_translation_server.py": "e8a62785f848c49a21dfdd9aaa2d7ebaa41a3c0d2ae7035b3e783006a02c36b1",
+      "services/catalog_translation_glossary.json": "5e1f415e09ed306f474ed982f76c2a70a32dd3dd1d79db6847ace15afe5aa2d7"
+    }
+  },
+  "campusloop-permission-run2-audit-worker-1": {
+    "image": "campusloop-permission-run2-audit-api:81bacfc1d8b170baf7413950cc6a180abc7f44ea",
+    "sourceFilesMatch": true,
+    "hashes": {
+      "backend/app/api/routes/transactions.py": "63262275eef728aa53385717de6f13b7889e3f84fc7c75cd031f972cb017b314",
+      "backend/app/services/auth.py": "8e29706af1d16ad27021a95beb1baead8996ebfcbc9c18bd8a2b66ae68be26c6",
+      "services/catalog_translation_server.py": "e8a62785f848c49a21dfdd9aaa2d7ebaa41a3c0d2ae7035b3e783006a02c36b1",
+      "services/catalog_translation_glossary.json": "5e1f415e09ed306f474ed982f76c2a70a32dd3dd1d79db6847ace15afe5aa2d7"
+    }
+  }
+}
