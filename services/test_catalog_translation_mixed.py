@@ -28,23 +28,17 @@ class MixedTranslationTests(unittest.TestCase):
                 self.assertEqual(service.translate([title], "zh"), [title])
 
     def test_unreviewed_english_never_sends_existing_chinese_to_model(self):
-        from unittest.mock import Mock
-
-        tokenizer, network = Mock(), Mock()
-        tokenizer.return_value = {}
-        tokenizer.decode.return_value = "附带手工制作的收纳袋"
-        network.generate.return_value = [[1]]
         with patch.object(service, "translations", OrderedDict()), patch.object(
-            service, "model", return_value=(tokenizer, network)
-        ):
+            service, "infer", side_effect=lambda text, _, facts=None: text.replace("handmade storage pouch supplied", "附带手工制作的收纳袋")
+        ) as inference:
             result = service.translate(["苹果蓝色背包，handmade storage pouch supplied。瑕疵已说明"], "zh")[0]
         self.assertEqual(result, "苹果蓝色背包，附带手工制作的收纳袋。瑕疵已说明")
-        for call in tokenizer.call_args_list:
+        for call in inference.call_args_list:
             self.assertNotRegex(call.args[0], r"[\u3400-\u9fff]")
 
     def test_mixed_description_translates_english_without_rewriting_chinese(self):
         with patch.object(service, "translations", OrderedDict()), patch.object(
-            service, "model", side_effect=AssertionError("Reviewed phrases need no model")
+            service, "infer", side_effect=lambda text, _, facts=None: text.replace("charger included", "含充电器")
         ):
             value = service.translate(["Nike 蓝色背包，charger included"], "zh")[0]
         self.assertIn("Nike", value)
@@ -54,7 +48,7 @@ class MixedTranslationTests(unittest.TestCase):
 
     def test_model_identifiers_are_preserved_in_english_descriptions(self):
         with patch.object(service, "translations", OrderedDict()), patch.object(
-            service, "model", side_effect=AssertionError("Reviewed phrases need no model")
+            service, "infer", side_effect=lambda text, _, facts=None: text.replace("charger included", "含充电器")
         ):
             value = service.translate(["MacBook Pro M3 Pro 18GB 512GB SSD charger included"], "zh")[0]
         for token in ["MacBook Pro", "M3 Pro", "18GB", "512GB", "SSD"]:
@@ -63,7 +57,7 @@ class MixedTranslationTests(unittest.TestCase):
 
     def test_chinese_prose_and_brand_remain_correct_when_switched_to_english(self):
         with patch.object(service, "translations", OrderedDict()), patch.object(
-            service, "model", side_effect=AssertionError("Reviewed phrases need no model")
+            service, "infer", side_effect=lambda text, _, facts=None: text.replace("含充电器", "charger included")
         ):
             value = service.translate(["MacBook Pro M3 Pro 18GB 含充电器"], "en")[0]
         self.assertIn("MacBook Pro M3 Pro 18GB", value)

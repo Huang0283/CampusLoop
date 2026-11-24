@@ -20,6 +20,26 @@
 
 ## 本地翻译服务
 
+### 2026-11-24 新商品翻译机制升级
+
+本节以下关于 Marian 及逐词保护的描述保留为早期实现记录；当前采用 `tencent/HY-MT1.5-1.8B`，具体模型提交固定在 `services/catalog_translation_server.py` 的 `MODEL_REVISION`。新内容整句翻译，不再将“支架”统一拼成自行车脚撑，也不再从“不含充电器”中单独替换“含充电器”。完整原文的人工校订译文仍可精确命中；不为新商品 ID 配特例。
+
+品牌、型号、数字、原有英文（切英文时）及原有中文（切中文时）以占位符保护，推理后检查每个占位符必须恰好出现一次，再还原原文。漏掉、重复或凭空增加占位符时该次翻译失败，前端显示原文和失败说明，不将损坏译文写入商品数据。占位符校验不等同于自动证明全部语义准确，仍以真实新句子验收。
+
+模型在本机 CPU 上使用 FP32 推理，复用现有 PyTorch / Transformers；不增加外部翻译 API 或要求成员填写密钥。首次准备需要下载约 4.1 GB 权重，模型转换加载约需 8 GB 内存，使用模型缓存而非仓库提交；正常推理不联网。测试发现通用动态 INT8 量化会破坏该架构的输出，未采用该优化。前端按 8 段一批请求，避免将大量新商品堵在一个长请求内。旧安装升级后需要重新运行下方 `-Prepare`，有下载网络问题可通过 Hugging Face 支持的环境配置处理，不切换测试数据库。首次请求有模型加载成本，具体速度须以该机器实测为准。
+
+验证入口：
+
+```powershell
+python -m unittest discover -s services -p "test_catalog_translation_*.py" -v
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-translation.ps1 -Prepare
+python scripts/verify-catalog-translation-quality.py
+```
+
+单测不下载模型，已接入 CI。第二个脚本使用真实服务执行 `services/catalog_translation_quality_cases.json` 的新句子，检查收纳盒、阅读支架、否定、数量、瑕疵和配件，并验证切回原语言与重复结果；这些样例不在完整标题词典中。输出默认在 `.codex-tmp/translation-quality/results.json`。脚本报告的是这些明确样例的结果，不能当作所有新商品的准确率或真人验收。
+
+### 早期实现与通用启动方式
+
 入口：`services/catalog_translation_server.py`，依赖：`services/catalog_translation_requirements.txt`。使用本机 Marian 中英翻译模型，商品常用词见 `services/catalog_translation_glossary.json`。词条保护成色、配件、损坏、不可开机等常用表述；品牌、型号、数字和金额绕过模型保持原样。
 
 首次配置：

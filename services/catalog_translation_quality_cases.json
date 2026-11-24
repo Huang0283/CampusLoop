@@ -1,0 +1,130 @@
+[
+  {
+    "id": "headphones-case",
+    "source": "Sony WH-1000XM5 headphones, small scratch on the left side, case included",
+    "target": "zh",
+    "required": ["耳机", "划痕|刮痕", "左", "收纳|保护|便携"],
+    "forbidden": ["案件"],
+    "preserved": ["Sony", "WH-1000XM5"]
+  },
+  {
+    "id": "reading-stand",
+    "source": "折叠阅读支架，底部有一处浅划痕",
+    "target": "en",
+    "required": ["reading.{0,12}(stand|support)|book.{0,12}(stand|holder)", "scratch"],
+    "forbidden": ["kickstand"],
+    "preserved": []
+  },
+  {
+    "id": "mugs-with-lids",
+    "source": "Two ceramic mugs with matching lids, campus pickup only",
+    "target": "zh",
+    "required": ["两|2", "陶瓷", "盖", "校内|校园", "自提|自取"],
+    "forbidden": ["皮卡"],
+    "preserved": []
+  },
+  {
+    "id": "laptop-stand",
+    "source": "Used laptop stand, height adjustable, rubber feet intact",
+    "target": "zh",
+    "required": ["笔记本|电脑", "支架|托架", "高度|升降", "橡胶", "完好|完整|无损"],
+    "forbidden": ["平方"],
+    "preserved": []
+  },
+  {
+    "id": "negated-charger",
+    "source": "鼠标滚轮失灵，不含充电器，不议价。",
+    "target": "en",
+    "required": ["mouse", "scroll|wheel", "faulty|broken|not work|malfunction|doesn.t work", "no charger|without.{0,15}charger|not include.{0,15}charger|charger.{0,15}not included", "firm|non.negotiable|not negotiable"],
+    "forbidden": [],
+    "preserved": []
+  },
+  {
+    "id": "english-negation",
+    "source": "Mouse has a faulty scroll wheel. No charger included. Price is firm.",
+    "target": "zh",
+    "required": ["鼠标", "滚轮", "失灵|故障|损坏|问题|不能|无法", "(?:不|未).{0,8}(附|含|包).{0,8}充电器|无充电器|没有.{0,8}充电器", "不议价|谢绝议价|价格固定|一口价"],
+    "forbidden": ["老鼠"],
+    "preserved": []
+  },
+  {
+    "id": "mixed-handmade",
+    "source": "Nike 蓝色背包，handmade storage pouch supplied。拉链完好",
+    "target": "zh",
+    "required": ["手工", "收纳袋|储物袋|储存袋"],
+    "forbidden": ["手工手工", "handmade storage pouch supplied"],
+    "preserved": ["Nike", "蓝色背包，", "。拉链完好"]
+  },
+  {
+    "id": "chinese-cup",
+    "source": "蓝白条纹陶瓷杯，杯盖有轻微使用痕迹，仅校内自提",
+    "target": "en",
+    "required": ["ceramic", "lid", "campus", "pickup|pick.up|collection", "only"],
+    "forbidden": [],
+    "preserved": []
+  },
+  {
+    "id": "novel-cosplay",
+    "source": "自制Cosplay星月发夹，PVC材质，长17cm",
+    "target": "en",
+    "required": ["star", "moon", "hair"],
+    "forbidden": ["script"],
+    "preserved": ["Cosplay", "PVC", "17cm"]
+  },
+  {
+    "id": "specs-and-fault",
+    "source": "ASUS ZYX-42 笔记本电脑，32GB RAM、2TB SSD，重1.35kg，电池不能充电，含电源适配器。",
+    "target": "en",
+    "required": ["weigh|weight", "battery", "cannot.{0,12}charg|does not.{0,12}charg|won.t.{0,12}charg|not.{0,12}charg|unable.{0,12}charg", "adapter"],
+    "forbidden": [],
+    "preserved": ["ASUS", "ZYX-42", "32GB", "RAM", "2TB", "SSD", "1.35kg"]
+  },
+  {
+    "id": "not-waterproof",
+    "source": "Canvas backpack is not waterproof. Both zippers work. No delivery.",
+    "target": "zh",
+    "required": ["背包|双肩包", "不防水|不能防水|非防水", "拉链", "不.{0,6}(配送|送货|发货)|不包邮|仅自提"],
+    "forbidden": [],
+    "preserved": []
+  },
+  {
+    "id": "charging-cable-not-case",
+    "source": "Wireless headphones, charging cable included, carrying case not included.",
+    "target": "zh",
+    "required": ["耳机", "充电线", "不.{0,8}(收纳|保护|便携)|无.{0,8}(收纳|保护|便携)|没有.{0,8}(收纳|保护|便携)"],
+    "forbidden": ["案件"],
+    "preserved": []
+  },
+  {
+    "id": "fresh-chair-holdout",
+    "source": "Office chair with adjustable height and a removable footrest. Small tear on the left armrest.",
+    "target": "zh",
+    "required": ["椅", "高度|升降", "拆卸|拆除|拆下", "脚|足", "左", "破|撕|裂"],
+    "forbidden": [],
+    "preserved": []
+  },
+  {
+    "id": "fresh-tablet-holdout",
+    "source": "平板电脑屏幕右上角有裂纹，触控正常，电池续航约3小时。",
+    "target": "en",
+    "required": ["tablet", "crack", "right", "touch", "3", "hour"],
+    "forbidden": [],
+    "preserved": ["3"]
+  },
+  {
+    "id": "fresh-textbook-holdout",
+    "source": "Three used textbooks with highlighted passages, no missing pages. Sold as a set.",
+    "target": "zh",
+    "required": ["三|3", "教材|教科书|课本", "划|标|荧光|高亮", "不缺页|没有缺页|无缺页|页数完整|无缺失|没有缺失", "套|整套|一起|打包"],
+    "forbidden": [],
+    "preserved": []
+  },
+  {
+    "id": "fresh-lamp-holdout",
+    "source": "台灯开关偶尔接触不良，灯罩完好，只卖灯，不含灯泡。",
+    "target": "en",
+    "required": ["lamp", "switch", "shade|lamp cover", "not include.{0,15}bulb|no bulb|without.{0,15}bulb|bulb.{0,15}not included"],
+    "forbidden": [],
+    "preserved": []
+  }
+]

@@ -39,6 +39,9 @@ jobs:
         run: ruff format --check .
       - name: Ruff lint
         run: ruff check .
+      - name: Catalogue translation source-fact checks (no model download)
+        working-directory: .
+        run: python -m unittest discover -s services -p "test_catalog_translation_*.py" -v
 
   backend-test:
     name: backend / migrations, seed & tests

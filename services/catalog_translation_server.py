@@ -15,11 +15,17 @@ from collections import OrderedDict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
+os.environ.setdefault("HF_ENDPOINT", "https://huggingface.co")
 os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
 CACHE = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "CampusLoop" / "translation"
 CACHE.mkdir(parents=True, exist_ok=True)
-MODELS = {"en": "Helsinki-NLP/opus-mt-zh-en", "zh": "Helsinki-NLP/opus-mt-en-zh"}
+MODEL_ID = "tencent/HY-MT1.5-1.8B"
+MODEL_REVISION = "dbad03788f49709801014c95d481a514c272ca52"
+MODELS = {"en": MODEL_ID, "zh": MODEL_ID}
+TERMS = {
+    "en": {"阅读支架": "reading stand", "发夹": "hair clip", "星月": "star-and-moon", "滚轮": "scroll wheel", "不议价": "price is firm", "仅校内自提": "on-campus pickup only", "仅限校内自提": "on-campus pickup only", "使用正常": "works normally", "完好无损": "intact and undamaged", "买来没怎么用": "barely used since purchase"},
+    "zh": {"scroll wheel": "滚轮", "price is firm": "不议价", "carrying case": "收纳盒", "campus pickup": "校内自提", "two ceramic mugs": "两个陶瓷杯"},
+}
 LOCK = threading.Lock()
 loaded = {}
 translations = OrderedDict()
@@ -35,16 +41,10 @@ GLOSSARY_FILE = Path(__file__).with_name("catalog_translation_glossary.json")
 REVISION = hashlib.sha256(Path(__file__).read_bytes() + GLOSSARY_FILE.read_bytes()).hexdigest()
 GLOSSARY = json.loads(GLOSSARY_FILE.read_text(encoding="utf-8"))
 PHRASES = {"en": GLOSSARY, "zh": {en: zh for zh, en in GLOSSARY.items()}}
-PHRASE_PATTERNS = {
-    target: re.compile("|".join(re.escape(term) if target == "en" else r"\b" + re.escape(term) + r"\b" for term in sorted(terms, key=len, reverse=True)), re.IGNORECASE)
-    for target, terms in PHRASES.items()
-}
 
 
 def display_spans(text, target):
-    # Product vocabulary and explicit condition statements bypass inference.
-    # Other prose still goes through the translation model, including new items.
-    # Keep complete source model tokens before matching their numeric parts.
+    # Protect source facts, not vocabulary fragments that can reverse negation.
     prefix = AUDIT_PREFIX.match(text)
     spans = [(0, prefix.end(), prefix.group())] if prefix else []
     if target == "zh":
@@ -53,24 +53,95 @@ def display_spans(text, target):
     for match in (PROTECTED_EN if target == "en" else PROTECTED).finditer(text):
         if not any(match.start() < end and match.end() > start for start, end, _ in spans):
             spans.append((match.start(), match.end(), match.group()))
-    for match in PHRASE_PATTERNS[target].finditer(text):
-        if not any(match.start() < end and match.end() > start for start, end, _ in spans):
-            value = PHRASES[target].get(match.group(), PHRASES[target].get(match.group().lower()))
-            spans.append((match.start(), match.end(), value))
-    return sorted(spans)
+    merged = []
+    for start, end, value in sorted(spans):
+        if merged and not text[merged[-1][1]:start].strip():
+            previous = merged[-1][0]
+            merged[-1] = (previous, end, text[previous:end])
+        else:
+            merged.append((start, end, value))
+    return merged
 
 
 def model(target, *, download=False):
-    if target not in loaded:
+    if MODEL_ID not in loaded:
         import torch
-        from transformers import MarianMTModel, MarianTokenizer
-        torch.set_num_threads(min(4, os.cpu_count() or 2))
-        name = MODELS[target]
-        tokenizer = MarianTokenizer.from_pretrained(name, cache_dir=str(CACHE / "models"), local_files_only=not download)
-        network = MarianMTModel.from_pretrained(name, cache_dir=str(CACHE / "models"), use_safetensors=False, local_files_only=not download)
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+        torch.set_num_threads(min(6, os.cpu_count() or 2))
+        options = dict(revision=MODEL_REVISION, cache_dir=str(CACHE / "models"), local_files_only=not download)
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, **options)
+        # Dynamic INT8 corrupts this architecture's output; keep verified precision.
+        network = AutoModelForCausalLM.from_pretrained(MODEL_ID, dtype=torch.float32, **options)
         network.eval()
-        loaded[target] = tokenizer, network
-    return loaded[target]
+        loaded[MODEL_ID] = tokenizer, network
+    return loaded[MODEL_ID]
+
+
+def infer(text, target, protected=None):
+    import torch
+    tokenizer, network = model(target)
+    language = "简体中文" if target == "zh" else "英语"
+    terms = {source: value for source, value in TERMS[target].items() if source.casefold() in text.casefold()}
+    if target == "zh" and re.search(r"\b(headphones?|earbuds?|earphones?)\b", text, re.I):
+        terms["case"] = "收纳盒"
+    terminology = "\n".join(f"{source} 翻译成 {value}" for source, value in terms.items())
+    facts = "\n".join(f"{marker} 表示 {value}" for marker, value in (protected or {}).items())
+    prompt = (
+        "下文是校园二手商品信息；须准确保留数量、成色、瑕疵、配件是否包含、交易限制和否定含义。"
+        "__KEEP_n__ 是原文占位符，必须逐字保留，不得添加、删除、重复或解释。"
+        f"\n参考下面的翻译：\n{terminology}\n"
+        f"占位符含义仅供理解上下文，输出仍须使用原占位符：\n{facts}\n"
+        f"将以下文本翻译为{language}，只输出译文，不要额外解释：\n\n{text}"
+    )
+    inputs = tokenizer.apply_chat_template(
+        [{"role": "user", "content": prompt}], tokenize=True,
+        add_generation_prompt=False, return_tensors="pt",
+    )
+    if inputs.shape[1] > 8192:
+        raise ValueError("Translation input exceeds verified context window")
+    with torch.inference_mode():
+        output = network.generate(inputs, max_new_tokens=2048, do_sample=False, num_beams=2, repetition_penalty=1.05)
+    tokens = output[0, inputs.shape[1]:]
+    if len(tokens) == 2048:
+        raise ValueError("Incomplete translation")
+    return tokenizer.decode(tokens, skip_special_tokens=True).strip()
+
+
+def translate_content(text, target):
+    spans = display_spans(text, target)
+    prefix = "__KEEP_"
+    while prefix in text:
+        prefix = "_" + prefix
+    parts, protected = [], {}
+    position = 0
+    for start, end, value in spans:
+        marker = f"{prefix}{len(protected)}__"
+        parts.extend([text[position:start], marker])
+        protected[marker] = value
+        position = end
+    parts.append(text[position:])
+    masked = "".join(parts)
+    prose = masked
+    for marker in protected:
+        prose = prose.replace(marker, "")
+    if not re.search(r"[a-zA-Z]" if target == "zh" else r"[\u3400-\u9fff]", prose):
+        return text
+    result = infer(masked, target, protected) if protected else infer(masked, target)
+    for marker in protected:
+        if result.count(marker) != 1:
+            raise ValueError("Translation changed protected source facts")
+    if set(re.findall(re.escape(prefix) + r"\d+__", result)) != set(protected):
+        raise ValueError("Translation invented a protected source fact")
+    # Replace simultaneously: user-authored text may itself resemble a marker.
+    restored = re.sub(re.escape(prefix) + r"\d+__", lambda match: protected[match.group()], result)
+    for value in set(protected.values()):
+        if re.search(r"[A-Za-z0-9]{3}", value):
+            before = r"(?<![A-Za-z0-9])" if value[0].isascii() and value[0].isalnum() else ""
+            after = r"(?![A-Za-z0-9])" if value[-1].isascii() and value[-1].isalnum() else ""
+            pattern = before + re.escape(value) + after
+            if len(re.findall(pattern, restored)) > len(re.findall(pattern, text)):
+                raise ValueError("Translation repeated a protected source fact")
+    return restored
 
 
 def remember(text, target, result):
@@ -88,7 +159,6 @@ def purge_legacy_cache():
 
 
 def translate(texts: list[str], target: str) -> list[str]:
-    import torch
     with LOCK:
         results = []
         for text in texts:
@@ -114,47 +184,7 @@ def translate(texts: list[str], target: str) -> list[str]:
                 remember(text, target, reviewed)
                 results.append(reviewed)
                 continue
-            # Translate clauses separately to stay within Marian's token window;
-            # brand/model spans bypass inference entirely.
-            parts = []
-            position = 0
-            spans = display_spans(text, target)
-            for match in [*spans, None]:
-                end = match[0] if match else len(text)
-                fragment = text[position:end]
-                # Pure punctuation between model/number spans is not prose.
-                if fragment and not re.search(r"[a-zA-Z\u3400-\u9fff]", fragment):
-                    parts.append(fragment)
-                    fragment = ""
-                chunks = re.findall(r"[^。！？.!?\n]+[。！？.!?]?|\n", fragment)
-                for chunk in chunks:
-                    if not chunk.strip():
-                        parts.append(chunk)
-                        continue
-                    for offset in range(0, len(chunk), 300):
-                        item = chunk[offset:offset + 300]
-                        if target == "en" and not re.search(r"[\u3400-\u9fff]", item):
-                            parts.append(item)
-                            continue
-                        if target == "zh" and not re.search(r"[a-zA-Z]{3}", item):
-                            parts.append(item)
-                            continue
-                        if not re.search(r"[a-zA-Z\u3400-\u9fff]", item):
-                            parts.append(item)
-                            continue
-                        tokenizer, network = model(target)
-                        inputs = tokenizer(item, return_tensors="pt", truncation=True, max_length=480)
-                        with torch.inference_mode():
-                            output = network.generate(**inputs, max_new_tokens=256, num_beams=2, no_repeat_ngram_size=3, repetition_penalty=1.1)
-                        parts.append(tokenizer.decode(output[0], skip_special_tokens=True))
-                if match:
-                    parts.append(match[2])
-                    position = match[1]
-            result = (" " if target == "en" else "").join(parts).strip()
-            if target == "en":
-                result = result.translate(str.maketrans("，。！？：；（）", ",.!?:;()"))
-                result = re.sub(r"[ \t]+", " ", result)
-                result = re.sub(r"\s+([,.:;!?])", r"\1", result)
+            result = translate_content(text, target)
             if not result:
                 raise ValueError("Empty translation")
             remember(text, target, result)
@@ -191,7 +221,7 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        self.reply(200, {"service": "campusloop-catalog-translation-v1", "status": "ok", "revision": REVISION, "languages": ["zh", "en"], "loaded": list(loaded)})
+        self.reply(200, {"service": "campusloop-catalog-translation-v1", "status": "ok", "revision": REVISION, "languages": ["zh", "en"], "loaded": list(loaded), "model": MODEL_ID, "modelRevision": MODEL_REVISION})
 
     def do_POST(self):
         try:
@@ -218,6 +248,6 @@ if __name__ == "__main__":
     if args.prepare:
         for language in MODELS:
             model(language, download=True)
-        print("Both translation models are ready", flush=True)
+        print("Bilingual translation model is ready", flush=True)
     else:
         ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()

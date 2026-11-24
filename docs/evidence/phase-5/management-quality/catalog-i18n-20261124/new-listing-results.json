@@ -1,0 +1,51 @@
+{
+  "model": "tencent/HY-MT1.5-1.8B",
+  "modelRevision": "dbad03788f49709801014c95d481a514c272ca52",
+  "results": [
+    {
+      "id": 2364,
+      "source": "zh",
+      "originalTitle": "折叠阅读支架 附收纳袋 17cm",
+      "originalDescription": "底部有一处浅划痕，不含充电器，仅限校内自提。",
+      "views": [
+        {
+          "enTitle": "Folding reading stand with storage bag 17cm",
+          "enDesc": "Description\nThere is a minor scratch at the bottom. It does not include a charger. On-campus pickup only.",
+          "zhTitle": "折叠阅读支架 附收纳袋 17cm",
+          "zhDesc": "商品描述\n底部有一处浅划痕，不含充电器，仅限校内自提。"
+        },
+        {
+          "enTitle": "Folding reading stand with storage bag 17cm",
+          "enDesc": "Description\nThere is a minor scratch at the bottom. It does not include a charger. On-campus pickup only.",
+          "zhTitle": "折叠阅读支架 附收纳袋 17cm",
+          "zhDesc": "商品描述\n底部有一处浅划痕，不含充电器，仅限校内自提。"
+        }
+      ],
+      "sourceUnchanged": true,
+      "desktopAndMobileFit": true
+    },
+    {
+      "id": 2365,
+      "source": "en",
+      "originalTitle": "Sony WH-1000XM5 headphones with carrying case",
+      "originalDescription": "Sony WH-1000XM5 headphones, small scratch on the left side, case included. Charging cable not included.",
+      "views": [
+        {
+          "enTitle": "Sony WH-1000XM5 headphones with carrying case",
+          "enDesc": "Description\nSony WH-1000XM5 headphones, small scratch on the left side, case included. Charging cable not included.",
+          "zhTitle": "带有收纳盒的Sony WH-1000XM5耳机",
+          "zhDesc": "商品描述\nSony WH-1000XM5 款耳机，左侧有轻微划痕，附带收纳盒。不附带充电线。"
+        },
+        {
+          "enTitle": "Sony WH-1000XM5 headphones with carrying case",
+          "enDesc": "Description\nSony WH-1000XM5 headphones, small scratch on the left side, case included. Charging cable not included.",
+          "zhTitle": "带有收纳盒的Sony WH-1000XM5耳机",
+          "zhDesc": "商品描述\nSony WH-1000XM5 款耳机，左侧有轻微划痕，附带收纳盒。不附带充电线。"
+        }
+      ],
+      "sourceUnchanged": true,
+      "desktopAndMobileFit": true
+    }
+  ],
+  "failures": []
+}

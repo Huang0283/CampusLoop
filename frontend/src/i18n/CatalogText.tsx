@@ -28,8 +28,8 @@ async function flush() {
   all.forEach(([key]) => waiting.delete(key))
   for (const target of ['zh', 'en'] as const) {
     const entries = all.filter(([, item]) => item.target === target)
-    for (let index = 0; index < entries.length; index += 32) {
-      const batch = entries.slice(index, index + 32)
+    for (let index = 0; index < entries.length; index += 8) {
+      const batch = entries.slice(index, index + 8)
       try {
         const response = await fetch(`${endpoint}/translate`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ target, texts: batch.map(([, item]) => item.text) }), signal: AbortSignal.timeout(90000) })
         if (!response.ok) throw new Error('Translation unavailable')
