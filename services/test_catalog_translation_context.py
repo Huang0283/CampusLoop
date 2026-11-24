@@ -56,6 +56,17 @@ class ContextTranslationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "repeated a protected source fact"):
                 service.translate_content("Sony charger included", "zh")
 
+    def test_repeated_model_phrase_fails_closed_when_source_did_not_repeat_it(self):
+        source = "修枝剪 带包装盒"
+        with patch.object(service, "infer", return_value="Garden pruners with packaging box garden pruners with packaging box"):
+            with self.assertRaisesRegex(ValueError, "repeated a source phrase"):
+                service.translate_content(source, "en")
+
+    def test_repetition_that_was_already_in_the_original_is_preserved(self):
+        source = "bag bag added note"
+        with patch.object(service, "infer", return_value="bag bag added note"):
+            self.assertEqual(service.translate_content(source, "zh"), source)
+
     def test_marker_like_user_text_cannot_overwrite_restoration(self):
         source = "__KEEP_0__ Sony charger included"
         with patch.object(service, "infer", side_effect=lambda text, _, facts=None: text.replace("charger included", "附充电器")):

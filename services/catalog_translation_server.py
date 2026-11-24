@@ -134,6 +134,18 @@ def translate_content(text, target):
         raise ValueError("Translation invented a protected source fact")
     # Replace simultaneously: user-authored text may itself resemble a marker.
     restored = re.sub(re.escape(prefix) + r"\d+__", lambda match: protected[match.group()], result)
+    def phrase_counts(value):
+        tokens = re.findall(r"[a-z0-9]+|[\u3400-\u9fff]", value.casefold())
+        counts = {}
+        for size in range(4, min(12, len(tokens) // 2) + 1):
+            for index in range(len(tokens) - size + 1):
+                phrase = tuple(tokens[index:index + size])
+                counts[phrase] = counts.get(phrase, 0) + 1
+        return counts
+
+    source_phrases = phrase_counts(text)
+    if any(count > source_phrases.get(phrase, 0) for phrase, count in phrase_counts(restored).items() if count > 1):
+        raise ValueError("Translation repeated a source phrase")
     for value in set(protected.values()):
         if re.search(r"[A-Za-z0-9]{3}", value):
             before = r"(?<![A-Za-z0-9])" if value[0].isascii() and value[0].isalnum() else ""

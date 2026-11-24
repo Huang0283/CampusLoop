@@ -35,6 +35,28 @@ test('mixed catalogue text translates both ways while preserving seller identity
   await expect(page.locator('.product-info h1')).toHaveText(chinese)
 })
 
+test('a failed description translation does not discard the translated product title', async ({ page }) => {
+  const original = '折叠阅读架新上架'
+  const description = '这段说明模拟翻译失败'
+  await page.route('**/*', route => {
+    const request = route.request(), url = new URL(request.url())
+    if (!['fetch', 'xhr'].includes(request.resourceType())) return route.continue()
+    if (url.pathname === '/auth/browser-session') return route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED' } })
+    if (url.pathname === '/products/601') return route.fulfill({ json: { data: { ...products[0], title: original, description } } })
+    if (url.pathname === '/display-translation/translate') {
+      const body = request.postDataJSON() as { texts: string[] }
+      if (body.texts.includes(description)) return route.fulfill({ status: 503, json: { error: 'Translation unavailable' } })
+      return route.fulfill({ json: { translations: body.texts.map(text => text === original ? 'New folding reading stand' : text) } })
+    }
+    return route.fulfill({ status: 404, json: { code: 'NOT_FOUND' } })
+  })
+  await page.goto('/product/601')
+  await page.locator('.language-select').click()
+  await page.getByRole('option', { name: 'English', exact: true }).click()
+  await expect(page.locator('.product-info h1')).toHaveText('New folding reading stand')
+  await expect(page.locator('.product-description')).toContainText(description)
+})
+
 test('product buying actions are hidden for administrators and retained for students and guests', async ({ page }) => {
   let role: 'ADMIN' | 'USER' | 'GUEST' = 'ADMIN'
   const favorites: string[] = []
