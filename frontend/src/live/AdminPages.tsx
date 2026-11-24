@@ -289,7 +289,7 @@ export function ProductsPanel() {
     {remote.error instanceof api.ApiError && [404, 501].includes(remote.error.status) ? <Alert type="warning" title="商品治理接口尚未接通" action={<Button onClick={remote.reload}>重新检查接口</Button>} /> : <Resource {...remote}>
       {remote.value?.items.length === 0 && <NoItems filtered={Boolean(query || status)} />}
       {Boolean(remote.value?.items.length) && <Table rowKey={(item) => item.product.id} pagination={false} scroll={{ x: 800 }} dataSource={remote.value?.items} columns={[
-        { title: '商品', key: 'product', render: (_, { product }) => localize(<Space>{product.images[0] && <Image src={product.images[0]} width={56} height={48} style={{ objectFit: 'cover' }} alt={product.title} />}<strong>{<CatalogText text={product.title} />}</strong></Space>) },
+        { title: '商品', key: 'product', render: (_, { product }) => localize(<Space className="adm-products-product">{product.images[0] && <Image src={product.images[0]} width={56} height={48} style={{ objectFit: 'cover' }} alt={product.title} />}<strong className="adm-products-title"><CatalogText text={product.title} /></strong></Space>) },
         { title: '卖家', key: 'seller', render: (_, { product }) => <OriginalText>{product.seller.nickname}</OriginalText> },
         { title: '价格', key: 'price', render: (_, { product }) => `¥${product.price.toFixed(2)}` },
         { title: '状态', key: 'status', render: (_, { product, moderationBlocked }) => localize(<Space><Tag>{productStatusLabels[product.status]}</Tag>{moderationBlocked && <Tag color="red">人工下架</Tag>}</Space>) },

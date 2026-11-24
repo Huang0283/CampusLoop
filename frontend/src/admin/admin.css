@@ -350,6 +350,10 @@ html[data-theme="dark"] .adm .st-DISPUTED { color: #FFB066; } html[data-theme="d
 
 /* sub pages */
 .adm-section .adm-card { animation: none; }
+.adm-section .ant-pagination { display: flex; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; max-width: 100%; }
+.adm-products-product { min-width: 0; max-width: 260px; }
+.adm-products-product .ant-space-item { min-width: 0; }
+.adm-products-title { display: block; min-width: 0; max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .adm-filters { margin-bottom: 16px; }
 .adm-pager { margin-top: 16px; text-align: right; }
 .adm-mono { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
