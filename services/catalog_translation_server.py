@@ -27,7 +27,7 @@ MAX_TRANSLATIONS = 2000
 # Brand spellings and model names are preserved exactly as supplied, in both modes.
 BRAND = re.compile(r"\b(?i:Apple|MacBook(?:\s+(?:Air|Pro))?|iPhone|iPad|iMac|AirPods|ThinkPad|Lenovo|Huawei|Xiaomi|Redmi|Samsung|Sony|Canon|Nikon|Fujifilm|DJI|Nintendo|Switch|ASUS|ROG|Dell|HP|Acer|OPPO|vivo|realme|OnePlus|HONOR|Microsoft|Surface|Logitech|JBL|Bose|Beats|Kindle|Casio|Nike|adidas|Uniqlo|Decathlon|IKEA|MUJI)\b|苹果|华为|小米|红米|荣耀|联想|佳能|尼康|索尼|富士|大疆|任天堂|华硕|戴尔|惠普|宏碁|耐克|阿迪达斯|优衣库|迪卡侬|宜家|无印良品")
 MODEL_NAME = r"\b(?=[A-Za-z0-9.+-]*[A-Za-z])(?=[A-Za-z0-9.+-]*\d)[A-Za-z0-9]+(?:[.+-][A-Za-z0-9]+)*(?:\s+(?:Pro|Plus|Max|Ultra|Air))?\b"
-SPECIFICATION = r"\b(?:SSD|HDD|RAM|ROM|USB(?:-C)?|CPU|GPU|DDR\d|OLED|LCD|LED|HDR|HDMI|RTX|GTX|NVMe|Wi-Fi)\b"
+SPECIFICATION = r"\b(?:SSD|HDD|RAM|ROM|USB(?:-C)?|CPU|GPU|DDR\d|OLED|LCD|LED|HDR|HDMI|RTX|GTX|NVMe|Wi-Fi)\b|(?<![A-Za-z])(?:Cosplay|PVC)(?![A-Za-z])"
 AUDIT_PREFIX = re.compile(r"^\[(?:t1|t2|t3)-[a-z0-9-]+/(?:CP|AP|P|W)\d+\]\s*", re.I)
 PROTECTED = re.compile(BRAND.pattern + "|" + MODEL_NAME + "|" + SPECIFICATION + r"|[¥￥$]?\d+(?:[.,:/–-]\d+)*(?:GB|TB|MB|GHz|Hz|cm|mm|kg|%|g)?")
 PROTECTED_EN = re.compile(r"[a-zA-Z][a-zA-Z0-9.+&-]*(?:\s+[a-zA-Z0-9][a-zA-Z0-9.+&-]*)*|" + BRAND.pattern + r"|[¥￥$]?\d+(?:[.,:/–-]\d+)*(?:[a-zA-Z%]+)?")
@@ -47,6 +47,9 @@ def display_spans(text, target):
     # Keep complete source model tokens before matching their numeric parts.
     prefix = AUDIT_PREFIX.match(text)
     spans = [(0, prefix.end(), prefix.group())] if prefix else []
+    if target == "zh":
+        # Existing Chinese is source content, never input to the English model.
+        spans.extend((m.start(), m.end(), m.group()) for m in re.finditer(r"[\u3400-\u9fff，。！？：；（）【】、]+", text))
     for match in (PROTECTED_EN if target == "en" else PROTECTED).finditer(text):
         if not any(match.start() < end and match.end() > start for start, end, _ in spans):
             spans.append((match.start(), match.end(), match.group()))

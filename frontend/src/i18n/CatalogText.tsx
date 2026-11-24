@@ -46,8 +46,7 @@ async function flush() {
 export function CatalogText({ text }: { text: string }) {
   useLanguage()
   const language = activeLanguage()
-  // Free text is not a system-message template. Mixed Chinese titles already
-  // have their source language; model names must not trigger English-to-Chinese.
+  // Translate original free text; the service preserves Chinese and model names.
   const hasChinese = /[\u3400-\u9fff]/u.test(text)
   const fixed = language === 'en' ? (messages as Record<string, string>)[text] ?? text : text
   const needsTranslation = fixed === text && (language === 'en' ? hasChinese : /[a-zA-Z]{3}/.test(text))

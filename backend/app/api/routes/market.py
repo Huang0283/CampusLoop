@@ -1,7 +1,7 @@
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Header, Query, Request, Response, UploadFile
-from sqlalchemy import delete, func, select
+from sqlalchemy import case, delete, func, select
 
 from app.core.envelope import ok
 from app.core.errors import BusinessError
@@ -47,7 +47,7 @@ def list_products(
     category: str = "",
     condition: str = "",
     status: Literal["ON_SALE", "RESERVED", "SOLD", "HIDDEN"] | None = None,
-    sort: Literal["newest", "price_asc", "price_desc"] = "newest",
+    sort: Literal["recommended", "newest", "price_asc", "price_desc"] = "newest",
 ):
     stmt = visible_products()
     if query:
@@ -58,6 +58,8 @@ def list_products(
     if condition:
         stmt = stmt.where(Product.condition == condition)
     stmt = stmt.where(Product.status == (status or "ON_SALE"))
+    if sort == "recommended":
+        stmt = stmt.order_by(case((func.lower(Product.category) == "other", 1), else_=0))
     stmt = stmt.order_by(
         Product.price.asc()
         if sort == "price_asc"

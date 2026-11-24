@@ -37,6 +37,15 @@ revisions. This does not create another website or database.
 A newer application revision requires reviewing the OpenAPI snapshot and
 documenting the new baseline; never silently regenerate to make CI green.
 
+### 2026-11-24 catalogue follow-up
+
+The public product list now accepts `sort=recommended`. It places non-`other`
+categories first before pagination, then orders by publication time and ID.
+The UI uses it for browsing; explicit newest/price sorts and search relevance
+retain their existing meanings. No response fields changed. The response-contract
+source hash was refreshed from the current OpenAPI for this additive query option.
+Existing permission execution evidence remains tied to its original software SHA.
+
 ### 2026-11-24 reviewed response-contract update
 
 The previous response snapshot predates the order-governance changes in

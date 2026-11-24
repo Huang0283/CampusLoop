@@ -2048,7 +2048,7 @@ export type ListProductsData = {
         category?: string;
         condition?: string;
         status?: ProductStatus;
-        sort?: 'newest' | 'price_asc' | 'price_desc';
+        sort?: 'recommended' | 'newest' | 'price_asc' | 'price_desc';
     };
     url: '/products';
 };

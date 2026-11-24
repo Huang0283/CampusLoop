@@ -658,7 +658,7 @@ paths:
         - { name: category, in: query, schema: { type: string } }
         - { name: condition, in: query, schema: { type: string } }
         - { name: status, in: query, schema: { $ref: '#/components/schemas/ProductStatus' } }
-        - { name: sort, in: query, schema: { type: string, enum: [newest, price_asc, price_desc] } }
+        - { name: sort, in: query, schema: { type: string, enum: [recommended, newest, price_asc, price_desc] } }
       responses:
         '200':
           description: Paginated products.

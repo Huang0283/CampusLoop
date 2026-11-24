@@ -8,6 +8,40 @@ from services import catalog_translation_server as service
 
 
 class MixedTranslationTests(unittest.TestCase):
+    def test_original_chinese_cosplay_listings_survive_language_roundtrip(self):
+        titles = [
+            "蓝金色Cosplay道具剑（柄部有瑕疵）",
+            "浅紫色缠花Cosplay发饰一组",
+            "粉蓝色蝴蝶结Cosplay道具叉",
+            "Cosplay造型肩垫 单件",
+            "自制Cosplay配件，PVC材质，长35cm",
+        ]
+        with patch.object(service, "translations", OrderedDict()), patch.object(
+            service, "model", side_effect=AssertionError("Original Chinese must remain intact")
+        ):
+            for title in titles:
+                self.assertEqual(service.translate([title], "zh"), [title])
+            for title in titles[:4]:
+                english = service.translate([title], "en")[0]
+                self.assertEqual(english, service.GLOSSARY[title])
+                self.assertEqual(service.translate([english], "zh"), [title])
+                self.assertEqual(service.translate([title], "zh"), [title])
+
+    def test_unreviewed_english_never_sends_existing_chinese_to_model(self):
+        from unittest.mock import Mock
+
+        tokenizer, network = Mock(), Mock()
+        tokenizer.return_value = {}
+        tokenizer.decode.return_value = "附带手工制作的收纳袋"
+        network.generate.return_value = [[1]]
+        with patch.object(service, "translations", OrderedDict()), patch.object(
+            service, "model", return_value=(tokenizer, network)
+        ):
+            result = service.translate(["苹果蓝色背包，handmade storage pouch supplied。瑕疵已说明"], "zh")[0]
+        self.assertEqual(result, "苹果蓝色背包，附带手工制作的收纳袋。瑕疵已说明")
+        for call in tokenizer.call_args_list:
+            self.assertNotRegex(call.args[0], r"[\u3400-\u9fff]")
+
     def test_mixed_description_translates_english_without_rewriting_chinese(self):
         with patch.object(service, "translations", OrderedDict()), patch.object(
             service, "model", side_effect=AssertionError("Reviewed phrases need no model")

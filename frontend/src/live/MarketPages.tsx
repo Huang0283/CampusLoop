@@ -90,7 +90,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
   const page = Math.max(1, Number(params.get('page')) || 1)
   const rawSort = params.get('sort')
   const searching = mode === 'public' && Boolean(query.trim())
-  const sort = rawSort === 'price_asc' || rawSort === 'price_desc' || rawSort === 'newest' ? rawSort : searching ? 'relevance' : 'newest'
+  const sort = rawSort === 'price_asc' || rawSort === 'price_desc' || rawSort === 'newest' ? rawSort : searching ? 'relevance' : 'recommended'
   const rawSearchMode = params.get('searchMode')
   const searchMode: 'keyword' | 'hybrid' | 'semantic' = rawSearchMode === 'hybrid' || rawSearchMode === 'semantic' ? rawSearchMode : 'keyword'
   const category = params.get('category') || undefined
@@ -100,7 +100,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
     if (mode === 'mine') return api.data(api.listMyProducts({ signal, query: { query, page, pageSize: 12 } }))
     if (mode === 'favorites') return api.data(api.listFavorites({ signal, query: { page, pageSize: 12 } }))
     if (!query.trim()) return api.data(api.listProducts({ signal, query: { query, page, pageSize: 12, sort: sort === 'relevance' ? 'newest' : sort, category, condition } }))
-    const runSearch = (searchModeArg: 'keyword' | 'hybrid' | 'semantic') => api.data(api.searchProducts({ signal, query: { query, page, pageSize: 12, sort, category, condition, mode: searchModeArg } }))
+    const runSearch = (searchModeArg: 'keyword' | 'hybrid' | 'semantic') => api.data(api.searchProducts({ signal, query: { query, page, pageSize: 12, sort: sort === 'recommended' ? 'relevance' : sort, category, condition, mode: searchModeArg } }))
     try {
       return await runSearch(searchMode)
     } catch (error) {
@@ -186,7 +186,7 @@ export function CatalogPage({ mode = 'public' }: { mode?: 'public' | 'mine' | 'f
         <div className="grid-head">
           <h2>{query ? `“${query}” 的结果` : category ? categories.find((entry) => entry.value === category)?.label : '全部商品'}</h2>
           {total !== undefined && <span className="count">{total} 件</span>}
-          <Segmented aria-label="商品排序" value={sort} options={[...(searching ? [{ value: 'relevance', label: '最相关' }] : []), { value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', String(value))} />
+          <Segmented aria-label="商品排序" value={sort} options={[...(searching ? [{ value: 'relevance', label: '最相关' }] : [{ value: 'recommended', label: '推荐' }]), { value: 'newest', label: '最新发布' }, { value: 'price_asc', label: '价格从低到高' }, { value: 'price_desc', label: '价格从高到低' }]} onChange={(value) => change('sort', String(value))} />
           {publish}
         </div>
         {results}
