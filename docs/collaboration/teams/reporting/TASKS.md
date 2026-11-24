@@ -49,23 +49,22 @@
 2. **R1-02 测试与评估章节**：从 T2 的最终汇总抄入真实执行数量并复算总和；说明测试版本、环境、虚构数据规模、通过/失败/阻塞和复测。独立模型效果、功能符合性、自动化与真人体验分开写，引用原始结果；没有合格 L3/未封存评估就如实写限制，不填虚构准确率。
 3. **R1-03 报告正文**：本人写 Introduction、Requirements、Testing and Evaluation、Conclusions；R2 的 Design/Implementation/AI 章节通过链接或构建引用进入总稿，不直接编辑 R2 的源文件。总报告按课程要求覆盖背景、需求、设计、实现、测试评估、项目管理/反思、结论和参考文献；每个重要结论都能定位到版本与证据。
 4. **R1-04 来源与贡献**：登记所有实际使用的代码/模型/数据/图片/方法和 AI 工具，不为凑数量加文献；给十名成员各留一项真实贡献记录，附 PR/Review/测试或材料链接，未认领写待认领。贡献表由成员确认，不能替人签名。
-5. **R1-05 排版与导出**：总报告正文 40–60 页，A4、四边 2.54 cm、12 pt Arial/Times New Roman、1.5 倍行距、单栏；封面、目录、References、Appendix A 不计正文页数。DOCX/PDF 可打开、目录/页码/引用一致；确认学校正式日期、时区与入口，不猜测。
+5. **R1-05 排版与导出**：总报告正文 40–60 页，A4、四边 2.54 cm、12 pt Arial/Times New Roman、1.5 倍行距、单栏；封面、目录、References、Appendix A 不计正文页数。LaTeX/Overleaf ZIP 与同一源稿 PDF 可导入、编译、打开；目录/页码/引用一致。仅当课程另有明确要求时才补 DOCX；确认学校正式日期、时区与入口，不猜测。
 
 ##### 个人交付物（本人逐项提交）
 
-以下文件放 `docs/submission/technical-report/`：
+正式英文正文只维护在 `docs/submission/technical-report/latex/`，LaTeX/Overleaf 是唯一正文编辑源，不重复维护同内容 Markdown/DOCX：
 
-- `introduction.md`：背景、问题、目标、用户、范围、排除项，六个小节写完整英文正文。
-- `requirements.md`：至少 30 条 REQ，逐条写正常/失败结果，覆盖全部 15 个功能域。
-- `requirements-traceability.csv`：至少一行对应一条 REQ，列 requirement_id、issue、code_or_contract、case_id、report_section、status、evidence、software_sha；不得只有空路径。
-- `testing-and-evaluation.md`：三岗位用例结果、修复复测、用户任务、独立智能评估的实际状态与限制。
-- `project-management.md`：一周一个阶段、分支/PR 工作流、成员贡献来源、遇到的问题与处理、未解决风险。
-- `conclusions.md`：逐个回应项目目标、证据、未完成项和后续工作。
-- `technical-report.md`：唯一报告总稿/组装入口，包含 R2 三个技术章节，不另建第二份报告正文。
-- `references.md`、`report-evidence-index.md`：实际来源与结论→证据映射；图表/指标一项一个定位。
-- `member-contributions.md`：10 人贡献记录及原始链接；附贡献表来源与签署状态，未签保持未签。
-- `format-check.md`：实测正文页数、字体/行距/页边距、图表编号和导出文件的核对结果。
-- `CampusLoop_Technical_Report.docx`、`CampusLoop_Technical_Report.pdf`：同一源稿最终导出；未完成时明显标 Draft。
+- `main.tex`、`preamble.tex`：唯一组装入口及全篇唯一的格式样式入口。
+- `chapters/introduction.tex`、`requirements.tex`、`testing-and-evaluation.tex`、`project-management.tex`、`conclusions.tex`：R1负责的英文正文；每项要求及评估有真实来源和限制。
+- `chapters/design.tex`、`implementation.tex`、`ai-methods-and-limitations.tex`、`technical-decisions.tex`：引用R2负责的技术章节，R1不得覆盖R2源文件。
+- `references.bib`、`README.md`：实际阅读且正文引用的真实来源，以及Overleaf/本地复编说明。
+- `CampusLoop_Technical_Report_Overleaf.zip`、`CampusLoop_Technical_Report.pdf`：完整可编译源工程与同一commit导出的最终报告。
+- `requirements-traceability.csv`：每条REQ对应代码/接口、测试、报告章节、状态、证据和software_sha；不得有空路径。
+- `report-evidence-index.md`、`member-contributions.md`：结论/指标/图表定位，成员真实贡献和签署状态；未签保持未签。
+- `format-check.md`：正文页数、统一样式、引用、图表编号/交叉引用、最终PDF逐页/100%逐图可读性及非作者表达抽查记录。
+
+其余章节保持课程40–60页正文、同版PDF与Overleaf ZIP要求；如果学校另行明确要求DOCX，再按该要求导出一次，不维护第二套正文源。
 
 个人日志/清单放 `docs/collaboration/phase-<n>/reporting/report-editor/`；本轮变更核对写 `changes/<变更ID>/report-impact.md`。
 
@@ -91,24 +90,24 @@ R2 从 15 个功能域各抽 1 条 REQ，能顺着 CSV 打开代码/契约、用
 
 ##### 个人交付物（本人逐项提交）
 
-文件放 `docs/submission/technical-report/`：
+R2 的正式章节与图放在 `docs/submission/technical-report/latex/` 同一工程：
 
-- `design.md`：组件、数据流、数据库、权限和部署设计完整英文正文。
-- `implementation.md`：上面 6 条链路，每条都给实际文件/符号、operation、状态变化与失败结果。
-- `ai-methods-and-limitations.md`：5 种能力及数据、方法、评估、降级、NO_GO 限制。
-- `technical-decisions.md`：至少 6 项决策，逐项有依据与取舍。
-- `architecture-source-index.md`：每张图的编号、图源、软件 SHA、相关文件/字段、支持证据、复核人。
-- `figures/design/architecture.mmd`：组件架构；`data-model.mmd`：核心 ER；`transaction-states.mmd`：合法交易状态；`session-sequence.mmd`：登录/恢复；`order-meetup-sequence.mmd`：报价到完成；`ai-fallback.mmd`：智能正常与降级。共 6 张可编辑图，另各导出 SVG；不要求不存在的功能出现在图中。
+- `chapters/design.tex`：组件、数据流、数据库、权限和部署设计完整英文正文。
+- `chapters/implementation.tex`：上面 6 条链路，每条都给实际文件/符号、operation、状态变化与失败结果。
+- `chapters/ai-methods-and-limitations.tex`：5 种能力及数据、方法、评估、降级、NO_GO 限制。
+- `chapters/technical-decisions.tex`：至少 6 项决策，逐项有依据与取舍。
+- `architecture-source-index.md`：每张图的编号、可编辑图源、软件 SHA、源码/迁移锚点、课程 Lecture 符号依据、导出文件、PDF页码、可读性复核及复核人。
+- `figures/design/`：至少含 `architecture.mmd` 组件架构、`data-model.mmd` ERD、`class-diagram.mmd` 真实代码类图、`transaction-states.mmd` 真实合法状态、`session-sequence.mmd` 会话流程、`order-meetup-sequence.mmd` 报价到完成、`ai-fallback.mmd` 智能降级；另各导出SVG/PDF。图中不得出现未实现能力。
 
 个人日志/清单放 `docs/collaboration/phase-<n>/reporting/system-evidence/`；本轮变更写 `changes/<变更ID>/system-evidence-impact.md`，R1 只接收链接汇总。
 
 ##### 每次改动后做什么，交给谁
 
-M10 改接口/字段/权限/状态/部署时，逐个核对六条链路、六张图和相关智能章节，提交自己的 PR。R1 审英文术语与需求对应，M10 审技术事实；合入 `team/reporting` 后把文件链接、图号、软件 SHA 和可引用结论交 R1/D1。数据不足只写限制，不等完整模型评估才写其余架构。
+M10 改接口/字段/权限/状态/部署时，逐个核对六条链路、上述七类技术图和相关智能章节，提交自己的 PR。R1 审英文术语与需求对应，M10 审技术事实；合入 `team/reporting` 后把文件链接、图号、软件 SHA 和可引用结论交 R1/D1。数据不足只写限制，不等完整模型评估才写其余架构。
 
 ##### 成员验收标准
 
-R1 任选四条链路，可找到真实代码与相同字段；6 张图可编辑，关键箭头有来源，正常/失败/权限边界不相互矛盾。M10 确认与实际实现一致；未经验证的性能/效果不得出现在结论中。
+R1 任选四条链路，可找到真实代码与相同字段；七类图可编辑，ERD与类图分别对应迁移/真实类，关键箭头和Lecture符号有来源，正常/失败/权限边界不相互矛盾。M10 确认与实际实现一致；未经验证的性能/效果不得出现在结论中。
 
 ## 对接流程：谁交什么、发哪里、谁接收
 
@@ -200,3 +199,12 @@ M10 检查核心流程和技术边界，各组确认自己的材料已更新；�
 完整 T01–T15 功能目录、U01–U08 操作任务与收口门禁见[升级验收工作流](../../../workflows/version-acceptance.md)。本组每日拉取/提交/PR/Review/冲突处理见 [WORKFLOW.md](./WORKFLOW.md)。
 
 本组所有岗位均需个人 task-log.md、delivery-checklist.md、真实 PR 和非作者 Review。样例数量是待交要求，不是现有完成声明；有缺口写实际数与原因。
+
+## 2026-11-24 报告高分质量补充
+
+- R1对Introduction、Requirements、Technical Decisions、Evaluation逐项交代背景、REQ、选择、指标的由来和来源；不使用或编造Survey/问卷证据。只根据课程约束、真实项目问题、OpenAPI/源码、T1/T2/T3实际运行和U01-U08真人任务写结论；合成数据和假设须明示。
+- 全文格式只由 `preamble.tex` 控制，章节不得局部改字体、间距、标题、图表样式或引用。实际配置与课程格式不符时先统一修样式，不在单章打补丁。
+- R2交规范ERD及真实代码Class Diagram。ERD对照 `backend/app/models/*.py` 和 `backend/alembic/versions/0001` 至 `0013`；Class Diagram每个类和核心成员对应当前SHA的真实类定义与源码路径，不能把函数模块伪造成类。两图均有可编辑源和高清SVG/PDF。
+- 所有适用UML/ERD/架构线图按课程Lecture逐项核箭头、线型、生命线/激活条、真实状态及触发条件、协议方向和图例；符号依据登记在图索引。Lecture未定义的规则不冒称课程规范。
+- R1在最终A4 PDF按100%阅读尺寸逐图检查清晰度、裁切、重叠、编号和图例，并在 `format-check.md` 留记录。过密图拆分或用横向整页。非作者Review随机抽查正文/图表，确认作者能解释、表述具体准确。
+- References只收真实可查、作者实际阅读且正文引用的来源；按实际采用内容引用技术官方文档、安全标准、UML/ERD规范或算法论文。不为凑数引用未使用的方法/技术，也不虚构文献。
