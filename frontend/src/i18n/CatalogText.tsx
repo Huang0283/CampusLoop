@@ -50,7 +50,7 @@ export function CatalogText({ text }: { text: string }) {
   // have their source language; model names must not trigger English-to-Chinese.
   const hasChinese = /[\u3400-\u9fff]/u.test(text)
   const fixed = language === 'en' ? (messages as Record<string, string>)[text] ?? text : text
-  const needsTranslation = fixed === text && (language === 'en' ? hasChinese : !hasChinese && /[a-zA-Z]{3}/.test(text))
+  const needsTranslation = fixed === text && (language === 'en' ? hasChinese : /[a-zA-Z]{3}/.test(text))
   const key = `${language}:${text}`
   const [result, setResult] = useState({ key: '', text: '', failed: false })
   useEffect(() => {

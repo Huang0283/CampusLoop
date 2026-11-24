@@ -1,6 +1,7 @@
 # Preserve exact bytes of versioned data/schema assets, including existing raw CRLF.
 # These files are hashed; do not let core.autocrlf silently transform them.
 /.gitattributes text eol=lf
+*.pdf binary
 /data/m7-phase2/** -text
 /schemas/m7-phase2/** -text
 /contracts/m7-phase2/** -text

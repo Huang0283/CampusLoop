@@ -33,6 +33,23 @@ def local_catalog(namespace):
 
 
 def start_catalog(config):
+    if os.name == "nt":
+        subprocess.run(
+            [
+                "powershell",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                str(ROOT / "scripts/start-translation.ps1"),
+            ],
+            env={
+                k: v
+                for k, v in os.environ.items()
+                if k.upper() not in {"PYTHONHOME", "UV_INTERNAL__PYTHONHOME", "PYTHONPATH"}
+            },
+            check=True,
+        )
     if config.get("CATALOG_SEMANTIC_URL"):
         subprocess.run(
             [

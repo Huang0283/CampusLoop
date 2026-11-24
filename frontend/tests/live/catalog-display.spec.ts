@@ -5,6 +5,36 @@ const seller = { id: 502, nickname: 'Cosplay晚风 Report', avatar: null, rating
 const titles = ['浅紫色缠花Cosplay发饰一组', '蓝金色Cosplay道具剑（柄部有瑕疵）', '捷安特 ATX660 山地车 26 寸 24 速', 'Report']
 const products = titles.map((title, index) => ({ id: 601 + index, title, description: `Cosplay / ATX660 原文说明\n- 26 寸，24 速\n- 包含配件，¥520。`, images: [picture(400, 1600), picture(1600, 400), picture(800, 800)], seller, price: 49, category: 'other', condition: 'GOOD', campusLocation: '校内', status: 'ON_SALE', createdAt: '2026-10-30T10:00:00Z', updatedAt: '2026-10-30T10:00:00Z' }))
 
+test('mixed catalogue text translates both ways while preserving seller identity and model numbers', async ({ page }) => {
+  const original = 'MacBook Pro M3 Pro 18GB laptop 含充电器'
+  const chinese = 'MacBook Pro M3 Pro 18GB 笔记本电脑 含充电器'
+  const english = 'MacBook Pro M3 Pro 18GB laptop charger included'
+  await page.addInitScript(() => localStorage.setItem('campusloop-language', 'zh'))
+  await page.route('**/*', route => {
+    const request = route.request(), url = new URL(request.url())
+    if (!['fetch', 'xhr'].includes(request.resourceType())) return route.continue()
+    if (url.pathname === '/auth/browser-session') return route.fulfill({ status: 401, json: { code: 'AUTH_UNAUTHORIZED' } })
+    if (url.pathname === '/products/601') return route.fulfill({ json: { data: { ...products[0], title: original, description: original } } })
+    if (url.pathname === '/display-translation/translate') {
+      const body = request.postDataJSON()
+      return route.fulfill({ json: { translations: body.texts.map((text: string) => text === original ? body.target === 'zh' ? chinese : english : text) } })
+    }
+    return route.fulfill({ status: 404, json: { code: 'NOT_FOUND' } })
+  })
+  await page.goto('/product/601')
+  await expect(page.locator('.product-info h1')).toHaveText(chinese)
+  await page.locator('.language-select').click()
+  await page.getByRole('option', { name: 'English', exact: true }).click()
+  await expect(page.locator('.product-info h1')).toHaveText(english)
+  await expect(page.locator('.product-description .ant-typography')).toHaveText(english)
+  await expect(page.locator('.seller-card')).toContainText(seller.nickname)
+  await page.locator('.language-select').click()
+  await page.getByRole('option', { name: '简体中文', exact: true }).click()
+  await expect(page.locator('.product-info h1')).toHaveText(chinese)
+  await page.reload()
+  await expect(page.locator('.product-info h1')).toHaveText(chinese)
+})
+
 test('product buying actions are hidden for administrators and retained for students and guests', async ({ page }) => {
   let role: 'ADMIN' | 'USER' | 'GUEST' = 'ADMIN'
   const favorites: string[] = []
@@ -89,7 +119,7 @@ for (const width of [1440, 390]) {
       expect(bounds!.y).toBeGreaterThanOrEqual(frame!.y - 1)
       await expect(page.locator('.product-thumbnails img').nth(index)).toHaveCSS('object-fit', 'contain')
     }
-    expect(translated.filter(body => body.target === 'zh').flatMap(body => body.texts).some(text => /[\u3400-\u9fff]/u.test(text))).toBe(false)
+    expect(translated.filter(body => body.target === 'zh').flatMap(body => body.texts).some(text => /[\u3400-\u9fff]/u.test(text) && !/[a-zA-Z]{3}/.test(text))).toBe(false)
     await page.locator('.language-select').click()
     await page.getByRole('option', { name: 'English', exact: true }).click()
     await expect(page.locator('.product-info h1')).toContainText('Cosplay accessories:')
