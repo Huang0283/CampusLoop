@@ -179,11 +179,11 @@ function Board({ data, days, setDays, refreshing, reload, error }: { data: Admin
 
       <Card area="note" tint="#3B8BFF" icon="log" title="最近处理记录" extra={<Link className="adm-more" to="/admin/audit">操作日志 ›</Link>}>
         {data.recentDecisions.length ? <ul className="adm-notes">{data.recentDecisions.map((row) => {
-          const kind = row.event.includes('product') ? 'goods' : row.event.includes('user') ? 'user' : 'flag'
+          const kind = row.subject?.type === 'ORDER' ? 'order' : row.event.includes('product') ? 'goods' : row.event.includes('user') ? 'user' : 'flag'
           const color = row.event === 'admin_user_disabled' || row.resultStatus === 'HIDDEN' ? 'var(--adm-red)' : row.resultStatus === 'REJECTED' ? 'var(--adm-orange)' : 'var(--adm-green)'
           return localize(<li key={row.id}>
             <span className="adm-note-ic" style={{ ['--nc' as string]: color }}><Icon name={kind} size={16} /></span>
-            <div><p>{auditEventLabels[row.event] ?? row.event}{row.resultStatus && <> · {resultStatusLabels[row.resultStatus] ?? row.resultStatus}</>}{row.subject && <span className="adm-note-sub"> {row.subject.type === 'PRODUCT' ? '商品' : row.subject.type === 'REPORT' ? '举报' : '用户'} #{row.subject.id}</span>}</p><small>{<OriginalText>{row.actor?.nickname ?? '管理员'}</OriginalText>}：{<OriginalText>{row.reason ?? '未填写理由'}</OriginalText>}</small></div>
+            <div><p>{auditEventLabels[row.event] ?? row.event}{row.resultStatus && <> · {resultStatusLabels[row.resultStatus] ?? row.resultStatus}</>}{row.subject && <span className="adm-note-sub"> {row.subject.type === 'PRODUCT' ? '商品' : row.subject.type === 'REPORT' ? '举报' : row.subject.type === 'ORDER' ? '订单' : '用户'} #{row.subject.id}</span>}</p><small>{<OriginalText>{row.actor?.nickname ?? '管理员'}</OriginalText>}：{<OriginalText>{row.reason ?? '未填写理由'}</OriginalText>}</small></div>
             <time>{clock(row.createdAt)}</time>
           </li>)
         })}</ul> : <Empty>还没有人工处理记录。下架商品、处理举报或禁用账号后会显示在这里。</Empty>}
@@ -243,7 +243,8 @@ function TodoCard({ data, now, reload }: { data: AdminDashboard; now: number; re
     const body = { resolution: decision.resolution, note: note.trim() }
     setBusy(true); setFailure(undefined)
     try {
-      await api.data(api.resolveReport({ path: { reportId: decision.item.id }, body, headers: api.idempotencyHeaders(attemptKey({ reportId: decision.item.id, body })) }))
+      await api.data(api.resolveReport({ path: { reportId: decision.item.id }, body, headers: api.idempotencyHeaders(attemptKey.key({ reportId: decision.item.id, body })) }))
+      attemptKey.reset()
       message.success(<LocalizedText>{decision.resolution === 'RESOLVED' ? '举报已处理，结果已通知举报人并记入操作日志' : '举报已驳回，说明已通知举报人并记入操作日志'}</LocalizedText>)
       close(); reload()
     } catch (error) { setFailure(errorText(error)) } finally { setBusy(false) }

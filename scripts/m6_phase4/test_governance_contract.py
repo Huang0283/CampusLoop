@@ -80,7 +80,8 @@ class GovernanceContractTests(unittest.TestCase):
             )
         )
         public = SPEC["components"]["schemas"]["Report"]["properties"]
-        self.assertFalse({"evidence", "handledBy", "handledAt"} & public.keys())
+        self.assertFalse({"evidence", "handledBy"} & public.keys())
+        self.assertEqual(public["handledAt"]["format"], "date-time")
 
     def test_governance_routes_keep_security_and_new_sdk_operations(self):
         for path, method, operation_id in (

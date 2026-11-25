@@ -1,5 +1,6 @@
 import io
 import uuid
+import zlib
 
 import boto3
 from botocore.config import Config
@@ -39,7 +40,15 @@ def upload(db, actor, content: bytes, purpose: str) -> dict:
             if purpose == "avatar":
                 prepared = ImageOps.fit(prepared, (512, 512), method=Image.Resampling.LANCZOS)
             prepared.save(output, format="JPEG", quality=90)
-    except (UnidentifiedImageError, OSError, Image.DecompressionBombError):
+    except (
+        UnidentifiedImageError,
+        OSError,
+        Image.DecompressionBombError,
+        SyntaxError,
+        ValueError,
+        EOFError,
+        zlib.error,
+    ):
         raise BusinessError(415, "UNSUPPORTED_IMAGE", "Invalid image.") from None
     settings = get_settings()
     key = f"{purpose}/{actor.id}/{uuid.uuid4().hex}.jpg"

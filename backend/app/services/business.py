@@ -16,6 +16,8 @@ def require_participant(entity, user: User) -> None:
 
 
 def load(db: Session, model, identity: int, *, lock: bool = False):
+    if not 0 < identity <= 9_223_372_036_854_775_807:
+        raise BusinessError(404, "NOT_FOUND", "Resource not found.")
     query = select(model).where(model.id == identity)
     if lock:
         query = query.with_for_update()

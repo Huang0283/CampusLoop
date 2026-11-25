@@ -40,18 +40,13 @@ async function transport(input: RequestInfo | URL, init?: RequestInit): Promise<
   const request = new Request(input, init)
   const started = generation
   const sessionRequest = !!tokens && request.headers.get('Authorization') === 'Bearer ' + tokens.accessToken
+  const authenticationRequest = !tokens && ['/auth/login', '/auth/browser-session'].includes(new URL(request.url).pathname)
   const response = await nativeRequest(request)
-  // Rejected credentials require explicit sign-in, without cookie retries.
-  if (response.status === 401 && sessionRequest && !request.url.endsWith('/auth/logout')) {
-    if (generation === started) {
-      clearTokens()
-      window.dispatchEvent(new Event('campusloop-session-expired'))
-    }
-  }
   if (!response.ok) {
     let body: { code?: string; message?: string; requestId?: string; details?: ApiError['details'] } = {}
     try { body = await response.clone().json() || {} } catch { /* Safe fallback. */ }
-    if ((response.status === 401 || response.status === 423) && generation === started) {
+    if ((response.status === 401 || response.status === 423) && generation === started
+      && (sessionRequest || authenticationRequest) && !request.url.endsWith('/auth/logout')) {
       clearTokens(); window.dispatchEvent(new Event('campusloop-session-expired'))
       if (response.status === 423 && body.details?.appealToken) window.dispatchEvent(new CustomEvent('campusloop-account-disabled', { detail: body.details }))
     }

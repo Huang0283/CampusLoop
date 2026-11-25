@@ -98,6 +98,9 @@ def enqueue(db, event_key, wanted_ids):
 def remember_changes(db, *_):
     changed = db.info.setdefault("matching_changes", set())
     for entity in list(db.new) + list(db.dirty):
+        # A new account has no existing listings or wants to invalidate.
+        if isinstance(entity, User) and entity in db.new:
+            continue
         fields = BUSINESS_FIELDS.get(type(entity))
         if fields is None:
             continue

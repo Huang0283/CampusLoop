@@ -30,6 +30,11 @@ LOCK = threading.Lock()
 loaded = {}
 translations = OrderedDict()
 MAX_TRANSLATIONS = 2000
+ALLOWED_ORIGINS = {
+    f"http://{host}:{port}"
+    for host in ("127.0.0.1", "localhost")
+    for port in (5174, 5184, 5185, 5199)
+}
 # Brand spellings and model names are preserved exactly as supplied, in both modes.
 BRAND = re.compile(r"\b(?i:Apple|MacBook(?:\s+(?:Air|Pro))?|iPhone|iPad|iMac|AirPods|ThinkPad|Lenovo|Huawei|Xiaomi|Redmi|Samsung|Sony|Canon|Nikon|Fujifilm|DJI|Nintendo|Switch|ASUS|ROG|Dell|HP|Acer|OPPO|vivo|realme|OnePlus|HONOR|Microsoft|Surface|Logitech|JBL|Bose|Beats|Kindle|Casio|Nike|adidas|Uniqlo|Decathlon|IKEA|MUJI)\b|苹果|华为|小米|红米|荣耀|联想|佳能|尼康|索尼|富士|大疆|任天堂|华硕|戴尔|惠普|宏碁|耐克|阿迪达斯|优衣库|迪卡侬|宜家|无印良品")
 MODEL_NAME = r"\b(?=[A-Za-z0-9.+-]*[A-Za-z])(?=[A-Za-z0-9.+-]*\d)[A-Za-z0-9]+(?:[.+-][A-Za-z0-9]+)*(?:\s+(?:Pro|Plus|Max|Ultra|Air))?\b"
@@ -170,7 +175,7 @@ def purge_legacy_cache():
             path.unlink(missing_ok=True)
 
 
-def translate(texts: list[str], target: str) -> list[str]:
+def translate(texts: list[str], target: str, *, isolate_failures=False) -> list[str | None]:
     with LOCK:
         results = []
         for text in texts:
@@ -196,15 +201,25 @@ def translate(texts: list[str], target: str) -> list[str]:
                 remember(text, target, reviewed)
                 results.append(reviewed)
                 continue
-            result = translate_content(text, target)
-            if not result:
-                raise ValueError("Empty translation")
+            try:
+                result = translate_content(text, target)
+                if not result:
+                    raise ValueError("Empty translation")
+            except (ValueError, RuntimeError, OSError):
+                if not isolate_failures:
+                    raise
+                results.append(None)
+                continue
             remember(text, target, result)
             results.append(result)
         return results
 
 
 class Handler(BaseHTTPRequestHandler):
+    def setup(self):
+        super().setup()
+        self.connection.settimeout(10)
+
     def log_message(self, *_):
         pass  # Do not log submitted catalogue text.
 
@@ -212,7 +227,7 @@ class Handler(BaseHTTPRequestHandler):
         payload = json.dumps(body, ensure_ascii=False).encode("utf-8")
         self.send_response(code)
         origin = self.headers.get("Origin", "")
-        if origin in {"http://127.0.0.1:5174", "http://localhost:5174"}:
+        if origin in ALLOWED_ORIGINS:
             self.send_header("Access-Control-Allow-Origin", origin)
             self.send_header("Vary", "Origin")
         self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -224,9 +239,11 @@ class Handler(BaseHTTPRequestHandler):
             pass  # A navigation may leave before its translation finishes.
 
     def do_OPTIONS(self):
-        self.send_response(204)
         origin = self.headers.get("Origin", "")
-        if origin in {"http://127.0.0.1:5174", "http://localhost:5174"}:
+        if origin not in ALLOWED_ORIGINS:
+            return self.reply(403, {"error": "Untrusted origin"})
+        self.send_response(204)
+        if origin in ALLOWED_ORIGINS:
             self.send_header("Access-Control-Allow-Origin", origin)
             self.send_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
             self.send_header("Access-Control-Allow-Headers", "Content-Type")
@@ -239,14 +256,21 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if self.path != "/translate":
                 return self.reply(404, {"error": "Not found"})
+            origin = self.headers.get("Origin")
+            if origin is not None and origin not in ALLOWED_ORIGINS:
+                return self.reply(403, {"error": "Untrusted origin"})
+            if self.headers.get_content_type() != "application/json":
+                return self.reply(415, {"error": "JSON required"})
             size = int(self.headers.get("Content-Length", "0"))
             if not 0 < size <= 131072:
                 return self.reply(413, {"error": "Request too large"})
             body = json.loads(self.rfile.read(size))
+            if not isinstance(body, dict):
+                return self.reply(422, {"error": "Invalid translation request"})
             texts, target = body.get("texts"), body.get("target")
             if target not in MODELS or not isinstance(texts, list) or not 0 < len(texts) <= 32 or any(not isinstance(s, str) or len(s) > 5000 for s in texts):
                 return self.reply(422, {"error": "Invalid translation request"})
-            self.reply(200, {"translations": translate(texts, target)})
+            self.reply(200, {"translations": translate(texts, target, isolate_failures=True)})
         except Exception:
             self.reply(503, {"error": "Translation unavailable; original text remains available"})
 

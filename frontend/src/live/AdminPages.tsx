@@ -194,11 +194,12 @@ function ReportDetail({ report, refresh }: { report: AdminReport; refresh: () =>
     {overriding && <Alert type="warning" showIcon style={{ margin: '16px 0' }} title="改判会通知举报人并保留操作日志，不会自动处罚用户或商品。" />}
     {(!handled || overriding) && <Form key={`${current.status}-${current.handledAt}`} layout="vertical" onFinish={(values: { resolution: 'RESOLVED' | 'REJECTED'; note: string }) => void mutation.run(async () => {
       const body = { resolution: values.resolution, note: values.note.trim() }
-      const options = { path: { reportId: report.id }, body, headers: api.idempotencyHeaders(attemptKey({ reportId: report.id, body, handledAt: current.handledAt })) }
+      const options = { path: { reportId: report.id }, body, headers: api.idempotencyHeaders(attemptKey.key({ reportId: report.id, body, handledAt: current.handledAt })) }
       const result = handled && current.handledAt
         ? await api.data(api.overrideReport({ ...options, body: { ...body, expectedStatus: current.status as 'RESOLVED' | 'REJECTED', expectedHandledAt: current.handledAt } }))
         : await api.data(api.resolveReport(options))
       setConfirmed(result)
+      attemptKey.reset()
       setOverriding(false)
       refresh()
     })}>
@@ -260,14 +261,15 @@ function ProductDetail({ productId, refresh }: { productId: number; refresh: () 
     <Space wrap style={{ margin: '16px 0' }}>{item.images.map((url) => localize(<Image key={url} src={url} width={120} alt="商品审核图片" />))}</Space>
     <Failure error={mutation.error} retry={() => { setConfirmed(undefined); remote.reload() }} />
     {confirmed && <Alert type="success" role="status" title="后端已确认商品处理，已记录人工审计。" />}
-    {(item.status === 'ON_SALE' || current?.moderationBlocked) ? <Form layout="vertical" onFinish={(values: { reason: string }) => void mutation.run(async () => {
+    {(['ON_SALE', 'HIDDEN'].includes(item.status) || current?.moderationBlocked) ? <Form layout="vertical" onFinish={(values: { reason: string }) => void mutation.run(async () => {
       const body = { hidden: !current?.moderationBlocked, reason: values.reason.trim(), expectedUpdatedAt: item.updatedAt }
-      setConfirmed(await api.data(api.adminModerateProduct({ path: { productId }, body, headers: api.idempotencyHeaders(attemptKey({ productId, body })) })))
+      setConfirmed(await api.data(api.adminModerateProduct({ path: { productId }, body, headers: api.idempotencyHeaders(attemptKey.key({ productId, body })) })))
+      attemptKey.reset()
       refresh()
     })}>
       <Form.Item name="reason" label="商品处理原因" rules={[{ required: true, whitespace: true, max: 500 }]}><Input.TextArea maxLength={500} /></Form.Item>
       <Button htmlType="submit" aria-label={current?.moderationBlocked ? '解除人工下架' : '人工下架商品'} danger={!current?.moderationBlocked} loading={mutation.busy}>{current?.moderationBlocked ? '解除人工下架' : '人工下架商品'}</Button>
-    </Form> : <Alert type="info" title="已预订、已售出或发布者自行下架的商品不能通过此入口更改交易状态。" />}
+    </Form> : <Alert type="info" title="已预订或已售出的商品不能通过此入口更改交易状态。" />}
   </>}</Resource>)
 }
 

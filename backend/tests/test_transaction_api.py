@@ -269,7 +269,7 @@ def test_two_account_durable_journey_and_permissions(client):
         )
 
 
-def test_meetup_revision_clears_confirmations_and_cancel_eligibility(client):
+def test_meetup_revision_before_completion_resets_meeting_confirmations(client):
     seller, buyer = account(client), account(client)
     _, _, entity = pending_order(client, seller, buyer)
     oid = entity["id"]
@@ -289,14 +289,6 @@ def test_meetup_revision_clears_confirmations_and_cancel_eligibility(client):
             ).status_code
             == 200
         )
-    assert (
-        client.post(
-            f"/orders/{oid}/confirm-complete",
-            headers=key_headers(buyer),
-            json={"meetupVersion": m["version"]},
-        ).status_code
-        == 200
-    )
     new_m = client.post(
         f"/orders/{oid}/meetup",
         headers=key_headers(seller),

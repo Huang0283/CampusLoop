@@ -265,7 +265,8 @@ export function ProductFormPage() {
     <Failure error={mutation.error} />
     <Form form={form} layout="vertical" size="large" initialValues={{ images: [], category: 'BOOKS', condition: 'GOOD' }} onFinish={(body) => void mutation.run(async () => {
       const payload = { ...body, originalPrice: body.originalPrice ?? null }
-      const result = id ? await api.data(api.updateProduct({ path: { productId: Number(id) }, body: payload })) : await api.data(api.createProduct({ body: payload, headers: api.idempotencyHeaders(attemptKey(payload)) }))
+      const result = id ? await api.data(api.updateProduct({ path: { productId: Number(id) }, body: payload })) : await api.data(api.createProduct({ body: payload, headers: api.idempotencyHeaders(attemptKey.key(payload)) }))
+      attemptKey.reset()
       navigate(`/product/${result.id}`)
     })}>
       <h2 className="form-section-title"><InboxOutlined /> 商品信息</h2>
@@ -349,13 +350,13 @@ export function WantedFormPage() {
   useEffect(() => { if (remote.value) form.setFieldsValue(remote.value) }, [remote.value, form])
   return localize(<Page title={id ? '编辑求购' : '发布求购'} subtitle="告诉同学们你想寻找的好物" extra={<BackLink fallback="/wanted">返回求购广场</BackLink>}><Resource {...remote}><Card className="form-surface"><Failure error={mutation.error} />
     <Form form={form} layout="vertical" size="large" initialValues={{ condition: 'ANY', location: 'ANY', expireAt: defaultExpiry }} onFinish={(body) => void mutation.run(async () => {
-      const result = id ? await api.data(api.updateWanted({ path: { wantedId: Number(id) }, body })) : await api.data(api.createWanted({ body, headers: api.idempotencyHeaders(attemptKey(body)) })); navigate(`/wanted/${result.id}`)
+      const result = id ? await api.data(api.updateWanted({ path: { wantedId: Number(id) }, body })) : await api.data(api.createWanted({ body, headers: api.idempotencyHeaders(attemptKey.key(body)) })); attemptKey.reset(); navigate(`/wanted/${result.id}`)
     })}>
       <h2 className="form-section-title">求购信息</h2><Form.Item name="title" label="想买什么" rules={[{ required: true, whitespace: true, max: 100 }]}><Input placeholder="写出需要的商品名称或型号" /></Form.Item>
       <Row gutter={20}><Col span={12}><Form.Item name="budgetMin" label="最低预算" rules={[{ required: true }]}><InputNumber min={0} precision={2} /></Form.Item></Col><Col span={12}><Form.Item name="budgetMax" label="最高预算" rules={[{ required: true }]}><InputNumber min={0} precision={2} /></Form.Item></Col></Row>
       <Form.Item name="condition" label="最低成色" rules={[{ required: true }]}><Select options={[{ value: 'ANY', label: '不限成色' }, ...conditions]} /></Form.Item>
       <Form.Item name="location" label="地点（ANY 表示不限）" rules={[{ required: true }]}><Input /></Form.Item>
-      <Form.Item name="expireAt" label="到期时间" rules={[{ required: true }, { validator: (_, value: string) => !value || Date.parse(value) > Date.now() ? Promise.resolve() : Promise.reject(new Error(t('到期时间必须晚于当前时间。'))) }]} getValueProps={(value: string) => ({ value: value ? new Date(new Date(value).getTime() - new Date(value).getTimezoneOffset() * 60000).toISOString().slice(0, 16) : '' })} normalize={(value: string) => value ? new Date(value).toISOString() : ''}><Input type="datetime-local" /></Form.Item>
+      <Form.Item name="expireAt" label="到期时间" rules={[{ required: true }, { validator: (_, value: string) => !value || Date.parse(value) > Date.now() ? Promise.resolve() : Promise.reject(new Error(t('到期时间必须晚于当前时间。'))) }]} getValueProps={(value: string) => ({ value: value && Number.isFinite(Date.parse(value)) ? new Date(Date.parse(value) - new Date(value).getTimezoneOffset() * 60000).toISOString().slice(0, 16) : '' })} normalize={(value: string) => value && Number.isFinite(Date.parse(value)) ? new Date(value).toISOString() : ''}><Input type="datetime-local" /></Form.Item>
       <Form.Item name="description" label="需求说明"><Input.TextArea maxLength={3000} /></Form.Item>
       <div className="form-actions"><BackLink fallback="/wanted">返回广场</BackLink><Button htmlType="submit" type="primary" loading={mutation.busy}>保存求购</Button></div>
     </Form>

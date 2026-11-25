@@ -267,12 +267,13 @@ def create_offer(
     )
 
 
-def pending_offer(db, identity, actor, *, creator=False):
+def pending_offer(db, identity, actor, *, creator=False, closing=False):
     # Global trade lock order: authorization -> product -> offer -> order -> meetup.
     candidate = load(db, Offer, identity)
     context = load(db, ChatSession, candidate.session_id)
     require_participant(context, actor)
-    available_product(db, context, actor)
+    if not closing:
+        available_product(db, context, actor)
     entity = db.scalar(
         select(Offer)
         .where(Offer.id == identity)
@@ -340,7 +341,7 @@ def counter_offer(
 @router.post("/offers/{offerId}/reject", operation_id="rejectOffer")
 def reject_offer(offerId: int, db: Db, actor: Actor, body: ReasonWrite | None = None):
     student(actor)
-    entity, context = pending_offer(db, offerId, actor)
+    entity, context = pending_offer(db, offerId, actor, closing=True)
     entity.status, entity.responded_at = "REJECTED", utcnow()
     notify(db, entity.proposer_id, "OFFER_REJECTED", f"/chat/{context.id}", "Offer rejected")
     db.flush()
@@ -352,7 +353,7 @@ def reject_offer(offerId: int, db: Db, actor: Actor, body: ReasonWrite | None = 
 @router.post("/offers/{offerId}/cancel", operation_id="cancelOffer")
 def cancel_offer(offerId: int, db: Db, actor: Actor):
     student(actor)
-    entity, _ = pending_offer(db, offerId, actor, creator=True)
+    entity, _ = pending_offer(db, offerId, actor, creator=True, closing=True)
     entity.status, entity.responded_at = "CANCELLED", utcnow()
     db.flush()
     result = ok(dto.offer(db, entity))
@@ -439,7 +440,11 @@ def writable_order(db, identity, actor, *, allow_disabled_peer=False):
 def save_meetup(orderId: int, body: MeetupWrite, db: Db, actor: Actor, idempotency_key: Key = None):
     def action():
         entity = writable_order(db, orderId, actor)
-        if entity.status in ("COMPLETED", "CANCELLED", "DISPUTED"):
+        if (
+            entity.status in ("COMPLETED", "CANCELLED", "DISPUTED")
+            or entity.buyer_confirmed_complete
+            or entity.seller_confirmed_complete
+        ):
             raise BusinessError(409, "ORDER_STATE_CONFLICT", "Order is terminal.")
         require_future_meetup(body.scheduledDate, body.timeSlotStart)
         arrangement = db.scalar(select(Meetup).where(Meetup.order_id == orderId).with_for_update())
@@ -609,7 +614,7 @@ def order_reviews(orderId: int, db: Db, actor: Actor):
 @router.post("/reviews", status_code=201, operation_id="createReview")
 def create_review(body: ReviewWrite, db: Db, actor: Actor, idempotency_key: Key = None):
     def action():
-        entity = writable_order(db, body.orderId, actor)
+        entity = writable_order(db, body.orderId, actor, allow_disabled_peer=True)
         if entity.status != "COMPLETED":
             raise BusinessError(
                 409, "REVIEW_NOT_ELIGIBLE", "Only completed orders can be reviewed."
@@ -663,6 +668,10 @@ def create_report(body: ReportWrite, db: Db, actor: Actor, idempotency_key: Key 
             require_participant(target, actor)
         elif body.targetType == "CHAT_MESSAGE":
             chat(db, target.session_id, actor)
+            if target.sender_id == actor.id:
+                raise BusinessError(
+                    400, "SELF_REPORT_FORBIDDEN", "You cannot report your own message."
+                )
         elif body.targetType == "PRODUCT":
             if target.owner_id == actor.id:
                 raise BusinessError(

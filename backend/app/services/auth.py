@@ -67,16 +67,17 @@ def authenticate(
     )
     if not user or not family or family.user_id != user.id or family.expires_at <= utcnow():
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session unavailable.")
-    if user.status != "ACTIVE":
-        from app.services.appeal_access import disabled_error
-
-        if family.revoked_at and family.revocation_reason != "disabled":
-            raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session revoked.")
-        raise disabled_error(user)
-    if family.revoked_at and not (allow_logout_replay and family.revocation_reason == "logout"):
+    if family.revoked_at and not (
+        (user.status != "ACTIVE" and family.revocation_reason == "disabled")
+        or (allow_logout_replay and family.revocation_reason == "logout")
+    ):
         raise BusinessError(401, "AUTH_UNAUTHORIZED", "Session revoked.")
     if int(claims["exp"]) <= int(utcnow().timestamp()):
         raise BusinessError(401, "AUTH_ACCESS_EXPIRED", "Access token expired.")
+    if user.status != "ACTIVE":
+        from app.services.appeal_access import disabled_error
+
+        raise disabled_error(user)
     return user, family
 
 

@@ -13,7 +13,7 @@ from app.models import AccountAppeal, AccountDecision, User
 from app.schemas.moderation import AppealReview, AppealWrite, DecisionWrite
 from app.services.appeal_access import AppealActor
 from app.services.auth import Actor, Db, administrator, audit
-from app.services.business import notify
+from app.services.business import load, notify
 from app.services.governance import admin_idempotent, read_audit
 from app.services.moderation import (
     appeal_dto,
@@ -118,6 +118,19 @@ def submit_appeal(decisionId: int, body: AppealWrite, db: Db, actor: AppealActor
 
 @router.post("/account/appeals/images", status_code=201, operation_id="uploadAppealImage")
 def appeal_image(file: UploadFile, db: Db, actor: AppealActor):
+    if actor.status != "ACTIVE":
+        pending = db.scalar(
+            select(AccountDecision.id)
+            .outerjoin(AccountAppeal, AccountAppeal.decision_id == AccountDecision.id)
+            .where(
+                AccountDecision.user_id == actor.id,
+                AccountDecision.revoked_at.is_(None),
+                AccountAppeal.id.is_(None),
+            )
+            .limit(1)
+        )
+        if pending is None:
+            raise BusinessError(409, "APPEAL_EXISTS", "没有可补充证据的待提交申诉。")
     return ok(upload(db, actor, file.file.read(5 * 1024 * 1024 + 1), "evidence"))
 
 
@@ -147,6 +160,7 @@ def own_appeal_evidence(appealId: int, imageIndex: int, db: Db, actor: AppealAct
 @router.get("/admin/users/{userId}/decisions", operation_id="adminListAccountDecisions")
 def admin_decisions(userId: int, db: Db, actor: Actor, page: Page = 1, pageSize: PageSize = 20):
     administrator(actor)
+    load(db, User, userId)
     result = ok(decision_list(db, userId, page, pageSize))
     read_audit(
         db,

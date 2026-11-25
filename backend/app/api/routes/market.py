@@ -119,6 +119,8 @@ def create_product(body: ProductWrite, db: Db, actor: Actor, idempotency_key: Ke
 
 @router.get("/products/{productId}", operation_id="getProduct")
 def get_product(productId: int, db: Db, request: Request, response: Response):
+    if not 0 < productId <= 9_223_372_036_854_775_807:
+        raise BusinessError(404, "NOT_FOUND", "Product not found.")
     item = db.scalar(visible_products().where(Product.id == productId))
     if item is None and request.headers.get("Authorization"):
         response.headers["Cache-Control"] = "no-store"
@@ -191,6 +193,10 @@ def product_status(productId: int, body: ProductStatusWrite, db: Db, actor: Acto
 @router.delete("/products/{productId}", status_code=204, operation_id="deleteProduct")
 def delete_product(productId: int, db: Db, actor: Actor):
     item = editable_product(db, productId, actor)
+    if item.moderation_blocked:
+        raise BusinessError(
+            409, "PRODUCT_MODERATION_HOLD", "商品正在人工复核，不能删除处理记录。"
+        )
     item.status = "HIDDEN"
     item.deleted_at = utcnow()
     db.commit()
@@ -254,8 +260,15 @@ def list_wanted(
     stmt = (
         select(WantedPost)
         .join(User, User.id == WantedPost.owner_id)
-        .where(User.status == "ACTIVE", WantedPost.status == status)
+        .where(User.status == "ACTIVE")
     )
+    if status == "EXPIRED":
+        stmt = stmt.where(
+            (WantedPost.status == "EXPIRED")
+            | ((WantedPost.status == "OPEN") & (WantedPost.expires_at <= utcnow()))
+        )
+    else:
+        stmt = stmt.where(WantedPost.status == status)
     if status == "OPEN":
         stmt = stmt.where((WantedPost.expires_at.is_(None)) | (WantedPost.expires_at > utcnow()))
     if query:

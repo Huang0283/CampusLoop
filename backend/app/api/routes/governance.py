@@ -144,14 +144,14 @@ def moderate_product(
             raise BusinessError(409, "PRODUCT_STALE", "商品已变更，请刷新详情后再处理。")
         if (
             body.hidden
-            and item.status != "ON_SALE"
+            and (item.status not in ("ON_SALE", "HIDDEN") or item.moderation_blocked)
             or not body.hidden
             and not item.moderation_blocked
         ):
             raise BusinessError(
                 409,
                 "PRODUCT_STATE_CONFLICT",
-                "Only an on-sale listing can be hidden, and only a moderation hold can be restored.",
+                "Only an unblocked listing can be held, and only a moderation hold can be restored.",
             )
         before = product_snapshot(item)
         item.moderation_blocked = body.hidden

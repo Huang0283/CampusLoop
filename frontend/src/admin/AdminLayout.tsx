@@ -84,9 +84,13 @@ export function AdminLayout() {
   }, [])
   const toggle = () => setCollapsed((value) => { localStorage.setItem(COLLAPSE_KEY, value ? '0' : '1'); return !value })
   const signOut = async () => {
-    await api.logout()
-    navigate('/market', { flushSync: true })
-    useSession.getState().clear()
+    try {
+      await api.logout()
+      navigate('/market', { flushSync: true })
+      useSession.getState().clear()
+    } catch {
+      setOffline(true)
+    }
   }
   const notifications = useNotificationsResource()
   const unread = notifications.value?.filter(item => !item.read).length ?? 0

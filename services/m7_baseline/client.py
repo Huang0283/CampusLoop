@@ -27,6 +27,8 @@ def call_baseline(url, payload, token, *, timeout=1.5):
     if not isinstance(options, dict) or not set(options) <= {"mode", "sort"}:
         raise ServiceError(422, "VALIDATION_ERROR")
     body = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode("utf-8")
+    if len(body) > 8 * 1024 * 1024:
+        return fallback(payload, options, "SERVICE_PAYLOAD_TOO_LARGE")
     request = Request(url.rstrip("/") + "/v1/rank", data=body,
                       headers={"Content-Type": "application/json", "Authorization": "Bearer " + token})
     reason = None
@@ -44,13 +46,16 @@ def call_baseline(url, payload, token, *, timeout=1.5):
                 reason = "INVALID_SERVICE_RESPONSE"
     except HTTPError as error:
         with error:
-            if error.code not in {503, 504}:
+            if error.code not in {413, 503, 504}:
                 try:
                     code = json.loads(error.read())["error"]["code"]
                 except (ValueError, KeyError, TypeError):
                     code = "REMOTE_ERROR"
                 raise ServiceError(error.code, code) from None
-        reason = "SERVICE_TIMEOUT" if error.code == 504 else "SERVICE_UNAVAILABLE"
+        reason = (
+            "SERVICE_PAYLOAD_TOO_LARGE" if error.code == 413
+            else "SERVICE_TIMEOUT" if error.code == 504 else "SERVICE_UNAVAILABLE"
+        )
     except (TimeoutError, socket.timeout):
         reason = "SERVICE_TIMEOUT"
     except URLError as error:
@@ -59,6 +64,10 @@ def call_baseline(url, payload, token, *, timeout=1.5):
         reason = "SERVICE_UNAVAILABLE"
     except (ValueError, KeyError, TypeError):
         reason = "INVALID_SERVICE_RESPONSE"
+    return fallback(payload, options, reason)
+
+
+def fallback(payload, options, reason):
     result = rank(payload["products"], payload["request"], payload["dictionary"], **options)
     context = payload["request"]["context"]
     age = (datetime.now(timezone.utc) - datetime.fromisoformat(context["asOf"].replace("Z", "+00:00"))).total_seconds()

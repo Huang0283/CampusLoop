@@ -28,17 +28,25 @@ async function flush() {
   all.forEach(([key]) => waiting.delete(key))
   for (const target of ['zh', 'en'] as const) {
     const entries = all.filter(([, item]) => item.target === target)
-    // A rejected description must not hide translations of unrelated titles.
-    for (let index = 0; index < entries.length; index += 1) {
-      const batch = entries.slice(index, index + 1)
-      try {
-        const response = await fetch(`${endpoint}/translate`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ target, texts: batch.map(([, item]) => item.text) }), signal: AbortSignal.timeout(90000) })
-        if (!response.ok) throw new Error('Translation unavailable')
-        const result = await response.json() as { translations: string[] }
-        if (!Array.isArray(result.translations) || result.translations.length !== batch.length || result.translations.some((value) => typeof value !== 'string' || !value)) throw new Error('Invalid translation')
-        batch.forEach(([key, item], row) => { cache.set(key, result.translations[row]); item.resolve.forEach((resolve) => resolve(result.translations[row])) })
-        while (cache.size > 2000) cache.delete(cache.keys().next().value!)
-      } catch { batch.forEach(([, item]) => item.reject.forEach((reject) => reject())) }
+    // The service isolates failures per item, so one description cannot hide titles.
+    const batch = entries.slice(0, 8)
+    try {
+      const response = await fetch(`${endpoint}/translate`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ target, texts: batch.map(([, item]) => item.text) }), signal: AbortSignal.timeout(90000) })
+      if (!response.ok) throw new Error('Translation unavailable')
+      const result = await response.json() as { translations: (string | null)[] }
+      if (!Array.isArray(result.translations) || result.translations.length !== batch.length) throw new Error('Invalid translation')
+      batch.forEach(([key, item], row) => {
+        const value = result.translations[row]
+        if (typeof value !== 'string' || !value) { item.reject.forEach(reject => reject()); return }
+        cache.set(key, value); item.resolve.forEach(resolve => resolve(value))
+      })
+      while (cache.size > 2000) cache.delete(cache.keys().next().value!)
+    } catch { batch.forEach(([, item]) => item.reject.forEach((reject) => reject())) }
+    if (entries.length > batch.length) {
+      const remainder = entries.slice(batch.length)
+      // Remaining pending requests are processed in subsequent bounded batches.
+      remainder.forEach(([key, item]) => waiting.set(key, item))
+      if (!timer) timer = setTimeout(() => { timer = undefined; void flush() }, 0)
     }
   }
 }
@@ -50,7 +58,8 @@ export function CatalogText({ text }: { text: string }) {
   // Translate original free text; the service preserves Chinese and model names.
   const hasChinese = /[\u3400-\u9fff]/u.test(text)
   const fixed = language === 'en' ? (messages as Record<string, string>)[text] ?? text : text
-  const needsTranslation = fixed === text && (language === 'en' ? hasChinese : /[a-zA-Z]{3}/.test(text))
+  const prose = text.replace(/\b(?:Apple|MacBook(?:\s+(?:Air|Pro))?|iPhone|iPad|iMac|AirPods|ThinkPad|Lenovo|Huawei|Xiaomi|Redmi|Samsung|Sony|Canon|Nikon|Fujifilm|DJI|Nintendo|Switch|ASUS|ROG|Dell|HP|Acer|OPPO|vivo|realme|OnePlus|HONOR|Microsoft|Surface|Logitech|JBL|Bose|Beats|Kindle|Casio|Nike|adidas|Uniqlo|Decathlon|IKEA|MUJI|SSD|HDD|RAM|ROM|USB(?:-C)?|CPU|GPU|DDR\d|OLED|LCD|LED|HDR|HDMI|RTX|GTX|NVMe|Wi-Fi|Cosplay|PVC)\b|\b(?=[A-Za-z0-9.+-]*[A-Za-z])(?=[A-Za-z0-9.+-]*\d)[A-Za-z0-9]+(?:[.+-][A-Za-z0-9]+)*(?:\s+(?:Pro|Plus|Max|Ultra|Air))?\b/gi, '')
+  const needsTranslation = fixed === text && (language === 'en' ? hasChinese : /[a-zA-Z]{3}/.test(prose))
   const key = `${language}:${text}`
   const [result, setResult] = useState({ key: '', text: '', failed: false })
   useEffect(() => {

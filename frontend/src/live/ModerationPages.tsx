@@ -1,6 +1,6 @@
 import { Alert, Button, Card, Descriptions, Input, Pagination, Space, Tag } from 'antd'
 import { useState } from 'react'
-import { Link, Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Form } from '../i18n/Form'
 import { OriginalText, localize } from '../i18n/Localize'
 import { useLanguage } from '../i18n/language'
@@ -48,6 +48,7 @@ export function AccountDecisionsPage() {
 
 function DecisionContent({ token }: { token: string | null }) {
   useLanguage()
+  const navigate = useNavigate()
   const returnState = useReturnState()
   const location = useLocation()
   const { decisionId } = useParams()
@@ -61,14 +62,14 @@ function DecisionContent({ token }: { token: string | null }) {
   const list = useRemote(`account-decisions-${page}`, signal => api.data(api.listAccountDecisions({ signal, headers, query: { page, pageSize: 10 } })))
   const detail = useRemote(`account-decision-${decisionId}`, signal => decisionId ? api.data(api.getAccountDecision({ signal, headers, path: { decisionId: Number(decisionId) } })) : Promise.resolve(null))
   const decision = detail.value
-  return localize(<Page title="账号处理记录" subtitle="查看处理事实、依据和申诉进度。原始记录会保留，复核结果另行记录。" extra={<Space wrap><Link to="/account/decisions">全部处理记录</Link>{token ? <Button onClick={() => { useSession.getState().clear(); window.location.assign('/login') }}>返回登录</Button> : <BackLink fallback={decisionId ? "/account/decisions" : "/notifications"}>返回上一页</BackLink>}</Space>}>
+  return localize(<Page title="账号处理记录" subtitle="查看处理事实、依据和申诉进度。原始记录会保留，复核结果另行记录。" extra={<Space wrap><Link to="/account/decisions">全部处理记录</Link>{token ? <Button onClick={() => void mutation.run(async () => { await api.logout(); useSession.getState().clear(); navigate('/login', { replace: true }) })} loading={mutation.busy}>返回登录</Button> : <BackLink fallback={decisionId ? "/account/decisions" : "/notifications"}>返回上一页</BackLink>}</Space>}>
+    <Failure error={mutation.error} />
     {token && <Alert type="warning" showIcon title="当前仅可查看本人的处理记录并申诉，不能进行交易。凭证有效期为 15 分钟，过期后请重新登录验证。" style={{ marginBottom: 16 }} />}
     {decisionId ? <Resource {...detail}>{decision && <div className="moderation-stack">
       <Card title={`处理记录 #${decision.id}`}><DecisionSummary decision={decision} /><Space wrap style={{ marginTop: 16 }}>{decision.evidence.map((_, index) => <ModerationImage key={index} load={signal => api.getDecisionEvidence({ signal, headers, path: { decisionId: decision.id, imageIndex: index }, parseAs: 'blob' })} />)}</Space></Card>
       <Card title="申诉与复核">
         {decision.appeal ? <><AppealSummary appeal={decision.appeal} /><Space wrap style={{ marginTop: 16 }}>{decision.appeal.evidence.map((_, index) => <ModerationImage key={index} load={signal => api.getOwnAppealEvidence({ signal, headers, path: { appealId: decision.appeal!.id, imageIndex: index }, parseAs: 'blob' })} />)}</Space><Button style={{ marginTop: 16 }} onClick={detail.reload}>刷新复核进度</Button></> : decision.revokedAt ? <Alert type="success" title="该处理已撤销，无需申诉。" /> : <>
           <Alert type="info" showIcon title="每条处理记录可提交一次申诉。请一次写清情况，提交后等待管理员复核。" style={{ marginBottom: 16 }} />
-          <Failure error={mutation.error} />
           <Form form={form} layout="vertical" onFinish={(values: { explanation: string; evidence?: string[] }) => void mutation.run(async () => { await api.data(api.submitAccountAppeal({ headers, path: { decisionId: decision.id }, body: { explanation: values.explanation.trim(), evidence: values.evidence || [] } })); form.resetFields(); detail.reload(); list.reload() })}>
             <Form.Item name="explanation" label="申诉说明" rules={[{ required: true, whitespace: true, max: 2000 }]}><Input.TextArea rows={5} maxLength={2000} showCount placeholder="请说明对处理结果有异议的原因，并补充相关事实。" /></Form.Item>
             <Form.Item name="evidence" label="补充证据图片（可选，私有存储）"><ImageQueue onBusyChange={setUploading} uploadImage={file => api.data(api.uploadAppealImage({ headers, body: { file } }))} /></Form.Item>

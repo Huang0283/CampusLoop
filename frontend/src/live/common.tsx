@@ -30,21 +30,23 @@ export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promi
   useEffect(() => {
     const sameKey = priorKey.current === key
     priorKey.current = key
-    const controller = new AbortController()
+    let controller: AbortController | undefined
     let disposed = false
     let active = false
     let deadline: number | undefined
     const refresh = async () => {
       if (active) return
       active = true
+      const requestController = new AbortController()
+      controller = requestController
       let timedOut = false
       deadline = window.setTimeout(() => {
         timedOut = true
-        controller.abort()
+        requestController.abort()
         if (!disposed) setState((prior) => ({ ...prior, error: new ApiError(0, 'TASK_TIMEOUT', '等待已超时，请刷新后重试。'), loading: false }))
       }, 30000)
       try {
-        const value = await loaderRef.current(controller.signal)
+        const value = await loaderRef.current(requestController.signal)
         if (!disposed && !timedOut) setState({ value, loading: false })
       } catch (error) {
         if (!disposed && !timedOut) setState((prior) => ({ ...prior, error, loading: false }))
@@ -54,7 +56,7 @@ export function useRemote<T>(key: string, loader: (signal: AbortSignal) => Promi
     // A changed resource/identity key must still discard the previous data.
     const start = window.setTimeout(() => { setState((prior) => retainOnReload && sameKey ? { ...prior, loading: true, error: undefined } : { loading: true }); void refresh() }, 0)
     const timer = interval ? window.setInterval(() => { void refresh() }, interval) : undefined
-    return () => { disposed = true; controller.abort(); window.clearTimeout(deadline); window.clearTimeout(start); window.clearInterval(timer) }
+    return () => { disposed = true; controller?.abort(); window.clearTimeout(deadline); window.clearTimeout(start); window.clearInterval(timer) }
   }, [key, revision, interval, retainOnReload])
   return { ...state, reload }
 }

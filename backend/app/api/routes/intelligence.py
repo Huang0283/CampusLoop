@@ -109,6 +109,7 @@ def risk(
             .select_from(Report)
             .where(
                 Report.created_at >= now - timedelta(days=7),
+                Report.status != "REJECTED",
                 ((Report.target_type == "USER") & (Report.target_id == userId))
                 | ((Report.target_type == "PRODUCT") & Report.target_id.in_(product_ids)),
             )

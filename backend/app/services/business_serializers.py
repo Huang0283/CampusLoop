@@ -235,7 +235,9 @@ def offer_fields(entity, item, accepted):
         "productId": item.id,
         "originalPrice": float(item.price),
         "amount": float(entity.amount),
-        "status": entity.status,
+        "status": "EXPIRED"
+        if entity.status == "PENDING" and entity.expires_at <= utcnow()
+        else entity.status,
         "expireAt": iso(entity.expires_at),
         "createdAt": iso(entity.created_at),
     }

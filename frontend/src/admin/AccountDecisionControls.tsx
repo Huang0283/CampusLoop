@@ -27,7 +27,8 @@ export function AccountDecisionControls({ user, onChanged }: { user: UserProfile
     <Form key={user.status} form={form} layout="vertical" initialValues={{ occurredAt: localNow }} onFinish={(values: { reason: string; facts?: string; basis?: string; occurredAt?: string; productId?: number; evidence?: string[] }) => void mutation.run(async () => {
       if (user.status === 'ACTIVE') {
         const body = { action, reason: values.reason.trim(), facts: values.facts!.trim(), basis: values.basis!.trim(), occurredAt: new Date(values.occurredAt!).toISOString(), productId: values.productId || null, evidence: values.evidence || [] }
-        const confirmed = await api.data(api.adminCreateAccountDecision({ path: { userId: user.id }, body, headers: api.idempotencyHeaders(attemptKey(body)) }))
+        const confirmed = await api.data(api.adminCreateAccountDecision({ path: { userId: user.id }, body, headers: api.idempotencyHeaders(attemptKey.key(body)) }))
+        attemptKey.reset()
         onChanged({ ...user, status: confirmed.action === 'DISABLE' ? 'DISABLED' : 'ACTIVE' })
       } else {
         onChanged(await api.data(api.adminUpdateUserStatus({ path: { userId: user.id }, body: { status: 'ACTIVE', reason: values.reason.trim() } })))

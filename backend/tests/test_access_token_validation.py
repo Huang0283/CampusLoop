@@ -127,3 +127,20 @@ def test_old_access_and_cookie_both_fail_after_session_invalidation(client, inva
     assert logged_in.status_code == 200
     again = client.get("/users/me", headers={"Authorization": "Bearer " + access})
     assert again.status_code == 401 and again.json()["code"] == "AUTH_UNAUTHORIZED"
+
+
+@pytest.mark.integration
+@requires_postgres
+def test_expired_access_cannot_mint_a_disabled_account_appeal_token(client):
+    from tests.test_account_appeals import admin, decide
+    from tests.test_auth import account, headers
+
+    user, operator = account(client), admin(client)
+    claims = decode_access(user["accessToken"])
+    expired = encode(claims | {"exp": int(utcnow().timestamp()) - 1})
+    decide(client, operator, user, "DISABLE")
+    denied = client.get("/users/me", headers={"Authorization": "Bearer " + expired})
+    assert denied.status_code == 401 and denied.json()["code"] == "AUTH_ACCESS_EXPIRED"
+    assert "appealToken" not in (denied.json().get("details") or {})
+    current = client.get("/users/me", headers=headers(user))
+    assert current.status_code == 423 and current.json()["details"]["appealToken"]

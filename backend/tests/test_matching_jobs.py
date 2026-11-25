@@ -40,6 +40,16 @@ def drain():
     pytest.fail("Matching queue did not drain within test limit.")
 
 
+def test_registration_does_not_invalidate_existing_matching_jobs(client):
+    with SessionLocal() as db:
+        before = db.scalar(text("SELECT value FROM matching_revision WHERE id=1"))
+        jobs = db.scalar(select(func.count()).select_from(MatchingJob))
+    account(client)
+    with SessionLocal() as db:
+        assert db.scalar(text("SELECT value FROM matching_revision WHERE id=1")) == before
+        assert db.scalar(select(func.count()).select_from(MatchingJob)) == jobs
+
+
 def test_matching_outbox_result_notification_dedup_and_close(client):
     seller, buyer = account(client), account(client)
     item = product(client, seller)

@@ -27,7 +27,7 @@ export function ReportButton({ targetType, targetId, orderRole, label = '举报'
     {targetType === 'ORDER' && <Alert type="info" style={{ marginBottom: 16 }} title={orderRole === 'seller' ? '举报本订单中的买家行为' : '举报本订单中的交易问题'} description="请选择与事实相符的原因；恶意下单、爽约等请在交易违规的说明中描述。" />}
     <Failure error={mutation.error} /><Form form={form} layout="vertical" onFinish={(values: { reason: ReportReason; description?: string; evidence?: string[] }) => void mutation.run(async () => {
       const body = { targetType, targetId, ...values }
-      await data(createReport({ body, headers: idempotencyHeaders(attemptKey(body)) })); form.resetFields(); setUploadBlocked(false); setOpen(false)
+      await data(createReport({ body, headers: idempotencyHeaders(attemptKey.key(body)) })); attemptKey.reset(); form.resetFields(); setUploadBlocked(false); setOpen(false)
       void messageApi.success({ content: <LocalizedText>举报已提交，<Link to="/report" state={returnState}>查看我的举报</Link></LocalizedText>, duration: 6 })
     })}>
       <Form.Item name="reason" label="举报原因" rules={[{ required: true }, { validator: (_, value) => !value || options.some((option) => option.value === value) ? Promise.resolve() : Promise.reject(new Error(t('请重新选择符合当前举报对象的原因。'))) }]}><Select options={options} /></Form.Item>

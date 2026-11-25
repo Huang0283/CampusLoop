@@ -45,8 +45,7 @@ test('a failed description translation does not discard the translated product t
     if (url.pathname === '/products/601') return route.fulfill({ json: { data: { ...products[0], title: original, description } } })
     if (url.pathname === '/display-translation/translate') {
       const body = request.postDataJSON() as { texts: string[] }
-      if (body.texts.includes(description)) return route.fulfill({ status: 503, json: { error: 'Translation unavailable' } })
-      return route.fulfill({ json: { translations: body.texts.map(text => text === original ? 'New folding reading stand' : text) } })
+      return route.fulfill({ json: { translations: body.texts.map((text: string) => text === description ? null : text === original ? 'New folding reading stand' : text) } })
     }
     return route.fulfill({ status: 404, json: { code: 'NOT_FOUND' } })
   })

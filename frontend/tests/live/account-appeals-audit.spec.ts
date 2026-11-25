@@ -1,5 +1,6 @@
 import { test, expect } from './fixtures'
 import { randomUUID } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
 
 const auditApi = process.env.CAMPUSLOOP_APPEAL_AUDIT_API
 
@@ -7,10 +8,27 @@ test('real warning, private appeal, disable notice and restored login (isolated 
   test.skip(!auditApi, 'Requires an explicitly selected audit API and audit frontend')
   expect(process.env.CAMPUSLOOP_TEST_API_CONTAINER).toMatch(/audit/)
   expect(process.env.CAMPUSLOOP_UI_URL).not.toBe('http://127.0.0.1:5174')
-  const studentContext = await browser.newContext(), adminContext = await browser.newContext()
-  const student = await studentContext.newPage(), admin = await adminContext.newPage()
+  const studentContext = await browser.newContext(), adminContext = await browser.newContext(), reviewerContext = await browser.newContext()
+  const student = await studentContext.newPage(), admin = await adminContext.newPage(), reviewer = await reviewerContext.newPage()
   const errors: string[] = []
-  for (const page of [student, admin]) page.on('pageerror', error => errors.push(error.name))
+  for (const page of [student, admin, reviewer]) page.on('pageerror', error => errors.push(error.name))
+  const reviewerEmail = `appeal-reviewer-${randomUUID()}@example.invalid`
+  const reviewerPassword = `Review-${randomUUID()}`
+  execFileSync('docker', ['exec', '-i', process.env.CAMPUSLOOP_TEST_API_CONTAINER!, 'python', '-c', `
+import json, sys
+from urllib.parse import urlsplit
+from app.core.config import get_settings
+from app.core.security import hash_password
+from app.db.session import SessionLocal
+from app.models import User
+s = get_settings()
+assert s.app_env in ('test', 'ci') and 'audit' in urlsplit(s.database_url).path
+assert urlsplit(s.redis_url).path in ('/14', '/15')
+fixture = json.load(sys.stdin)
+assert fixture['email'].startswith('appeal-reviewer-') and fixture['email'].endswith('@example.invalid')
+with SessionLocal.begin() as db:
+    db.add(User(email=fixture['email'], password_hash=hash_password(fixture['password']), nickname='Independent reviewer', role='ADMIN', status='ACTIVE'))
+`], { input: JSON.stringify({ email: reviewerEmail, password: reviewerPassword }), stdio: ['pipe', 'pipe', 'pipe'], timeout: 10000 })
   const email = `appeal-e2e-${randomUUID()}@example.invalid`
   const password = `Appeal-${randomUUID()}`
   await student.goto('/register')
@@ -26,6 +44,11 @@ test('real warning, private appeal, disable notice and restored login (isolated 
   await admin.getByLabel('密码', { exact: true }).fill('Demo@12345')
   await admin.getByRole('button', { name: '登录', exact: true }).click()
   await expect(admin).toHaveURL(/\/admin$/)
+  await reviewer.goto('/login')
+  await reviewer.getByLabel('校园邮箱', { exact: true }).fill(reviewerEmail)
+  await reviewer.getByLabel('密码', { exact: true }).fill(reviewerPassword)
+  await reviewer.getByRole('button', { name: '登录', exact: true }).click()
+  await expect(reviewer).toHaveURL(/\/admin$/)
   const users = admin.waitForResponse(response => response.url().includes('/admin/users?') && response.status() === 200)
   await admin.goto('/admin/users')
   const total = (await (await users).json()).data.pagination.total
@@ -58,15 +81,15 @@ test('real warning, private appeal, disable notice and restored login (isolated 
   await userDialog.getByRole('button', { name: '关闭', exact: true }).click()
   await admin.getByRole('button', { name: '通知', exact: true }).click()
   await expect(admin.getByRole('listitem').filter({ hasText: `处理记录 #${warning.data.id}` })).toBeVisible({ timeout: 15000 })
-  await admin.getByRole('listitem').filter({ hasText: `处理记录 #${warning.data.id}` }).click()
-  const reviewDialog = admin.getByRole('dialog', { name: '账号申诉复核', exact: true })
+  await reviewer.goto(`/admin/appeals?appeal=${warningAppealId}`)
+  const reviewDialog = reviewer.getByRole('dialog', { name: '账号申诉复核', exact: true })
   await expect(reviewDialog.locator('img[src^="blob:"]')).toBeVisible()
   await reviewDialog.getByLabel('复核结论', { exact: true }).click()
-  await admin.getByRole('option', { name: '撤销原处理', exact: true }).click()
+  await reviewer.getByRole('option', { name: '撤销原处理', exact: true }).click()
   await reviewDialog.getByLabel('复核说明', { exact: true }).fill('独立审计：核实通过，撤销警告。')
   await reviewDialog.getByRole('button', { name: '确认复核并通知用户', exact: true }).click()
   await expect(reviewDialog.getByText('已撤销原处理', { exact: true })).toBeVisible()
-  expect(new URL(admin.url()).searchParams.get('appeal')).toBe(String(warningAppealId))
+  expect(new URL(reviewer.url()).searchParams.get('appeal')).toBe(String(warningAppealId))
   await student.reload()
   await expect(student.getByText('已撤销原处理', { exact: true })).toBeVisible()
 
@@ -89,9 +112,9 @@ test('real warning, private appeal, disable notice and restored login (isolated 
   const disabledAppealSaved = student.waitForResponse(response => response.url().endsWith(`/account/decisions/${disabled.id}/appeal`))
   await student.getByRole('button', { name: '提交申诉', exact: true }).click()
   const disabledAppeal = (await (await disabledAppealSaved).json()).data
-  await admin.goto(`/admin/appeals?appeal=${disabledAppeal.id}`)
+  await reviewer.goto(`/admin/appeals?appeal=${disabledAppeal.id}`)
   await reviewDialog.getByLabel('复核结论', { exact: true }).click()
-  await admin.getByRole('option', { name: '撤销原处理', exact: true }).click()
+  await reviewer.getByRole('option', { name: '撤销原处理', exact: true }).click()
   await reviewDialog.getByLabel('复核说明', { exact: true }).fill('独立审计：解除禁用。')
   await reviewDialog.getByRole('button', { name: '确认复核并通知用户', exact: true }).click()
   await expect(reviewDialog.getByText('已撤销原处理', { exact: true })).toBeVisible()
@@ -103,5 +126,5 @@ test('real warning, private appeal, disable notice and restored login (isolated 
   await student.getByRole('button', { name: '登录', exact: true }).click()
   await expect(student).toHaveURL(/\/market$/)
   expect(errors).toEqual([])
-  await studentContext.close(); await adminContext.close()
+  await studentContext.close(); await adminContext.close(); await reviewerContext.close()
 })

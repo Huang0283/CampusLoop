@@ -26,10 +26,13 @@ def protect_disabled_orders(db, user, actor):
         )
         if order.status not in ("BOOKED", "PENDING_CONFIRM", "MEETUP_ARRANGED"):
             continue
+        peer_id = order.seller_id if user.id == order.buyer_id else order.buyer_id
+        peer_status = db.scalar(select(User.status).where(User.id == peer_id))
         if (
             order.status == "MEETUP_ARRANGED"
             or order.buyer_confirmed_complete
             or order.seller_confirmed_complete
+            or peer_status != "ACTIVE"
         ):
             description = "交易参与方账号被禁用，订单转入争议，等待管理员核实。"
             event(db, order, actor, description, "DISPUTED", notify_peer=False)

@@ -13,12 +13,13 @@ export function DisabledAccountNotice() {
   const navigate = useNavigate()
   const open = useSession(state => state.disabledNotice)
   const token = useSession(state => state.appealToken)
-  const [decision, setDecision] = useState<AccountDecisionRecord>()
+  const [loaded, setLoaded] = useState<{ token: string; decision?: AccountDecisionRecord }>()
+  const decision = loaded?.token === token ? loaded?.decision : undefined
   useEffect(() => {
     if (!open || !token) return
     const controller = new AbortController()
     void data(listAccountDecisions({ signal: controller.signal, headers: { Authorization: `Bearer ${token}` }, query: { pageSize: 1 } })).then(result => {
-      if (!controller.signal.aborted) setDecision(result.items[0])
+      if (!controller.signal.aborted) setLoaded({ token, decision: result.items[0] })
     }).catch(() => undefined)
     return () => controller.abort()
   }, [open, token])

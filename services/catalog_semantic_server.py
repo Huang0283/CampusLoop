@@ -125,7 +125,7 @@ def main():
         def do_POST(self):
             if self.path != "/score":
                 return self.send_json(404, {})
-            if not hmac.compare_digest(self.headers.get("Authorization", ""), "Bearer " + token):
+            if not hmac.compare_digest(self.headers.get("Authorization", "").encode("utf-8"), ("Bearer " + token).encode("utf-8")):
                 return self.send_json(403, {})
             try:
                 size = int(self.headers.get("Content-Length", "0"))

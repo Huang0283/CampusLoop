@@ -382,3 +382,81 @@ def test_completed_trade_is_not_rewritten_when_a_participant_is_disabled(client)
     after = client.get(f'/orders/{order["id"]}', headers=headers(seller)).json()["data"]
     assert after["status"] == "COMPLETED" and after["product"]["status"] == "SOLD"
     assert after["version"] == before["version"]
+    reviewed = client.post(
+        "/reviews",
+        headers=key_headers(seller),
+        json={
+            "orderId": order["id"],
+            "overall": 4,
+            "descriptionAccuracy": 4,
+            "communication": 4,
+            "punctuality": 4,
+            "comment": "真实完成的交易仍可评价",
+        },
+    )
+    assert reviewed.status_code == 201, reviewed.text
+    assert reviewed.json()["data"]["revieweeId"] == buyer["user"]["id"]
+
+
+def test_both_disabled_early_order_can_be_resolved_by_admin(client):
+    seller, buyer, operator = account(client), account(client), admin(client)
+    item, _, order = pending_order(client, seller, buyer)
+    decide(client, operator, buyer, "DISABLE")
+    decide(client, operator, seller, "DISABLE")
+    with SessionLocal() as db:
+        saved = db.get(Order, order["id"])
+        assert saved.status == "DISPUTED"
+        version = saved.version
+    result = client.post(
+        f'/admin/orders/{order["id"]}/cancel-dispute',
+        headers=headers(operator),
+        json={"reason": "双方均已禁用，核实未交付后取消", "expectedVersion": version},
+    )
+    assert result.status_code == 200, result.text
+    with SessionLocal() as db:
+        assert db.get(Order, order["id"]).status == "CANCELLED"
+        assert db.get(Product, item["id"]).status == "HIDDEN"
+
+
+@pytest.mark.parametrize("operation", ["cancel", "reject"])
+@pytest.mark.parametrize("unavailable", ["disabled", "RESERVED", "HIDDEN"])
+def test_pending_offer_can_be_closed_without_starting_a_new_trade(client, operation, unavailable):
+    seller, buyer, operator = account(client), account(client), admin(client)
+    item, _, offer = pending_offer(client, seller, buyer, "buyer")
+    active, peer = (buyer, seller) if operation == "cancel" else (seller, buyer)
+    endpoint = f'/offers/{offer["id"]}/{operation}'
+    # Role/ownership checks still apply even when trading is unavailable.
+    assert client.post(endpoint, headers=headers(peer)).status_code == 403
+    if unavailable == "disabled":
+        decide(client, operator, peer, "DISABLE")
+    else:
+        with SessionLocal.begin() as db:
+            db.get(Product, item["id"]).status = unavailable
+    assert client.post(endpoint, headers=headers(account(client))).status_code == 403
+    result = client.post(endpoint, headers=headers(active))
+    assert result.status_code == 200, result.text
+    assert result.json()["data"]["status"] == ("CANCELLED" if operation == "cancel" else "REJECTED")
+    assert client.post(endpoint, headers=headers(active)).status_code == 409
+
+
+def test_meetup_edit_cannot_erase_a_completion_confirmation(client):
+    seller, buyer = account(client), account(client)
+    _, _, order = pending_order(client, seller, buyer)
+    arrange(client, buyer, seller, order, complete=True)
+    endpoint = f'/orders/{order["id"]}'
+    result = client.post(
+        endpoint + "/meetup",
+        headers=key_headers(seller),
+        json={
+            "campusLocation": "校内公共区",
+            "scheduledDate": (utcnow() + timedelta(days=3)).date().isoformat(),
+            "timeSlotStart": "12:00",
+            "timeSlotEnd": "13:00",
+        },
+    )
+    assert result.status_code == 409, result.text
+    current = client.get(endpoint, headers=headers(buyer)).json()["data"]
+    assert current["buyerConfirmedComplete"] is True
+    assert client.post(
+        endpoint + "/cancel", headers=headers(seller), json={"reason": "试图绕过完成确认"}
+    ).status_code == 409

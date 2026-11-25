@@ -54,6 +54,8 @@ for (const width of [1440, 390]) {
     await page.getByRole('tab', { name: /^全部/ }).click()
     await page.getByRole('listitem').filter({ hasText: '订单记录' }).click()
     await expect(page).toHaveURL(/\/transactions\/1001$/)
+    await expect(page.getByRole('heading', { name: '订单 #1001', exact: true })).toBeVisible()
+    await expect(page.locator('.page-back-link')).toHaveAttribute('href', '/notifications')
     await page.locator('.page-back-link').click()
     await expect(page).toHaveURL(/\/notifications$/)
     await expect(page.getByRole('tab', { name: /^全部/ })).toHaveAttribute('aria-selected', 'true')
@@ -61,6 +63,8 @@ for (const width of [1440, 390]) {
     await expect(page).toHaveURL(/\/wanted\/701\/matches$/)
     await page.locator('.catalog-title').click()
     await expect(page).toHaveURL(/\/product\/601$/)
+    await expect(page.locator('.product-info h1')).toBeVisible()
+    await expect(page.locator('.page-back-link')).toHaveAttribute('href', '/wanted/701/matches')
     await page.locator('.page-back-link').click()
     await expect(page).toHaveURL(/\/wanted\/701\/matches$/)
     await page.locator('.page-back-link').click()
@@ -139,4 +143,27 @@ test('administrator notifications return to the console and direct access has a 
   await expect(page).toHaveURL(/\/admin$/)
   await page.goto('/admin/notifications')
   await expect(page.locator('.page-back-link')).toHaveAttribute('href', '/admin')
+})
+
+test('repeated matches and notification navigation keeps a bounded return chain without a loop', async ({ page }) => {
+  await setup(page)
+  await page.goto('/wanted?query=textbook&page=2')
+  await page.getByRole('link', { name: '查看匹配', exact: true }).click()
+  for (let index = 0; index < 12; index++) {
+    await page.getByRole('link', { name: '查看匹配通知', exact: true }).click()
+    await page.getByRole('listitem').filter({ hasText: '匹配记录' }).click()
+    await expect(page).toHaveURL(/\/wanted\/701\/matches$/)
+  }
+  const paths = await page.evaluate(() => {
+    const paths: string[] = []
+    let state = history.state?.usr
+    while (state?.returnTo && paths.length < 30) { paths.push(state.returnTo); state = state.returnState }
+    return paths
+  })
+  expect(paths.length).toBeLessThanOrEqual(8)
+  expect(new Set(paths).size).toBe(paths.length)
+  await page.locator('.page-back-link').click()
+  await expect(page).toHaveURL(/\/notifications\?group=/)
+  await page.locator('.page-back-link').click()
+  await expect(page).toHaveURL(/\/wanted\?query=textbook&page=2$/)
 })
