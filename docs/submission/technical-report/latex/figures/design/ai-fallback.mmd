@@ -1,0 +1,14 @@
+flowchart TB
+ Input["Validate input and hard constraints"] --> Kind{"Task"}
+ Kind -->|"keyword / wanted"| M7["Frozen M7 RPC, 1.5 s"]
+ M7 --> Rule["Validate frozen response, else local rules with degradation reason"]
+ Kind -->|"semantic / hybrid search"| Sem["Live BGE scorer, 3 s"]
+ Sem --> Check["Check version, identities, finite scores and constraints"]
+ Check -->|"failure"| Lex["Keyword refinement, SEMANTIC_UNAVAILABLE"]
+ Check -->|"valid"| Visible["Re-read visibility and entity versions"]
+ Rule --> Visible
+ Lex --> Visible
+ Kind -->|"price"| Price["Frozen M8 rules or unavailable interval"]
+ Price --> Manual["Disclaimer and manual pricing"]
+ Kind -->|"trust / risk"| Clues["Observed reviews or activity counts, absent signals null"]
+ Clues --> Human["Restricted output and administrator review, no automatic action"]

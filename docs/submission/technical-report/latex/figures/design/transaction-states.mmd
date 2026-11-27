@@ -11,10 +11,10 @@ stateDiagram-v2
       MEETUP_ARRANGED --> COMPLETED: both confirm completion
       PENDING_CONFIRM --> CANCELLED: participant cancels
       MEETUP_ARRANGED --> CANCELLED: participant cancels before completion confirmation
-      PENDING_CONFIRM --> DISPUTED: governance path
-      MEETUP_ARRANGED --> DISPUTED: governance path
+      MEETUP_ARRANGED --> DISPUTED: participant disabled
+      MEETUP_ARRANGED --> PENDING_CONFIRM: meetup proposal changed
     }
 
     COMPLETED --> [*]
     CANCELLED --> [*]
-    DISPUTED --> [*]
+    DISPUTED --> CANCELLED: authorized manual cancellation

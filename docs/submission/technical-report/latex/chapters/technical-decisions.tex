@@ -1,6 +1,28 @@
 \chapter{Technical Decisions and Trade-offs}
 \label{chap:decisions}
 
+This chapter explains implementation choices observed at software revision \texttt{edb9e32871eac2966750993294078acbfdba65f9}. Alternatives are retrospective engineering analysis prepared for this report; no meeting record is claimed to prove that the team discussed every alternative. Concrete source definitions and migration bodies are linked in the companion architecture and model inventories.
+
+\section{One OpenAPI Contract and Generated Client}
+
+OpenAPI describes HTTP operations in a language-independent contract; operation identifiers connect this vocabulary to generated client methods~\cite{r2OpenAPI}.
+
+\textbf{Problem and decision.} Handwritten endpoint definitions can drift between browser and server. FastAPI operation identifiers and the generated TypeScript SDK provide one explicit API vocabulary; the handwritten SDK adapter adds session and retry behavior.
+
+\textbf{Alternative and trade-off.} Direct fetch calls in each page would reduce generation setup, but duplicate URL, field, and error handling. Generated code requires regeneration after contract changes. Evidence is the route operation identifiers, generated SDK, and SDK adapter. This is a source-observed design with a retrospectively analyzed alternative.
+
+\section{Versioned Meetup Agreement}
+
+\textbf{Problem and decision.} A participant can confirm an old meeting proposal after the other participant edits it. Each proposal carries a version; a change resets both confirmations, and completion checks the same agreed version.
+
+\textbf{Alternative and trade-off.} A single agreed boolean would be simpler but lose which location/time was accepted. Versioned agreement adds conflict handling and forces a stale client to reload, while preserving a precise shared agreement. Evidence is \texttt{Meetup}, \texttt{save\_meetup}, \texttt{confirm\_meetup}, and \texttt{complete\_order}.
+
+\section{Stable Local Startup and Isolated Acceptance Environments}
+
+\textbf{Problem and decision.} Ad-hoc ports and recreated volumes produce inconsistent demonstrations and can erase daily data. The checked startup script applies the local Compose override with stable volumes; write-heavy acceptance uses separately namespaced audit environments.
+
+\textbf{Alternative and trade-off.} Manual service startup permits flexibility but makes environment drift harder to diagnose. Scripted startup imposes dependency and model preparation requirements, while recording one reproducible path. Evidence is \texttt{scripts/start-local.ps1}, \texttt{compose.local.yml}, and \texttt{scripts/audit\_env.py}. This describes implementation and does not claim another member has completed independent installation.
+
 \section{Authoritative Modular API with Isolated Advisory Processes}
 
 \textbf{Decision.} Keep business mutations in one FastAPI application and run the worker and M7/M8 advisory service as separate processes.
@@ -18,6 +40,8 @@
 \textbf{Rationale and trade-off.} PostgreSQL row locks, constraints, and atomic commits allow a state transition, its event, and its notification to succeed or fail together. The worker can claim durable jobs with database locking semantics. This reduces infrastructure and split-brain risk, at the cost of additional database load and less sophisticated queue routing.
 
 \section{Explicit State Machines, Lock Ordering, and Idempotency}
+
+PostgreSQL documents row-level locks and deadlock risks separately from partial unique indexes~\cite{r2Locks,r2PartialIndexes}. CampusLoop uses both: locks serialize conflicting transitions, while the migration predicate defines which order states participate in reservation uniqueness.
 
 \textbf{Decision.} Implement offer, order, meetup, and report changes as guarded state transitions under a global lock order and idempotency scopes.
 

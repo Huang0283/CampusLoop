@@ -1,5 +1,17 @@
 # R2 System Evidence Task Log
 
+## 2026-11-27 — Issue 144 revision
+
+- Received the 24/25 November requirements and fixed software SHA edb9e32871eac2966750993294078acbfdba65f9.
+- Merged origin/team/reporting into the R2 branch without overwriting R1 files.
+- Inspected changed authentication, administration, transaction, advisory and translation code. Updated the four chapters and twelve technical-decision sections.
+- Reconciled 27 actual ORM models with the full 0001–0013 migration upgrade bodies; added a reproducible inventory script.
+- Added a real class diagram, split the ERD into catalog/transaction/governance, changed the session figure to the same-peer/multiple-product flow, and corrected state and AI protocol distinctions.
+- Moved maintained figures into the LaTeX project, exported nine SVG/PDF pairs and removed obsolete duplicate root figure copies. All removed originals remain recoverable in Git history.
+- Recorded AI assistance, integration instructions, source inventory, exact figure register and pending Lecture/page/review gates.
+- Receivers: R1 (compilation/assembly/language), M10 (technical facts), D1 (accepted same-source figures). No receiver acceptance is claimed.
+- Blocking environment facts: MiKTeX initialization/configuration prevents document compilation; Git credential helper cannot start in the sandbox, preventing push. No production database or UI mutation was performed.
+
 ## Assignment
 
 - Role: R2 — architecture, implementation, advisory-intelligence evidence, and technical decisions.

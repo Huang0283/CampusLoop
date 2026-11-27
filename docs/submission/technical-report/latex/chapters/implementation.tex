@@ -23,7 +23,7 @@ Creating a chat session locks and validates its product or wanted-post context, 
 
 \subsection{Unique Order Creation}
 
-Offer acceptance follows the global lock order documented in the transaction service: authorization context, product, offer, order, then meetup. Only the participant who did not propose a still-pending, unexpired offer can accept it. Under those locks the service marks the offer accepted, changes the product to \texttt{RESERVED}, inserts the order, appends its initial event, and creates a notification. The accepted offer is the one-to-one origin of the order at the data-model level, while the idempotency scope \texttt{accept:\{offerId\}} protects request replay.
+Offer acceptance follows the global lock order documented in the transaction service: authorization context, product, offer, order, then meetup. Only the participant who did not propose a still-pending, unexpired offer can accept it. Under those locks the service marks the offer accepted, changes the product to \texttt{RESERVED}, inserts the order, appends its initial event, and creates a notification. The accepted offer is the one-to-one origin of the order at the data-model level, with a unique offer reference and a partial unique product index excluding cancelled and disputed orders. Thus historical orders are retained rather than limited to one order per product. The idempotency scope \texttt{accept:\{offerId\}} protects request replay.
 
 \subsection{Meetup and Dual Completion}
 
@@ -32,6 +32,10 @@ A participant can propose a future campus location and time. Updating the propos
 \subsection{Report Resolution and Audit}
 
 The user route creates a \texttt{PENDING} report only after target-specific authorization and evidence ownership checks. The administrator route locks the report, requires a non-blank decision note, updates the handler and timestamp, notifies the reporter, and writes a governance audit record with before and after snapshots. Reconsidering an already handled report uses a separate override endpoint and a compare-and-set precondition, making the exceptional action both explicit and conflict-aware.
+
+\subsection{Administrator-to-Student Governance Extension}
+
+The account controls in the administrator UI call \texttt{adminCreateAccountDecision}. The moderation route checks administrator access and delegates to \texttt{record\_decision}; it persists a decision, discloses only a bounded snapshot, sends an account notification, and audits the action. A disable command revokes session families and invokes \texttt{protect\_disabled\_orders}. The student's moderation page calls \texttt{listAccountDecisions} and \texttt{submitAccountAppeal}. The review page calls \texttt{adminReviewAccountAppeal}; the service enforces reviewer separation before recording an upheld or revoked result. Unauthorized reads, protected-admin targets, stale or already concluded appeals, and invalid evidence keys are rejected. This chain is distinct from \texttt{resolveReport}, which only resolves the report itself.
 
 \section{Persistence, Concurrency, and Idempotency}
 
@@ -48,6 +52,10 @@ MinIO uses two buckets with different exposure. Product images are public-read b
 The Compose definition pins PostgreSQL with pgvector and Redis versions, builds MinIO from a fixed source tag, and builds API, worker, and baseline service images from the repository. The API waits for database, Redis, storage, and bucket initialization. The worker waits for database and API readiness. The advisory service listens only on the Compose network and requires a sufficiently long shared RPC token. Container health probes and bounded JSON log rotation provide operational signals without exposing the advisory ports to the host.
 
 For daily development, \texttt{scripts/start-local.ps1} applies \texttt{compose.local.yml}, binds infrastructure ports to loopback, and uses stable named volumes. Acceptance exercises use isolated database and Redis instances so verification cannot destroy or contaminate the daily environment. These operational rules are part of reproducibility, not optional developer convenience.
+
+\section{Public Catalog Translation}
+
+The bilingual interface keeps original listing fields unchanged and requests display translations from a local HTTP service. At this baseline the service loads the pinned HY-MT1.5-1.8B model and preserves protected brand, model, quantity, and source-language spans. Private chat, report, and appeal text is outside this public-catalog translation path. Model preparation and initial inference require separate resources; a successful small regression set does not imply accurate translation for arbitrary text. This display service is distinct from relevance ranking and the frozen M7/M8 evaluation contracts.
 
 \section{Verification Boundary}
 

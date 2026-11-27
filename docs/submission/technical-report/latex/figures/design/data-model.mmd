@@ -1,0 +1,46 @@
+erDiagram
+ direction TB
+ users ||..o{ products : owner_id
+ users ||..o{ wanted_posts : owner_id
+ users ||..o{ chat_sessions : buyer_id
+ users ||..o{ chat_sessions : seller_id
+ products |o..o{ chat_sessions : product_id
+ wanted_posts |o..o{ chat_sessions : wanted_id
+ products ||..o{ product_images : product_id
+ chat_sessions ||..o{ chat_messages : session_id
+ users {
+  bigint id PK
+  varchar role
+  varchar status
+ }
+ products {
+  bigint id PK
+  bigint owner_id FK
+  numeric price
+  varchar status
+  boolean moderation_blocked
+ }
+ wanted_posts {
+  bigint id PK
+  bigint owner_id FK
+  varchar status
+  timestamptz expires_at
+ }
+ chat_sessions {
+  bigint id PK
+  bigint product_id FK "nullable"
+  bigint wanted_id FK "nullable"
+  bigint buyer_id FK
+  bigint seller_id FK
+ }
+ product_images {
+  bigint id PK
+  bigint product_id FK
+  integer sort_order "unique with product_id"
+ }
+ chat_messages {
+  bigint id PK
+  bigint session_id FK
+  bigint sender_id FK
+  varchar client_msg_id "unique with sender_id, NOT NULL in 0003"
+ }

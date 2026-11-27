@@ -1,0 +1,22 @@
+% R2-only compile harness. R1 retains ownership of main.tex and preamble.tex.
+\documentclass[12pt,a4paper]{report}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage[margin=2.54cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\begin{document}
+\title{CampusLoop: R2 Technical Chapters --- Review Preview}
+\author{R2 working material; integration and independent review pending}
+\date{27 November 2026}
+\maketitle
+\tableofcontents
+\input{chapters/design}
+\input{chapters/implementation}
+\input{chapters/ai-methods-and-limitations}
+\input{chapters/technical-decisions}
+\bibliographystyle{plain}
+\bibliography{r2-references}
+\end{document}

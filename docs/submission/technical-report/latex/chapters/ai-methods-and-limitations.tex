@@ -7,7 +7,7 @@ CampusLoop treats every intelligence result as advisory. Search ranks visible pr
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.92\textwidth]{../figures/design/ai-fallback.pdf}
+  \includegraphics[width=0.92\textwidth]{figures/design/ai-fallback.pdf}
   \caption{Advisory validation, bounded RPC, explicit degradation, and human review.}
   \label{fig:ai-fallback}
 \end{figure}
@@ -28,11 +28,15 @@ These safeguards establish contract conformance, not superior relevance. The ava
 
 \section{Price Advice}
 
-Price advice receives category, condition, optional original price, title, and description. The current adapter normalizes category and condition, converts original price to fen, and supplies explicit unknown values for purchase age, accessory state, and defect tags. The frozen M8 service returns a CNY interval, status, explanatory factors, sample size, algorithm version, degradation reason, and disclaimer.
+Price advice receives category, condition, optional original price, title, and description. The current adapter normalizes category and condition, converts original price to fen, and supplies explicit unknown values for purchase age, accessory state, and defect tags. Title and description are not features of the frozen price rule. Title is separately used as a literal keyword for the market-reference query. The frozen M8 service returns a CNY interval, status, explanatory factors, sample size, algorithm version, degradation reason, and disclaimer.
 
 The admission check accepts only the frozen \texttt{m8-price-rule-v1} contract and requires every current response to be degraded. A valid result is either \texttt{LOW\_CONFIDENCE} with a bounded interval or \texttt{INSUFFICIENT\_DATA}/\texttt{UNAVAILABLE} with no interval. Service disablement, timeout, unavailability, or malformed output returns an unavailable fallback rather than inventing a price. The UI must keep manual pricing available and must display the non-guarantee disclaimer.
 
 The project currently lacks a sufficiently large, authorized set of real completed transactions for training or final evaluation. Synthetic samples test contract behavior but cannot establish market calibration. Consequently, the system continues to use the rule fallback and does not claim that a learned price model is trained, accepted, or ready for deployment.
+
+\subsection{Live Listing Reference Is Not a Transaction Label}
+
+The same API response includes a separate market reference from up to 100 recent visible listings by other active sellers. The query requires the same category and condition, a positive price, a title containing a keyword of at least two characters, and publication within 90 days. With at least three matches it returns discrete lower and upper quartile listing prices; otherwise the bounds remain absent. Up to five source listings accompany the count. These are asking prices, not accepted transaction prices, and they do not supply training labels or remove the learned-model NO-GO gate. The seeded 15 demonstration orders are synthetic histories and cannot be treated as independent real market evidence.
 
 \section{Trust Summary}
 
@@ -45,6 +49,10 @@ This method is intentionally narrow. A small number of reviews, selection bias i
 Risk clues are available only to an administrator who supplies a review reason. The current observable inputs are listing count in the previous hour, distinct chat counterparties in the previous 24 hours, and reports targeting the user or the user's products in the previous seven days. Failed-payment count and same-device account count are explicitly \texttt{null}: the MVP has no payment gateway and does not collect device fingerprints. The response records its source-window timestamp.
 
 Every read is audited with actor, target, reason, purpose, result status, and \texttt{enforcementExecuted=false}. The result is a clue set for manual review; it neither declares fraud nor initiates enforcement. Missing signals, false reports, new-user effects, and behavior outside the measured windows can create false positives or false negatives. The design therefore favors transparent missingness over fabricated zeroes and keeps the final decision with an accountable administrator.
+
+\section{Distinct Timeouts and Contracts}
+
+The frozen M7/M8 RPC boundary has a 1.5-second timeout. The optional live semantic scorer uses a separate three-second HTTP timeout and checks its own version, exact candidate identities, finite cosine scores, and hard constraints. It is not admitted through the frozen M7 response validator. The AI flow diagram summarizes these two paths as an engineering flowchart; it does not assert one shared algorithm or one shared timeout. Public catalog translation is another display-only model service and is not evidence of ranking or price accuracy.
 
 \section{Evaluation and Go-Live Gates}
 
