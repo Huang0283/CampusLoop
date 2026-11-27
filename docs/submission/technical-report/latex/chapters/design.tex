@@ -3,7 +3,7 @@
 
 \section{Architectural Context}
 
-CampusLoop is a campus second-hand marketplace whose authoritative business path is deliberately separated from its advisory intelligence path. The React browser client calls a FastAPI application over JSON APIs. PostgreSQL stores identities, listings, negotiations, orders, governance records, matching jobs, and audit evidence. Redis supports bounded operational concerns such as rate limiting and cache-like state; it is not the system of record. MinIO separates public product images from private chat and report evidence. A dedicated worker consumes matching jobs, while the M7/M8 advisory service exposes versioned search, matching, price, trust, and risk rules over an internal RPC boundary. Figure~\ref{fig:architecture} shows these runtime responsibilities.
+CampusLoop is a campus second-hand marketplace. Its transaction functions run separately from the services that provide search, matching, and other advice. The React browser client calls a FastAPI application over JSON APIs. PostgreSQL stores identities, listings, negotiations, orders, governance records, matching jobs, and audit evidence. Redis handles rate limiting and temporary state. PostgreSQL holds the persistent business records. MinIO separates public product images from private chat and report evidence. A dedicated worker consumes matching jobs, while the M7/M8 advisory service exposes versioned search, matching, price, trust, and risk rules over an internal RPC boundary. Figure~\ref{fig:architecture} shows these runtime responsibilities.
 
 \begin{figure}[htbp]
   \centering
@@ -12,13 +12,13 @@ CampusLoop is a campus second-hand marketplace whose authoritative business path
   \label{fig:architecture}
 \end{figure}
 
-The separation is a safety property rather than merely a deployment preference. A timeout or malformed response from an advisory service must not mutate a product, accept an offer, complete an order, or resolve a report. Business mutations remain in the API and are committed through PostgreSQL transactions. The checked-in deployment topology runs the API, worker, and advisory service as separate processes, with PostgreSQL, Redis, and MinIO as supporting services.
+This separation keeps advisory failures out of transaction updates. A timeout or malformed response from an advisory service must not mutate a product, accept an offer, complete an order, or resolve a report. The API performs business updates and commits them through PostgreSQL transactions. The repository's deployment configuration runs the API, worker, and advisory service as separate processes, with PostgreSQL, Redis, and MinIO as supporting services.
 
 \section{Domain and Data Model}
 
 Mapped timestamp columns are shared through a real Python mixin, consistent with SQLAlchemy's documented declarative-mixin mechanism~\cite{r2Mixins}. This code inheritance is shown separately from foreign-key relationships in the ERD.
 
-The ERD is split into catalog/chat, transaction, and governance views to preserve readable labels. Only selected columns appear in the figures; the companion model/migration inventory records all mapped columns, declared types, and migration constraints. The central domain aggregate is not a single ``listing'' record. It is a chain of related records with distinct ownership and state rules (Figure~\ref{fig:data-model}). A \emph{User} owns products and wanted posts. Separate AccountDecision and AccountAppeal records preserve user-visible handling and appeal review without exposing private report contents. A product or wanted post provides the context for a two-party chat session. Offers belong to that session, and accepting an offer produces an order for the referenced product. The order owns its state history and at most one current meetup arrangement. Reviews are permitted only after completion. Reports refer to a user, product, order, or chat message and retain the reporter, evidence keys, resolution, handler, and timestamps.
+The ERD is split into catalog/chat, transaction, and governance views to preserve readable labels. Only selected columns appear in the figures; the companion model/migration inventory records all mapped columns, declared types, and migration constraints. The business model connects listings to conversations, offers, and orders. Each record has its own owner and state rules (Figure~\ref{fig:data-model}). A \emph{User} owns products and wanted posts. Separate AccountDecision and AccountAppeal records preserve user-visible handling and appeal review without exposing private report contents. A product or wanted post provides the context for a two-party chat session. Offers belong to that session, and accepting an offer produces an order for the referenced product. The order owns its state history and at most one current meetup arrangement. Reviews are permitted only after completion. Reports refer to a user, product, order, or chat message and retain the reporter, evidence keys, resolution, handler, and timestamps.
 
 \begin{figure}[htbp]
   \centering
@@ -27,7 +27,7 @@ The ERD is split into catalog/chat, transaction, and governance views to preserv
   \label{fig:data-model}
 \end{figure}
 
-Authentication records are separated from the user profile. A session family groups rotating refresh sessions and allows family-wide revocation after logout or replay detection. Matching jobs and matching results are also separate from live product records. This prevents an advisory result from becoming an alternative catalog and permits the API to re-check visibility and entity versions before returning ranked products.
+Authentication records are separated from the user profile. A session family groups rotating refresh sessions and allows family-wide revocation after logout or replay detection. Matching jobs and matching results are also separate from live product records. The API therefore checks the live catalog for visibility and entity versions before returning ranked products.
 
 \begin{figure}[p]
   \centering
@@ -48,7 +48,7 @@ Authentication records are separated from the user profile. A session family gro
   \label{fig:class-diagram}
 \end{figure}
 
-Figures~\ref{fig:erd-transactions} and~\ref{fig:erd-governance} separate trading constraints from moderation records. Dashed Crow's Foot relationships are non-identifying foreign-key associations; circles mean optional participation and bars mean one. The class diagram in Figure~\ref{fig:class-diagram} shows selected actual mapped attributes and inheritance, rather than duplicating database constraints. Solid associations denote foreign-key references, not SQLAlchemy relationship objects. No domain methods are declared on these selected classes, so none are invented in the diagram. The source index records the exact definitions and the still-pending course-Lecture notation check.
+Figures~\ref{fig:erd-transactions} and~\ref{fig:erd-governance} separate trading constraints from moderation records. Dashed Crow's Foot relationships are non-identifying foreign-key associations; circles mean optional participation and bars mean one. The class diagram in Figure~\ref{fig:class-diagram} shows selected mapped attributes and inheritance. Database constraints are recorded in the ERD and source inventory. Solid associations denote foreign-key references, not SQLAlchemy relationship objects. The selected classes declare no domain methods, so their diagram entries list attributes only. The source index records the exact definitions and the still-pending course-Lecture notation check.
 
 \section{Authorization Boundaries}
 
@@ -65,7 +65,7 @@ The authentication path restores browser identity as follows. Login creates a se
 
 \section{Transaction State Machine}
 
-Product and order state changes are coordinated rather than independent. Accepting a pending offer under row locks changes the product from \texttt{ON\_SALE} to \texttt{RESERVED} and creates an order in \texttt{PENDING\_CONFIRM}. A meetup proposal has a monotonically increasing version. Changing the proposal resets both meetup confirmations and both completion confirmations. The order reaches \texttt{MEETUP\_ARRANGED} only after buyer and seller confirm the same meetup version; it reaches \texttt{COMPLETED} only after both participants confirm completion against that version. At that point the product becomes \texttt{SOLD}. Figure~\ref{fig:transaction-states} summarizes the permitted path.
+The API updates product and order states together. Accepting a pending offer under row locks changes the product from \texttt{ON\_SALE} to \texttt{RESERVED} and creates an order in \texttt{PENDING\_CONFIRM}. The version increases each time a meetup proposal changes. Changing the proposal resets both meetup confirmations and both completion confirmations. The order reaches \texttt{MEETUP\_ARRANGED} only after buyer and seller confirm the same meetup version; it reaches \texttt{COMPLETED} only after both participants confirm completion against that version. At that point the product becomes \texttt{SOLD}. Figure~\ref{fig:transaction-states} summarizes the permitted path.
 
 \begin{figure}[htbp]
   \centering
@@ -74,7 +74,7 @@ Product and order state changes are coordinated rather than independent. Accepti
   \label{fig:transaction-states}
 \end{figure}
 
-Cancellation is deliberately conditional. Once either participant has confirmed completion, cancellation is rejected. Before that point, cancellation releases an eligible listing back to \texttt{ON\_SALE}; a deleted or moderation-blocked listing remains \texttt{HIDDEN}. Every order transition appends an \texttt{OrderEvent}, preserving who acted, the before/after state, a description, and a timestamp. Figure~\ref{fig:order-meetup-sequence} shows the complete negotiation-to-completion interaction.
+Cancellation depends on the order's state and confirmation flags. Once either participant has confirmed completion, cancellation is rejected. Before that point, cancellation releases an eligible listing back to \texttt{ON\_SALE}; a deleted or moderation-blocked listing remains \texttt{HIDDEN}. Every order transition appends an \texttt{OrderEvent}, preserving who acted, the before/after state, a description, and a timestamp. Figure~\ref{fig:order-meetup-sequence} shows the complete negotiation-to-completion interaction.
 
 \begin{figure}[htbp]
   \centering
@@ -85,14 +85,14 @@ Cancellation is deliberately conditional. Once either participant has confirmed 
 
 \section{Governance Design}
 
-A report is a request for human review, not an automatic sanction. The reporting route prevents self-reporting, verifies that an order or chat-message reporter is a participant, verifies media ownership, and rejects a duplicate open report with the same reporter, target, and reason. Resolution is restricted to administrators. A normal decision accepts only pending or processing reports; changing a completed decision requires an explicit override containing the status and handling timestamp last observed by the administrator. This optimistic concurrency check prevents a stale browser from silently replacing another decision.
+A report is a request for human review, not an automatic sanction. The reporting route prevents self-reporting, verifies that an order or chat-message reporter is a participant, verifies media ownership, and rejects a duplicate open report with the same reporter, target, and reason. Resolution is restricted to administrators. A normal decision accepts only pending or processing reports; changing a completed decision requires an explicit override containing the status and handling timestamp last observed by the administrator. The server compares those values with the saved record. A stale browser cannot overwrite a newer decision.
 
-Each resolution stores the handler, time, required note, and resulting status, notifies the reporter, and appends an administrative audit event containing before and after snapshots. The event explicitly records \texttt{enforcementExecuted=false}; the present implementation resolves the report record but does not claim that a user or listing sanction was automatically executed.
+Each resolution saves the handler, time, required note, and resulting status. It also notifies the reporter and writes an audit event with before and after snapshots. The event explicitly records \texttt{enforcementExecuted=false}; the present implementation resolves the report record but does not claim that a user or listing sanction was automatically executed.
 
 \section{Explicit Account Handling and Appeals}
 
-Report resolution and account enforcement are separate commands. An administrator may issue a warning or disable a student account with a reason, facts, and policy basis. Disabling revokes transaction sessions and protects in-flight orders. Orders with a confirmed meetup or a completion confirmation move to dispute; earlier reservations remain available for controlled cancellation by an active participant. A student can inspect a deliberately disclosed decision snapshot and submit an appeal through restricted access even when normal trading access is disabled. Another administrator normally reviews the appeal. An explicitly configured development-only single-administrator exception is audited and must not be described as independent review. Reinstatement does not erase the original decision history or automatically resolve every disputed transaction.
+Report resolution and account enforcement are separate commands. An administrator may issue a warning or disable a student account with a reason, facts, and policy basis. Disabling revokes transaction sessions and protects in-flight orders. Orders with a confirmed meetup or a completion confirmation move to dispute; earlier reservations remain available for controlled cancellation by an active participant. A student whose trading access is disabled can still use restricted appeal access to read the disclosed decision snapshot and submit an appeal. Another administrator normally reviews the appeal. An explicitly configured development-only single-administrator exception is audited and must not be described as independent review. Reinstatement does not erase the original decision history or automatically resolve every disputed transaction.
 
 \section{Traceability Baseline}
 
-All claims in Chapters~\ref{chap:design}--\ref{chap:decisions} were checked against repository commit \texttt{edb9e32871eac2966750993294078acbfdba65f9}. The companion \texttt{architecture-source-index.md} maps every diagram and source chain to concrete routes, services, models, frontend calls, and deployment definitions. This fixed baseline prevents a report assembled over several days from silently mixing incompatible code versions.
+All claims in Chapters~\ref{chap:design}--\ref{chap:decisions} were checked against repository commit \texttt{edb9e32871eac2966750993294078acbfdba65f9}. The companion \texttt{architecture-source-index.md} maps every diagram and source chain to concrete routes, services, models, frontend calls, and deployment definitions. Using one fixed baseline keeps the chapter descriptions tied to the same version of the software.

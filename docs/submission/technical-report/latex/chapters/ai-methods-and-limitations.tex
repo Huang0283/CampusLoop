@@ -3,7 +3,7 @@
 
 \section{Safety Boundary}
 
-CampusLoop treats every intelligence result as advisory. Search ranks visible products; wanted matching proposes candidates; price advice provides a non-binding interval or an unavailable result; trust summarizes completed-review evidence; and risk clues summarize limited observable activity for an administrator. None of these paths may accept an offer, change an order, hide a listing, disable an account, or resolve a report. Figure~\ref{fig:ai-fallback} captures the common validation, remote-call, fallback, and human-review boundary.
+CampusLoop treats every intelligence result as advisory. Search ranks visible products; wanted matching proposes candidates; price advice provides a non-binding interval or an unavailable result; trust summarizes completed-review evidence; and risk clues summarize limited observable activity for an administrator. None of these paths may accept an offer, change an order, hide a listing, disable an account, or resolve a report. Figure~\ref{fig:ai-fallback} shows where the system validates inputs, calls services, falls back, and requires human review.
 
 \begin{figure}[htbp]
   \centering
@@ -22,17 +22,17 @@ The frozen ranking contract returns product identifiers and versions, a bounded 
 
 \subsection{Method and Degradation}
 
-Keyword search and wanted matching use the checked-in M7 rule baseline. Optional semantic or hybrid search calls a live semantic service; an unavailable or malformed semantic response is refined by the local catalog-search implementation and marked \texttt{degraded=true} with \texttt{SEMANTIC\_UNAVAILABLE}. The RPC adapter independently computes the frozen rule baseline before accepting a remote result. A remote response is admitted only if its schema and algorithm metadata match, every product is eligible and unique, product versions match, scores are finite and bounded, and explanations exactly match the frozen rule output. Transport failure, timeout, service disablement, or invalid output therefore cannot introduce an unknown candidate.
+Keyword search and wanted matching use the checked-in M7 rule baseline. Optional semantic or hybrid search calls a live semantic service; an unavailable or malformed semantic response is refined by the local catalog-search implementation and marked \texttt{degraded=true} with \texttt{SEMANTIC\_UNAVAILABLE}. The RPC adapter independently computes the frozen rule baseline before accepting a remote result. The adapter checks the response schema and algorithm metadata. It also checks product eligibility, duplicate identifiers, entity versions, score bounds, and exact agreement with the frozen rule explanations. All checks must pass before the response is accepted. Transport failure, timeout, service disablement, or invalid output therefore cannot introduce an unknown candidate.
 
-These safeguards establish contract conformance, not superior relevance. The available evaluation material has not yet provided an independently reviewed, representative query set that demonstrates an improvement over the original search. Reported ranking quality must therefore be limited to reproducible test outcomes; no production-quality or accuracy claim is made here.
+These checks show whether a response follows the contract. They do not show that its ranking is better. The available evaluation material does not yet include an independently reviewed, representative query set showing an improvement over the original search. Reported ranking quality must therefore be limited to reproducible test outcomes; no production-quality or accuracy claim is made here.
 
 \section{Price Advice}
 
 Price advice receives category, condition, optional original price, title, and description. The current adapter normalizes category and condition, converts original price to fen, and supplies explicit unknown values for purchase age, accessory state, and defect tags. Title and description are not features of the frozen price rule. Title is separately used as a literal keyword for the market-reference query. The frozen M8 service returns a CNY interval, status, explanatory factors, sample size, algorithm version, degradation reason, and disclaimer.
 
-The admission check accepts only the frozen \texttt{m8-price-rule-v1} contract and requires every current response to be degraded. A valid result is either \texttt{LOW\_CONFIDENCE} with a bounded interval or \texttt{INSUFFICIENT\_DATA}/\texttt{UNAVAILABLE} with no interval. Service disablement, timeout, unavailability, or malformed output returns an unavailable fallback rather than inventing a price. The UI must keep manual pricing available and must display the non-guarantee disclaimer.
+The admission check accepts only the frozen \texttt{m8-price-rule-v1} contract and requires every current response to be degraded. A valid result is either \texttt{LOW\_CONFIDENCE} with a bounded interval or \texttt{INSUFFICIENT\_DATA}/\texttt{UNAVAILABLE} with no interval. If the service is disabled, times out, becomes unavailable, or returns malformed output, the API returns an unavailable fallback with no price interval. The UI must keep manual pricing available and must display the non-guarantee disclaimer.
 
-The project currently lacks a sufficiently large, authorized set of real completed transactions for training or final evaluation. Synthetic samples test contract behavior but cannot establish market calibration. Consequently, the system continues to use the rule fallback and does not claim that a learned price model is trained, accepted, or ready for deployment.
+The project currently lacks a sufficiently large, authorized set of real completed transactions for training or final evaluation. Synthetic samples test contract behavior but cannot establish market calibration. The system therefore continues to use the rule fallback. The report does not claim that a learned price model has been trained, accepted, or approved for deployment.
 
 \subsection{Live Listing Reference Is Not a Transaction Label}
 
@@ -42,13 +42,13 @@ The same API response includes a separate market reference from up to 100 recent
 
 The public trust endpoint reads only ratings attached to completed orders. It does not convert an unrated transaction into a five-star event, and it rejects an input history above the explicit capacity limit. The resulting service payload contains review events with completed, non-disputed, valid status and their observed rating. Public serialization is performed through a restricted trust view.
 
-This method is intentionally narrow. A small number of reviews, selection bias in who submits reviews, coordinated ratings, and context differences between categories can all distort the summary. The value is an aid to judgment, not proof that a user is safe. It must not replace transaction safeguards or governance review.
+The summary uses only this limited review history. A small number of reviews, selection bias in who submits reviews, coordinated ratings, and context differences between categories can all distort the summary. The value is an aid to judgment, not proof that a user is safe. It must not replace transaction safeguards or governance review.
 
 \section{Administrative Risk Clues}
 
 Risk clues are available only to an administrator who supplies a review reason. The current observable inputs are listing count in the previous hour, distinct chat counterparties in the previous 24 hours, and reports targeting the user or the user's products in the previous seven days. Failed-payment count and same-device account count are explicitly \texttt{null}: the MVP has no payment gateway and does not collect device fingerprints. The response records its source-window timestamp.
 
-Every read is audited with actor, target, reason, purpose, result status, and \texttt{enforcementExecuted=false}. The result is a clue set for manual review; it neither declares fraud nor initiates enforcement. Missing signals, false reports, new-user effects, and behavior outside the measured windows can create false positives or false negatives. The design therefore favors transparent missingness over fabricated zeroes and keeps the final decision with an accountable administrator.
+Every read is audited with actor, target, reason, purpose, result status, and \texttt{enforcementExecuted=false}. The result is a clue set for manual review; it neither declares fraud nor initiates enforcement. Missing signals, false reports, new-user effects, and behavior outside the measured windows can create false positives or false negatives. Missing signals remain explicit instead of being replaced with zeroes. The administrator is responsible for the final decision.
 
 \section{Distinct Timeouts and Contracts}
 
@@ -58,4 +58,4 @@ The frozen M7/M8 RPC boundary has a 1.5-second timeout. The optional live semant
 
 Readiness requires separate evidence for each advisory task. Search and wanted matching need a frozen, representative query set, relevance labels with independent review, a retained baseline, and reproducible metrics. Price advice needs order-data authorization, a documented rule for valid completed transactions and refunds/disputes, at least 200 qualified records, and at least 30 records in each key category or price band before training and evaluation. Trust and risk require privacy review, calibration analysis, abuse testing, and administrator usability review.
 
-Until those gates are satisfied, deployment must preserve the checked-in rules and explicit fallback behavior. A service being reachable, a contract test passing, or a demo returning plausible output is not evidence of model accuracy. The current technical conclusion is therefore \textbf{NO-GO for claims of learned-model readiness}, while the guarded advisory interfaces and rule fallbacks remain usable as baseline functionality.
+Until those gates are satisfied, deployment must preserve the checked-in rules and explicit fallback behavior. A service being reachable, a contract test passing, or a demo returning plausible output is not evidence of model accuracy. The technical conclusion remains \textbf{NO-GO for claims of learned-model readiness}, while the guarded advisory interfaces and rule fallbacks remain usable as baseline functionality.

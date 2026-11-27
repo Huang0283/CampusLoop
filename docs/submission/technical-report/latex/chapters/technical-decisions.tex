@@ -1,27 +1,27 @@
 \chapter{Technical Decisions and Trade-offs}
 \label{chap:decisions}
 
-This chapter explains implementation choices observed at software revision \texttt{edb9e32871eac2966750993294078acbfdba65f9}. Alternatives are retrospective engineering analysis prepared for this report; no meeting record is claimed to prove that the team discussed every alternative. Concrete source definitions and migration bodies are linked in the companion architecture and model inventories.
+This chapter explains implementation choices observed at software revision \texttt{edb9e32871eac2966750993294078acbfdba65f9}. The alternatives below are retrospective analysis for this report. They are not presented as decisions documented in team meetings. The companion architecture and model inventories link to the source definitions and migrations.
 
 \section{One OpenAPI Contract and Generated Client}
 
 OpenAPI describes HTTP operations in a language-independent contract; operation identifiers connect this vocabulary to generated client methods~\cite{r2OpenAPI}.
 
-\textbf{Problem and decision.} Handwritten endpoint definitions can drift between browser and server. FastAPI operation identifiers and the generated TypeScript SDK provide one explicit API vocabulary; the handwritten SDK adapter adds session and retry behavior.
+\textbf{Problem and decision.} Handwritten endpoint definitions can drift between browser and server. FastAPI operation identifiers and the generated TypeScript SDK provide consistent API names; the handwritten SDK adapter adds session and retry behavior.
 
-\textbf{Alternative and trade-off.} Direct fetch calls in each page would reduce generation setup, but duplicate URL, field, and error handling. Generated code requires regeneration after contract changes. Evidence is the route operation identifiers, generated SDK, and SDK adapter. This is a source-observed design with a retrospectively analyzed alternative.
+\textbf{Alternative and trade-off.} Direct fetch calls in each page would reduce generation setup, but duplicate URL, field, and error handling. Generated code requires regeneration after contract changes. Evidence is the route operation identifiers, generated SDK, and SDK adapter. The implementation supports this description; the alternative is assessed here for comparison.
 
 \section{Versioned Meetup Agreement}
 
 \textbf{Problem and decision.} A participant can confirm an old meeting proposal after the other participant edits it. Each proposal carries a version; a change resets both confirmations, and completion checks the same agreed version.
 
-\textbf{Alternative and trade-off.} A single agreed boolean would be simpler but lose which location/time was accepted. Versioned agreement adds conflict handling and forces a stale client to reload, while preserving a precise shared agreement. Evidence is \texttt{Meetup}, \texttt{save\_meetup}, \texttt{confirm\_meetup}, and \texttt{complete\_order}.
+\textbf{Alternative and trade-off.} A single agreed boolean would be simpler but lose which location/time was accepted. Versioned agreement requires extra conflict handling. A stale client must reload before confirming, so both parties accept the same proposal. Evidence is \texttt{Meetup}, \texttt{save\_meetup}, \texttt{confirm\_meetup}, and \texttt{complete\_order}.
 
 \section{Stable Local Startup and Isolated Acceptance Environments}
 
 \textbf{Problem and decision.} Ad-hoc ports and recreated volumes produce inconsistent demonstrations and can erase daily data. The checked startup script applies the local Compose override with stable volumes; write-heavy acceptance uses separately namespaced audit environments.
 
-\textbf{Alternative and trade-off.} Manual service startup permits flexibility but makes environment drift harder to diagnose. Scripted startup imposes dependency and model preparation requirements, while recording one reproducible path. Evidence is \texttt{scripts/start-local.ps1}, \texttt{compose.local.yml}, and \texttt{scripts/audit\_env.py}. This describes implementation and does not claim another member has completed independent installation.
+\textbf{Alternative and trade-off.} Manual service startup permits flexibility but makes environment drift harder to diagnose. Scripted startup imposes dependency and model preparation requirements, but gives the team one reproducible startup procedure. Evidence is \texttt{scripts/start-local.ps1}, \texttt{compose.local.yml}, and \texttt{scripts/audit\_env.py}. This describes implementation and does not claim another member has completed independent installation.
 
 \section{Authoritative Modular API with Isolated Advisory Processes}
 
@@ -29,7 +29,7 @@ OpenAPI describes HTTP operations in a language-independent contract; operation 
 
 \textbf{Alternatives.} A single process would simplify local startup; fully independent domain microservices would maximize deployment separation.
 
-\textbf{Rationale and trade-off.} The selected design preserves one transactional boundary for offers, orders, meetups, reports, notifications, and audit records while preventing slow advisory work from occupying the API process. It avoids distributed transaction complexity, but the API remains a scaling unit and internal module boundaries require discipline. The Compose definitions and \texttt{backend/app/worker/runner.py} are the executable evidence.
+\textbf{Rationale and trade-off.} The API can commit offers, orders, meetups, reports, notifications, and audit records together. Running the worker and advisory service separately keeps their background work out of the API process. It avoids distributed transaction complexity, but the API remains a scaling unit and the team must maintain clear boundaries between its modules. The Compose definitions and \texttt{backend/app/worker/runner.py} are the executable evidence.
 
 \section{PostgreSQL as the Business and Queue Authority}
 
@@ -37,7 +37,7 @@ OpenAPI describes HTTP operations in a language-independent contract; operation 
 
 \textbf{Alternatives.} Redis could hold sessions or the matching queue, and a dedicated broker could provide richer delivery semantics.
 
-\textbf{Rationale and trade-off.} PostgreSQL row locks, constraints, and atomic commits allow a state transition, its event, and its notification to succeed or fail together. The worker can claim durable jobs with database locking semantics. This reduces infrastructure and split-brain risk, at the cost of additional database load and less sophisticated queue routing.
+\textbf{Rationale and trade-off.} PostgreSQL row locks, constraints, and atomic commits allow a state transition, its event, and its notification to succeed or fail together. The worker can claim durable jobs with database locking semantics. This reduces the number of services and the risk of inconsistent state between stores. It increases database load and provides fewer routing options than a dedicated queue broker.
 
 \section{Explicit State Machines, Lock Ordering, and Idempotency}
 
@@ -47,7 +47,7 @@ PostgreSQL documents row-level locks and deadlock risks separately from partial 
 
 \textbf{Alternatives.} Optimistic last-write-wins updates or frontend-only button disabling would be simpler.
 
-\textbf{Rationale and trade-off.} Concurrent acceptance, cancellation, and completion requests can otherwise create two orders, release a reserved listing, or complete against a stale meetup. Row locks and version checks serialize the critical path; idempotency protects network retries. The trade-off is more code and potential lock contention, mitigated by a consistent authorization--product--offer--order--meetup lock order and short transactions.
+\textbf{Rationale and trade-off.} Concurrent acceptance, cancellation, and completion requests can otherwise create two orders, release a reserved listing, or complete against a stale meetup. Row locks and version checks serialize the critical path; idempotency protects network retries. This adds code and can cause requests to wait for locks. Short transactions and a consistent authorization--product--offer--order--meetup lock order reduce that risk.
 
 \section{Cookie-backed Browser Restoration with Rotating Session Families}
 
@@ -63,7 +63,7 @@ PostgreSQL documents row-level locks and deadlock risks separately from partial 
 
 \textbf{Alternatives.} One public bucket is operationally simple; one private bucket with signed URLs gives uniform access control.
 
-\textbf{Rationale and trade-off.} Public product images can be cached and displayed without an API proxy, while evidence and private messages never inherit public-read policy. Two policies and object-purpose checks increase configuration complexity, but materially reduce accidental disclosure.
+\textbf{Rationale and trade-off.} Public product images can be cached and displayed without an API proxy, while evidence and private messages never inherit public-read policy. Maintaining two policies and checking object purposes takes more configuration. It keeps private evidence and messages outside the catalog's public-read policy.
 
 \section{Frozen Local Baseline Before Remote Advisory Acceptance}
 
@@ -71,7 +71,7 @@ PostgreSQL documents row-level locks and deadlock risks separately from partial 
 
 \textbf{Alternatives.} Trust the remote response, fail the request when the service is down, or silently return the baseline.
 
-\textbf{Rationale and trade-off.} Local validation prevents transport failure from bypassing hard constraints. Comparing schema, version, identities, bounds, and explanations prevents an incompatible service from expanding eligibility. Explicit degradation makes operational failure visible without blocking trading. The cost is duplicate computation and strict coupling to the frozen contract, which is appropriate until a separately reviewed version is approved.
+\textbf{Rationale and trade-off.} Local validation prevents transport failure from bypassing hard constraints. Comparing schema, version, identities, bounds, and explanations prevents an incompatible service from expanding eligibility. Degradation metadata tells the client when the service failed while allowing trading to continue. The cost is duplicate computation and strict coupling to the frozen contract, which is appropriate until a separately reviewed version is approved.
 
 \section{Post-ranking Visibility Recheck}
 
@@ -87,7 +87,7 @@ PostgreSQL documents row-level locks and deadlock risks separately from partial 
 
 \textbf{Alternatives.} Automatically suspend accounts or remove listings when a score crosses a threshold.
 
-\textbf{Rationale and trade-off.} Current signals are incomplete: there is no payment or device-fingerprint input, reports can be malicious, and evaluation is not sufficient for automated enforcement. Human review limits irreversible false positives and creates accountability, at the cost of review latency and staffing. The audit record deliberately states that enforcement was not executed.
+\textbf{Rationale and trade-off.} Current signals are incomplete: there is no payment or device-fingerprint input, reports can be malicious, and evaluation is not sufficient for automated enforcement. Human review gives an administrator responsibility for checking a clue before acting. It also takes staff time and delays decisions. The audit record deliberately states that enforcement was not executed.
 
 \section{Honest Missingness and No-go Gates}
 
@@ -95,4 +95,4 @@ PostgreSQL documents row-level locks and deadlock risks separately from partial 
 
 \textbf{Alternatives.} Substitute zeroes for missing risk signals, derive price accuracy from synthetic records, or present demo plausibility as evaluation.
 
-\textbf{Rationale and trade-off.} Explicit missingness can make the UI less impressive and delays a go-live claim, but it prevents unsupported decisions. The resulting gates are actionable: collect authorized real transactions, freeze and independently review evaluation sets, retain baseline comparisons, and require accountable approval before changing the deployment claim.
+\textbf{Rationale and trade-off.} Showing missing evidence gives users less information and postpones a go-live claim. It also makes the limits of the available evidence clear. The resulting gates are actionable: collect authorized real transactions, freeze and independently review evaluation sets, retain baseline comparisons, and require accountable approval before changing the deployment claim.
