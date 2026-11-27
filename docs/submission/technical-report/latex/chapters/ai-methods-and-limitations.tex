@@ -3,6 +3,8 @@
 
 \section{Safety Boundary}
 
+The intelligence features help users find suitable items and interpret the information available to them. Their value depends both on how the software handles a request and on whether the underlying data supports the advice. This chapter explains those questions separately: it describes the implemented inputs and outputs, then sets out what remains unverified.
+
 CampusLoop treats every intelligence result as advisory. Search ranks visible products; wanted matching proposes candidates; price advice provides a non-binding interval or an unavailable result; trust summarizes completed-review evidence; and risk clues summarize limited observable activity for an administrator. None of these paths may accept an offer, change an order, hide a listing, disable an account, or resolve a report. Figure~\ref{fig:ai-fallback} shows where the system validates inputs, calls services, falls back, and requires human review.
 
 \begin{figure}[htbp]
@@ -16,7 +18,9 @@ CampusLoop treats every intelligence result as advisory. Search ranks visible pr
 
 \subsection{Inputs and Output Contract}
 
-The API constructs a snapshot from at most 5,000 products that are not deleted, are \texttt{ON\_SALE}, and belong to active users. Each candidate includes a stable product and owner identifier, title, description, normalized category and condition, price in fen, campus location, visibility, status, entity version, and publication timestamps. Search adds query text, optional category, condition, price filters, mode, and sort order. Wanted matching adds the wanted owner, status, expiry, budget bounds, minimum condition, and required location.
+Search and wanted matching start from the same eligible catalog. The API takes a snapshot of at most 5,000 products that have not been deleted, are \texttt{ON\_SALE}, and belong to active users. Each candidate contains its stable product and owner identifier, title, description, normalized category and condition, price in fen, campus location, visibility, status, entity version, and publication timestamps.
+
+The request then adds the information needed for the particular task. Search uses the query text, optional category, condition and price filters, mode, and sort order. Wanted matching also uses the wanted-post owner, status, expiry, budget bounds, minimum condition, and required location. These constraints matter because a textually similar product may still be unsuitable for the student's budget or location.
 
 The frozen ranking contract returns product identifiers and versions, a bounded relevance score, deterministic reasons and explanation details, and metadata containing schema, algorithm, dictionary, mode, degradation, and fallback reason. Before exposing results, the API re-reads each ranked product and its owner from PostgreSQL and rejects entries that are no longer public or whose version has changed. A SHA-256 result version covers the stable input snapshot, request, algorithm, options, and requested search mode.
 
@@ -30,13 +34,17 @@ These checks show whether a response follows the contract. They do not show that
 
 Price advice receives category, condition, optional original price, title, and description. The current adapter normalizes category and condition, converts original price to fen, and supplies explicit unknown values for purchase age, accessory state, and defect tags. Title and description are not features of the frozen price rule. Title is separately used as a literal keyword for the market-reference query. The frozen M8 service returns a CNY interval, status, explanatory factors, sample size, algorithm version, degradation reason, and disclaimer.
 
-The admission check accepts only the frozen \texttt{m8-price-rule-v1} contract and requires every current response to be degraded. A valid result is either \texttt{LOW\_CONFIDENCE} with a bounded interval or \texttt{INSUFFICIENT\_DATA}/\texttt{UNAVAILABLE} with no interval. If the service is disabled, times out, becomes unavailable, or returns malformed output, the API returns an unavailable fallback with no price interval. The UI must keep manual pricing available and must display the non-guarantee disclaimer.
+The API accepts the price response only when it follows the frozen \texttt{m8-price-rule-v1} contract. Every current response must be marked as degraded. A result may contain a bounded interval with \texttt{LOW\_CONFIDENCE}, or it may contain no interval with \texttt{INSUFFICIENT\_DATA}/\texttt{UNAVAILABLE}. These statuses tell the interface how much information it can reasonably show.
+
+The same caution applies when the service fails. If it is disabled, times out, becomes unavailable, or returns malformed output, the API returns an unavailable fallback with no interval. The interface must keep manual pricing available and show the disclaimer that the advice does not guarantee a transaction price. The seller therefore remains responsible for choosing the asking price.
 
 The project currently lacks a sufficiently large, authorized set of real completed transactions for training or final evaluation. Synthetic samples test contract behavior but cannot establish market calibration. The system therefore continues to use the rule fallback. The report does not claim that a learned price model has been trained, accepted, or approved for deployment.
 
 \subsection{Live Listing Reference Is Not a Transaction Label}
 
-The same API response includes a separate market reference from up to 100 recent visible listings by other active sellers. The query requires the same category and condition, a positive price, a title containing a keyword of at least two characters, and publication within 90 days. With at least three matches it returns discrete lower and upper quartile listing prices; otherwise the bounds remain absent. Up to five source listings accompany the count. These are asking prices, not accepted transaction prices, and they do not supply training labels or remove the learned-model NO-GO gate. The seeded 15 demonstration orders are synthetic histories and cannot be treated as independent real market evidence.
+A separate market reference appears in the same API response. It uses up to 100 recent visible listings from other active sellers. A matching listing must have the same category and condition, a positive price, a title containing a keyword of at least two characters, and a publication date within 90 days. With at least three matches, the reference returns discrete lower and upper quartile listing prices. Otherwise, it leaves the bounds absent. The count is accompanied by up to five source listings, which gives the user some context for the reference.
+
+The distinction between a listing and a completed transaction is essential here. A listing records what a seller asks, not what a buyer eventually pays. These prices therefore do not supply transaction training labels or remove the learned-model NO-GO gate. The seeded 15 demonstration orders also remain synthetic histories; they are useful for demonstrating pages, but cannot be treated as independent real market evidence.
 
 \section{Trust Summary}
 
@@ -48,7 +56,9 @@ The summary uses only this limited review history. A small number of reviews, se
 
 Risk clues are available only to an administrator who supplies a review reason. The current observable inputs are listing count in the previous hour, distinct chat counterparties in the previous 24 hours, and reports targeting the user or the user's products in the previous seven days. Failed-payment count and same-device account count are explicitly \texttt{null}: the MVP has no payment gateway and does not collect device fingerprints. The response records its source-window timestamp.
 
-Every read is audited with actor, target, reason, purpose, result status, and \texttt{enforcementExecuted=false}. The result is a clue set for manual review; it neither declares fraud nor initiates enforcement. Missing signals, false reports, new-user effects, and behavior outside the measured windows can create false positives or false negatives. Missing signals remain explicit instead of being replaced with zeroes. The administrator is responsible for the final decision.
+Every read is audited with the actor, target, reason, purpose, result status, and \texttt{enforcementExecuted=false}. This records why an administrator inspected the clues and makes clear that viewing them does not itself execute a sanction.
+
+The clues need interpretation. Reports may be false, a new user may have little history, and relevant activity may fall outside the measured windows. Missing signals can also affect the result. These limits can produce false positives or false negatives, so absent inputs remain explicit instead of being replaced with zeroes. The administrator must review the available evidence and take responsibility for any subsequent decision.
 
 \section{Distinct Timeouts and Contracts}
 
@@ -56,6 +66,8 @@ The frozen M7/M8 RPC boundary has a 1.5-second timeout. The optional live semant
 
 \section{Evaluation and Go-Live Gates}
 
-Readiness requires separate evidence for each advisory task. Search and wanted matching need a frozen, representative query set, relevance labels with independent review, a retained baseline, and reproducible metrics. Price advice needs order-data authorization, a documented rule for valid completed transactions and refunds/disputes, at least 200 qualified records, and at least 30 records in each key category or price band before training and evaluation. Trust and risk require privacy review, calibration analysis, abuse testing, and administrator usability review.
+The next evaluation step depends on the task. Search and wanted matching need a frozen, representative query set with independently reviewed relevance labels. The evaluation must retain the baseline and report reproducible metrics so that any claimed improvement can be checked.
+
+Price advice first needs permission to use order data and a documented definition of a valid completed transaction, including how refunds and disputes are handled. The data gate requires at least 200 qualified records and at least 30 records in each key category or price band before training and evaluation. Trust and risk require privacy review, calibration analysis, abuse testing, and administrator usability review. These requirements address different sources of uncertainty, so evidence for one feature cannot automatically establish readiness for the others.
 
 Until those gates are satisfied, deployment must preserve the checked-in rules and explicit fallback behavior. A service being reachable, a contract test passing, or a demo returning plausible output is not evidence of model accuracy. The technical conclusion remains \textbf{NO-GO for claims of learned-model readiness}, while the guarded advisory interfaces and rule fallbacks remain usable as baseline functionality.

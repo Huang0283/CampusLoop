@@ -1,5 +1,13 @@
 # R2 System Evidence Task Log
 
+## 2026-11-27 — explanatory-flow revision requested by author
+
+- Revised all four chapters for a clearer reading sequence, following the author's instruction that clarity matters more than brevity. Expanded explanations where the previous concise wording left the reader to infer the problem or purpose.
+- Design now introduces responsibilities before data/permission/state details. Implementation explains retry and stale-page situations as illustrative mechanisms, without claiming new executed tests. The intelligence chapter separates implemented behavior, interpretation of data, and remaining evaluation requirements.
+- Technical decisions retain their section structure and source evidence but replace repeated bold lead-ins with connected prose explaining the problem, chosen approach, alternatives and costs.
+- The user's request permits paragraph splitting and expansion; the previous same-paragraph-count editing constraint is therefore not applied to this pass. No experimental result, threshold, citation, technical identifier or readiness approval is added or removed. Existing AI-assistance disclosure is retained.
+- Static source/path and LaTeX checks passed. Full compilation, final page layout, actual non-author review and remote upload retain their previously recorded pending status.
+
 ## 2026-11-27 — academic-humanizer prose revision
 
 - Applied the user-requested academic-humanizer skill to the four R2 English chapter fragments after reading all four chapters and auditing sentence density, abstract wording and repeated decision explanations.
