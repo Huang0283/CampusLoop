@@ -3,6 +3,15 @@
 
 CampusLoop is designed as a campus-scoped second-hand trading platform whose primary architectural goal is transactional correctness under concurrent student access, clear authorization boundaries, and operational resilience when auxiliary services degrade. Rather than distributing authoritative business state across multiple datastores or letting advisory services mutate listings and accounts, the system centralizes all domain state in PostgreSQL while isolating real-time messaging, object storage, background matching, and advisory ranking behind explicit protocol boundaries. All architectural descriptions, schema constraints, and state transitions in this chapter correspond to the verified software baseline at commit \texttt{main@ecc22d2}.
 
+\begin{clbox}{Chapter Highlights and Core Design Invariants}
+  \small
+  \begin{itemize}[leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+    \item \textbf{Single ACID authority}: all 27 SQLAlchemy~2.0 ORM tables and 13 Alembic migrations reside in PostgreSQL~16; Redis and advisory RPCs are strictly non-authoritative.
+    \item \textbf{Schema-backed concurrency}: Migration~\texttt{0003} partial unique indexes and a five-tier row-lock order eliminate double-booking while permitting clean relisting after cancellation.
+    \item \textbf{Separation of governance}: report triage never auto-sanctions accounts; manual account sanctions require structured facts, session revocation, order protection, and independent appeal review.
+  \end{itemize}
+\end{clbox}
+
 \section{Architectural Overview and Component Boundaries}
 \label{sec:design-architecture}
 
@@ -12,8 +21,8 @@ Figure~\ref{fig:architecture} depicts the four-tier runtime topology, and Table~
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]{figures/design/architecture.pdf}
-  \caption{CampusLoop four-tier runtime architecture, protocol boundaries, and separation between authoritative storage and non-authoritative advisory services.}
+  \includegraphics[width=\linewidth]{figures/design/architecture.pdf}
+  \caption{\textbf{CampusLoop four-tier runtime architecture and authority boundaries.} (a)~Untrusted React SPA client and \texttt{HttpOnly}/CSRF credential gate; (b)~authoritative FastAPI core and ephemeral Redis pub/sub layer; (c)~PostgreSQL~16 ACID primary store, dual-bucket MinIO object storage, and \texttt{SKIP LOCKED} matching worker; (d)~non-authoritative frozen M7/M8 RPCs, optional live BGE scorer, and public-only local display translator.}
   \label{fig:architecture}
 \end{figure}
 
@@ -21,12 +30,12 @@ Figure~\ref{fig:architecture} depicts the four-tier runtime topology, and Table~
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
-  \renewcommand{\arraystretch}{1.12}
+  \renewcommand{\arraystretch}{1.15}
   \caption{Runtime component responsibilities, communication protocols, and authority boundaries.}
   \label{tab:runtime-components}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{2.3cm}@{}}
-    \toprule
-    \textbf{Component} & \textbf{Primary Responsibilities} & \textbf{Protocol / Port} & \textbf{Authority} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Component} & \textbf{\color{clNavy}Primary Responsibilities} & \textbf{\color{clNavy}Protocol / Port} & \textbf{\color{clNavy}Authority} \\
     \midrule
     React Web Client \cite{reactDocs} & Single-page user and administrator interface; consumes generated OpenAPI TypeScript SDK; holds access token in memory only. & HTTPS JSON, Cookie, WS & Untrusted client \\
     FastAPI Core API \cite{fastapiDocs} & Enforces authentication, CSRF checks, role/ownership authorization, state transitions, idempotency, and media streaming. & HTTP/WS (\texttt{:8000}) & Authoritative logic \\
@@ -62,8 +71,8 @@ CampusLoop's persistent schema comprises 27 SQLAlchemy~2.0 ORM classes across \t
   \caption{Complete 27-table PostgreSQL schema organized by domain across migrations \texttt{0001}--\texttt{0013}.}
   \label{tab:schema-summary}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Domain} & \textbf{ORM Tables (27 Total)} & \textbf{Key Enforced Constraints} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Domain} & \textbf{\color{clNavy}ORM Tables (27 Total)} & \textbf{\color{clNavy}Key Enforced Constraints} \\
     \midrule
     Identity \& Sessions (5) & \texttt{users}, \texttt{auth\_session\_\allowbreak families}, \texttt{refresh\_\allowbreak sessions}, \texttt{auth\_audits}, \texttt{uploaded\_\allowbreak objects} & Unique lower-cased email; rotating refresh token SHA-256 hash; session family revocation; upload ownership \& purpose binding. \\
     Catalog \& Wanted (4) & \texttt{products}, \texttt{product\_\allowbreak images}, \texttt{favorites}, \texttt{wanted\_posts} & Composite unique \texttt{(user\_id, product\_id)} on favorites; soft delete (\texttt{deleted\_at}) and \texttt{moderation\_\allowbreak blocked} flags. \\
@@ -83,8 +92,8 @@ Figure~\ref{fig:data-model} illustrates the core discovery and communication ent
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{figures/design/data-model.pdf}
-  \caption{Entity-Relationship Diagram (Catalog, Wanted Posts, and Messaging domain), reconciled with migrations \texttt{0001} and \texttt{0003}.}
+  \includegraphics[width=\linewidth]{figures/design/data-model.pdf}
+  \caption{\textbf{Entity-Relationship Diagram (Part~1): Catalog, Wanted Posts, and Peer Messaging.} Reconciled with migrations~\texttt{0001} and~\texttt{0003} across three functional zones: (a)~identity root, (b)~public/owned catalog discovery, and (c)~persistent peer-pair threads with unique \texttt{(sender\_id, client\_msg\_id)} delivery.}
   \label{fig:data-model}
 \end{figure}
 
@@ -100,8 +109,8 @@ Each order maps to at most one \texttt{meetups} row carrying an integer \texttt{
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{figures/design/data-model-transactions.pdf}
-  \caption{Entity-Relationship Diagram (Offers, Orders, Meetups, Order Events, and Reviews domain), including Migration~\texttt{0003} partial uniqueness.}
+  \includegraphics[width=\linewidth]{figures/design/data-model-transactions.pdf}
+  \caption{\textbf{Entity-Relationship Diagram (Part~2): Negotiation, Reservation, Meetup, and Review.} Three-tier schema highlighting Migration~\texttt{0003} invariants: unique \texttt{orders.offer\_id} and the partial unique index restricting active orders per \texttt{product\_id} while retaining full cancelled and disputed trade history.}
   \label{fig:erd-transactions}
 \end{figure}
 
@@ -116,8 +125,8 @@ Figure~\ref{fig:erd-governance} covers reporting, explicit account sanctions, ap
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{figures/design/data-model-governance.pdf}
-  \caption{Entity-Relationship Diagram (Reports, Account Decisions, Appeals, Notifications, and Audit domain), reconciled with migrations \texttt{0011}--\texttt{0013}.}
+  \includegraphics[width=\linewidth]{figures/design/data-model-governance.pdf}
+  \caption{\textbf{Entity-Relationship Diagram (Part~3): Governance, Appeals, Notifications, and Security Audits.} Reconciled with migrations~\texttt{0011}--\texttt{0013}, illustrating polymorphic report targets, active-only report deduplication, strict one-to-zero-or-one decision-to-appeal binding, and independent reviewer linkage.}
   \label{fig:erd-governance}
 \end{figure}
 
@@ -127,8 +136,8 @@ To satisfy direct traceability between design diagrams and Python source code, F
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]{figures/design/class-diagram.pdf}
-  \caption{UML class diagram of core CampusLoop SQLAlchemy ORM classes and \texttt{TimestampMixin}, mapped directly to \texttt{backend/app/models/}.}
+  \includegraphics[width=\linewidth]{figures/design/class-diagram.pdf}
+  \caption{\textbf{Core domain ORM class architecture (UML~2.5.1).} Direct one-to-one mapping to SQLAlchemy~2.0 classes in \texttt{backend/app/models/}, showing \texttt{TimestampMixin} generalization, mapped attributes, key tags (\texttt{PK}/\texttt{FK}/\texttt{UK}), and directed foreign-key multiplicities.}
   \label{fig:class-diagram}
 \end{figure}
 
@@ -140,7 +149,7 @@ CampusLoop separates short-lived request credentials from long-lived session per
   \item \textbf{Password storage}: passwords are hashed with Argon2id \cite{rfc9106} (\texttt{time\_cost=2}, \texttt{memory\_\allowbreak cost=19456}~KiB, \texttt{parallelism=1}, 32-byte digest, 16-byte salt) in \texttt{backend/\allowbreak app/\allowbreak core/\allowbreak security.py}. Unknown-email logins execute a verification pass against a precomputed dummy Argon2id hash to mitigate account-enumeration timing leaks.
   \item \textbf{Access tokens}: signed HS256 JSON Web Tokens \cite{rfc7519} carrying mandatory \texttt{iss} (\texttt{campusloop-api}), \texttt{aud} (\texttt{campusloop-web}), \texttt{sub}, \texttt{sid} (session family UUID), \texttt{jti}, \texttt{iat}, and \texttt{exp} claims, plus header \texttt{kid} verification and zero clock leeway. Access token lifetimes are bounded to at most 900 seconds and held exclusively in JavaScript memory, never in \texttt{localStorage} or \texttt{sessionStorage}.
   \item \textbf{Rotating refresh cookies and CSRF defense}: browser refresh tokens (32-byte URL-safe random values stored server-side only as SHA-256 digests in \texttt{refresh\_sessions}) travel in an \texttt{HttpOnly}, \texttt{SameSite=Lax} cookie \cite{rfc6265} (prefixed \texttt{\_\_Host-} with \texttt{Secure=True} in production). Every cookie-authenticated renewal or logout request must pass both a strict \texttt{Origin} allowlist check and a custom \texttt{X-CampusLoop-Browser} header check. Reusing a previously rotated refresh token revokes the entire \texttt{AuthSessionFamily}, immediately terminating stolen sessions.
-  \item \textbf{Disabled-account and expired-token precedence}: when an administrator disables an account, all active session families are revoked atomically. On authenticated requests, \texttt{services/auth.py::authenticate} checks access-token expiration (\texttt{401 AUTH\_ACCESS\_EXPIRED}) \emph{before} evaluating \texttt{user.status != "ACTIVE"}; this prevents an expired access token from being used to mint a fresh short-lived \texttt{appealToken} without re-authentication. Active credentials for a disabled user yield \texttt{423 ACCOUNT\_DISABLED} together with a narrowly scoped appeal token that grants access solely to decision notices, appeal evidence upload, and appeal submission.
+  \item \textbf{Disabled-account and expired-token precedence}: when an administrator disables an account, all active session families are revoked atomically. On authenticated requests, \texttt{services/auth.py::\allowbreak authenticate} checks access-token expiration (\texttt{401} \texttt{AUTH\_\allowbreak ACCESS\_\allowbreak EXPIRED}) \emph{before} evaluating \texttt{user.status != "ACTIVE"}; this prevents an expired access token from being used to mint a fresh short-lived \texttt{appealToken} without re-authentication. Active credentials for a disabled user yield \texttt{423 ACCOUNT\_DISABLED} together with a narrowly scoped appeal token that grants access solely to decision notices, appeal evidence upload, and appeal submission.
 \end{itemize}
 
 Table~\ref{tab:auth-matrix} summarizes the system's authorization boundaries across all four runtime roles.
@@ -153,8 +162,8 @@ Table~\ref{tab:auth-matrix} summarizes the system's authorization boundaries acr
   \caption{Role-based and ownership-based authorization matrix enforced by the FastAPI API.}
   \label{tab:auth-matrix}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Capability} & \textbf{Guest} & \textbf{Active Student} & \textbf{Disabled Student} & \textbf{Administrator} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Capability} & \textbf{\color{clNavy}Guest} & \textbf{\color{clNavy}Active Student} & \textbf{\color{clNavy}Disabled Student} & \textbf{\color{clNavy}Administrator} \\
     \midrule
     Browse public catalog \& wanted & Read-only (\texttt{ON\_SALE}, unblocked) & Read-only & Read-only (public endpoints) & Read all incl. hidden/blocked \\
     Publish/edit/delete listings & Denied (\texttt{401}) & Own listings (blocked delete returns \texttt{409}) & Denied (\texttt{423}) & Moderate hold/restore only \\
@@ -174,8 +183,8 @@ Because second-hand campus trades complete offline in person, the software state
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{figures/design/transaction-states.pdf}
-  \caption{Authoritative order state machine showing meetup confirmation, completion-confirmation immutability guard, dual-disabled escalation, and dispute resolution.}
+  \includegraphics[width=\linewidth]{figures/design/transaction-states.pdf}
+  \caption{\textbf{Authoritative order and listing state machine (UML~2.5.1).} Swimlanes separate primary student trading transitions, administrative \texttt{DISPUTED} escalation (including dual-disabled deadlock protection), and cancellation rollback, with explicit \texttt{ecc22d2} post-completion meetup immutability guards.}
   \label{fig:transaction-states}
 \end{figure}
 
@@ -183,12 +192,12 @@ Because second-hand campus trades complete offline in person, the software state
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
-  \renewcommand{\arraystretch}{1.12}
+  \renewcommand{\arraystretch}{1.15}
   \caption{Order and listing state transition guards verified in \texttt{main@ecc22d2}.}
   \label{tab:state-guards}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{2.1cm}>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Transition} & \textbf{Trigger} & \textbf{Actor} & \textbf{Database Guard \& Side Effects} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Transition} & \textbf{\color{clNavy}Trigger} & \textbf{\color{clNavy}Actor} & \textbf{\color{clNavy}Database Guard \& Side Effects} \\
     \midrule
     $\emptyset \to$ \texttt{PENDING\_\allowbreak CONFIRM} & \texttt{acceptOffer} & Non-proposer & Locks \texttt{product -> offer}; requires unexpired \texttt{PENDING} offer; sets \texttt{Product.RESERVED}; partial unique index blocks concurrent orders. \\
     \texttt{PENDING\_\allowbreak CONFIRM} $\to$ \texttt{MEETUP\_\allowbreak ARRANGED} & \texttt{confirm\allowbreak Meetup} & Buyer \& Seller & Requires matching meetup \texttt{version}; transitions once both \texttt{buyer\_confirmed} and \texttt{seller\_confirmed} are true. \\
@@ -206,8 +215,8 @@ Figures~\ref{fig:session-sequence} and~\ref{fig:order-meetup-sequence} detail th
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{figures/design/session-sequence.pdf}
-  \caption{UML sequence diagram for peer-pair chat session reuse, active product context updates, idempotent message persistence, and best-effort Redis fanout.}
+  \includegraphics[width=\linewidth]{figures/design/session-sequence.pdf}
+  \caption{\textbf{UML sequence diagram for same-peer multi-product chat and idempotent messaging.} Demonstrates peer-pair session reuse, active listing context switching, PostgreSQL-first message persistence with three-way \texttt{(sender\_id, client\_msg\_id)} conflict handling, and non-blocking Redis fanout.}
   \label{fig:session-sequence}
 \end{figure}
 
@@ -215,8 +224,8 @@ In Figure~\ref{fig:order-meetup-sequence}, buyer and seller coordinate offer acc
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.80\textheight,keepaspectratio]{figures/design/order-meetup-sequence.pdf}
-  \caption{UML sequence diagram for offer reservation, optimistic-versioned meetup editing with completion-immutability guard, and dual-party trade completion.}
+  \includegraphics[width=\linewidth]{figures/design/order-meetup-sequence.pdf}
+  \caption{\textbf{UML sequence diagram for reservation, optimistic-versioned meetup scheduling, and dual-party completion.} Highlights deterministic row locking (\texttt{product} $\to$ \texttt{offer}/\texttt{order} $\to$ \texttt{meetup}), three-way \texttt{saveMeetup} conflict protection (\texttt{409 ORDER\_STATE\_CONFLICT} and \texttt{409 MEETUP\_VERSION\_CONFLICT}), and atomic terminal transition to \texttt{COMPLETED} and \texttt{Product.SOLD}.}
   \label{fig:order-meetup-sequence}
 \end{figure}
 

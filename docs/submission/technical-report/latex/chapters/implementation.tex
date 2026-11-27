@@ -3,6 +3,15 @@
 
 This chapter describes how CampusLoop translates the architectural design of Chapter~\ref{ch:design} into concrete frontend, backend, persistence, worker, media, and deployment mechanisms. All module paths, function names, HTTP contracts, concurrency locks, and error codes reflect the verified codebase at \texttt{main@ecc22d2}.
 
+\begin{clbox}{Implementation Pillars and Hardening Summary}
+  \small
+  \begin{itemize}[leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+    \item \textbf{End-to-end contract safety}: OpenAPI~3.1-generated TypeScript SDK paired with Pydantic~V2 \texttt{StrictInput}, uniform \texttt{BusinessError} envelopes, and signed 64-bit \texttt{BIGINT} bounds.
+    \item \textbf{Deterministic concurrency}: five-tier row-lock ordering, \texttt{Idempotency-Key} payload hash verification, and transactional SQLAlchemy outbox hooks consumed via \texttt{SKIP LOCKED}.
+    \item \textbf{Defense-in-depth media \& ops}: Pillow EXIF stripping and CRC validation into dual MinIO buckets, isolated audit databases, and public-only \texttt{HY-MT1.5-1.8B} catalog translation.
+  \end{itemize}
+\end{clbox}
+
 \section{Frontend Architecture and Typed OpenAPI SDK Layer}
 \label{sec:impl-frontend}
 
@@ -36,8 +45,8 @@ To provide direct code traceability across the full stack, Table~\ref{tab:source
   \caption{Six end-to-end source chains verified at \texttt{main@ecc22d2}.}
   \label{tab:source-chains}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Workflow} & \textbf{UI $\to$ SDK $\to$ Backend Handler} & \textbf{Persisted Tables} & \textbf{Primary Boundary / Guard} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Workflow} & \textbf{\color{clNavy}UI $\to$ SDK $\to$ Backend Handler} & \textbf{\color{clNavy}Persisted Tables} & \textbf{\color{clNavy}Primary Boundary / Guard} \\
     \midrule
     1. Browser Session & \texttt{AccountPages.tsx}, \texttt{sdk/index.ts} $\to$ \texttt{login}, \texttt{refreshSession}, \texttt{restoreBrowser\allowbreak Session} $\to$ \texttt{auth.py}, \texttt{services/auth.py} & \texttt{users}, \texttt{auth\_session\_\allowbreak families}, \texttt{refresh\_\allowbreak sessions}, \texttt{auth\_audits} & Rejects untrusted \texttt{Origin} or missing CSRF header; revokes full family on replay; expired token fails \texttt{401} before appeal check. \\
     2. Listing Publish & \texttt{MarketPages.tsx}, \texttt{ImageQueue.tsx} $\to$ \texttt{uploadImage}, \texttt{createProduct} $\to$ \texttt{market.py}, \texttt{services/storage.py} & \texttt{uploaded\_\allowbreak objects}, \texttt{products}, \texttt{product\_\allowbreak images}, \texttt{idempotency\_\allowbreak records} & Validates MIME/pixels/EXIF; enforces \texttt{owned\_keys} ownership \& purpose; conflicts on mutated idempotency replay. \\
@@ -87,7 +96,7 @@ When a student publishes or edits a product, updates a wanted post, or changes a
 User-uploaded images are a common vector for polyglot payloads, decompression bombs, EXIF location leaks, and unauthorized object access. The upload pipeline in \texttt{backend/app/\allowbreak services/\allowbreak storage.py} enforces strict server-side sanitization and ownership isolation before persisting any binary object to MinIO \cite{minioDocs}:
 \begin{enumerate}
   \item \textbf{Payload and pixel bounds}: raw uploads exceeding 5~MiB are rejected with \texttt{413 IMAGE\_TOO\_LARGE}. Pillow decodes the buffer in memory, allowing only \texttt{JPEG} and \texttt{PNG} formats whose total pixel count does not exceed $25\times 10^{6}$ pixels, and runs \texttt{image.verify()}.
-  \item \textbf{Malicious/corrupted archive rejection}: malformed headers, truncated streams, decompression bombs, and corrupted PNG CRC chunks (\texttt{UnidentifiedImageError}, \texttt{OSError}, \texttt{DecompressionBombError}, \texttt{SyntaxError}, \texttt{ValueError}, \texttt{EOFError}, and \texttt{zlib.error}) are caught deterministically and mapped to \texttt{415 UNSUPPORTED\_IMAGE}.
+  \item \textbf{Malicious/corrupted archive rejection}: malformed headers, truncated streams, decompression bombs, and corrupted PNG CRC chunks (\texttt{Unidentified\allowbreak ImageError}, \texttt{OSError}, \texttt{Decompression\allowbreak BombError}, \texttt{SyntaxError}, \texttt{ValueError}, \texttt{EOFError}, and \texttt{zlib.error}) are caught deterministically and mapped to \texttt{415 UNSUPPORTED\_IMAGE}.
   \item \textbf{EXIF stripping and JPEG re-encoding}: valid images are transposed according to EXIF orientation (\texttt{ImageOps.exif\_transpose}), converted to \texttt{RGB}, resized to $512\times 512$ via Lanczos resampling if \texttt{purpose == "avatar"}, and re-encoded into clean \texttt{JPEG} bytes (quality~90), stripping all original EXIF metadata and embedded chunks.
   \item \textbf{Dual-bucket separation and ownership verification}: product photos (\texttt{purpose == "product"}) are stored in \texttt{campusloop-public} under a UUID key; chat attachments, report evidence, decision evidence, and appeal evidence are stored in \texttt{campusloop-private} and assigned non-resolvable internal reference URIs (\texttt{https://private.campusloop.invalid/...}) so browsers can retrieve them only through authenticated FastAPI streaming routes. Every upload writes an \texttt{UploadedObject} row recording \texttt{(owner\_id, object\_key, purpose)}; attaching an image to a listing, message, report, decision, or appeal verifies ownership and purpose via \texttt{owned\_keys()}, rejecting cross-user or cross-purpose object substitution with \texttt{403 FORBIDDEN}. On database commit failure, the uploaded object is deleted in a compensating cleanup path. For appeal evidence specifically, \texttt{uploadAppealImage} verifies that the student currently holds an unrevoked, unappealed \texttt{AccountDecision}.
 \end{enumerate}
@@ -101,6 +110,6 @@ For bilingual classroom and cross-campus browsing, CampusLoop optionally pairs t
 \begin{itemize}
   \item \textbf{CORS and MIME enforcement}: requests must originate from \texttt{ALLOWED\_ORIGINS} and carry \texttt{Content-Type: application/json} with a 10-second socket timeout.
   \item \textbf{Span preservation}: technical model codes, prices, and protected tokens are masked before generation and restored deterministically afterward so model names and currency figures are never hallucinated.
-  \item \textbf{Per-item failure isolation}: batch catalog translations execute with \texttt{isolate\_\allowbreak failures=True} so a single problematic string falls back to its original text without aborting the entire listing page.
+  \item \textbf{Per-item failure isolation}: batch catalog translations execute with \texttt{isolate\_\allowbreak failures=\allowbreak True} so a single problematic string falls back to its original text without aborting the entire listing page.
   \item \textbf{Strict public-text boundary}: only public product titles, descriptions, and search queries are routed to the translator; original database fields remain unchanged, and private chats, moderation facts, reports, and appeals are never transmitted to the translation service.
 \end{itemize}

@@ -1,9 +1,11 @@
-% R2 standalone compile harness matching course typography requirements.
+% R2 standalone compile harness — Top-Journal Academic Styling
+% Strictly conforms to course format: A4, single column, 2.54 cm margins,
+% 12pt Times New Roman, 1.5x line spacing.
 % R1 retains ownership of main.tex and preamble.tex for the integrated report.
 \documentclass[12pt,a4paper]{report}
 \usepackage{fontspec}
 \setmainfont{Times New Roman}
-\usepackage[margin=2.54cm]{geometry}
+\usepackage[margin=2.54cm,headheight=16pt]{geometry}
 \IfFileExists{setspace.sty}{%
   \usepackage{setspace}%
   \onehalfspacing%
@@ -15,26 +17,143 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{enumitem}
+\IfFileExists{colortbl.sty}{%
+  \usepackage[table]{xcolor}%
+}{%
+  \usepackage{xcolor}%
+}
+\usepackage{tcolorbox}
 \usepackage{caption}
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 
-\captionsetup{font=small,labelfont=bf,skip=6pt}
+% ---- Top-Journal Academic Palette (harmonized with vector figures) ----
+\definecolor{clNavy}{HTML}{1B4965}
+\definecolor{clAccent}{HTML}{3B76B2}
+\definecolor{clSlate}{HTML}{475569}
+\definecolor{clRule}{HTML}{CBD5E1}
+\definecolor{clSoftBg}{HTML}{F4F8FC}
+\definecolor{clHeaderBg}{HTML}{EAF2FA}
+\definecolor{clRose}{HTML}{9E2A2B}
+\definecolor{clRoseBg}{HTML}{FEF3F2}
+\definecolor{clRoseBd}{HTML}{CF665E}
+
+% ---- Refined Chapter Opener & Running Headers (zero extra package deps) ----
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{6\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      {\fontsize{11}{13}\selectfont\bfseries\color{clAccent}\MakeUppercase{\@chapapp\space \thechapter}}\par\nobreak
+      \vspace{4\p@}
+    \fi
+    \interlinepenalty\@M
+    {\fontsize{20}{24}\selectfont\bfseries\color{clNavy} #1\par\nobreak}%
+    \vspace{6\p@}%
+    {\color{clNavy}\hrule height 1.2\p@}%
+    \vspace{16\p@}%
+  }}
+\def\@makeschapterhead#1{%
+  \vspace*{6\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    {\fontsize{20}{24}\selectfont\bfseries\color{clNavy} #1\par\nobreak}%
+    \vspace{6\p@}%
+    {\color{clNavy}\hrule height 1.2\p@}%
+    \vspace{16\p@}%
+  }}
+\def\ps@cljournal{%
+  \def\@oddhead{\vbox{\hbox to \textwidth{%
+    {\footnotesize\color{clSlate}\itshape\leftmark}\hfill
+    {\footnotesize\color{clSlate}CampusLoop Technical Report}%
+  }\vspace{3pt}{\color{clRule}\hrule height 0.4pt}}}%
+  \def\@evenhead{\@oddhead}%
+  \def\@oddfoot{\hfill{\small\color{clSlate}\thepage}\hfill}%
+  \def\@evenfoot{\@oddfoot}%
+}
+\renewcommand{\chaptermark}[1]{\markboth{\@chapapp\ \thechapter.\ #1}{}}
+\makeatother
+\pagestyle{cljournal}
+
+% ---- Refined Captions & Lists ----
+\captionsetup{
+  font=small,
+  labelfont={bf,color=clNavy},
+  textfont={color=clSlate},
+  labelsep=period,
+  justification=justified,
+  singlelinecheck=false,
+  skip=7pt
+}
+\setlist[itemize]{leftmargin=1.6em,itemsep=2pt,topsep=4pt}
+\setlist[enumerate]{leftmargin=1.8em,itemsep=2pt,topsep=4pt}
+
+% ---- Top-Journal Summary & Governance Callout Boxes ----
+\newtcolorbox{clbox}[1]{
+  colback=clSoftBg,
+  colframe=clNavy,
+  colbacktitle=clNavy,
+  coltitle=white,
+  fonttitle=\bfseries\small,
+  title=#1,
+  boxrule=0.6pt,
+  leftrule=3pt,
+  arc=3pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  before skip=8pt,after skip=10pt
+}
+\newtcolorbox{clgate}[1]{
+  colback=clRoseBg,
+  colframe=clRose,
+  colbacktitle=clRose,
+  coltitle=white,
+  fonttitle=\bfseries\small,
+  title=#1,
+  boxrule=0.6pt,
+  leftrule=3pt,
+  arc=3pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  before skip=8pt,after skip=10pt
+}
+
+% Optional table header tint helper (uses colortbl when available, graceful no-op otherwise)
+\IfFileExists{colortbl.sty}{%
+  \newcommand{\cltblhdr}{\rowcolor{clHeaderBg}}%
+}{%
+  \newcommand{\cltblhdr}{}%
+}
+
 \emergencystretch=2.5em
 
 \begin{document}
 \begin{titlepage}
-  \centering
-  \vspace*{3cm}
-  {\LARGE\bfseries CampusLoop Second-Hand Campus Trading Platform\par}
+  \thispagestyle{empty}
+  \setlength{\parindent}{0pt}
+  \raggedright
+  \vspace*{1.4cm}
+  {\color{clNavy}\rule{\linewidth}{2.4pt}}\par
+  \vspace{0.9cm}
+  {\fontsize{11}{13}\selectfont\bfseries\color{clAccent} CAMPUSLOOP FINAL TECHNICAL REPORT \quad$\cdot$\quad TECHNICAL CORE (R2)}\par
+  \vspace{0.45cm}
+  {\fontsize{24}{30}\selectfont\bfseries\color{clNavy} CampusLoop Second-Hand\\Campus Trading Platform\par}
+  \vspace{0.45cm}
+  {\Large\color{clSlate} System Architecture, Implementation, Advisory Intelligence,\\and Key Engineering Decisions\par}
   \vspace{0.8cm}
-  {\Large Technical Chapters: System Design, Implementation, Advisory Intelligence, and Architectural Decisions\par}
-  \vspace{1.2cm}
-  {\normalsize R2 Technical Core Preview Harness (for R1 Integration into Final Technical Report)\par}
-  \vspace{0.5cm}
-  {\normalsize Verified Software Baseline: \texttt{main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6}\par}
+  {\color{clRule}\rule{\linewidth}{0.8pt}}\par
+  \vspace{1.1cm}
+  \begin{clbox}{Document Scope and Verification Baseline}
+    \small
+    \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+      \textbf{Chapters Included:} & System Architecture and Design; System Implementation; Advisory Intelligence Methods and Limitations; Key Architectural and Technical Decisions. \\
+      \textbf{Software Baseline:} & \texttt{main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6} (27 SQLAlchemy~2.0 ORM models, 13 Alembic migrations, 14 verified SDK operations). \\
+      \textbf{Typography Standard:} & A4 single-column, 2.54~cm margins, 12~pt Times New Roman, 1.5$\times$ line spacing, 9 publication-grade vector figures, 9 technical tables, 17 verified citations. \\
+      \textbf{Integration Role:} & R2 technical chapters and vector figures prepared for R1 assembly into the unified 40--60 page Final Technical Report.
+    \end{tabularx}
+  \end{clbox}
   \vfill
-  {\normalsize 27 November 2026\par}
+  {\color{clRule}\rule{\linewidth}{0.6pt}}\par
+  \vspace{0.35cm}
+  {\small\color{clSlate} Prepared 27 November 2026 \hfill Overleaf / XeLaTeX Verified Preview Harness}
 \end{titlepage}
 
 \pagenumbering{roman}

@@ -11,8 +11,8 @@ This chapter analyzes twelve foundational engineering decisions that shaped Camp
   \caption{Summary of CampusLoop's twelve architectural and technical decisions.}
   \label{tab:decisions-summary}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{ID \& Decision} & \textbf{Chosen Approach} & \textbf{Primary Alternative(s)} & \textbf{Core Trade-Off Accepted} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}ID \& Decision} & \textbf{\color{clNavy}Chosen Approach} & \textbf{\color{clNavy}Primary Alternative(s)} & \textbf{\color{clNavy}Core Trade-Off Accepted} \\
     \midrule
     D1. Authoritative Store & Single PostgreSQL~16 database for all 27 tables & Polyglot persistence / microservice DBs & Vertical write coordination in exchange for ACID invariants \\
     D2. Typed Contract & Generated OpenAPI~3.1 $\to$ TypeScript SDK \cite{openapi31} & Handwritten \texttt{fetch} calls and DTO types & Regeneration step on API changes to eliminate contract drift \\

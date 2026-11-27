@@ -10,8 +10,8 @@ All advisory requests pass through server-side adapters in \texttt{backend/app/\
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]{figures/design/ai-fallback.pdf}
-  \caption{Advisory service dispatch, timeout/error fallback cascade, and post-ranking live PostgreSQL visibility recheck.}
+  \includegraphics[width=\linewidth]{figures/design/ai-fallback.pdf}
+  \caption{\textbf{Fail-closed advisory intelligence pipeline and fallback architecture.} (a)~Authoritative PostgreSQL snapshot and pre-RPC hard-constraint gate; (b)~three bounded advisory lanes covering M7/BGE-RRF search, M8 depreciation plus 90-day asking quartiles, and Bayesian trust plus non-enforcing risk clues; (c)~contract verification, live PostgreSQL visibility recheck, and explicit \texttt{NO-GO} model graduation gate.}
   \label{fig:ai-fallback}
 \end{figure}
 
@@ -33,8 +33,8 @@ Table~\ref{tab:ai-contracts} summarizes the exact algorithm identifiers, timeout
   \caption{Contract summary for CampusLoop's five advisory intelligence capabilities.}
   \label{tab:ai-contracts}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3.4cm}cc>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Capability} & \textbf{Algorithm / Source} & \textbf{Timeout} & \textbf{Degraded} & \textbf{Fallback Behavior} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Capability} & \textbf{\color{clNavy}Algorithm / Source} & \textbf{\color{clNavy}Timeout} & \textbf{\color{clNavy}Degraded} & \textbf{\color{clNavy}Fallback Behavior} \\
     \midrule
     Catalog Search (Keyword) & Frozen M7 \texttt{KeywordIndex} & 1.5~s & Cond. & Falls back to in-process M7 keyword baseline (\texttt{degraded=true}) on timeout, \texttt{413}, \texttt{5xx}, or invalid contract. \\
     Catalog Search (Semantic / Hybrid) & Optional \texttt{live-bge-\allowbreak small-zh-v1} + RRF & 3.0~s & Cond. & Falls back cleanly to frozen M7 keyword ranking on missing URL, timeout, \texttt{5xx}, or invalid score bounds. \\
@@ -109,8 +109,8 @@ Every M8 price response explicitly sets \texttt{status = "LOW\_CONFIDENCE"}, \te
   \caption{Deterministic condition multipliers and category depreciation priors in \texttt{scripts/m8\_phase2/pipeline.py}.}
   \label{tab:price-multipliers}
   \begin{tabularx}{\linewidth}{@{}lccc|>{\raggedright\arraybackslash}Xcc@{}}
-    \toprule
-    \textbf{Condition} & \textbf{$c_{\text{low}}$} & \textbf{$c_{\text{mid}}$} & \textbf{$c_{\text{high}}$} & \textbf{Baseline Category} & \textbf{Retention $a$} & \textbf{Floor $f_{\min}$} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Condition} & \textbf{\color{clNavy}$c_{\text{low}}$} & \textbf{\color{clNavy}$c_{\text{mid}}$} & \textbf{\color{clNavy}$c_{\text{high}}$} & \textbf{\color{clNavy}Baseline Category} & \textbf{\color{clNavy}Retention $a$} & \textbf{\color{clNavy}Floor $f_{\min}$} \\
     \midrule
     \texttt{new} & 0.88 & 0.95 & 1.00 & \texttt{digital} & 0.78 & 0.25 \\
     \texttt{like\_new} & 0.75 & 0.85 & 0.93 & \texttt{books} (\texttt{stationery}) & 0.86 & 0.30 \\
@@ -155,8 +155,8 @@ Administrative risk screening (\texttt{services/m8\_baseline/engine.py::risk\_cl
   \caption{Deterministic administrative risk-clue thresholds in \texttt{m8-risk-clue-rule-v1}.}
   \label{tab:risk-thresholds}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.1cm}c>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Clue Code} & \textbf{Input Signal} & \textbf{Line} & \textbf{Source} & \textbf{Handling When Absent} \\
+    \toprule[1pt]
+    \cltblhdr \textbf{\color{clNavy}Clue Code} & \textbf{\color{clNavy}Input Signal} & \textbf{\color{clNavy}Line} & \textbf{\color{clNavy}Source} & \textbf{\color{clNavy}Handling When Absent} \\
     \midrule
     \texttt{REPEATED\_\allowbreak PAYMENT\_\allowbreak FAILURES} & \texttt{failedPayment\allowbreak Count24h} & $\ge 3$ & Not collected (\texttt{null}) & Listed in \texttt{missingInputs}; never substituted with zero. \\
     \texttt{BURST\_\allowbreak LISTING\_\allowbreak ACTIVITY} & \texttt{listing\allowbreak Count1h} & $\ge 12$ & Live SQL query & Active count over trailing 1~hour. \\
@@ -172,7 +172,10 @@ Every risk-clue response requires an audited administrator access reason, verifi
 \section{Empirical Evaluation Boundaries and Graduation Gates}
 \label{sec:ai-limitations}
 
-Distinguishing \emph{operational software verification} from \emph{validated machine-learning performance} is essential to scientific rigor in CampusLoop. While deterministic schema validation, hard-constraint enforcement, timeout fallback, and non-enforcement contracts are verified against the codebase, the project maintains an explicit \textbf{NO-GO} deployment gate for any claim of learned-model predictive accuracy.
+\begin{clgate}{Explicit Model Readiness Boundary: NO-GO / NOT\_EVALUATED}
+  \small
+  While deterministic schema validation, hard-constraint enforcement, timeout fallback, and non-enforcement contracts are verified against \texttt{main@ecc22d2}, CampusLoop maintains an explicit \textbf{NO-GO} deployment gate for any claim of learned-model predictive accuracy. Synthetic \texttt{L0\_SYNTHETIC} fixtures and demonstration orders never substitute for licensed L3 completed-transaction labels or independent human relevance annotations.
+\end{clgate}
 
 Specifically, the repository's synthetic M8 dataset (\texttt{L0\_SYNTHETIC}) tests schema validation, boundary rounding, and deterministic pipeline reproducibility (\texttt{predictionMetrics = "NOT\_EVALUATED"}, \texttt{maeFen = null}, \texttt{mape = null}, \texttt{intervalCoverage = null}). Likewise, synthetic demonstration orders populated for UI walkthroughs are never counted as completed-transaction ground truth or human relevance judgments. Promoting any learned ranking, pricing, or anomaly-detection model beyond baseline advisory status requires satisfying four explicit graduation gates:
 \begin{enumerate}

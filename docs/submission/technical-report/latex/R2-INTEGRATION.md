@@ -1,4 +1,4 @@
-# R2 Chapter Integration Guide
+# R2 Chapter Integration Guide (Top-Journal Edition)
 
 ## Scope and Verified Software Baseline
 
@@ -7,23 +7,30 @@
   - `chapters/implementation.tex` (System Implementation)
   - `chapters/ai-methods-and-limitations.tex` (Advisory Intelligence Methods and Limitations)
   - `chapters/technical-decisions.tex` (Key Architectural and Technical Decisions)
-- **Bibliography fragment**: `r2-references.bib` (17 real, verified official specifications, RFCs, and peer-reviewed papers, all explicitly cited via `\cite{...}` across the four chapters). R1 should merge `r2-references.bib` into the shared `references.bib` or pass both files to `\bibliography{references,r2-references}`.
-- **Verified software baseline**: `main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6` (`fix: close end-to-end audit regressions`, 2026-11-25). All model fields, migrations (`0001`--`0013`), API routes, SDK operations, formulas, thresholds, timeouts, and security guards were verified directly against Git objects at this commit.
+- **Bibliography fragment**: `r2-references.bib` (17 real, verified official specifications, IETF RFCs, and peer-reviewed SIGIR papers, 100% cited via `\cite{...}`). R1 should merge `r2-references.bib` into the shared `references.bib` or pass both to `\bibliography{references,r2-references}`.
+- **Verified software baseline**: `main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6` (`fix: close end-to-end audit regressions`, 2026-11-25).
 
-## Required Packages in R1's `preamble.tex`
+## Publication-Grade Vector Figures
 
-R1 retains ownership of `main.tex`, `preamble.tex`, the unified Overleaf ZIP, and the final 40--60 page PDF. The four R2 chapters do not inject preamble commands and rely only on standard TeX Live / Overleaf packages:
+All nine figures under `figures/design/` are maintained as **editable publication-grade vector SVGs** (directly editable in Adobe Illustrator, Figma, or Inkscape) paired with exact-bounds **true vector PDFs** (selectable text, crisp infinite zoom, harmonious Morandi academic palette, bespoke vector icons, UML 2.5.1 and Crow's Foot notation) alongside synchronized `.mmd` backups:
 
-- `fontspec` (`Times New Roman` or `Arial`, 12pt, single-column A4)
-- `geometry` (`margin=2.54cm` on all four sides)
-- `setspace` (`\onehalfspacing`; `r2-preview.tex` falls back cleanly to `\linespread{1.25}\selectfont` on minimal local MiKTeX installations)
-- `amsmath` and `amssymb` (display equations and indicator notation for scoring, Bayesian smoothing, depreciation, and quartile rules)
-- `array`, `booktabs`, and `tabularx` (structured technical tables)
-- `caption` (consistent figure and table captions)
-- `graphicx` (vector PDF figure inclusion under `figures/design/`)
-- `hyperref` (cross-references and bibliography URLs)
+- `architecture.svg` / `.pdf` — Four-tier runtime topology and authority boundaries
+- `data-model.svg` / `.pdf` — ERD Part 1: Catalog, Wanted Posts, and Peer Messaging
+- `data-model-transactions.svg` / `.pdf` — ERD Part 2: Offers, Orders, Meetups, Order Events, and Reviews
+- `data-model-governance.svg` / `.pdf` — ERD Part 3: Reports, Account Decisions, Appeals, Notifications, and Audits
+- `class-diagram.svg` / `.pdf` — UML 2.5.1 class diagram of core SQLAlchemy ORM models
+- `transaction-states.svg` / `.pdf` — Authoritative order state machine and `ecc22d2` transition guards
+- `session-sequence.svg` / `.pdf` — Same-peer multi-product chat and idempotent messaging sequence
+- `order-meetup-sequence.svg` / `.pdf` — Offer reservation, optimistic-versioned meetup, and dual completion sequence
+- `ai-fallback.svg` / `.pdf` — Three-lane advisory intelligence pipeline, fallback cascade, and `NO-GO` graduation gate
 
-Add `\emergencystretch=1.5em` in `preamble.tex` to prevent overfull lines around long monospace endpoint or symbol names.
+## Required Packages and Macros in R1's `preamble.tex`
+
+R1 retains ownership of `main.tex`, `preamble.tex`, the unified Overleaf ZIP, and the final 40--60 page PDF. The four R2 chapters conform strictly to course typography rules (A4, single column, 2.54 cm margins, 12pt Times New Roman, 1.5x line spacing) and rely only on standard TeX Live / Overleaf packages:
+
+- `fontspec`, `geometry`, `setspace` (with `\linespread{1.25}` fallback on minimal local MiKTeX)
+- `amsmath`, `amssymb`, `array`, `booktabs`, `tabularx`, `enumitem`, `xcolor`, `tcolorbox`, `caption`, `graphicx`, `hyperref`
+- Copy the color definitions (`clNavy`, `clAccent`, `clSlate`, `clRule`, `clSoftBg`, `clHeaderBg`, `clRose`, `clRoseBg`, `clRoseBd`), the two `tcolorbox` environments (`clbox`, `clgate`), and `\cltblhdr` from `r2-preview.tex` into `preamble.tex` so the entire Final Technical Report shares one cohesive top-journal visual identity.
 
 ## Compiling the R2 Preview Harness
 
@@ -36,22 +43,11 @@ xelatex -interaction=nonstopmode -halt-on-error r2-preview.tex
 xelatex -interaction=nonstopmode -halt-on-error r2-preview.tex
 ```
 
-The preview harness verifies clean XeLaTeX + BibTeX compilation, zero undefined citations or cross-references, A4 figure readability, and body page budget before R1 merges the chapters into `main.tex`. Temporary auxiliary files (`*.aux`, `*.log`, `*.bbl`, `*.blg`, `*.out`, `*.toc`, `*.lof`, `*.lot`) must not be committed.
-
-## Regenerating Figures
-
-All nine editable diagram sources live in `figures/design/*.mmd` alongside their shared theme (`figures/design/mermaid-config.json`) and vector exports (`.svg` and fitted single-page `.pdf`). Rebuild with Mermaid CLI 12.x (PDF auto-fits diagram bounds by default):
-
-```text
-mmdc -q -c figures/design/mermaid-config.json -i figures/design/architecture.mmd -o figures/design/architecture.svg -b white
-mmdc -q -c figures/design/mermaid-config.json -i figures/design/architecture.mmd -o figures/design/architecture.pdf
-```
-
-Repeat for `data-model`, `data-model-transactions`, `data-model-governance`, `class-diagram`, `transaction-states`, `session-sequence`, `order-meetup-sequence`, and `ai-fallback`.
+Do not commit temporary auxiliary files (`*.aux`, `*.log`, `*.bbl`, `*.blg`, `*.out`, `*.toc`, `*.lof`, `*.lot`).
 
 ## Ownership and Academic Integrity Boundaries
 
-- R1 integrates these four chapters into `main.tex`, assigns final unified figure/table numbers and page references in `architecture-source-index.md`, and completes the remaining chapters (Introduction, Requirements, Testing and Evaluation, Project Management, Conclusions, Appendix A).
+- R1 integrates these four chapters into `main.tex`, completes the remaining chapters (Introduction, Requirements, Testing and Evaluation, Project Management, Conclusions, Appendix A), and verifies the final 40--60 body page count.
 - Historical test evidence retains its original software SHA; synthetic demonstration data is never presented as human evaluation or L3 transaction ground truth.
-- Learned-model deployment claims remain gated at `NO_GO` until independent labeled evaluation and review sign-off are completed.
-- AI-assisted drafting and editing tools were used during technical auditing, diagram layout refinement, and prose revision in accordance with course disclosure policy; human team members retain responsibility for technical verification, non-author review, and oral defense.
+- Learned-model deployment claims remain explicitly gated at `NO_GO` / `NOT_EVALUATED`.
+- AI-assisted tooling was used during technical auditing, diagram layout refinement, and prose revision in accordance with course disclosure policy; human team members retain responsibility for technical verification, non-author review, and oral defense.

@@ -15,13 +15,13 @@
 | R2-04 Advisory Intelligence | `latex/chapters/ai-methods-and-limitations.tex`; `ai-fallback.mmd`; exact equations & 3 tables | Verified formulas, timeouts, fallbacks, explicit `NO-GO` gate |
 | R2-05 Technical Decisions | `latex/chapters/technical-decisions.tex`; 12 decisions + summary matrix | Broken fragments & defensive prose removed; clear rationale |
 | Bibliography | `latex/r2-references.bib` | 17 verified official/RFC/peer-reviewed sources, 100% cited |
-| Editable Figures & Exports | `latex/figures/design/*.mmd`, `.svg`, `.pdf`, `mermaid-config.json` | All 9 regenerated with Mermaid CLI 12.2.0 & visually inspected |
-| Compile Harness & Handoff | `latex/r2-preview.tex`; `latex/R2-INTEGRATION.md`; `scripts/reporting_r2_sources.py` | Course-formatted preview compiled cleanly via XeLaTeX + BibTeX |
+| Editable Figures & Exports | `latex/figures/design/*.svg`, `.pdf`, `.mmd` | All 9 rebuilt as top-journal publication-grade vector SVGs & true vector PDFs; 100% visually inspected |
+| Compile Harness & Handoff | `latex/r2-preview.tex`; `latex/R2-INTEGRATION.md`; `scripts/reporting_r2_sources.py` | Top-journal course-formatted preview compiled cleanly via XeLaTeX + BibTeX |
 
 ## Verification Status
 
 - [x] Reproducible source inventory rebuilt from immutable Git objects at `ecc22d2` (27 ORM classes, 13 migrations, 14 SDK operations, 17 cited bibliography entries).
-- [x] All 9 Mermaid diagrams redesigned, exported to `.svg` and fitted `.pdf`, rasterized to PNG, and visually inspected for zero text overlap, zero arrow-through-text collision, and crisp readability.
+- [x] All 9 figures crafted as publication-grade Morandi-palette editable SVGs with vector icons, strict UML 2.5.1 / Crow's Foot notation, converted to true vector PDFs, and visually verified for zero text overlap or clipping.
 - [x] Standalone course-formatted `r2-preview.tex` compiled cleanly via `xelatex -> bibtex -> xelatex -> xelatex` with zero undefined references/citations and rendered A4 pages visually verified.
 - [ ] Integrated full-report compilation (`main.tex` + R1 chapters, total 40--60 body pages, Overleaf ZIP). Awaits R1 assembly.
 - [ ] Course Lecture slide locator confirmation (specific lecture title/section/page for UML/ERD notation). Awaits team member check against Blackboard slides.
