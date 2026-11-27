@@ -1,114 +1,230 @@
-\chapter{System Design}
-\label{chap:design}
+\chapter{System Architecture and Design}
+\label{ch:design}
 
-\section{Architectural Context}
+CampusLoop is designed as a campus-scoped second-hand trading platform whose primary architectural goal is transactional correctness under concurrent student access, clear authorization boundaries, and operational resilience when auxiliary services degrade. Rather than distributing authoritative business state across multiple datastores or letting advisory services mutate listings and accounts, the system centralizes all domain state in PostgreSQL while isolating real-time messaging, object storage, background matching, and advisory ranking behind explicit protocol boundaries. All architectural descriptions, schema constraints, and state transitions in this chapter correspond to the verified software baseline at commit \texttt{main@ecc22d2}.
 
-CampusLoop supports the steps of a campus second-hand transaction, from publishing a listing and contacting another student to agreeing a price and confirming completion. The system divides this work between the browser, the backend, persistent storage, and services that provide advice. This division gives each component a clear responsibility while keeping the final transaction state under backend control.
+\section{Architectural Overview and Component Boundaries}
+\label{sec:design-architecture}
 
-The React browser client presents the pages and sends requests to FastAPI through JSON APIs. FastAPI checks whether the request is valid and whether the user may perform the action. PostgreSQL stores the resulting identities, listings, negotiations, orders, governance records, matching jobs, and audit evidence. Redis handles rate limiting and temporary state, while MinIO stores files and separates public product images from private chat and report evidence.
+A campus trading workflow spans interactive browsing, media uploads, private buyer--seller negotiation, exclusive listing reservation, offline meetup coordination, post-trade reviews, and administrative moderation. Designing these capabilities around a single authoritative relational store avoids distributed-transaction complexity and guarantees that conflicting requests---such as two buyers attempting to reserve the same listing simultaneously or a participant editing a meetup after completion has already been confirmed---resolve deterministically under relational row locks and database uniqueness constraints.
 
-Some work runs outside an ordinary page request. A dedicated worker consumes matching jobs, and the M7/M8 advisory service provides versioned search, matching, price, trust, and risk rules through internal remote procedure calls (RPC). Figure~\ref{fig:architecture} shows how these components connect. The main distinction is that an advisory service can return a suggestion, but the API decides whether a business update is allowed and saves its result.
+Figure~\ref{fig:architecture} depicts the four-tier runtime topology, and Table~\ref{tab:runtime-components} summarizes each component's responsibilities, communication protocol, and trust boundary.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/design/architecture.pdf}
-  \caption{CampusLoop runtime architecture and trust boundary.}
+  \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]{figures/design/architecture.pdf}
+  \caption{CampusLoop four-tier runtime architecture, protocol boundaries, and separation between authoritative storage and non-authoritative advisory services.}
   \label{fig:architecture}
 \end{figure}
 
-This separation keeps advisory failures out of transaction updates. A timeout or malformed response from an advisory service must not mutate a product, accept an offer, complete an order, or resolve a report. The API performs business updates and commits them through PostgreSQL transactions. The repository's deployment configuration runs the API, worker, and advisory service as separate processes, with PostgreSQL, Redis, and MinIO as supporting services.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Runtime component responsibilities, communication protocols, and authority boundaries.}
+  \label{tab:runtime-components}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{2.3cm}@{}}
+    \toprule
+    \textbf{Component} & \textbf{Primary Responsibilities} & \textbf{Protocol / Port} & \textbf{Authority} \\
+    \midrule
+    React Web Client \cite{reactDocs} & Single-page user and administrator interface; consumes generated OpenAPI TypeScript SDK; holds access token in memory only. & HTTPS JSON, Cookie, WS & Untrusted client \\
+    FastAPI Core API \cite{fastapiDocs} & Enforces authentication, CSRF checks, role/ownership authorization, state transitions, idempotency, and media streaming. & HTTP/WS (\texttt{:8000}) & Authoritative logic \\
+    PostgreSQL 16 + pgvector \cite{pgvectorDocs} & Persists all 27 domain, governance, session, and outbox tables; enforces row locks and partial unique indexes. & SQL / TCP (\texttt{:5432}) & Authoritative state \\
+    Redis \cite{redisDocs} & Sliding-window rate-limit counters and best-effort pub/sub fanout for live chat and notification push. & RESP (\texttt{:6379}) & Ephemeral / volatile \\
+    MinIO Storage \cite{minioDocs} & Dual-bucket S3 storage separating public product photos from private chat, report, and appeal evidence. & S3v4 HTTP (\texttt{:9000}) & Binary blob store \\
+    Matching Worker & Standalone process (or local thread) claiming PostgreSQL outbox jobs via \texttt{SKIP LOCKED}; exposes \texttt{/healthz}. & SQL + HTTP RPC & Async consumer \\
+    Frozen M7/M8 RPC & Deterministic keyword ranking, rule-based price intervals, Bayesian trust scores, and rule-based risk clues. & HTTP RPC (1.5~s) & Advisory only \\
+    Live Semantic Scorer & Optional BGE-small-zh embedding scorer (\texttt{/score}) blended with keyword results via Reciprocal Rank Fusion. & HTTP JSON (3.0~s) & Advisory only \\
+    Local Translator & Optional local \texttt{HY-MT1.5-1.8B} server translating public catalog display text only; never sees private records. & Local HTTP (\texttt{:8790}) & Display aid only \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-\section{Domain and Data Model}
+Two deployment profiles share identical business logic through environment-driven configuration in \texttt{backend/app/core/config.py} \cite{pydanticDocs}:
+\begin{enumerate}
+  \item \textbf{Containerized multi-service topology} (\texttt{docker-compose.yml}): runs the API, dedicated matching worker (\texttt{MATCHING\_WORKER\_INPROCESS=false}), standalone M7/M8 baseline container (\texttt{BASELINE\_INPROCESS=false}), PostgreSQL~16 with \texttt{pgvector}, Redis, and MinIO as separate containers on an internal Docker network. The baseline RPC service binds internally and is never exposed directly to browser clients.
+  \item \textbf{Loopback local runtime} (\texttt{scripts/start-local.ps1} and \texttt{compose.local.yml}): hosts PostgreSQL, Redis, and MinIO in containers while running the FastAPI server, in-process matching worker thread, and loopback M7/M8 baseline listeners locally, alongside optional local semantic scoring and translation services.
+\end{enumerate}
 
-The backend uses object-relational mapping (ORM) to describe database records as Python classes. Several classes share their timestamp columns through a Python mixin, consistent with SQLAlchemy's documented declarative-mixin mechanism~\cite{r2Mixins}. Class inheritance describes how the code reuses these attributes; foreign-key relationships describe how saved records refer to one another. The diagrams show these as separate relationships.
+Redis is intentionally restricted to volatile operational roles: rate-limit counters and live WebSocket fanout. Because every chat message and notification is committed to PostgreSQL before Redis publication is attempted, a Redis restart or transient connection loss degrades push latency without losing persisted messages or corrupting order states. Similarly, the optional local display translator operates strictly over public catalog fields (titles, descriptions, and search queries) in the browser display path and is isolated from private chat messages, report reasons, moderation facts, and appeal explanations.
 
-The data model follows the transaction journey. A \emph{User} owns products and wanted posts. A product or wanted post gives a two-party chat session its context, so a conversation remains linked to the item or request being discussed. Offers belong to that session. Accepting an offer creates an order for the referenced product, and the order retains its state history and at most one current meetup arrangement. A review can be submitted only after the transaction is completed.
+\section{Domain Data Model and Migration Reconciliation}
+\label{sec:design-data-model}
 
-Governance records serve a different purpose. A report refers to a user, product, order, or chat message and stores the reporter, evidence keys, resolution, handler, and timestamps. Separate AccountDecision and AccountAppeal records let students see account-handling decisions and request review without exposing private report contents.
+CampusLoop's persistent schema comprises 27 SQLAlchemy~2.0 ORM classes across \texttt{backend/app/models/} \cite{sqlalchemy20}, evolved through 13 Alembic migrations (\texttt{0001} through \texttt{0013}). Rather than relying on informal diagrams that drift from production DDL, the data model is split into three focused Crow's Foot Entity-Relationship Diagrams (ERDs) covering catalog and chat, transactions, and governance, supported by a complete code-derived inventory (\texttt{r2-model-migration-index.md}). Across all ERD views, Crow's Foot notation denotes cardinality: a circle indicates zero, a bar indicates one, a crow's foot indicates many, and dashed lines denote non-identifying or optional references.
 
-The entity relationship diagram (ERD) is divided into catalog/chat, transaction, and governance views so that these relationships can be read without crowding one figure. Figure~\ref{fig:data-model} introduces the catalog and chat records. The figures show selected columns; the companion model/migration inventory gives all mapped columns, declared types, and migration constraints. Each record still has its own ownership and state rules.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Complete 27-table PostgreSQL schema organized by domain across migrations \texttt{0001}--\texttt{0013}.}
+  \label{tab:schema-summary}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Domain} & \textbf{ORM Tables (27 Total)} & \textbf{Key Enforced Constraints} \\
+    \midrule
+    Identity \& Sessions (5) & \texttt{users}, \texttt{auth\_session\_\allowbreak families}, \texttt{refresh\_\allowbreak sessions}, \texttt{auth\_audits}, \texttt{uploaded\_\allowbreak objects} & Unique lower-cased email; rotating refresh token SHA-256 hash; session family revocation; upload ownership \& purpose binding. \\
+    Catalog \& Wanted (4) & \texttt{products}, \texttt{product\_\allowbreak images}, \texttt{favorites}, \texttt{wanted\_posts} & Composite unique \texttt{(user\_id, product\_id)} on favorites; soft delete (\texttt{deleted\_at}) and \texttt{moderation\_\allowbreak blocked} flags. \\
+    Messaging (3) & \texttt{chat\_sessions}, \texttt{chat\_\allowbreak messages}, \texttt{chat\_read\_\allowbreak cursors} & Unique active peer pair; \texttt{0003} makes \texttt{client\_msg\_id} non-null and unique per \texttt{(sender\_id, client\_msg\_id)}. \\
+    Transactions (5) & \texttt{offers}, \texttt{orders}, \texttt{order\_\allowbreak events}, \texttt{meetups}, \texttt{reviews} & \texttt{0003} unique \texttt{orders.offer\_id} and partial unique \texttt{orders.product\_id} for active orders; unique \texttt{meetups.order\_id}; unique \texttt{(order\_id, reviewer\_id)}. \\
+    Governance \& Alerts (4) & \texttt{reports}, \texttt{account\_\allowbreak decisions}, \texttt{account\_\allowbreak appeals}, \texttt{notifications} & \texttt{0012} unique non-null \texttt{account\_appeals.\allowbreak decision\_id}; \texttt{0013} partial unique active report per target; polymorphic \texttt{reports.target\_id}. \\
+    Async Matching \& Ops (6) & \texttt{idempotency\_\allowbreak records}, \texttt{matching\_\allowbreak jobs}, \texttt{matching\_\allowbreak results}, \texttt{matching\_\allowbreak notifications}, \texttt{ai\_task\_runs}, \texttt{worker\_\allowbreak heartbeats} (+ singleton \texttt{matching\_\allowbreak revision}) & Monotonic revision counter; unique \texttt{(event\_key, wanted\_id)} job deduplication; idempotency request hash storage. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\textit{Note on table grouping:} Table~\ref{tab:schema-summary} groups the 27 mapped tables functionally (5 identity/session, 4 catalog/wanted, 3 messaging, 5 transaction, 4 governance/notification, and 6 matching/idempotency/observability tables, where \texttt{matching\_revision} is a singleton revision sequence row alongside the six operational tables; exact line-level definitions for all 27 ORM classes are recorded in \texttt{r2-source-inventory.json}).
+
+\subsection{Catalog, Wanted Posts, and Messaging Schema}
+
+Figure~\ref{fig:data-model} illustrates the core discovery and communication entities. A deliberate structural choice governs \texttt{chat\_sessions}: rather than creating fragmented duplicate chat threads whenever the same buyer asks the same seller about multiple listings, CampusLoop stores one persistent peer-pair session and updates its active \texttt{product\_id} (and optional \texttt{wanted\_id}) context as negotiation shifts. This keeps conversation history continuous for students while still anchoring each \texttt{Offer} to the exact \texttt{product\_id} active at proposal time. Migration \texttt{0003} further tightens \texttt{chat\_messages.client\_msg\_id} from a nullable ORM hint to a \texttt{NOT NULL} column with a unique index over \texttt{(sender\_id, client\_msg\_id)}, providing database-level idempotency against duplicate network retries.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/design/data-model.pdf}
-  \caption{Principal persistent entities and relationships.}
+  \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{figures/design/data-model.pdf}
+  \caption{Entity-Relationship Diagram (Catalog, Wanted Posts, and Messaging domain), reconciled with migrations \texttt{0001} and \texttt{0003}.}
   \label{fig:data-model}
 \end{figure}
 
-Authentication records are separated from the user profile. A session family groups rotating refresh sessions and allows family-wide revocation after logout or replay detection. Matching jobs and matching results are also separate from live product records. The API therefore checks the live catalog for visibility and entity versions before returning ranked products.
+\subsection{Negotiation, Reservation, Meetup, and Review Schema}
 
-\begin{figure}[p]
+Figure~\ref{fig:erd-transactions} models the high-contention trading domain. Reconciling the ORM models against Migration~\texttt{0003} reveals two invariants that simple foreign keys alone cannot express:
+\begin{itemize}
+  \item \textbf{One-to-zero-or-one offer acceptance}: \texttt{orders.offer\_id} carries a \texttt{UNIQUE} constraint so the same accepted offer can never generate two orders under concurrent requests.
+  \item \textbf{Single active order per listing with full history}: instead of forcing a lifetime one-to-one constraint between \texttt{products} and \texttt{orders}---which would prevent relisting a cancelled item---Migration~\texttt{0003} defines a PostgreSQL partial unique index \cite{postgresPartialIndex} on \texttt{orders(product\_id)} restricted to \texttt{status NOT IN ('CANCELLED', 'DISPUTED')}. A listing can therefore accumulate historical cancelled or disputed orders while guaranteeing at most one active reservation or completed sale at any instant.
+\end{itemize}
+
+Each order maps to at most one \texttt{meetups} row carrying an integer \texttt{version} counter for optimistic concurrency control, an append-only \texttt{order\_events} audit trail recording every state transition and actor, and at most one \texttt{reviews} row per \texttt{(order\_id, reviewer\_id)} pair.
+
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{figures/design/data-model-transactions.pdf}
-  \caption{Transaction ERD: historical orders and conditional reservation uniqueness.}
+  \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{figures/design/data-model-transactions.pdf}
+  \caption{Entity-Relationship Diagram (Offers, Orders, Meetups, Order Events, and Reviews domain), including Migration~\texttt{0003} partial uniqueness.}
   \label{fig:erd-transactions}
 \end{figure}
-\begin{figure}[p]
+
+\subsection{Moderation, Reporting, and Governance Schema}
+
+Figure~\ref{fig:erd-governance} covers reporting, explicit account sanctions, appeals, notifications, and security audit logs. Three migration-enforced design rules govern this domain:
+\begin{enumerate}
+  \item \textbf{Polymorphic report targets}: \texttt{reports.target\_type} (\texttt{PRODUCT}, \texttt{USER}, \texttt{CHAT\_MESSAGE}, \texttt{WANTED\_POST}) pairs with \texttt{reports.target\_id} as an application-validated polymorphic reference rather than a SQL foreign key, because a single foreign-key column cannot reference four distinct tables cleanly in PostgreSQL.
+  \item \textbf{Active-only report deduplication (Migration~\texttt{0013})}: a partial unique index prevents a user from opening duplicate \texttt{PENDING} or \texttt{PROCESSING} reports against the same target, while allowing a fresh report if a new violation occurs after an earlier report has been resolved or rejected.
+  \item \textbf{Strict one-to-one decision-to-appeal binding (Migration~\texttt{0012})}: \texttt{account\_appeals.\allowbreak decision\_id} is \texttt{NOT NULL} and \texttt{UNIQUE}, ensuring every appeal attaches unambiguously to exactly one \texttt{AccountDecision} record and cannot be resubmitted indefinitely.
+\end{enumerate}
+
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{figures/design/data-model-governance.pdf}
-  \caption{Governance ERD: reports, account decisions, appeals, and notifications.}
+  \includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{figures/design/data-model-governance.pdf}
+  \caption{Entity-Relationship Diagram (Reports, Account Decisions, Appeals, Notifications, and Audit domain), reconciled with migrations \texttt{0011}--\texttt{0013}.}
   \label{fig:erd-governance}
 \end{figure}
-\begin{figure}[p]
+
+\subsection{Code-Aligned Domain Class Structure}
+
+To satisfy direct traceability between design diagrams and Python source code, Figure~\ref{fig:class-diagram} presents a UML~2.5.1 class diagram \cite{uml251} of the core SQLAlchemy ORM classes in \texttt{backend/app/models/}: \texttt{TimestampMixin} (\texttt{mixins.py}), \texttt{User} (\texttt{user.py}), \texttt{Product} (\texttt{product.py}), \texttt{ChatSession} (\texttt{chat.py}), \texttt{Offer} (\texttt{offer.py}), and \texttt{Order}/\texttt{Meetup} (\texttt{order.py}). Consistent with CampusLoop's service-layer architecture, these ORM classes intentionally hold mapped persistence attributes rather than embedded transaction methods; multi-entity invariants (row lock ordering, audit emission, and notification fanout) are orchestrated in stateless service modules under \texttt{backend/app/services/} and route handlers under \texttt{backend/app/api/routes/}. Hollow-triangle arrows represent Python mixin inheritance from \texttt{TimestampMixin}, while directed associations with explicit UML multiplicities correspond to foreign-key relationships in the database schema.
+
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{figures/design/class-diagram.pdf}
-  \caption{Selected real ORM classes and their TimestampMixin inheritance.}
+  \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]{figures/design/class-diagram.pdf}
+  \caption{UML class diagram of core CampusLoop SQLAlchemy ORM classes and \texttt{TimestampMixin}, mapped directly to \texttt{backend/app/models/}.}
   \label{fig:class-diagram}
 \end{figure}
 
-Figures~\ref{fig:erd-transactions} and~\ref{fig:erd-governance} separate trading constraints from moderation records. Dashed Crow's Foot relationships are non-identifying foreign-key associations; circles mean optional participation and bars mean one. The class diagram in Figure~\ref{fig:class-diagram} shows selected mapped attributes and inheritance. Database constraints are recorded in the ERD and source inventory. Solid associations denote foreign-key references, not SQLAlchemy relationship objects. The selected classes declare no domain methods, so their diagram entries list attributes only. The source index records the exact definitions and the still-pending course-Lecture notation check.
+\section{Authentication, Session Lifecycle, and Authorization Matrix}
+\label{sec:design-security}
 
-\section{Authorization Boundaries}
+CampusLoop separates short-lived request credentials from long-lived session persistence to reduce token theft exposure in browser environments \cite{owaspSession}:
+\begin{itemize}
+  \item \textbf{Password storage}: passwords are hashed with Argon2id \cite{rfc9106} (\texttt{time\_cost=2}, \texttt{memory\_\allowbreak cost=19456}~KiB, \texttt{parallelism=1}, 32-byte digest, 16-byte salt) in \texttt{backend/\allowbreak app/\allowbreak core/\allowbreak security.py}. Unknown-email logins execute a verification pass against a precomputed dummy Argon2id hash to mitigate account-enumeration timing leaks.
+  \item \textbf{Access tokens}: signed HS256 JSON Web Tokens \cite{rfc7519} carrying mandatory \texttt{iss} (\texttt{campusloop-api}), \texttt{aud} (\texttt{campusloop-web}), \texttt{sub}, \texttt{sid} (session family UUID), \texttt{jti}, \texttt{iat}, and \texttt{exp} claims, plus header \texttt{kid} verification and zero clock leeway. Access token lifetimes are bounded to at most 900 seconds and held exclusively in JavaScript memory, never in \texttt{localStorage} or \texttt{sessionStorage}.
+  \item \textbf{Rotating refresh cookies and CSRF defense}: browser refresh tokens (32-byte URL-safe random values stored server-side only as SHA-256 digests in \texttt{refresh\_sessions}) travel in an \texttt{HttpOnly}, \texttt{SameSite=Lax} cookie \cite{rfc6265} (prefixed \texttt{\_\_Host-} with \texttt{Secure=True} in production). Every cookie-authenticated renewal or logout request must pass both a strict \texttt{Origin} allowlist check and a custom \texttt{X-CampusLoop-Browser} header check. Reusing a previously rotated refresh token revokes the entire \texttt{AuthSessionFamily}, immediately terminating stolen sessions.
+  \item \textbf{Disabled-account and expired-token precedence}: when an administrator disables an account, all active session families are revoked atomically. On authenticated requests, \texttt{services/auth.py::authenticate} checks access-token expiration (\texttt{401 AUTH\_ACCESS\_EXPIRED}) \emph{before} evaluating \texttt{user.status != "ACTIVE"}; this prevents an expired access token from being used to mint a fresh short-lived \texttt{appealToken} without re-authentication. Active credentials for a disabled user yield \texttt{423 ACCOUNT\_DISABLED} together with a narrowly scoped appeal token that grants access solely to decision notices, appeal evidence upload, and appeal submission.
+\end{itemize}
 
-The permission checks follow the relationship between a user and a record. A seller may edit an eligible product they own, while a conversation or order is accessible only to its participants. This means that being signed in does not give a user access to every record in the system.
+Table~\ref{tab:auth-matrix} summarizes the system's authorization boundaries across all four runtime roles.
 
-These rules are enforced in backend routes and services. Student-only updates reject disabled or non-student actors. Product editing requires ownership and excludes reserved, sold, deleted, or moderated listings. Chat reads and writes require the actor to be either the buyer or seller, and wanted-match results are visible only to the wanted-post owner. Order operations require a participant; risk clues and report resolution require an administrator. Private files are read through authenticated API paths, while product media is placed in the public-read bucket.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Role-based and ownership-based authorization matrix enforced by the FastAPI API.}
+  \label{tab:auth-matrix}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Capability} & \textbf{Guest} & \textbf{Active Student} & \textbf{Disabled Student} & \textbf{Administrator} \\
+    \midrule
+    Browse public catalog \& wanted & Read-only (\texttt{ON\_SALE}, unblocked) & Read-only & Read-only (public endpoints) & Read all incl. hidden/blocked \\
+    Publish/edit/delete listings & Denied (\texttt{401}) & Own listings (blocked delete returns \texttt{409}) & Denied (\texttt{423}) & Moderate hold/restore only \\
+    Chat, offers, orders, meetups & Denied (\texttt{401}) & Participant only & Denied (\texttt{423}) & Inspect dispute / cancel disputed order \\
+    Post-trade reviews & Denied (\texttt{401}) & Completed order party (even if peer disabled) & Denied (\texttt{423}) & Read-only \\
+    Private evidence media & Denied (\texttt{401}) & Own chat, report, decision, and appeal media & Own decision/appeal media via appeal scope & Authorized review evidence \\
+    Reports \& appeals & Denied (\texttt{401}) & Non-self reports; view own decisions & View own decisions; one appeal per decision & Resolve/override reports; independent appeal review \\
+    Account sanctions & Denied (\texttt{401}) & Denied (\texttt{403}) & Denied (\texttt{423}) & Warn/disable/restore \texttt{USER} accounts only \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-The authentication path restores browser identity as follows. Login creates a server-side session family and returns an access token while the browser retains an opaque, HttpOnly cookie. On a page reload, the client calls \texttt{restoreBrowserSession}; the server validates the browser origin and cookie, applies the refresh window, records an audit event, and returns a new short-lived access token and current-user view. Refresh-token replay revokes the entire family before the API returns an authentication error.
+\section{Transaction State Machine and Coordination Sequences}
+\label{sec:design-states}
+
+Because second-hand campus trades complete offline in person, the software state machine must prevent two failure modes: (1) silent double-booking of a single physical item, and (2) unilateral modification of meetup terms after one student believes the handover is complete. Figure~\ref{fig:transaction-states} defines the authoritative order lifecycle, and Table~\ref{tab:state-guards} enumerates the exact transition guards enforced in \texttt{backend/app/api/routes/transactions.py} and \texttt{backend/app/services/order\_governance.py}.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.94\textwidth]{figures/design/session-sequence.pdf}
-  \caption{One peer timeline retaining separate product-session identities.}
-  \label{fig:session-sequence}
-\end{figure}
-
-\section{Transaction State Machine}
-
-A transaction changes both the order and the availability of the product. The API therefore updates their states together. When a pending offer is accepted under row locks, the product changes from \texttt{ON\_SALE} to \texttt{RESERVED}, and a new order enters \texttt{PENDING\_CONFIRM}. The reservation records that the item is involved in an agreed transaction, although the meeting and completion steps are still outstanding.
-
-The participants then agree on a meetup proposal. Its version increases whenever the proposal changes, and a change resets both meetup confirmations and both completion confirmations. This matters because confirming an earlier time or place should not count as accepting a revised arrangement. The order reaches \texttt{MEETUP\_ARRANGED} only after both participants confirm the same version. It reaches \texttt{COMPLETED} only after both confirm completion against that version, at which point the product becomes \texttt{SOLD}. Figure~\ref{fig:transaction-states} shows this path.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.94\textwidth]{figures/design/transaction-states.pdf}
-  \caption{Coordinated listing, order, meetup, and completion states.}
+  \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{figures/design/transaction-states.pdf}
+  \caption{Authoritative order state machine showing meetup confirmation, completion-confirmation immutability guard, dual-disabled escalation, and dispute resolution.}
   \label{fig:transaction-states}
 \end{figure}
 
-Cancellation depends on the order's state and confirmation flags. Once either participant has confirmed completion, cancellation is rejected. Before that point, cancellation releases an eligible listing back to \texttt{ON\_SALE}; a deleted or moderation-blocked listing remains \texttt{HIDDEN}. Every order transition appends an \texttt{OrderEvent}, preserving who acted, the before/after state, a description, and a timestamp. Figure~\ref{fig:order-meetup-sequence} shows the complete negotiation-to-completion interaction.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Order and listing state transition guards verified in \texttt{main@ecc22d2}.}
+  \label{tab:state-guards}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{2.1cm}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Transition} & \textbf{Trigger} & \textbf{Actor} & \textbf{Database Guard \& Side Effects} \\
+    \midrule
+    $\emptyset \to$ \texttt{PENDING\_\allowbreak CONFIRM} & \texttt{acceptOffer} & Non-proposer & Locks \texttt{product -> offer}; requires unexpired \texttt{PENDING} offer; sets \texttt{Product.RESERVED}; partial unique index blocks concurrent orders. \\
+    \texttt{PENDING\_\allowbreak CONFIRM} $\to$ \texttt{MEETUP\_\allowbreak ARRANGED} & \texttt{confirm\allowbreak Meetup} & Buyer \& Seller & Requires matching meetup \texttt{version}; transitions once both \texttt{buyer\_confirmed} and \texttt{seller\_confirmed} are true. \\
+    \texttt{MEETUP\_\allowbreak ARRANGED} $\to$ \texttt{PENDING\_\allowbreak CONFIRM} & \texttt{saveMeetup} & Participant & Rejects with \texttt{409 ORDER\_STATE\_CONFLICT} if either party confirmed completion; rejects stale version (\texttt{409 MEETUP\_VERSION\_CONFLICT}); otherwise increments version and resets meetup flags. \\
+    \texttt{MEETUP\_\allowbreak ARRANGED} $\to$ \texttt{COMPLETED} & \texttt{confirmOrder\allowbreak Complete} & Buyer \& Seller & Records separate buyer/seller flags; transitions only when both are true; sets \texttt{Product.SOLD} and unlocks reviews. \\
+    Active $\to$ \texttt{DISPUTED} & \texttt{protect\_\allowbreak disabled\_\allowbreak orders} & Admin disable & Escalates \texttt{MEETUP\_ARRANGED} orders, partially confirmed orders, or early orders where \emph{both} parties are disabled; prevents dual-disabled deadlock. \\
+    Active / \texttt{DISPUTED} $\to$ \texttt{CANCELLED} & Cancel / \texttt{cancel\_\allowbreak dispute} & Active party / Admin & Cancels meetup; restores \texttt{Product.ON\_SALE} only if no other active/completed/disputed order exists, listing is not deleted/hidden/blocked, and seller is \texttt{ACTIVE}. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Two critical edge cases hardened in \texttt{main@ecc22d2} illustrate why every guard in Table~\ref{tab:state-guards} is enforced server-side. First, \texttt{save\_meetup} explicitly rejects meetup edits (\texttt{409} \texttt{ORDER\_\allowbreak STATE\_\allowbreak CONFLICT}) once either \texttt{buyer\_\allowbreak confirmed\_\allowbreak complete} or \texttt{seller\_\allowbreak confirmed\_\allowbreak complete} is set, eliminating a race in which a counterparty could revert a half-confirmed handover back to \texttt{PENDING\_\allowbreak CONFIRM}. Second, \texttt{protect\_\allowbreak disabled\_\allowbreak orders} checks the peer's account status whenever a user is disabled: if an early \texttt{PENDING\_CONFIRM} order still has one \texttt{ACTIVE} participant, that student retains the ability to cancel cleanly; if \emph{both} participants are disabled, the order escalates automatically to \texttt{DISPUTED} so an administrator can resolve it via \texttt{cancel\_dispute} without leaving the listing permanently locked.
+
+Figures~\ref{fig:session-sequence} and~\ref{fig:order-meetup-sequence} detail the corresponding interaction protocols across the client, FastAPI API, PostgreSQL, and Redis. In Figure~\ref{fig:session-sequence}, the buyer establishes or reuses a peer chat session, shifts active product context without fragmenting history, and submits messages with a client-generated \texttt{clientMsgId}; PostgreSQL commits the message first and enforces idempotency (\texttt{200} on identical retry, \texttt{409} \texttt{MESSAGE\_\allowbreak ID\_\allowbreak CONFLICT} on mutated payload) before best-effort Redis fanout occurs.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/design/order-meetup-sequence.pdf}
-  \caption{Offer acceptance, versioned meetup agreement, and dual completion confirmation.}
+  \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{figures/design/session-sequence.pdf}
+  \caption{UML sequence diagram for peer-pair chat session reuse, active product context updates, idempotent message persistence, and best-effort Redis fanout.}
+  \label{fig:session-sequence}
+\end{figure}
+
+In Figure~\ref{fig:order-meetup-sequence}, buyer and seller coordinate offer acceptance, version-checked meetup scheduling, mutual meetup confirmation, and dual completion confirmation. Every mutating request acquires PostgreSQL row locks in a fixed hierarchy before committing state changes and appending an \texttt{OrderEvent}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth,height=0.80\textheight,keepaspectratio]{figures/design/order-meetup-sequence.pdf}
+  \caption{UML sequence diagram for offer reservation, optimistic-versioned meetup editing with completion-immutability guard, and dual-party trade completion.}
   \label{fig:order-meetup-sequence}
 \end{figure}
 
-\section{Governance Design}
+\section{Explicit Governance Separation and Auditability}
+\label{sec:design-governance}
 
-A report is a request for human review, not an automatic sanction. The reporting route prevents self-reporting, verifies that an order or chat-message reporter is a participant, verifies media ownership, and rejects a duplicate open report with the same reporter, target, and reason. Resolution is restricted to administrators. A normal decision accepts only pending or processing reports; changing a completed decision requires an explicit override containing the status and handling timestamp last observed by the administrator. The server compares those values with the saved record. A stale browser cannot overwrite a newer decision.
-
-Each resolution saves the handler, time, required note, and resulting status. It also notifies the reporter and writes an audit event with before and after snapshots. The event explicitly records \texttt{enforcementExecuted=false}; the present implementation resolves the report record but does not claim that a user or listing sanction was automatically executed.
-
-\section{Explicit Account Handling and Appeals}
-
-Resolving a report records what an administrator decided about that report. Issuing a warning or disabling a student account is a separate action, which requires a reason, facts, and policy basis. Keeping these commands separate makes it possible to record the report outcome without silently treating it as an account sanction.
-
-Disabling an account also affects transactions already in progress. The system revokes transaction sessions and protects the affected orders. Orders with a confirmed meetup or a completion confirmation move to dispute; earlier reservations remain available for controlled cancellation by an active participant. This treatment reflects the difference between an early reservation and a transaction where a participant may already have acted on an agreed meeting.
-
-A student whose trading access is disabled can still use restricted appeal access to read the disclosed decision snapshot and submit an appeal. Another administrator normally reviews it. The development environment has an explicitly configured single-administrator exception, but its use is audited and does not count as independent review. If the account is reinstated, the original decision history remains, and disputed transactions are not automatically resolved.
-
-\section{Traceability Baseline}
-
-All claims in Chapters~\ref{chap:design}--\ref{chap:decisions} were checked against repository commit \texttt{edb9e32871eac2966750993294078acbfdba65f9}. The companion \texttt{architecture-source-index.md} maps every diagram and source chain to concrete routes, services, models, frontend calls, and deployment definitions. Using one fixed baseline keeps the chapter descriptions tied to the same version of the software.
+A foundational design invariant of CampusLoop is the strict separation between \emph{report triage} and \emph{account or listing enforcement}. Resolving or overriding a user report records an audited administrative disposition (\texttt{RESOLVED} or \texttt{REJECTED}, with a mandatory reason and optimistic status check against stale concurrent overrides), but never silently suspends a user or removes a listing as a side effect. Conversely, manual sanctions are issued through dedicated endpoints:
+\begin{itemize}
+  \item \textbf{Product moderation} (\texttt{POST /admin/products/\{id\}/moderate}): explicitly places or clears \texttt{moderation\_blocked}, supporting holds even on seller-\texttt{HIDDEN} listings so a user cannot evade moderation by temporarily hiding an item. Listings under moderation hold cannot be deleted by the owner (\texttt{409}).
+  \item \textbf{Account decisions and appeals} (\texttt{services/moderation.py}): records an immutable \texttt{AccountDecision} (\texttt{WARNING} or \texttt{DISABLE}) with structured reason, facts, policy basis, optional validated product reference, and administrator-owned private evidence. Disabling an account atomically revokes all active refresh session families, runs \texttt{protect\_\allowbreak disabled\_\allowbreak orders}, and notifies the user. Appeals require an independent administrator reviewer (\texttt{decision.actor\_id != actor.id}); a single-administrator bypass is permitted only when \texttt{APP\_ENV=dev}, \texttt{ALLOW\_SINGLE\_\allowbreak ADMIN\_REVIEW=true}, and no second active administrator exists, and even then writes an explicit \texttt{admin\_single\_\allowbreak reviewer\_\allowbreak exception} audit entry.
+\end{itemize}

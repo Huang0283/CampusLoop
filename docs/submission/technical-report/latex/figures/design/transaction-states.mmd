@@ -1,20 +1,18 @@
 stateDiagram-v2
-    [*] --> ON_SALE: product published
-    ON_SALE --> RESERVED: offer accepted
-    RESERVED --> ON_SALE: order cancelled and listing eligible
-    RESERVED --> HIDDEN: cancelled after moderation or deletion
-    RESERVED --> SOLD: both parties confirm completion
+  direction TB
 
-    state OrderLifecycle {
-      [*] --> PENDING_CONFIRM: accepted offer creates order
-      PENDING_CONFIRM --> MEETUP_ARRANGED: both confirm same meetup version
-      MEETUP_ARRANGED --> COMPLETED: both confirm completion
-      PENDING_CONFIRM --> CANCELLED: participant cancels
-      MEETUP_ARRANGED --> CANCELLED: participant cancels before completion confirmation
-      MEETUP_ARRANGED --> DISPUTED: participant disabled
-      MEETUP_ARRANGED --> PENDING_CONFIRM: meetup proposal changed
-    }
+  [*] --> PENDING_CONFIRM : acceptOffer [Product RESERVED]
 
-    COMPLETED --> [*]
-    CANCELLED --> [*]
-    DISPUTED --> CANCELLED: authorized manual cancellation
+  PENDING_CONFIRM --> MEETUP_ARRANGED : both confirm meetup
+  PENDING_CONFIRM --> CANCELLED : active participant cancels
+  PENDING_CONFIRM --> DISPUTED : account disabled [both disabled]
+
+  MEETUP_ARRANGED --> PENDING_CONFIRM : saveMeetup [no completion confirmed]
+  MEETUP_ARRANGED --> COMPLETED : both confirm complete [Product SOLD]
+  MEETUP_ARRANGED --> CANCELLED : participant cancels [pre-completion]
+  MEETUP_ARRANGED --> DISPUTED : account disabled
+
+  DISPUTED --> CANCELLED : admin cancel_dispute [re-evaluates listing]
+
+  COMPLETED --> [*]
+  CANCELLED --> [*]

@@ -1,45 +1,61 @@
 erDiagram
- direction TB
- chat_sessions ||..o{ offers : session_id
- products ||..o{ orders : historical_orders
- offers |o..o| orders : offer_id
- orders ||..o| meetups : order_id
- orders ||..o{ order_events : order_id
- orders ||..o{ reviews : order_id
- offers {
-  bigint id PK
-  bigint session_id FK
-  bigint proposer_id FK
-  numeric amount
-  varchar status
- }
- orders {
-  bigint id PK
-  bigint product_id FK "partial UNIQUE active reservation, 0003"
-  bigint offer_id FK,UK "nullable"
-  bigint buyer_id FK
-  bigint seller_id FK
-  numeric amount
-  varchar status
- }
- meetups {
-  bigint id PK
-  bigint order_id FK,UK
-  integer version
-  integer buyer_confirmed_version
-  integer seller_confirmed_version
- }
- order_events {
-  bigint id PK
-  bigint order_id FK
-  bigint operator_id FK
-  varchar from_status "nullable"
-  varchar to_status
- }
- reviews {
-  bigint id PK
-  bigint order_id FK
-  bigint reviewer_id FK "unique with order_id"
-  bigint reviewee_id FK
-  integer rating
- }
+  users {
+    bigint id PK
+    varchar role
+    varchar status
+  }
+  products {
+    bigint id PK
+    bigint owner_id FK
+    varchar status
+  }
+  chat_sessions {
+    bigint id PK
+    bigint product_id FK
+    bigint buyer_id FK
+    bigint seller_id FK
+  }
+  offers {
+    bigint id PK
+    bigint session_id FK
+    bigint product_id FK
+    bigint proposer_id FK
+    numeric amount
+    varchar status
+  }
+  orders {
+    bigint id PK
+    bigint product_id FK
+    bigint buyer_id FK
+    bigint seller_id FK
+    bigint offer_id FK
+    varchar status
+  }
+  meetups {
+    bigint id PK
+    bigint order_id FK
+    int version
+    varchar status
+  }
+  order_events {
+    bigint id PK
+    bigint order_id FK
+    bigint actor_id FK
+    varchar to_status
+  }
+  reviews {
+    bigint id PK
+    bigint order_id FK
+    bigint reviewer_id FK
+    int rating
+  }
+
+  chat_sessions ||--o{ offers : "session_id"
+  products ||--o{ offers : "product_id"
+  users ||--o{ offers : "proposer_id"
+  offers ||--o| orders : "unique offer_id (0003)"
+  products ||--o{ orders : "1 active (not CANCELLED/DISPUTED)"
+  users ||--o{ orders : "buyer_id / seller_id"
+  orders ||--o| meetups : "unique order_id"
+  orders ||--o{ order_events : "order_id"
+  orders ||--o{ reviews : "unique(order,reviewer)"

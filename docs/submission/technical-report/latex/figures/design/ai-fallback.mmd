@@ -1,14 +1,28 @@
 flowchart TB
- Input["Validate input and hard constraints"] --> Kind{"Task"}
- Kind -->|"keyword / wanted"| M7["Frozen M7 RPC, 1.5 s"]
- M7 --> Rule["Validate frozen response, else local rules with degradation reason"]
- Kind -->|"semantic / hybrid search"| Sem["Live BGE scorer, 3 s"]
- Sem --> Check["Check version, identities, finite scores and constraints"]
- Check -->|"failure"| Lex["Keyword refinement, SEMANTIC_UNAVAILABLE"]
- Check -->|"valid"| Visible["Re-read visibility and entity versions"]
- Rule --> Visible
- Lex --> Visible
- Kind -->|"price"| Price["Frozen M8 rules or unavailable interval"]
- Price --> Manual["Disclaimer and manual pricing"]
- Kind -->|"trust / risk"| Clues["Observed reviews or activity counts, absent signals null"]
- Clues --> Human["Restricted output and administrator review, no automatic action"]
+  PGREAD["API Request / Matching Worker\nRead Live PostgreSQL Snapshot (ON_SALE, ACTIVE, <= 5,000)"] --> VALID["Pre-RPC Schema & Hard-Constraint Gate\n(422 on Invalid Input Before Any RPC)"]
+
+  VALID --> SEARCH["Search & Wanted Matching"]
+  VALID --> PRICE["Price Advice & Market Reference"]
+  VALID --> TR["Trust Summary & Risk Clues"]
+
+  SEARCH --> SEM{"Semantic / Hybrid\nConfigured?"}
+  SEM -->|"Yes (3.0 s)"| BGE["Live BGE Scorer (/score)\nRRF Fusion + Scope Filter"]
+  SEM -->|"No"| M7["Frozen M7 RPC (1.5 s)\nKeyword Rule Scorer"]
+  BGE -.->|"Timeout / 5xx / Invalid"| M7
+  M7 -.->|"Timeout / 413 / 5xx"| LOCAL["In-Process M7 Baseline\n(degraded = true)"]
+
+  BGE --> RECHECK["Re-read PostgreSQL Visibility\n& Entity Version"]
+  M7 --> RECHECK
+  LOCAL --> RECHECK
+
+  PRICE --> M8P["Frozen M8 Price RPC (1.5 s)\nRule Interval (Always Degraded)\n+ 90-Day Asking Quartiles"]
+  M8P -.->|"Unavailable / Timeout"| PFAIL["Status: UNAVAILABLE\n(null interval)"]
+
+  TR --> M8TR["Frozen M8 Trust & Risk RPC\n(1.5 s Timeout)\nBayesian Prior / 5 Thresholds"]
+  M8TR -.->|"Unavailable / Timeout"| TRFAIL["Status: UNAVAILABLE\n(enforcementExecuted = false)"]
+
+  RECHECK --> OUT["Checked Advisory DTO\n(No Automatic Enforcement Writes)"]
+  M8P --> OUT
+  PFAIL --> OUT
+  M8TR --> OUT
+  TRFAIL --> OUT

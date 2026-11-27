@@ -1,13 +1,34 @@
 flowchart TB
- Browser["React browser"] -->|"HTTP JSON / authenticated WS"| API["FastAPI"]
- Browser -->|"HTTP: public listing text"| Translation["Local catalog translation"]
- Browser -->|"HTTP public images"| Public["MinIO public bucket"]
- API -->|"SQL transactions"| DB[("PostgreSQL + pgvector")]
- API -->|"Redis protocol: rate limits"| Redis[("Redis")]
- API -->|"S3 object operations"| Private["MinIO private bucket"]
- API -->|"HTTP RPC: 1.5 seconds"| Advisory["Frozen M7/M8 services"]
- API -->|"HTTP: 3 seconds"| Semantic["Optional live BGE scorer"]
- Worker["Matching worker"] -->|"SQL claim and persist jobs"| DB
- Worker -->|"HTTP RPC"| Advisory
- API -->|"SQL enqueue"| DB
- Translation -.-> Note["Display text only, original fields retained"]
+  subgraph Client["Client Tier"]
+    WEB["React Web Application\n(Typed OpenAPI SDK)"]
+  end
+
+  subgraph Core["Core API & Realtime Tier"]
+    direction LR
+    API["FastAPI Core API\n(Auth, Catalog, Orders, Governance)"]
+    REDIS["Redis\n(Rate Limits & Pub/Sub)"]
+    API -->|"Counters & fanout"| REDIS
+  end
+
+  subgraph Persist["Authoritative Persistence & Async Worker Tier"]
+    direction LR
+    MINIO["MinIO Storage\n(Public & Private Buckets)"]
+    PG["PostgreSQL 16 + pgvector\n(27 Tables, Locks & Outbox)"]
+    WORKER["Matching Worker\n(SKIP LOCKED + /healthz)"]
+    WORKER -->|"Claim jobs & write results"| PG
+  end
+
+  subgraph Advisory["Non-Authoritative Advisory & Display Tier"]
+    direction LR
+    M7M8["Frozen M7 / M8 RPC\n(Keyword, Price, Trust, Risk)"]
+    SEM["Optional Live BGE\n(Semantic /score)"]
+    TRANS["Local Translator\n(HY-MT1.5-1.8B, Public Only)"]
+  end
+
+  WEB -->|"HTTPS JSON / Cookie / WS"| API
+  WEB -.->|"Public catalog text"| TRANS
+  API -->|"S3 put / get"| MINIO
+  API -->|"SQL & row locks"| PG
+  API -->|"HTTP RPC (1.5 s)"| M7M8
+  WORKER -->|"HTTP RPC (1.5 s)"| M7M8
+  API -.->|"Optional HTTP (3.0 s)"| SEM

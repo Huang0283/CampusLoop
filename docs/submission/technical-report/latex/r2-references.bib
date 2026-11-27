@@ -1,20 +1,140 @@
-@manual{r2OpenAPI,
- author={{OpenAPI Initiative}}, title={OpenAPI Specification v3.1.0}, year={2021},
- url={https://spec.openapis.org/oas/v3.1.0.html},
- note={Definition and Operation Object sections; accessed 2026-11-27}
+@misc{openapi31,
+  author       = {{OpenAPI Initiative}},
+  title        = {{OpenAPI Specification v3.1.0}},
+  year         = {2021},
+  howpublished = {\url{https://spec.openapis.org/oas/v3.1.0.html}},
+  note         = {Official API contract specification}
 }
-@manual{r2PartialIndexes,
- author={{PostgreSQL Global Development Group}}, title={PostgreSQL 16 Documentation: Partial Indexes},
- url={https://www.postgresql.org/docs/16/indexes-partial.html},
- note={Section 11.8; accessed 2026-11-27}
+
+@misc{fastapiDocs,
+  author       = {Ram\'{i}rez, Sebasti\'{a}n and {FastAPI Contributors}},
+  title        = {{FastAPI Framework Documentation}},
+  howpublished = {\url{https://fastapi.tiangolo.com/}},
+  note         = {Official documentation for routing, dependency injection, and OpenAPI schema generation}
 }
-@manual{r2Locks,
- author={{PostgreSQL Global Development Group}}, title={PostgreSQL 16 Documentation: Explicit Locking},
- url={https://www.postgresql.org/docs/16/explicit-locking.html},
- note={Sections 13.3.2 and 13.3.4; accessed 2026-11-27}
+
+@misc{pydanticDocs,
+  author       = {{Pydantic Services Inc.}},
+  title        = {{Pydantic V2 Documentation: Validation and Settings Management}},
+  howpublished = {\url{https://docs.pydantic.dev/latest/}},
+  note         = {Official documentation for strict input models and environment-driven settings}
 }
-@manual{r2Mixins,
- author={{SQLAlchemy Authors}}, title={SQLAlchemy 2.0 Documentation: Composing Mapped Hierarchies with Mixins},
- url={https://docs.sqlalchemy.org/en/20/orm/declarative_mixins.html},
- note={Mixing in Columns section; accessed 2026-11-27}
+
+@misc{sqlalchemy20,
+  author       = {{SQLAlchemy Authors}},
+  title        = {{SQLAlchemy 2.0 Documentation: ORM Declarative Mixins, Mapped Columns, and Session Events}},
+  howpublished = {\url{https://docs.sqlalchemy.org/en/20/orm/declarative_mixins.html}},
+  note         = {Official ORM documentation}
+}
+
+@misc{postgresPartialIndex,
+  author       = {{PostgreSQL Global Development Group}},
+  title        = {{PostgreSQL 16 Documentation: Section 11.8, Partial Indexes}},
+  howpublished = {\url{https://www.postgresql.org/docs/16/indexes-partial.html}},
+  note         = {Official documentation for conditional unique indexes}
+}
+
+@misc{postgresExplicitLocking,
+  author       = {{PostgreSQL Global Development Group}},
+  title        = {{PostgreSQL 16 Documentation: Section 13.3, Explicit Locking}},
+  howpublished = {\url{https://www.postgresql.org/docs/16/explicit-locking.html}},
+  note         = {Official documentation for row-level locks, NOWAIT, and SKIP LOCKED}
+}
+
+@misc{pgvectorDocs,
+  author       = {Kane, Andrew and {pgvector Contributors}},
+  title        = {{pgvector: Open-Source Vector Similarity Search for Postgres}},
+  howpublished = {\url{https://github.com/pgvector/pgvector}},
+  note         = {PostgreSQL vector extension packaged in the database container image}
+}
+
+@misc{redisDocs,
+  author       = {{Redis Ltd.}},
+  title        = {{Redis Documentation: Pub/Sub Messaging and Atomic Counters}},
+  howpublished = {\url{https://redis.io/docs/latest/}},
+  note         = {Official documentation for ephemeral real-time fanout and rate-limiting storage}
+}
+
+@misc{minioDocs,
+  author       = {{MinIO, Inc.}},
+  title        = {{MinIO Object Storage Documentation (Amazon S3-Compatible API)}},
+  howpublished = {\url{https://min.io/docs/minio/linux/index.html}},
+  note         = {Official documentation for bucket isolation and S3v4 object operations}
+}
+
+@misc{reactDocs,
+  author       = {{Meta Platforms, Inc.}},
+  title        = {{React Official Documentation}},
+  howpublished = {\url{https://react.dev/}},
+  note         = {Official documentation for component composition, hooks, and browser state management}
+}
+
+@techreport{rfc9106,
+  author       = {Biryukov, Alex and Dinu, Daniel and Khovratovich, Dmitry and Josefsson, Simon},
+  title        = {{Argon2 Memory-Hard Function for Password Hashing and Proof-of-Work Applications}},
+  institution  = {Internet Engineering Task Force (IETF)},
+  type         = {RFC},
+  number       = {9106},
+  month        = sep,
+  year         = {2021},
+  howpublished = {\url{https://www.rfc-editor.org/rfc/rfc9106}}
+}
+
+@techreport{rfc7519,
+  author       = {Jones, Michael and Bradley, John and Sakimura, Nat},
+  title        = {{JSON Web Token (JWT)}},
+  institution  = {Internet Engineering Task Force (IETF)},
+  type         = {RFC},
+  number       = {7519},
+  month        = may,
+  year         = {2015},
+  howpublished = {\url{https://www.rfc-editor.org/rfc/rfc7519}}
+}
+
+@techreport{rfc6265,
+  author       = {Barth, Adam},
+  title        = {{HTTP State Management Mechanism}},
+  institution  = {Internet Engineering Task Force (IETF)},
+  type         = {RFC},
+  number       = {6265},
+  month        = apr,
+  year         = {2011},
+  howpublished = {\url{https://www.rfc-editor.org/rfc/rfc6265}}
+}
+
+@misc{owaspSession,
+  author       = {{OWASP Foundation}},
+  title        = {{OWASP Session Management Cheat Sheet}},
+  howpublished = {\url{https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html}},
+  note         = {Security engineering reference for HttpOnly cookies, token rotation, and CSRF boundaries}
+}
+
+@inproceedings{cormack2009rrf,
+  author       = {Cormack, Gordon V. and Clarke, Charles L. A. and Buettcher, Stefan},
+  title        = {{Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods}},
+  booktitle    = {Proceedings of the 32nd International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '09)},
+  pages        = {758--759},
+  year         = {2009},
+  publisher    = {ACM},
+  doi          = {10.1145/1571941.1572114}
+}
+
+@inproceedings{xiao2024bge,
+  author       = {Xiao, Shitao and Liu, Zheng and Zhang, Peitian and Muennighoff, Niklas and Lian, Defu and Nie, Jian-Yun},
+  title        = {{C-Pack: Packed Resources for General Chinese Embeddings}},
+  booktitle    = {Proceedings of the 47th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '24)},
+  pages        = {641--649},
+  year         = {2024},
+  publisher    = {ACM},
+  doi          = {10.1145/3626772.3657878}
+}
+
+@techreport{uml251,
+  author       = {{Object Management Group (OMG)}},
+  title        = {{OMG Unified Modeling Language (OMG UML), Version 2.5.1}},
+  institution  = {Object Management Group},
+  number       = {formal/2017-12-05},
+  month        = dec,
+  year         = {2017},
+  howpublished = {\url{https://www.omg.org/spec/UML/2.5.1}}
 }

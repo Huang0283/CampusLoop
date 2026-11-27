@@ -1,22 +1,54 @@
-% R2-only compile harness. R1 retains ownership of main.tex and preamble.tex.
+% R2 standalone compile harness matching course typography requirements.
+% R1 retains ownership of main.tex and preamble.tex for the integrated report.
 \documentclass[12pt,a4paper]{report}
 \usepackage{fontspec}
 \setmainfont{Times New Roman}
 \usepackage[margin=2.54cm]{geometry}
-\usepackage{setspace}
-\onehalfspacing
+\IfFileExists{setspace.sty}{%
+  \usepackage{setspace}%
+  \onehalfspacing%
+}{%
+  \linespread{1.25}\selectfont%
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{caption}
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
+
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+\emergencystretch=2.5em
+
 \begin{document}
-\title{CampusLoop: R2 Technical Chapters --- Review Preview}
-\author{R2 working material; integration and independent review pending}
-\date{27 November 2026}
-\maketitle
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+  {\LARGE\bfseries CampusLoop Second-Hand Campus Trading Platform\par}
+  \vspace{0.8cm}
+  {\Large Technical Chapters: System Design, Implementation, Advisory Intelligence, and Architectural Decisions\par}
+  \vspace{1.2cm}
+  {\normalsize R2 Technical Core Preview Harness (for R1 Integration into Final Technical Report)\par}
+  \vspace{0.5cm}
+  {\normalsize Verified Software Baseline: \texttt{main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6}\par}
+  \vfill
+  {\normalsize 27 November 2026\par}
+\end{titlepage}
+
+\pagenumbering{roman}
 \tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+\pagenumbering{arabic}
 \input{chapters/design}
 \input{chapters/implementation}
 \input{chapters/ai-methods-and-limitations}
 \input{chapters/technical-decisions}
+
 \bibliographystyle{plain}
 \bibliography{r2-references}
 \end{document}

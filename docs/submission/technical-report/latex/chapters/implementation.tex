@@ -1,74 +1,106 @@
-\chapter{Implementation}
-\label{chap:implementation}
+\chapter{System Implementation}
+\label{ch:implementation}
 
-\section{Client and API Layers}
+This chapter describes how CampusLoop translates the architectural design of Chapter~\ref{ch:design} into concrete frontend, backend, persistence, worker, media, and deployment mechanisms. All module paths, function names, HTTP contracts, concurrency locks, and error codes reflect the verified codebase at \texttt{main@ecc22d2}.
 
-This chapter follows requests from the page where an action begins to the backend checks and records that it produces. The aim is to explain how the design is implemented, including what happens when a request is repeated, outdated, or submitted by someone without permission. The source index provides the corresponding files and operation names for each chain.
+\section{Frontend Architecture and Typed OpenAPI SDK Layer}
+\label{sec:impl-frontend}
 
-The browser application is implemented in React and TypeScript. Feature pages call the generated SDK through a small handwritten adapter. This keeps endpoint definitions out of individual pages. The adapter restores identity on startup, attaches the bearer access token to protected requests, and uses the browser-session header for cookie-backed restoration. Market pages publish products, search the catalog, request wanted matches, obtain price advice, and start chat sessions. Chat pages send messages and offers and navigate to the newly created order after acceptance. Transaction pages expose meetup proposal, meetup confirmation, and completion confirmation. Administrator pages load risk clues and submit report decisions.
+The web frontend (\texttt{frontend/src/}) is built with React and TypeScript \cite{reactDocs}, structured so that UI pages never assemble raw HTTP requests or hand-maintain response DTOs. Instead, the FastAPI backend exports its OpenAPI~3.1 specification \cite{openapi31}, from which \texttt{frontend/src/sdk/generated/sdk.gen.ts} and its accompanying TypeScript definitions are generated. A thin runtime wrapper in \texttt{frontend/src/sdk/index.ts} layers session management, automatic token refresh, idempotency headers, and error normalization over the generated client.
 
-FastAPI route modules separate authentication, market, transaction, intelligence, media, and governance concerns. Pydantic input models reject invalid shapes and bounds before domain logic is executed. A common response envelope and structured business errors keep client handling consistent. SQLAlchemy sessions group related writes into a transaction. The API stages the records, events, notifications, and audit data before committing them.
+Key client-side reliability and security mechanisms implemented in \texttt{frontend/src/} include:
+\begin{itemize}
+  \item \textbf{In-memory identity restoration}: on initial page load, \texttt{restoreIdentity()} invokes \texttt{restoreBrowserSession} using the browser's \texttt{HttpOnly} refresh cookie together with the \texttt{X-CampusLoop-Browser} header, hydrating a short-lived access token strictly in JavaScript memory.
+  \item \textbf{Scoped error and lock-out handling}: response interceptors in \texttt{sdk/index.ts} trigger local session cleanup on \texttt{401} or \texttt{423} only for authenticated or session-management requests (\texttt{sessionRequest || authenticationRequest}), preventing unauthenticated public fetches or third-party checks from spuriously clearing an active session.
+  \item \textbf{Per-request cancellation and safe retry keys}: the \texttt{useRemote} hook attaches a fresh \texttt{AbortController} to every query so rapidly changing filters or route navigations cannot overwrite newer state with stale responses. Mutating forms use \texttt{useAttemptKey()} to bind a stable \texttt{Idempotency-Key} across retries of the same submission and explicitly call \texttt{reset()} once the operation succeeds so subsequent distinct edits obtain fresh keys.
+  \item \textbf{Loop-free navigation}: \texttt{BackLink.tsx} sanitizes return paths by stripping URL fragments, rejecting external origins, preventing cycles, and capping navigation chain depth at eight entries.
+\end{itemize}
 
-\section{Six End-to-End Source Chains}
+\section{Backend API Layer, Validation, and Error Contracts}
+\label{sec:impl-backend}
 
-\subsection{Browser Session Restoration}
+The backend (\texttt{backend/app/}) exposes modular FastAPI routers under \texttt{backend/app/\allowbreak api/\allowbreak routes/}: \texttt{auth.py}, \texttt{market.py}, \texttt{transactions.py}, \texttt{governance.py}, \texttt{moderation.py}, \texttt{admin\_\allowbreak console.py}, \texttt{intelligence.py}, and \texttt{realtime.py}. Every request body inherits from a shared Pydantic~V2 strict schema (\texttt{StrictInput}, configured with \texttt{extra="forbid"}) \cite{pydanticDocs} so unexpected client properties fail early with HTTP~\texttt{422} rather than being silently ignored.
 
-The client method \texttt{restoreIdentity} calls \texttt{POST /auth/browser-session}. The route reads the session family from the secure browser cookie and checks the request origin and refresh window. It then creates an access token, serializes the current user, records \texttt{browser\_session\_restored}, and commits. The response is marked \texttt{no-store}. A separate refresh route rotates one-time refresh sessions; reusing a consumed token commits family revocation before returning an error.
+All domain and validation errors funnel through \texttt{BusinessError} in \texttt{backend/app/\allowbreak core/\allowbreak errors.py}, returning a uniform JSON envelope containing a machine-readable error code (such as \texttt{AUTH\_\allowbreak ACCESS\_\allowbreak EXPIRED}, \texttt{MESSAGE\_\allowbreak ID\_\allowbreak CONFLICT}, \texttt{MEETUP\_\allowbreak VERSION\_\allowbreak CONFLICT}, \texttt{ORDER\_\allowbreak STATE\_\allowbreak CONFLICT}, or \texttt{INDEPENDENT\_\allowbreak REVIEW\_\allowbreak REQUIRED}) and human-readable message. Path-parameter lookups routed through \texttt{load()} enforce PostgreSQL signed 64-bit \texttt{BIGINT} range bounds ($1 \le \text{id} \le 2^{63}-1$) before querying the database, mapping out-of-range integers cleanly to \texttt{404 NOT\_FOUND} instead of raising unhandled database driver exceptions.
 
-\subsection{Product Publication}
+\section{End-to-End Source Chains}
+\label{sec:impl-chains}
 
-Product publication begins with the seller's form and selected images. The market page uploads those images and calls \texttt{createProduct} with their object keys. Before saving the listing, the API checks that every key belongs to the actor and was uploaded for product media. It then inserts a product in \texttt{ON\_SALE}, saves the image order, and returns the public product representation.
+To provide direct code traceability across the full stack, Table~\ref{tab:source-chains} maps six core user and administrative workflows from React UI components through generated SDK operations and FastAPI route/service handlers to authoritative PostgreSQL tables and failure boundaries.
 
-The request also carries an idempotency key scoped to \texttt{create-product}. This handles a common retry situation: the browser may not receive a response even though the server has already saved the listing. Repeating the same request with the same key returns the stored result instead of creating another product.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Six end-to-end source chains verified at \texttt{main@ecc22d2}.}
+  \label{tab:source-chains}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Workflow} & \textbf{UI $\to$ SDK $\to$ Backend Handler} & \textbf{Persisted Tables} & \textbf{Primary Boundary / Guard} \\
+    \midrule
+    1. Browser Session & \texttt{AccountPages.tsx}, \texttt{sdk/index.ts} $\to$ \texttt{login}, \texttt{refreshSession}, \texttt{restoreBrowser\allowbreak Session} $\to$ \texttt{auth.py}, \texttt{services/auth.py} & \texttt{users}, \texttt{auth\_session\_\allowbreak families}, \texttt{refresh\_\allowbreak sessions}, \texttt{auth\_audits} & Rejects untrusted \texttt{Origin} or missing CSRF header; revokes full family on replay; expired token fails \texttt{401} before appeal check. \\
+    2. Listing Publish & \texttt{MarketPages.tsx}, \texttt{ImageQueue.tsx} $\to$ \texttt{uploadImage}, \texttt{createProduct} $\to$ \texttt{market.py}, \texttt{services/storage.py} & \texttt{uploaded\_\allowbreak objects}, \texttt{products}, \texttt{product\_\allowbreak images}, \texttt{idempotency\_\allowbreak records} & Validates MIME/pixels/EXIF; enforces \texttt{owned\_keys} ownership \& purpose; conflicts on mutated idempotency replay. \\
+    3. Chat \& Offer & \texttt{ChatPages.tsx} $\to$ \texttt{createChatSession}, \texttt{listMessages}, \texttt{sendMessage}, \texttt{createOffer} $\to$ \texttt{transactions.py} & \texttt{chat\_sessions}, \texttt{chat\_\allowbreak messages}, \texttt{offers}, \texttt{notifications} & Blocks self-contact; checks participant; enforces \texttt{MESSAGE\_ID\_\allowbreak CONFLICT}; dynamically marks past-expiry offers \texttt{EXPIRED}. \\
+    4. Unique Reserve & \texttt{ChatPages.tsx} $\to$ \texttt{acceptOffer} $\to$ \texttt{transactions.py::\allowbreak accept\_offer} & \texttt{offers}, \texttt{products}, \texttt{orders}, \texttt{order\_events}, \texttt{idempotency\_\allowbreak records} & Blocks self-acceptance; locks \texttt{product -> offer}; Migration~\texttt{0003} unique \texttt{offer\_id} \& partial active \texttt{product\_id} index. \\
+    5. Meetup \& Review & \texttt{TransactionPages.tsx} $\to$ \texttt{saveMeetup}, \texttt{confirmMeetup}, \texttt{confirmOrder\allowbreak Complete}, \texttt{createReview} $\to$ \texttt{transactions.py} & \texttt{meetups}, \texttt{orders}, \texttt{order\_events}, \texttt{products}, \texttt{reviews} & Rejects stale meetup version (\texttt{409}) and post-completion edits (\texttt{409}); dual flags for \texttt{COMPLETED}; allows review even if peer disabled. \\
+    6. Governance \& Appeals & \texttt{AdminPages.tsx}, \texttt{AccountDecision\allowbreak Controls.tsx}, \texttt{AppealsPage.tsx}, \texttt{ModerationPages.tsx} $\to$ \texttt{resolveReport}, \texttt{overrideReport}, \texttt{adminCreate\allowbreak AccountDecision}, \texttt{submitAccount\allowbreak Appeal}, \texttt{adminReview\allowbreak AccountAppeal} $\to$ \texttt{governance.py}, \texttt{moderation.py} & \texttt{reports}, \texttt{account\_\allowbreak decisions}, \texttt{account\_\allowbreak appeals}, \texttt{auth\_audits}, \texttt{notifications} & Blocks self-reporting own message; separates triage from sanctions; revokes sessions \& protects orders on disable; enforces independent reviewer. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-\subsection{Chat and Offer Negotiation}
+Several subtle operational refinements verified in \texttt{main@ecc22d2} close edge cases discovered during end-to-end auditing:
+\begin{itemize}
+  \item \textbf{Closing offers under state transitions}: \texttt{cancel\_offer} and \texttt{reject\_offer} pass \texttt{closing=True} when loading the target offer, enabling participants to cleanly close lingering \texttt{PENDING} offers even after the underlying product has been \texttt{RESERVED} by another trade or the counterparty's account has been disabled.
+  \item \textbf{Dynamic expiry projection}: \texttt{offer\_fields()} dynamically reports any \texttt{PENDING} offer whose \texttt{expires\_at} timestamp has passed as \texttt{EXPIRED} during read serialization, preventing stale pending badges in chat even before a write touches the row.
+  \item \textbf{Post-completion reviews with disabled peers}: \texttt{create\_review} invokes participant loading with \texttt{allow\_disabled\_peer=True} so an active student who already completed a legitimate transaction is not deprived of the ability to leave feedback if the counterparty is subsequently disabled.
+  \item \textbf{Wanted-post expiry filtering}: \texttt{list\_wanted(status="EXPIRED")} includes both explicitly marked \texttt{EXPIRED} rows and \texttt{OPEN} rows whose \texttt{expires\_at} deadline has elapsed, ensuring filter views remain consistent with real clock time.
+\end{itemize}
 
-When a student starts a conversation, the chat route checks the referenced product or wanted post under a lock and assigns the buyer and seller roles. It rejects contact with one's own listing. If the same parties already have a session for that context, the route returns it so that repeated contact does not create a second conversation for the same purpose.
+\section{Concurrency Control, Lock Ordering, and Idempotency}
+\label{sec:impl-concurrency}
 
-Messages carry a client-generated identifier that lets the backend recognize a retry. An exact replay returns the original message, while reusing the identifier with different content produces a conflict. Offers use the shared idempotency service and check listing availability again before saving a pending amount. A conversation can therefore remain available as history even when a new offer is no longer allowed.
+High-contention write paths in CampusLoop---such as two competing offers being accepted against the same listing, a buyer modifying a meetup while the seller confirms it, or an administrator disabling an account with in-flight orders---cannot rely on optimistic UI checks alone. The backend enforces three layered PostgreSQL concurrency guarantees \cite{postgresExplicitLocking}:
+\begin{enumerate}
+  \item \textbf{Deterministic five-tier row-lock hierarchy}: whenever a transaction locks multiple domain rows via \texttt{SELECT ... FOR UPDATE} (or \texttt{FOR NO KEY UPDATE} / \texttt{FOR SHARE NOWAIT} for read-integrity checks), it acquires locks strictly in the global order
+  \[
+    \texttt{auth / user} \;\longrightarrow\; \texttt{product} \;\longrightarrow\; \texttt{offer} \;\longrightarrow\; \texttt{order} \;\longrightarrow\; \texttt{meetup}.
+  \]
+  In particular, \texttt{services/order\_governance.py::protect\_disabled\_orders} sorts affected orders by \texttt{(product\_id, order\_id)} and locks \texttt{Product} before \texttt{Order} and \texttt{Meetup}, eliminating circular deadlock cycles with concurrent student trade mutations.
+  \item \textbf{Database uniqueness backstops}: Migration~\texttt{0003} backs application locks with unique indexes on \texttt{orders.offer\_id}, active \texttt{orders.product\_id}, \texttt{meetups.order\_id}, \texttt{reviews(\allowbreak order\_id, reviewer\_id)}, and \texttt{chat\_\allowbreak messages(\allowbreak sender\_id, \allowbreak client\_\allowbreak msg\_id)}. Even if two requests execute across separate API workers, PostgreSQL enforces single-winner atomicity.
+  \item \textbf{Request idempotency records}: critical mutating routes accept an \texttt{Idempotency-Key} header persisted in \texttt{idempotency\_records} alongside a canonical SHA-256 hash of the request payload and the serialized HTTP response. Replaying the exact request returns the cached result without duplicating rows; reusing the same key with a different payload fails with \texttt{409 IDEMPOTENCY\_CONFLICT}.
+\end{enumerate}
 
-\subsection{Unique Order Creation}
+\section{PostgreSQL Outbox Matching Worker and Observability}
+\label{sec:impl-worker}
 
-Offer acceptance follows the global lock order documented in the transaction service: authorization context, product, offer, order, then meetup. Only the participant who did not propose a still-pending, unexpired offer can accept it. Under those locks the service marks the offer accepted, changes the product to \texttt{RESERVED}, inserts the order, appends its initial event, and creates a notification. A unique offer reference prevents the same offer from creating another order. A partial unique index protects the product reservation while excluding cancelled and disputed orders. This allows the database to retain historical orders for the product. The idempotency scope \texttt{accept:\{offerId\}} protects request replay.
+When a student publishes or edits a product, updates a wanted post, or changes account status, CampusLoop asynchronously recomputes matching recommendations for open wanted posts without slowing down the synchronous HTTP request. Rather than introducing a separate message broker that could drift out of sync with SQL transactions, \texttt{backend/app/services/matching\_jobs.py} implements a transactional PostgreSQL outbox pattern using SQLAlchemy session hooks \cite{sqlalchemy20}:
+\begin{itemize}
+  \item \textbf{Transactional event capture}: a \texttt{before\_flush} listener inspects dirty and new \texttt{Product}, \texttt{WantedPost}, and \texttt{User} instances across an explicit allowlist of business fields. In \texttt{after\_flush\_postexec}, the session increments the singleton \texttt{matching\_revision} counter, computes a deterministic SHA-256 \texttt{business\_event\_key} over normalized field values and timestamps, and executes an idempotent \texttt{INSERT ... ON CONFLICT DO NOTHING} into \texttt{matching\_jobs} for every active, non-expired \texttt{WantedPost}. If the enclosing transaction rolls back, \texttt{after\_rollback} clears staged changes so phantom jobs are never emitted.
+  \item \textbf{Lock-held job claiming (\texttt{SKIP LOCKED})}: worker processes in \texttt{backend/app/\allowbreak worker/\allowbreak runner.py} claim pending rows via \texttt{SELECT ... FOR UPDATE SKIP LOCKED} \cite{postgresExplicitLocking} and hold the row lock until commit. A crashed worker automatically rolls back its transaction and releases the row lock without requiring lease-expiration sweeps. Failed jobs retry with bounded exponential backoff $\Delta t = \min(60, 2^{a})$ seconds up to \texttt{MAX\_ATTEMPTS = 5} before transitioning to \texttt{FAILED}.
+  \item \textbf{Runtime observability}: the standalone worker attaches a \texttt{RunObserver} (\texttt{bp4-worker-\allowbreak runtime-v1}) backed by a bounded 2,000-event in-memory queue that records per-job execution telemetry in \texttt{ai\_task\_runs}, emits throttled heartbeats every 10 seconds to \texttt{worker\_heartbeats}, handles \texttt{SIGTERM}/\texttt{SIGINT} gracefully by draining in-flight commits, and serves live loop status on its internal \texttt{/healthz} HTTP endpoint.
+\end{itemize}
 
-\subsection{Meetup and Dual Completion}
+\section{Media Security Pipeline and Dual-Bucket Isolation}
+\label{sec:impl-media}
 
-After offer acceptance, a participant proposes a campus location and a future meeting time. Updating that proposal increments its version and resets the confirmations. Each confirmation identifies both the meetup and its version. If a participant submits a confirmation from an older page, the backend returns \texttt{MEETUP\_VERSION\_CONFLICT} and requires the current proposal to be checked again.
+User-uploaded images are a common vector for polyglot payloads, decompression bombs, EXIF location leaks, and unauthorized object access. The upload pipeline in \texttt{backend/app/\allowbreak services/\allowbreak storage.py} enforces strict server-side sanitization and ownership isolation before persisting any binary object to MinIO \cite{minioDocs}:
+\begin{enumerate}
+  \item \textbf{Payload and pixel bounds}: raw uploads exceeding 5~MiB are rejected with \texttt{413 IMAGE\_TOO\_LARGE}. Pillow decodes the buffer in memory, allowing only \texttt{JPEG} and \texttt{PNG} formats whose total pixel count does not exceed $25\times 10^{6}$ pixels, and runs \texttt{image.verify()}.
+  \item \textbf{Malicious/corrupted archive rejection}: malformed headers, truncated streams, decompression bombs, and corrupted PNG CRC chunks (\texttt{UnidentifiedImageError}, \texttt{OSError}, \texttt{DecompressionBombError}, \texttt{SyntaxError}, \texttt{ValueError}, \texttt{EOFError}, and \texttt{zlib.error}) are caught deterministically and mapped to \texttt{415 UNSUPPORTED\_IMAGE}.
+  \item \textbf{EXIF stripping and JPEG re-encoding}: valid images are transposed according to EXIF orientation (\texttt{ImageOps.exif\_transpose}), converted to \texttt{RGB}, resized to $512\times 512$ via Lanczos resampling if \texttt{purpose == "avatar"}, and re-encoded into clean \texttt{JPEG} bytes (quality~90), stripping all original EXIF metadata and embedded chunks.
+  \item \textbf{Dual-bucket separation and ownership verification}: product photos (\texttt{purpose == "product"}) are stored in \texttt{campusloop-public} under a UUID key; chat attachments, report evidence, decision evidence, and appeal evidence are stored in \texttt{campusloop-private} and assigned non-resolvable internal reference URIs (\texttt{https://private.campusloop.invalid/...}) so browsers can retrieve them only through authenticated FastAPI streaming routes. Every upload writes an \texttt{UploadedObject} row recording \texttt{(owner\_id, object\_key, purpose)}; attaching an image to a listing, message, report, decision, or appeal verifies ownership and purpose via \texttt{owned\_keys()}, rejecting cross-user or cross-purpose object substitution with \texttt{403 FORBIDDEN}. On database commit failure, the uploaded object is deleted in a compensating cleanup path. For appeal evidence specifically, \texttt{uploadAppealImage} verifies that the student currently holds an unrevoked, unappealed \texttt{AccountDecision}.
+\end{enumerate}
 
-The order becomes \texttt{MEETUP\_ARRANGED} only when both roles have confirmed the same version. Completion is a separate step: the API checks the version again and saves a separate flag for each participant. The first confirmation alone does not finish the transaction. The second valid confirmation changes the order to \texttt{COMPLETED}, marks the product \texttt{SOLD}, and sends review requests to both parties.
+\section{Runtime Profiles and Local Display Translation}
+\label{sec:impl-ops}
 
-\subsection{Report Resolution and Audit}
+To keep daily usage, automated testing, and acceptance audits strictly isolated, CampusLoop maintains separate database and Redis allocations. The local daily startup script (\texttt{scripts/start-local.ps1}) preserves persistent PostgreSQL and MinIO volumes across restarts, whereas write-heavy verification suites target dedicated isolated databases and Redis DB14/DB15 rather than the daily account store.
 
-The user route creates a \texttt{PENDING} report only after target-specific authorization and evidence ownership checks. The administrator route locks the report, requires a non-blank decision note, updates the handler and timestamp, notifies the reporter, and writes a governance audit record with before and after snapshots. An administrator who changes a completed decision uses the separate override endpoint. The request must include the previously observed status and handling timestamp, so an outdated decision is rejected.
-
-\subsection{Administrator-to-Student Governance Extension}
-
-The account controls in the administrator UI call \texttt{adminCreateAccountDecision}. The moderation route checks administrator access and delegates to \texttt{record\_decision}; it persists a decision, discloses only a bounded snapshot, sends an account notification, and audits the action. A disable command revokes session families and invokes \texttt{protect\_disabled\_orders}. The student's moderation page calls \texttt{listAccountDecisions} and \texttt{submitAccountAppeal}. The review page calls \texttt{adminReviewAccountAppeal}; the service enforces reviewer separation before recording an upheld or revoked result. Unauthorized reads, protected-admin targets, stale or already concluded appeals, and invalid evidence keys are rejected. This chain is distinct from \texttt{resolveReport}, which only resolves the report itself.
-
-\section{Persistence, Concurrency, and Idempotency}
-
-The implementation uses several checks because repeated requests and competing updates are different problems. Row locks coordinate requests that try to change the same offer, order, meetup, or report at the same time. Database uniqueness constraints provide an additional check on duplicate records, while version fields reject actions based on an outdated meetup or report.
-
-Idempotency handles a different case: repeating an action whose result the client may not have received. An idempotency record associates the actor, operation scope, key, and request payload with the stored response. Repeating that request returns the saved result; using the same key for another payload is rejected. PostgreSQL stores these records together with the user-visible and audit-relevant business state.
-
-The matching worker uses the same PostgreSQL database as a durable queue. It claims matching jobs without moving authoritative data into Redis, persists outputs and run observations, and exposes a separate health endpoint. The worker records its runtime version separately from the algorithm and result versions. An operator can therefore identify both the worker that handled a job and the advisory logic used.
-
-\section{Media Isolation}
-
-MinIO uses two buckets with different exposure. Product images are public-read because they are part of the catalog. Chat images, report evidence, and other sensitive objects are private and require an authorized API read. Before another record can reference an object key, the storage service checks its owner and intended purpose. A plausible key prefix alone does not grant access. This avoids treating an object-store URL as proof of authorization.
-
-\section{Runtime Topology and Operations}
-
-The Compose definition pins PostgreSQL with pgvector and Redis versions, builds MinIO from a fixed source tag, and builds API, worker, and baseline service images from the repository. The API waits for database, Redis, storage, and bucket initialization. The worker waits for database and API readiness. The advisory service listens only on the Compose network and requires a sufficiently long shared RPC token. Container health probes and bounded JSON log rotation provide operational signals without exposing the advisory ports to the host.
-
-For daily development, \texttt{scripts/start-local.ps1} applies \texttt{compose.local.yml}, binds infrastructure ports to loopback, and uses stable named volumes. Acceptance exercises use isolated database and Redis instances so verification cannot destroy or contaminate the daily environment. These rules let developers reproduce the environment while preserving daily data.
-
-\section{Public Catalog Translation}
-
-The bilingual interface keeps original listing fields unchanged and requests display translations from a local HTTP service. At this baseline the service loads the pinned HY-MT1.5-1.8B model and preserves protected brand, model, quantity, and source-language spans. Private chat, report, and appeal text is outside this public-catalog translation path. Model preparation and initial inference require separate resources; a successful small regression set does not imply accurate translation for arbitrary text. This display service is distinct from relevance ranking and the frozen M7/M8 evaluation contracts.
-
-\section{Verification Boundary}
-
-Route, contract, concurrency, and fallback tests can check whether the code follows its rules. They can, for example, check that an outdated confirmation is rejected or that a failed advisory request produces the expected fallback. Passing these tests does not establish the quality of the advice itself.
-
-Search and matching need an independently reviewed relevance set to support quality metrics. Price evaluation needs authorized real completed transactions, while trust and risk assessment need representative, privacy-approved observations and human review. The report therefore considers correct implementation and model readiness separately, and does not treat a working interface as evidence that its model is ready for use.
+For bilingual classroom and cross-campus browsing, CampusLoop optionally pairs the web client with a standalone local translation microservice (\texttt{services/\allowbreak catalog\_translation\_\allowbreak server.py}) serving \texttt{HY-MT1.5-1.8B}. To preserve security and reliability boundaries, the translation server enforces four strict controls:
+\begin{itemize}
+  \item \textbf{CORS and MIME enforcement}: requests must originate from \texttt{ALLOWED\_ORIGINS} and carry \texttt{Content-Type: application/json} with a 10-second socket timeout.
+  \item \textbf{Span preservation}: technical model codes, prices, and protected tokens are masked before generation and restored deterministically afterward so model names and currency figures are never hallucinated.
+  \item \textbf{Per-item failure isolation}: batch catalog translations execute with \texttt{isolate\_\allowbreak failures=True} so a single problematic string falls back to its original text without aborting the entire listing page.
+  \item \textbf{Strict public-text boundary}: only public product titles, descriptions, and search queries are routed to the translator; original database fields remain unchanged, and private chats, moderation facts, reports, and appeals are never transmitted to the translation service.
+\end{itemize}

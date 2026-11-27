@@ -1,23 +1,43 @@
 sequenceDiagram
-    autonumber
-    participant Buyer
-    participant API
-    participant DB as PostgreSQL
-    participant Seller
+  actor Seller as Seller UI
+  actor Buyer as Buyer UI
+  participant API as FastAPI API
+  participant PG as PostgreSQL
 
-    Buyer->>API: POST chat session and offer with idempotency key
-    API->>DB: lock listing context and persist pending offer
-    Seller->>API: POST /offers/{id}/accept
-    API->>DB: lock product and offer, then set product RESERVED
-    API->>DB: create one order and initial order event
-    API-->>Seller: accepted offer and order
-    Buyer->>API: POST meetup proposal
-    API->>DB: save version N and reset confirmations
-    Buyer->>API: confirm meetup version N
-    Seller->>API: confirm meetup version N
-    API->>DB: set MEETUP_ARRANGED only when both versions equal N
-    Buyer->>API: confirm completion for version N
-    Seller->>API: confirm completion for version N
-    API->>DB: set COMPLETED and product SOLD, then append event
-    API-->>Buyer: completion result and review notification
-    API-->>Seller: completion result and review notification
+  Seller->>+API: POST /offers/{id}/accept (Idempotency-Key)
+  API->>+PG: Lock product & offer, set RESERVED + PENDING_CONFIRM
+  PG-->>-API: Committed Order & OrderEvent
+  API-->>-Seller: 201 Order DTO
+
+  Buyer->>+API: PUT /orders/{id}/meetup (expectedVersion)
+  API->>+PG: Lock product, order, meetup
+  alt Completion already confirmed
+    PG-->>API: Completion flag set
+    API-->>Buyer: 409 ORDER_STATE_CONFLICT
+  else Stale expectedVersion
+    PG-->>API: Version mismatch
+    API-->>Buyer: 409 MEETUP_VERSION_CONFLICT
+  else Current version & unconfirmed
+    PG-->>-API: Increment version & reset flags
+    API-->>-Buyer: 200 Meetup DTO (v+1)
+  end
+
+  Buyer->>+API: POST /orders/{id}/meetup/confirm (v+1)
+  API->>+PG: Set buyer_confirmed
+  PG-->>-API: Updated Meetup
+  API-->>-Buyer: 200 Meetup DTO
+
+  Seller->>+API: POST /orders/{id}/meetup/confirm (v+1)
+  API->>+PG: Set seller_confirmed, MEETUP_ARRANGED
+  PG-->>-API: Committed Order state
+  API-->>-Seller: 200 Order (MEETUP_ARRANGED)
+
+  Buyer->>+API: POST /orders/{id}/confirm-complete
+  API->>+PG: Set buyer_confirmed_complete
+  PG-->>-API: Partial confirmation saved
+  API-->>-Buyer: 200 Order (awaiting seller)
+
+  Seller->>+API: POST /orders/{id}/confirm-complete
+  API->>+PG: Set seller_confirmed_complete, COMPLETED + SOLD
+  PG-->>-API: Committed terminal trade
+  API-->>-Seller: 200 Order (COMPLETED)

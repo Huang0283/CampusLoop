@@ -1,73 +1,185 @@
 \chapter{Advisory Intelligence Methods and Limitations}
-\label{chap:ai-methods}
+\label{ch:intelligence}
 
-\section{Safety Boundary}
+CampusLoop incorporates five intelligent assistance capabilities---catalog search ranking, asynchronous wanted-post matching, price reference advice, user trust summaries, and administrative risk clues---alongside optional local catalog translation. Rather than deploying opaque predictive models with unverified accuracy or allowing automated heuristics to modify business state, CampusLoop enforces a strict \emph{advisory-only, fail-closed} architectural boundary. Every intelligent output is explicitly versioned, schema-validated, bounded by hard timeouts, degraded deterministically upon service failure, and never authorized to mutate listings, orders, or user accounts.
 
-The intelligence features help users find suitable items and interpret the information available to them. Their value depends both on how the software handles a request and on whether the underlying data supports the advice. This chapter explains those questions separately: it describes the implemented inputs and outputs, then sets out what remains unverified.
+\section{Safety Boundary and Fail-Closed Adapter Architecture}
+\label{sec:ai-boundary}
 
-CampusLoop treats every intelligence result as advisory. Search ranks visible products; wanted matching proposes candidates; price advice provides a non-binding interval or an unavailable result; trust summarizes completed-review evidence; and risk clues summarize limited observable activity for an administrator. None of these paths may accept an offer, change an order, hide a listing, disable an account, or resolve a report. Figure~\ref{fig:ai-fallback} shows where the system validates inputs, calls services, falls back, and requires human review.
+All advisory requests pass through server-side adapters in \texttt{backend/app/\allowbreak services/\allowbreak ai\_adapters.py}, \texttt{catalog\_semantic.py}, and \texttt{intelligence.py} before reaching any frontend client or worker sink. Figure~\ref{fig:ai-fallback} illustrates the complete request validation, RPC dispatch, fallback, and live-database recheck pipeline.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.92\textwidth]{figures/design/ai-fallback.pdf}
-  \caption{Advisory validation, bounded RPC, explicit degradation, and human review.}
+  \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]{figures/design/ai-fallback.pdf}
+  \caption{Advisory service dispatch, timeout/error fallback cascade, and post-ranking live PostgreSQL visibility recheck.}
   \label{fig:ai-fallback}
 \end{figure}
 
-\section{Search and Wanted Matching}
+Four defensive invariants hold across all five advisory endpoints:
+\begin{enumerate}
+  \item \textbf{Pre-RPC input validation}: the adapter validates schema constraints and hard business filters locally before invoking any remote HTTP service. A downstream timeout or outage can therefore never bypass input validation or mask an invalid \texttt{422} client request.
+  \item \textbf{Bounded candidate snapshot and strict timeouts}: search and matching snapshots are read from authoritative PostgreSQL rows (\texttt{status = "ON\_SALE"}, \texttt{deleted\_at IS NULL}, \texttt{moderation\_blocked = false}, owner \texttt{ACTIVE}) capped at 5,000 candidates (\texttt{503} \texttt{SEARCH\_\allowbreak CAPACITY\_\allowbreak EXCEEDED} if exceeded). Frozen M7/M8 RPC calls enforce a strict \texttt{1.5 s} timeout and require a configured \texttt{baseline\_rpc\_token} of at least 32 bytes; optional live semantic scoring (\texttt{/score}) enforces a separate \texttt{3.0 s} HTTP timeout.
+  \item \textbf{Response contract verification}: every RPC response is checked against exact expected algorithm versions, finite score bounds, duplicate-ID bans, and eligible entity version parity. Malformed responses, HTTP~\texttt{413} payload-too-large errors (\texttt{SERVICE\_\allowbreak PAYLOAD\_\allowbreak TOO\_\allowbreak LARGE}), HTTP~\texttt{5xx} failures, or timeouts trigger deterministic fallback without failing the surrounding user flow.
+  \item \textbf{Post-ranking authoritative recheck}: ranked product IDs returned by either M7 or the live semantic scorer are re-read from PostgreSQL for current public visibility and entity version before serializing the API response. An advisory service can never leak deleted, hidden, blocked, or stale listing snapshots.
+\end{enumerate}
 
-\subsection{Inputs and Output Contract}
+Table~\ref{tab:ai-contracts} summarizes the exact algorithm identifiers, timeouts, validation contracts, and degradation paths for all five capabilities at \texttt{main@ecc22d2}.
 
-Search and wanted matching start from the same eligible catalog. The API takes a snapshot of at most 5,000 products that have not been deleted, are \texttt{ON\_SALE}, and belong to active users. Each candidate contains its stable product and owner identifier, title, description, normalized category and condition, price in fen, campus location, visibility, status, entity version, and publication timestamps.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Contract summary for CampusLoop's five advisory intelligence capabilities.}
+  \label{tab:ai-contracts}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3.4cm}cc>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Capability} & \textbf{Algorithm / Source} & \textbf{Timeout} & \textbf{Degraded} & \textbf{Fallback Behavior} \\
+    \midrule
+    Catalog Search (Keyword) & Frozen M7 \texttt{KeywordIndex} & 1.5~s & Cond. & Falls back to in-process M7 keyword baseline (\texttt{degraded=true}) on timeout, \texttt{413}, \texttt{5xx}, or invalid contract. \\
+    Catalog Search (Semantic / Hybrid) & Optional \texttt{live-bge-\allowbreak small-zh-v1} + RRF & 3.0~s & Cond. & Falls back cleanly to frozen M7 keyword ranking on missing URL, timeout, \texttt{5xx}, or invalid score bounds. \\
+    Wanted Matching & Async worker calling frozen M7 RPC & 1.5~s & Cond. & Reuses checked in-process M7 fallback; retries transient failures up to 5 times with exponential backoff. \\
+    Price Advice & Frozen M8 \texttt{m8-price-\allowbreak rule-v1} (+ 90-day quartiles) & 1.5~s & Always \texttt{true} & Returns \texttt{UNAVAILABLE} with \texttt{null} interval on outage; \texttt{INSUFFICIENT\_\allowbreak DATA} if original price anchor is absent. \\
+    Trust Summary & Frozen M8 \texttt{m8-trust-\allowbreak rule-v1} & 1.5~s & Cond. & Returns \texttt{NEW\_USER\_\allowbreak NEUTRAL} (score 3.5) with zero valid events; \texttt{UNAVAILABLE} on RPC failure. \\
+    Admin Risk Clues & Frozen M8 \texttt{m8-risk-\allowbreak clue-rule-v1} & 1.5~s & Cond. & Emits \texttt{enforcement\allowbreak Executed=false} clues only; returns \texttt{UNAVAILABLE} on RPC failure without blocking triage. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-The request then adds the information needed for the particular task. Search uses the query text, optional category, condition and price filters, mode, and sort order. Wanted matching also uses the wanted-post owner, status, expiry, budget bounds, minimum condition, and required location. These constraints matter because a textually similar product may still be unsuitable for the student's budget or location.
+\section{Catalog Search and Wanted-Post Matching}
+\label{sec:ai-search}
 
-The frozen ranking contract returns product identifiers and versions, a bounded relevance score, deterministic reasons and explanation details, and metadata containing schema, algorithm, dictionary, mode, degradation, and fallback reason. Before exposing results, the API re-reads each ranked product and its owner from PostgreSQL and rejects entries that are no longer public or whose version has changed. A SHA-256 result version covers the stable input snapshot, request, algorithm, options, and requested search mode.
+\subsection{Deterministic M7 Keyword Baseline}
 
-\subsection{Method and Degradation}
+The frozen M7 baseline (\texttt{services/m7\_baseline/engine.py}) provides deterministic lexical retrieval over hard-constraint-eligible listings. Both queries and indexed product fields undergo Unicode NFKC normalization and lower-casing. Latin and numeric sequences match whole hyphenated tokens (\texttt{[a-z0-9]+(?:-[a-z0-9]+)*}), while Han character runs are segmented into overlapping bigrams (with unigrams additionally emitted during indexing so single-character Han queries remain recallable). Duplicates per field are removed while preserving order.
 
-Keyword search and wanted matching use the checked-in M7 rule baseline. Optional semantic or hybrid search calls a live semantic service; an unavailable or malformed semantic response is refined by the local catalog-search implementation and marked \texttt{degraded=true} with \texttt{SEMANTIC\_UNAVAILABLE}. The RPC adapter independently computes the frozen rule baseline before accepting a remote result. The adapter checks the response schema and algorithm metadata. It also checks product eligibility, duplicate identifiers, entity versions, score bounds, and exact agreement with the frozen rule explanations. All checks must pass before the response is accepted. Transport failure, timeout, service disablement, or invalid output therefore cannot introduce an unknown candidate.
+Each indexed product accumulates field-specific weights across four fields: title ($w_{\text{title}} = 4$), structured model attribute ($w_{\text{model}} = 2$), dictionary category name ($w_{\text{cat}} = 2$), and description ($w_{\text{desc}} = 1$). Because the sum of field weights equals $4 + 2 + 2 + 1 = 9$, the normalized relevance score for product $p$ given a non-empty deduplicated query token set $Q$ is bounded strictly to $[0, 1]$:
+\begin{equation}
+  s_{\text{kw}}(p, Q) = \frac{1}{9\,|Q|} \sum_{t \in Q} \sum_{f \in \{\text{title}, \text{model}, \text{cat}, \text{desc}\}} w_f \cdot \mathbb{I}\!\left(t \in T_f(p)\right),
+  \label{eq:m7-score}
+\end{equation}
+where $T_f(p)$ denotes the indexed token set of field $f$ for product $p$. Hard constraints (category filter, price range in integer fen, minimum condition rank on the five-point scale \texttt{poor}=1 to \texttt{new}=5, and required campus pickup locations) are applied \emph{before} scoring so ineligible products can never enter ranked output. Tie-breaking is deterministic by product identifier, and every returned item carries rule-generated reason tags verified verbatim against the local baseline contract.
 
-These checks show whether a response follows the contract. They do not show that its ranking is better. The available evaluation material does not yet include an independently reviewed, representative query set showing an improvement over the original search. Reported ranking quality must therefore be limited to reproducible test outcomes; no production-quality or accuracy claim is made here.
+\subsection{Optional Live Semantic Scoring and Reciprocal Rank Fusion}
 
-\section{Price Advice}
+When \texttt{CATALOG\_\allowbreak SEMANTIC\_URL} is configured, \texttt{backend/\allowbreak app/\allowbreak services/\allowbreak catalog\_\allowbreak semantic.py} supports \texttt{semantic} and \texttt{hybrid} search modes backed by a local Chinese embedding service (\texttt{live-bge-small-zh-v1}) derived from the BGE Chinese embedding family \cite{xiao2024bge}. To prevent semantic expansion from bypassing business filters or returning off-topic accessories (such as laptop sleeves for a laptop query), the pipeline enforces four sequential controls:
+\begin{enumerate}
+  \item Only candidates passing M7 \texttt{hard\_constraints} are sent to \texttt{/score} with each document formed by concatenating \texttt{title} and \texttt{description} using a Chinese full-stop delimiter (\texttt{U+3002}).
+  \item Every returned score $v_p$ is verified to match the exact sent candidate ID set, declare version \texttt{live-bge-small-zh-v1}, and satisfy finite cosine bounds $v_p \in [-1.001, 1.001]$.
+  \item A dynamic similarity threshold $\tau = \max\bigl(0.40,\, \max_j v_j - 0.06\bigr)$ combines with \texttt{query\_scope()} domain guards and lexical anchor categories so concrete product names stay anchored within matching categories while natural-language queries without literal overlap can surface semantically similar listings.
+  \item In \texttt{hybrid} mode, candidates are ordered by Reciprocal Rank Fusion (RRF) \cite{cormack2009rrf} with constant $k = 60$:
+  \begin{equation}
+    s_{\text{RRF}}(p) = \frac{1}{60 + r_{\text{vec}}(p)} + \frac{\mathbb{I}\!\left(p \in L\right)}{60 + r_{\text{kw}}(p)},
+    \label{eq:rrf}
+  \end{equation}
+  where $r_{\text{vec}}(p)$ and $r_{\text{kw}}(p)$ are zero-based ranks from semantic similarity and refined lexical ranking respectively, and $L$ is the lexical match set.
+\end{enumerate}
 
-Price advice receives category, condition, optional original price, title, and description. The current adapter normalizes category and condition, converts original price to fen, and supplies explicit unknown values for purchase age, accessory state, and defect tags. Title and description are not features of the frozen price rule. Title is separately used as a literal keyword for the market-reference query. The frozen M8 service returns a CNY interval, status, explanatory factors, sample size, algorithm version, degradation reason, and disclaimer.
+\section{Price Advice Rules and Live Asking-Price Quartiles}
+\label{sec:ai-price}
 
-The API accepts the price response only when it follows the frozen \texttt{m8-price-rule-v1} contract. Every current response must be marked as degraded. A result may contain a bounded interval with \texttt{LOW\_CONFIDENCE}, or it may contain no interval with \texttt{INSUFFICIENT\_DATA}/\texttt{UNAVAILABLE}. These statuses tell the interface how much information it can reasonably show.
+CampusLoop intentionally separates \emph{deterministic depreciation advice} from \emph{live marketplace asking-price summaries} so neither mechanism is misrepresented as a trained transaction-price predictor.
 
-The same caution applies when the service fails. If it is disabled, times out, becomes unavailable, or returns malformed output, the API returns an unavailable fallback with no interval. The interface must keep manual pricing available and show the disclaimer that the advice does not guarantee a transaction price. The seller therefore remains responsible for choosing the asking price.
+\subsection{Frozen M8 Rule-Based Depreciation Interval}
 
-The project currently lacks a sufficiently large, authorized set of real completed transactions for training or final evaluation. Synthetic samples test contract behavior but cannot establish market calibration. The system therefore continues to use the rule fallback. The report does not claim that a learned price model has been trained, accepted, or approved for deployment.
+The frozen M8 price engine (\texttt{services/\allowbreak m8\_baseline/\allowbreak engine.py} calling \texttt{scripts/\allowbreak m8\_phase2/\allowbreak pipeline.py}) accepts six strictly validated fields: \texttt{category} (mapping newer catalog categories such as \texttt{stationery}, \texttt{furniture}, \texttt{bedding}, and \texttt{transport} to the six baseline depreciation priors via \texttt{PRICE\_CATEGORIES}), \texttt{condition}, \texttt{originalPriceFen}, \texttt{purchaseAgeMonths}, \texttt{accessoryState}, and \texttt{defectTags}. When \texttt{originalPriceFen} is absent, the engine refuses to fabricate a number and returns \texttt{status = "INSUFFICIENT\_DATA"} with \texttt{null} bounds.
 
-\subsection{Live Listing Reference Is Not a Transaction Label}
+When an original retail anchor $P_0$ (in integer fen) is supplied, the engine looks up the condition multiplier triple $(c_{\text{low}}, c_{\text{mid}}, c_{\text{high}})$ and category annual retention rate and floor $(a, f_{\min})$ from Table~\ref{tab:price-multipliers}, computes an age depreciation factor
+\begin{equation}
+  \alpha(m) =
+  \begin{cases}
+    1.0, & \text{if purchase age } m \text{ is unknown}, \\[4pt]
+    \max\!\left(f_{\min},\; a^{m / 12}\right), & \text{if } m \in [0, 600] \text{ months},
+  \end{cases}
+  \label{eq:age-factor}
+\end{equation}
+and applies a defect/accessory penalty $\gamma = 0.90$ when \texttt{accessoryState == "partial"} or \texttt{defectTags} is non-empty ($\gamma = 1.0$ otherwise). The resulting lower, recommended, and upper bounds are rounded to human-friendly currency increments via \texttt{round\_fen()} (step of 1~CNY below 100~CNY, 5~CNY below 1,000~CNY, and 10~CNY at or above 1,000~CNY):
+\begin{equation}
+  L = \text{round\_fen}\!\left(P_0 \cdot c_{\text{low}} \cdot \alpha(m) \cdot \gamma\right), \qquad
+  U = \max\!\Bigl(L,\; \text{round\_fen}\!\left(P_0 \cdot c_{\text{high}} \cdot \alpha(m)\right)\Bigr).
+  \label{eq:price-bounds}
+\end{equation}
+Every M8 price response explicitly sets \texttt{status = "LOW\_CONFIDENCE"}, \texttt{sampleSize = 0}, \texttt{degraded = true}, and \texttt{degradationReason = "NO\_ELIGIBLE\_L3\_LABELS"}, communicating clearly that no verified completed-transaction ground truth backs the interval.
 
-A separate market reference appears in the same API response. It uses up to 100 recent visible listings from other active sellers. A matching listing must have the same category and condition, a positive price, a title containing a keyword of at least two characters, and a publication date within 90 days. With at least three matches, the reference returns discrete lower and upper quartile listing prices. Otherwise, it leaves the bounds absent. The count is accompanied by up to five source listings, which gives the user some context for the reference.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Deterministic condition multipliers and category depreciation priors in \texttt{scripts/m8\_phase2/pipeline.py}.}
+  \label{tab:price-multipliers}
+  \begin{tabularx}{\linewidth}{@{}lccc|>{\raggedright\arraybackslash}Xcc@{}}
+    \toprule
+    \textbf{Condition} & \textbf{$c_{\text{low}}$} & \textbf{$c_{\text{mid}}$} & \textbf{$c_{\text{high}}$} & \textbf{Baseline Category} & \textbf{Retention $a$} & \textbf{Floor $f_{\min}$} \\
+    \midrule
+    \texttt{new} & 0.88 & 0.95 & 1.00 & \texttt{digital} & 0.78 & 0.25 \\
+    \texttt{like\_new} & 0.75 & 0.85 & 0.93 & \texttt{books} (\texttt{stationery}) & 0.86 & 0.30 \\
+    \texttt{good} & 0.55 & 0.68 & 0.80 & \texttt{household} (\texttt{furniture}, \texttt{bedding}) & 0.85 & 0.25 \\
+    \texttt{fair} & 0.28 & 0.45 & 0.62 & \texttt{clothing} & 0.75 & 0.15 \\
+    & & & & \texttt{sports} & 0.84 & 0.25 \\
+    & & & & \texttt{other} (\texttt{transport}) & 0.80 & 0.20 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-The distinction between a listing and a completed transaction is essential here. A listing records what a seller asks, not what a buyer eventually pays. These prices therefore do not supply transaction training labels or remove the learned-model NO-GO gate. The seeded 15 demonstration orders also remain synthetic histories; they are useful for demonstrating pages, but cannot be treated as independent real market evidence.
+\subsection{Live 90-Day Same-Category Asking-Price Reference}
 
-\section{Trust Summary}
+Alongside the rule interval, \texttt{backend/app/services/listing\_price\_reference.py} queries currently visible \texttt{ON\_SALE} listings matching the same \texttt{category}, \texttt{condition}, and title substring (minimum two characters) published by other active users within the preceding 90~days (up to 100 most recent rows). When at least $n \ge 3$ matching listings exist, it sorts the asking prices $p_{(1)} \le \dots \le p_{(n)}$ and extracts discrete empirical quartiles without interpolating artificial prices:
+\begin{equation}
+  Q_1 = p_{\lfloor (n + 3)/4 \rfloor}, \qquad Q_3 = p_{\lfloor (3n + 3)/4 \rfloor},
+  \label{eq:asking-quartiles}
+\end{equation}
+returning up to five concrete sample listings for seller inspection. The API and UI label this output strictly as an asking-price reference rather than completed transaction truth (L3 labels), preventing circular bias in price evaluation.
 
-The public trust endpoint reads only ratings attached to completed orders. It does not convert an unrated transaction into a five-star event, and it rejects an input history above the explicit capacity limit. The resulting service payload contains review events with completed, non-disputed, valid status and their observed rating. Public serialization is performed through a restricted trust view.
+\section{Trust Summary and Administrative Risk Clues}
+\label{sec:ai-trust-risk}
 
-The summary uses only this limited review history. A small number of reviews, selection bias in who submits reviews, coordinated ratings, and context differences between categories can all distort the summary. The value is an aid to judgment, not proof that a user is safe. It must not replace transaction safeguards or governance review.
+\subsection{Bayesian-Smoothed Trust Score}
 
-\section{Administrative Risk Clues}
+In \texttt{services/m8\_baseline/engine.py::trust\_summary}, user reputation aggregates only valid completed events (\texttt{type} in \{\texttt{SALE}, \texttt{PURCHASE}, \texttt{REVIEW}\}, \texttt{status == "COMPLETED"}, \texttt{disputed == false}, \texttt{invalid == false}, integer rating $r_i \in \{1,\dots,5\}$), discarding cancelled, disputed, or invalid records while counting them in \texttt{ignoredEventCount}. To prevent a single early rating from swinging a new student's reputation to an extreme 1.0 or 5.0, the score applies Bayesian smoothing around a neutral prior $\mu_0 = 3.5$ with pseudo-count $w_0 = 5$:
+\begin{equation}
+  \hat{\mu}_{\text{trust}} = \text{round}\!\left(\frac{w_0\,\mu_0 + \sum_{i=1}^{n} r_i}{w_0 + n},\; 2\right) = \text{round}\!\left(\frac{17.5 + \sum_{i=1}^{n} r_i}{5 + n},\; 2\right).
+  \label{eq:trust-bayes}
+\end{equation}
+Accounts with $n = 0$ valid events receive \texttt{status = "NEW\_USER\_NEUTRAL"} and score \texttt{3.50}, ensuring cold-start fairness.
 
-Risk clues are available only to an administrator who supplies a review reason. The current observable inputs are listing count in the previous hour, distinct chat counterparties in the previous 24 hours, and reports targeting the user or the user's products in the previous seven days. Failed-payment count and same-device account count are explicitly \texttt{null}: the MVP has no payment gateway and does not collect device fingerprints. The response records its source-window timestamp.
+\subsection{Rule-Based Administrative Risk Clues}
 
-Every read is audited with the actor, target, reason, purpose, result status, and \texttt{enforcementExecuted=false}. This records why an administrator inspected the clues and makes clear that viewing them does not itself execute a sanction.
+Administrative risk screening (\texttt{services/m8\_baseline/engine.py::risk\_clues}) evaluates five deterministic activity thresholds listed in Table~\ref{tab:risk-thresholds}. Because CampusLoop currently executes trades offline without an online payment gateway or device-fingerprinting collector, \texttt{failedPaymentCount24h} and \texttt{sameDeviceAccountCount7d} are passed explicitly as \texttt{null} and reported in \texttt{missingInputs} rather than coerced to zero (which would falsely imply verified negative telemetry). Similarly, \texttt{reportCount7d} explicitly excludes \texttt{REJECTED} reports so dismissed complaints cannot inflate risk cues.
 
-The clues need interpretation. Reports may be false, a new user may have little history, and relevant activity may fall outside the measured windows. Missing signals can also affect the result. These limits can produce false positives or false negatives, so absent inputs remain explicit instead of being replaced with zeroes. The administrator must review the available evidence and take responsibility for any subsequent decision.
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Deterministic administrative risk-clue thresholds in \texttt{m8-risk-clue-rule-v1}.}
+  \label{tab:risk-thresholds}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.1cm}c>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Clue Code} & \textbf{Input Signal} & \textbf{Line} & \textbf{Source} & \textbf{Handling When Absent} \\
+    \midrule
+    \texttt{REPEATED\_\allowbreak PAYMENT\_\allowbreak FAILURES} & \texttt{failedPayment\allowbreak Count24h} & $\ge 3$ & Not collected (\texttt{null}) & Listed in \texttt{missingInputs}; never substituted with zero. \\
+    \texttt{BURST\_\allowbreak LISTING\_\allowbreak ACTIVITY} & \texttt{listing\allowbreak Count1h} & $\ge 12$ & Live SQL query & Active count over trailing 1~hour. \\
+    \texttt{COUNTERPARTY\_\allowbreak BURST} & \texttt{distinctCounter\allowbreak partyCount24h} & $\ge 8$ & Live SQL query & Distinct chat/order peers over trailing 24~hours. \\
+    \texttt{SHARED\_\allowbreak DEVICE\_\allowbreak CLUSTER} & \texttt{sameDevice\allowbreak AccountCount7d} & $\ge 4$ & Not collected (\texttt{null}) & Listed in \texttt{missingInputs}; never substituted with zero. \\
+    \texttt{RECENT\_\allowbreak REPORT\_\allowbreak CLUSTER} & \texttt{report\allowbreak Count7d} & $\ge 3$ & Live SQL query & Excludes \texttt{REJECTED} reports (hardened in \texttt{ecc22d2}). \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-\section{Distinct Timeouts and Contracts}
+Every risk-clue response requires an audited administrator access reason, verifies deep-copy input immutability, returns \texttt{enforcementExecuted = false}, and recommends \texttt{MANUAL\_REVIEW} only when at least one active rule fires. No automatic account suspension, listing hide, or penalty is ever triggered by risk scoring.
 
-The frozen M7/M8 RPC boundary has a 1.5-second timeout. The optional live semantic scorer uses a separate three-second HTTP timeout and checks its own version, exact candidate identities, finite cosine scores, and hard constraints. It is not admitted through the frozen M7 response validator. The AI flow diagram summarizes these two paths as an engineering flowchart; it does not assert one shared algorithm or one shared timeout. Public catalog translation is another display-only model service and is not evidence of ranking or price accuracy.
+\section{Empirical Evaluation Boundaries and Graduation Gates}
+\label{sec:ai-limitations}
 
-\section{Evaluation and Go-Live Gates}
+Distinguishing \emph{operational software verification} from \emph{validated machine-learning performance} is essential to scientific rigor in CampusLoop. While deterministic schema validation, hard-constraint enforcement, timeout fallback, and non-enforcement contracts are verified against the codebase, the project maintains an explicit \textbf{NO-GO} deployment gate for any claim of learned-model predictive accuracy.
 
-The next evaluation step depends on the task. Search and wanted matching need a frozen, representative query set with independently reviewed relevance labels. The evaluation must retain the baseline and report reproducible metrics so that any claimed improvement can be checked.
+Specifically, the repository's synthetic M8 dataset (\texttt{L0\_SYNTHETIC}) tests schema validation, boundary rounding, and deterministic pipeline reproducibility (\texttt{predictionMetrics = "NOT\_EVALUATED"}, \texttt{maeFen = null}, \texttt{mape = null}, \texttt{intervalCoverage = null}). Likewise, synthetic demonstration orders populated for UI walkthroughs are never counted as completed-transaction ground truth or human relevance judgments. Promoting any learned ranking, pricing, or anomaly-detection model beyond baseline advisory status requires satisfying four explicit graduation gates:
+\begin{enumerate}
+  \item \textbf{Authorized L3 transaction labels}: collecting an adequate corpus of real, licensed, completed campus transactions (targeting $\ge 200$ verified L3 orders with $\ge 30$ samples per major category stratum) rather than relying on listing asking prices.
+  \item \textbf{Independent relevance benchmark}: constructing a held-out query-listing relevance set annotated by non-author reviewers to evaluate NDCG and recall deltas between M7 keyword scoring and BGE-small-zh hybrid RRF.
+  \item \textbf{Calibration and error audit}: measuring out-of-sample MAE, MAPE, and empirical interval coverage on L3 labels, alongside false-positive review burden for risk-clue thresholds under realistic student traffic.
+  \item \textbf{Governance sign-off}: documenting model provenance, bias review across campus categories, and explicit stakeholder approval before relaxing the \texttt{degraded = true} flag or \texttt{NO-GO} status.
+\end{enumerate}
 
-Price advice first needs permission to use order data and a documented definition of a valid completed transaction, including how refunds and disputes are handled. The data gate requires at least 200 qualified records and at least 30 records in each key category or price band before training and evaluation. Trust and risk require privacy review, calibration analysis, abuse testing, and administrator usability review. These requirements address different sources of uncertainty, so evidence for one feature cannot automatically establish readiness for the others.
-
-Until those gates are satisfied, deployment must preserve the checked-in rules and explicit fallback behavior. A service being reachable, a contract test passing, or a demo returning plausible output is not evidence of model accuracy. The technical conclusion remains \textbf{NO-GO for claims of learned-model readiness}, while the guarded advisory interfaces and rule fallbacks remain usable as baseline functionality.
+Until those empirical gates are satisfied, CampusLoop operates honestly and safely with deterministic, transparent rules, explicit degradation labels, and human-in-the-loop governance.

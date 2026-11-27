@@ -1,37 +1,46 @@
 erDiagram
- direction TB
- users ||..o{ reports : reporter_id
- users |o..o{ reports : handled_by
- users ||..o{ account_decisions : user_id
- users |o..o{ account_decisions : actor_id
- account_decisions ||..o| account_appeals : decision_id
- users |o..o{ account_appeals : reviewed_by
- users ||..o{ notifications : user_id
- reports {
-  bigint id PK
-  bigint reporter_id FK
-  varchar target_type
-  bigint target_id "polymorphic, NO database FK"
-  varchar status "open-report partial UNIQUE, 0013"
-  bigint handled_by FK "nullable"
- }
- account_decisions {
-  bigint id PK
-  bigint user_id FK
-  bigint actor_id FK "nullable"
-  varchar action
-  varchar reason
-  jsonb evidence
- }
- account_appeals {
-  bigint id PK
-  bigint decision_id FK,UK "NOT NULL, 0012"
-  varchar status
-  bigint reviewed_by FK "nullable"
- }
- notifications {
-  bigint id PK
-  bigint user_id FK
-  varchar type
-  jsonb payload
- }
+  users {
+    bigint id PK
+    varchar role
+    varchar status
+  }
+  reports {
+    bigint id PK
+    bigint reporter_id FK
+    bigint handled_by FK
+    varchar target_type
+    bigint target_id "polymorphic, no FK"
+    varchar status
+  }
+  account_decisions {
+    bigint id PK
+    bigint user_id FK
+    bigint actor_id FK
+    bigint revoked_by FK
+    varchar action
+  }
+  account_appeals {
+    bigint id PK
+    bigint decision_id FK "unique NOT NULL (0012)"
+    bigint reviewed_by FK
+    varchar status
+  }
+  notifications {
+    bigint id PK
+    bigint user_id FK
+    varchar type
+    timestamptz read_at
+  }
+  auth_audits {
+    bigint id PK
+    bigint actor_id FK
+    bigint target_user_id FK
+    varchar event_type
+  }
+
+  users ||--o{ reports : "reporter / handler (0013 active uniq)"
+  users ||--o{ account_decisions : "subject / actor / revoker"
+  account_decisions ||--o| account_appeals : "decision_id (1-to-0..1)"
+  users |o..o{ account_appeals : "reviewed_by"
+  users ||--o{ notifications : "recipient user_id"
+  users |o..o{ auth_audits : "actor / target_user"

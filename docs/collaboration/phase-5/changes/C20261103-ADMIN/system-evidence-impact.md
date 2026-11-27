@@ -1,45 +1,21 @@
 # C20261103-ADMIN — R2 System Evidence Impact
 
-## 2026-11-27 revision impact
+## 2026-11-27 Comprehensive Audit & Alignment to `main@ecc22d2`
 
-Software evidence advances to edb9e32871eac2966750993294078acbfdba65f9 after explicit source inspection. Historical regression evidence is not rebound to this SHA. Four chapters now cover manual account decisions/appeals and protected orders, current report uniqueness, asking-price references, display translation, distinct live/frozen advisory timeouts and multi-product chat context.
+- **Software baseline advanced**: `ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6` (`fix: close end-to-end audit regressions`). Historical T-group test logs retain their original software SHAs and are not retroactively rebound.
+- **Technical corrections captured**:
+  - `save_meetup` rejects edits once either party has confirmed completion (`409 ORDER_STATE_CONFLICT`).
+  - `protect_disabled_orders` escalates early orders to `DISPUTED` when both participants are disabled, avoiding dual-disabled deadlock.
+  - `authenticate()` enforces `401 AUTH_ACCESS_EXPIRED` prior to disabled-account `423` appeal checks.
+  - `create_review` allows completing reviews even if the counterparty is later disabled; `cancel_offer`/`reject_offer` allow closing pending offers on reserved listings or with disabled peers; `reportCount7d` excludes `REJECTED` reports; `storage.py` catches corrupt PNG CRC errors (`415`); `m7_baseline` degrades on `413`; `catalog_translation_server.py` enforces `ALLOWED_ORIGINS`, JSON MIME, 10 s timeout, and per-item failure isolation.
+- **Documentation & diagram impact**:
+  - All 9 maintained Mermaid diagrams and vector exports live under `docs/submission/technical-report/latex/figures/design/` (relative path `figures/design/` from `latex/main.tex`).
+  - All 4 R2 LaTeX chapters (`design.tex`, `implementation.tex`, `ai-methods-and-limitations.tex`, `technical-decisions.tex`) and `r2-references.bib` (17 verified sources) are updated, statically validated by `scripts/reporting_r2_sources.py`, and smoke-compiled via `r2-preview.tex`.
+  - No application code, database schema, migration, API contract, model artifact, or runtime environment is modified by this documentation update.
 
-The maintained figures move to latex/figures/design; obsolete root copies are removed. The ERD is split and a real code class diagram is added. R1 must use the new relative paths and compile before assigning final figure numbers/pages. A source inventory script reads Git objects only and neither starts services nor touches a database. No production behavior, schema or API is changed by this documentation revision.
+## Consumer Handoff and Remaining Gates
 
-Remaining gates are actual Lecture-source checks, final A4 figure readability, configured LaTeX compilation, non-author review and receiver acceptance. The delivery checklist records these as pending rather than silently closing them.
-
-## Change summary
-
-R2 adds report-only technical evidence for the Phase 5 submission. It does not change application code, database schemas, APIs, runtime configuration, model artifacts, or deployment state.
-
-## Files and consumers
-
-- Four LaTeX chapter fragments are consumed by R1's report `main.tex`.
-- Six Mermaid sources and their SVG/PDF exports are consumed by the design and intelligence chapters.
-- `architecture-source-index.md` supports reviewer traceability to `main@5fdeb0a...`.
-- R2 task log and checklist support collaboration audit and hand-off.
-
-## Behavior and compatibility impact
-
-- Runtime behavior: none.
-- API contract: none.
-- Persistence/migration: none.
-- UI behavior: none.
-- Security/privacy behavior: none; the report documents existing boundaries without exposing credentials or private records.
-- Report integration: R1 must include the four chapter files and preserve the `../figures/design/` path relative to `latex/main.tex`.
-
-## Claims affected
-
-The report now makes the following boundaries explicit:
-
-- PostgreSQL remains authoritative for transactions and governance.
-- Advisory service failure degrades to a checked rule baseline or an unavailable result.
-- Price advice is not a trained-model deployment claim.
-- Risk clues require administrator review and do not execute enforcement.
-- Search, matching, price, trust, and risk still require task-specific independent evaluation before go-live claims.
-
-## Risks and rollback
-
-- Primary risk: R1 could drop the NO-GO or fallback language while integrating or could compile against missing figure paths.
-- Mitigation: preserve the chapter text, use the pinned source index, compile the complete report, and obtain non-author review.
-- Rollback: remove the R2 chapter inclusions and figure references from the report integration. No software or data rollback is required.
+- **R1**: input the four chapters from `latex/chapters/`, merge `r2-references.bib` into `references.bib`, include the required standard packages listed in `R2-INTEGRATION.md`, assemble the 40--60 page unified report in Overleaf, and assign final numeric figure/table numbers and page references in `architecture-source-index.md`.
+- **D1**: may reuse the same-source `.svg`/`.pdf` vector figures under `latex/figures/design/` after R1/M10 review acceptance.
+- **Preserved scientific boundaries**: PostgreSQL remains authoritative; advisory outputs remain non-enforcing and fail-closed; asking-price quartiles remain separated from L3 labels; learned-model accuracy claims remain gated at `NO_GO`.
+- **Rollback**: revert the R2 commit on `team/reporting`; no software or database rollback is required.

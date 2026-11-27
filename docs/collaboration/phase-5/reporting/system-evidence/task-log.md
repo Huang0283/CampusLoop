@@ -1,63 +1,15 @@
 # R2 System Evidence Task Log
 
-## 2026-11-27 — explanatory-flow revision requested by author
+## 2026-11-27 — comprehensive technical audit, prose overhaul, diagram redesign, and XeLaTeX preview verification
 
-- Revised all four chapters for a clearer reading sequence, following the author's instruction that clarity matters more than brevity. Expanded explanations where the previous concise wording left the reader to infer the problem or purpose.
-- Design now introduces responsibilities before data/permission/state details. Implementation explains retry and stale-page situations as illustrative mechanisms, without claiming new executed tests. The intelligence chapter separates implemented behavior, interpretation of data, and remaining evaluation requirements.
-- Technical decisions retain their section structure and source evidence but replace repeated bold lead-ins with connected prose explaining the problem, chosen approach, alternatives and costs.
-- The user's request permits paragraph splitting and expansion; the previous same-paragraph-count editing constraint is therefore not applied to this pass. No experimental result, threshold, citation, technical identifier or readiness approval is added or removed. Existing AI-assistance disclosure is retained.
-- Static source/path and LaTeX checks passed. Full compilation, final page layout, actual non-author review and remote upload retain their previously recorded pending status.
+- Re-aligned the R2 software baseline from `edb9e32` to the current `main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6` (`fix: close end-to-end audit regressions`) and regenerated `r2-source-inventory.json` and `r2-model-migration-index.md` via `scripts/reporting_r2_sources.py`.
+- Corrected factual drifts against `ecc22d2`: `save_meetup` now rejects post-completion edits (`409 ORDER_STATE_CONFLICT`) rather than resetting completion flags; `protect_disabled_orders` escalates dual-disabled early orders to `DISPUTED`; `authenticate()` enforces `401 AUTH_ACCESS_EXPIRED` before disabled-account `423` appeal checks; `create_review` permits reviewing completed orders if the peer is later disabled; `reportCount7d` excludes `REJECTED` reports; `m7_baseline` degrades cleanly on `413`; `storage.py` maps corrupt PNG CRC/stream exceptions cleanly to `415`; `catalog_translation_server.py` enforces `ALLOWED_ORIGINS`, JSON MIME, 10 s timeout, and per-item isolation.
+- Eliminated GPT-style defensive disclaimers, internal process leaks, and six broken imperative sentence fragments in `technical-decisions.tex`; expanded all four chapters (`design.tex`, `implementation.tex`, `ai-methods-and-limitations.tex`, `technical-decisions.tex`) with 9 structured technical tables, exact verified mathematical equations (M7 scoring, RRF hybrid fusion, M8 depreciation/quartiles, Bayesian trust smoothing), and clear engineering rationale while strictly preserving the `NO-GO` model graduation gate.
+- Expanded `r2-references.bib` from 4 entries to 17 real, verifiable official specifications, IETF RFCs, and peer-reviewed papers (including Cormack et al. 2009 RRF and Xiao et al. 2024 BGE), every one explicitly cited via `\cite{...}`.
+- Redesigned and re-exported all 9 Mermaid diagrams (`.mmd`, `.svg`, fitted `.pdf`) with Mermaid CLI 12.2.0 to eliminate overlapping labels (`data-model-governance`), arrow-through-text collisions (`architecture`, `transaction-states`, `ai-fallback`, `session-sequence`, `order-meetup-sequence`), missing activation bars, missing PKs on stub ERD tables, and defensive sticky notes inside `class-diagram.mmd`.
+- Updated `r2-preview.tex` and `R2-INTEGRATION.md` to exact course formatting (A4, single column, 2.54 cm margins, 12pt Times New Roman, 1.5x line spacing, ToC/LoF/LoT, bibliography), compiled `r2-preview.pdf` locally with XeLaTeX + BibTeX, and visually verified rendered pages and all 9 diagrams.
+- Pending external human gates retained honestly: R1 integration into `main.tex` (with final 40--60 page count), course Lecture slide locator confirmation, and real non-author technical/explainability sign-off.
 
-## 2026-11-27 — academic-humanizer prose revision
+## 2026-11-27 — earlier R2 PR #169 drafts (retained for audit trail)
 
-- Applied the user-requested academic-humanizer skill to the four R2 English chapter fragments after reading all four chapters and auditing sentence density, abstract wording and repeated decision explanations.
-- Split clause-heavy sentences and used concrete descriptions of API, database and administrator actions. No author writing sample was supplied; the edit uses a neutral course-report register rather than claiming to match the author's personal style.
-- Compared before/after numeric tokens, citation keys, technical literals, section headings, labels/references and paragraph counts: unchanged in every chapter. Retained NO-GO, unverified evaluation and pending review statements.
-- Source/figure-path and LaTeX delimiter checks passed. This is an expression edit; no AI-detection score or independent review is claimed. The existing AI-assistance disclosure remains.
-- Complete LaTeX compilation and external upload retain the environment limitations already recorded in the delivery checklist.
-
-## 2026-11-27 — Issue 144 revision
-
-- Received the 24/25 November requirements and fixed software SHA edb9e32871eac2966750993294078acbfdba65f9.
-- Merged origin/team/reporting into the R2 branch without overwriting R1 files.
-- Inspected changed authentication, administration, transaction, advisory and translation code. Updated the four chapters and twelve technical-decision sections.
-- Reconciled 27 actual ORM models with the full 0001–0013 migration upgrade bodies; added a reproducible inventory script.
-- Added a real class diagram, split the ERD into catalog/transaction/governance, changed the session figure to the same-peer/multiple-product flow, and corrected state and AI protocol distinctions.
-- Moved maintained figures into the LaTeX project, exported nine SVG/PDF pairs and removed obsolete duplicate root figure copies. All removed originals remain recoverable in Git history.
-- Recorded AI assistance, integration instructions, source inventory, exact figure register and pending Lecture/page/review gates.
-- Receivers: R1 (compilation/assembly/language), M10 (technical facts), D1 (accepted same-source figures). No receiver acceptance is claimed.
-- Blocking environment facts: MiKTeX initialization/configuration prevents document compilation; Git credential helper cannot start in the sandbox, preventing push. No production database or UI mutation was performed.
-
-## Assignment
-
-- Role: R2 — architecture, implementation, advisory-intelligence evidence, and technical decisions.
-- Issue: [#144](https://github.com/Huang0283/CampusLoop/issues/144).
-- Working branch: `work/reporting/system-evidence`.
-- Integration branch: `team/reporting` (owned by R1).
-- Evidence baseline: `main@5fdeb0a8501d4503cf8504f364a4cb945361d7ff` (`fix: exclude carry bags from computer search scope`).
-
-## Work performed
-
-1. Read Issue #144 and separated R2 deliverables from R1 integration duties.
-2. Fixed one immutable source baseline instead of describing the moving tip of `main`.
-3. Traced six end-to-end chains: browser restoration, product publication, chat/offer, unique order creation, meetup/dual completion, and report resolution/audit.
-4. Traced the true inputs, outputs, validation, timeouts, fallbacks, and limitations for search, wanted matching, price, trust, and risk.
-5. Authored four report chapters:
-   - `design.tex`
-   - `implementation.tex`
-   - `ai-methods-and-limitations.tex`
-   - `technical-decisions.tex`
-6. Authored six Mermaid source diagrams and exported SVG/PDF assets for LaTeX.
-7. Added `architecture-source-index.md` with commit-pinned code links and claim boundaries.
-8. Recorded change impact and prepared an R1 integration checklist.
-
-## Evidence policy
-
-- Internal code is cited by immutable commit links and operation names.
-- No publication, metric, reviewer decision, or deployment approval was invented.
-- Model readiness remains NO-GO until the task-specific data, evaluation, review, and approval gates are satisfied.
-- A non-author review is still required; R2 does not self-approve its chapters.
-
-## Verification record
-
-The final commands and results are recorded in `delivery-checklist.md`. R1 must still compile the integrated `main.tex`, check cross-chapter terminology and numbering, and obtain a real reviewer sign-off.
+- Initial `5fdeb0a` draft and subsequent `edb9e32` PR #169 revision established the nine-diagram inventory, 27-class/13-migration reconciliation, and R1/R2 file ownership split (`work/reporting/system-evidence` merged into `team/reporting` at `e3a679a`).

@@ -1,5 +1,5 @@
 {
-  "software_sha": "edb9e32871eac2966750993294078acbfdba65f9",
+  "software_sha": "ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6",
   "classes": {
     "AiTaskRun": {
       "table": "ai_task_runs",
