@@ -1,0 +1,98 @@
+\chapter{Technical Decisions and Trade-offs}
+\label{chap:decisions}
+
+This chapter explains implementation choices observed at software revision \texttt{edb9e32871eac2966750993294078acbfdba65f9}. The alternatives below are retrospective analysis for this report. They are not presented as decisions documented in team meetings. The companion architecture and model inventories link to the source definitions and migrations. Each section starts with a practical problem, describes the implemented solution, and considers what would change under an alternative. The purpose is to make the reasoning behind the design understandable, including its costs and remaining limitations.
+
+\section{One OpenAPI Contract and Generated Client}
+
+OpenAPI describes HTTP operations in a language-independent contract; operation identifiers connect this vocabulary to generated client methods~\cite{r2OpenAPI}.
+
+When pages define their own requests, a backend change can leave some pages using an old field or endpoint. CampusLoop uses FastAPI operation identifiers and a generated TypeScript SDK to keep those definitions consistent. A small handwritten adapter adds the session and retry behavior needed by the browser, so individual pages can concentrate on the user's action.
+
+Direct fetch calls in each page would reduce generation setup, but duplicate URL, field, and error handling. Generated code requires regeneration after contract changes. Evidence is the route operation identifiers, generated SDK, and SDK adapter. The implementation supports this description; the alternative is assessed here for comparison.
+
+\section{Versioned Meetup Agreement}
+
+A meeting agreement needs to identify what both participants actually accepted. If one participant changes the location or time while the other still has the old page open, a simple confirmation flag cannot distinguish the two proposals. CampusLoop therefore gives each proposal a version. Editing it resets both confirmations, and completion checks the same agreed version.
+
+A single agreed boolean would be simpler but lose which location/time was accepted. Versioned agreement requires extra conflict handling. A stale client must reload before confirming, so both parties accept the same proposal. Evidence is \texttt{Meetup}, \texttt{save\_meetup}, \texttt{confirm\_meetup}, and \texttt{complete\_order}.
+
+\section{Stable Local Startup and Isolated Acceptance Environments}
+
+A developer needs to know which services and data a page is using before a demonstration or test begins. Ad-hoc ports make that harder to establish, while recreating volumes can erase daily data. The checked startup script applies the local Compose override with stable volumes. Write-heavy acceptance uses separately namespaced audit environments, allowing tests to change records without disturbing the daily environment.
+
+Manual service startup permits flexibility but makes environment drift harder to diagnose. Scripted startup imposes dependency and model preparation requirements, but gives the team one reproducible startup procedure. Evidence is \texttt{scripts/start-local.ps1}, \texttt{compose.local.yml}, and \texttt{scripts/audit\_env.py}. This describes implementation and does not claim another member has completed independent installation.
+
+\section{Authoritative Modular API with Isolated Advisory Processes}
+
+CampusLoop keeps business updates in one FastAPI application and runs the worker and M7/M8 advisory service as separate processes. The API can then coordinate the records involved in a transaction, while background work has its own process lifecycle.
+
+There are alternatives at either end of this choice. A single process would simplify local startup, but would place background work in the same process as request handling. Fully independent domain microservices would provide more deployment separation, but related business writes would have to cross service boundaries.
+
+The API can commit offers, orders, meetups, reports, notifications, and audit records together. Running the worker and advisory service separately keeps their background work out of the API process. It avoids distributed transaction complexity, but the API remains a scaling unit and the team must maintain clear boundaries between its modules. The Compose definitions and \texttt{backend/app/worker/runner.py} are the executable evidence.
+
+\section{PostgreSQL as the Business and Queue Authority}
+
+PostgreSQL holds both durable business state and matching jobs. Redis is used for bounded operational state. Using the database as the queue authority means that job handling and its associated business records remain in the same persistent store.
+
+Redis could instead hold sessions or the matching queue. A dedicated broker could also provide more delivery and routing options. Either choice would introduce another place where persistent job state has to be managed and reconciled with the business database.
+
+PostgreSQL row locks, constraints, and atomic commits allow a state transition, its event, and its notification to succeed or fail together. The worker can claim durable jobs with database locking semantics. This reduces the number of services and the risk of inconsistent state between stores. It increases database load and provides fewer routing options than a dedicated queue broker.
+
+\section{Explicit State Machines, Lock Ordering, and Idempotency}
+
+PostgreSQL documents row-level locks and deadlock risks separately from partial unique indexes~\cite{r2Locks,r2PartialIndexes}. CampusLoop uses both: locks serialize conflicting transitions, while the migration predicate defines which order states participate in reservation uniqueness.
+
+Offer, order, meetup, and report updates are implemented as guarded state transitions, with a global lock order and idempotency scopes. The guards check whether the action is allowed in the current state. Locks coordinate competing writes, while idempotency lets the backend recognize the same request when it is sent again.
+
+Last-write-wins updates would be simpler, but could replace a valid earlier update with a request based on old information. Disabling a button in the frontend could reduce accidental repeated clicks, but would not coordinate requests from separate browsers. These alternatives do not address the same concurrency cases as backend checks.
+
+Concurrent acceptance, cancellation, and completion requests can otherwise create two orders, release a reserved listing, or complete against a stale meetup. Row locks and version checks serialize the critical path; idempotency protects network retries. This adds code and can cause requests to wait for locks. Short transactions and a consistent authorization--product--offer--order--meetup lock order reduce that risk.
+
+\section{Cookie-backed Browser Restoration with Rotating Session Families}
+
+A page reload should not make a user repeat the full login process, but the browser also needs a way to recover an identity that the server can revoke. CampusLoop restores browser identity through an opaque HttpOnly cookie and a server-side session family. It then issues short-lived access tokens for API calls.
+
+Persist refresh tokens in browser local storage or require login after every page reload.
+
+The cookie reduces script access to long-lived credentials, while family revocation and one-time refresh rotation limit replay. Origin checks and secure-cookie configuration are still required to manage cross-site request risks. Server-side session records add storage and cleanup work but provide auditable revocation.
+
+\section{Purpose-bound Dual-bucket Media Storage}
+
+Product images need to be visible to people browsing the catalog, whereas chat images and report evidence belong to restricted conversations or reviews. CampusLoop reflects that difference in storage: catalog media uses a public-read bucket, and sensitive chat/report media uses a private bucket. The backend checks key ownership and purpose before another record can reference a file.
+
+One public bucket is operationally simple; one private bucket with signed URLs gives uniform access control.
+
+Public product images can be cached and displayed without an API proxy, while evidence and private messages never inherit public-read policy. Maintaining two policies and checking object purposes takes more configuration. It keeps private evidence and messages outside the catalog's public-read policy.
+
+\section{Frozen Local Baseline Before Remote Advisory Acceptance}
+
+An advisory service can be slow, unavailable, or incompatible with the API that calls it. For the frozen ranking path, the API validates inputs and computes the checked-in rule baseline locally before accepting a remote result. The RPC call has a 1.5-second timeout, and fallback metadata records why the baseline was used.
+
+Trust the remote response, fail the request when the service is down, or silently return the baseline.
+
+Local validation prevents transport failure from bypassing hard constraints. Comparing schema, version, identities, bounds, and explanations prevents an incompatible service from expanding eligibility. Degradation metadata tells the client when the service failed while allowing trading to continue. The cost is duplicate computation and strict coupling to the frozen contract, which is appropriate until a separately reviewed version is approved.
+
+\section{Post-ranking Visibility Recheck}
+
+The catalog can change while a ranking request is being processed. CampusLoop therefore re-reads ranked products and owners from PostgreSQL and compares entity versions immediately before serialization. A result must still describe a currently visible version of the product before it is returned to the browser.
+
+Return the advisory service's product snapshot directly.
+
+A listing can be sold, hidden, deleted, or associated with a disabled user while ranking is in progress. The final read prevents stale advisory data from bypassing current visibility. It adds one database query per request but avoids exposing unavailable records or internal fields.
+
+\section{Human Decision for Risk and Governance}
+
+Risk output helps an administrator decide what to inspect. It is not sufficient on its own to justify an account action. CampusLoop therefore treats it as a set of clues and requires an explicit administrator decision, a reason, and an audit record when resolving a report.
+
+Automatically suspend accounts or remove listings when a score crosses a threshold.
+
+Current signals are incomplete: there is no payment or device-fingerprint input, reports can be malicious, and evaluation is not sufficient for automated enforcement. Human review gives an administrator responsibility for checking a clue before acting. It also takes staff time and delays decisions. The audit record deliberately states that enforcement was not executed.
+
+\section{Honest Missingness and No-go Gates}
+
+The interface needs to distinguish a measured result from information that is missing or cannot be produced. CampusLoop represents these cases with \texttt{null}, \texttt{UNAVAILABLE}, \texttt{INSUFFICIENT\_DATA}, or \texttt{degraded}. These values preserve the reason for uncertainty instead of making an incomplete result look complete. Passing a contract test alone does not establish model readiness.
+
+Substitute zeroes for missing risk signals, derive price accuracy from synthetic records, or present demo plausibility as evaluation.
+
+Showing missing evidence gives users less information and postpones a go-live claim. It also makes the limits of the available evidence clear. The resulting gates are actionable: collect authorized real transactions, freeze and independently review evaluation sets, retain baseline comparisons, and require accountable approval before changing the deployment claim.

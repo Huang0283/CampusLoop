@@ -1,0 +1,33 @@
+sequenceDiagram
+ autonumber
+ actor U as Participant
+ participant UI as ChatPages
+ participant API as Transactions API
+ participant DB as PostgreSQL
+ U->>UI: Select peer and product A
+ activate UI
+ UI->>API: listChatSessions
+ activate API
+ API->>DB: Read sessions where actor is buyer or seller
+ DB-->>API: Authorized sessions for products A and B
+ API-->>UI: Session DTOs with peer and context
+ deactivate API
+ UI->>API: listMessages and listSessionOffers per session
+ API-->>UI: Messages and offers carrying session IDs
+ UI-->>U: One peer timeline, context labels preserved
+ U->>UI: Switch current context to product B
+ UI->>UI: Locate latest loaded B entry, preserve composer text
+ U->>UI: Send message for B
+ UI->>API: sendMessage(session B, clientMsgId, content)
+ activate API
+ API->>DB: Check participant and deduplicate client ID
+ alt Valid participant and new client ID
+  API->>DB: Insert message and notification, commit
+  API-->>UI: Persisted message for B
+ else Different payload reused with same client ID
+  API-->>UI: MESSAGE_ID_CONFLICT
+ else Unauthorized session
+  API-->>UI: FORBIDDEN
+ end
+ deactivate API
+ deactivate UI

@@ -1,0 +1,37 @@
+erDiagram
+ direction TB
+ users ||..o{ reports : reporter_id
+ users |o..o{ reports : handled_by
+ users ||..o{ account_decisions : user_id
+ users |o..o{ account_decisions : actor_id
+ account_decisions ||..o| account_appeals : decision_id
+ users |o..o{ account_appeals : reviewed_by
+ users ||..o{ notifications : user_id
+ reports {
+  bigint id PK
+  bigint reporter_id FK
+  varchar target_type
+  bigint target_id "polymorphic, NO database FK"
+  varchar status "open-report partial UNIQUE, 0013"
+  bigint handled_by FK "nullable"
+ }
+ account_decisions {
+  bigint id PK
+  bigint user_id FK
+  bigint actor_id FK "nullable"
+  varchar action
+  varchar reason
+  jsonb evidence
+ }
+ account_appeals {
+  bigint id PK
+  bigint decision_id FK,UK "NOT NULL, 0012"
+  varchar status
+  bigint reviewed_by FK "nullable"
+ }
+ notifications {
+  bigint id PK
+  bigint user_id FK
+  varchar type
+  jsonb payload
+ }

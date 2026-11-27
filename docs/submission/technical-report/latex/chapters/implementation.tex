@@ -1,0 +1,74 @@
+\chapter{Implementation}
+\label{chap:implementation}
+
+\section{Client and API Layers}
+
+This chapter follows requests from the page where an action begins to the backend checks and records that it produces. The aim is to explain how the design is implemented, including what happens when a request is repeated, outdated, or submitted by someone without permission. The source index provides the corresponding files and operation names for each chain.
+
+The browser application is implemented in React and TypeScript. Feature pages call the generated SDK through a small handwritten adapter. This keeps endpoint definitions out of individual pages. The adapter restores identity on startup, attaches the bearer access token to protected requests, and uses the browser-session header for cookie-backed restoration. Market pages publish products, search the catalog, request wanted matches, obtain price advice, and start chat sessions. Chat pages send messages and offers and navigate to the newly created order after acceptance. Transaction pages expose meetup proposal, meetup confirmation, and completion confirmation. Administrator pages load risk clues and submit report decisions.
+
+FastAPI route modules separate authentication, market, transaction, intelligence, media, and governance concerns. Pydantic input models reject invalid shapes and bounds before domain logic is executed. A common response envelope and structured business errors keep client handling consistent. SQLAlchemy sessions group related writes into a transaction. The API stages the records, events, notifications, and audit data before committing them.
+
+\section{Six End-to-End Source Chains}
+
+\subsection{Browser Session Restoration}
+
+The client method \texttt{restoreIdentity} calls \texttt{POST /auth/browser-session}. The route reads the session family from the secure browser cookie and checks the request origin and refresh window. It then creates an access token, serializes the current user, records \texttt{browser\_session\_restored}, and commits. The response is marked \texttt{no-store}. A separate refresh route rotates one-time refresh sessions; reusing a consumed token commits family revocation before returning an error.
+
+\subsection{Product Publication}
+
+Product publication begins with the seller's form and selected images. The market page uploads those images and calls \texttt{createProduct} with their object keys. Before saving the listing, the API checks that every key belongs to the actor and was uploaded for product media. It then inserts a product in \texttt{ON\_SALE}, saves the image order, and returns the public product representation.
+
+The request also carries an idempotency key scoped to \texttt{create-product}. This handles a common retry situation: the browser may not receive a response even though the server has already saved the listing. Repeating the same request with the same key returns the stored result instead of creating another product.
+
+\subsection{Chat and Offer Negotiation}
+
+When a student starts a conversation, the chat route checks the referenced product or wanted post under a lock and assigns the buyer and seller roles. It rejects contact with one's own listing. If the same parties already have a session for that context, the route returns it so that repeated contact does not create a second conversation for the same purpose.
+
+Messages carry a client-generated identifier that lets the backend recognize a retry. An exact replay returns the original message, while reusing the identifier with different content produces a conflict. Offers use the shared idempotency service and check listing availability again before saving a pending amount. A conversation can therefore remain available as history even when a new offer is no longer allowed.
+
+\subsection{Unique Order Creation}
+
+Offer acceptance follows the global lock order documented in the transaction service: authorization context, product, offer, order, then meetup. Only the participant who did not propose a still-pending, unexpired offer can accept it. Under those locks the service marks the offer accepted, changes the product to \texttt{RESERVED}, inserts the order, appends its initial event, and creates a notification. A unique offer reference prevents the same offer from creating another order. A partial unique index protects the product reservation while excluding cancelled and disputed orders. This allows the database to retain historical orders for the product. The idempotency scope \texttt{accept:\{offerId\}} protects request replay.
+
+\subsection{Meetup and Dual Completion}
+
+After offer acceptance, a participant proposes a campus location and a future meeting time. Updating that proposal increments its version and resets the confirmations. Each confirmation identifies both the meetup and its version. If a participant submits a confirmation from an older page, the backend returns \texttt{MEETUP\_VERSION\_CONFLICT} and requires the current proposal to be checked again.
+
+The order becomes \texttt{MEETUP\_ARRANGED} only when both roles have confirmed the same version. Completion is a separate step: the API checks the version again and saves a separate flag for each participant. The first confirmation alone does not finish the transaction. The second valid confirmation changes the order to \texttt{COMPLETED}, marks the product \texttt{SOLD}, and sends review requests to both parties.
+
+\subsection{Report Resolution and Audit}
+
+The user route creates a \texttt{PENDING} report only after target-specific authorization and evidence ownership checks. The administrator route locks the report, requires a non-blank decision note, updates the handler and timestamp, notifies the reporter, and writes a governance audit record with before and after snapshots. An administrator who changes a completed decision uses the separate override endpoint. The request must include the previously observed status and handling timestamp, so an outdated decision is rejected.
+
+\subsection{Administrator-to-Student Governance Extension}
+
+The account controls in the administrator UI call \texttt{adminCreateAccountDecision}. The moderation route checks administrator access and delegates to \texttt{record\_decision}; it persists a decision, discloses only a bounded snapshot, sends an account notification, and audits the action. A disable command revokes session families and invokes \texttt{protect\_disabled\_orders}. The student's moderation page calls \texttt{listAccountDecisions} and \texttt{submitAccountAppeal}. The review page calls \texttt{adminReviewAccountAppeal}; the service enforces reviewer separation before recording an upheld or revoked result. Unauthorized reads, protected-admin targets, stale or already concluded appeals, and invalid evidence keys are rejected. This chain is distinct from \texttt{resolveReport}, which only resolves the report itself.
+
+\section{Persistence, Concurrency, and Idempotency}
+
+The implementation uses several checks because repeated requests and competing updates are different problems. Row locks coordinate requests that try to change the same offer, order, meetup, or report at the same time. Database uniqueness constraints provide an additional check on duplicate records, while version fields reject actions based on an outdated meetup or report.
+
+Idempotency handles a different case: repeating an action whose result the client may not have received. An idempotency record associates the actor, operation scope, key, and request payload with the stored response. Repeating that request returns the saved result; using the same key for another payload is rejected. PostgreSQL stores these records together with the user-visible and audit-relevant business state.
+
+The matching worker uses the same PostgreSQL database as a durable queue. It claims matching jobs without moving authoritative data into Redis, persists outputs and run observations, and exposes a separate health endpoint. The worker records its runtime version separately from the algorithm and result versions. An operator can therefore identify both the worker that handled a job and the advisory logic used.
+
+\section{Media Isolation}
+
+MinIO uses two buckets with different exposure. Product images are public-read because they are part of the catalog. Chat images, report evidence, and other sensitive objects are private and require an authorized API read. Before another record can reference an object key, the storage service checks its owner and intended purpose. A plausible key prefix alone does not grant access. This avoids treating an object-store URL as proof of authorization.
+
+\section{Runtime Topology and Operations}
+
+The Compose definition pins PostgreSQL with pgvector and Redis versions, builds MinIO from a fixed source tag, and builds API, worker, and baseline service images from the repository. The API waits for database, Redis, storage, and bucket initialization. The worker waits for database and API readiness. The advisory service listens only on the Compose network and requires a sufficiently long shared RPC token. Container health probes and bounded JSON log rotation provide operational signals without exposing the advisory ports to the host.
+
+For daily development, \texttt{scripts/start-local.ps1} applies \texttt{compose.local.yml}, binds infrastructure ports to loopback, and uses stable named volumes. Acceptance exercises use isolated database and Redis instances so verification cannot destroy or contaminate the daily environment. These rules let developers reproduce the environment while preserving daily data.
+
+\section{Public Catalog Translation}
+
+The bilingual interface keeps original listing fields unchanged and requests display translations from a local HTTP service. At this baseline the service loads the pinned HY-MT1.5-1.8B model and preserves protected brand, model, quantity, and source-language spans. Private chat, report, and appeal text is outside this public-catalog translation path. Model preparation and initial inference require separate resources; a successful small regression set does not imply accurate translation for arbitrary text. This display service is distinct from relevance ranking and the frozen M7/M8 evaluation contracts.
+
+\section{Verification Boundary}
+
+Route, contract, concurrency, and fallback tests can check whether the code follows its rules. They can, for example, check that an outdated confirmation is rejected or that a failed advisory request produces the expected fallback. Passing these tests does not establish the quality of the advice itself.
+
+Search and matching need an independently reviewed relevance set to support quality metrics. Price evaluation needs authorized real completed transactions, while trust and risk assessment need representative, privacy-approved observations and human review. The report therefore considers correct implementation and model readiness separately, and does not treat a working interface as evidence that its model is ready for use.

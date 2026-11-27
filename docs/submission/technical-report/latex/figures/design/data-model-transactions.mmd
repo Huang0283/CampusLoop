@@ -1,0 +1,45 @@
+erDiagram
+ direction TB
+ chat_sessions ||..o{ offers : session_id
+ products ||..o{ orders : historical_orders
+ offers |o..o| orders : offer_id
+ orders ||..o| meetups : order_id
+ orders ||..o{ order_events : order_id
+ orders ||..o{ reviews : order_id
+ offers {
+  bigint id PK
+  bigint session_id FK
+  bigint proposer_id FK
+  numeric amount
+  varchar status
+ }
+ orders {
+  bigint id PK
+  bigint product_id FK "partial UNIQUE active reservation, 0003"
+  bigint offer_id FK,UK "nullable"
+  bigint buyer_id FK
+  bigint seller_id FK
+  numeric amount
+  varchar status
+ }
+ meetups {
+  bigint id PK
+  bigint order_id FK,UK
+  integer version
+  integer buyer_confirmed_version
+  integer seller_confirmed_version
+ }
+ order_events {
+  bigint id PK
+  bigint order_id FK
+  bigint operator_id FK
+  varchar from_status "nullable"
+  varchar to_status
+ }
+ reviews {
+  bigint id PK
+  bigint order_id FK
+  bigint reviewer_id FK "unique with order_id"
+  bigint reviewee_id FK
+  integer rating
+ }

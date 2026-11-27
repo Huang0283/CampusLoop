@@ -1,0 +1,51 @@
+classDiagram
+ direction TB
+ class TimestampMixin {
+   created_at : datetime
+   updated_at : Optional_datetime
+ }
+ class Product {
+   id : int
+   owner_id : int
+   price : Numeric_10_2
+   status : str
+   moderation_blocked : bool
+ }
+ class ChatSession {
+   id : int
+   product_id : Optional_int
+   wanted_id : Optional_int
+   buyer_id : int
+   seller_id : int
+ }
+ class Offer {
+   id : int
+   session_id : int
+   amount : Numeric_10_2
+   status : str
+ }
+ class Order {
+   id : int
+   product_id : int
+   offer_id : Optional_int
+   version : int
+   status : str
+ }
+ class Meetup {
+   order_id : int
+   version : int
+   buyer_confirmed_version : int
+   seller_confirmed_version : int
+ }
+ TimestampMixin <|-- Product
+ TimestampMixin <|-- ChatSession
+ TimestampMixin <|-- Offer
+ TimestampMixin <|-- Order
+ TimestampMixin <|-- Meetup
+ ChatSession "0..*" --> "0..1" Product : product_id
+ Offer "0..*" --> "1" ChatSession : session_id
+ Order "0..*" --> "1" Product : product_id
+ Order "0..1" --> "0..1" Offer : offer_id
+ Meetup "0..1" --> "1" Order : order_id
+ note for Order "Selected ORM attributes only. SQL constraints are in ERD inventory."
+ note for Product "No service classes or domain methods are invented."

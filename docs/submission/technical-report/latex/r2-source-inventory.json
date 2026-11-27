@@ -1,0 +1,1665 @@
+{
+  "software_sha": "edb9e32871eac2966750993294078acbfdba65f9",
+  "classes": {
+    "AiTaskRun": {
+      "table": "ai_task_runs",
+      "path": "backend/app/models/ai_runs.py",
+      "line": 24,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 35
+        },
+        {
+          "name": "task_type",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 37
+        },
+        {
+          "name": "task_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(BigInteger)",
+          "line": 38
+        },
+        {
+          "name": "event_key",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(160))",
+          "line": 39
+        },
+        {
+          "name": "wanted_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(BigInteger)",
+          "line": 40
+        },
+        {
+          "name": "outcome",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False)",
+          "line": 42
+        },
+        {
+          "name": "error_code",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(64))",
+          "line": 43
+        },
+        {
+          "name": "result_version",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(64))",
+          "line": 45
+        },
+        {
+          "name": "attempt",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 47
+        },
+        {
+          "name": "duration_ms",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(Integer)",
+          "line": 48
+        },
+        {
+          "name": "worker_id",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(128), nullable=False)",
+          "line": 49
+        },
+        {
+          "name": "worker_version",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 50
+        },
+        {
+          "name": "started_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 51
+        },
+        {
+          "name": "finished_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 52
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now())",
+          "line": 53
+        }
+      ]
+    },
+    "WorkerHeartbeat": {
+      "table": "worker_heartbeats",
+      "path": "backend/app/models/ai_runs.py",
+      "line": 56,
+      "fields": [
+        {
+          "name": "worker_id",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(128), primary_key=True)",
+          "line": 61
+        },
+        {
+          "name": "version",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 62
+        },
+        {
+          "name": "pid",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False)",
+          "line": 63
+        },
+        {
+          "name": "started_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=False)",
+          "line": 64
+        },
+        {
+          "name": "last_beat_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=False)",
+          "line": 65
+        },
+        {
+          "name": "runs_total",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, nullable=False, default=0)",
+          "line": 66
+        },
+        {
+          "name": "runs_failed",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, nullable=False, default=0)",
+          "line": 67
+        }
+      ]
+    },
+    "ChatSession": {
+      "table": "chat_sessions",
+      "path": "backend/app/models/chat.py",
+      "line": 26,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 29
+        },
+        {
+          "name": "session_type",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False)",
+          "line": 31
+        },
+        {
+          "name": "product_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(BigInteger, ForeignKey('products.id', ondelete='SET NULL'), nullable=True)",
+          "line": 32
+        },
+        {
+          "name": "wanted_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(BigInteger, ForeignKey('wanted_posts.id', ondelete='SET NULL'), nullable=True)",
+          "line": 35
+        },
+        {
+          "name": "buyer_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 38
+        },
+        {
+          "name": "seller_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 41
+        },
+        {
+          "name": "last_message_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=True)",
+          "line": 45
+        }
+      ]
+    },
+    "ChatMessage": {
+      "table": "chat_messages",
+      "path": "backend/app/models/chat.py",
+      "line": 58,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 62
+        },
+        {
+          "name": "session_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('chat_sessions.id', ondelete='CASCADE'), nullable=False)",
+          "line": 63
+        },
+        {
+          "name": "sender_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 66
+        },
+        {
+          "name": "kind",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=ChatMessageKind.TEXT.value)",
+          "line": 69
+        },
+        {
+          "name": "content",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(Text, nullable=True)",
+          "line": 73
+        },
+        {
+          "name": "image_key",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(512), nullable=True)",
+          "line": 74
+        },
+        {
+          "name": "payload",
+          "annotation": "Mapped[dict | None]",
+          "definition": "mapped_column(JSONB, nullable=True)",
+          "line": 75
+        },
+        {
+          "name": "client_msg_id",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(36), nullable=True)",
+          "line": 76
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)",
+          "line": 77
+        }
+      ]
+    },
+    "MatchingJob": {
+      "table": "matching_jobs",
+      "path": "backend/app/models/matching.py",
+      "line": 10,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True)",
+          "line": 12
+        },
+        {
+          "name": "event_key",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(160), nullable=False)",
+          "line": 13
+        },
+        {
+          "name": "wanted_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('wanted_posts.id'), nullable=False)",
+          "line": 14
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default='PENDING')",
+          "line": 15
+        },
+        {
+          "name": "attempts",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 16
+        },
+        {
+          "name": "available_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())",
+          "line": 17
+        },
+        {
+          "name": "last_error",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(64))",
+          "line": 20
+        },
+        {
+          "name": "result_version",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(64))",
+          "line": 21
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())",
+          "line": 22
+        }
+      ]
+    },
+    "MatchingResult": {
+      "table": "matching_results",
+      "path": "backend/app/models/matching.py",
+      "line": 28,
+      "fields": [
+        {
+          "name": "wanted_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('wanted_posts.id'), primary_key=True)",
+          "line": 30
+        },
+        {
+          "name": "result_version",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 31
+        },
+        {
+          "name": "facts",
+          "annotation": "Mapped[dict]",
+          "definition": "mapped_column(JSONB, nullable=False)",
+          "line": 32
+        },
+        {
+          "name": "updated_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())",
+          "line": 33
+        }
+      ]
+    },
+    "MatchingNotification": {
+      "table": "matching_notifications",
+      "path": "backend/app/models/matching.py",
+      "line": 38,
+      "fields": [
+        {
+          "name": "wanted_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('wanted_posts.id'), primary_key=True)",
+          "line": 40
+        },
+        {
+          "name": "product_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('products.id'), primary_key=True)",
+          "line": 41
+        },
+        {
+          "name": "notification_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('notifications.id'), nullable=False)",
+          "line": 42
+        },
+        {
+          "name": "result_version",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 43
+        }
+      ]
+    },
+    "AccountDecision": {
+      "table": "account_decisions",
+      "path": "backend/app/models/moderation.py",
+      "line": 12,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 15
+        },
+        {
+          "name": "user_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('users.id'), nullable=False)",
+          "line": 16
+        },
+        {
+          "name": "actor_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('users.id', ondelete='SET NULL'))",
+          "line": 17
+        },
+        {
+          "name": "action",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False)",
+          "line": 18
+        },
+        {
+          "name": "reason",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(500), nullable=False)",
+          "line": 19
+        },
+        {
+          "name": "facts",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(2000), nullable=False)",
+          "line": 20
+        },
+        {
+          "name": "basis",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(500), nullable=False)",
+          "line": 21
+        },
+        {
+          "name": "occurred_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 22
+        },
+        {
+          "name": "reference",
+          "annotation": "Mapped[dict | None]",
+          "definition": "mapped_column(JSONB)",
+          "line": 24
+        },
+        {
+          "name": "evidence",
+          "annotation": "Mapped[list]",
+          "definition": "mapped_column(JSONB, nullable=False, default=list)",
+          "line": 25
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now())",
+          "line": 26
+        },
+        {
+          "name": "revoked_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 27
+        },
+        {
+          "name": "revoked_by",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('users.id', ondelete='SET NULL'))",
+          "line": 28
+        },
+        {
+          "name": "revocation_reason",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(1000))",
+          "line": 29
+        }
+      ]
+    },
+    "AccountAppeal": {
+      "table": "account_appeals",
+      "path": "backend/app/models/moderation.py",
+      "line": 37,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 40
+        },
+        {
+          "name": "decision_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('account_decisions.id'), unique=True)",
+          "line": 41
+        },
+        {
+          "name": "explanation",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(2000), nullable=False)",
+          "line": 42
+        },
+        {
+          "name": "evidence",
+          "annotation": "Mapped[list]",
+          "definition": "mapped_column(JSONB, nullable=False, default=list)",
+          "line": 43
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default='PENDING')",
+          "line": 44
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now())",
+          "line": 45
+        },
+        {
+          "name": "reviewed_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 46
+        },
+        {
+          "name": "reviewed_by",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('users.id', ondelete='SET NULL'))",
+          "line": 47
+        },
+        {
+          "name": "review_reason",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(1000))",
+          "line": 48
+        }
+      ]
+    },
+    "Notification": {
+      "table": "notifications",
+      "path": "backend/app/models/notification.py",
+      "line": 22,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 25
+        },
+        {
+          "name": "user_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)",
+          "line": 26
+        },
+        {
+          "name": "type",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(32), nullable=False)",
+          "line": 29
+        },
+        {
+          "name": "payload",
+          "annotation": "Mapped[dict | None]",
+          "definition": "mapped_column(JSONB, nullable=True)",
+          "line": 31
+        },
+        {
+          "name": "read_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=True)",
+          "line": 33
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)",
+          "line": 34
+        }
+      ]
+    },
+    "Offer": {
+      "table": "offers",
+      "path": "backend/app/models/offer.py",
+      "line": 29,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 32
+        },
+        {
+          "name": "session_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('chat_sessions.id', ondelete='CASCADE'), nullable=False)",
+          "line": 33
+        },
+        {
+          "name": "buyer_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 36
+        },
+        {
+          "name": "seller_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 39
+        },
+        {
+          "name": "proposer_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('users.id'))",
+          "line": 42
+        },
+        {
+          "name": "countered_by_offer_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('offers.id'))",
+          "line": 43
+        },
+        {
+          "name": "amount",
+          "annotation": "Mapped[float]",
+          "definition": "mapped_column(Numeric(10, 2), nullable=False)",
+          "line": 44
+        },
+        {
+          "name": "message",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(500), nullable=True)",
+          "line": 45
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=OfferStatus.PENDING.value)",
+          "line": 46
+        },
+        {
+          "name": "idempotency_key",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(64), nullable=True)",
+          "line": 50
+        },
+        {
+          "name": "expires_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=True)",
+          "line": 51
+        },
+        {
+          "name": "responded_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=True)",
+          "line": 52
+        }
+      ]
+    },
+    "Order": {
+      "table": "orders",
+      "path": "backend/app/models/order.py",
+      "line": 28,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 31
+        },
+        {
+          "name": "product_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('products.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 32
+        },
+        {
+          "name": "offer_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('offers.id', ondelete='RESTRICT'), nullable=True)",
+          "line": 35
+        },
+        {
+          "name": "buyer_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 38
+        },
+        {
+          "name": "seller_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 41
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(32), nullable=False, default=OrderStatus.PENDING_CONFIRM.value)",
+          "line": 44
+        },
+        {
+          "name": "amount",
+          "annotation": "Mapped[float]",
+          "definition": "mapped_column(Numeric(10, 2), nullable=False)",
+          "line": 48
+        },
+        {
+          "name": "version",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=1)",
+          "line": 50
+        },
+        {
+          "name": "buyer_confirmed_complete",
+          "annotation": "Mapped[bool]",
+          "definition": "mapped_column(Boolean, nullable=False, default=False)",
+          "line": 51
+        },
+        {
+          "name": "seller_confirmed_complete",
+          "annotation": "Mapped[bool]",
+          "definition": "mapped_column(Boolean, nullable=False, default=False)",
+          "line": 52
+        },
+        {
+          "name": "cancelled_reason",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(200), nullable=True)",
+          "line": 54
+        }
+      ]
+    },
+    "OrderEvent": {
+      "table": "order_events",
+      "path": "backend/app/models/order.py",
+      "line": 70,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 75
+        },
+        {
+          "name": "order_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('orders.id', ondelete='CASCADE'), nullable=False)",
+          "line": 76
+        },
+        {
+          "name": "from_status",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(32), nullable=True)",
+          "line": 79
+        },
+        {
+          "name": "to_status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(32), nullable=False)",
+          "line": 80
+        },
+        {
+          "name": "operator_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 81
+        },
+        {
+          "name": "description",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(500), nullable=False, default='')",
+          "line": 84
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)",
+          "line": 85
+        }
+      ]
+    },
+    "Meetup": {
+      "table": "meetups",
+      "path": "backend/app/models/order.py",
+      "line": 92,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 97
+        },
+        {
+          "name": "order_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('orders.id', ondelete='CASCADE'), nullable=False)",
+          "line": 98
+        },
+        {
+          "name": "place",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(128), nullable=False)",
+          "line": 101
+        },
+        {
+          "name": "proposed_slots",
+          "annotation": "Mapped[dict | None]",
+          "definition": "mapped_column(JSONB, nullable=True)",
+          "line": 103
+        },
+        {
+          "name": "confirmed_slot",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=True)",
+          "line": 104
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=MeetupStatus.PROPOSED.value)",
+          "line": 105
+        },
+        {
+          "name": "version",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=1)",
+          "line": 108
+        },
+        {
+          "name": "buyer_confirmed_version",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 109
+        },
+        {
+          "name": "seller_confirmed_version",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 110
+        }
+      ]
+    },
+    "Product": {
+      "table": "products",
+      "path": "backend/app/models/product.py",
+      "line": 31,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 34
+        },
+        {
+          "name": "owner_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 35
+        },
+        {
+          "name": "title",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(100), nullable=False)",
+          "line": 38
+        },
+        {
+          "name": "description",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(Text, nullable=False, default='')",
+          "line": 39
+        },
+        {
+          "name": "category",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(32), nullable=False)",
+          "line": 40
+        },
+        {
+          "name": "condition",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False)",
+          "line": 41
+        },
+        {
+          "name": "brand",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(64), nullable=True)",
+          "line": 42
+        },
+        {
+          "name": "price",
+          "annotation": "Mapped[float]",
+          "definition": "mapped_column(Numeric(10, 2), nullable=False)",
+          "line": 44
+        },
+        {
+          "name": "original_price",
+          "annotation": "Mapped[float | None]",
+          "definition": "mapped_column(Numeric(10, 2), nullable=True)",
+          "line": 45
+        },
+        {
+          "name": "campus_location",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(128), nullable=False, default='\u4e3b\u6821\u533a')",
+          "line": 46
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=ProductStatus.ON_SALE.value)",
+          "line": 47
+        },
+        {
+          "name": "deleted_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 50
+        },
+        {
+          "name": "moderation_blocked",
+          "annotation": "Mapped[bool]",
+          "definition": "mapped_column(Boolean, nullable=False, default=False, server_default='false')",
+          "line": 51
+        },
+        {
+          "name": "attributes",
+          "annotation": "Mapped[dict | None]",
+          "definition": "mapped_column(JSONB, nullable=True)",
+          "line": 55
+        },
+        {
+          "name": "view_count",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 56
+        },
+        {
+          "name": "favorite_count",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 58
+        },
+        {
+          "name": "embedding",
+          "annotation": "Mapped[Any]",
+          "definition": "mapped_column(Vector(768), nullable=True)",
+          "line": 61
+        }
+      ]
+    },
+    "ProductImage": {
+      "table": "product_images",
+      "path": "backend/app/models/product.py",
+      "line": 73,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 76
+        },
+        {
+          "name": "product_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('products.id', ondelete='CASCADE'), nullable=False)",
+          "line": 77
+        },
+        {
+          "name": "object_key",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(512), nullable=False)",
+          "line": 81
+        },
+        {
+          "name": "sort_order",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 82
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)",
+          "line": 83
+        }
+      ]
+    },
+    "Favorite": {
+      "table": "favorites",
+      "path": "backend/app/models/product.py",
+      "line": 93,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 96
+        },
+        {
+          "name": "user_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)",
+          "line": 97
+        },
+        {
+          "name": "product_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('products.id', ondelete='CASCADE'), nullable=False)",
+          "line": 100
+        }
+      ]
+    },
+    "Report": {
+      "table": "reports",
+      "path": "backend/app/models/report.py",
+      "line": 24,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 27
+        },
+        {
+          "name": "reporter_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 28
+        },
+        {
+          "name": "target_type",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False)",
+          "line": 31
+        },
+        {
+          "name": "target_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, nullable=False)",
+          "line": 33
+        },
+        {
+          "name": "reason",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(32), nullable=False)",
+          "line": 34
+        },
+        {
+          "name": "description",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(1000), nullable=True)",
+          "line": 35
+        },
+        {
+          "name": "evidence",
+          "annotation": "Mapped[dict | None]",
+          "definition": "mapped_column(JSONB, nullable=True)",
+          "line": 37
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=ReportStatus.PENDING.value)",
+          "line": 38
+        },
+        {
+          "name": "handled_by",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='SET NULL'), nullable=True)",
+          "line": 41
+        },
+        {
+          "name": "handled_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=True)",
+          "line": 44
+        },
+        {
+          "name": "resolution_note",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(1000), nullable=True)",
+          "line": 46
+        }
+      ]
+    },
+    "Review": {
+      "table": "reviews",
+      "path": "backend/app/models/review.py",
+      "line": 20,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 23
+        },
+        {
+          "name": "order_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('orders.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 24
+        },
+        {
+          "name": "reviewer_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 27
+        },
+        {
+          "name": "reviewee_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 30
+        },
+        {
+          "name": "rating",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False)",
+          "line": 34
+        },
+        {
+          "name": "description_accuracy",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(Integer)",
+          "line": 35
+        },
+        {
+          "name": "communication",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(Integer)",
+          "line": 36
+        },
+        {
+          "name": "punctuality",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(Integer)",
+          "line": 37
+        },
+        {
+          "name": "comment",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(Text, nullable=True)",
+          "line": 38
+        }
+      ]
+    },
+    "IdempotencyRecord": {
+      "table": "idempotency_records",
+      "path": "backend/app/models/runtime.py",
+      "line": 10,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True)",
+          "line": 12
+        },
+        {
+          "name": "actor_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('users.id'), nullable=False)",
+          "line": 13
+        },
+        {
+          "name": "scope",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(128), nullable=False)",
+          "line": 14
+        },
+        {
+          "name": "key",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 15
+        },
+        {
+          "name": "input_hash",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 16
+        },
+        {
+          "name": "result",
+          "annotation": "Mapped[dict]",
+          "definition": "mapped_column(JSONB, nullable=False)",
+          "line": 17
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now())",
+          "line": 18
+        }
+      ]
+    },
+    "UploadedObject": {
+      "table": "uploaded_objects",
+      "path": "backend/app/models/runtime.py",
+      "line": 22,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True)",
+          "line": 24
+        },
+        {
+          "name": "owner_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('users.id'), nullable=False)",
+          "line": 25
+        },
+        {
+          "name": "object_key",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(512), unique=True, nullable=False)",
+          "line": 26
+        },
+        {
+          "name": "purpose",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False)",
+          "line": 27
+        },
+        {
+          "name": "content_type",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(32), nullable=False)",
+          "line": 28
+        },
+        {
+          "name": "size",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False)",
+          "line": 29
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now())",
+          "line": 30
+        }
+      ]
+    },
+    "ChatReadCursor": {
+      "table": "chat_read_cursors",
+      "path": "backend/app/models/runtime.py",
+      "line": 33,
+      "fields": [
+        {
+          "name": "session_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('chat_sessions.id'), primary_key=True)",
+          "line": 35
+        },
+        {
+          "name": "user_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('users.id'), primary_key=True)",
+          "line": 36
+        },
+        {
+          "name": "last_message_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, nullable=False, default=0)",
+          "line": 37
+        }
+      ]
+    },
+    "User": {
+      "table": "users",
+      "path": "backend/app/models/user.py",
+      "line": 27,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 30
+        },
+        {
+          "name": "email",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(255), nullable=False, unique=True)",
+          "line": 31
+        },
+        {
+          "name": "password_hash",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(255), nullable=False)",
+          "line": 33
+        },
+        {
+          "name": "nickname",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 34
+        },
+        {
+          "name": "avatar_url",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(512), nullable=True)",
+          "line": 35
+        },
+        {
+          "name": "campus_email_verified",
+          "annotation": "Mapped[bool]",
+          "definition": "mapped_column(default=False, nullable=False)",
+          "line": 37
+        },
+        {
+          "name": "role",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=Role.USER.value)",
+          "line": 39
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=UserStatus.ACTIVE.value)",
+          "line": 41
+        },
+        {
+          "name": "bio",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(500), nullable=True)",
+          "line": 42
+        },
+        {
+          "name": "school",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(80), nullable=True)",
+          "line": 43
+        },
+        {
+          "name": "college",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(80), nullable=True)",
+          "line": 44
+        },
+        {
+          "name": "major",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(80), nullable=True)",
+          "line": 45
+        },
+        {
+          "name": "rating_avg",
+          "annotation": "Mapped[float]",
+          "definition": "mapped_column(Numeric(2, 1), nullable=False, default=0)",
+          "line": 47
+        },
+        {
+          "name": "transaction_count",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, nullable=False, default=0)",
+          "line": 48
+        }
+      ]
+    },
+    "AuthSessionFamily": {
+      "table": "auth_session_families",
+      "path": "backend/app/models/user.py",
+      "line": 58,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(36), primary_key=True)",
+          "line": 61
+        },
+        {
+          "name": "user_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(ForeignKey('users.id'), nullable=False)",
+          "line": 62
+        },
+        {
+          "name": "expires_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=False)",
+          "line": 63
+        },
+        {
+          "name": "revoked_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 64
+        },
+        {
+          "name": "revocation_reason",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(32))",
+          "line": 65
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now())",
+          "line": 66
+        },
+        {
+          "name": "refresh_window_started_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 67
+        },
+        {
+          "name": "refresh_window_count",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(Integer, default=0, nullable=False)",
+          "line": 68
+        },
+        {
+          "name": "browser_token_hash",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(String(64), unique=True)",
+          "line": 69
+        }
+      ]
+    },
+    "AuthAudit": {
+      "table": "auth_audits",
+      "path": "backend/app/models/user.py",
+      "line": 77,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 80
+        },
+        {
+          "name": "actor_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('users.id', ondelete='SET NULL'))",
+          "line": 81
+        },
+        {
+          "name": "target_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('users.id', ondelete='SET NULL'))",
+          "line": 82
+        },
+        {
+          "name": "event",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(48), nullable=False)",
+          "line": 83
+        },
+        {
+          "name": "request_id",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False)",
+          "line": 84
+        },
+        {
+          "name": "context",
+          "annotation": "Mapped[dict]",
+          "definition": "mapped_column(JSONB, nullable=False, default=dict, server_default='{}')",
+          "line": 85
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now())",
+          "line": 86
+        }
+      ]
+    },
+    "RefreshSession": {
+      "table": "refresh_sessions",
+      "path": "backend/app/models/user.py",
+      "line": 89,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 97
+        },
+        {
+          "name": "user_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)",
+          "line": 98
+        },
+        {
+          "name": "token_hash",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(64), nullable=False, unique=True)",
+          "line": 101
+        },
+        {
+          "name": "family_id",
+          "annotation": "Mapped[str | None]",
+          "definition": "mapped_column(ForeignKey('auth_session_families.id'))",
+          "line": 103
+        },
+        {
+          "name": "consumed_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 104
+        },
+        {
+          "name": "parent_id",
+          "annotation": "Mapped[int | None]",
+          "definition": "mapped_column(ForeignKey('refresh_sessions.id'), unique=True)",
+          "line": 105
+        },
+        {
+          "name": "expires_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=False)",
+          "line": 106
+        },
+        {
+          "name": "revoked_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True), nullable=True)",
+          "line": 107
+        },
+        {
+          "name": "created_at",
+          "annotation": "Mapped[datetime]",
+          "definition": "mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)",
+          "line": 108
+        }
+      ]
+    },
+    "WantedPost": {
+      "table": "wanted_posts",
+      "path": "backend/app/models/wanted.py",
+      "line": 25,
+      "fields": [
+        {
+          "name": "id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, primary_key=True, autoincrement=True)",
+          "line": 28
+        },
+        {
+          "name": "owner_id",
+          "annotation": "Mapped[int]",
+          "definition": "mapped_column(BigInteger, ForeignKey('users.id', ondelete='RESTRICT'), nullable=False)",
+          "line": 29
+        },
+        {
+          "name": "title",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(100), nullable=False)",
+          "line": 32
+        },
+        {
+          "name": "description",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(Text, nullable=False, default='')",
+          "line": 33
+        },
+        {
+          "name": "category",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(32), nullable=False)",
+          "line": 34
+        },
+        {
+          "name": "budget_min",
+          "annotation": "Mapped[float | None]",
+          "definition": "mapped_column(Numeric(10, 2), nullable=True)",
+          "line": 35
+        },
+        {
+          "name": "budget_max",
+          "annotation": "Mapped[float | None]",
+          "definition": "mapped_column(Numeric(10, 2), nullable=True)",
+          "line": 36
+        },
+        {
+          "name": "requirements",
+          "annotation": "Mapped[dict | None]",
+          "definition": "mapped_column(JSONB, nullable=True)",
+          "line": 38
+        },
+        {
+          "name": "status",
+          "annotation": "Mapped[str]",
+          "definition": "mapped_column(String(16), nullable=False, default=WantedStatus.OPEN.value)",
+          "line": 39
+        },
+        {
+          "name": "expires_at",
+          "annotation": "Mapped[datetime | None]",
+          "definition": "mapped_column(DateTime(timezone=True))",
+          "line": 40
+        }
+      ]
+    }
+  },
+  "migrations": [
+    {
+      "path": "backend/alembic/versions/0001_initial_schema.py",
+      "line": 34,
+      "upgrade": "def upgrade() -> None:\n    # pgvector \u6269\u5c55\uff08Compose \u4f7f\u7528 pgvector/pgvector:pg16 \u955c\u50cf\uff1b\u672c\u5730\u9700 CREATE EXTENSION\uff09\n    op.execute(\"CREATE EXTENSION IF NOT EXISTS vector\")\n\n    # ---- users\uff08Owner: M5\uff09----\n    op.create_table(\n        \"users\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"email\", sa.String(length=255), nullable=False),\n        sa.Column(\"password_hash\", sa.String(length=255), nullable=False),\n        sa.Column(\"nickname\", sa.String(length=64), nullable=False),\n        sa.Column(\"avatar_url\", sa.String(length=512), nullable=True),\n        sa.Column(\n            \"campus_email_verified\", sa.Boolean(), server_default=sa.text(\"false\"), nullable=False\n        ),\n        sa.Column(\"role\", sa.String(length=16), server_default=sa.text(\"'USER'\"), nullable=False),\n        sa.Column(\n            \"status\", sa.String(length=16), server_default=sa.text(\"'ACTIVE'\"), nullable=False\n        ),\n        sa.Column(\"bio\", sa.String(length=500), nullable=True),\n        sa.Column(\"rating_avg\", sa.Numeric(2, 1), server_default=sa.text(\"0\"), nullable=False),\n        sa.Column(\"transaction_count\", sa.Integer(), server_default=sa.text(\"0\"), nullable=False),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_users\")),\n        sa.UniqueConstraint(\"email\", name=op.f(\"uq_users_email\")),\n        sa.CheckConstraint(\"role IN ('USER', 'ADMIN')\", name=op.f(\"ck_users_role_enum\")),\n        sa.CheckConstraint(\"status IN ('ACTIVE', 'DISABLED')\", name=op.f(\"ck_users_status_enum\")),\n        sa.CheckConstraint(\n            \"rating_avg >= 0 AND rating_avg <= 5\", name=op.f(\"ck_users_rating_range\")\n        ),\n    )\n    op.create_index(\"ix_users_role_status\", \"users\", [\"role\", \"status\"])\n\n    # ---- refresh_sessions\uff08Owner: M5\uff09----\n    op.create_table(\n        \"refresh_sessions\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"user_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"token_hash\", sa.String(length=64), nullable=False),\n        sa.Column(\"expires_at\", sa.DateTime(timezone=True), nullable=False),\n        sa.Column(\"revoked_at\", sa.DateTime(timezone=True), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_refresh_sessions\")),\n        sa.UniqueConstraint(\"token_hash\", name=op.f(\"uq_refresh_sessions_token_hash\")),\n        sa.ForeignKeyConstraint(\n            [\"user_id\"],\n            [\"users.id\"],\n            ondelete=\"CASCADE\",\n            name=op.f(\"fk_refresh_sessions_user_id_users\"),\n        ),\n    )\n    op.create_index(\n        \"ix_refresh_sessions_user_active\", \"refresh_sessions\", [\"user_id\", \"revoked_at\"]\n    )\n\n    # ---- products\uff08Owner: M6\uff1bembedding \u5f52 M7 \u5199\u5165\uff09----\n    op.create_table(\n        \"products\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"owner_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"title\", sa.String(length=100), nullable=False),\n        sa.Column(\"description\", sa.Text(), nullable=False),\n        sa.Column(\"category\", sa.String(length=32), nullable=False),\n        sa.Column(\"condition\", sa.String(length=16), nullable=False),\n        sa.Column(\"brand\", sa.String(length=64), nullable=True),\n        sa.Column(\"price\", sa.Numeric(10, 2), nullable=False),\n        sa.Column(\"original_price\", sa.Numeric(10, 2), nullable=True),\n        sa.Column(\"campus_location\", sa.String(length=128), nullable=True),\n        sa.Column(\n            \"status\", sa.String(length=16), server_default=sa.text(\"'ON_SALE'\"), nullable=False\n        ),\n        sa.Column(\"attributes\", postgresql.JSONB(astext_type=sa.Text()), nullable=True),\n        sa.Column(\"view_count\", sa.Integer(), server_default=sa.text(\"0\"), nullable=False),\n        sa.Column(\"favorite_count\", sa.Integer(), server_default=sa.text(\"0\"), nullable=False),\n        sa.Column(\"embedding\", VECTOR(768), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_products\")),\n        sa.ForeignKeyConstraint(\n            [\"owner_id\"], [\"users.id\"], ondelete=\"RESTRICT\", name=op.f(\"fk_products_owner_id_users\")\n        ),\n        sa.CheckConstraint(\n            \"status IN ('ON_SALE', 'RESERVED', 'SOLD', 'HIDDEN')\",\n            name=op.f(\"ck_products_status_enum\"),\n        ),\n        sa.CheckConstraint(\n            \"condition IN ('NEW', 'LIKE_NEW', 'GOOD', 'FAIR', 'POOR')\",\n            name=op.f(\"ck_products_condition_enum\"),\n        ),\n        sa.CheckConstraint(\"price >= 0\", name=op.f(\"ck_products_price_non_negative\")),\n        sa.CheckConstraint(\n            \"original_price IS NULL OR original_price >= price\",\n            name=op.f(\"ck_products_original_price_order\"),\n        ),\n    )\n    op.create_index(\"ix_products_owner_created\", \"products\", [\"owner_id\", \"created_at\"])\n    op.create_index(\"ix_products_status_category\", \"products\", [\"status\", \"category\"])\n\n    # ---- product_images ----\n    op.create_table(\n        \"product_images\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"product_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"object_key\", sa.String(length=512), nullable=False),\n        sa.Column(\"sort_order\", sa.Integer(), server_default=sa.text(\"0\"), nullable=False),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_product_images\")),\n        sa.UniqueConstraint(\"product_id\", \"sort_order\", name=op.f(\"uq_product_images_sort\")),\n        sa.ForeignKeyConstraint(\n            [\"product_id\"],\n            [\"products.id\"],\n            ondelete=\"CASCADE\",\n            name=op.f(\"fk_product_images_product_id_products\"),\n        ),\n    )\n    op.create_index(\"ix_product_images_product\", \"product_images\", [\"product_id\"])\n\n    # ---- favorites ----\n    op.create_table(\n        \"favorites\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"user_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"product_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_favorites\")),\n        sa.UniqueConstraint(\"user_id\", \"product_id\", name=op.f(\"uq_favorites_user_product\")),\n        sa.ForeignKeyConstraint(\n            [\"user_id\"], [\"users.id\"], ondelete=\"CASCADE\", name=op.f(\"fk_favorites_user_id_users\")\n        ),\n        sa.ForeignKeyConstraint(\n            [\"product_id\"],\n            [\"products.id\"],\n            ondelete=\"CASCADE\",\n            name=op.f(\"fk_favorites_product_id_products\"),\n        ),\n    )\n\n    # ---- wanted_posts ----\n    op.create_table(\n        \"wanted_posts\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"owner_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"title\", sa.String(length=100), nullable=False),\n        sa.Column(\"description\", sa.Text(), nullable=False),\n        sa.Column(\"category\", sa.String(length=32), nullable=False),\n        sa.Column(\"budget_min\", sa.Numeric(10, 2), nullable=True),\n        sa.Column(\"budget_max\", sa.Numeric(10, 2), nullable=True),\n        sa.Column(\"requirements\", postgresql.JSONB(astext_type=sa.Text()), nullable=True),\n        sa.Column(\"status\", sa.String(length=16), server_default=sa.text(\"'OPEN'\"), nullable=False),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_wanted_posts\")),\n        sa.ForeignKeyConstraint(\n            [\"owner_id\"],\n            [\"users.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_wanted_posts_owner_id_users\"),\n        ),\n        sa.CheckConstraint(\n            \"status IN ('OPEN', 'MATCHED', 'CLOSED', 'EXPIRED')\",\n            name=op.f(\"ck_wanted_posts_status_enum\"),\n        ),\n        sa.CheckConstraint(\n            \"budget_min IS NULL OR budget_max IS NULL OR budget_min <= budget_max\",\n            name=op.f(\"ck_wanted_posts_budget_order\"),\n        ),\n        sa.CheckConstraint(\n            \"budget_min IS NULL OR budget_min >= 0\",\n            name=op.f(\"ck_wanted_posts_budget_min_non_negative\"),\n        ),\n    )\n    op.create_index(\"ix_wanted_posts_status_category\", \"wanted_posts\", [\"status\", \"category\"])\n    op.create_index(\"ix_wanted_posts_owner_created\", \"wanted_posts\", [\"owner_id\", \"created_at\"])\n\n    # ---- chat_sessions ----\n    op.create_table(\n        \"chat_sessions\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"session_type\", sa.String(length=16), nullable=False),\n        sa.Column(\"product_id\", sa.BigInteger(), nullable=True),\n        sa.Column(\"wanted_id\", sa.BigInteger(), nullable=True),\n        sa.Column(\"buyer_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"seller_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"last_message_at\", sa.DateTime(timezone=True), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_chat_sessions\")),\n        sa.UniqueConstraint(\n            \"session_type\",\n            \"product_id\",\n            \"buyer_id\",\n            \"seller_id\",\n            name=op.f(\"uq_chat_sessions_product_scope\"),\n        ),\n        sa.UniqueConstraint(\n            \"session_type\",\n            \"wanted_id\",\n            \"buyer_id\",\n            \"seller_id\",\n            name=op.f(\"uq_chat_sessions_wanted_scope\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"product_id\"],\n            [\"products.id\"],\n            ondelete=\"SET NULL\",\n            name=op.f(\"fk_chat_sessions_product_id_products\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"wanted_id\"],\n            [\"wanted_posts.id\"],\n            ondelete=\"SET NULL\",\n            name=op.f(\"fk_chat_sessions_wanted_id_wanted_posts\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"buyer_id\"],\n            [\"users.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_chat_sessions_buyer_id_users\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"seller_id\"],\n            [\"users.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_chat_sessions_seller_id_users\"),\n        ),\n        sa.CheckConstraint(\n            \"session_type IN ('PRODUCT', 'WANTED')\", name=op.f(\"ck_chat_sessions_type_enum\")\n        ),\n        sa.CheckConstraint(\"buyer_id <> seller_id\", name=op.f(\"ck_chat_sessions_not_self\")),\n    )\n    op.create_index(\"ix_chat_sessions_buyer_last\", \"chat_sessions\", [\"buyer_id\", \"last_message_at\"])\n    op.create_index(\n        \"ix_chat_sessions_seller_last\", \"chat_sessions\", [\"seller_id\", \"last_message_at\"]\n    )\n\n    # ---- chat_messages ----\n    op.create_table(\n        \"chat_messages\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"session_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"sender_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"kind\", sa.String(length=16), server_default=sa.text(\"'TEXT'\"), nullable=False),\n        sa.Column(\"content\", sa.Text(), nullable=True),\n        sa.Column(\"image_key\", sa.String(length=512), nullable=True),\n        sa.Column(\"payload\", postgresql.JSONB(astext_type=sa.Text()), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_chat_messages\")),\n        sa.ForeignKeyConstraint(\n            [\"session_id\"],\n            [\"chat_sessions.id\"],\n            ondelete=\"CASCADE\",\n            name=op.f(\"fk_chat_messages_session_id_chat_sessions\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"sender_id\"],\n            [\"users.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_chat_messages_sender_id_users\"),\n        ),\n        sa.CheckConstraint(\n            \"kind IN ('TEXT', 'IMAGE', 'OFFER', 'ORDER_EVENT', 'SYSTEM')\",\n            name=op.f(\"ck_chat_messages_kind_enum\"),\n        ),\n    )\n    op.create_index(\"ix_chat_messages_session_id\", \"chat_messages\", [\"session_id\", \"id\"])\n\n    # ---- offers ----\n    op.create_table(\n        \"offers\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"session_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"buyer_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"seller_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"amount\", sa.Numeric(10, 2), nullable=False),\n        sa.Column(\"message\", sa.String(length=500), nullable=True),\n        sa.Column(\n            \"status\", sa.String(length=16), server_default=sa.text(\"'PENDING'\"), nullable=False\n        ),\n        sa.Column(\"idempotency_key\", sa.String(length=64), nullable=True),\n        sa.Column(\"expires_at\", sa.DateTime(timezone=True), nullable=True),\n        sa.Column(\"responded_at\", sa.DateTime(timezone=True), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_offers\")),\n        sa.UniqueConstraint(\n            \"session_id\", \"buyer_id\", \"idempotency_key\", name=op.f(\"uq_offers_idempotency\")\n        ),\n        sa.ForeignKeyConstraint(\n            [\"session_id\"],\n            [\"chat_sessions.id\"],\n            ondelete=\"CASCADE\",\n            name=op.f(\"fk_offers_session_id_chat_sessions\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"buyer_id\"], [\"users.id\"], ondelete=\"RESTRICT\", name=op.f(\"fk_offers_buyer_id_users\")\n        ),\n        sa.ForeignKeyConstraint(\n            [\"seller_id\"], [\"users.id\"], ondelete=\"RESTRICT\", name=op.f(\"fk_offers_seller_id_users\")\n        ),\n        sa.CheckConstraint(\n            \"status IN ('PENDING', 'ACCEPTED', 'REJECTED', 'COUNTERED', 'EXPIRED', 'CANCELLED')\",\n            name=op.f(\"ck_offers_status_enum\"),\n        ),\n        sa.CheckConstraint(\"amount >= 0\", name=op.f(\"ck_offers_amount_non_negative\")),\n    )\n    op.create_index(\"ix_offers_session_status\", \"offers\", [\"session_id\", \"status\"])\n\n    # ---- orders ----\n    op.create_table(\n        \"orders\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"product_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"offer_id\", sa.BigInteger(), nullable=True),\n        sa.Column(\"buyer_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"seller_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\n            \"status\",\n            sa.String(length=16),\n            server_default=sa.text(\"'PENDING_CONFIRM'\"),\n            nullable=False,\n        ),\n        sa.Column(\"amount\", sa.Numeric(10, 2), nullable=False),\n        sa.Column(\"version\", sa.Integer(), server_default=sa.text(\"1\"), nullable=False),\n        sa.Column(\n            \"buyer_confirmed_complete\",\n            sa.Boolean(),\n            server_default=sa.text(\"false\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"seller_confirmed_complete\",\n            sa.Boolean(),\n            server_default=sa.text(\"false\"),\n            nullable=False,\n        ),\n        sa.Column(\"cancelled_reason\", sa.String(length=200), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_orders\")),\n        sa.ForeignKeyConstraint(\n            [\"product_id\"],\n            [\"products.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_orders_product_id_products\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"offer_id\"], [\"offers.id\"], ondelete=\"RESTRICT\", name=op.f(\"fk_orders_offer_id_offers\")\n        ),\n        sa.ForeignKeyConstraint(\n            [\"buyer_id\"], [\"users.id\"], ondelete=\"RESTRICT\", name=op.f(\"fk_orders_buyer_id_users\")\n        ),\n        sa.ForeignKeyConstraint(\n            [\"seller_id\"], [\"users.id\"], ondelete=\"RESTRICT\", name=op.f(\"fk_orders_seller_id_users\")\n        ),\n        sa.CheckConstraint(\n            \"status IN ('PENDING_CONFIRM', 'BOOKED', 'MEETUP_ARRANGED', 'COMPLETED', 'CANCELLED', 'DISPUTED')\",\n            name=op.f(\"ck_orders_status_enum\"),\n        ),\n        sa.CheckConstraint(\"amount >= 0\", name=op.f(\"ck_orders_amount_non_negative\")),\n        sa.CheckConstraint(\"buyer_id <> seller_id\", name=op.f(\"ck_orders_not_self_trade\")),\n    )\n    op.create_index(\"ix_orders_buyer_created\", \"orders\", [\"buyer_id\", \"created_at\"])\n    op.create_index(\"ix_orders_seller_created\", \"orders\", [\"seller_id\", \"created_at\"])\n    op.create_index(\"ix_orders_product_status\", \"orders\", [\"product_id\", \"status\"])\n\n    # ---- order_events\uff08\u4e0d\u53ef\u53d8\u4e8b\u4ef6\u6d41\uff09----\n    op.create_table(\n        \"order_events\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"order_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"from_status\", sa.String(length=16), nullable=True),\n        sa.Column(\"to_status\", sa.String(length=16), nullable=False),\n        sa.Column(\"operator_id\", sa.BigInteger(), nullable=True),\n        sa.Column(\"description\", sa.String(length=200), nullable=False),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_order_events\")),\n        sa.ForeignKeyConstraint(\n            [\"order_id\"],\n            [\"orders.id\"],\n            ondelete=\"CASCADE\",\n            name=op.f(\"fk_order_events_order_id_orders\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"operator_id\"],\n            [\"users.id\"],\n            ondelete=\"SET NULL\",\n            name=op.f(\"fk_order_events_operator_id_users\"),\n        ),\n    )\n    op.create_index(\"ix_order_events_order_id\", \"order_events\", [\"order_id\", \"id\"])\n\n    # ---- meetups\uff08\u4e00\u5355\u4e00\u7ea6\uff0c\u7248\u672c\u5316\u53cc\u65b9\u786e\u8ba4\uff09----\n    op.create_table(\n        \"meetups\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"order_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"place\", sa.String(length=128), nullable=False),\n        sa.Column(\"proposed_slots\", postgresql.JSONB(astext_type=sa.Text()), nullable=True),\n        sa.Column(\"confirmed_slot\", sa.DateTime(timezone=True), nullable=True),\n        sa.Column(\n            \"status\", sa.String(length=16), server_default=sa.text(\"'PROPOSED'\"), nullable=False\n        ),\n        sa.Column(\"version\", sa.Integer(), server_default=sa.text(\"1\"), nullable=False),\n        sa.Column(\n            \"buyer_confirmed_version\", sa.Integer(), server_default=sa.text(\"0\"), nullable=False\n        ),\n        sa.Column(\n            \"seller_confirmed_version\", sa.Integer(), server_default=sa.text(\"0\"), nullable=False\n        ),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_meetups\")),\n        sa.UniqueConstraint(\"order_id\", name=op.f(\"uq_meetups_order\")),\n        sa.ForeignKeyConstraint(\n            [\"order_id\"], [\"orders.id\"], ondelete=\"CASCADE\", name=op.f(\"fk_meetups_order_id_orders\")\n        ),\n        sa.CheckConstraint(\n            \"status IN ('PROPOSED', 'CONFIRMED', 'COMPLETED', 'CANCELLED')\",\n            name=op.f(\"ck_meetups_status_enum\"),\n        ),\n    )\n\n    # ---- reviews ----\n    op.create_table(\n        \"reviews\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"order_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"reviewer_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"reviewee_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"rating\", sa.Integer(), nullable=False),\n        sa.Column(\"comment\", sa.Text(), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_reviews\")),\n        sa.UniqueConstraint(\"order_id\", \"reviewer_id\", name=op.f(\"uq_reviews_order_reviewer\")),\n        sa.ForeignKeyConstraint(\n            [\"order_id\"],\n            [\"orders.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_reviews_order_id_orders\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"reviewer_id\"],\n            [\"users.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_reviews_reviewer_id_users\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"reviewee_id\"],\n            [\"users.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_reviews_reviewee_id_users\"),\n        ),\n        sa.CheckConstraint(\"rating >= 1 AND rating <= 5\", name=op.f(\"ck_reviews_rating_range\")),\n        sa.CheckConstraint(\"reviewer_id <> reviewee_id\", name=op.f(\"ck_reviews_not_self_review\")),\n    )\n    op.create_index(\"ix_reviews_reviewee_created\", \"reviews\", [\"reviewee_id\", \"created_at\"])\n\n    # ---- reports ----\n    op.create_table(\n        \"reports\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"reporter_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"target_type\", sa.String(length=16), nullable=False),\n        sa.Column(\"target_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"reason\", sa.String(length=32), nullable=False),\n        sa.Column(\"description\", sa.Text(), nullable=False),\n        sa.Column(\"evidence\", postgresql.JSONB(astext_type=sa.Text()), nullable=True),\n        sa.Column(\n            \"status\", sa.String(length=16), server_default=sa.text(\"'PENDING'\"), nullable=False\n        ),\n        sa.Column(\"handled_by\", sa.BigInteger(), nullable=True),\n        sa.Column(\"handled_at\", sa.DateTime(timezone=True), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), server_default=sa.text(\"now()\"), nullable=True\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_reports\")),\n        sa.UniqueConstraint(\n            \"reporter_id\",\n            \"target_type\",\n            \"target_id\",\n            \"reason\",\n            name=op.f(\"uq_reports_no_duplicate\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"reporter_id\"],\n            [\"users.id\"],\n            ondelete=\"RESTRICT\",\n            name=op.f(\"fk_reports_reporter_id_users\"),\n        ),\n        sa.ForeignKeyConstraint(\n            [\"handled_by\"],\n            [\"users.id\"],\n            ondelete=\"SET NULL\",\n            name=op.f(\"fk_reports_handled_by_users\"),\n        ),\n        sa.CheckConstraint(\n            \"target_type IN ('USER', 'PRODUCT', 'ORDER', 'CHAT_MESSAGE')\",\n            name=op.f(\"ck_reports_target_type_enum\"),\n        ),\n        sa.CheckConstraint(\n            \"reason IN ('FAKE_PRODUCT', 'DESCRIPTION_MISMATCH', 'SPAM', 'ABNORMAL_PRICE', 'HARASSMENT', 'VIOLATION')\",\n            name=op.f(\"ck_reports_reason_enum\"),\n        ),\n        sa.CheckConstraint(\n            \"status IN ('PENDING', 'PROCESSING', 'RESOLVED', 'REJECTED')\",\n            name=op.f(\"ck_reports_status_enum\"),\n        ),\n    )\n    op.create_index(\"ix_reports_status_created\", \"reports\", [\"status\", \"created_at\"])\n\n    # ---- notifications ----\n    op.create_table(\n        \"notifications\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"user_id\", sa.BigInteger(), nullable=False),\n        sa.Column(\"type\", sa.String(length=32), nullable=False),\n        sa.Column(\"payload\", postgresql.JSONB(astext_type=sa.Text()), nullable=True),\n        sa.Column(\"read_at\", sa.DateTime(timezone=True), nullable=True),\n        sa.Column(\n            \"created_at\",\n            sa.DateTime(timezone=True),\n            server_default=sa.text(\"now()\"),\n            nullable=False,\n        ),\n        sa.PrimaryKeyConstraint(\"id\", name=op.f(\"pk_notifications\")),\n        sa.ForeignKeyConstraint(\n            [\"user_id\"],\n            [\"users.id\"],\n            ondelete=\"CASCADE\",\n            name=op.f(\"fk_notifications_user_id_users\"),\n        ),\n        sa.CheckConstraint(\n            \"type IN ('MESSAGE', 'OFFER_RECEIVED', 'OFFER_ACCEPTED', 'OFFER_REJECTED', 'MATCH_FOUND', \"\n            \"'ORDER_STATUS_CHANGED', 'MEETUP_REMINDER', 'REVIEW_REQUEST', 'REPORT_RESULT')\",\n            name=op.f(\"ck_notifications_type_enum\"),\n        ),\n    )\n    op.create_index(\"ix_notifications_user_read\", \"notifications\", [\"user_id\", \"read_at\"])\n    op.create_index(\"ix_notifications_user_created\", \"notifications\", [\"user_id\", \"created_at\"])"
+    },
+    {
+      "path": "backend/alembic/versions/0002_auth_sessions.py",
+      "line": 17,
+      "upgrade": "def upgrade() -> None:\n    for name in (\"school\", \"college\", \"major\"):\n        op.add_column(\"users\", sa.Column(name, sa.String(80)))\n    # Fail rather than silently merge users if normalization collides.\n    op.execute(\"UPDATE users SET email = lower(trim(email))\")\n    op.create_index(\n        \"uq_users_normalized_email\", \"users\", [sa.text(\"lower(trim(email))\")], unique=True\n    )\n    op.create_table(\n        \"auth_session_families\",\n        sa.Column(\"id\", sa.String(36), primary_key=True),\n        sa.Column(\"user_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\"), nullable=False),\n        sa.Column(\"expires_at\", sa.DateTime(timezone=True), nullable=False),\n        sa.Column(\"revoked_at\", sa.DateTime(timezone=True)),\n        sa.Column(\"revocation_reason\", sa.String(32)),\n        sa.Column(\n            \"created_at\", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False\n        ),\n        sa.Column(\"refresh_window_started_at\", sa.DateTime(timezone=True)),\n        sa.Column(\"refresh_window_count\", sa.Integer(), server_default=\"0\", nullable=False),\n        sa.UniqueConstraint(\"id\", \"user_id\", name=\"uq_auth_family_user\"),\n    )\n    op.create_index(\n        \"ix_auth_families_user_active\", \"auth_session_families\", [\"user_id\", \"revoked_at\"]\n    )\n    op.add_column(\"refresh_sessions\", sa.Column(\"family_id\", sa.String(36)))\n    op.add_column(\"refresh_sessions\", sa.Column(\"consumed_at\", sa.DateTime(timezone=True)))\n    op.add_column(\"refresh_sessions\", sa.Column(\"parent_id\", sa.BigInteger()))\n    op.create_foreign_key(\n        \"fk_refresh_family_user\",\n        \"refresh_sessions\",\n        \"auth_session_families\",\n        [\"family_id\", \"user_id\"],\n        [\"id\", \"user_id\"],\n    )\n    op.create_foreign_key(\n        \"fk_refresh_parent\", \"refresh_sessions\", \"refresh_sessions\", [\"parent_id\"], [\"id\"]\n    )\n    op.create_unique_constraint(\"uq_refresh_parent\", \"refresh_sessions\", [\"parent_id\"])\n    op.execute(\"UPDATE refresh_sessions SET revoked_at = now() WHERE revoked_at IS NULL\")\n    op.create_check_constraint(\n        \"ck_refresh_family_or_revoked\",\n        \"refresh_sessions\",\n        \"family_id IS NOT NULL OR revoked_at IS NOT NULL\",\n    )\n    op.create_index(\n        \"uq_refresh_active_family\",\n        \"refresh_sessions\",\n        [\"family_id\"],\n        unique=True,\n        postgresql_where=sa.text(\"consumed_at IS NULL AND revoked_at IS NULL\"),\n    )\n    op.create_table(\n        \"auth_audits\",\n        sa.Column(\"id\", sa.BigInteger(), primary_key=True, autoincrement=True),\n        sa.Column(\"actor_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\", ondelete=\"SET NULL\")),\n        sa.Column(\"target_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\", ondelete=\"SET NULL\")),\n        sa.Column(\"event\", sa.String(48), nullable=False),\n        sa.Column(\"request_id\", sa.String(64), nullable=False),\n        sa.Column(\n            \"created_at\", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False\n        ),\n    )\n    op.create_index(\"ix_auth_audit_created\", \"auth_audits\", [\"created_at\"])"
+    },
+    {
+      "path": "backend/alembic/versions/0003_mvp_business.py",
+      "line": 14,
+      "upgrade": "def upgrade() -> None:\n    op.add_column(\"products\", sa.Column(\"deleted_at\", sa.DateTime(timezone=True)))\n    op.add_column(\"wanted_posts\", sa.Column(\"expires_at\", sa.DateTime(timezone=True)))\n    op.add_column(\"offers\", sa.Column(\"proposer_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\")))\n    op.add_column(\n        \"offers\", sa.Column(\"countered_by_offer_id\", sa.BigInteger(), sa.ForeignKey(\"offers.id\"))\n    )\n    op.execute(\"UPDATE offers SET proposer_id=buyer_id\")\n    op.alter_column(\"offers\", \"proposer_id\", nullable=False)\n    op.create_check_constraint(\n        \"ck_offer_proposer_participant\", \"offers\", \"proposer_id IN (buyer_id, seller_id)\"\n    )\n    op.create_unique_constraint(\"uq_order_offer\", \"orders\", [\"offer_id\"])\n    op.create_index(\n        \"uq_order_active_product\",\n        \"orders\",\n        [\"product_id\"],\n        unique=True,\n        postgresql_where=sa.text(\"status NOT IN ('CANCELLED', 'DISPUTED')\"),\n    )\n    op.add_column(\"chat_messages\", sa.Column(\"client_msg_id\", sa.String(36)))\n    op.execute(\n        \"UPDATE chat_messages SET client_msg_id = md5('legacy-message-' || id::text)::uuid::text\"\n    )\n    op.alter_column(\"chat_messages\", \"client_msg_id\", nullable=False)\n    op.create_unique_constraint(\n        \"uq_message_client_id\", \"chat_messages\", [\"sender_id\", \"client_msg_id\"]\n    )\n    for name in (\"description_accuracy\", \"communication\", \"punctuality\"):\n        op.add_column(\"reviews\", sa.Column(name, sa.Integer()))\n        op.execute(f\"UPDATE reviews SET {name}=rating\")\n        op.alter_column(\"reviews\", name, nullable=False)\n        op.create_check_constraint(f\"ck_review_{name}\", \"reviews\", f\"{name} BETWEEN 1 AND 5\")\n    op.create_table(\n        \"idempotency_records\",\n        sa.Column(\"id\", sa.BigInteger(), primary_key=True),\n        sa.Column(\"actor_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\"), nullable=False),\n        sa.Column(\"scope\", sa.String(128), nullable=False),\n        sa.Column(\"key\", sa.String(64), nullable=False),\n        sa.Column(\"input_hash\", sa.String(64), nullable=False),\n        sa.Column(\"result\", JSONB, nullable=False),\n        sa.Column(\"created_at\", sa.DateTime(timezone=True), server_default=sa.func.now()),\n        sa.UniqueConstraint(\"actor_id\", \"scope\", \"key\"),\n    )\n    op.create_table(\n        \"uploaded_objects\",\n        sa.Column(\"id\", sa.BigInteger(), primary_key=True),\n        sa.Column(\"owner_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\"), nullable=False),\n        sa.Column(\"object_key\", sa.String(512), unique=True, nullable=False),\n        sa.Column(\"purpose\", sa.String(16), nullable=False),\n        sa.Column(\"content_type\", sa.String(32), nullable=False),\n        sa.Column(\"size\", sa.Integer(), nullable=False),\n        sa.Column(\"created_at\", sa.DateTime(timezone=True), server_default=sa.func.now()),\n    )\n    op.create_table(\n        \"chat_read_cursors\",\n        sa.Column(\n            \"session_id\", sa.BigInteger(), sa.ForeignKey(\"chat_sessions.id\"), primary_key=True\n        ),\n        sa.Column(\"user_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\"), primary_key=True),\n        sa.Column(\"last_message_id\", sa.BigInteger(), nullable=False, server_default=\"0\"),\n    )"
+    },
+    {
+      "path": "backend/alembic/versions/0004_audit_context.py",
+      "line": 14,
+      "upgrade": "def upgrade():\n    op.add_column(\"auth_audits\", sa.Column(\"context\", JSONB, nullable=False, server_default=\"{}\"))\n    op.create_index(\"ix_uploaded_objects_orphans\", \"uploaded_objects\", [\"purpose\", \"created_at\"])\n    op.create_index(\"ix_chat_messages_session_cursor\", \"chat_messages\", [\"session_id\", \"id\"])\n    op.create_index(\"ix_notifications_user_cursor\", \"notifications\", [\"user_id\", \"id\"])"
+    },
+    {
+      "path": "backend/alembic/versions/0005_sequence_alignment.py",
+      "line": 12,
+      "upgrade": "def upgrade():\n    align_sequences(\n        op.get_bind(),\n        [\n            \"users\",\n            \"products\",\n            \"product_images\",\n            \"favorites\",\n            \"wanted_posts\",\n            \"chat_sessions\",\n            \"chat_messages\",\n            \"offers\",\n            \"orders\",\n            \"order_events\",\n            \"meetups\",\n            \"reviews\",\n            \"reports\",\n            \"notifications\",\n        ],\n    )"
+    },
+    {
+      "path": "backend/alembic/versions/0006_matching_outbox.py",
+      "line": 14,
+      "upgrade": "def upgrade():\n    op.create_table(\n        \"matching_jobs\",\n        sa.Column(\"id\", sa.BigInteger(), primary_key=True),\n        sa.Column(\"event_key\", sa.String(160), nullable=False),\n        sa.Column(\"wanted_id\", sa.BigInteger(), sa.ForeignKey(\"wanted_posts.id\"), nullable=False),\n        sa.Column(\"status\", sa.String(16), nullable=False),\n        sa.Column(\"attempts\", sa.Integer(), nullable=False),\n        sa.Column(\n            \"available_at\", sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()\n        ),\n        sa.Column(\"last_error\", sa.String(64)),\n        sa.Column(\"result_version\", sa.String(64)),\n        sa.Column(\n            \"created_at\", sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()\n        ),\n        sa.UniqueConstraint(\"event_key\", \"wanted_id\"),\n        sa.CheckConstraint(\n            \"status IN ('PENDING','DONE','SKIPPED','FAILED')\", name=\"matching_job_status\"\n        ),\n    )\n    op.create_index(\"ix_matching_jobs_ready\", \"matching_jobs\", [\"status\", \"available_at\", \"id\"])\n    op.create_table(\n        \"matching_results\",\n        sa.Column(\"wanted_id\", sa.BigInteger(), sa.ForeignKey(\"wanted_posts.id\"), primary_key=True),\n        sa.Column(\"result_version\", sa.String(64), nullable=False),\n        sa.Column(\"facts\", JSONB, nullable=False),\n        sa.Column(\n            \"updated_at\", sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()\n        ),\n    )\n    op.create_table(\n        \"matching_notifications\",\n        sa.Column(\"wanted_id\", sa.BigInteger(), sa.ForeignKey(\"wanted_posts.id\"), primary_key=True),\n        sa.Column(\"product_id\", sa.BigInteger(), sa.ForeignKey(\"products.id\"), primary_key=True),\n        sa.Column(\n            \"notification_id\", sa.BigInteger(), sa.ForeignKey(\"notifications.id\"), nullable=False\n        ),\n        sa.Column(\"result_version\", sa.String(64), nullable=False),\n    )"
+    },
+    {
+      "path": "backend/alembic/versions/0007_matching_revision.py",
+      "line": 13,
+      "upgrade": "def upgrade():\n    op.create_table(\n        \"matching_revision\",\n        sa.Column(\"id\", sa.Integer(), primary_key=True),\n        sa.Column(\"value\", sa.BigInteger(), nullable=False),\n    )\n    op.execute(\"INSERT INTO matching_revision (id, value) VALUES (1, 1)\")"
+    },
+    {
+      "path": "backend/alembic/versions/0008_browser_sessions.py",
+      "line": 13,
+      "upgrade": "def upgrade():\n    op.add_column(\"auth_session_families\", sa.Column(\"browser_token_hash\", sa.String(64)))\n    op.create_unique_constraint(\n        \"uq_browser_session_token\", \"auth_session_families\", [\"browser_token_hash\"]\n    )"
+    },
+    {
+      "path": "backend/alembic/versions/0009_ai_worker_runtime.py",
+      "line": 28,
+      "upgrade": "def upgrade():\n    op.create_table(\n        \"ai_task_runs\",\n        sa.Column(\"id\", sa.BigInteger(), autoincrement=True, nullable=False),\n        sa.Column(\"task_type\", sa.String(64), nullable=False),\n        sa.Column(\"task_id\", sa.BigInteger()),\n        sa.Column(\"event_key\", sa.String(160)),\n        sa.Column(\"wanted_id\", sa.BigInteger()),\n        sa.Column(\"outcome\", sa.String(16), nullable=False),\n        sa.Column(\"error_code\", sa.String(64)),\n        sa.Column(\"result_version\", sa.String(64)),\n        sa.Column(\"attempt\", sa.Integer(), nullable=False, server_default=sa.text(\"0\")),\n        sa.Column(\"duration_ms\", sa.Integer()),\n        sa.Column(\"worker_id\", sa.String(128), nullable=False),\n        sa.Column(\"worker_version\", sa.String(64), nullable=False),\n        sa.Column(\"started_at\", sa.DateTime(timezone=True)),\n        sa.Column(\"finished_at\", sa.DateTime(timezone=True)),\n        sa.Column(\"created_at\", sa.DateTime(timezone=True), server_default=sa.func.now()),\n        sa.PrimaryKeyConstraint(\"id\"),\n    )\n    op.create_index(\"ix_ai_task_runs_type_created\", \"ai_task_runs\", [\"task_type\", \"created_at\"])\n    op.create_index(\"ix_ai_task_runs_task_id\", \"ai_task_runs\", [\"task_id\"])\n    op.create_index(\"ix_ai_task_runs_outcome\", \"ai_task_runs\", [\"outcome\"])\n    op.create_index(\"ix_ai_task_runs_event_key\", \"ai_task_runs\", [\"event_key\"])\n\n    op.create_table(\n        \"worker_heartbeats\",\n        sa.Column(\"worker_id\", sa.String(128), nullable=False),\n        sa.Column(\"version\", sa.String(64), nullable=False),\n        sa.Column(\"pid\", sa.Integer(), nullable=False),\n        sa.Column(\"started_at\", sa.DateTime(timezone=True), nullable=False),\n        sa.Column(\"last_beat_at\", sa.DateTime(timezone=True), nullable=False),\n        sa.Column(\"runs_total\", sa.BigInteger(), nullable=False, server_default=sa.text(\"0\")),\n        sa.Column(\"runs_failed\", sa.BigInteger(), nullable=False, server_default=sa.text(\"0\")),\n        sa.PrimaryKeyConstraint(\"worker_id\"),\n    )\n\n    # pgvector HNSW\uff1a\u4f59\u5f26\u8ddd\u79bb\u8bed\u4e49\uff08\u4e0e\u5019\u9009\u6392\u5e8f\u7684\u76f8\u4f3c\u5ea6\u53e3\u5f84\u4e00\u81f4\uff09\uff0c\u56fa\u5b9a\u53c2\u6570\n    # m=16 / ef_construction=64\uff08pgvector \u9ed8\u8ba4\uff0c\u8bb0\u5f55\u5728\u6848\u4fbf\u4e8e Phase 5 \u8c03\u4f18\u8bc4\u5ba1\uff09\u3002\n    op.create_index(\n        \"ix_products_embedding_hnsw\",\n        \"products\",\n        [\"embedding\"],\n        postgresql_using=\"hnsw\",\n        postgresql_ops={\"embedding\": \"vector_cosine_ops\"},\n        postgresql_with={\"m\": \"16\", \"ef_construction\": \"64\"},\n    )"
+    },
+    {
+      "path": "backend/alembic/versions/0010_product_moderation.py",
+      "line": 13,
+      "upgrade": "def upgrade():\n    op.add_column(\n        \"products\",\n        sa.Column(\"moderation_blocked\", sa.Boolean(), nullable=False, server_default=sa.false()),\n    )"
+    },
+    {
+      "path": "backend/alembic/versions/0011_report_resolution_note.py",
+      "line": 13,
+      "upgrade": "def upgrade():\n    op.add_column(\"reports\", sa.Column(\"resolution_note\", sa.String(length=1000), nullable=True))"
+    },
+    {
+      "path": "backend/alembic/versions/0012_account_appeals.py",
+      "line": 16,
+      "upgrade": "def upgrade():\n    op.create_table(\n        \"account_decisions\",\n        sa.Column(\"id\", sa.BigInteger(), primary_key=True, autoincrement=True),\n        sa.Column(\"user_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\"), nullable=False),\n        sa.Column(\"actor_id\", sa.BigInteger(), sa.ForeignKey(\"users.id\", ondelete=\"SET NULL\")),\n        sa.Column(\"action\", sa.String(16), nullable=False),\n        sa.Column(\"reason\", sa.String(500), nullable=False),\n        sa.Column(\"facts\", sa.String(2000), nullable=False),\n        sa.Column(\"basis\", sa.String(500), nullable=False),\n        sa.Column(\"occurred_at\", sa.DateTime(timezone=True)),\n        sa.Column(\"reference\", JSONB),\n        sa.Column(\"evidence\", JSONB, nullable=False),\n        sa.Column(\n            \"created_at\", sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()\n        ),\n        sa.Column(\"revoked_at\", sa.DateTime(timezone=True)),\n        sa.Column(\"revoked_by\", sa.BigInteger(), sa.ForeignKey(\"users.id\", ondelete=\"SET NULL\")),\n        sa.Column(\"revocation_reason\", sa.String(1000)),\n        sa.CheckConstraint(\"action IN ('WARNING','DISABLE')\", name=\"ck_action_enum\"),\n    )\n    op.create_index(\n        \"ix_account_decisions_user_created\", \"account_decisions\", [\"user_id\", \"created_at\"]\n    )\n    op.create_table(\n        \"account_appeals\",\n        sa.Column(\"id\", sa.BigInteger(), primary_key=True, autoincrement=True),\n        sa.Column(\n            \"decision_id\",\n            sa.BigInteger(),\n            sa.ForeignKey(\"account_decisions.id\"),\n            nullable=False,\n            unique=True,\n        ),\n        sa.Column(\"explanation\", sa.String(2000), nullable=False),\n        sa.Column(\"evidence\", JSONB, nullable=False),\n        sa.Column(\"status\", sa.String(16), nullable=False),\n        sa.Column(\n            \"created_at\", sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()\n        ),\n        sa.Column(\"reviewed_at\", sa.DateTime(timezone=True)),\n        sa.Column(\"reviewed_by\", sa.BigInteger(), sa.ForeignKey(\"users.id\", ondelete=\"SET NULL\")),\n        sa.Column(\"review_reason\", sa.String(1000)),\n        sa.CheckConstraint(\"status IN ('PENDING','UPHELD','REVOKED')\", name=\"ck_status_enum\"),\n    )\n    op.create_index(\n        \"ix_account_appeals_status_created\", \"account_appeals\", [\"status\", \"created_at\"]\n    )\n    op.drop_constraint(op.f(\"ck_notifications_type_enum\"), \"notifications\", type_=\"check\")\n    op.create_check_constraint(\n        op.f(\"ck_notifications_type_enum\"),\n        \"notifications\",\n        f\"type IN ({OLD_TYPES},'ACCOUNT_ACTION','APPEAL_RECEIVED','APPEAL_RESULT')\",\n    )\n    # Old disabled accounts must also have an appealable record. Unknown facts/time\n    # stay explicitly unknown rather than being invented from the processing time.\n    op.execute(\"\"\"\n        INSERT INTO account_decisions\n            (user_id, actor_id, action, reason, facts, basis, evidence, created_at)\n        SELECT u.id, a.actor_id, 'DISABLE',\n            left(coalesce(nullif(a.context->>'reason', ''), '\u5386\u53f2\u8d26\u53f7\u7981\u7528\uff0c\u539f\u5904\u7406\u8bf4\u660e\u672a\u8bb0\u5f55\u3002'), 500),\n            '\u5386\u53f2\u7981\u7528\u672a\u8bb0\u5f55\u5177\u4f53\u884c\u4e3a\uff0c\u8bf7\u7531\u7ba1\u7406\u5458\u8865\u5145\u6838\u5b9e\u3002',\n            '\u5386\u53f2\u4eba\u5de5\u5904\u7406\u8bb0\u5f55\uff0c\u672a\u8bb0\u5f55\u8be6\u7ec6\u89c4\u5219\u4f9d\u636e\u3002', '[]'::jsonb,\n            coalesce(a.created_at, u.updated_at, now())\n        FROM users u LEFT JOIN LATERAL (\n            SELECT actor_id, context, created_at FROM auth_audits\n            WHERE target_id=u.id AND event='admin_user_disabled'\n            ORDER BY id DESC LIMIT 1\n        ) a ON true\n        WHERE u.role='USER' AND u.status='DISABLED'\n    \"\"\")"
+    },
+    {
+      "path": "backend/alembic/versions/0013_open_report_uniqueness.py",
+      "line": 13,
+      "upgrade": "def upgrade():\n    op.drop_constraint(\"uq_reports_no_duplicate\", \"reports\", type_=\"unique\")\n    op.create_index(\n        \"uq_reports_no_duplicate\",\n        \"reports\",\n        [\"reporter_id\", \"target_type\", \"target_id\", \"reason\"],\n        unique=True,\n        postgresql_where=sa.text(\"status IN ('PENDING', 'PROCESSING')\"),\n    )"
+    }
+  ]
+}

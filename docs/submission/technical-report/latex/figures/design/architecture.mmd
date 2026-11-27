@@ -1,0 +1,13 @@
+flowchart TB
+ Browser["React browser"] -->|"HTTP JSON / authenticated WS"| API["FastAPI"]
+ Browser -->|"HTTP: public listing text"| Translation["Local catalog translation"]
+ Browser -->|"HTTP public images"| Public["MinIO public bucket"]
+ API -->|"SQL transactions"| DB[("PostgreSQL + pgvector")]
+ API -->|"Redis protocol: rate limits"| Redis[("Redis")]
+ API -->|"S3 object operations"| Private["MinIO private bucket"]
+ API -->|"HTTP RPC: 1.5 seconds"| Advisory["Frozen M7/M8 services"]
+ API -->|"HTTP: 3 seconds"| Semantic["Optional live BGE scorer"]
+ Worker["Matching worker"] -->|"SQL claim and persist jobs"| DB
+ Worker -->|"HTTP RPC"| Advisory
+ API -->|"SQL enqueue"| DB
+ Translation -.-> Note["Display text only, original fields retained"]
