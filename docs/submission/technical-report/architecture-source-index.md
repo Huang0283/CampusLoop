@@ -7,7 +7,7 @@
 
 Run `python scripts/reporting_r2_sources.py` to regenerate the exact ORM class inventory and all 13 Alembic `upgrade()` bodies from immutable Git objects, and to validate all 9 figure exports, cross-references, bibliography keys, and LaTeX escaping. See [field-level source anchors](latex/r2-model-migration-index.md) and [machine-readable source inventory](latex/r2-source-inventory.json).
 
-All nine figures live in `latex/figures/design/` as **publication-grade editable vector SVGs** (Adobe Illustrator / Figma / Inkscape editable, unified Morandi academic palette, bespoke vector icons, zero overlaps) paired with exact-bounds **true vector PDFs** (selectable text, crisp infinite zoom) and synchronized `.mmd` reference definitions.
+All nine figures live in `latex/figures/design/` as **high-resolution illustrated top-journal figures (`.png` + 300-DPI `.pdf`)** paired with editable `.svg` and `.mmd` structural source backups. Every diagram was visually audited for character-exact code identifiers, UML 2.5.1 / Crow's Foot compliance, and zero text overlap.
 
 - **ERDs** (`data-model`, `data-model-transactions`, `data-model-governance`): Crow's Foot notation (circle = zero, bar = one, crow's foot = many; dashed lines = optional/non-identifying references). Partial uniqueness is annotated explicitly as a conditional constraint rather than lifetime one-to-one cardinality. `reports.target_id` is labeled as polymorphic with no SQL foreign key.
 - **Class Diagram** (`class-diagram`): UML 2.5.1 notation with hollow-triangle inheritance from `TimestampMixin` and directed associations with explicit multiplicities (`1`, `0..*`, `0..1`), mapped directly to real classes in `backend/app/models/`.

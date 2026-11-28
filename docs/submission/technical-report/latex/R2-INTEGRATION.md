@@ -10,19 +10,19 @@
 - **Bibliography fragment**: `r2-references.bib` (17 real, verified official specifications, IETF RFCs, and peer-reviewed SIGIR papers, 100% cited via `\cite{...}`). R1 should merge `r2-references.bib` into the shared `references.bib` or pass both to `\bibliography{references,r2-references}`.
 - **Verified software baseline**: `main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6` (`fix: close end-to-end audit regressions`, 2026-11-25).
 
-## Publication-Grade Vector Figures
+## Publication-Grade Illustrated Figures (with Editable Vector Backups)
 
-All nine figures under `figures/design/` are maintained as **editable publication-grade vector SVGs** (directly editable in Adobe Illustrator, Figma, or Inkscape) paired with exact-bounds **true vector PDFs** (selectable text, crisp infinite zoom, harmonious Morandi academic palette, bespoke vector icons, UML 2.5.1 and Crow's Foot notation) alongside synchronized `.mmd` backups:
+All nine figures under `figures/design/` are supplied as **high-resolution illustrated top-journal editorial artwork (`.png` embedded in LaTeX + 300-DPI `.pdf`)** styled after Nature / NeurIPS / SIGIR scientific frameworks (warm Morandi pastel panels, tactile 2.5D domain icons, embedded mini charts/boxplots/gauges, strict UML 2.5.1 and Crow's Foot notation), alongside editable `.svg` and `.mmd` structural backups:
 
-- `architecture.svg` / `.pdf` — Four-tier runtime topology and authority boundaries
-- `data-model.svg` / `.pdf` — ERD Part 1: Catalog, Wanted Posts, and Peer Messaging
-- `data-model-transactions.svg` / `.pdf` — ERD Part 2: Offers, Orders, Meetups, Order Events, and Reviews
-- `data-model-governance.svg` / `.pdf` — ERD Part 3: Reports, Account Decisions, Appeals, Notifications, and Audits
-- `class-diagram.svg` / `.pdf` — UML 2.5.1 class diagram of core SQLAlchemy ORM models
-- `transaction-states.svg` / `.pdf` — Authoritative order state machine and `ecc22d2` transition guards
-- `session-sequence.svg` / `.pdf` — Same-peer multi-product chat and idempotent messaging sequence
-- `order-meetup-sequence.svg` / `.pdf` — Offer reservation, optimistic-versioned meetup, and dual completion sequence
-- `ai-fallback.svg` / `.pdf` — Three-lane advisory intelligence pipeline, fallback cascade, and `NO-GO` graduation gate
+- `architecture.png` / `.pdf` / `.svg` — Four-tier runtime topology and authority boundaries
+- `data-model.png` / `.pdf` / `.svg` — ERD Part 1: Catalog, Wanted Posts, and Peer Messaging
+- `data-model-transactions.png` / `.pdf` / `.svg` — ERD Part 2: Offers, Orders, Meetups, Order Events, and Reviews
+- `data-model-governance.png` / `.pdf` / `.svg` — ERD Part 3: Reports, Account Decisions, Appeals, Notifications, and Audits
+- `class-diagram.png` / `.pdf` / `.svg` — UML 2.5.1 class diagram of core SQLAlchemy ORM models
+- `transaction-states.png` / `.pdf` / `.svg` — Authoritative order state machine and `ecc22d2` transition guards
+- `session-sequence.png` / `.pdf` / `.svg` — Same-peer multi-product chat and idempotent messaging sequence
+- `order-meetup-sequence.png` / `.pdf` / `.svg` — Offer reservation, optimistic-versioned meetup, and dual completion sequence
+- `ai-fallback.png` / `.pdf` / `.svg` — Three-lane advisory intelligence pipeline, fallback cascade, and `NO-GO` graduation gate
 
 ## Required Packages and Macros in R1's `preamble.tex`
 

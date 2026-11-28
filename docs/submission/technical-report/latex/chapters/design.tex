@@ -21,7 +21,7 @@ Figure~\ref{fig:architecture} depicts the four-tier runtime topology, and Table~
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/architecture.pdf}
+  \includegraphics[width=\linewidth]{figures/design/architecture.png}
   \caption{\textbf{CampusLoop four-tier runtime architecture and authority boundaries.} (a)~Untrusted React SPA client and \texttt{HttpOnly}/CSRF credential gate; (b)~authoritative FastAPI core and ephemeral Redis pub/sub layer; (c)~PostgreSQL~16 ACID primary store, dual-bucket MinIO object storage, and \texttt{SKIP LOCKED} matching worker; (d)~non-authoritative frozen M7/M8 RPCs, optional live BGE scorer, and public-only local display translator.}
   \label{fig:architecture}
 \end{figure}
@@ -92,7 +92,7 @@ Figure~\ref{fig:data-model} illustrates the core discovery and communication ent
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/data-model.pdf}
+  \includegraphics[width=\linewidth]{figures/design/data-model.png}
   \caption{\textbf{Entity-Relationship Diagram (Part~1): Catalog, Wanted Posts, and Peer Messaging.} Reconciled with migrations~\texttt{0001} and~\texttt{0003} across three functional zones: (a)~identity root, (b)~public/owned catalog discovery, and (c)~persistent peer-pair threads with unique \texttt{(sender\_id, client\_msg\_id)} delivery.}
   \label{fig:data-model}
 \end{figure}
@@ -109,7 +109,7 @@ Each order maps to at most one \texttt{meetups} row carrying an integer \texttt{
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/data-model-transactions.pdf}
+  \includegraphics[width=\linewidth]{figures/design/data-model-transactions.png}
   \caption{\textbf{Entity-Relationship Diagram (Part~2): Negotiation, Reservation, Meetup, and Review.} Three-tier schema highlighting Migration~\texttt{0003} invariants: unique \texttt{orders.offer\_id} and the partial unique index restricting active orders per \texttt{product\_id} while retaining full cancelled and disputed trade history.}
   \label{fig:erd-transactions}
 \end{figure}
@@ -125,7 +125,7 @@ Figure~\ref{fig:erd-governance} covers reporting, explicit account sanctions, ap
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/data-model-governance.pdf}
+  \includegraphics[width=\linewidth]{figures/design/data-model-governance.png}
   \caption{\textbf{Entity-Relationship Diagram (Part~3): Governance, Appeals, Notifications, and Security Audits.} Reconciled with migrations~\texttt{0011}--\texttt{0013}, illustrating polymorphic report targets, active-only report deduplication, strict one-to-zero-or-one decision-to-appeal binding, and independent reviewer linkage.}
   \label{fig:erd-governance}
 \end{figure}
@@ -136,7 +136,7 @@ To satisfy direct traceability between design diagrams and Python source code, F
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/class-diagram.pdf}
+  \includegraphics[width=\linewidth]{figures/design/class-diagram.png}
   \caption{\textbf{Core domain ORM class architecture (UML~2.5.1).} Direct one-to-one mapping to SQLAlchemy~2.0 classes in \texttt{backend/app/models/}, showing \texttt{TimestampMixin} generalization, mapped attributes, key tags (\texttt{PK}/\texttt{FK}/\texttt{UK}), and directed foreign-key multiplicities.}
   \label{fig:class-diagram}
 \end{figure}
@@ -183,7 +183,7 @@ Because second-hand campus trades complete offline in person, the software state
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/transaction-states.pdf}
+  \includegraphics[width=\linewidth]{figures/design/transaction-states.png}
   \caption{\textbf{Authoritative order and listing state machine (UML~2.5.1).} Swimlanes separate primary student trading transitions, administrative \texttt{DISPUTED} escalation (including dual-disabled deadlock protection), and cancellation rollback, with explicit \texttt{ecc22d2} post-completion meetup immutability guards.}
   \label{fig:transaction-states}
 \end{figure}
@@ -215,7 +215,7 @@ Figures~\ref{fig:session-sequence} and~\ref{fig:order-meetup-sequence} detail th
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/session-sequence.pdf}
+  \includegraphics[width=\linewidth]{figures/design/session-sequence.png}
   \caption{\textbf{UML sequence diagram for same-peer multi-product chat and idempotent messaging.} Demonstrates peer-pair session reuse, active listing context switching, PostgreSQL-first message persistence with three-way \texttt{(sender\_id, client\_msg\_id)} conflict handling, and non-blocking Redis fanout.}
   \label{fig:session-sequence}
 \end{figure}
@@ -224,7 +224,7 @@ In Figure~\ref{fig:order-meetup-sequence}, buyer and seller coordinate offer acc
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/order-meetup-sequence.pdf}
+  \includegraphics[width=\linewidth]{figures/design/order-meetup-sequence.png}
   \caption{\textbf{UML sequence diagram for reservation, optimistic-versioned meetup scheduling, and dual-party completion.} Highlights deterministic row locking (\texttt{product} $\to$ \texttt{offer}/\texttt{order} $\to$ \texttt{meetup}), three-way \texttt{saveMeetup} conflict protection (\texttt{409 ORDER\_STATE\_CONFLICT} and \texttt{409 MEETUP\_VERSION\_CONFLICT}), and atomic terminal transition to \texttt{COMPLETED} and \texttt{Product.SOLD}.}
   \label{fig:order-meetup-sequence}
 \end{figure}

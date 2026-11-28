@@ -124,7 +124,7 @@ def main():
     sources = sorted(figures.glob('*.mmd'))
     assert len(sources) == 9, 'Expected nine maintained diagram sources'
     for source in sources:
-        for suffix in ('.svg', '.pdf'):
+        for suffix in ('.png', '.svg', '.pdf'):
             target = source.with_suffix(suffix)
             assert target.exists() and target.stat().st_size > 100, str(target)
 

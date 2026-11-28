@@ -10,7 +10,7 @@ All advisory requests pass through server-side adapters in \texttt{backend/app/\
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/design/ai-fallback.pdf}
+  \includegraphics[width=\linewidth]{figures/design/ai-fallback.png}
   \caption{\textbf{Fail-closed advisory intelligence pipeline and fallback architecture.} (a)~Authoritative PostgreSQL snapshot and pre-RPC hard-constraint gate; (b)~three bounded advisory lanes covering M7/BGE-RRF search, M8 depreciation plus 90-day asking quartiles, and Bayesian trust plus non-enforcing risk clues; (c)~contract verification, live PostgreSQL visibility recheck, and explicit \texttt{NO-GO} model graduation gate.}
   \label{fig:ai-fallback}
 \end{figure}
