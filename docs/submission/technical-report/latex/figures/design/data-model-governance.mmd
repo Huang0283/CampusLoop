@@ -34,8 +34,8 @@ erDiagram
   auth_audits {
     bigint id PK
     bigint actor_id FK
-    bigint target_user_id FK
-    varchar event_type
+    bigint target_id FK
+    varchar event
   }
 
   users ||--o{ reports : "reporter / handler (0013 active uniq)"
@@ -43,4 +43,4 @@ erDiagram
   account_decisions ||--o| account_appeals : "decision_id (1-to-0..1)"
   users |o..o{ account_appeals : "reviewed_by"
   users ||--o{ notifications : "recipient user_id"
-  users |o..o{ auth_audits : "actor / target_user"
+  users |o..o{ auth_audits : "actor_id / target_id"

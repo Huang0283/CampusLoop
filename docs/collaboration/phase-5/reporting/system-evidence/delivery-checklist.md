@@ -3,7 +3,7 @@
 - **Task**: [Issue #144](https://github.com/Huang0283/CampusLoop/issues/144) (including 2026-11-24 high-score report requirements and course Technical Report typography rules).
 - **Verified software baseline**: `main@ecc22d2cb2e54de1e5ffa05ffa71b8df1ab9a1b6`.
 - **Materials branch**: `team/reporting`.
-- **Receivers**: R1 (final assembly, unified `main.tex`/`preamble.tex`, 40--60 page check, Overleaf ZIP), M10 (technical fact check), D1 (shared vector figures after reception).
+- **Receivers**: R1 (final assembly, unified `main.tex`/`preamble.tex`, 40--60 page check, Overleaf ZIP), M10 (technical fact check), D1 (shared illustrated/vector figures after reception).
 
 ## R2 Deliverables
 

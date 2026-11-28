@@ -39,9 +39,9 @@ To provide direct code traceability across the full stack, Table~\ref{tab:source
 
 \begin{table}[htbp]
   \centering
-  \footnotesize
-  \setlength{\tabcolsep}{4pt}
-  \renewcommand{\arraystretch}{1.12}
+  \scriptsize
+  \setlength{\tabcolsep}{3.5pt}
+  \renewcommand{\arraystretch}{1.08}
   \caption{Six end-to-end source chains verified at \texttt{main@ecc22d2}.}
   \label{tab:source-chains}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}X@{}}
@@ -52,7 +52,7 @@ To provide direct code traceability across the full stack, Table~\ref{tab:source
     2. Listing Publish & \texttt{MarketPages.tsx}, \texttt{ImageQueue.tsx} $\to$ \texttt{uploadImage}, \texttt{createProduct} $\to$ \texttt{market.py}, \texttt{services/storage.py} & \texttt{uploaded\_\allowbreak objects}, \texttt{products}, \texttt{product\_\allowbreak images}, \texttt{idempotency\_\allowbreak records} & Validates MIME/pixels/EXIF; enforces \texttt{owned\_keys} ownership \& purpose; conflicts on mutated idempotency replay. \\
     3. Chat \& Offer & \texttt{ChatPages.tsx} $\to$ \texttt{createChatSession}, \texttt{listMessages}, \texttt{sendMessage}, \texttt{createOffer} $\to$ \texttt{transactions.py} & \texttt{chat\_sessions}, \texttt{chat\_\allowbreak messages}, \texttt{offers}, \texttt{notifications} & Blocks self-contact; checks participant; enforces \texttt{MESSAGE\_ID\_\allowbreak CONFLICT}; dynamically marks past-expiry offers \texttt{EXPIRED}. \\
     4. Unique Reserve & \texttt{ChatPages.tsx} $\to$ \texttt{acceptOffer} $\to$ \texttt{transactions.py::\allowbreak accept\_offer} & \texttt{offers}, \texttt{products}, \texttt{orders}, \texttt{order\_events}, \texttt{idempotency\_\allowbreak records} & Blocks self-acceptance; locks \texttt{product -> offer}; Migration~\texttt{0003} unique \texttt{offer\_id} \& partial active \texttt{product\_id} index. \\
-    5. Meetup \& Review & \texttt{TransactionPages.tsx} $\to$ \texttt{saveMeetup}, \texttt{confirmMeetup}, \texttt{confirmOrder\allowbreak Complete}, \texttt{createReview} $\to$ \texttt{transactions.py} & \texttt{meetups}, \texttt{orders}, \texttt{order\_events}, \texttt{products}, \texttt{reviews} & Rejects stale meetup version (\texttt{409}) and post-completion edits (\texttt{409}); dual flags for \texttt{COMPLETED}; allows review even if peer disabled. \\
+    5. Meetup \& Review & \texttt{TransactionPages.tsx} $\to$ \texttt{saveMeetup}, \texttt{confirmMeetup}, \texttt{confirmOrder\allowbreak Complete}, \texttt{createReview} $\to$ \texttt{transactions.py} & \texttt{meetups}, \texttt{orders}, \texttt{order\_events}, \texttt{products}, \texttt{reviews} & Rejects post-completion meetup edits (\texttt{409 ORDER\_STATE\_CONFLICT}) and stale version on confirm/complete (\texttt{409 MEETUP\_VERSION\_CONFLICT}); dual flags for \texttt{COMPLETED}; allows review even if peer disabled. \\
     6. Governance \& Appeals & \texttt{AdminPages.tsx}, \texttt{AccountDecision\allowbreak Controls.tsx}, \texttt{AppealsPage.tsx}, \texttt{ModerationPages.tsx} $\to$ \texttt{resolveReport}, \texttt{overrideReport}, \texttt{adminCreate\allowbreak AccountDecision}, \texttt{submitAccount\allowbreak Appeal}, \texttt{adminReview\allowbreak AccountAppeal} $\to$ \texttt{governance.py}, \texttt{moderation.py} & \texttt{reports}, \texttt{account\_\allowbreak decisions}, \texttt{account\_\allowbreak appeals}, \texttt{auth\_audits}, \texttt{notifications} & Blocks self-reporting own message; separates triage from sanctions; revokes sessions \& protects orders on disable; enforces independent reviewer. \\
     \bottomrule
   \end{tabularx}
@@ -106,7 +106,7 @@ User-uploaded images are a common vector for polyglot payloads, decompression bo
 
 To keep daily usage, automated testing, and acceptance audits strictly isolated, CampusLoop maintains separate database and Redis allocations. The local daily startup script (\texttt{scripts/start-local.ps1}) preserves persistent PostgreSQL and MinIO volumes across restarts, whereas write-heavy verification suites target dedicated isolated databases and Redis DB14/DB15 rather than the daily account store.
 
-For bilingual classroom and cross-campus browsing, CampusLoop optionally pairs the web client with a standalone local translation microservice (\texttt{services/\allowbreak catalog\_translation\_\allowbreak server.py}) serving \texttt{HY-MT1.5-1.8B}. To preserve security and reliability boundaries, the translation server enforces four strict controls:
+For bilingual classroom and cross-campus browsing, CampusLoop optionally pairs the web client with a standalone local translation microservice (\texttt{services/\allowbreak catalog\_translation\_\allowbreak server.py}, default port \texttt{:18790}) serving \texttt{HY-MT1.5-1.8B}. To preserve security and reliability boundaries, the translation server enforces four strict controls:
 \begin{itemize}
   \item \textbf{CORS and MIME enforcement}: requests must originate from \texttt{ALLOWED\_ORIGINS} and carry \texttt{Content-Type: application/json} with a 10-second socket timeout.
   \item \textbf{Span preservation}: technical model codes, prices, and protected tokens are masked before generation and restored deterministically afterward so model names and currency figures are never hallucinated.

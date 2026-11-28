@@ -11,7 +11,7 @@ classDiagram
     +email: str
     +role: str
     +status: str
-    +campus: str | None
+    +school: str | None
   }
 
   class Product {
@@ -27,21 +27,23 @@ classDiagram
 
   class ChatSession {
     +id: int
-    +product_id: int
+    +product_id: int | None
     +buyer_id: int
     +seller_id: int
     +wanted_id: int | None
-    +status: str
+    +session_type: str
+    +last_message_at: datetime | None
   }
 
   class Offer {
     +id: int
     +session_id: int
-    +product_id: int
-    +proposer_id: int
+    +buyer_id: int
+    +seller_id: int
+    +proposer_id: int | None
     +amount: Decimal
     +status: str
-    +expires_at: datetime
+    +expires_at: datetime | None
   }
 
   class Order {
@@ -58,11 +60,11 @@ classDiagram
   class Meetup {
     +id: int
     +order_id: int
-    +location: str
-    +scheduled_at: datetime
+    +place: str
+    +confirmed_slot: datetime | None
     +version: int
-    +buyer_confirmed: bool
-    +seller_confirmed: bool
+    +buyer_confirmed_version: int
+    +seller_confirmed_version: int
     +status: str
   }
 
@@ -74,7 +76,7 @@ classDiagram
   TimestampMixin <|-- Meetup
 
   User "1" --> "0..*" Product : owns
-  Product "1" --> "0..*" ChatSession : active context
+  Product "0..1" --> "0..*" ChatSession : scoped thread
   Product "1" --> "0..*" Order : historical trades
   ChatSession "1" --> "0..*" Offer : negotiates
   Order "0..1" <-- "1" Offer : accepted into

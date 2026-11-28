@@ -20,17 +20,17 @@ All nine figures live in `latex/figures/design/` as **high-resolution illustrate
 
 Figure labels are stable LaTeX labels. Standalone preview compilation and 100% A4 visual inspection were completed on `r2-preview.pdf`; final integrated report figure numbers and page locations will be recorded by R1 after merging into `main.tex`.
 
-| Label | Editable source (`latex/figures/design/`) | Scope and code anchors | Vector exports | Integrated page / Lecture / non-author review |
+| Label | Editable source (`latex/figures/design/`) | Scope and code anchors | Figure assets | Integrated page / Lecture / non-author review |
 |---|---|---|---|---|
-| `fig:architecture` | `architecture.mmd` | `docker-compose.yml`; `compose.local.yml`; `core/config.py`; `worker/runner.py`; `catalog_semantic.py`; `catalog_translation_server.py` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:data-model` | `data-model.mmd` | `models/user.py`, `product.py`, `wanted.py`, `chat.py`; migrations `0001`, `0003` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:erd-transactions` | `data-model-transactions.mmd` | `models/offer.py`, `order.py`, `review.py`; migrations `0001`, `0003` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:erd-governance` | `data-model-governance.mmd` | `models/report.py`, `moderation.py`, `notification.py`, `auth.py`; migrations `0011`--`0013` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:class-diagram` | `class-diagram.mmd` | `TimestampMixin` (`mixins.py`); `User`, `Product`, `ChatSession`, `Offer`, `Order`, `Meetup` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:transaction-states` | `transaction-states.mmd` | `routes/transactions.py`; `services/order_governance.py`; `routes/admin_console.py::cancel_dispute` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:session-sequence` | `session-sequence.mmd` | `live/ChatPages.tsx`; `routes/transactions.py::create_session/list_sessions/persist_message` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:order-meetup-sequence` | `order-meetup-sequence.mmd` | `routes/transactions.py::accept_offer/save_meetup/confirm_meetup/complete_order` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
-| `fig:ai-fallback` | `ai-fallback.mmd` | `services/ai_adapters.py`; `services/catalog_semantic.py`; `services/intelligence.py`; `services/listing_price_reference.py` | `.svg` / `.pdf` | PENDING (R1) / PENDING / PENDING |
+| `fig:architecture` | `architecture.mmd` | `docker-compose.yml`; `compose.local.yml`; `core/config.py`; `worker/runner.py`; `catalog_semantic.py`; `catalog_translation_server.py` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:data-model` | `data-model.mmd` | `models/user.py`, `product.py`, `wanted.py`, `chat.py`; migrations `0001`, `0003` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:erd-transactions` | `data-model-transactions.mmd` | `models/offer.py`, `order.py`, `review.py`; migrations `0001`, `0003` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:erd-governance` | `data-model-governance.mmd` | `models/report.py`, `moderation.py`, `notification.py`, `user.py`; migrations `0011`--`0013` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:class-diagram` | `class-diagram.mmd` | `TimestampMixin` (`mixins.py`); `User`, `Product`, `ChatSession`, `Offer`, `Order`, `Meetup` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:transaction-states` | `transaction-states.mmd` | `routes/transactions.py`; `services/order_governance.py`; `routes/admin_console.py::cancel_dispute` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:session-sequence` | `session-sequence.mmd` | `live/ChatPages.tsx`; `routes/transactions.py::create_session/list_sessions/persist_message`; `routes/realtime.py` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:order-meetup-sequence` | `order-meetup-sequence.mmd` | `routes/transactions.py::accept_offer/save_meetup/confirm_meetup/complete_order` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
+| `fig:ai-fallback` | `ai-fallback.mmd` | `services/ai_adapters.py`; `services/catalog_semantic.py`; `services/intelligence.py`; `services/listing_price_reference.py` | `.png` / `.pdf` / `.svg` | PENDING (R1) / PENDING / PENDING |
 
 ## Six End-to-End Implementation Chains (`main@ecc22d2`)
 
@@ -42,7 +42,7 @@ Backend route paths begin with `backend/app/api/routes/`; services with `backend
 | Publication | `live/MarketPages.tsx`, `live/ImageQueue.tsx` -> `uploadImage`, `createProduct` -> `market.py`; `services/storage.py::upload/owned_keys` | `uploaded_objects`, `products`, `product_images`, `idempotency_records` | Enforces 5 MiB & 25M px limits, corrupt-CRC `415` handling, EXIF stripping, ownership/purpose check, and idempotency payload hash matching. |
 | Chat & Offer | `live/ChatPages.tsx::Conversation` -> `createChatSession`, `listMessages`, `sendMessage`, `createOffer` -> `transactions.py` | `chat_sessions`, `chat_messages`, `offers`, `notifications` | Blocks self-contact; checks participant; enforces `409 MESSAGE_ID_CONFLICT`; dynamically serializes past-expiry `PENDING` offers as `EXPIRED`; `closing=True` allows closing offers on reserved/disabled items. |
 | Unique Reservation | `live/ChatPages.tsx` -> `acceptOffer` -> `transactions.py::accept_offer` | `offers`, `products`, `orders`, `order_events`, `idempotency_records` | Blocks proposer self-acceptance; locks `product -> offer`; Migration `0003` unique `offer_id` and partial active `product_id` index. |
-| Meetup, Completion & Review | `live/TransactionPages.tsx` -> `saveMeetup`, `confirmMeetup`, `confirmOrderComplete`, `createReview` -> `transactions.py` | `meetups`, `orders`, `order_events`, `products`, `reviews` | Rejects stale meetup version (`409 MEETUP_VERSION_CONFLICT`) and post-completion meetup edits (`409 ORDER_STATE_CONFLICT`); dual completion sets `SOLD`; allows review of completed trades even if peer later disabled. |
+| Meetup, Completion & Review | `live/TransactionPages.tsx` -> `saveMeetup`, `confirmMeetup`, `confirmOrderComplete`, `createReview` -> `transactions.py` | `meetups`, `orders`, `order_events`, `products`, `reviews` | Rejects post-completion meetup edits (`409 ORDER_STATE_CONFLICT`) and stale version on confirm/complete (`409 MEETUP_VERSION_CONFLICT`); dual completion sets `SOLD`; allows review of completed trades even if peer later disabled. |
 | Governance & Appeals | `live/AdminPages.tsx`, `admin/AccountDecisionControls.tsx`, `admin/AppealsPage.tsx`, `live/ModerationPages.tsx` -> `resolveReport`, `overrideReport`, `adminCreateAccountDecision`, `submitAccountAppeal`, `adminReviewAccountAppeal` -> `governance.py`, `moderation.py`, `services/moderation.py`, `services/order_governance.py` | `reports`, `account_decisions`, `account_appeals`, `auth_audits`, `notifications` | Blocks self-reporting own message; separates triage from sanctions; allows holding `HIDDEN` products and blocks deleting held products (`409`); revokes sessions and escalates late or dual-disabled orders to `DISPUTED`; enforces independent appeal reviewer. |
 
 ## Advisory Evidence Boundaries

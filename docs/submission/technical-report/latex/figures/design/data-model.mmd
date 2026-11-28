@@ -16,7 +16,7 @@ erDiagram
   product_images {
     bigint id PK
     bigint product_id FK
-    varchar url
+    varchar object_key
     int sort_order
   }
   favorites {
@@ -32,10 +32,11 @@ erDiagram
   }
   chat_sessions {
     bigint id PK
+    varchar session_type
     bigint product_id FK
+    bigint wanted_id FK
     bigint buyer_id FK
     bigint seller_id FK
-    bigint wanted_id FK
   }
   chat_messages {
     bigint id PK
@@ -49,7 +50,7 @@ erDiagram
   users ||--o{ favorites : "user_id"
   products ||--o{ favorites : "unique(user,product)"
   users ||--o{ wanted_posts : "owner_id"
-  products ||--o{ chat_sessions : "product_id"
+  products |o..o{ chat_sessions : "optional product_id"
   wanted_posts |o..o{ chat_sessions : "optional wanted_id"
   users ||--o{ chat_sessions : "buyer_id / seller_id"
   chat_sessions ||--o{ chat_messages : "session_id"

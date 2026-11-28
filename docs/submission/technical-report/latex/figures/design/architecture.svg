@@ -96,7 +96,7 @@
   <text x="993" y="152" font-family="'Consolas', 'Courier New', monospace" font-size="9.8" fill="#8A2B24">Non-authoritative</text>
   <text x="964" y="169" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="11" fill="#475569">Sliding-window rate limits</text>
   <text x="964" y="184.8" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="11" fill="#475569">Best-effort chat &amp; alert</text>
-  <text x="964" y="200.60000000000002" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="11" fill="#475569">WebSocket Pub/Sub fanout</text>
+  <text x="964" y="200.60000000000002" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="11" fill="#475569">Auth rate limits &amp; health check</text>
   <text x="964" y="232.20000000000005" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="11" fill="#475569">Restart degrades push</text>
   <text x="964" y="248.00000000000006" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="11" fill="#475569">latency; zero data loss</text>
 <rect x="20" y="372" width="696" height="294" rx="12" fill="#EFFAF3" stroke="#4D9A6B" stroke-width="1.5" />

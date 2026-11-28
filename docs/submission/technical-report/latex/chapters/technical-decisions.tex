@@ -18,10 +18,10 @@ This chapter analyzes twelve foundational engineering decisions that shaped Camp
     D2. Typed Contract & Generated OpenAPI~3.1 $\to$ TypeScript SDK \cite{openapi31} & Handwritten \texttt{fetch} calls and DTO types & Regeneration step on API changes to eliminate contract drift \\
     D3. Session Storage & In-memory JWT + \texttt{HttpOnly} rotating refresh cookie \cite{rfc6265} & \texttt{localStorage} JWT or no persistence & Strict CORS/CSRF plumbing to limit XSS token theft \\
     D4. Concurrency & 5-tier row lock order + Migration~\texttt{0003} partial unique indexes & App-only checks or 1-to-1 lifetime FK & Explicit lock ordering discipline to allow clean relisting \\
-    D5. Meetup Version & Optimistic integer \texttt{version} + post-completion edit ban & Last-write-wins updates & Client must refresh on \texttt{409} conflict \\
+    D5. Meetup Version & Integer \texttt{version} checked on confirm/complete + post-completion edit ban & Last-write-wins updates & Client must reload on \texttt{409} conflict \\
     D6. Media Security & Pillow re-encode + dual MinIO buckets + ownership table & Direct browser presigned S3 upload & Extra API CPU/memory to block polyglots \& private leaks \\
     D7. Outbox Matching & PostgreSQL \texttt{SKIP LOCKED} outbox via ORM hooks & External broker (RabbitMQ/Kafka) & Polling latency traded for transactional outbox atomicity \\
-    D8. Chat Threading & Single peer-pair thread with switchable active \texttt{product\_id} & Separate thread per listing & Offer cards carry listing context; cleaner inbox \\
+    D8. Chat Threading & Per-listing \texttt{ChatSession} rows grouped by \texttt{peer.id} in UI & Single mutable peer row or ungrouped inbox & UI merges multi-session timelines while keeping \texttt{Offer} listing context unambiguous \\
     D9. Governance Split & Distinct report triage vs manual sanctions + independent review & Auto-ban on report resolution & Extra admin step to guarantee auditable due process \\
     D10. Advisory Bounds & Hard timeouts (1.5~s/3.0~s), contract checks, local fallback & Fail-hard or blind trust & Extra validation layer; zero outage cascade into trading \\
     D11. Missing Signals & Pass \texttt{null} telemetry \& label asking quartiles separately & Impute zeroes or mix asking/L3 prices & Lower visual certainty in exchange for honest semantics \\
@@ -37,7 +37,7 @@ This chapter analyzes twelve foundational engineering decisions that shaped Camp
 
 \textbf{Problem.} Second-hand trading couples inventory availability (\texttt{products}), negotiation (\texttt{offers}), reservations (\texttt{orders}), scheduling (\texttt{meetups}), and moderation (\texttt{account\_\allowbreak decisions}). Splitting these entities across independent service databases would turn offer acceptance and account disabling into distributed sagas vulnerable to partial failure.
 
-\textbf{Chosen design and alternatives.} CampusLoop centralizes all 27 ORM tables in PostgreSQL~16 \cite{postgresExplicitLocking} while relegating Redis strictly to ephemeral rate limits and pub/sub fanout \cite{redisDocs} and MinIO strictly to immutable binary blobs \cite{minioDocs}. The alternative of assigning chat to a document database and matching jobs to a dedicated message broker was rejected because it would introduce dual-write inconsistency between database commits and downstream notifications.
+\textbf{Chosen design and alternatives.} CampusLoop centralizes all 27 ORM tables (plus the singleton \texttt{matching\_revision} sequence table) in PostgreSQL~16 \cite{postgresExplicitLocking} while relegating Redis strictly to ephemeral auth rate-limit counters and health checks \cite{redisDocs} and MinIO strictly to immutable binary blobs \cite{minioDocs}. Live WebSocket delivery polls committed PostgreSQL \texttt{ChatMessage.id} cursors with per-batch token re-validation. The alternative of assigning chat to a document database and matching jobs to a dedicated message broker was rejected because it would introduce dual-write inconsistency between database commits and downstream notifications.
 
 \textbf{Trade-offs.} Centralizing transactional writes concentrates load on one primary database instance, which is well within campus-scale traffic while guaranteeing atomic multi-table commits, unified backups, and deterministic relational constraints.
 
@@ -72,7 +72,7 @@ This chapter analyzes twelve foundational engineering decisions that shaped Camp
 
 \textbf{Problem.} Buyer and seller concurrently negotiate offline handover times and locations. Without concurrency detection, one participant could accidentally confirm an outdated location just after the other edited it, or edit a meetup after the peer already confirmed completion.
 
-\textbf{Chosen design and alternatives.} Every \texttt{Meetup} row stores an integer \texttt{version} checked via \texttt{expectedVersion} on updates and confirmations (\texttt{409 MEETUP\_VERSION\_CONFLICT} on mismatch). Editing a meetup increments \texttt{version} and resets both meetup confirmation flags, while \texttt{main@ecc22d2} strictly blocks meetup edits (\texttt{409 ORDER\_STATE\_CONFLICT}) once either party has confirmed trade completion. A last-write-wins alternative would simplify client forms but expose students to silent handover mismatches.
+\textbf{Chosen design and alternatives.} Every \texttt{Meetup} row stores integer \texttt{version}, \texttt{buyer\_confirmed\_version}, and \texttt{seller\_confirmed\_version} counters. Saving a meetup proposal (\texttt{POST /orders/\{orderId\}/meetup}) strictly rejects edits (\texttt{409 ORDER\_STATE\_CONFLICT}) once the order is terminal or either party has confirmed completion; otherwise it increments \texttt{version}, resets both confirmation versions to zero, and returns the order to \texttt{PENDING\_CONFIRM}. Subsequent confirmation (\texttt{POST /orders/\{orderId\}/meetup/confirm}) checks \texttt{meetupId} and \texttt{version}, and completion (\texttt{POST /orders/\{orderId\}/confirm-complete}) checks \texttt{meetupVersion} and mutual meetup confirmation, rejecting stale clients with \texttt{409 MEETUP\_VERSION\_CONFLICT}. A last-write-wins alternative would simplify client forms but expose students to silent handover mismatches.
 
 \textbf{Trade-offs.} The UI must handle \texttt{409} conflicts by reloading the latest meetup version before resubmission, trading minor extra client state management for trustworthy offline coordination.
 
@@ -95,13 +95,13 @@ This chapter analyzes twelve foundational engineering decisions that shaped Camp
 
 \textbf{Trade-offs.} Polling PostgreSQL adds sub-second dispatch latency and modest query load compared with push brokers, while delivering exact transactional consistency and simple single-database recovery.
 
-\subsection{D8. Single Peer-Pair Chat Session with Switchable Listing Context}
+\subsection{D8. Per-Listing Chat Sessions with Peer-Grouped UI Timeline}
 
-\textbf{Problem.} On a university campus, the same buyer frequently inquires about multiple textbooks or dorm items listed by the same graduating student. Opening a separate conversation thread per listing fragments history and forces redundant greetings.
+\textbf{Problem.} On a university campus, the same buyer frequently inquires about multiple textbooks or dorm items listed by the same graduating student. Showing every listing inquiry as an unrelated sidebar entry fragments the inbox, whereas mutating a single shared session's \texttt{product\_id} in PostgreSQL would make historical \texttt{Offer} rows (which link only to \texttt{session\_id}) ambiguous.
 
-\textbf{Chosen design and alternatives.} CampusLoop maintains one persistent \texttt{ChatSession} per peer pair and updates its active \texttt{product\_id} (and optional \texttt{wanted\_id}) context whenever a user enters chat from another listing, while each \texttt{Offer} binds immutably to the specific \texttt{product\_id} being negotiated. Creating separate threads per product was rejected to keep student inboxes compact and preserve interpersonal continuity.
+\textbf{Chosen design and alternatives.} CampusLoop keeps storage and presentation cleanly separated: PostgreSQL enforces per-context uniqueness via \texttt{uq\_chat\_sessions\_product\_buyer} and \texttt{uq\_chat\_sessions\_wanted\_buyer}, so every \texttt{Offer} inherits an immutable \texttt{product\_id} through its parent \texttt{ChatSession}. In the browser, \texttt{ChatPages.tsx} groups all sessions sharing the same \texttt{peer.id} into a single contact card and merges their messages and offers into one chronological conversation timeline. Overwriting \texttt{product\_id} on a single peer row was rejected because it would break offer-to-listing referential integrity, while leaving peer sessions ungrouped was rejected because it clutters student inboxes.
 
-\textbf{Trade-offs.} The UI and API must clearly surface the active listing banner and per-offer product identity inside each thread so participants never confuse which item an offer references.
+\textbf{Trade-offs.} The frontend fetches and merges message and offer streams across all sessions belonging to the selected peer, trading minor client-side aggregation complexity for both clean interpersonal UX and strict database-level offer integrity.
 
 \subsection{D9. Separation of Report Triage from Sanctions and Independent Review}
 

@@ -192,7 +192,7 @@
   <text x="96" y="664" font-family="'Consolas', 'Courier New', monospace" font-size="10.8" font-weight="400" fill="#1E293B">status</text>
   <text x="342" y="664" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10" fill="#64748B">varchar</text>
   <line x1="92" y1="671" x2="380" y2="671" stroke="#CBD5E1" stroke-width="0.8"/>
-  <text x="96" y="683" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="9.5" font-weight="600" fill="#8A2B24">Optimistic expectedVersion guard</text>
+  <text x="96" y="683" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="9.5" font-weight="600" fill="#8A2B24">Versioned confirm &amp; complete</text>
 <g filter="url(#card-shadow)">
     <rect x="460" y="562" width="300" height="128" rx="8" fill="#FFFFFF" stroke="#4A89C7" stroke-width="1.5"/>
     <path d="M 468 562 H 752 Q 760 562 760 570 V 590 H 460 V 570 Q 460 562 468 562 Z" fill="#D4E8FC"/>
@@ -208,7 +208,7 @@
   <text x="716" y="624" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10" fill="#64748B">bigint</text>
   <rect x="724" y="613.5" width="26" height="13" rx="3" fill="#D4E8FC"/>
   <text x="737" y="623" text-anchor="middle" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#1B4965">FK</text>
-  <text x="470" y="644" font-family="'Consolas', 'Courier New', monospace" font-size="10.8" font-weight="400" fill="#1E293B">actor_id</text>
+  <text x="470" y="644" font-family="'Consolas', 'Courier New', monospace" font-size="10.8" font-weight="400" fill="#1E293B">operator_id</text>
   <text x="716" y="644" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10" fill="#64748B">bigint</text>
   <rect x="724" y="633.5" width="26" height="13" rx="3" fill="#D4E8FC"/>
   <text x="737" y="643" text-anchor="middle" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#1B4965">FK</text>

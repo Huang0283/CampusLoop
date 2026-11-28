@@ -5,15 +5,15 @@ flowchart TB
 
   subgraph Core["Core API & Realtime Tier"]
     direction LR
-    API["FastAPI Core API\n(Auth, Catalog, Orders, Governance)"]
-    REDIS["Redis\n(Rate Limits & Pub/Sub)"]
-    API -->|"Counters & fanout"| REDIS
+    API["FastAPI Core API\n(Auth, Catalog, Orders, Governance, /ws)"]
+    REDIS["Redis\n(Auth Rate Limits & Health Check)"]
+    API -->|"Rate-limit counters"| REDIS
   end
 
   subgraph Persist["Authoritative Persistence & Async Worker Tier"]
     direction LR
     MINIO["MinIO Storage\n(Public & Private Buckets)"]
-    PG["PostgreSQL 16 + pgvector\n(27 Tables, Locks & Outbox)"]
+    PG["PostgreSQL 16 + pgvector\n(27 ORM Tables + matching_revision)"]
     WORKER["Matching Worker\n(SKIP LOCKED + /healthz)"]
     WORKER -->|"Claim jobs & write results"| PG
   end
@@ -22,7 +22,7 @@ flowchart TB
     direction LR
     M7M8["Frozen M7 / M8 RPC\n(Keyword, Price, Trust, Risk)"]
     SEM["Optional Live BGE\n(Semantic /score)"]
-    TRANS["Local Translator\n(HY-MT1.5-1.8B, Public Only)"]
+    TRANS["Local Translator\n(HY-MT1.5-1.8B :18790, Public Only)"]
   end
 
   WEB -->|"HTTPS JSON / Cookie / WS"| API

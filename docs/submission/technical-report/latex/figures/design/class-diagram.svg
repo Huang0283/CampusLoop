@@ -84,7 +84,7 @@
   <text x="69" y="335.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">status:</text>
   <text x="333" y="335.5" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" fill="#475569">str</text>
   <text x="57" y="354.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" font-weight="700" fill="#D99B43">+</text>
-  <text x="69" y="354.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">campus:</text>
+  <text x="69" y="354.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">school:</text>
   <text x="333" y="354.0" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" fill="#475569">str | None</text>
 <g filter="url(#card-shadow)">
     <rect x="445" y="222" width="330" height="198" rx="9" fill="#FFFFFF" stroke="#4A89C7" stroke-width="1.5"/>
@@ -174,19 +174,19 @@
   <rect x="311" y="546.5" width="24" height="13" rx="3" fill="#E3D6FA"/>
   <text x="323" y="556.5" text-anchor="middle" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#4A2E7A">UK</text>
   <text x="57" y="575.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" font-weight="700" fill="#CF665E">+</text>
-  <text x="69" y="575.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">location:</text>
+  <text x="69" y="575.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">place:</text>
   <text x="333" y="575.0" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" fill="#475569">str</text>
   <text x="57" y="593.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" font-weight="700" fill="#CF665E">+</text>
-  <text x="69" y="593.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">scheduled_at:</text>
+  <text x="69" y="593.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">confirmed_slot:</text>
   <text x="333" y="593.5" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" fill="#475569">datetime</text>
   <text x="57" y="612.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" font-weight="700" fill="#CF665E">+</text>
   <text x="69" y="612.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">version:</text>
   <text x="333" y="612.0" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" fill="#475569">int</text>
   <text x="57" y="630.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" font-weight="700" fill="#CF665E">+</text>
-  <text x="69" y="630.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">buyer_confirmed:</text>
+  <text x="69" y="630.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">buyer_confirmed_version:</text>
   <text x="333" y="630.5" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" fill="#475569">bool</text>
   <text x="57" y="649.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" font-weight="700" fill="#CF665E">+</text>
-  <text x="69" y="649.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">seller_confirmed:</text>
+  <text x="69" y="649.0" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">seller_confirmed_version:</text>
   <text x="333" y="649.0" text-anchor="end" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" fill="#475569">bool</text>
   <text x="57" y="667.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" font-weight="700" fill="#CF665E">+</text>
   <text x="69" y="667.5" font-family="'Consolas', 'Courier New', monospace" font-size="11" fill="#1E293B">status:</text>
@@ -275,7 +275,7 @@
 <path d="M 775 310 H 871" fill="none" stroke="#1E293B" stroke-width="1.8" marker-end="url(#arr-open)"/>
 <text x="784" y="302" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#1E293B">1</text>
 <text x="844" y="302" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#1E293B">0..*</text>
-<rect x="774.7" y="319.5" width="98.60000000000001" height="19" rx="5" fill="#FFFFFF" stroke="#4D9A6B" stroke-width="0.95" opacity="0.98"/><text x="824" y="332.4" text-anchor="middle" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="10.2" font-weight="600" fill="#1B5135">active context</text>
+<rect x="774.7" y="319.5" width="98.60000000000001" height="19" rx="5" fill="#FFFFFF" stroke="#4D9A6B" stroke-width="0.95" opacity="0.98"/><text x="824" y="332.4" text-anchor="middle" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="10.2" font-weight="600" fill="#1B5135">scoped thread</text>
 <path d="M 1025 400 V 476" fill="none" stroke="#1E293B" stroke-width="1.8" marker-end="url(#arr-open)"/>
 <text x="1035" y="416" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#1E293B">1</text>
 <text x="1035" y="468" font-family="'Consolas', 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#1E293B">0..*</text>

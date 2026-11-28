@@ -6,7 +6,7 @@ CampusLoop is designed as a campus-scoped second-hand trading platform whose pri
 \begin{clbox}{Chapter Highlights and Core Design Invariants}
   \small
   \begin{itemize}[leftmargin=1.2em,itemsep=1pt,topsep=2pt]
-    \item \textbf{Single ACID authority}: all 27 SQLAlchemy~2.0 ORM tables and 13 Alembic migrations reside in PostgreSQL~16; Redis and advisory RPCs are strictly non-authoritative.
+    \item \textbf{Single ACID authority}: all 27 SQLAlchemy~2.0 ORM tables (plus the singleton \texttt{matching\_revision} sequence table from Migration~\texttt{0007}) and 13 Alembic migrations reside in PostgreSQL~16; Redis rate-limit counters and advisory RPCs are strictly non-authoritative.
     \item \textbf{Schema-backed concurrency}: Migration~\texttt{0003} partial unique indexes and a five-tier row-lock order eliminate double-booking while permitting clean relisting after cancellation.
     \item \textbf{Separation of governance}: report triage never auto-sanctions accounts; manual account sanctions require structured facts, session revocation, order protection, and independent appeal review.
   \end{itemize}
@@ -22,7 +22,7 @@ Figure~\ref{fig:architecture} depicts the four-tier runtime topology, and Table~
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{figures/design/architecture.png}
-  \caption{\textbf{CampusLoop four-tier runtime architecture and authority boundaries.} (a)~Untrusted React SPA client and \texttt{HttpOnly}/CSRF credential gate; (b)~authoritative FastAPI core and ephemeral Redis pub/sub layer; (c)~PostgreSQL~16 ACID primary store, dual-bucket MinIO object storage, and \texttt{SKIP LOCKED} matching worker; (d)~non-authoritative frozen M7/M8 RPCs, optional live BGE scorer, and public-only local display translator.}
+  \caption{\textbf{CampusLoop four-tier runtime architecture and authority boundaries.} (a)~Untrusted React SPA client and \texttt{HttpOnly}/CSRF credential gate; (b)~authoritative FastAPI core (HTTP and PostgreSQL-cursor WebSocket delivery) paired with volatile Redis auth rate-limit counters; (c)~PostgreSQL~16 ACID primary store, dual-bucket MinIO object storage, and \texttt{SKIP LOCKED} matching worker; (d)~non-authoritative frozen M7/M8 RPCs, optional live BGE scorer, and public-only local display translator.}
   \label{fig:architecture}
 \end{figure}
 
@@ -39,13 +39,13 @@ Figure~\ref{fig:architecture} depicts the four-tier runtime topology, and Table~
     \midrule
     React Web Client \cite{reactDocs} & Single-page user and administrator interface; consumes generated OpenAPI TypeScript SDK; holds access token in memory only. & HTTPS JSON, Cookie, WS & Untrusted client \\
     FastAPI Core API \cite{fastapiDocs} & Enforces authentication, CSRF checks, role/ownership authorization, state transitions, idempotency, and media streaming. & HTTP/WS (\texttt{:8000}) & Authoritative logic \\
-    PostgreSQL 16 + pgvector \cite{pgvectorDocs} & Persists all 27 domain, governance, session, and outbox tables; enforces row locks and partial unique indexes. & SQL / TCP (\texttt{:5432}) & Authoritative state \\
-    Redis \cite{redisDocs} & Sliding-window rate-limit counters and best-effort pub/sub fanout for live chat and notification push. & RESP (\texttt{:6379}) & Ephemeral / volatile \\
+    PostgreSQL 16 + pgvector \cite{pgvectorDocs} & Persists all 27 ORM tables (plus singleton \texttt{matching\_revision}); enforces row locks and partial unique indexes. & SQL / TCP (\texttt{:5432}) & Authoritative state \\
+    Redis \cite{redisDocs} & Atomic fixed-window auth rate-limit counters (Lua \texttt{INCR}/\texttt{EXPIRE}) and readiness probes; degrades cleanly if offline. & RESP (\texttt{:6379}) & Ephemeral / volatile \\
     MinIO Storage \cite{minioDocs} & Dual-bucket S3 storage separating public product photos from private chat, report, and appeal evidence. & S3v4 HTTP (\texttt{:9000}) & Binary blob store \\
     Matching Worker & Standalone process (or local thread) claiming PostgreSQL outbox jobs via \texttt{SKIP LOCKED}; exposes \texttt{/healthz}. & SQL + HTTP RPC & Async consumer \\
     Frozen M7/M8 RPC & Deterministic keyword ranking, rule-based price intervals, Bayesian trust scores, and rule-based risk clues. & HTTP RPC (1.5~s) & Advisory only \\
     Live Semantic Scorer & Optional BGE-small-zh embedding scorer (\texttt{/score}) blended with keyword results via Reciprocal Rank Fusion. & HTTP JSON (3.0~s) & Advisory only \\
-    Local Translator & Optional local \texttt{HY-MT1.5-1.8B} server translating public catalog display text only; never sees private records. & Local HTTP (\texttt{:8790}) & Display aid only \\
+    Local Translator & Optional local \texttt{HY-MT1.5-1.8B} server translating public catalog display text only; never sees private records. & Local HTTP (\texttt{:18790}) & Display aid only \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -56,7 +56,7 @@ Two deployment profiles share identical business logic through environment-drive
   \item \textbf{Loopback local runtime} (\texttt{scripts/start-local.ps1} and \texttt{compose.local.yml}): hosts PostgreSQL, Redis, and MinIO in containers while running the FastAPI server, in-process matching worker thread, and loopback M7/M8 baseline listeners locally, alongside optional local semantic scoring and translation services.
 \end{enumerate}
 
-Redis is intentionally restricted to volatile operational roles: rate-limit counters and live WebSocket fanout. Because every chat message and notification is committed to PostgreSQL before Redis publication is attempted, a Redis restart or transient connection loss degrades push latency without losing persisted messages or corrupting order states. Similarly, the optional local display translator operates strictly over public catalog fields (titles, descriptions, and search queries) in the browser display path and is isolated from private chat messages, report reasons, moderation facts, and appeal explanations.
+Redis is intentionally restricted to volatile operational roles: atomic fixed-window authentication rate-limit counters (Lua \texttt{INCR}/\texttt{EXPIRE} scripts in \texttt{services/auth.py}) and readiness checks (\texttt{routes/system.py}). Real-time chat delivery over WebSocket (\texttt{/ws} in \texttt{routes/realtime.py}) authenticates via an initial \texttt{AUTH} frame rather than URL query parameters, persists incoming messages directly to PostgreSQL via \texttt{persist\_message}, and polls committed PostgreSQL \texttt{ChatMessage.id} cursors every 0.5~s with per-batch token re-validation before emitting \texttt{MESSAGE\_CREATED} frames. Consequently, a Redis restart or transient connection loss never drops persisted messages or corrupts order states. Similarly, the optional local display translator operates strictly over public catalog fields (titles, descriptions, and search queries) in the browser display path and is isolated from private chat messages, report reasons, moderation facts, and appeal explanations.
 
 \section{Domain Data Model and Migration Reconciliation}
 \label{sec:design-data-model}
@@ -68,32 +68,32 @@ CampusLoop's persistent schema comprises 27 SQLAlchemy~2.0 ORM classes across \t
   \footnotesize
   \setlength{\tabcolsep}{4pt}
   \renewcommand{\arraystretch}{1.12}
-  \caption{Complete 27-table PostgreSQL schema organized by domain across migrations \texttt{0001}--\texttt{0013}.}
+  \caption{Complete 27-class SQLAlchemy ORM schema organized by domain across migrations \texttt{0001}--\texttt{0013} (plus the singleton SQL table \texttt{matching\_revision}).}
   \label{tab:schema-summary}
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}X@{}}
     \toprule[1pt]
-    \cltblhdr \textbf{\color{clNavy}Domain} & \textbf{\color{clNavy}ORM Tables (27 Total)} & \textbf{\color{clNavy}Key Enforced Constraints} \\
+    \cltblhdr \textbf{\color{clNavy}Domain} & \textbf{\color{clNavy}ORM Tables (27 Classes)} & \textbf{\color{clNavy}Key Enforced Constraints} \\
     \midrule
     Identity \& Sessions (5) & \texttt{users}, \texttt{auth\_session\_\allowbreak families}, \texttt{refresh\_\allowbreak sessions}, \texttt{auth\_audits}, \texttt{uploaded\_\allowbreak objects} & Unique lower-cased email; rotating refresh token SHA-256 hash; session family revocation; upload ownership \& purpose binding. \\
     Catalog \& Wanted (4) & \texttt{products}, \texttt{product\_\allowbreak images}, \texttt{favorites}, \texttt{wanted\_posts} & Composite unique \texttt{(user\_id, product\_id)} on favorites; soft delete (\texttt{deleted\_at}) and \texttt{moderation\_\allowbreak blocked} flags. \\
-    Messaging (3) & \texttt{chat\_sessions}, \texttt{chat\_\allowbreak messages}, \texttt{chat\_read\_\allowbreak cursors} & Unique active peer pair; \texttt{0003} makes \texttt{client\_msg\_id} non-null and unique per \texttt{(sender\_id, client\_msg\_id)}. \\
+    Messaging (3) & \texttt{chat\_sessions}, \texttt{chat\_\allowbreak messages}, \texttt{chat\_read\_\allowbreak cursors} & Unique \texttt{(product\_id, buyer\_id)} and \texttt{(wanted\_id, buyer\_id)} sessions (grouped by peer in UI); \texttt{0003} makes \texttt{client\_msg\_id} non-null and unique per \texttt{(sender\_id, client\_msg\_id)}. \\
     Transactions (5) & \texttt{offers}, \texttt{orders}, \texttt{order\_\allowbreak events}, \texttt{meetups}, \texttt{reviews} & \texttt{0003} unique \texttt{orders.offer\_id} and partial unique \texttt{orders.product\_id} for active orders; unique \texttt{meetups.order\_id}; unique \texttt{(order\_id, reviewer\_id)}. \\
     Governance \& Alerts (4) & \texttt{reports}, \texttt{account\_\allowbreak decisions}, \texttt{account\_\allowbreak appeals}, \texttt{notifications} & \texttt{0012} unique non-null \texttt{account\_appeals.\allowbreak decision\_id}; \texttt{0013} partial unique active report per target; polymorphic \texttt{reports.target\_id}. \\
-    Async Matching \& Ops (6) & \texttt{idempotency\_\allowbreak records}, \texttt{matching\_\allowbreak jobs}, \texttt{matching\_\allowbreak results}, \texttt{matching\_\allowbreak notifications}, \texttt{ai\_task\_runs}, \texttt{worker\_\allowbreak heartbeats} (+ singleton \texttt{matching\_\allowbreak revision}) & Monotonic revision counter; unique \texttt{(event\_key, wanted\_id)} job deduplication; idempotency request hash storage. \\
+    Async Matching \& Ops (6) & \texttt{idempotency\_\allowbreak records}, \texttt{matching\_\allowbreak jobs}, \texttt{matching\_\allowbreak results}, \texttt{matching\_\allowbreak notifications}, \texttt{ai\_task\_runs}, \texttt{worker\_\allowbreak heartbeats} & Unique \texttt{(event\_key, wanted\_id)} job deduplication; idempotency request hash storage; paired with singleton SQL table \texttt{matching\_revision} (\texttt{0007}). \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-\textit{Note on table grouping:} Table~\ref{tab:schema-summary} groups the 27 mapped tables functionally (5 identity/session, 4 catalog/wanted, 3 messaging, 5 transaction, 4 governance/notification, and 6 matching/idempotency/observability tables, where \texttt{matching\_revision} is a singleton revision sequence row alongside the six operational tables; exact line-level definitions for all 27 ORM classes are recorded in \texttt{r2-source-inventory.json}).
+\textit{Note on table count:} Table~\ref{tab:schema-summary} partitions all 27 SQLAlchemy ORM classes functionally ($5 + 4 + 3 + 5 + 4 + 6 = 27$), supplemented by the singleton SQL-only revision sequence table \texttt{matching\_revision} added in Migration~\texttt{0007} (28 physical tables in PostgreSQL); exact line-level definitions for all 27 ORM classes are recorded in \texttt{r2-source-inventory.json}.
 
 \subsection{Catalog, Wanted Posts, and Messaging Schema}
 
-Figure~\ref{fig:data-model} illustrates the core discovery and communication entities. A deliberate structural choice governs \texttt{chat\_sessions}: rather than creating fragmented duplicate chat threads whenever the same buyer asks the same seller about multiple listings, CampusLoop stores one persistent peer-pair session and updates its active \texttt{product\_id} (and optional \texttt{wanted\_id}) context as negotiation shifts. This keeps conversation history continuous for students while still anchoring each \texttt{Offer} to the exact \texttt{product\_id} active at proposal time. Migration \texttt{0003} further tightens \texttt{chat\_messages.client\_msg\_id} from a nullable ORM hint to a \texttt{NOT NULL} column with a unique index over \texttt{(sender\_id, client\_msg\_id)}, providing database-level idempotency against duplicate network retries.
+Figure~\ref{fig:data-model} illustrates the core discovery and communication entities. A deliberate separation between relational storage and UI presentation governs \texttt{chat\_sessions}: PostgreSQL enforces unique constraints over \texttt{(product\_id, buyer\_id)} and \texttt{(wanted\_id, buyer\_id)} (\texttt{uq\_chat\_sessions\_product\_buyer} and \texttt{uq\_chat\_sessions\_wanted\_buyer}), ensuring \texttt{POST /chat/sessions} is idempotent per listing and that every \texttt{Offer} inherits an immutable \texttt{product\_id} through its parent \texttt{session\_id}. In the browser, \texttt{ChatPages.tsx} groups all sessions sharing the same \texttt{peer.id} into one unified contact card and merges their messages and offers into a single chronological timeline, keeping student inboxes compact without overwriting \texttt{chat\_sessions.product\_id}. Migration \texttt{0003} further tightens \texttt{chat\_messages.client\_msg\_id} from a nullable ORM hint to a \texttt{NOT NULL} column with a unique index over \texttt{(sender\_id, client\_msg\_id)}, providing database-level idempotency against duplicate network retries.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{figures/design/data-model.png}
-  \caption{\textbf{Entity-Relationship Diagram (Part~1): Catalog, Wanted Posts, and Peer Messaging.} Reconciled with migrations~\texttt{0001} and~\texttt{0003} across three functional zones: (a)~identity root, (b)~public/owned catalog discovery, and (c)~persistent peer-pair threads with unique \texttt{(sender\_id, client\_msg\_id)} delivery.}
+  \caption{\textbf{Entity-Relationship Diagram (Part~1): Catalog, Wanted Posts, and Peer Messaging.} Reconciled with migrations~\texttt{0001} and~\texttt{0003} across three functional zones: (a)~identity root, (b)~catalog and wanted-post discovery (\texttt{product\_images.object\_key}), and (c)~per-listing/wanted \texttt{chat\_sessions} grouped by peer in the UI with unique \texttt{(sender\_id, client\_msg\_id)} delivery.}
   \label{fig:data-model}
 \end{figure}
 
@@ -105,7 +105,7 @@ Figure~\ref{fig:erd-transactions} models the high-contention trading domain. Rec
   \item \textbf{Single active order per listing with full history}: instead of forcing a lifetime one-to-one constraint between \texttt{products} and \texttt{orders}---which would prevent relisting a cancelled item---Migration~\texttt{0003} defines a PostgreSQL partial unique index \cite{postgresPartialIndex} on \texttt{orders(product\_id)} restricted to \texttt{status NOT IN ('CANCELLED', 'DISPUTED')}. A listing can therefore accumulate historical cancelled or disputed orders while guaranteeing at most one active reservation or completed sale at any instant.
 \end{itemize}
 
-Each order maps to at most one \texttt{meetups} row carrying an integer \texttt{version} counter for optimistic concurrency control, an append-only \texttt{order\_events} audit trail recording every state transition and actor, and at most one \texttt{reviews} row per \texttt{(order\_id, reviewer\_id)} pair.
+Each \texttt{Offer} belongs to a \texttt{ChatSession} (inheriting its \texttt{product\_id} on acceptance) and records \texttt{buyer\_id}, \texttt{seller\_id}, and \texttt{proposer\_id}. Each \texttt{Order} maps to at most one \texttt{meetups} row carrying integer \texttt{version}, \texttt{buyer\_confirmed\_version}, and \texttt{seller\_confirmed\_version} counters for optimistic confirmation checks, an append-only \texttt{order\_events} audit trail recording every state transition and \texttt{operator\_id}, and at most one \texttt{reviews} row per \texttt{(order\_id, reviewer\_id)} pair.
 
 \begin{figure}[htbp]
   \centering
@@ -118,7 +118,7 @@ Each order maps to at most one \texttt{meetups} row carrying an integer \texttt{
 
 Figure~\ref{fig:erd-governance} covers reporting, explicit account sanctions, appeals, notifications, and security audit logs. Three migration-enforced design rules govern this domain:
 \begin{enumerate}
-  \item \textbf{Polymorphic report targets}: \texttt{reports.target\_type} (\texttt{PRODUCT}, \texttt{USER}, \texttt{CHAT\_MESSAGE}, \texttt{WANTED\_POST}) pairs with \texttt{reports.target\_id} as an application-validated polymorphic reference rather than a SQL foreign key, because a single foreign-key column cannot reference four distinct tables cleanly in PostgreSQL.
+  \item \textbf{Polymorphic report targets}: \texttt{reports.target\_type} (\texttt{USER}, \texttt{PRODUCT}, \texttt{ORDER}, \texttt{CHAT\_MESSAGE}) pairs with \texttt{reports.target\_id} as an application-validated polymorphic reference rather than a SQL foreign key, because a single foreign-key column cannot reference four distinct tables cleanly in PostgreSQL.
   \item \textbf{Active-only report deduplication (Migration~\texttt{0013})}: a partial unique index prevents a user from opening duplicate \texttt{PENDING} or \texttt{PROCESSING} reports against the same target, while allowing a fresh report if a new violation occurs after an earlier report has been resolved or rejected.
   \item \textbf{Strict one-to-one decision-to-appeal binding (Migration~\texttt{0012})}: \texttt{account\_appeals.\allowbreak decision\_id} is \texttt{NOT NULL} and \texttt{UNIQUE}, ensuring every appeal attaches unambiguously to exactly one \texttt{AccountDecision} record and cannot be resubmitted indefinitely.
 \end{enumerate}
@@ -200,9 +200,9 @@ Because second-hand campus trades complete offline in person, the software state
     \cltblhdr \textbf{\color{clNavy}Transition} & \textbf{\color{clNavy}Trigger} & \textbf{\color{clNavy}Actor} & \textbf{\color{clNavy}Database Guard \& Side Effects} \\
     \midrule
     $\emptyset \to$ \texttt{PENDING\_\allowbreak CONFIRM} & \texttt{acceptOffer} & Non-proposer & Locks \texttt{product -> offer}; requires unexpired \texttt{PENDING} offer; sets \texttt{Product.RESERVED}; partial unique index blocks concurrent orders. \\
-    \texttt{PENDING\_\allowbreak CONFIRM} $\to$ \texttt{MEETUP\_\allowbreak ARRANGED} & \texttt{confirm\allowbreak Meetup} & Buyer \& Seller & Requires matching meetup \texttt{version}; transitions once both \texttt{buyer\_confirmed} and \texttt{seller\_confirmed} are true. \\
-    \texttt{MEETUP\_\allowbreak ARRANGED} $\to$ \texttt{PENDING\_\allowbreak CONFIRM} & \texttt{saveMeetup} & Participant & Rejects with \texttt{409 ORDER\_STATE\_CONFLICT} if either party confirmed completion; rejects stale version (\texttt{409 MEETUP\_VERSION\_CONFLICT}); otherwise increments version and resets meetup flags. \\
-    \texttt{MEETUP\_\allowbreak ARRANGED} $\to$ \texttt{COMPLETED} & \texttt{confirmOrder\allowbreak Complete} & Buyer \& Seller & Records separate buyer/seller flags; transitions only when both are true; sets \texttt{Product.SOLD} and unlocks reviews. \\
+    \texttt{PENDING\_\allowbreak CONFIRM} $\to$ \texttt{MEETUP\_\allowbreak ARRANGED} & \texttt{confirm\allowbreak Meetup} & Buyer \& Seller & Requires matching \texttt{meetupId} and \texttt{version} (\texttt{409 MEETUP\_VERSION\_CONFLICT} if stale); sets \texttt{buyer\_}/\texttt{seller\_confirmed\_version = version} and transitions once both equal \texttt{version}. \\
+    \texttt{MEETUP\_\allowbreak ARRANGED} $\to$ \texttt{PENDING\_\allowbreak CONFIRM} & \texttt{saveMeetup} & Participant & Rejects with \texttt{409 ORDER\_STATE\_CONFLICT} if terminal or either party confirmed completion; otherwise increments \texttt{version}, resets \texttt{buyer\_}/\texttt{seller\_confirmed\_version = 0}, and returns order to \texttt{PENDING\_CONFIRM}. \\
+    \texttt{MEETUP\_\allowbreak ARRANGED} $\to$ \texttt{COMPLETED} & \texttt{confirmOrder\allowbreak Complete} & Buyer \& Seller & Requires matching \texttt{meetupVersion} and mutual meetup confirmation (\texttt{409 MEETUP\_VERSION\_CONFLICT} otherwise); sets separate buyer/seller completion flags; transitions when both are true, setting \texttt{Product.SOLD} and unlocking reviews. \\
     Active $\to$ \texttt{DISPUTED} & \texttt{protect\_\allowbreak disabled\_\allowbreak orders} & Admin disable & Escalates \texttt{MEETUP\_ARRANGED} orders, partially confirmed orders, or early orders where \emph{both} parties are disabled; prevents dual-disabled deadlock. \\
     Active / \texttt{DISPUTED} $\to$ \texttt{CANCELLED} & Cancel / \texttt{cancel\_\allowbreak dispute} & Active party / Admin & Cancels meetup; restores \texttt{Product.ON\_SALE} only if no other active/completed/disputed order exists, listing is not deleted/hidden/blocked, and seller is \texttt{ACTIVE}. \\
     \bottomrule
@@ -211,21 +211,21 @@ Because second-hand campus trades complete offline in person, the software state
 
 Two critical edge cases hardened in \texttt{main@ecc22d2} illustrate why every guard in Table~\ref{tab:state-guards} is enforced server-side. First, \texttt{save\_meetup} explicitly rejects meetup edits (\texttt{409} \texttt{ORDER\_\allowbreak STATE\_\allowbreak CONFLICT}) once either \texttt{buyer\_\allowbreak confirmed\_\allowbreak complete} or \texttt{seller\_\allowbreak confirmed\_\allowbreak complete} is set, eliminating a race in which a counterparty could revert a half-confirmed handover back to \texttt{PENDING\_\allowbreak CONFIRM}. Second, \texttt{protect\_\allowbreak disabled\_\allowbreak orders} checks the peer's account status whenever a user is disabled: if an early \texttt{PENDING\_CONFIRM} order still has one \texttt{ACTIVE} participant, that student retains the ability to cancel cleanly; if \emph{both} participants are disabled, the order escalates automatically to \texttt{DISPUTED} so an administrator can resolve it via \texttt{cancel\_dispute} without leaving the listing permanently locked.
 
-Figures~\ref{fig:session-sequence} and~\ref{fig:order-meetup-sequence} detail the corresponding interaction protocols across the client, FastAPI API, PostgreSQL, and Redis. In Figure~\ref{fig:session-sequence}, the buyer establishes or reuses a peer chat session, shifts active product context without fragmenting history, and submits messages with a client-generated \texttt{clientMsgId}; PostgreSQL commits the message first and enforces idempotency (\texttt{200} on identical retry, \texttt{409} \texttt{MESSAGE\_\allowbreak ID\_\allowbreak CONFLICT} on mutated payload) before best-effort Redis fanout occurs.
+Figures~\ref{fig:session-sequence} and~\ref{fig:order-meetup-sequence} detail the corresponding interaction protocols across the client, FastAPI API, PostgreSQL, and authenticated WebSocket channel. In Figure~\ref{fig:session-sequence}, the buyer creates or reuses an idempotent per-listing \texttt{ChatSession} (\texttt{product\_id, buyer\_id}), loads peer-grouped sessions via \texttt{GET /chat/sessions}, and submits messages carrying a client-generated \texttt{clientMsgId}; PostgreSQL commits the message first and enforces idempotency (\texttt{200} on identical retry, \texttt{409} \texttt{MESSAGE\_\allowbreak ID\_\allowbreak CONFLICT} on mutated payload), while \texttt{/ws} polls committed PostgreSQL message cursors every 0.5~s and re-validates the session token before pushing \texttt{MESSAGE\_CREATED} frames.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{figures/design/session-sequence.png}
-  \caption{\textbf{UML sequence diagram for same-peer multi-product chat and idempotent messaging.} Demonstrates peer-pair session reuse, active listing context switching, PostgreSQL-first message persistence with three-way \texttt{(sender\_id, client\_msg\_id)} conflict handling, and non-blocking Redis fanout.}
+  \caption{\textbf{UML sequence diagram for same-peer multi-product chat and idempotent messaging.} Demonstrates per-listing \texttt{ChatSession} idempotency with UI peer grouping, PostgreSQL-first message persistence with three-way \texttt{(sender\_id, client\_msg\_id)} conflict handling, and cursor-polled \texttt{/ws} delivery with per-batch token re-validation.}
   \label{fig:session-sequence}
 \end{figure}
 
-In Figure~\ref{fig:order-meetup-sequence}, buyer and seller coordinate offer acceptance, version-checked meetup scheduling, mutual meetup confirmation, and dual completion confirmation. Every mutating request acquires PostgreSQL row locks in a fixed hierarchy before committing state changes and appending an \texttt{OrderEvent}.
+In Figure~\ref{fig:order-meetup-sequence}, buyer and seller coordinate offer acceptance, meetup updates (\texttt{POST /orders/\{id\}/meetup}) guarded against post-completion edits, optimistic version-checked meetup confirmation (\texttt{POST /orders/\{id\}/meetup/confirm}), and dual completion confirmation (\texttt{POST /orders/\{id\}/confirm-complete}). Every mutating request acquires PostgreSQL row locks in a fixed hierarchy before committing state changes and appending an \texttt{OrderEvent}.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{figures/design/order-meetup-sequence.png}
-  \caption{\textbf{UML sequence diagram for reservation, optimistic-versioned meetup scheduling, and dual-party completion.} Highlights deterministic row locking (\texttt{product} $\to$ \texttt{offer}/\texttt{order} $\to$ \texttt{meetup}), three-way \texttt{saveMeetup} conflict protection (\texttt{409 ORDER\_STATE\_CONFLICT} and \texttt{409 MEETUP\_VERSION\_CONFLICT}), and atomic terminal transition to \texttt{COMPLETED} and \texttt{Product.SOLD}.}
+  \caption{\textbf{UML sequence diagram for reservation, versioned meetup coordination, and dual-party completion.} Highlights deterministic row locking (\texttt{product} $\to$ \texttt{offer}/\texttt{order} $\to$ \texttt{meetup}), post-completion \texttt{saveMeetup} protection (\texttt{409 ORDER\_STATE\_CONFLICT}), version-checked confirmation (\texttt{409 MEETUP\_VERSION\_CONFLICT}), and atomic terminal transition to \texttt{COMPLETED} and \texttt{Product.SOLD}.}
   \label{fig:order-meetup-sequence}
 \end{figure}
 

@@ -9,31 +9,28 @@ sequenceDiagram
   PG-->>-API: Committed Order & OrderEvent
   API-->>-Seller: 201 Order DTO
 
-  Buyer->>+API: PUT /orders/{id}/meetup (expectedVersion)
+  Buyer->>+API: POST /orders/{id}/meetup (place & slots)
   API->>+PG: Lock product, order, meetup
-  alt Completion already confirmed
-    PG-->>API: Completion flag set
+  alt Terminal or completion confirmed
+    PG-->>API: Completion flag or terminal status
     API-->>Buyer: 409 ORDER_STATE_CONFLICT
-  else Stale expectedVersion
-    PG-->>API: Version mismatch
-    API-->>Buyer: 409 MEETUP_VERSION_CONFLICT
-  else Current version & unconfirmed
-    PG-->>-API: Increment version & reset flags
+  else Order active & unconfirmed
+    PG-->>-API: Increment version & reset *_confirmed_version = 0
     API-->>-Buyer: 200 Meetup DTO (v+1)
   end
 
-  Buyer->>+API: POST /orders/{id}/meetup/confirm (v+1)
-  API->>+PG: Set buyer_confirmed
+  Buyer->>+API: POST /orders/{id}/meetup/confirm (id, v+1)
+  API->>+PG: Verify version (409 MEETUP_VERSION_CONFLICT if stale), set buyer_confirmed_version
   PG-->>-API: Updated Meetup
-  API-->>-Buyer: 200 Meetup DTO
+  API-->>-Buyer: 200 Awaiting Seller
 
-  Seller->>+API: POST /orders/{id}/meetup/confirm (v+1)
-  API->>+PG: Set seller_confirmed, MEETUP_ARRANGED
+  Seller->>+API: POST /orders/{id}/meetup/confirm (id, v+1)
+  API->>+PG: Set seller_confirmed_version, MEETUP_ARRANGED
   PG-->>-API: Committed Order state
   API-->>-Seller: 200 Order (MEETUP_ARRANGED)
 
   Buyer->>+API: POST /orders/{id}/confirm-complete
-  API->>+PG: Set buyer_confirmed_complete
+  API->>+PG: Verify meetupVersion, set buyer_confirmed_complete
   PG-->>-API: Partial confirmation saved
   API-->>-Buyer: 200 Order (awaiting seller)
 

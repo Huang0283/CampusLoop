@@ -18,7 +18,8 @@ erDiagram
   offers {
     bigint id PK
     bigint session_id FK
-    bigint product_id FK
+    bigint buyer_id FK
+    bigint seller_id FK
     bigint proposer_id FK
     numeric amount
     varchar status
@@ -40,7 +41,7 @@ erDiagram
   order_events {
     bigint id PK
     bigint order_id FK
-    bigint actor_id FK
+    bigint operator_id FK
     varchar to_status
   }
   reviews {
@@ -51,8 +52,7 @@ erDiagram
   }
 
   chat_sessions ||--o{ offers : "session_id"
-  products ||--o{ offers : "product_id"
-  users ||--o{ offers : "proposer_id"
+  users ||--o{ offers : "buyer / seller / proposer"
   offers ||--o| orders : "unique offer_id (0003)"
   products ||--o{ orders : "1 active (not CANCELLED/DISPUTED)"
   users ||--o{ orders : "buyer_id / seller_id"

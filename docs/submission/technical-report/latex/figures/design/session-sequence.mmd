@@ -2,23 +2,23 @@ sequenceDiagram
   actor Buyer as Buyer UI
   participant API as FastAPI API
   participant PG as PostgreSQL
-  participant Redis as Redis Pub/Sub
+  participant WS as WebSocket (/ws)
 
   Buyer->>+API: POST /chat/sessions (productId)
-  API->>+PG: Upsert peer pair & active product_id
+  API->>+PG: Get/create session (product_id, buyer_id)
   PG-->>-API: ChatSession row
   API-->>-Buyer: 201 Session DTO
 
   Buyer->>+API: GET /chat/sessions
   API->>+PG: Query sessions & unread counts
   PG-->>-API: Ordered session list
-  API-->>-Buyer: 200 Sessions (active context)
+  API-->>-Buyer: 200 Sessions (UI groups by peer)
 
   Buyer->>+API: POST /chat/sessions/{id}/messages (clientMsgId)
   API->>+PG: Check participant & (sender_id, client_msg_id)
   alt New message
     PG-->>-API: Commit ChatMessage row
-    API-)Redis: Best-effort fanout
+    PG-)WS: 0.5s PG cursor poll + token recheck -> MESSAGE_CREATED
     API-->>Buyer: 201 Message DTO
   else Same clientMsgId & payload
     API->>+PG: Fetch persisted row
