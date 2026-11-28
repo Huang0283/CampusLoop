@@ -1,3 +1,52 @@
+<!-- manual-slot-followup-20261129:start -->
+## 2026-11-29 对接本地手册草稿：截图槽位与文件名
+
+M10本地已有用户手册LaTeX/Overleaf草稿，材料分支 `work/submission/manual-and-poc-prep`，提交 `5fab3a2`（软件引用基线 `ecc22d2`）。**本轮核对时分支尚未推送/合入main；12页PDF仍含21处截图占位，不是已验收的正式手册。** 仓库远程没有这些文件时不代表U组拉取失败。本节只提前给交图格式；不能据此标记图片、真人任务、编译复核或PoC已完成。
+
+下面21项是草稿的图片槽位/命名约定，**不是新增21张最低截图指标，也不是课程规定必须把21张全部塞进PDF**。优先复用已有合格图；同一流程可做清楚的分图，不能把无关页面硬拼成看不清的小图。缺图先登记缺口；M10可在保证UM-01–UM-12、AD-01–AD-06功能覆盖的前提下合并/删减槽位并同步索引。后台图是否留在学生主手册由M10按8–12页和可读性决定，详细后台操作仍属U2补充材料。
+
+| 草稿槽位 | 交付文件名 | 主要角色 | 视口 | 参考页面/操作区（`:id`需换实际对象ID） |
+|---|---|---|---|---|
+| `UM-01A` | `um01_landing_market_ready.png` | Guest | `1440x900` | `/market` |
+| `UM-02A` | `um02a_login_register_en.png` | Guest | `1440x900` | `/login` (+ `/register`) |
+| `UM-02B` | `um02b_auth_error_profile.png` | Buyer · Xiao Zhou | `1440x900` | `/login` error + `/profile` |
+| `UM-03A` | `um03a_market_search_filters.png` | Guest / Buyer | `1440x900` | `/market?query=...` |
+| `UM-04A` | `um04a_product_detail_actions.png` | Buyer · Xiao Zhou | `1440x900` | `/product/:id` |
+| `UM-05A` | `um05a_publish_and_my_listings.png` | Seller · Xiao Lin | `1440x900` | `/publish` + `/my-products` |
+| `UM-06A` | `um06a_wanted_square_and_detail.png` | Buyer / Seller | `1440x900` | `/wanted` + `/wanted/:id` |
+| `UM-06B` | `um06b_wanted_matches_result.png` | Buyer · Xiao Zhou | `1440x900` | `/wanted/:id/matches` |
+| `UM-07A` | `um07a_chat_buyer_offer.png` | Buyer · Xiao Zhou | `1440x900` | `/chat/:id` |
+| `UM-07B` | `um07b_chat_seller_accept.png` | Seller · Xiao Lin | `1440x900` | `/chat/:id` |
+| `UM-08A` | `um08a_order_meetup_version.png` | Buyer / Seller | `1440x900` | `/transactions/:id` |
+| `UM-09A` | `um09a_order_completed_review.png` | Buyer · Xiao Zhou | `1440x900` | `/transactions/:id/review` |
+| `UM-10A` | `um10a_notifications_and_reports.png` | Buyer · Xiao Zhou | `1440x900` | `/notifications` + `/report` |
+| `UM-10B` | `um10b_account_decision_appeal.png` | Seller / Buyer | `1440x900` | `/account/decisions/:id` |
+| `UM-11A` | `um11a_price_advice_reference.png` | Buyer · Xiao Zhou | `1440x900` | `/publish/price-advice` |
+| `UM-12A` | `um12a_mobile_student_flow.png` | Buyer · Xiao Zhou | `390x844` | `/market` + `/chat/:id` |
+| `UM-12B` | `um12b_error_recovery_state.png` | Buyer / Seller | `1440x900` | `/transactions/:id` or `/publish` |
+| `AD-01A` | `ad01a_admin_dashboard_export.png` | Admin | `1440x900` | `/admin` |
+| `AD-02A` | `ad02a_admin_reports_products.png` | Admin | `1440x900` | `/admin/reports` + `/admin/products` |
+| `AD-03A` | `ad03a_admin_users_risk_appeals.png` | Admin | `1440x900` | `/admin/users` + `/admin/appeals` |
+| `AD-05A` | `ad05a_admin_orders_audit.png` | Admin | `1440x900` | `/admin/orders` + `/admin/audit` |
+
+### 每个槽位到底截到什么
+
+- UM-01A：启动后可浏览的商城，非仅终端；UM-02A/B：登录/注册入口及真实校验提示，资料编辑结果可单独成分图；UM-03A：关键词+筛选条件+相关结果；UM-04A：图、价格/状态和学生操作入口。
+- UM-05A：有效图片和字段的发布/编辑区域＋发布后本人商品；UM-06A/B：求购条件/状态＋实际匹配结果及返回入口；UM-07A/B：同一交易买卖双方报价、接受等关键状态，商品上下文可辨。
+- UM-08A：订单与约定版本、双方确认区；UM-09A：已完成订单及评价入口/已提交结果，不能暗示可重复评价；UM-10A/B：通知/本人举报回看与真实处理记录/申诉状态；UM-11A：价格建议的数值、参考样本/不足/降级及限制；UM-12A/B：手机操作和一项真实错误后的恢复结果。
+- AD-01A：控制台主要导航/KPI，导出画面仅在确有需要时附；AD-02A：举报详情→处理→举报人结果，与商品人工治理分清；AD-03A：用户处理、风险参考与申诉复核的实际状态；AD-05A：同一订单详情/时间线和关联操作审计。AD-04商品治理、AD-06资料/手机/部署的原覆盖要求没有因草稿未单设槽位而取消，可在补充材料另图/证据交付。
+
+### 怎么交图，谁负责接收
+
+1. U1交学生原图/索引，U2汇总及补后台图，T2提供处罚/申诉等隔离写入场景；M10接收、选图、编手册，U1/U2非作者照步骤复核，T3仍本人异机安装。既有分工不改，U1不另写相同手册正文。
+2. 原图仍保留在各自岗位的 `screenshots/` 和现有索引；按文件名或索引映射交M10，**不是要求U组直接推M10的材料分支**。M10复制入其LaTeX工程 `docs/submission/manuals/latex/figures/screenshots/` 后重新编译；不能假设换入PNG后仍恰好12页或保持清晰。
+3. 索引每项写：槽位/UM或AD功能编号、原图GitHub链接、实际软件完整SHA、UI/API、角色/对象ID、语言、视口、日期、脱敏、步骤/结果、可用/待补/过期。常规只读图用5174小林/小周，交易处罚等正式写入用T2隔离环境，不为补图破坏日常演示历史。
+4. 英文UI/英文图注；遮去密码/令牌/私人内容；品牌/用户名/图片原字保留。最终PDF按100%阅读检查每图，必要时裁出操作区、分图或调整排版，不以截图张数或占位模板的页数代替验收。
+5. M10完成真实截图替换、步骤/命令核对、同版编译、非作者验证后再交正式PDF/Overleaf ZIP。PoC源码ZIP、冻结SHA/校验和和T3纯净机器解压运行仍另行待完成，不能因已有打包脚本写“安全/可运行已验收”。
+<!-- manual-slot-followup-20261129:end -->
+
+---
+
 <!-- manual-screenshot-20261128:start -->
 ## 2026-11-28 调整：M10 编写用户手册；按功能覆盖截图
 
